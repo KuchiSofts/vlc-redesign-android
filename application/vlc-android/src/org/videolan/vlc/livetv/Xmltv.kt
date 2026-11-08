@@ -170,8 +170,10 @@ object Xmltv {
         } catch (e: Exception) {
             if (out.programmes == 0) out.error = e.message ?: e.javaClass.simpleName
         }
-        // sorted, and the missing ends taken from the next start
-        for (list in out.lists.values) {
+        // sorted, the missing ends taken from the next start, and one programme at a time (a long one holding shorter
+        // ones shows around them: withoutOverlaps)
+        for (entry in out.lists.entries) {
+            val list = entry.value
             list.sortBy { it.start }
             for (i in list.indices) {
                 val e = list[i]
@@ -180,7 +182,9 @@ object Xmltv {
                     list[i] = Entry(e.start, stop, e.title, e.subtitle, e.category, e.episode, e.descOffset, e.descLength)
                 }
             }
-            list.trimToSize()
+            val single = list.withoutOverlaps()
+            if (single !== list) entry.setValue(ArrayList(single))
+            else list.trimToSize()
         }
         return out
     }

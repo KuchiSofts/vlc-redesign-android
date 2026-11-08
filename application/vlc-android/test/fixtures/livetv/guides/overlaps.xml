@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- VLC Redesign: guides whose programmes overlap (GuideOverlapsTest), invented -->
+<tv generator-info-name="fixture">
+  <channel id="clean"><display-name>clean</display-name></channel>
+  <channel id="dupes"><display-name>dupes</display-name></channel>
+  <channel id="filmnight"><display-name>filmnight</display-name></channel>
+  <channel id="gaps"><display-name>gaps</display-name></channel>
+  <channel id="overrun"><display-name>overrun</display-name></channel>
+  <channel id="sports"><display-name>sports</display-name></channel>
+  <programme start="20261108180000 +0000" stop="20261108183000 +0000" channel="sports"><title>News</title></programme>
+  <programme start="20261108070000 +0000" stop="20261108080000 +0000" channel="clean"><title>Two</title></programme>
+  <programme start="20261108060000 +0000" stop="20261108070000 +0000" channel="gaps"><title>A</title></programme>
+  <programme start="20261108090000 +0000" stop="20261108100000 +0000" channel="dupes"><title>Next</title></programme>
+  <programme start="20261108130000 +0000" stop="20261108140500 +0000" channel="overrun"><title>Show D</title></programme>
+  <programme start="20261108080000 +0000" stop="20261108090000 +0000" channel="dupes"><title>Same</title></programme>
+  <programme start="20261108080000 +0000" stop="20261108090000 +0000" channel="clean"><title>Three</title></programme>
+  <programme start="20261108160000 +0000" stop="20261108173000 +0000" channel="sports"><title>Match 2</title></programme>
+  <programme start="20261108080000 +0000" stop="20261108090000 +0000" channel="gaps"><title>B</title></programme>
+  <programme start="20261108060000 +0000" stop="20261108070000 +0000" channel="clean"><title>One</title></programme>
+  <programme start="20261108050000 +0000" stop="20261108100000 +0000" channel="gaps"><title>Long</title></programme>
+  <programme start="20261108100000 +0000" stop="20261108110500 +0000" channel="overrun"><title>Show A</title></programme>
+  <programme start="20261108200000 +0000" stop="20261109020000 +0000" channel="filmnight"><title>Film Night</title></programme>
+  <programme start="20261108110000 +0000" stop="20261108120000 +0000" channel="overrun"><title>Show B</title></programme>
+  <programme start="20261108143000 +0000" stop="20261108160000 +0000" channel="sports"><title>Match 1</title></programme>
+  <programme start="20261109000000 +0000" stop="20261109014500 +0000" channel="filmnight"><title>Film C</title></programme>
+  <programme start="20261108221500 +0000" stop="20261109000000 +0000" channel="filmnight"><title>Film B</title></programme>
+  <programme start="20261108200000 +0000" stop="20261108220000 +0000" channel="filmnight"><title>Film A</title></programme>
+  <programme start="20261108080000 +0000" stop="20261108090000 +0000" channel="dupes"><title>Same</title></programme>
+  <programme start="20261108140000 +0000" stop="20261108180000 +0000" channel="sports"><title>Sports Block</title></programme>
+  <programme start="20261108120000 +0000" stop="20261108130500 +0000" channel="overrun"><title>Show C</title></programme>
+</tv>
