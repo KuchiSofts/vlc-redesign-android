@@ -316,6 +316,8 @@ class RdOnlineSubtitlesSheet : VLCBottomSheetDialogFragment() {
             Problem.Save -> ctx.getString(R.string.rd_os_err_save)
             Problem.Offline -> ctx.getString(R.string.rd_os_err_offline)
             is Problem.Download -> ctx.getString(R.string.rd_os_err_download, p.code.toString())
+            // (its own words when it said any: "SubDL: 502 Bad Gateway")
+            is Problem.BadAnswer -> if (p.error.isNotBlank()) p.service + ": " + p.error else ctx.getString(R.string.rd_os_err_no_answer, p.service)
         }
     }
 }

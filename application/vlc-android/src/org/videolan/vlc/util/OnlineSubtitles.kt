@@ -527,6 +527,85 @@ object OnlineSubtitles {
         object Save : Problem()
         object Offline : Problem()
         data class Download(val code: Int) : Problem()
+        /** an answer that is no list of results: an error page, JSON that says its error ([error]: its words) */
+        data class BadAnswer(val service: String, val error: String) : Problem()
+    }
+
+    private val htmlTitleRe = Regex("""<title[^>]*>(.*?)</title>""", setOf(RegexOption.IGNORE_CASE, RegexOption.DOT_MATCHES_ALL))
+    private val htmlHeadingRe = Regex("""<h1[^>]*>(.*?)</h1>""", setOf(RegexOption.IGNORE_CASE, RegexOption.DOT_MATCHES_ALL))
+    private val tagRe = Regex("""<[^>]*>""")
+    private val spacesRe = Regex("""\s+""")
+    private val refusedRe = Regex("""api[\s_\-]?key|token|auth|unauthori[sz]ed|forbidden|invalid key|permission|credential|password""", RegexOption.IGNORE_CASE)
+    private val busyRe = Regex("""limit|too many|quota|slow down""", RegexOption.IGNORE_CASE)
+    private val noneRe = Regex("""not found|no (?:subtitle|result|movie|show)|can'?t find|cannot find|does not exist|doesn'?t exist""", RegexOption.IGNORE_CASE)
+
+    /** a page's or an answer's words, short and plain: "502 Bad Gateway" */
+    private fun shortText(text: String): String {
+        val plain = spacesRe.replace(tagRe.replace(text, " "), " ").trim()
+            .replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">").replace("&quot;", "\"").replace("&#39;", "'").replace("&nbsp;", " ")
+        return if (plain.length > 100) plain.take(99).trimEnd() + "…" else plain
+    }
+
+    /** what an answer's own error says: {"success": false, "message": …}, {"status": false, "error": …}, {"errors": […]} */
+    private fun errorOf(o: JSONObject): String? {
+        fun words(v: Any?): String = when (v) {
+            is String -> v
+            is JSONObject -> listOf("message", "text", "error", "detail", "description").firstNotNullOfOrNull { k -> v.optString(k).takeIf { it.isNotBlank() && it != "null" } } ?: ""
+            is JSONArray -> if (v.length() > 0) words(v.opt(0)) else ""
+            null, JSONObject.NULL, is Boolean -> ""
+            is Number -> if (v.toDouble() != 0.0) v.toString() else ""
+            else -> v.toString()
+        }
+        val status = o.opt("status")
+        val failed = o.opt("success") == false || status == false || o.opt("error") == true || (status is String && status.lowercase(Locale.ROOT) in setOf("error", "fail", "failed")) ||
+            words(o.opt("error")).isNotBlank() || (o.optJSONArray("errors")?.length() ?: 0) > 0 || (o.optJSONObject("errors")?.length() ?: 0) > 0
+        if (!failed) return null
+        return listOf(o.opt("error"), o.opt("errors"), o.opt("message"), o.opt("msg"), o.opt("detail"), o.opt("error_description"))
+            .map { words(it) }.firstOrNull { it.isNotBlank() } ?: ""
+    }
+
+    /** the words of an error said in its answer: its kind (a key refused, too many searches, nothing found) or its failure */
+    private fun saidProblem(service: String, said: String, login: Boolean): Problem? = when {
+        noneRe.containsMatchIn(said) -> null
+        refusedRe.containsMatchIn(said) -> if (login) Problem.LoginRefused(service) else Problem.KeyRefused(service)
+        busyRe.containsMatchIn(said) -> Problem.Busy(service)
+        else -> Problem.BadAnswer(service, shortText(said))
+    }
+
+    /**
+     * VLC Redesign: an answer of 2xx that is no list of results (an error page of the service, of its proxy or of a
+     * browser check; JSON that doesn't read; JSON or text that says its error) is that service's failure with its
+     * words, never "nothing found" (as the desktop's and the Samsung TV app's). Null: the answer reads, or it says it
+     * found nothing. html: the service answers web pages (YIFY): only a page that says an error counts. login: the
+     * service signs in with a user name and password (a refusal is the sign-in's).
+     */
+    internal fun answerProblem(service: String, r: Response, html: Boolean = false, login: Boolean = false): Problem? {
+        if (r.error != null || r.status !in 200..299) return null
+        val text = String(r.body, Charsets.UTF_8).removePrefix("\uFEFF").trim()
+        if (text.isEmpty()) return Problem.BadAnswer(service, "")
+        val head = text.take(512)
+        val page = head.startsWith("<") || head.contains("<html", true) || head.contains("<!doctype", true)
+        if (page) {
+            val title = htmlTitleRe.find(text)?.groupValues?.get(1)?.let { shortText(it) }.orEmpty()
+                .ifEmpty { htmlHeadingRe.find(text)?.groupValues?.get(1)?.let { shortText(it) }.orEmpty() }
+            if (html) {
+                // (its own pages are the answer: only an error's page or a browser check counts)
+                val error = Regex("""just a moment|attention required|access denied|forbidden|bad gateway|service unavailable|gateway time-?out|internal server error|too many requests|captcha|\b5\d\d\b""", RegexOption.IGNORE_CASE)
+                return if (error.containsMatchIn(title)) Problem.BadAnswer(service, title) else null
+            }
+            // (a page in place of JSON is never "nothing found" nor the key: a server's or a proxy's error)
+            return if (busyRe.containsMatchIn(title)) Problem.Busy(service) else Problem.BadAnswer(service, title)
+        }
+        if (html) return null
+        if (text.startsWith("{")) {
+            val o = try { JSONObject(text) } catch (e: Exception) { return Problem.BadAnswer(service, "") }
+            val said = errorOf(o) ?: return null
+            return saidProblem(service, said, login)
+        }
+        if (text.startsWith("[")) return try { JSONArray(text); null } catch (e: Exception) { Problem.BadAnswer(service, "") }
+        // plain text in place of JSON ("Rate limit exceeded", "Forbidden", "Service Unavailable")
+        val line = text.lineSequence().first().trim()
+        return saidProblem(service, line, login) ?: Problem.BadAnswer(service, "")
     }
 
     internal fun failure(name: String, r: Response): Problem = when (r.status) {
@@ -895,9 +974,12 @@ object OnlineSubtitles {
         for ((n, url) in urls.withIndex()) {
             if (n > 0) delay(REQUEST_GAP_MS)
             val r = get(url, mapOf("User-Agent" to userAgent, "X-User-Agent" to userAgent))
-            if (ok(r)) {
+            val page = answerProblem("OpenSubtitles", r)
+            if (ok(r) && page == null) {
                 answered++
                 parseOpenSubtitles(String(r.body, Charsets.UTF_8), results, seen)
+            } else if (page != null) {
+                if (error == null) error = page
             } else {
                 if (error == null) error = failure("OpenSubtitles", r)
                 // (no answer at all: the next addresses of the same server won't answer either, 15 s each)
@@ -928,6 +1010,7 @@ object OnlineSubtitles {
             mapOf("User-Agent" to userAgent))
         if (r.error == null && r.status == 500) return Pair(emptyList(), null) // (it answers 500 when it has nothing)
         if (!ok(r)) return Pair(emptyList(), failure("Wizdom", r))
+        answerProblem("Wizdom", r)?.let { return Pair(emptyList(), it) }
         return Pair(parseWizdom(String(r.body, Charsets.UTF_8)), null)
     }
 
@@ -936,6 +1019,7 @@ object OnlineSubtitles {
         val r = get("https://api.gestdown.info/shows/search/${enc(q.title)}", mapOf("User-Agent" to userAgent))
         if (r.error == null && r.status == 404) return Pair(emptyList(), null)
         if (!ok(r)) return Pair(emptyList(), failure("Addic7ed", r))
+        answerProblem("Addic7ed", r)?.let { return Pair(emptyList(), it) }
         val wanted = simplified(q.title)
         var showId = ""
         var best = 0.0
@@ -995,6 +1079,7 @@ object OnlineSubtitles {
         val r = get("https://yifysubtitles.ch/movie-imdb/${q.imdb}", mapOf("User-Agent" to userAgent))
         if (r.error == null && r.status == 404) return Pair(emptyList(), null)
         if (!ok(r)) return Pair(emptyList(), failure("YIFY", r))
+        answerProblem("YIFY", r, html = true)?.let { return Pair(emptyList(), it) }
         return Pair(parseYify(String(r.body, Charsets.UTF_8)), null)
     }
 
@@ -1055,6 +1140,7 @@ object OnlineSubtitles {
         // (it asks for the parameters in alphabetical order)
         val r = get(OSCOM_API + "subtitles?" + params.sorted().joinToString("&"), oscomHeaders(key))
         if (!ok(r)) return Pair(emptyList(), if (r.status == 401 || r.status == 403) Problem.KeyRefused("OpenSubtitles.com") else failure("OpenSubtitles.com", r))
+        answerProblem("OpenSubtitles.com", r)?.let { return Pair(emptyList(), it) }
         return Pair(parseOscom(String(r.body, Charsets.UTF_8)), null)
     }
 
