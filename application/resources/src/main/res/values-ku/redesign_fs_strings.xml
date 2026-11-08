@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">کاتێک کلیلێک یان کۆنترۆڵی دوور بەکاردەهێنیت</string>
+    <string name="rd_fs_show_controls">پیشاندانی کۆنترۆڵەکان</string>
+    <string name="rd_fs_show_progress">تەنها پیشاندانی پێشکەوتن</string>
+    <string name="rd_fs_show_message">تەنها پیشاندانی پەیامێک</string>
+    <string name="rd_fs_seconds">%1$s چرکە</string>
+    <string name="rd_fs_paused">ڕاگیراو</string>
+    <string name="rd_fs_playing">لێدەدرێت</string>
+    <string name="rd_fs_info_touch">دەستدان لە شاشە هێشتا کۆنترۆڵەکان پیشان دەدات.</string>
+    <string name="rd_fs_info_tv">داگرتنی OK، سەرەوە، خوارەوە یان پێڕست هێشتا کۆنترۆڵەکان پیشان دەدات.</string>
+</resources>

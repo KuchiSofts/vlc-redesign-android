@@ -1,0 +1,68 @@
+package org.videolan.vlc.gui.video
+
+import org.junit.Assert.assertEquals
+import org.junit.Test
+import org.videolan.vlc.gui.video.RdKeyFeedbackRules.SeekSum
+
+/**
+ * VLC Redesign (#72): what a key or the remote shows in the player instead of the controls: the setting read (its
+ * default the controls: nobody's player changes), the seeks pressed in a row added up, the pill's texts.
+ */
+class RdKeyFeedbackRulesTest {
+
+    @Test
+    fun theSetting() {
+        assertEquals("controls", RdKeyFeedbackRules.mode(null))
+        assertEquals("controls", RdKeyFeedbackRules.mode(""))
+        assertEquals("controls", RdKeyFeedbackRules.mode("something else"))
+        assertEquals("controls", RdKeyFeedbackRules.mode("controls"))
+        assertEquals("progress", RdKeyFeedbackRules.mode("progress"))
+        assertEquals("message", RdKeyFeedbackRules.mode("message"))
+    }
+
+    @Test
+    fun seeksInARowAddUp() {
+        val sum = SeekSum(1500)
+        assertEquals(10_000L, sum.add(10_000, 1_000))
+        assertEquals(20_000L, sum.add(10_000, 2_000))
+        assertEquals(30_000L, sum.add(10_000, 3_400))
+        // (more than 1.5 s after the last: a new count)
+        assertEquals(10_000L, sum.add(10_000, 5_000))
+        // (the other way: a new count)
+        assertEquals(-10_000L, sum.add(-10_000, 5_200))
+        assertEquals(-20_000L, sum.add(-10_000, 5_300))
+        sum.reset()
+        assertEquals(5_000L, sum.add(5_000, 5_400))
+    }
+
+    @Test
+    fun thePillsTexts() {
+        val seconds = { n: String -> "$n s" }
+        assertEquals("+10 s", RdKeyFeedbackRules.seekText(10_000, seconds))
+        assertEquals("−10 s", RdKeyFeedbackRules.seekText(-10_000, seconds))
+        assertEquals("+59 s", RdKeyFeedbackRules.seekText(59_999, seconds))
+        assertEquals("+1:30", RdKeyFeedbackRules.seekText(90_000, seconds))
+        assertEquals("−5:00", RdKeyFeedbackRules.seekText(-300_000, seconds))
+        assertEquals("+1:02:03", RdKeyFeedbackRules.seekText(3_723_000, seconds))
+        // the language's seconds ("10 שנ׳")
+        assertEquals("+10 שנ׳", RdKeyFeedbackRules.seekText(10_000) { "$it שנ׳" })
+        // the times as the seek bar writes them, the pill as the Samsung TV app's
+        assertEquals("00:00:00", RdKeyFeedbackRules.timeText(-5))
+        assertEquals("00:01:23", RdKeyFeedbackRules.timeText(83_000))
+        assertEquals("01:02:03", RdKeyFeedbackRules.timeText(3_723_000))
+        assertEquals("+30 s  00:02:50 / 00:25:40", RdKeyFeedbackRules.seekPill(30_000, 170_000, 1_540_000, seconds))
+        assertEquals("+1:10  00:02:50 / 00:25:40", RdKeyFeedbackRules.seekPill(70_000, 170_000, 1_540_000, seconds))
+        assertEquals("−10 s  00:02:50", RdKeyFeedbackRules.seekPill(-10_000, 170_000, 0, seconds))
+        // a right-to-left language: the signed number and the times kept left to right ("+30", not "30+"), the
+        // words around them in the language's direction
+        val ltr = { t: String -> "[$t]" }
+        assertEquals("[+30] שנ׳  [00:02:50 / 00:25:40]", RdKeyFeedbackRules.seekPill(30_000, 170_000, 1_540_000, { "$it שנ׳" }, ltr))
+        assertEquals("[−1:10]  [00:02:50]", RdKeyFeedbackRules.seekPill(-70_000, 170_000, 0, seconds, ltr))
+        assertEquals("[+1:02:03]", RdKeyFeedbackRules.seekText(3_723_000, seconds, ltr))
+        assertEquals("1.5×", RdKeyFeedbackRules.rateText(1.5f))
+        assertEquals("2×", RdKeyFeedbackRules.rateText(2f))
+        assertEquals("0.75×", RdKeyFeedbackRules.rateText(0.75f))
+        assertEquals("1.33×", RdKeyFeedbackRules.rateText(1.3333f))
+        assertEquals("1×", RdKeyFeedbackRules.rateText(1.0001f))
+    }
+}

@@ -375,7 +375,8 @@ object PreferenceParser {
                     category = getValue(context, parser, namespace, "title")
                     categoryEng = getValue(englishContext, parser, namespace, "title")
                 }
-                if (element != "PreferenceCategory" && element != "Preference") {
+                // (VLC Redesign: a note under a row is words, not a setting: not found by the search, not exported)
+                if (element != "PreferenceCategory" && element != "Preference" && !element.endsWith(".RdNotePreference")) {
                     var key = getValue(context, parser, namespace, "key")
                     if (key.isBlank()) key = getValue(context, parser, appNamespace, "key")
                     var title = getValue(context, parser, namespace, "title")

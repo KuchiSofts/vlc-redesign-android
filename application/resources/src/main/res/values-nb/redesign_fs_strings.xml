@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Når du bruker en tast eller fjernkontrollen</string>
+    <string name="rd_fs_show_controls">Vis kontrollene</string>
+    <string name="rd_fs_show_progress">Vis bare fremgangen</string>
+    <string name="rd_fs_show_message">Vis bare en melding</string>
+    <string name="rd_fs_seconds">%1$s s</string>
+    <string name="rd_fs_paused">På pause</string>
+    <string name="rd_fs_playing">Spilles av</string>
+    <string name="rd_fs_info_touch">Å berøre skjermen viser fortsatt kontrollene.</string>
+    <string name="rd_fs_info_tv">Å trykke OK, Opp, Ned eller Meny viser fortsatt kontrollene.</string>
+</resources>

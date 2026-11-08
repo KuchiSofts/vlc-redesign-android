@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">При использовании клавиш или пульта</string>
+    <string name="rd_fs_show_controls">Показывать элементы управления</string>
+    <string name="rd_fs_show_progress">Показывать только ход воспроизведения</string>
+    <string name="rd_fs_show_message">Показывать только сообщение</string>
+    <string name="rd_fs_seconds">%1$s с</string>
+    <string name="rd_fs_paused">Пауза</string>
+    <string name="rd_fs_playing">Воспроизводится</string>
+    <string name="rd_fs_info_touch">Касание экрана по-прежнему показывает элементы управления.</string>
+    <string name="rd_fs_info_tv">Нажатие OK, стрелки вверх или вниз либо кнопки «Меню» по-прежнему показывает элементы управления.</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Kui kasutad klahvi või kaugjuhtimispulti</string>
+    <string name="rd_fs_show_controls">Näita juhtelemente</string>
+    <string name="rd_fs_show_progress">Näita ainult edenemist</string>
+    <string name="rd_fs_show_message">Näita ainult teadet</string>
+    <string name="rd_fs_seconds">%1$s s</string>
+    <string name="rd_fs_paused">Pausil</string>
+    <string name="rd_fs_playing">Mängib</string>
+    <string name="rd_fs_info_touch">Ekraani puudutamine näitab endiselt juhtelemente.</string>
+    <string name="rd_fs_info_tv">OK-, Üles-, Alla- või Menüü-klahvi vajutamine näitab endiselt juhtelemente.</string>
+</resources>

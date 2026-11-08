@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">เมื่อใช้ปุ่มหรือรีโมต</string>
+    <string name="rd_fs_show_controls">แสดงตัวควบคุม</string>
+    <string name="rd_fs_show_progress">แสดงเฉพาะความคืบหน้า</string>
+    <string name="rd_fs_show_message">แสดงเฉพาะข้อความ</string>
+    <string name="rd_fs_seconds">%1$s วินาที</string>
+    <string name="rd_fs_paused">พักไว้</string>
+    <string name="rd_fs_playing">กำลังเล่น</string>
+    <string name="rd_fs_info_touch">การแตะหน้าจอยังคงแสดงตัวควบคุม</string>
+    <string name="rd_fs_info_tv">การกดปุ่ม OK, ขึ้น, ลง หรือเมนู ยังคงแสดงตัวควบคุม</string>
+</resources>

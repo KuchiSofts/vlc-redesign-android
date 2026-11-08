@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Kur përdorni një tast ose telekomandën</string>
+    <string name="rd_fs_show_controls">Shfaq kontrollet</string>
+    <string name="rd_fs_show_progress">Shfaq vetëm ecurinë</string>
+    <string name="rd_fs_show_message">Shfaq vetëm një mesazh</string>
+    <string name="rd_fs_seconds">%1$s sek</string>
+    <string name="rd_fs_paused">Në pushim</string>
+    <string name="rd_fs_playing">Po luhet</string>
+    <string name="rd_fs_info_touch">Prekja e ekranit i shfaq ende kontrollet.</string>
+    <string name="rd_fs_info_tv">Shtypja e OK, e shigjetës lart ose poshtë, ose e butonit Meny i shfaq ende kontrollet.</string>
+</resources>

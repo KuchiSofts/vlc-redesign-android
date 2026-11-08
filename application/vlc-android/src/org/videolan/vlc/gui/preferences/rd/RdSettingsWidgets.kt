@@ -140,7 +140,12 @@ private fun Preference.helpOnly(summary: CharSequence?): CharSequence? =
 
 /** The dropdown of the design: the value in a well with its chevron; the choices open under it. */
 open class RdListPreference @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : ListPreference(context, attrs) {
-    private val help: CharSequence? = helpOnly(super.getSummary())
+    /** the line under the title (the XML's summary unless it is a "%s"); null: none */
+    var help: CharSequence? = helpOnly(super.getSummary())
+        set(value) {
+            field = value
+            notifyChanged()
+        }
     private var well: View? = null
 
     init {
@@ -181,6 +186,21 @@ open class RdListPreference @JvmOverloads constructor(context: Context, attrs: A
         }
         popup.show()
         if (selected >= 0) popup.listView?.setSelection(selected)
+    }
+}
+
+/** A note under a setting, its words alone (the Samsung TV app's settings.js nt()): never focused, never clicked. */
+class RdNotePreference @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : Preference(context, attrs) {
+    init {
+        layoutResource = R.layout.rd_pref_note
+        isSelectable = false
+        isPersistent = false
+    }
+
+    override fun onBindViewHolder(holder: PreferenceViewHolder) {
+        super.onBindViewHolder(holder)
+        holder.itemView.isFocusable = false
+        holder.itemView.isClickable = false
     }
 }
 

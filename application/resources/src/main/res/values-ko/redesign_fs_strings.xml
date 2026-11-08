@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">키나 리모컨을 사용할 때</string>
+    <string name="rd_fs_show_controls">컨트롤 표시</string>
+    <string name="rd_fs_show_progress">진행률만 표시</string>
+    <string name="rd_fs_show_message">메시지만 표시</string>
+    <string name="rd_fs_seconds">%1$s초</string>
+    <string name="rd_fs_paused">일시 정지됨</string>
+    <string name="rd_fs_playing">재생 중</string>
+    <string name="rd_fs_info_touch">화면을 터치하면 여전히 컨트롤이 표시됩니다.</string>
+    <string name="rd_fs_info_tv">OK, 위, 아래 또는 메뉴 버튼을 누르면 여전히 컨트롤이 표시됩니다.</string>
+</resources>

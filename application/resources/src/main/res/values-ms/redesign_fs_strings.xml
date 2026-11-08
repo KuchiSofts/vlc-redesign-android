@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Apabila anda menggunakan kekunci atau alat kawalan jauh</string>
+    <string name="rd_fs_show_controls">Tunjuk kawalan</string>
+    <string name="rd_fs_show_progress">Hanya tunjuk kemajuan</string>
+    <string name="rd_fs_show_message">Hanya tunjuk mesej</string>
+    <string name="rd_fs_seconds">%1$s saat</string>
+    <string name="rd_fs_paused">Dijeda</string>
+    <string name="rd_fs_playing">Dimainkan</string>
+    <string name="rd_fs_info_touch">Menyentuh skrin masih menunjukkan kawalan.</string>
+    <string name="rd_fs_info_tv">Menekan OK, Atas, Bawah atau Menu masih menunjukkan kawalan.</string>
+</resources>

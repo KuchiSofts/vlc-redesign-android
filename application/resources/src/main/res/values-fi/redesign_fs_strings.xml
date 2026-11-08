@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Kun käytät näppäintä tai kauko-ohjainta</string>
+    <string name="rd_fs_show_controls">Näytä ohjaimet</string>
+    <string name="rd_fs_show_progress">Näytä vain edistyminen</string>
+    <string name="rd_fs_show_message">Näytä vain viesti</string>
+    <string name="rd_fs_seconds">%1$s s</string>
+    <string name="rd_fs_paused">Tauotettu</string>
+    <string name="rd_fs_playing">Toistetaan</string>
+    <string name="rd_fs_info_touch">Näytön koskettaminen näyttää ohjaimet edelleen.</string>
+    <string name="rd_fs_info_tv">OK-, Ylös-, Alas- tai Valikko-painikkeen painallus näyttää ohjaimet edelleen.</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign: a note under a setting, its words alone (RdNotePreference), as the Samsung TV app's settings draw it
+     (settings.js nt(), .d-note-t: 13, #6B6B6B, wrapped): the TV's rows have no help line of their own. -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="0dp"
+    android:paddingBottom="8dp"
+    android:fontFamily="@font/inter"
+    android:includeFontPadding="false"
+    android:lineSpacingExtra="4dp"
+    android:textSize="13dp"
+    android:textColor="@color/rd_fg_a3"
+    android:textAlignment="viewStart"
+    android:focusable="false"
+    android:clickable="false" />

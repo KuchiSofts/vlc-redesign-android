@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Під час використання клавіш або пульта</string>
+    <string name="rd_fs_show_controls">Показувати елементи керування</string>
+    <string name="rd_fs_show_progress">Показувати лише перебіг відтворення</string>
+    <string name="rd_fs_show_message">Показувати лише повідомлення</string>
+    <string name="rd_fs_seconds">%1$s с</string>
+    <string name="rd_fs_paused">Пауза</string>
+    <string name="rd_fs_playing">Відтворюється</string>
+    <string name="rd_fs_info_touch">Дотик до екрана і далі показує елементи керування.</string>
+    <string name="rd_fs_info_tv">Натискання OK, стрілки вгору чи вниз або кнопки «Меню» і далі показує елементи керування.</string>
+</resources>
