@@ -494,7 +494,11 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     private val downloadedSubtitleObserver = Observer<List<org.videolan.vlc.mediadb.models.ExternalSub>> { externalSubs ->
         for (externalSub in externalSubs) {
             if (!addedExternalSubs.contains(externalSub)) {
-                service?.addSubtitleTrack(externalSub.subtitlePath, currentSpuTrack == "-2")
+                val select = currentSpuTrack == "-2"
+                // (a subtitle downloaded by the app is UTF-8 already: added as it is; another one read on a
+                // background thread: on every play, its read and conversion ran on the main thread)
+                if (externalSub.subtitlePath.startsWith(filesDir.path + "/subtitles/")) service?.addUtf8SubtitleTrack(externalSub.subtitlePath, select)
+                else lifecycleScope.launch { service?.addSubtitleTrackAsync(Uri.fromFile(java.io.File(externalSub.subtitlePath)), select) }
                 addedExternalSubs.add(externalSub)
             }
         }
@@ -1151,7 +1155,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         val value = org.videolan.tools.SubtitleScale.clamp(scale)
         val old = org.videolan.tools.SubtitleScale.get(settings)
         Log.i(TAG, "subtitle size $old -> $value %")
-        if (osd) overlayDelegate.showInfo("${getString(R.string.rd_subtitle_size)} ⁦$value %⁩", 1500)
+        if (osd) overlayDelegate.showInfo("${getString(R.string.rd_subtitle_size)} \u2066$value %\u2069", 1500)
         if (value == old) return
         settings.putSingle(org.videolan.tools.KEY_SUBTITLES_TEXT_SCALE, value)
         subtitleScalePending = true
@@ -1372,7 +1376,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
 
         if (data.hasExtra(EXTRA_MRL)) {
             val subtitleUri = data.getStringExtra(EXTRA_MRL)!!.toUri()
-            service?.addSubtitleTrack(getUri(subtitleUri) ?: subtitleUri, false)
+            val picked = getUri(subtitleUri) ?: subtitleUri
+            lifecycleScope.launch { service?.addSubtitleTrackAsync(picked, false) }
             service?.currentMediaWrapper?.let {
                 SlaveRepository.getInstance(this).saveSlave(it.location, IMedia.Slave.Type.Subtitle, 2, data.getStringExtra(EXTRA_MRL)!!)
             }
@@ -1814,7 +1819,9 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                     // nothing to show until the first picture: the cat (not for a song, nor on a TV it is cast to)
                     showIdleScene(service.currentMediaWrapper?.type != MediaWrapper.TYPE_AUDIO && !displayManager.isOnRenderer)
                     if (!subtitlesExtraPath.isNullOrEmpty()) {
-                        service.addSubtitleTrack(subtitlesExtraPath!!, true)
+                        // (read and converted off the main thread)
+                        val path = subtitlesExtraPath!!
+                        lifecycleScope.launch { service.addSubtitleTrackAsync(Uri.fromFile(java.io.File(path)), true) }
                         subtitlesExtraPath = null
                     }
                 }
@@ -2563,7 +2570,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 positionInPlaylist = extras.getInt(PLAY_EXTRA_OPENED_POSITION, -1)
 
                 subtitlesExtraPath = extras.getString(PLAY_EXTRA_SUBTITLES_LOCATION)
-                if (!subtitlesExtraPath.isNullOrEmpty()) service.addSubtitleTrack(subtitlesExtraPath!!, true)
+                subtitlesExtraPath?.takeIf { it.isNotEmpty() }?.let { path -> lifecycleScope.launch { service.addSubtitleTrackAsync(Uri.fromFile(java.io.File(path)), true) } }
                 if (intent.hasExtra(PLAY_EXTRA_ITEM_TITLE))
                     itemTitle = extras.getString(PLAY_EXTRA_ITEM_TITLE)
             }

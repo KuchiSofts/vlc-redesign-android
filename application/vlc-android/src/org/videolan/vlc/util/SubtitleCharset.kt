@@ -26,6 +26,8 @@ import java.util.Locale
 object SubtitleCharset {
     private const val TAG = "VLC/SubtitleCharset"
     private const val MAX_READ = 512 * 1024
+    /** the most a UTF-8 copy is made of (a film's ASS with its karaoke: a few MB); larger, the file is read as it is */
+    private const val MAX_COPY = 32 * 1024 * 1024
     val SUBTITLE_EXTENSIONS = setOf("srt", "ass", "ssa", "sub", "txt", "vtt", "smi", "sami", "mpl", "jss", "psb", "rt", "pjs", "aqt", "usf", "idx")
 
     /**
@@ -62,9 +64,9 @@ object SubtitleCharset {
         return out
     }
 
-    fun read(file: File): ByteArray? = try {
+    fun read(file: File, max: Int = MAX_READ): ByteArray? = try {
         file.inputStream().use { input ->
-            val buffer = ByteArray(minOf(file.length(), MAX_READ.toLong()).toInt())
+            val buffer = ByteArray(minOf(file.length(), max.toLong()).toInt())
             var off = 0
             while (off < buffer.size) { val r = input.read(buffer, off, buffer.size - off); if (r < 0) break; off += r }
             buffer.copyOf(off)
@@ -73,12 +75,12 @@ object SubtitleCharset {
         null
     }
 
-    fun read(context: Context, uri: Uri): ByteArray? = try {
-        if (uri.scheme == "file" || uri.scheme == null) uri.path?.let { read(File(it)) }
+    fun read(context: Context, uri: Uri, max: Int = MAX_READ * 8): ByteArray? = try {
+        if (uri.scheme == "file" || uri.scheme == null) uri.path?.let { read(File(it), max) }
         else context.contentResolver.openInputStream(uri)?.use { input ->
             val out = java.io.ByteArrayOutputStream()
             val buf = ByteArray(16384)
-            while (out.size() < MAX_READ * 8) { val r = input.read(buf); if (r < 0) break; out.write(buf, 0, r) }
+            while (out.size() < max) { val r = input.read(buf); if (r < 0) break; out.write(buf, 0, r) }
             out.toByteArray()
         }
     } catch (e: Exception) {
@@ -223,16 +225,27 @@ object SubtitleCharset {
      * they are), an ASS/SSA file whose styles fix the text direction. Null when the file can be read as it is.
      */
     fun utf8Copy(context: Context, uri: Uri, displayName: String, hints: List<String>): Uri? {
-        val bytes = read(context, uri) ?: return null
+        // the whole file (the copy is what the player reads: one cut at 512 KB stopped a film's subtitles halfway)
+        val bytes = read(context, uri, MAX_COPY + 1) ?: return null
+        if (bytes.size > MAX_COPY) return null
         val charset = detect(bytes, fileNameHints(displayName) + hints)
         var text = (if (charset != null) decode(bytes, charset) else String(bytes, Charsets.UTF_8))?.removePrefix("\uFEFF") ?: return null
         val ass = if (isAss(displayName)) assAutoDirection(text) else null
         if (charset == null && ass == null) return null
         if (ass != null) text = ass
         val hash = MessageDigest.getInstance("SHA-1").digest(bytes).joinToString("") { "%02x".format(it) }.take(16)
-        val dir = File(context.filesDir, "subtitles-utf8/v3-$hash").apply { mkdirs() }
+        val dir = File(context.filesDir, "subtitles-utf8/v3-$hash")
         val out = File(dir, displayName.ifEmpty { "subtitle.srt" })
-        if (!out.exists()) out.writeText(text, Charsets.UTF_8)
+        // (a full disk: the original as it is, not a crash of the player at every play; written whole or not at all)
+        if (!out.exists()) try {
+            dir.mkdirs()
+            val tmp = File(dir, out.name + ".part")
+            tmp.writeText(text, Charsets.UTF_8)
+            if (!tmp.renameTo(out)) { tmp.delete(); return null }
+        } catch (e: Exception) {
+            Log.w(TAG, "$displayName: no UTF-8 copy (${e.javaClass.simpleName})")
+            return null
+        }
         Log.i(TAG, "$displayName: ${charset ?: "UTF-8"}${if (ass != null) ", ASS styles in auto direction" else ""}, read from ${out.path}")
         return Uri.fromFile(out)
     }

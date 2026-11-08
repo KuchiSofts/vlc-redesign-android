@@ -875,7 +875,8 @@ object OnlineSubtitles {
         if (q.hash.isNotEmpty() && q.size > 0) urls.add(osUrl(listOf("moviebytesize-${q.size}", "moviehash-${q.hash}")))
         val imdb = if (q.imdb.startsWith("tt")) q.imdb.substring(2) else ""
         if (imdb.isNotEmpty()) {
-            val padded = "imdbid-%07d".format(imdb.toLongOrNull() ?: 0L)
+            // (the root locale: in Persian or Arabic the digits came out in their script, every search malformed)
+            val padded = "imdbid-%07d".format(Locale.ROOT, imdb.toLongOrNull() ?: 0L)
             for (code in wanted) urls.add(osUrl(episode + padded + "sublanguageid-$code"))
             if (q.everyOther || wanted.isEmpty()) urls.add(osUrl(episode + padded))
         } else if (q.title.isNotEmpty()) {
@@ -897,7 +898,11 @@ object OnlineSubtitles {
             if (ok(r)) {
                 answered++
                 parseOpenSubtitles(String(r.body, Charsets.UTF_8), results, seen)
-            } else if (error == null) error = failure("OpenSubtitles", r)
+            } else {
+                if (error == null) error = failure("OpenSubtitles", r)
+                // (no answer at all: the next addresses of the same server won't answer either, 15 s each)
+                if (r.status == 0) break
+            }
         }
         return Pair(results, if (answered == 0 && urls.isNotEmpty()) error else null)
     }
@@ -1283,6 +1288,9 @@ object OnlineSubtitles {
         return out.toByteArray()
     }
 
+    /** a warning in the log (the unit tests, on a JVM without android.util.Log, replace it) */
+    internal var warn: (String) -> Unit = { Log.w(TAG, it) }
+
     /** the subtitles of a zip archive: (name, data), at most MAX_UNPACKED_BYTES in all */
     internal fun unzip(zip: ByteArray): List<Pair<String, ByteArray>> {
         val files = ArrayList<Pair<String, ByteArray>>()
@@ -1305,7 +1313,7 @@ object OnlineSubtitles {
                 }
             }
         } catch (e: Exception) {
-            Log.w(TAG, "unzip: ${e.message}")
+            warn("unzip: ${e.message}")
         }
         return files
     }
@@ -1447,9 +1455,32 @@ object OnlineSubtitles {
     }
 
     /** downloads a result into the app's subtitle folder of the media: its file, or the error to show */
-    suspend fun download(context: Context, result: Result, media: Media): Pair<File?, Problem?> = withContext(Dispatchers.IO) {
+    suspend fun download(context: Context, result: Result, media: Media): Pair<File?, Problem?> = try {
+        downloadNow(context, result, media)
+    } catch (e: OutOfMemoryError) {
+        // (a hostile or broken service: an archive that unpacks huge, copied a few times over; told, not a crash)
+        Pair(null, Problem.Unpack)
+    }
+
+    /** a name's start that fits a file name: at most [max] bytes in UTF-8 (80 Chinese characters were 240 bytes) */
+    internal fun utf8Prefix(text: String, max: Int): String {
+        var bytes = 0
+        val out = StringBuilder()
+        var i = 0
+        while (i < text.length) {
+            val cp = text.codePointAt(i)
+            val n = when { cp < 0x80 -> 1; cp < 0x800 -> 2; cp < 0x10000 -> 3; else -> 4 }
+            if (bytes + n > max) break
+            out.appendCodePoint(cp)
+            bytes += n
+            i += Character.charCount(cp)
+        }
+        return out.toString()
+    }
+
+    private suspend fun downloadNow(context: Context, result: Result, media: Media): Pair<File?, Problem?> = withContext(Dispatchers.IO) {
         val folder = subtitleFolders(context, media).first()
-        val release = result.release.replace(Regex("""[\\/:*?"<>|\s\p{Cc}]+"""), ".").take(80)
+        val release = utf8Prefix(result.release.replace(Regex("""[\\/:*?"<>|\s\p{Cc}]+"""), ".").take(80), 150)
         val stem = "$release-${safeFileName(result.id.replace(':', '-'))}.${iso639_2(result.language)}"
         for (dir in subtitleFolders(context, media)) for (ext in listOf("srt", "vtt", "ass", "ssa", "sub", "smi")) File(dir, "$stem.$ext").takeIf { it.exists() }?.let { return@withContext Pair(it, null) }
         val headers = HashMap<String, String>()
