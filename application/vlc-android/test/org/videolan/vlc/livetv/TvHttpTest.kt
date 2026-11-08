@@ -129,6 +129,18 @@ class TvHttpTest {
         } finally {
             server.close()
         }
+        // an answer past its limit: a failure, or (truncate) its start
+        val big = serve { _, _, _ -> Reply(200, body = "#EXTM3U\n" + "x".repeat(300_000)) }
+        try {
+            val url = "http://127.0.0.1:" + big.localPort + "/list.m3u"
+            assertEquals(0, TvHttp.request(TvRequest(url, limit = 64 shl 10)).status)
+            val start = TvHttp.request(TvRequest(url, limit = 64 shl 10, truncate = true))
+            assertTrue(start.ok)
+            assertTrue(start.body.startsWith("#EXTM3U"))
+            assertTrue("${start.body.length}", start.body.length in (64 shl 10)..(64 shl 10) + 65536)
+        } finally {
+            big.close()
+        }
         // no answer: status 0 and the kind of failure only (never the address)
         val none = TvHttp.request(TvRequest("http://127.0.0.1:1/x", timeoutMs = 2000))
         assertEquals(0, none.status)
