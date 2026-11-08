@@ -79,7 +79,8 @@ class TvHttpTest {
         Thread {
             while (!server.isClosed) {
                 val s = try { server.accept() } catch (e: Exception) { break }
-                s.use { sock ->
+                // (a client that hangs up mid-answer, as a read past its limit does: the next one is still served)
+                try { s.use { sock ->
                     val input = BufferedReader(InputStreamReader(sock.getInputStream(), Charsets.ISO_8859_1))
                     val first = input.readLine() ?: return@use
                     val headers = HashMap<String, String>()
@@ -94,7 +95,7 @@ class TvHttpTest {
                     val head = "HTTP/1.1 ${r.status} X\r\n" + (if (r.header.isNotEmpty()) r.header + "\r\n" else "") +
                         "Content-Length: ${body.size}\r\nConnection: close\r\n\r\n"
                     sock.getOutputStream().apply { write(head.toByteArray(Charsets.ISO_8859_1)); write(body); flush() }
-                }
+                } } catch (e: java.io.IOException) { }
             }
         }.apply { isDaemon = true; start() }
         return server
