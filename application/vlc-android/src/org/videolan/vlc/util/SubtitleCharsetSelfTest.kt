@@ -16,7 +16,7 @@ import java.text.Normalizer
 object SubtitleCharsetSelfTest {
     private const val TAG = "VLC/CharsetSelfTest"
 
-    private fun clean(s: String) = Normalizer.normalize(s.removePrefix("﻿").replace("\r\n", "\n"), Normalizer.Form.NFC)
+    private fun clean(s: String) = Normalizer.normalize(s.removePrefix("\uFEFF").replace("\r\n", "\n"), Normalizer.Form.NFC)
 
     fun run(dir: File) {
         var pass = 0
