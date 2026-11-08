@@ -93,17 +93,24 @@ object EpgMatch {
 
     fun table(text: String, cc: String): Table {
         val t = Table(country(cc))
+        val entries = ArrayList<Entry>()
         for (line in text.split('\n')) {
             val parts = line.trimEnd('\r').split('\t')
             if (parts.size < 2 || parts[0].isEmpty()) continue
             val e = Entry(parts[0], parts.drop(1), t.country)
             t.byId[idKey(e.id)] = e
-            for (n in e.names) {
-                val k = normalize(n).compact
-                // (the first channel of a name keeps it)
-                if (k.isNotEmpty() && !t.byName.containsKey(k)) t.byName[k] = e
-            }
+            entries.add(e)
             t.size++
+        }
+        // the names without the table's own country only ("CNN US" in us), as a channel's lose only the countries
+        // of the tables read: any two letters at the end taken for a country made "Arte TV" "arte" here (TV as
+        // Tuvalu) and "arte tv" for the channel, never the same (one in seven of the tables' names). Then as before
+        // (any two letters at the end a country), for a channel named "Arte". As the Samsung TV app's epgmatch.js.
+        val own = if (t.country.isNotEmpty()) setOf(t.country) else emptySet()
+        for (pass in 0..1) for (e in entries) for (n in e.names) {
+            val k = normalize(n, if (pass == 0) own else null).compact
+            // (the first channel of a name keeps it)
+            if (k.isNotEmpty() && !t.byName.containsKey(k)) t.byName[k] = e
         }
         return t
     }

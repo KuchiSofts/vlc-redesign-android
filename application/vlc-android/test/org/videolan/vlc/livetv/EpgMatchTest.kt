@@ -152,6 +152,38 @@ class EpgMatchTest {
         assertEquals(2, EpgMatch.TableBuilder(null).apply { add("NotCarried.il", "Not Carried", emptyList(), "IL", false); add("Kan11.il", "Kan 11", emptyList(), "il", false) }.files()["il"]!!.second)
     }
 
+    /**
+     * A channel named "... TV" finds its table's "... TV" (a table's names lost any two letters at their end as a
+     * country, TV as Tuvalu, a channel's only the countries read: one in seven of the tables' names never matched);
+     * one named without the TV still does; the table's own country still goes ("CNN US"). As the Samsung TV app's.
+     */
+    @Test
+    fun namesEndingInTv() {
+        val tr = EpgMatch.table("FoxTV.tr\tFox TV\nStarTV.tr\tStar TV\nStar.tr\tStar\n", "tr")
+        val us = EpgMatch.table("CNN.us\tCNN US\n", "us")
+        val fr = EpgMatch.table("ArteTV.fr\tArte TV\n", "fr")
+        val gb = EpgMatch.table("Channel5TV.uk\tChannel 5 TV\n", "gb")
+        val r = EpgMatch.match(listOf(ch("Fox TV"), ch("TR: Star TV HD"), ch("Star"), ch("Fox"), ch("CNN US"), ch("CNN"),
+            ch("Arte TV"), ch("arte tv (FR)"), ch("Arte"), ch("Channel 5 TV"), ch("UK: Channel 5 TV HD")),
+            mapOf("tr" to tr, "us" to us, "fr" to fr, "gb" to gb), listOf("tr"))
+        assertEquals(listOf("FoxTV.tr", "StarTV.tr", "Star.tr", "FoxTV.tr", "CNN.us", "CNN.us", "ArteTV.fr", "ArteTV.fr",
+            "ArteTV.fr", "Channel5TV.uk", "Channel5TV.uk"), r.matches.map { it?.id })
+        // the shipped tables: every name ending in "TV" found by itself (in its own country's table)
+        val dir = file("assets/livetv/epgmatch")
+        var tried = 0
+        var missed = ArrayList<String>()
+        for (cc in listOf("tr", "gb", "fr", "de", "us", "in")) {
+            val text = File(dir, "$cc.txt").readText()
+            val t = EpgMatch.table(text, cc)
+            val names = text.lines().mapNotNull { l -> l.split('\t').getOrNull(1)?.takeIf { Regex("""\s[Tt][Vv]$""").containsMatchIn(it.trim()) } }
+            val got = EpgMatch.match(names.map { ch(it) }, mapOf(cc to t), listOf(cc))
+            tried += names.size
+            got.matches.forEachIndexed { i, m -> if (m == null) missed.add("$cc ${names[i]}") }
+        }
+        assertTrue(tried.toString(), tried > 300)
+        assertTrue(missed.take(10).toString(), missed.isEmpty())
+    }
+
     /** the app's own tables (made as tools/tvdata.py match makes the Samsung TV app's): every country file there and readable */
     @Test
     fun theShippedTables() {
