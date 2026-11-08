@@ -59,6 +59,12 @@ class RdKeyFeedbackRulesTest {
         assertEquals("[+30] שנ׳  [00:02:50 / 00:25:40]", RdKeyFeedbackRules.seekPill(30_000, 170_000, 1_540_000, { "$it שנ׳" }, ltr))
         assertEquals("[−1:10]  [00:02:50]", RdKeyFeedbackRules.seekPill(-70_000, 170_000, 0, seconds, ltr))
         assertEquals("[+1:02:03]", RdKeyFeedbackRules.seekText(3_723_000, seconds, ltr))
+        // the pill read from a sofa: 2.2 % of a TV's height (about 24 px at 1080p, 48 at 2160p); 16 sp elsewhere
+        assertEquals(23.76f, RdKeyFeedbackRules.pillTextPx(true, 1080, 32f), 0.01f)
+        assertEquals(47.52f, RdKeyFeedbackRules.pillTextPx(true, 2160, 32f), 0.01f)
+        assertEquals(15.84f, RdKeyFeedbackRules.pillTextPx(true, 720, 32f), 0.01f)
+        assertEquals(12f, RdKeyFeedbackRules.pillTextPx(true, 240, 32f), 0.01f)
+        assertEquals(32f, RdKeyFeedbackRules.pillTextPx(false, 1080, 32f), 0.01f)
         assertEquals("1.5×", RdKeyFeedbackRules.rateText(1.5f))
         assertEquals("2×", RdKeyFeedbackRules.rateText(2f))
         assertEquals("0.75×", RdKeyFeedbackRules.rateText(0.75f))
