@@ -446,7 +446,8 @@ open class AudioBrowserAdapter @JvmOverloads constructor(
         private fun rdTvCard() {
             val c = binding.container
             c.background = null
-            c.foreground = null
+            // (View.setForeground is Android 6: every music card of the TV layout crashed on Android TV 5)
+            org.videolan.vlc.util.RdCompat.setForeground(c, null)
             c.minHeight = 0
             binding.mediaCoverContainer.apply {
                 radius = 8.dp.toFloat()

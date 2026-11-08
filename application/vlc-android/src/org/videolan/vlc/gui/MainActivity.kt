@@ -113,6 +113,15 @@ class MainActivity : ContentActivity(),
     }
 
     @SuppressLint("SetTextI18n")
+    /** a link of the update's offer, in the browser when there is one */
+    private fun rdOpenLink(url: String) {
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        } catch (e: android.content.ActivityNotFoundException) {
+            org.videolan.vlc.gui.helpers.UiTools.snacker(this, url)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Util.checkCpuCompatibility(this)
@@ -144,12 +153,9 @@ class MainActivity : ContentActivity(),
             MaterialAlertDialogBuilder(this@MainActivity)
                 .setTitle(getString(R.string.rd_update_available, release.version))
                 .setMessage(getString(R.string.rd_update_you_have, BuildConfig.RD_VERSION_NAME))
-                .setPositiveButton(R.string.download) { _, _ ->
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(release.apkUrl)))
-                }
-                .setNeutralButton(R.string.rd_update_whats_new) { _, _ ->
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(release.pageUrl)))
-                }
+                // (a TV box without a browser: told, not a crash)
+                .setPositiveButton(R.string.download) { _, _ -> rdOpenLink(release.apkUrl) }
+                .setNeutralButton(R.string.rd_update_whats_new) { _, _ -> rdOpenLink(release.pageUrl) }
                 .setNegativeButton(R.string.skip) { _, _ ->
                     settings.putSingle(RdUpdateCheck.KEY_SKIPPED, release.version)
                 }
