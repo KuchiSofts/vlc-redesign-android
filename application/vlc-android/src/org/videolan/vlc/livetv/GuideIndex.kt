@@ -18,7 +18,8 @@ import java.security.MessageDigest
 
 object GuideIndex {
     private const val MAGIC = 0x56544749   // "VTGI"
-    private const val VERSION = 1
+    // (2: the programmes without overlaps; an index of 1 is read again from its guide)
+    private const val VERSION = 2
 
     class Index {
         val lists = HashMap<String, List<Entry>>()
