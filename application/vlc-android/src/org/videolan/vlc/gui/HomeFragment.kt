@@ -220,9 +220,10 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
         pinned = Section(view.findViewById(R.id.rd_home_pinned), R.string.rd_pinned, Kind.FOLDER, null)
         sections = listOf(pinned, continueWatching, listenAgain, folders, favorites, newVideos, newMusic)
         // a folder or a playlist pinned or unpinned anywhere
-        lifecycleScope.launch { Pins.pins(view.context).collect { if (it != null) refresh() } }
+        // (the view's scope: a view made again kept the old one's collectors; the current pins are onStart's refresh)
+        viewLifecycleOwner.lifecycleScope.launch { Pins.pins(view.context).drop(1).collect { if (it != null) refresh() } }
         // moved or hidden in Edit Sidebar
-        lifecycleScope.launch { Pins.layout.drop(1).collect { refresh() } }
+        viewLifecycleOwner.lifecycleScope.launch { Pins.layout.drop(1).collect { refresh() } }
     }
 
     /** The pins, on Home only when the window has no sidebar to show them; in Edit Sidebar's order, the hidden left out */
