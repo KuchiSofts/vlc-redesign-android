@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">விசை அல்லது தொலைக் கட்டுப்பாட்டைப் பயன்படுத்தும்போது</string>
+    <string name="rd_fs_show_controls">கட்டுப்பாடுகளைக் காட்டு</string>
+    <string name="rd_fs_show_progress">முன்னேற்றத்தை மட்டும் காட்டு</string>
+    <string name="rd_fs_show_message">ஒரு செய்தியை மட்டும் காட்டு</string>
+    <string name="rd_fs_seconds">%1$s வி</string>
+    <string name="rd_fs_paused">இடைநிறுத்தப்பட்டது</string>
+    <string name="rd_fs_playing">இயங்குகிறது</string>
+    <string name="rd_fs_info_touch">திரையைத் தொட்டால் கட்டுப்பாடுகள் இன்னும் காட்டப்படும்.</string>
+    <string name="rd_fs_info_tv">OK, மேல், கீழ் அல்லது மெனுவை அழுத்தினால் கட்டுப்பாடுகள் இன்னும் காட்டப்படும்.</string>
+</resources>

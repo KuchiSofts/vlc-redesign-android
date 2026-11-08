@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Þegar þú notar lykil eða fjarstýringuna</string>
+    <string name="rd_fs_show_controls">Sýna stýringarnar</string>
+    <string name="rd_fs_show_progress">Sýna aðeins framvinduna</string>
+    <string name="rd_fs_show_message">Sýna aðeins skilaboð</string>
+    <string name="rd_fs_seconds">%1$s sek.</string>
+    <string name="rd_fs_paused">Í hléi</string>
+    <string name="rd_fs_playing">Í afspilun</string>
+    <string name="rd_fs_info_touch">Stýringarnar birtast samt ef þú snertir skjáinn.</string>
+    <string name="rd_fs_info_tv">Stýringarnar birtast samt ef þú ýtir á OK, Upp, Niður eða Valmynd.</string>
+</resources>

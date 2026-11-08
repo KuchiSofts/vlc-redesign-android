@@ -17,6 +17,17 @@
         <item>-1</item>
     </string-array>
     <!-- deinterlace: -1 Automatic, 0 Off, 1 On -->
+    <!-- #72: what a key or the remote shows in the player -->
+    <string-array name="rd_fs_entries" translatable="false">
+        <item>@string/rd_fs_show_controls</item>
+        <item>@string/rd_fs_show_progress</item>
+        <item>@string/rd_fs_show_message</item>
+    </string-array>
+    <string-array name="rd_fs_values" translatable="false">
+        <item>controls</item>
+        <item>progress</item>
+        <item>message</item>
+    </string-array>
     <string-array name="rd_deinterlace_entries" translatable="false">
         <item>@string/rd_automatic</item>
         <item>@string/rd_off</item>

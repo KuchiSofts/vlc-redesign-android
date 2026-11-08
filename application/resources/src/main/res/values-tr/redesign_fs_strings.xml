@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Bir tuş veya kumanda kullandığınızda</string>
+    <string name="rd_fs_show_controls">Denetimleri göster</string>
+    <string name="rd_fs_show_progress">Yalnızca ilerlemeyi göster</string>
+    <string name="rd_fs_show_message">Yalnızca bir ileti göster</string>
+    <string name="rd_fs_seconds">%1$s sn</string>
+    <string name="rd_fs_paused">Duraklatıldı</string>
+    <string name="rd_fs_playing">Oynatılıyor</string>
+    <string name="rd_fs_info_touch">Ekrana dokunmak denetimleri yine de gösterir.</string>
+    <string name="rd_fs_info_tv">OK, Yukarı, Aşağı veya Menü tuşuna basmak denetimleri yine de gösterir.</string>
+</resources>

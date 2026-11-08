@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Kad lietojat taustiņu vai tālvadības pulti</string>
+    <string name="rd_fs_show_controls">Rādīt vadīklas</string>
+    <string name="rd_fs_show_progress">Rādīt tikai progresu</string>
+    <string name="rd_fs_show_message">Rādīt tikai ziņojumu</string>
+    <string name="rd_fs_seconds">%1$s s</string>
+    <string name="rd_fs_paused">Pauzēts</string>
+    <string name="rd_fs_playing">Atskaņo</string>
+    <string name="rd_fs_info_touch">Pieskaršanās ekrānam joprojām parāda vadīklas.</string>
+    <string name="rd_fs_info_tv">Taustiņa OK, bultiņas uz augšu vai uz leju vai taustiņa Izvēlne nospiešana joprojām parāda vadīklas.</string>
+</resources>

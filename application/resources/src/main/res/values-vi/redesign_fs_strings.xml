@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Khi dùng phím hoặc điều khiển từ xa</string>
+    <string name="rd_fs_show_controls">Hiện nút điều khiển</string>
+    <string name="rd_fs_show_progress">Chỉ hiện tiến độ</string>
+    <string name="rd_fs_show_message">Chỉ hiện thông báo</string>
+    <string name="rd_fs_seconds">%1$s giây</string>
+    <string name="rd_fs_paused">Đã tạm dừng</string>
+    <string name="rd_fs_playing">Đang phát</string>
+    <string name="rd_fs_info_touch">Chạm vào màn hình vẫn hiện nút điều khiển.</string>
+    <string name="rd_fs_info_tv">Nhấn OK, phím Lên, Xuống hoặc Menu vẫn hiện nút điều khiển.</string>
+</resources>

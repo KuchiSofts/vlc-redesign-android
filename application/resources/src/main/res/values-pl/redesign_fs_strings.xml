@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Gdy używasz klawisza lub pilota</string>
+    <string name="rd_fs_show_controls">Pokazuj elementy sterujące</string>
+    <string name="rd_fs_show_progress">Pokazuj tylko postęp</string>
+    <string name="rd_fs_show_message">Pokazuj tylko komunikat</string>
+    <string name="rd_fs_seconds">%1$s s</string>
+    <string name="rd_fs_paused">Pauza</string>
+    <string name="rd_fs_playing">Odtwarzanie</string>
+    <string name="rd_fs_info_touch">Dotknięcie ekranu nadal pokazuje elementy sterujące.</string>
+    <string name="rd_fs_info_tv">Naciśnięcie OK, strzałki w górę lub w dół albo przycisku Menu nadal pokazuje elementy sterujące.</string>
+</resources>

@@ -338,6 +338,9 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     val tipsDelegate: VideoTipsDelegate by lazy(LazyThreadSafetyMode.NONE) { VideoTipsDelegate(this@VideoPlayerActivity) }
     var isTv: Boolean = false
 
+    /** VLC Redesign (#72): what a key, the remote or a gesture shows instead of the controls (the setting) */
+    internal val keyFeedback by lazy { RdKeyFeedback(this) }
+
     private val dialogsDelegate = DialogDelegate()
     private var baseContextWrappingDelegate: AppCompatDelegate? = null
     var waitingForPin = false
@@ -1469,6 +1472,12 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
             KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE, KeyEvent.KEYCODE_MEDIA_PLAY, KeyEvent.KEYCODE_MEDIA_PAUSE, KeyEvent.KEYCODE_SPACE -> {
                 when {
                     isNavMenu -> return navigateDvdMenu(keyCode)
+                    // VLC Redesign (#72): no controls, the pill says it
+                    keyFeedback.active -> {
+                        val playing = service?.isPlaying == true
+                        if (keyCode == KeyEvent.KEYCODE_MEDIA_PLAY && playing || keyCode == KeyEvent.KEYCODE_MEDIA_PAUSE && !playing) keyFeedback.paused(!playing)
+                        else doPlayPause(quiet = true)
+                    }
                     keyCode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE -> return super.onKeyDown(keyCode, event)
                     else -> doPlayPause()
                 }
@@ -1571,7 +1580,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 else if (isLocked) {
                     overlayDelegate.showOverlayTimeout(Settings.videoHudDelay * 1000)
                 } else if (!isShowing && !resizeDelegate.isShowing()) {
-                    doPlayPause()
+                    // VLC Redesign (#72): the keys show their feedback; OK is how the controls are reached
+                    if (keyFeedback.active) overlayDelegate.showOverlay() else doPlayPause()
                     return true
                 }
             }
@@ -1655,6 +1665,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     override fun next() {
         if (service?.hasNext() == true) {
             service?.next()
+            if (keyFeedback.active) { keyFeedback.message(getString(R.string.next)); return }
             overlayDelegate.showInfo(getString(R.string.next), 1000)
             overlayDelegate.showOverlay()
         }
@@ -1663,6 +1674,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     override fun previous() {
         service?.let { service ->
             service.previous(false)
+            if (keyFeedback.active) { keyFeedback.message(getString(R.string.previous)); return }
             overlayDelegate.showInfo(getString(R.string.previous), 1000)
             overlayDelegate.showOverlay()
         }
@@ -1686,14 +1698,17 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
 
     override fun increaseRate() {
         service?.increaseRate()
+        if (keyFeedback.active) service?.let { keyFeedback.rate(it.rate) }
     }
 
     override fun decreaseRate() {
         service?.decreaseRate()
+        if (keyFeedback.active) service?.let { keyFeedback.rate(it.rate) }
     }
 
     override fun resetRate() {
         service?.resetRate()
+        if (keyFeedback.active) service?.let { keyFeedback.rate(it.rate) }
     }
 
     override fun bookmark() {
@@ -2231,7 +2246,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
 
     private fun updateMute() {
         mute(!isMute)
-        overlayDelegate.showInfo(if (isMute) R.string.sound_off else R.string.sound_on, 1000)
+        if (keyFeedback.active) keyFeedback.message(getString(if (isMute) R.string.sound_off else R.string.sound_on))
+        else overlayDelegate.showInfo(if (isMute) R.string.sound_off else R.string.sound_on, 1000)
     }
 
     internal fun changeBrightness(delta: Float) {
@@ -2432,8 +2448,16 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         if (menuIdx >= 0) service?.titleIdx = menuIdx
     }
 
-    fun doPlayPause() {
+    /** [quiet]: a key or a gesture with the setting's feedback (#72): paused without the controls, the pill says it */
+    @JvmOverloads
+    fun doPlayPause(quiet: Boolean = false) {
         if (service?.isPausable != true) return
+        if (quiet && keyFeedback.active) {
+            val playing = service?.isPlaying == true
+            if (playing) pause() else play()
+            keyFeedback.paused(playing)
+            return
+        }
         if (service?.isPlaying == true) {
             overlayDelegate.showOverlayTimeout(OVERLAY_INFINITE)
             pause()

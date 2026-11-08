@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Nuair a úsáideann tú eochair nó an cianrialtán</string>
+    <string name="rd_fs_show_controls">Taispeáin na rialtáin</string>
+    <string name="rd_fs_show_progress">Taispeáin an dul chun cinn amháin</string>
+    <string name="rd_fs_show_message">Taispeáin teachtaireacht amháin</string>
+    <string name="rd_fs_seconds">%1$s soic.</string>
+    <string name="rd_fs_paused">Ar sos</string>
+    <string name="rd_fs_playing">Á sheinm</string>
+    <string name="rd_fs_info_touch">Taispeánann baint leis an scáileán na rialtáin fós.</string>
+    <string name="rd_fs_info_tv">Taispeánann brú ar OK, ar an tsaighead Suas nó Síos, nó ar an gcnaipe Roghchlár na rialtáin fós.</string>
+</resources>

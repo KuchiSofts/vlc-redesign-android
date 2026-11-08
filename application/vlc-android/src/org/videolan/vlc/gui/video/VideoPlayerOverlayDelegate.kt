@@ -489,6 +489,8 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
         player.service?.let { service ->
             if (player.tipsDelegate.currentTip != null) return
             if (player.isInPictureInPictureMode) return
+            // (the controls shown: the feedback of a key gives way to them)
+            player.keyFeedback.onControlsShown()
             initOverlay()
             if (!::hudBinding.isInitialized) return
             overlayTimeout = when {

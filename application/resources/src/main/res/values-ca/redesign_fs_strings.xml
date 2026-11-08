@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Quan feu servir una tecla o el comandament</string>
+    <string name="rd_fs_show_controls">Mostra els controls</string>
+    <string name="rd_fs_show_progress">Mostra només el progrés</string>
+    <string name="rd_fs_show_message">Mostra només un missatge</string>
+    <string name="rd_fs_seconds">%1$s s</string>
+    <string name="rd_fs_paused">En pausa</string>
+    <string name="rd_fs_playing">Reproduint</string>
+    <string name="rd_fs_info_touch">Tocar la pantalla continua mostrant els controls.</string>
+    <string name="rd_fs_info_tv">Prémer OK, Amunt, Avall o Menú continua mostrant els controls.</string>
+</resources>

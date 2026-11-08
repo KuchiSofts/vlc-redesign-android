@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Wanneer u ’n toets of die afstandbeheer gebruik</string>
+    <string name="rd_fs_show_controls">Wys die kontroles</string>
+    <string name="rd_fs_show_progress">Wys slegs die vordering</string>
+    <string name="rd_fs_show_message">Wys slegs ’n boodskap</string>
+    <string name="rd_fs_seconds">%1$s s</string>
+    <string name="rd_fs_paused">Wagtend</string>
+    <string name="rd_fs_playing">Speel tans</string>
+    <string name="rd_fs_info_touch">Om die skerm te raak wys steeds die kontroles.</string>
+    <string name="rd_fs_info_tv">Om OK, Op, Af of Kieslys te druk wys steeds die kontroles.</string>
+</resources>

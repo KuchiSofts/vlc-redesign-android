@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Kad koristite tipku ili daljinski upravljač</string>
+    <string name="rd_fs_show_controls">Prikaži kontrole</string>
+    <string name="rd_fs_show_progress">Prikaži samo napredak</string>
+    <string name="rd_fs_show_message">Prikaži samo poruku</string>
+    <string name="rd_fs_seconds">%1$s s</string>
+    <string name="rd_fs_paused">Pauzirano</string>
+    <string name="rd_fs_playing">Izvodi se</string>
+    <string name="rd_fs_info_touch">Dodir zaslona i dalje prikazuje kontrole.</string>
+    <string name="rd_fs_info_tv">Pritisak na OK, strelicu gore ili dolje ili tipku Izbornik i dalje prikazuje kontrole.</string>
+</resources>

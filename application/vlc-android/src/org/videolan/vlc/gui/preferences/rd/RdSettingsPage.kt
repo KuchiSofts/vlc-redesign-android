@@ -180,6 +180,12 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         }
         if (pref<Preference>(KEY_APP_THEME) != null) setupTheme()
         pref<Preference>("default_sleep_timer")?.let { manageSleepTimerSummary() }
+        // (#72) what still shows the controls: touching the screen on a phone or a tablet (the row's help), the
+        // remote's keys on a TV (a note under the row: the TV's rows have no help, as the Samsung TV app's)
+        if (Settings.showTvUi) {
+            pref<RdListPreference>(org.videolan.vlc.gui.video.RdKeyFeedbackRules.KEY)?.help = null
+            pref<Preference>(org.videolan.vlc.gui.video.RdKeyFeedbackRules.KEY + "_note")?.isVisible = true
+        }
         // Video
         if (page == RdPage.VIDEO && settings.getBoolean(PREF_SHOW_VIDEO_SETTINGS_DISCLAIMER, false)) {
             UiTools.snackerConfirm(requireActivity(), requireActivity().getString(R.string.video_settings_disclaimer), indefinite = true) {

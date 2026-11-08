@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Kai naudojate klavišą ar nuotolinio valdymo pultą</string>
+    <string name="rd_fs_show_controls">Rodyti valdiklius</string>
+    <string name="rd_fs_show_progress">Rodyti tik eigą</string>
+    <string name="rd_fs_show_message">Rodyti tik pranešimą</string>
+    <string name="rd_fs_seconds">%1$s sek.</string>
+    <string name="rd_fs_paused">Pristabdyta</string>
+    <string name="rd_fs_playing">Grojama</string>
+    <string name="rd_fs_info_touch">Palietus ekraną valdikliai vis tiek rodomi.</string>
+    <string name="rd_fs_info_tv">Paspaudus OK, rodyklę aukštyn ar žemyn arba mygtuką „Meniu“ valdikliai vis tiek rodomi.</string>
+</resources>

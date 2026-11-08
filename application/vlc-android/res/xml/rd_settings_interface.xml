@@ -50,6 +50,19 @@
             app:min="1"
             app:seekBarIncrement="1"
             app:updatesContinuously="true" />
+        <!-- #72: what a key, the remote or a gesture shows (RdKeyFeedback), the same choices as the desktop's -->
+        <org.videolan.vlc.gui.preferences.rd.RdListPreference
+            android:defaultValue="controls"
+            android:entries="@array/rd_fs_entries"
+            android:entryValues="@array/rd_fs_values"
+            android:key="rd_key_feedback"
+            android:summary="@string/rd_fs_info_touch"
+            android:title="@string/rd_fs_when_key" />
+        <!-- (#72, a TV) the remote's keys that still show the controls, under the row (RdSettingsPage shows it) -->
+        <org.videolan.vlc.gui.preferences.rd.RdNotePreference
+            android:key="rd_key_feedback_note"
+            android:title="@string/rd_fs_info_tv"
+            app:isPreferenceVisible="false" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="video_transition_show"

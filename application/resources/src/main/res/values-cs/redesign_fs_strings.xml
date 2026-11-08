@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Při použití klávesy nebo dálkového ovládání</string>
+    <string name="rd_fs_show_controls">Zobrazit ovládací prvky</string>
+    <string name="rd_fs_show_progress">Zobrazit jen průběh</string>
+    <string name="rd_fs_show_message">Zobrazit jen zprávu</string>
+    <string name="rd_fs_seconds">%1$s s</string>
+    <string name="rd_fs_paused">Pozastaveno</string>
+    <string name="rd_fs_playing">Přehrávání</string>
+    <string name="rd_fs_info_touch">Klepnutím na obrazovku se ovládací prvky stále zobrazí.</string>
+    <string name="rd_fs_info_tv">Stiskem OK, šipky nahoru či dolů nebo tlačítka Menu se ovládací prvky stále zobrazí.</string>
+</resources>

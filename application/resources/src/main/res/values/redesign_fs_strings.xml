@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player instead of the controls
+     (Settings > Interface > Playback Controls; RdKeyFeedback), the desktop's and the Samsung TV app's words -->
+<resources>
+    <string name="rd_fs_when_key">When you use a key or the remote</string>
+    <string name="rd_fs_show_controls">Show the controls</string>
+    <string name="rd_fs_show_progress">Show only the progress</string>
+    <string name="rd_fs_show_message">Show only a message</string>
+    <!-- the line under the setting: a phone or a tablet, Android TV -->
+    <string name="rd_fs_info_touch">Touching the screen still shows the controls.</string>
+    <string name="rd_fs_info_tv">Pressing OK, Up, Down or Menu still shows the controls.</string>
+    <!-- the pill: a seek of a few seconds ("+10 s"), play and pause -->
+    <string name="rd_fs_seconds">%1$s s</string>
+    <string name="rd_fs_paused">Paused</string>
+    <string name="rd_fs_playing">Playing</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">عند استخدام مفتاح أو جهاز التحكم عن بُعد</string>
+    <string name="rd_fs_show_controls">إظهار عناصر التحكم</string>
+    <string name="rd_fs_show_progress">إظهار التقدم فقط</string>
+    <string name="rd_fs_show_message">إظهار رسالة فقط</string>
+    <string name="rd_fs_seconds">%1$s ث</string>
+    <string name="rd_fs_paused">متوقف مؤقتًا</string>
+    <string name="rd_fs_playing">جارٍ التشغيل</string>
+    <string name="rd_fs_info_touch">لمس الشاشة لا يزال يُظهر عناصر التحكم.</string>
+    <string name="rd_fs_info_tv">الضغط على OK أو أعلى أو أسفل أو القائمة لا يزال يُظهر عناصر التحكم.</string>
+</resources>

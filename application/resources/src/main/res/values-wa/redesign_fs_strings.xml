@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Cwand vos eployîz ene tape ou l\' comande a distance</string>
+    <string name="rd_fs_show_controls">Mostrer les controles</string>
+    <string name="rd_fs_show_progress">Mostrer seulmint l\' avançmint</string>
+    <string name="rd_fs_show_message">Mostrer seulmint on messaedje</string>
+    <string name="rd_fs_seconds">%1$s s</string>
+    <string name="rd_fs_paused">Djoké</string>
+    <string name="rd_fs_playing">Djouwaedje</string>
+    <string name="rd_fs_info_touch">Toûtchî l\' waitroûle mostere todi les controles.</string>
+    <string name="rd_fs_info_tv">Tchoûkî so OK, Amont, Avå ou Menu mostere todi les controles.</string>
+</resources>

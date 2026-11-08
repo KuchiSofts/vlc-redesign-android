@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Billentyű vagy a távirányító használatakor</string>
+    <string name="rd_fs_show_controls">A vezérlők megjelenítése</string>
+    <string name="rd_fs_show_progress">Csak az előrehaladás megjelenítése</string>
+    <string name="rd_fs_show_message">Csak egy üzenet megjelenítése</string>
+    <string name="rd_fs_seconds">%1$s mp</string>
+    <string name="rd_fs_paused">Szüneteltetve</string>
+    <string name="rd_fs_playing">Lejátszás</string>
+    <string name="rd_fs_info_touch">A képernyő megérintése továbbra is megjeleníti a vezérlőket.</string>
+    <string name="rd_fs_info_tv">Az OK, a Fel, a Le vagy a Menü gomb megnyomása továbbra is megjeleníti a vezérlőket.</string>
+</resources>

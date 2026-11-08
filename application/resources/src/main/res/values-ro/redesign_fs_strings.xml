@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Când folosești o tastă sau telecomanda</string>
+    <string name="rd_fs_show_controls">Afișează comenzile</string>
+    <string name="rd_fs_show_progress">Afișează doar progresul</string>
+    <string name="rd_fs_show_message">Afișează doar un mesaj</string>
+    <string name="rd_fs_seconds">%1$s s</string>
+    <string name="rd_fs_paused">În pauză</string>
+    <string name="rd_fs_playing">Redare</string>
+    <string name="rd_fs_info_touch">Atingerea ecranului afișează în continuare comenzile.</string>
+    <string name="rd_fs_info_tv">Apăsarea OK, Sus, Jos sau Meniu afișează în continuare comenzile.</string>
+</resources>
