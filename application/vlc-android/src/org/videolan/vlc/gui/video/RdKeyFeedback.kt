@@ -83,6 +83,10 @@ object RdKeyFeedbackRules {
     fun seekPill(total: Long, position: Long, length: Long, seconds: (String) -> String, ltr: (String) -> String): String =
         seekText(total, seconds, ltr) + "  " + ltr(timeText(position) + if (length > 0) " / " + timeText(length) else "")
 
+    /** the pill's text in pixels: on a TV 2.2 % of the screen's height (24 px at 1080p, never under 12), else [sp16] */
+    fun pillTextPx(tv: Boolean, screenHeightPx: Int, sp16: Float): Float =
+        if (tv) maxOf(screenHeightPx * 0.022f, 12f) else sp16
+
     /** "1.5×", "2×", "0.75×" */
     fun rateText(rate: Float): String {
         val r = (rate * 100).roundToInt() / 100f
@@ -152,15 +156,16 @@ class RdKeyFeedback(private val player: VideoPlayerActivity) {
         r.addView(l, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(28f), Gravity.BOTTOM))
         val p = TextView(player).apply {
             id = R.id.rd_fs_pill
-            setTextColor(0xFFFFFFFF.toInt())
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
+            // (the Samsung TV app's pill: #EAEAEA on #1F1F1F at 92 %, a 1 px #4C4A48 edge, fully rounded)
+            setTextColor(0xFFEAEAEA.toInt())
             try { typeface = ResourcesCompat.getFont(player, R.font.inter) } catch (e: Exception) { }
-            setPadding(dp(14f), dp(7f), dp(14f), dp(7f))
-            background = GradientDrawable().apply { cornerRadius = dp(18f).toFloat(); setColor(0xB8000000.toInt()) }
+            includeFontPadding = false
+            background = GradientDrawable().apply { setColor(0xEB1F1F1F.toInt()) }
             maxLines = 1
             visibility = View.GONE
             textDirection = View.TEXT_DIRECTION_LOCALE
         }
+        sizePill(p)
         r.addView(p, FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER_HORIZONTAL))
         parent.addView(r, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
         root = r
@@ -174,12 +179,9 @@ class RdKeyFeedback(private val player: VideoPlayerActivity) {
         val l = line ?: return
         val progress = mode == RdKeyFeedbackRules.PROGRESS
         // the pill above the line, or alone at the top (out of the subtitles' way)
-        (p.layoutParams as FrameLayout.LayoutParams).apply {
-            // (at the top centre: never over the subtitles; inside a TV's safe area)
-            gravity = Gravity.CENTER_HORIZONTAL or Gravity.TOP
-            topMargin = dp(if (player.isTv) 40f else 28f)
-            p.layoutParams = this
-        }
+        // (at the top centre: never over the subtitles; inside a TV's safe area. Sized again: the window may have
+        // changed, a phone turned)
+        sizePill(p)
         p.text = text
         p.visibility = View.VISIBLE
         p.alpha = 1f
@@ -194,6 +196,30 @@ class RdKeyFeedback(private val player: VideoPlayerActivity) {
         player.rootView?.announceForAccessibility(text)
         p.removeCallbacks(hide)
         p.postDelayed(hide, RdKeyFeedbackRules.SHOWN_MS)
+    }
+
+    /**
+     * The pill's size: on a TV its text is 2.2 % of the screen's height (24 px at 1080p, the Samsung TV app's: read
+     * from a sofa, whatever the scale the app draws a TV at), on a phone or a tablet 16 sp; its padding, corners, edge
+     * and distance from the top in proportion, as the Samsung TV app's pill (15 / 36 high, 18 each side, 32 down).
+     */
+    private fun sizePill(p: TextView) {
+        val m = player.resources.displayMetrics
+        val text = RdKeyFeedbackRules.pillTextPx(player.isTv, minOf(m.widthPixels, m.heightPixels),
+            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16f, m))
+        p.setTextSize(TypedValue.COMPLEX_UNIT_PX, text)
+        val padH = (text * 1.2f).roundToInt()
+        val padV = (text * 0.6f).roundToInt()
+        p.setPadding(padH, padV, padH, padV)
+        (p.background as? GradientDrawable)?.apply {
+            cornerRadius = text * 1.2f
+            setStroke(maxOf(1, (text / 15f).roundToInt()), 0xFF4C4A48.toInt())
+        }
+        (p.layoutParams as? FrameLayout.LayoutParams)?.let { lp ->
+            lp.gravity = Gravity.CENTER_HORIZONTAL or Gravity.TOP
+            lp.topMargin = if (player.isTv) (text * 32f / 15f).roundToInt() else dp(28f)
+            p.layoutParams = lp
+        }
     }
 
     private fun updateLine() {
