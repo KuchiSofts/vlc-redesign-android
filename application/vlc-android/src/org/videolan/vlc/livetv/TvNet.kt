@@ -92,7 +92,8 @@ object TvNet {
      * Saves the resource at address (http(s), file, content) to file, as it is; progress gets the bytes received
      * and the size when known (-1). The file is replaced only once the whole of it came.
      */
-    fun download(context: Context, address: String, file: File, cancel: AtomicBoolean?, auth: TvAuth? = null, progress: ((Long, Long) -> Unit)? = null) {
+    fun download(context: Context, address: String, file: File, cancel: AtomicBoolean?, auth: TvAuth? = null, maxBytes: Long = MAX_DOWNLOAD,
+                 progress: ((Long, Long) -> Unit)? = null) {
         file.parentFile?.mkdirs()
         val tmp = File(file.path + ".part")
         try {
@@ -108,6 +109,8 @@ object TvNet {
                         if (n < 0) break
                         out.write(buf, 0, n)
                         received += n
+                        // (a live stream given as a playlist never ends: the worker was held for ever, the disk filled)
+                        if (received > maxBytes) throw IOException("the file is too large")
                         if (progress != null && received - lastReport > 256 * 1024) {
                             lastReport = received
                             progress(received, total)
@@ -145,7 +148,15 @@ object TvNet {
     /* The secrets: AES-GCM with a key of the Android keystore (never leaves it) */
     private const val KEY_ALIAS = "vlc_redesign_livetv"
 
-    private fun key(): SecretKey? = if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) null // (keystore AES: Android 6)
+    /** the largest playlist or guide downloaded (a guide of every country is about 500 MB) */
+    const val MAX_DOWNLOAD = 768L shl 20
+
+    /** what the keystore gave (loaded once: it was loaded again for every secret of every source) */
+    @Volatile private var keyCache: SecretKey? = null
+
+    private fun key(): SecretKey? = keyCache ?: loadKey()?.also { keyCache = it }
+
+    private fun loadKey(): SecretKey? = if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) null // (keystore AES: Android 6)
     else try {
         val ks = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
         (ks.getKey(KEY_ALIAS, null) as? SecretKey) ?: KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore").run {
@@ -159,9 +170,13 @@ object TvNet {
         null
     }
 
+    /** kept without the keystore (Android 5, a keystore that fails): in the app's own storage, never empty (an
+     *  M3U source's link was saved empty there, and gone after the next start) */
+    private const val PLAIN = "p:"
+
     fun encrypt(text: String): String {
         if (text.isEmpty()) return ""
-        val k = key() ?: return ""
+        val k = key() ?: return PLAIN + Base64.encodeToString(text.toByteArray(Charsets.UTF_8), Base64.NO_WRAP)
         return try {
             val cipher = Cipher.getInstance("AES/GCM/NoPadding")
             cipher.init(Cipher.ENCRYPT_MODE, k)
@@ -169,12 +184,13 @@ object TvNet {
             val data = cipher.doFinal(text.toByteArray(Charsets.UTF_8))
             Base64.encodeToString(iv, Base64.NO_WRAP) + ":" + Base64.encodeToString(data, Base64.NO_WRAP)
         } catch (e: Exception) {
-            ""
+            PLAIN + Base64.encodeToString(text.toByteArray(Charsets.UTF_8), Base64.NO_WRAP)
         }
     }
 
     fun decrypt(text: String): String {
         if (text.isEmpty()) return ""
+        if (text.startsWith(PLAIN)) return try { String(Base64.decode(text.substring(PLAIN.length), Base64.NO_WRAP), Charsets.UTF_8) } catch (e: Exception) { "" }
         val k = key() ?: return ""
         return try {
             val iv = Base64.decode(text.substringBefore(':'), Base64.NO_WRAP)

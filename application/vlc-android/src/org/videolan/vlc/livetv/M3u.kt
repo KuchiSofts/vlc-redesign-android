@@ -9,7 +9,6 @@
  */
 package org.videolan.vlc.livetv
 
-import android.net.Uri
 import java.io.BufferedReader
 import java.io.Reader
 import java.net.URI
@@ -146,7 +145,7 @@ object M3u {
         while (true) {
             var line = reader.readLine() ?: break
             if (first) {
-                if (line.startsWith("﻿")) line = line.substring(1)
+                if (line.startsWith("\uFEFF")) line = line.substring(1)
                 first = false
             }
             line = line.trim()
@@ -204,7 +203,7 @@ object M3u {
             // the address of the pending entry (or a bare address)
             val channel = if (havePending) pending else Channel()
             channel.url = resolve(line, base)
-            if (channel.name.isEmpty()) channel.name = Uri.parse(channel.url).lastPathSegment ?: channel.url
+            if (channel.name.isEmpty()) channel.name = lastSegment(channel.url) ?: channel.url
             if (channel.catchup == CatchupMode.FLUSSONIC && !looksFlussonic(channel.url))
                 channel.catchup = if (channel.catchupDays > 0) CatchupMode.APPEND else CatchupMode.NONE
             if (channel.catchup != CatchupMode.NONE && channel.catchupDays <= 0) channel.catchupDays = 7
@@ -218,6 +217,17 @@ object M3u {
     }
 
     fun parse(text: String, base: String = "") = parse(text.reader(), base)
+
+    /** "http://host/live/Channel%201.ts?token=x" -> "Channel 1.ts": the name of a bare address (as android.net.Uri's
+     *  lastPathSegment, without it: the parser runs on the unit tests' JVM too), null when it has no path */
+    fun lastSegment(url: String): String? {
+        var path = url.substringBefore('#').substringBefore('?')
+        val scheme = path.indexOf("://")
+        if (scheme >= 0) path = path.substring(scheme + 3).let { rest -> rest.indexOf('/').let { if (it < 0) "" else rest.substring(it) } }
+        val segment = path.trimEnd('/').substringAfterLast('/')
+        if (segment.isEmpty()) return null
+        return try { java.net.URLDecoder.decode(segment.replace("+", "%2B"), "UTF-8") } catch (e: Exception) { segment }
+    }
 
     /**
      * The address that plays the channel from start for durationSecs, or "" when the channel has no catch-up

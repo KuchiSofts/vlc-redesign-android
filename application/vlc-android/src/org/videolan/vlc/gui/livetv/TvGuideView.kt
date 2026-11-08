@@ -308,7 +308,8 @@ internal class TvGuideView(context: Context, private val onPlay: (TvChannel) -> 
             val dst = Rect((box.centerX() - bw / 2).toInt(), (box.centerY() - bh / 2).toInt(), (box.centerX() + bw / 2).toInt(), (box.centerY() + bh / 2).toInt())
             canvas.drawBitmap(bmp, null, dst, paint)
         } else {
-            if (c.logo.isNotEmpty()) TvLogos.get(context, c.logo, context.tvPx(72f)) { if (it != null) invalidate() }
+            // (the view not held while the logo comes: a slow host kept a closed guide)
+            if (c.logo.isNotEmpty()) { val ref = java.lang.ref.WeakReference(this); TvLogos.get(context, c.logo, context.tvPx(72f)) { if (it != null) ref.get()?.invalidate() } }
             small.color = cFgA3
             val ini = TvLogos.initials(c.name)
             canvas.drawText(ini, rect.centerX() - small.measureText(ini) / 2, rect.centerY() + d(4f), small)

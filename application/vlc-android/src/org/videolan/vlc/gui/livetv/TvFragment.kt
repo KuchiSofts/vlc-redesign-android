@@ -195,7 +195,11 @@ class TvFragment : BaseFragment(), Filterable {
                 launch { LiveTv.state.collect { refresh(it) } }
                 launch { LiveTv.favorites.collect { refresh() } }
                 launch { TvPlayback.current.collect { adapter.tick(); guide.invalidate() } }
-                launch { LiveTv.messages.collect { m -> m?.let { activity?.let { a -> org.videolan.vlc.gui.helpers.UiTools.snacker(a, it.second) } } } }
+                launch {
+                    LiveTv.messages.collect { m ->
+                        if (m != null && android.os.SystemClock.elapsedRealtime() - m.first < 3000) activity?.let { a -> org.videolan.vlc.gui.helpers.UiTools.snacker(a, m.second) }
+                    }
+                }
                 // the clock: what is on and its progress
                 launch { while (true) { delay(30_000); adapter.tick(); guide.invalidate() } }
             }
@@ -267,6 +271,14 @@ class TvFragment : BaseFragment(), Filterable {
     }
 
     /** "The id of BBC One in the guide": the channel's id as its guide names it ("BBCOne.uk") */
+    private var openDialog: android.app.Dialog? = null
+
+    override fun onDestroyView() {
+        openDialog?.dismiss()
+        openDialog = null
+        super.onDestroyView()
+    }
+
     private fun editGuideId(c: TvChannel) {
         val ctx = requireContext()
         val field = ctx.tvField(c.channel.tvgId.ifEmpty { "BBCOne.uk" }).apply {
@@ -286,6 +298,8 @@ class TvFragment : BaseFragment(), Filterable {
             .setNegativeButton(R.string.cancel, null)
             .show()
         org.videolan.vlc.gui.helpers.RdTvFocusRing.attach(d.window)
+        // (closed with the page: a rotation leaked its window)
+        openDialog = d
     }
 
     private fun refresh(state: TvState = LiveTv.state.value) {

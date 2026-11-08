@@ -223,7 +223,7 @@ object TvAccounts {
         return TvCheck(TvCheckState.SIGNED_IN, user?.optString("Name")?.trim()?.ifEmpty { null } ?: fallbackUser, token, user?.optString("Id") ?: "")
     }
 
-    private fun jfCheck(a: TvAccount, progress: ((TvCheck) -> Unit)?): TvCheck {
+    private fun jfCheck(a: TvAccount, progress: ((TvCheck) -> Unit)?, cancel: java.util.concurrent.atomic.AtomicBoolean? = null): TvCheck {
         if (a.username.isNotEmpty()) {
             val r = http(TvRequest(a.address + "/Users/AuthenticateByName", "POST", jfHeaders(),
                 JSONObject().put("Username", a.username).put("Pw", a.password).toString()))
@@ -236,6 +236,8 @@ object TvAccounts {
         if (secret.isEmpty()) return TvCheck(if (stateOf(r) == TvCheckState.REFUSED) TvCheckState.REFUSED else TvCheckState.NO_ANSWER)
         progress?.invoke(TvCheck(TvCheckState.CODE, code = o?.optString("Code") ?: ""))
         repeat(pollTries) {
+            // (the dialog closed: no more asking, nothing held)
+            if (cancel?.get() == true) return TvCheck(TvCheckState.NO_ANSWER)
             val s = http(TvRequest(a.address + "/QuickConnect/Connect?secret=" + enc(secret), headers = jfHeaders()))
             if (s.status == 404) return TvCheck(TvCheckState.NO_ANSWER)
             if (s.ok && json(s)?.optBoolean("Authenticated") == true) {
@@ -590,7 +592,8 @@ object TvAccounts {
     }
 
     private fun checkM3u(url: String, auth: TvAuth?): TvCheck {
-        val r = http(TvRequest(url, auth = auth, timeoutMs = 20_000, limit = 64 shl 20))
+        // (its start only: a 60 MB list isn't read whole for a Test)
+        val r = http(TvRequest(url, auth = auth, timeoutMs = 20_000, limit = 64 shl 10, truncate = true))
         if (r.ok) return TvCheck(if (auth != null && !auth.isEmpty) TvCheckState.SIGNED_IN else TvCheckState.WORKS, auth?.user ?: "")
         return TvCheck(if (r.status == 401) (if (auth != null && !auth.isEmpty) TvCheckState.WRONG else TvCheckState.REFUSED) else stateOf(r))
     }
@@ -607,9 +610,9 @@ object TvAccounts {
     /* ---- the types ---- */
 
     /** Sign in / Test: one request (a sign-in in steps tells its way: Quick Connect's code). */
-    fun check(typeId: String, a: TvAccount, progress: ((TvCheck) -> Unit)? = null): TvCheck = try {
+    fun check(typeId: String, a: TvAccount, progress: ((TvCheck) -> Unit)? = null, cancel: java.util.concurrent.atomic.AtomicBoolean? = null): TvCheck = try {
         when (typeId) {
-            "jellyfin" -> jfCheck(a, progress)
+            "jellyfin" -> jfCheck(a, progress, cancel)
             "emby" -> embyCheck(a)
             "tvheadend" -> checkM3u(tvheadend(a).playlist, authOf(typeId, a))
             "nextpvr" -> npSession(a).let { if (it.state == TvCheckState.SIGNED_IN) TvCheck(TvCheckState.WORKS) else it }

@@ -63,8 +63,17 @@ object LiveTv {
     private val prefs: SharedPreferences by lazy { app.getSharedPreferences("livetv", Context.MODE_PRIVATE) }
     private val settings: SharedPreferences get() = Settings.getInstance(app)
 
-    private var worker: ScheduledExecutorService? = null
-    private var quit = AtomicBoolean(false)
+    @Volatile private var worker: ScheduledExecutorService? = null
+    /** the flag of the worker started last; a job checks its own worker's (below) */
+    @Volatile private var current = AtomicBoolean(false)
+
+    /** a worker's thread, with its worker's stop flag */
+    private class Worker(r: Runnable, val stopped: AtomicBoolean) : Thread(r, "LiveTv") {
+        init { priority = NORM_PRIORITY - 1 }
+    }
+
+    /** the stop flag of the job running: its worker's (one turned off and on again doesn't revive an old job) */
+    private val quit: AtomicBoolean get() = (Thread.currentThread() as? Worker)?.stopped ?: current
     private val lock = Any()
 
     private class SourceState {
@@ -123,7 +132,8 @@ object LiveTv {
     fun init(context: Context) {
         if (::app.isInitialized) return
         app = context.applicationContext
-        _favorites.value = prefs.getString("favorites", "")!!.split('\n').filter { it.isNotEmpty() }
+        // the favourites read off the main thread (this runs in Application.onCreate, Live TV used or not)
+        Thread({ loadFavorites() }, "LiveTv-init").start()
     }
 
     val isInitialized get() = ::app.isInitialized
@@ -140,12 +150,14 @@ object LiveTv {
     @Synchronized
     fun start() {
         if (!enabled || worker != null) return
-        quit = AtomicBoolean(false)
-        val w = Executors.newSingleThreadScheduledExecutor { r -> Thread(r, "LiveTv").apply { priority = Thread.NORM_PRIORITY - 1 } }
+        val q = AtomicBoolean(false)
+        current = q
+        val w = Executors.newSingleThreadScheduledExecutor { r -> Worker(r, q) }
         worker = w
-        w.execute { startup() }
+        // (an exception there stopped the start, or every later update, silently: "Loading channels" for ever)
+        w.execute { guarded { startup() } }
         // the updates of the sources, by the interval of Settings > TV
-        w.scheduleWithFixedDelay({ refreshDue() }, 30, 30, TimeUnit.MINUTES)
+        w.scheduleWithFixedDelay({ guarded { refreshDue() } }, 30, 30, TimeUnit.MINUTES)
     }
 
     /** The add-on switched off: its thread stops, what it held is let go (the cache stays on disk). */
@@ -153,20 +165,27 @@ object LiveTv {
     fun stop() {
         val w = worker ?: return
         worker = null
-        quit.set(true)
+        current.set(true)
         w.shutdownNow()
         synchronized(lock) {
             sources.clear(); states.clear(); guides.clear()
+            // (the channels and their guide let go too: they were kept until the next start)
+            lastChannels = emptyList(); isLoaded = false
+            _state.value = TvState(revision = ++revision)
         }
-        _state.value = TvState(revision = ++revision)
+        synchronized(matchTables) { matchTables.clear() }
+        descriptions.evictAll()
+    }
+
+    /** a job of the worker: its failure (an OutOfMemoryError of a huge list too) logged, never the worker's end */
+    private fun guarded(job: () -> Unit) {
+        try { job() } catch (e: CancelledException) { } catch (e: Throwable) { Log.w(TAG, "a job failed", e) }
     }
 
     private fun post(job: () -> Unit) {
         val w = worker ?: return
         try {
-            w.execute {
-                try { job() } catch (e: CancelledException) { } catch (e: Throwable) { Log.w(TAG, "a job failed", e) }
-            }
+            w.execute { guarded(job) }
         } catch (e: Exception) { }
     }
 
@@ -396,8 +415,7 @@ object LiveTv {
             val st = synchronized(lock) { states.getOrPut(id) { SourceState().also { if (cfg.autoGuide != null) it.autoKeys = readAutoKeys(id) } } }
             st.busy = true; st.stage = "playlist"; st.received = 0
             publish()
-            val ok = loadPlaylist(cfg, true, st)
-            st.busy = false; st.stage = ""
+            val ok = try { loadPlaylist(cfg, true, st) } finally { st.busy = false; st.stage = "" }
             // what the app saw of a catalog entry: works (its channels), else one more failure
             if (cfg.catalogId.isNotEmpty()) setCatalogHealth(cfg.catalogId, ok && st.channels.isNotEmpty(), st.channels.size)
             publish()
@@ -408,9 +426,15 @@ object LiveTv {
         for (id in ids) autoGuideIfDue(id)
     }
 
+    @Volatile private var lastProgress = 0L
+
     private fun progress(id: String, stage: String, received: Long) {
         val st = synchronized(lock) { states[id] } ?: return
         st.busy = true; st.stage = stage; st.received = received
+        // (a 100 MB guide reported every 256 KB: 400 states, each a rebuild of the pages that show them)
+        val now = SystemClock.elapsedRealtime()
+        if (now - lastProgress < 500) return
+        lastProgress = now
         publish()
     }
 
@@ -709,6 +733,15 @@ object LiveTv {
             dir.listFiles()?.forEach { f ->
                 if (f.name.endsWith(".desc") && bases.contains(f.name.substringBefore('-')) && !inUse.contains(f.name)) f.delete()
             }
+            // the files of guides no source has any more (removed, turned off, a catalog guide only tried): 50 to
+            // 500 MB each, kept for ever before
+            if (onlySources.isEmpty() && filter.keys.isNotEmpty() && !quit.get()) {
+                val keep = wanted.map { TvNet.hashOf(it.url) }.toSet()
+                dir.listFiles()?.forEach { f ->
+                    val base = f.name.substringBefore('.').substringBefore('-')
+                    if (base !in keep && (f.name.endsWith(".xmltv") || f.name.endsWith(".idx") || f.name.endsWith(".desc") || f.name.endsWith(".part"))) f.delete()
+                }
+            }
         }
     }
 
@@ -793,8 +826,8 @@ object LiveTv {
                     st?.autoBusy == true, st?.autoNone == true, guideStatuses, if (s.kind == "account") s.server else ""))
             }
             for (g in guides.values) languages.addAll(g.languages)
+            _state.value = TvState(revision, isLoaded, lastChannels, statuses, languages)
         }
-        _state.value = TvState(revision, isLoaded, lastChannels, statuses, languages)
     }
 
     /* Accounts, guides, the automatic guide, the catalog's health */
@@ -864,7 +897,7 @@ object LiveTv {
     }
 
     /** Sign in / Test of an account (a new one, or one added): its answer kept for its row; a token kept. */
-    fun checkAccount(config: SourceConfig, progress: (TvCheck) -> Unit, done: (TvCheck) -> Unit) {
+    fun checkAccount(config: SourceConfig, progress: (TvCheck) -> Unit, cancel: AtomicBoolean? = null, done: (TvCheck) -> Unit) {
         start()
         val id = config.id
         synchronized(lock) { states[id]?.let { it.checking = true } }
@@ -879,7 +912,10 @@ object LiveTv {
                 if (a.key.isEmpty()) a.key = kept.key
                 if (a.code.isEmpty()) a.code = kept.code
             }
-            val r = TvAccounts.check(config.accountType, a, progress)
+            val r = try { TvAccounts.check(config.accountType, a, progress, cancel) } catch (e: Throwable) {
+                Log.w(TAG, "a sign-in failed: ${e.javaClass.simpleName}")
+                TvCheck(TvCheckState.NO_ANSWER)
+            }
             synchronized(lock) {
                 states[id]?.let { it.checking = false; it.check = r; it.refused = r.state == TvCheckState.WRONG || r.state == TvCheckState.REFUSED }
                 if (r.token.isNotEmpty()) sources.firstOrNull { it.id == id }?.let { it.token = r.token; it.userId = r.userId; it.tokenUntil = r.tokenUntil }
@@ -1166,6 +1202,25 @@ object LiveTv {
         return GuideIndex.readDescription(channel.descPath, e.descOffset, e.descLength).also { descriptions.put(key, it) }
     }
 
+    private val descriptionReader = java.util.concurrent.Executors.newSingleThreadExecutor { r -> Thread(r, "LiveTv-descriptions").apply { priority = Thread.NORM_PRIORITY - 1 } }
+    private val mainHandler by lazy { android.os.Handler(android.os.Looper.getMainLooper()) }
+
+    /**
+     * The description of a programme for the interface: at once when it was read already, else read on a thread of
+     * its own and given to [done] on the main thread (read on the main thread, a list of channels took a third of a
+     * second at the start)
+     */
+    fun description(channel: TvChannel, e: Entry, done: (String) -> Unit): String? {
+        if (e.descLength <= 0) return ""
+        val key = channel.descPath + ":" + e.descOffset
+        descriptions.get(key)?.let { return it }
+        descriptionReader.execute {
+            val text = try { description(channel, e) } catch (t: Throwable) { "" }
+            mainHandler.post { done(text) }
+        }
+        return null
+    }
+
     /** The guides read again (their days or languages changed in the settings). */
     fun reloadGuides() {
         if (worker == null) return
@@ -1189,9 +1244,22 @@ object LiveTv {
 
     /* Favourites, the channels watched last, the last one */
 
+    @Volatile private var favoritesLoaded = false
+
+    /** the favourites read once (a toggle before the start's reading reads them first: none lost) */
+    private fun loadFavorites() {
+        if (favoritesLoaded) return
+        synchronized(_favorites) {
+            if (favoritesLoaded) return
+            _favorites.value = try { prefs.getString("favorites", "")!!.split('\n').filter { it.isNotEmpty() } } catch (e: Exception) { emptyList() }
+            favoritesLoaded = true
+        }
+    }
+
     fun isFavorite(key: String) = _favorites.value.contains(key)
 
     fun toggleFavorite(key: String) {
+        loadFavorites()
         val list = _favorites.value.toMutableList()
         if (!list.remove(key)) list.add(key)
         _favorites.value = list
@@ -1213,16 +1281,22 @@ object LiveTv {
 
     data class Reminder(val key: String, val start: Long, val title: String)
 
-    val reminders: List<Reminder> get() = (prefs.getString("reminders", "") ?: "").split('\n').mapNotNull {
+    /** (read once, kept with every change: the guide asked for every future programme on every frame) */
+    @Volatile private var remindersCache: List<Reminder>? = null
+
+    private fun allReminders(): List<Reminder> = remindersCache ?: (prefs.getString("reminders", "") ?: "").split('\n').mapNotNull {
         val p = it.split('\t')
         if (p.size == 3) Reminder(p[0], p[1].toLongOrNull() ?: 0, p[2]) else null
-    }.filter { it.start > System.currentTimeMillis() / 1000 - 600 }
+    }.also { remindersCache = it }
 
-    fun hasReminder(key: String, start: Long) = reminders.any { it.key == key && it.start == start }
+    val reminders: List<Reminder> get() = allReminders().filter { it.start > System.currentTimeMillis() / 1000 - 600 }
+
+    fun hasReminder(key: String, start: Long) = allReminders().any { it.key == key && it.start == start }
 
     fun toggleReminder(key: String, start: Long, title: String) {
         val list = reminders.toMutableList()
         if (!list.removeAll { it.key == key && it.start == start }) list.add(Reminder(key, start, title.replace('\t', ' ').replace('\n', ' ')))
+        remindersCache = list
         prefs.edit { putString("reminders", list.joinToString("\n") { "${it.key}\t${it.start}\t${it.title}" }) }
     }
 
