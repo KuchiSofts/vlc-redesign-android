@@ -1245,7 +1245,11 @@ class PlaybackService : MediaBrowserServiceCompat(), LifecycleOwner, CoroutineSc
                     }
                     else -> {
                         //The media id may be 0 on resume
-                        val mw = getFromMl { findMedia(media) }
+                        // VLC Redesign: the media library asked only when it runs. Waiting here for one that
+                        // can't start (no storage mounted: an Android 5 box, an emulator) held the callbacks' queue
+                        // for ever: the player got no event, its loading cone spun over the video and its keys
+                        // did nothing
+                        val mw = if (medialibrary.isStarted) getFromMl { findMedia(media) } else media
                         val mediaId = MediaSessionBrowser.generateMediaId(mw)
                         artworkMap[mediaId] ?: ArtworkProvider.buildMediaUri(ctx, mw)
                     }
