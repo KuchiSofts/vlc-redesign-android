@@ -110,11 +110,39 @@ class TvSourcesDialog : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         page = savedInstanceState?.getString("page") ?: arguments?.getString("page") ?: "sources"
+        // the forms as they were (a rotation lost them; an Edit came back as an Add, and its Save made a second
+        // source); a password, a PIN or a key not kept there: typed again
+        savedInstanceState?.let { b ->
+            editing = b.getString("editing", ""); kind = b.getString("kind", kind)
+            fName = b.getString("fName", ""); fUrl = b.getString("fUrl", ""); fServer = b.getString("fServer", "")
+            fUser = b.getString("fUser", ""); fEpg = b.getString("fEpg", ""); fFor = b.getString("fFor", "")
+            aType = b.getString("aType", "")
+            b.getBundle("aFields")?.let { f -> for (k in f.keySet()) aFields[k] = f.getString(k, "") }
+        }
+    }
+
+    /** set when the dialog goes: a Quick Connect sign-in stops asking (it asked for 5 minutes, holding the dialog) */
+    private val closing = java.util.concurrent.atomic.AtomicBoolean(false)
+
+    /** a dialog of the page (a guide's link): closed with it (a rotation leaked its window) */
+    private var openDialog: android.app.Dialog? = null
+
+    override fun onDestroyView() {
+        closing.set(true)
+        openDialog?.dismiss()
+        openDialog = null
+        super.onDestroyView()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString("page", page)
+        outState.putString("editing", editing); outState.putString("kind", kind)
+        outState.putString("fName", fName); outState.putString("fUrl", fUrl); outState.putString("fServer", fServer)
+        outState.putString("fUser", fUser); outState.putString("fEpg", fEpg); outState.putString("fFor", fFor)
+        outState.putString("aType", aType)
+        val secret = TvAccounts.type(aType)?.fields?.filter { it.secret }?.map { it.name }?.toSet() ?: emptySet()
+        outState.putBundle("aFields", Bundle().apply { for ((k, v) in aFields) if (k !in secret) putString(k, v) })
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog = Dialog(requireContext(), R.style.Theme_AppCompat_DayNight_Dialog).apply {
@@ -466,7 +494,7 @@ class TvSourcesDialog : DialogFragment() {
         add(ctx.tvButton(getString(R.string.rd_tv_update)) { LiveTv.refresh(listOf(s.id)) }.usable(s.enabled && !s.busy))
         val cfg = LiveTv.source(s.id)
         add(ctx.tvButton(getString(if (type?.signsIn == true && (cfg?.username?.isNotEmpty() == true || cfg?.pin?.isNotEmpty() == true)) R.string.rd_os_sign_in else R.string.rd_os_test)) {
-            cfg?.let { LiveTv.checkAccount(it, { p -> view?.post { if (page == "accounts") build() } }) { view?.post { if (page == "accounts") build() } } }
+            cfg?.let { LiveTv.checkAccount(it, { p -> view?.post { if (page == "accounts") build() } }, closing) { view?.post { if (page == "accounts") build() } } }
         }.usable(!s.checking))
         add(ctx.tvButton(getString(R.string.rd_tv_edit)) { editAccount(s.id) })
         if (cfg != null && (cfg.password.isNotEmpty() || cfg.pin.isNotEmpty() || cfg.key.isNotEmpty() || cfg.code.isNotEmpty() || cfg.token.isNotEmpty()))
@@ -575,7 +603,7 @@ class TvSourcesDialog : DialogFragment() {
             aChecking = true
             aCheck = null
             build()
-            LiveTv.checkAccount(accountConfig(), { p -> view?.post { aCheck = p; if (page == "account") build() } }) { r ->
+            LiveTv.checkAccount(accountConfig(), { p -> view?.post { aCheck = p; if (page == "account") build() } }, closing) { r ->
                 view?.post { aChecking = false; aCheck = r; if (page == "account") build() }
             }
         }.usable(!aChecking), wrap().apply { marginStart = ctx.tvPx(8f) })
@@ -668,6 +696,7 @@ class TvSourcesDialog : DialogFragment() {
             .setNegativeButton(R.string.cancel, null)
             .show()
         org.videolan.vlc.gui.helpers.RdTvFocusRing.attach(d.window)
+        openDialog = d
     }
 
     private fun edit(id: String) {

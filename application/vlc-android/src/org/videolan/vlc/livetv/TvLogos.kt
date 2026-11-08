@@ -22,7 +22,11 @@ object TvLogos {
     private val memory = object : LruCache<String, Bitmap>(8 * 1024 * 1024) {
         override fun sizeOf(key: String, value: Bitmap) = value.byteCount
     }
-    private val failed = HashSet<String>()
+    /** the logos that couldn't be had, and when (tried again after a while: offline at the start isn't for ever) */
+    private val failed = HashMap<String, Long>()
+    private const val FAILED_FOR_MS = 10 * 60 * 1000L
+    /** (a guide asks on every frame while a logo comes: a few callbacks a logo are enough) */
+    private const val MAX_WAITING = 8
     private val pool = Executors.newFixedThreadPool(3) { r -> Thread(r, "LiveTv-logos").apply { priority = Thread.MIN_PRIORITY } }
     private val main = Handler(Looper.getMainLooper())
     private val pending = HashMap<String, MutableList<(Bitmap?) -> Unit>>()
@@ -40,15 +44,26 @@ object TvLogos {
     fun cached(url: String): Bitmap? = if (url.isEmpty()) null else memory.get(url)
 
     /** The logo of url for the image view (its tag the url: a recycled row gets only its own). */
+    private fun hasFailed(url: String): Boolean = synchronized(failed) {
+        val at = failed[url] ?: return false
+        if (System.currentTimeMillis() - at < FAILED_FOR_MS) return true
+        failed.remove(url)
+        false
+    }
+
     fun load(context: Context, url: String, view: ImageView, size: Int, done: (Boolean) -> Unit) {
         view.tag = url
-        if (url.isEmpty() || failed.contains(url)) { done(false); return }
+        // (a recycled row without a logo of its own showed the last channel's)
+        if (url.isEmpty() || hasFailed(url)) { view.setImageDrawable(null); done(false); return }
         memory.get(url)?.let { view.setImageBitmap(it); done(true); return }
         view.setImageDrawable(null)
         done(false)
+        // (the row's view, not held while the logo comes: a slow host kept a closed page for minutes)
+        val ref = java.lang.ref.WeakReference(view)
         get(context, url, size) { bmp ->
-            if (view.tag == url && bmp != null) {
-                view.setImageBitmap(bmp)
+            val v = ref.get() ?: return@get
+            if (v.tag == url && bmp != null) {
+                v.setImageBitmap(bmp)
                 done(true)
             }
         }
@@ -56,14 +71,15 @@ object TvLogos {
 
     fun get(context: Context, url: String, size: Int, done: (Bitmap?) -> Unit) {
         memory.get(url)?.let { done(it); return }
+        if (url.isEmpty() || hasFailed(url)) return
         synchronized(pending) {
-            pending[url]?.let { it.add(done); return }
+            pending[url]?.let { if (it.size < MAX_WAITING) it.add(done); return }
             pending[url] = mutableListOf(done)
         }
         val app = context.applicationContext
         pool.execute {
             val bmp = try { fetch(app, url, size) } catch (e: Throwable) { null }
-            if (bmp != null) memory.put(url, bmp) else synchronized(failed) { failed.add(url) }
+            if (bmp != null) memory.put(url, bmp) else synchronized(failed) { failed[url] = System.currentTimeMillis() }
             val callbacks = synchronized(pending) { pending.remove(url) } ?: emptyList()
             main.post { callbacks.forEach { it(bmp) } }
         }
@@ -75,7 +91,7 @@ object TvLogos {
         val file = File(dir, TvNet.hashOf(url))
         if (!file.exists()) {
             if (url.startsWith("data:")) return null
-            TvNet.download(context, url, file, null)
+            TvNet.download(context, url, file, null, maxBytes = 2L shl 20)
         }
         val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
         BitmapFactory.decodeFile(file.path, bounds)

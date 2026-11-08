@@ -308,7 +308,14 @@ internal object TvTexts {
     /** the language of the app (it can differ from the phone's), as the desktop's QLocale().toString(time, ShortFormat) */
     private fun locale(context: Context) = org.videolan.vlc.util.RdCompat.primaryLocale(context.resources.configuration)
 
-    fun time(context: Context, secs: Long): String = DateFormat.getTimeInstance(DateFormat.SHORT, locale(context)).format(Date(secs * 1000))
+    /** one format a language (it was made for every label and cell of the guide, on every frame) */
+    private var timeFormat: Pair<java.util.Locale, DateFormat>? = null
+
+    fun time(context: Context, secs: Long): String {
+        val l = locale(context)
+        val f = timeFormat?.takeIf { it.first == l }?.second ?: DateFormat.getTimeInstance(DateFormat.SHORT, l).also { timeFormat = l to it }
+        return f.format(Date(secs * 1000))
+    }
 
     fun duration(context: Context, secs: Long): String {
         val minutes = (maxOf(0L, secs) + 59) / 60
@@ -333,5 +340,5 @@ internal object TvTexts {
     }
 
     // "20:30 – 21:30" read from the left in every language (in Hebrew the two times would swap places otherwise)
-    fun span(context: Context, start: Long, stop: Long) = "‪" + time(context, start) + " – " + time(context, stop) + "‬"
+    fun span(context: Context, start: Long, stop: Long) = "\u202A" + time(context, start) + " – " + time(context, stop) + "\u202C"
 }

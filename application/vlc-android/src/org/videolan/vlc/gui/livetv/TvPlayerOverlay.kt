@@ -508,9 +508,20 @@ class TvPlayerOverlay(private val activity: VideoPlayerActivity) {
         val episode = if (descOn) listOf(e!!.subtitle, e.episode, e.category).filter { it.isNotEmpty() }.joinToString("  ·  ") else ""
         bEpisode.text = episode
         bEpisode.visibility = if (episode.isNotEmpty()) View.VISIBLE else View.GONE
-        val desc = if (descOn && e!!.descLength > 0) LiveTv.description(c, e).replace(Regex("\\s+"), " ") else ""
-        bDesc.text = desc
-        bDesc.visibility = if (desc.isNotEmpty()) View.VISIBLE else View.GONE
+        fun showDesc(text: String) {
+            val desc = text.replace(Regex("\\s+"), " ")
+            bDesc.text = desc
+            bDesc.visibility = if (desc.isNotEmpty()) View.VISIBLE else View.GONE
+        }
+        if (descOn && e!!.descLength > 0) {
+            // (read off the main thread when not known yet: a zap read it there)
+            val wanted = c.key + ":" + e.start
+            bDesc.tag = wanted
+            showDesc(LiveTv.description(c, e) { text -> if (bDesc.tag == wanted) showDesc(text) } ?: "")
+        } else {
+            bDesc.tag = null
+            showDesc("")
+        }
         // the side: the archive of the channel, the arrows or the remote's keys of the guide
         badge?.let { bMarks.removeView(it) }
         badge = null
@@ -644,6 +655,16 @@ class TvPlayerOverlay(private val activity: VideoPlayerActivity) {
         return true
     }
 
+    private var lastZap = 0L
+
+    /** a channel key held: a channel every 400 ms, not one each repeat (20 a second: providers refuse the connections) */
+    private fun zap(event: KeyEvent, step: Int) {
+        val now = android.os.SystemClock.elapsedRealtime()
+        if (event.repeatCount > 0 && now - lastZap < 400) return
+        lastZap = now
+        TvPlayback.zap(ctx, step)
+    }
+
     private fun onKey(event: KeyEvent): Boolean {
         if (!active()) return false
         val code = event.keyCode
@@ -657,8 +678,8 @@ class TvPlayerOverlay(private val activity: VideoPlayerActivity) {
         if (activity.isShowingDialog) return false
         if (digit >= 0) { if (down) digit(digit); return true }
         when (code) {
-            KeyEvent.KEYCODE_CHANNEL_UP, KeyEvent.KEYCODE_PAGE_UP -> { if (down) TvPlayback.zap(ctx, 1); return true }
-            KeyEvent.KEYCODE_CHANNEL_DOWN, KeyEvent.KEYCODE_PAGE_DOWN -> { if (down) TvPlayback.zap(ctx, -1); return true }
+            KeyEvent.KEYCODE_CHANNEL_UP, KeyEvent.KEYCODE_PAGE_UP -> { if (down) zap(event, 1); return true }
+            KeyEvent.KEYCODE_CHANNEL_DOWN, KeyEvent.KEYCODE_PAGE_DOWN -> { if (down) zap(event, -1); return true }
             KeyEvent.KEYCODE_LAST_CHANNEL -> { if (down) TvPlayback.previousChannel(ctx); return true }
             KeyEvent.KEYCODE_INFO, KeyEvent.KEYCODE_GUIDE -> { if (down) { if (bannerShown) showBanner(false) else { bind(); showBanner(true) } }; return true }
             KeyEvent.KEYCODE_DEL -> return down && backspace()
@@ -671,7 +692,7 @@ class TvPlayerOverlay(private val activity: VideoPlayerActivity) {
             KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_DOWN -> {
                 // a TV box: Up and Down change the channel (a control of the player with the focus keeps them)
                 if (activity.isLocked || panelFocused()) return false
-                if (down) TvPlayback.zap(ctx, if (code == KeyEvent.KEYCODE_DPAD_UP) 1 else -1)
+                if (down) zap(event, if (code == KeyEvent.KEYCODE_DPAD_UP) 1 else -1)
                 return true
             }
             KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_DPAD_RIGHT -> {

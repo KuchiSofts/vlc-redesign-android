@@ -171,9 +171,21 @@ internal class TvChannelAdapter(
             }
             progress.visibility = if (now != null && showProgress) View.VISIBLE else View.GONE
             if (now != null) progress.fraction = (t - now.start).toFloat() / maxOf(1L, now.stop - now.start)
-            val d = if (showDescription && now != null && now.descLength > 0) LiveTv.description(c, now).replace('\n', ' ').take(200) else ""
-            desc.text = d
-            desc.visibility = if (d.isEmpty()) View.GONE else View.VISIBLE
+            fun showDesc(text: String) {
+                val d = text.replace('\n', ' ').take(200)
+                desc.text = d
+                desc.visibility = if (d.isEmpty()) View.GONE else View.VISIBLE
+            }
+            if (showDescription && now != null && now.descLength > 0) {
+                // (read off the main thread when not known yet; shown if the row still shows this programme)
+                val wanted = c.key + ":" + now.start
+                desc.tag = wanted
+                val known = LiveTv.description(c, now) { text -> if (desc.tag == wanted) showDesc(text) }
+                showDesc(known ?: "")
+            } else {
+                desc.tag = null
+                showDesc("")
+            }
             val next = if (showNext && wide) c.next(t) else null
             nextBox.visibility = if (wide && showNext) View.VISIBLE else View.GONE
             nextTime.text = if (next != null) ctx.getString(R.string.rd_tv_next_at, TvTexts.time(ctx, next.start)) else ""
