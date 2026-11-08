@@ -295,7 +295,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     private var wasPaused = false
     private var savedTime: Long = -1
 
-    lateinit var windowLayoutInfo: WindowLayoutInfo
+    // VLC Redesign: null until the window tracker answers (a key opening the options before it crashed the player)
+    var windowLayoutInfo: WindowLayoutInfo? = null
     private var currentConfirmationDialog: AlertDialog? = null
     val resumeDialogObserver: (t: WaitConfirmation?) -> Unit = {
         if (it != null)
