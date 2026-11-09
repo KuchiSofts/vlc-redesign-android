@@ -1449,6 +1449,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        // (VLC Redesign: the remote in use, nothing made ahead for a moment)
+        org.videolan.vlc.gui.tablet.RdTvPrebuild.onKey()
         if (service == null || keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_BUTTON_B)
             return super.onKeyDown(keyCode, event)
         if (isOptionsListShowing) return false
@@ -2382,6 +2384,9 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         rdDualSubtitles.start()
         overlayDelegate.updateOverlayPausePlay()
         updateNavStatus()
+        // VLC Redesign, the TV layout: the controls' bars made ahead while the video plays (their first show
+        // inflated both in that frame; gui/tablet/RdTvPrebuild)
+        org.videolan.vlc.gui.tablet.RdTvPrebuild.stubsAhead(this, R.id.player_hud_right_stub, R.id.player_hud_stub)
         if (!mw.hasFlag(MediaWrapper.MEDIA_PAUSED) && Settings.videoHudDelay != -1)
             handler.sendEmptyMessageDelayed(FADE_OUT, Settings.videoHudDelay.toLong() * 1000)
         else {
