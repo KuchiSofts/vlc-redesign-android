@@ -73,8 +73,9 @@ class OnboardingFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        // the media access may have been answered in the system's dialog
-        if (::text.isInitialized && step == PAGES - 1) show(step)
+        // the media access may have been answered in the system's dialog: the page that asks it (still "VLC needs
+        // your permission" after Allow) and the last one say so (show(1) from page 1 asks nothing again)
+        if (::text.isInitialized && step > 0) show(step)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
