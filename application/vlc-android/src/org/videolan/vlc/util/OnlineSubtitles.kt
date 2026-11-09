@@ -703,39 +703,176 @@ object OnlineSubtitles {
         return ParsedName(title, year, season, episode, tokens)
     }
 
+    private const val HASH_CHUNK = 65536
+
     /** the OpenSubtitles hash: the size plus the 64-bit words of the first and the last 64 KiB */
     fun openSubtitlesHash(file: File): Pair<String, Long>? = try {
         RandomAccessFile(file, "r").use { raf ->
             val size = raf.length()
-            val chunk = 65536
-            if (size < chunk) return null
-            val head = ByteArray(chunk)
-            val tail = ByteArray(chunk)
+            if (size < HASH_CHUNK) return null
+            val head = ByteArray(HASH_CHUNK)
+            val tail = ByteArray(HASH_CHUNK)
             raf.readFully(head)
-            raf.seek(size - chunk)
+            raf.seek(size - HASH_CHUNK)
             raf.readFully(tail)
-            var hash = size
-            val h = ByteBuffer.wrap(head).order(ByteOrder.LITTLE_ENDIAN).asLongBuffer()
-            val t = ByteBuffer.wrap(tail).order(ByteOrder.LITTLE_ENDIAN).asLongBuffer()
-            for (i in 0 until chunk / 8) {
-                hash += h.get(i)
-                hash += t.get(i)
-            }
-            Pair("%016x".format(hash), size)
+            hashOf(head, tail, size)
         }
     } catch (e: Exception) {
         null
     }
 
-    /** what is known of a media: its name read, its local file hashed */
-    fun mediaOf(uri: Uri, title: String?, fps: Double = 0.0): Media {
-        val path = if (uri.scheme == "file" || uri.scheme == null) uri.path else null
-        val name = path?.let { File(it).name } ?: uri.lastPathSegment?.takeIf { '.' in it } ?: (title ?: uri.lastPathSegment ?: "")
+    /** the hash of a media of [size] bytes from its first and its last 64 KiB */
+    internal fun hashOf(head: ByteArray, tail: ByteArray, size: Long): Pair<String, Long>? {
+        if (size < HASH_CHUNK || head.size < HASH_CHUNK || tail.size < HASH_CHUNK) return null
+        var hash = size
+        val h = ByteBuffer.wrap(head).order(ByteOrder.LITTLE_ENDIAN).asLongBuffer()
+        val t = ByteBuffer.wrap(tail).order(ByteOrder.LITTLE_ENDIAN).asLongBuffer()
+        for (i in 0 until HASH_CHUNK / 8) {
+            hash += h.get(i)
+            hash += t.get(i)
+        }
+        return Pair("%016x".format(hash), size)
+    }
+
+    /** VLC Redesign (#73): a file shared by a content provider (a file manager, Downloads) hashed through it */
+    private fun contentHash(context: Context, uri: Uri): Pair<String, Long>? = try {
+        context.contentResolver.openFileDescriptor(uri, "r")?.use { pfd ->
+            java.io.FileInputStream(pfd.fileDescriptor).channel.use { ch ->
+                val size = ch.size()
+                if (size < HASH_CHUNK) return@use null
+                val head = ByteBuffer.allocate(HASH_CHUNK)
+                val tail = ByteBuffer.allocate(HASH_CHUNK)
+                while (head.hasRemaining() && ch.read(head, head.position().toLong()) > 0) { }
+                while (tail.hasRemaining() && ch.read(tail, size - HASH_CHUNK + tail.position()) > 0) { }
+                if (head.hasRemaining() || tail.hasRemaining()) null else hashOf(head.array(), tail.array(), size)
+            }
+        }
+    } catch (e: Exception) {
+        null
+    }
+
+    /** "bytes 0-65535/21697080": the whole size (null: unknown, "*") */
+    internal fun rangeTotal(contentRange: String?): Long? =
+        contentRange?.substringAfterLast('/', "")?.trim()?.toLongOrNull()?.takeIf { it > 0 }
+
+    /** one part of a file on a web server ([range]: "bytes=0-65535", "bytes=-65536"): its bytes, the whole size */
+    private fun rangeOf(url: String, range: String): Pair<ByteArray, Long>? {
+        var connection: HttpURLConnection? = null
+        return try {
+            connection = URL(url).openConnection() as HttpURLConnection
+            connection.connectTimeout = 10_000
+            connection.readTimeout = 10_000
+            connection.instanceFollowRedirects = true
+            connection.setRequestProperty("Range", range)
+            connection.setRequestProperty("User-Agent", userAgent)
+            // (a server without ranges answers 200 with the whole file: not read)
+            if (connection.responseCode != 206) return null
+            val total = rangeTotal(connection.getHeaderField("Content-Range")) ?: return null
+            val out = ByteArrayOutputStream(HASH_CHUNK)
+            connection.inputStream.use { input ->
+                val buffer = ByteArray(16 * 1024)
+                while (out.size() < HASH_CHUNK) {
+                    val n = input.read(buffer)
+                    if (n < 0) break
+                    out.write(buffer, 0, n)
+                }
+            }
+            Pair(out.toByteArray().copyOf(HASH_CHUNK), total)
+        } catch (e: Exception) {
+            null
+        } finally {
+            connection?.disconnect()
+        }
+    }
+
+    /** VLC Redesign (#73): a file on a web server hashed by two ranges (its first and its last 64 KiB) */
+    private fun httpHash(url: String): Pair<String, Long>? {
+        val (head, size) = rangeOf(url, "bytes=0-${HASH_CHUNK - 1}") ?: return null
+        if (size < HASH_CHUNK) return null
+        val (tail, _) = rangeOf(url, "bytes=${size - HASH_CHUNK}-${size - 1}") ?: return null
+        return hashOf(head, tail, size)
+    }
+
+    private val videoExtensions = setOf("mp4", "m4v", "mkv", "avi", "mov", "webm", "wmv", "flv", "ts", "m2ts", "mts", "mpg",
+        "mpeg", "ogv", "ogm", "3gp", "divx", "vob", "rmvb", "asf", "iso")
+
+    /**
+     * VLC Redesign (#73): the name of a media given by an address, as a file name: the last part of its path, decoded,
+     * without its query or fragment ("http://host/films/Sintel%20(2010).mp4?token=1" -> "Sintel (2010).mp4", a
+     * provider's "primary:Movies/Sintel.mp4" -> "Sintel.mp4"); null without one
+     */
+    internal fun nameInAddress(address: String): String? {
+        var path = address.substringBefore('#').substringBefore('?')
+        val scheme = path.indexOf("://")
+        if (scheme >= 0) path = path.substring(scheme + 3).let { rest -> rest.indexOf('/').let { if (it < 0) "" else rest.substring(it) } }
+        var segment = path.trimEnd('/').substringAfterLast('/')
+        segment = try { java.net.URLDecoder.decode(segment.replace("+", "%2B"), "UTF-8") } catch (e: Exception) { segment }
+        segment = segment.substringAfterLast('/').substringAfterLast(':').trim()
+        return segment.ifEmpty { null }
+    }
+
+    /**
+     * VLC Redesign (#73): the name a media is searched by: its file's in the address when it reads as one (a video's
+     * extension, some letters), else the title the source gives it (a media server's "23.mp4", a stream's "watch"),
+     * else what the address has
+     */
+    internal fun mediaName(address: String, title: String?): String {
+        val fromAddress = nameInAddress(address)
+        val t = title?.trim().orEmpty()
+        val readsAsFile = fromAddress != null && fromAddress.substringAfterLast('.', "").lowercase(Locale.ROOT) in videoExtensions &&
+            fromAddress.substringBeforeLast('.').any { it.isLetter() }
+        return when {
+            readsAsFile -> fromAddress!!
+            t.isNotEmpty() && "://" !in t && t != fromAddress -> t
+            else -> fromAddress ?: t
+        }
+    }
+
+    /**
+     * VLC Redesign (#73): a Live TV channel or a live stream (an address with no length): no online subtitles, no
+     * subtitle file or timing (its own subtitle tracks only). A video on the device, on a share, on a media server
+     * or behind a link (a length known) is a film as a file is.
+     */
+    fun isLive(scheme: String?, length: Long, liveTv: Boolean): Boolean {
+        if (liveTv) return true
+        val s = scheme?.lowercase(Locale.ROOT) ?: return false
+        if (s == "file" || s == "content") return false
+        return length <= 0
+    }
+
+    /** VLC Redesign (#73): a media remembered by its address without its query (a link's token changes) */
+    internal fun addressKey(address: String) = address.substringBefore('#').substringBefore('?')
+
+    /**
+     * what is known of a media: its name read, its file hashed. A local file, a provider's file (content://) and a
+     * file on a web server that gives ranges are hashed; a share (SMB, NFS, FTP, a media server) is known by its name
+     * (#73: a network media was known only by its address's last part, never hashed, and not searched by itself)
+     */
+    fun mediaOf(uri: Uri, title: String?, fps: Double = 0.0, context: Context? = null): Media {
+        val scheme = uri.scheme?.lowercase(Locale.ROOT)
+        val path = if (scheme == "file" || scheme == null) uri.path else null
+        var name = path?.let { File(it).name } ?: mediaName(uri.toString(), title)
+        if (scheme == "content" && context != null) contentName(context, uri)?.let { name = it }
         val folder = path?.let { File(it).parentFile?.name } ?: ""
         val parsed = parseName(name, folder)
-        val hashed = path?.let { openSubtitlesHash(File(it)) }
+        val hashed = when {
+            path != null -> openSubtitlesHash(File(path))
+            scheme == "content" && context != null -> contentHash(context, uri)
+            scheme == "http" || scheme == "https" -> httpHash(uri.toString())
+            else -> null
+        }
+        val key = hashed?.let { "${it.first}:${it.second}" } ?: if (path != null) uri.toString() else addressKey(uri.toString())
         return Media(name, parsed.title.ifEmpty { title ?: "" }, parsed.year, parsed.season, parsed.episode, parsed.tokens,
-            hashed?.first ?: "", hashed?.second ?: 0L, fps, key = hashed?.let { "${it.first}:${it.second}" } ?: uri.toString())
+            hashed?.first ?: "", hashed?.second ?: 0L, fps, key = key)
+    }
+
+    /** a provider's file's own name (its display name) */
+    private fun contentName(context: Context, uri: Uri): String? = try {
+        context.contentResolver.query(uri, arrayOf(android.provider.OpenableColumns.DISPLAY_NAME), null, null, null)?.use { c ->
+            if (c.moveToFirst()) c.getString(0)?.takeIf { it.isNotBlank() } else null
+        }
+    } catch (e: Exception) {
+        null
     }
 
     // ---------------------------------------------------------------------------------------------------------------

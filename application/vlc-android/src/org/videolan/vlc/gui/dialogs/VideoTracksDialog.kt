@@ -256,8 +256,10 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
 
     /**
      * The owner's rule for every platform: subtitles are for films. Audio only: no Subtitles tab at all (and no
-     * Video tab). A live/network stream: only its own subtitle tracks (on, off, language) when it carries any,
-     * never a file, an online search or the timing.
+     * Video tab). A Live TV channel or a live stream: only its own subtitle tracks (on, off, language) when it
+     * carries any, never a file, an online search or the timing. A video on a share, a media server or behind a
+     * link is a film as a file is (KuchiSofts/vlc-redesign#73: every address but a file's was taken for a live
+     * stream, its Subtitles tab and its online search gone).
      */
     private fun configureTabs(hasVideo: Boolean, subtitles: Boolean) {
         val key = "$hasVideo/$subtitles"
@@ -276,7 +278,8 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
     private fun applyMediaKind(service: PlaybackService) {
         val media = service.currentMediaWrapper
         val hasVideo = service.videoTracksCount > 0
-        val stream = media != null && (media.type == MediaWrapper.TYPE_STREAM || media.uri?.scheme.let { it != null && it != "file" && it != "content" })
+        val stream = media != null && org.videolan.vlc.util.OnlineSubtitles.isLive(media.uri?.scheme, service.length,
+            org.videolan.vlc.livetv.TvPlayback.isCurrent(media.uri?.toString()))
         val streamHasSubs = (service.spuTracks?.size ?: 0) > 0
         rdStream = stream
         configureTabs(hasVideo, hasVideo && (!stream || streamHasSubs))
