@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Løsne fra Hjem</string>
     <string name="rd_pinned">Festet</string>
     <string name="rd_pinned_missing">Denne festede mappen eller spillelisten finnes ikke lenger.</string>
+    <string name="rd_subs_of_video">Undertekster for denne videoen</string>
+    <string name="rd_subs_in_video">I videoen</string>
+    <string name="rd_subs_next_to">Ved siden av videoen · %1$s</string>
+    <string name="rd_subs_next_to_plain">Ved siden av videoen</string>
+    <string name="rd_subs_opened">Åpnet · %1$s</string>
+    <string name="rd_subs_opened_plain">Åpnet fil</string>
+    <string name="rd_subs_none_yet">Ingen undertekster ennå</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Vis innstillinger</string>
+    <string name="rd_subs_position_size">Posisjon og størrelse</string>
+    <string name="rd_subs_position">Posisjon</string>
+    <string name="rd_subs_usual">Vanlig</string>
+    <string name="rd_subs_move_down">Flytt undertekstene ned</string>
+    <string name="rd_subs_move_up">Flytt undertekstene opp</string>
+    <string name="rd_subs_smaller">Mindre undertekster</string>
+    <string name="rd_subs_larger">Større undertekster</string>
 </resources>

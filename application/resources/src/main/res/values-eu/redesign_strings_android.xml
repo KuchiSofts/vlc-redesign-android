@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Kendu hasieratik</string>
     <string name="rd_pinned">Finkatuak</string>
     <string name="rd_pinned_missing">Finkatutako karpeta edo erreprodukzio-zerrenda hau ez dago jada.</string>
+    <string name="rd_subs_of_video">Bideo honen azpitituluak</string>
+    <string name="rd_subs_in_video">Bideoan bertan</string>
+    <string name="rd_subs_next_to">Bideoaren ondoan · %1$s</string>
+    <string name="rd_subs_next_to_plain">Bideoaren ondoan</string>
+    <string name="rd_subs_opened">Irekia · %1$s</string>
+    <string name="rd_subs_opened_plain">Irekitako fitxategia</string>
+    <string name="rd_subs_none_yet">Oraindik ez dago azpititulurik</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Erakutsi hobespenak</string>
+    <string name="rd_subs_position_size">Kokalekua eta tamaina</string>
+    <string name="rd_subs_position">Kokalekua</string>
+    <string name="rd_subs_usual">Ohikoa</string>
+    <string name="rd_subs_move_down">Mugitu azpitituluak behera</string>
+    <string name="rd_subs_move_up">Mugitu azpitituluak gora</string>
+    <string name="rd_subs_smaller">Azpititulu txikiagoak</string>
+    <string name="rd_subs_larger">Azpititulu handiagoak</string>
 </resources>

@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Odpni z Domov</string>
     <string name="rd_pinned">Pripeto</string>
     <string name="rd_pinned_missing">Ta pripeta mapa ali seznam predvajanja ne obstaja več.</string>
+    <string name="rd_subs_of_video">Podnapisi tega videa</string>
+    <string name="rd_subs_in_video">V videu</string>
+    <string name="rd_subs_next_to">Ob videu · %1$s</string>
+    <string name="rd_subs_next_to_plain">Ob videu</string>
+    <string name="rd_subs_opened">Odprto · %1$s</string>
+    <string name="rd_subs_opened_plain">Odprta datoteka</string>
+    <string name="rd_subs_none_yet">Podnapisov še ni</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Pokaži možnosti</string>
+    <string name="rd_subs_position_size">Položaj in velikost</string>
+    <string name="rd_subs_position">Položaj</string>
+    <string name="rd_subs_usual">Običajno</string>
+    <string name="rd_subs_move_down">Premakni podnapise navzdol</string>
+    <string name="rd_subs_move_up">Premakni podnapise navzgor</string>
+    <string name="rd_subs_smaller">Manjši podnapisi</string>
+    <string name="rd_subs_larger">Večji podnapisi</string>
 </resources>

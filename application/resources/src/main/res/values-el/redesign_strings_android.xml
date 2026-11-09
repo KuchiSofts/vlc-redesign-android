@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Ξεκαρφίτσωμα από την Αρχική</string>
     <string name="rd_pinned">Καρφιτσωμένα</string>
     <string name="rd_pinned_missing">Αυτός ο καρφιτσωμένος φάκελος ή λίστα αναπαραγωγής δεν υπάρχει πλέον.</string>
+    <string name="rd_subs_of_video">Υπότιτλοι αυτού του βίντεο</string>
+    <string name="rd_subs_in_video">Στο βίντεο</string>
+    <string name="rd_subs_next_to">Δίπλα στο βίντεο · %1$s</string>
+    <string name="rd_subs_next_to_plain">Δίπλα στο βίντεο</string>
+    <string name="rd_subs_opened">Ανοίχτηκε · %1$s</string>
+    <string name="rd_subs_opened_plain">Αρχείο που ανοίχτηκε</string>
+    <string name="rd_subs_none_yet">Δεν υπάρχουν υπότιτλοι ακόμη</string>
+    <string name="rd_subs_hi_short">ΚΒ</string>
+    <string name="rd_show_preferences">Εμφάνιση προτιμήσεων</string>
+    <string name="rd_subs_position_size">Θέση και μέγεθος</string>
+    <string name="rd_subs_position">Θέση</string>
+    <string name="rd_subs_usual">Κανονικό</string>
+    <string name="rd_subs_move_down">Μετακίνηση υποτίτλων προς τα κάτω</string>
+    <string name="rd_subs_move_up">Μετακίνηση υποτίτλων προς τα πάνω</string>
+    <string name="rd_subs_smaller">Μικρότεροι υπότιτλοι</string>
+    <string name="rd_subs_larger">Μεγαλύτεροι υπότιτλοι</string>
 </resources>

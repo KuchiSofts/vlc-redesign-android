@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Desfixar d\'Aniciu</string>
     <string name="rd_pinned">Fixao</string>
     <string name="rd_pinned_missing">Esta carpeta o llista de reproducción fixada yá nun ta ehí.</string>
+    <string name="rd_subs_of_video">Sotítulos d\'esti videu</string>
+    <string name="rd_subs_in_video">Nel videu</string>
+    <string name="rd_subs_next_to">Al llau del videu · %1$s</string>
+    <string name="rd_subs_next_to_plain">Al llau del videu</string>
+    <string name="rd_subs_opened">Abiertu · %1$s</string>
+    <string name="rd_subs_opened_plain">Ficheru abiertu</string>
+    <string name="rd_subs_none_yet">Entá nun hai sotítulos</string>
+    <string name="rd_subs_hi_short">SDH</string>
+    <string name="rd_show_preferences">Amosar les preferencies</string>
+    <string name="rd_subs_position_size">Posición y tamañu</string>
+    <string name="rd_subs_position">Posición</string>
+    <string name="rd_subs_usual">Habitual</string>
+    <string name="rd_subs_move_down">Baxar los sotítulos</string>
+    <string name="rd_subs_move_up">Xubir los sotítulos</string>
+    <string name="rd_subs_smaller">Sotítulos más pequeños</string>
+    <string name="rd_subs_larger">Sotítulos más grandes</string>
 </resources>

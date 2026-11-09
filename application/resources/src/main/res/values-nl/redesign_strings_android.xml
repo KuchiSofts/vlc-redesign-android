@@ -67,4 +67,20 @@
     <string name="rd_volume_left_side">Linkerkant</string>
     <string name="rd_volume_top_right">Rechterbovenhoek</string>
     <string name="rd_volume_top_left">Linkerbovenhoek</string>
+    <string name="rd_subs_of_video">Ondertitels van deze video</string>
+    <string name="rd_subs_in_video">In de video</string>
+    <string name="rd_subs_next_to">Naast de video · %1$s</string>
+    <string name="rd_subs_next_to_plain">Naast de video</string>
+    <string name="rd_subs_opened">Geopend · %1$s</string>
+    <string name="rd_subs_opened_plain">Geopend bestand</string>
+    <string name="rd_subs_none_yet">Nog geen ondertitels</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Voorkeuren weergeven</string>
+    <string name="rd_subs_position_size">Positie en grootte</string>
+    <string name="rd_subs_position">Positie</string>
+    <string name="rd_subs_usual">Normaal</string>
+    <string name="rd_subs_move_down">Ondertitels omlaag</string>
+    <string name="rd_subs_move_up">Ondertitels omhoog</string>
+    <string name="rd_subs_smaller">Kleinere ondertitels</string>
+    <string name="rd_subs_larger">Grotere ondertitels</string>
 </resources>

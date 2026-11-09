@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Bỏ ghim khỏi Trang chủ</string>
     <string name="rd_pinned">Đã ghim</string>
     <string name="rd_pinned_missing">Thư mục hoặc danh sách đã ghim này không còn nữa.</string>
+    <string name="rd_subs_of_video">Phụ đề của video này</string>
+    <string name="rd_subs_in_video">Trong video</string>
+    <string name="rd_subs_next_to">Cạnh video · %1$s</string>
+    <string name="rd_subs_next_to_plain">Cạnh video</string>
+    <string name="rd_subs_opened">Đã mở · %1$s</string>
+    <string name="rd_subs_opened_plain">Tập tin đã mở</string>
+    <string name="rd_subs_none_yet">Chưa có phụ đề</string>
+    <string name="rd_subs_hi_short">KT</string>
+    <string name="rd_show_preferences">Hiện tùy chọn</string>
+    <string name="rd_subs_position_size">Vị trí và kích thước</string>
+    <string name="rd_subs_position">Vị trí</string>
+    <string name="rd_subs_usual">Thông thường</string>
+    <string name="rd_subs_move_down">Dời phụ đề xuống</string>
+    <string name="rd_subs_move_up">Dời phụ đề lên</string>
+    <string name="rd_subs_smaller">Phụ đề nhỏ hơn</string>
+    <string name="rd_subs_larger">Phụ đề lớn hơn</string>
 </resources>

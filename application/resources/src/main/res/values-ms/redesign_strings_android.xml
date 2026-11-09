@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Nyahsemat daripada Laman Utama</string>
     <string name="rd_pinned">Disemat</string>
     <string name="rd_pinned_missing">Folder atau senarai main yang disemat ini sudah tiada.</string>
+    <string name="rd_subs_of_video">Sarikata video ini</string>
+    <string name="rd_subs_in_video">Dalam video</string>
+    <string name="rd_subs_next_to">Di sebelah video · %1$s</string>
+    <string name="rd_subs_next_to_plain">Di sebelah video</string>
+    <string name="rd_subs_opened">Dibuka · %1$s</string>
+    <string name="rd_subs_opened_plain">Fail dibuka</string>
+    <string name="rd_subs_none_yet">Belum ada sarikata</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Tunjuk Keutamaan</string>
+    <string name="rd_subs_position_size">Kedudukan dan saiz</string>
+    <string name="rd_subs_position">Kedudukan</string>
+    <string name="rd_subs_usual">Biasa</string>
+    <string name="rd_subs_move_down">Alihkan sarikata ke bawah</string>
+    <string name="rd_subs_move_up">Alihkan sarikata ke atas</string>
+    <string name="rd_subs_smaller">Sarikata lebih kecil</string>
+    <string name="rd_subs_larger">Sarikata lebih besar</string>
 </resources>

@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Адмацаваць ад хатняй старонкі</string>
     <string name="rd_pinned">Замацаванае</string>
     <string name="rd_pinned_missing">Гэтай замацаванай папкі або плэйліста больш няма.</string>
+    <string name="rd_subs_of_video">Субтытры гэтага відэа</string>
+    <string name="rd_subs_in_video">У відэа</string>
+    <string name="rd_subs_next_to">Побач з відэа · %1$s</string>
+    <string name="rd_subs_next_to_plain">Побач з відэа</string>
+    <string name="rd_subs_opened">Адкрыта · %1$s</string>
+    <string name="rd_subs_opened_plain">Адкрыты файл</string>
+    <string name="rd_subs_none_yet">Субтытраў пакуль няма</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Паказаць настаўленні</string>
+    <string name="rd_subs_position_size">Пазіцыя і памер</string>
+    <string name="rd_subs_position">Пазіцыя</string>
+    <string name="rd_subs_usual">Звычайна</string>
+    <string name="rd_subs_move_down">Апусціць субтытры</string>
+    <string name="rd_subs_move_up">Падняць субтытры</string>
+    <string name="rd_subs_smaller">Паменшыць субтытры</string>
+    <string name="rd_subs_larger">Павялічыць субтытры</string>
 </resources>

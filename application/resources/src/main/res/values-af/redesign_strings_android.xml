@@ -64,4 +64,20 @@
     <string name="rd_unpin_from_home">Ontspeld van tuisblad</string>
     <string name="rd_pinned">Vasgespeld</string>
     <string name="rd_pinned_missing">Hierdie vasgespelde vouer of afspeellys is nie meer daar nie.</string>
+    <string name="rd_subs_of_video">Onderskrifte van hierdie video</string>
+    <string name="rd_subs_in_video">In die video</string>
+    <string name="rd_subs_next_to">Langs die video · %1$s</string>
+    <string name="rd_subs_next_to_plain">Langs die video</string>
+    <string name="rd_subs_opened">Oopgemaak · %1$s</string>
+    <string name="rd_subs_opened_plain">Oopgemaakte lêer</string>
+    <string name="rd_subs_none_yet">Nog geen onderskrifte nie</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Wys voorkeure</string>
+    <string name="rd_subs_position_size">Posisie en grootte</string>
+    <string name="rd_subs_position">Posisie</string>
+    <string name="rd_subs_usual">Gewoon</string>
+    <string name="rd_subs_move_down">Skuif onderskrifte af</string>
+    <string name="rd_subs_move_up">Skuif onderskrifte op</string>
+    <string name="rd_subs_smaller">Kleiner onderskrifte</string>
+    <string name="rd_subs_larger">Groter onderskrifte</string>
 </resources>

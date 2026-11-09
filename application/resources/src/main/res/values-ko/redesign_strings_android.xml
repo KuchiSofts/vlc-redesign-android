@@ -67,4 +67,20 @@
     <string name="rd_volume_left_side">왼쪽</string>
     <string name="rd_volume_top_right">오른쪽 위 모서리</string>
     <string name="rd_volume_top_left">왼쪽 위 모서리</string>
+    <string name="rd_subs_of_video">이 비디오의 자막</string>
+    <string name="rd_subs_in_video">비디오에 포함</string>
+    <string name="rd_subs_next_to">비디오 옆 파일 · %1$s</string>
+    <string name="rd_subs_next_to_plain">비디오 옆 파일</string>
+    <string name="rd_subs_opened">직접 연 파일 · %1$s</string>
+    <string name="rd_subs_opened_plain">직접 연 파일</string>
+    <string name="rd_subs_none_yet">아직 자막이 없습니다</string>
+    <string name="rd_subs_hi_short">청각</string>
+    <string name="rd_show_preferences">환경설정 보기</string>
+    <string name="rd_subs_position_size">위치 및 크기</string>
+    <string name="rd_subs_position">위치</string>
+    <string name="rd_subs_usual">기본</string>
+    <string name="rd_subs_move_down">자막을 아래로 이동</string>
+    <string name="rd_subs_move_up">자막을 위로 이동</string>
+    <string name="rd_subs_smaller">자막 작게</string>
+    <string name="rd_subs_larger">자막 크게</string>
 </resources>

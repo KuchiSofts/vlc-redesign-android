@@ -67,4 +67,20 @@
     <string name="rd_volume_left_side">Lado esquerdo</string>
     <string name="rd_volume_top_right">Canto superior direito</string>
     <string name="rd_volume_top_left">Canto superior esquerdo</string>
+    <string name="rd_subs_of_video">Legendas deste vídeo</string>
+    <string name="rd_subs_in_video">No vídeo</string>
+    <string name="rd_subs_next_to">Junto ao vídeo · %1$s</string>
+    <string name="rd_subs_next_to_plain">Junto ao vídeo</string>
+    <string name="rd_subs_opened">Aberta · %1$s</string>
+    <string name="rd_subs_opened_plain">Ficheiro aberto</string>
+    <string name="rd_subs_none_yet">Ainda sem legendas</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Mostrar preferências</string>
+    <string name="rd_subs_position_size">Posição e tamanho</string>
+    <string name="rd_subs_position">Posição</string>
+    <string name="rd_subs_usual">Habitual</string>
+    <string name="rd_subs_move_down">Mover as legendas para baixo</string>
+    <string name="rd_subs_move_up">Mover as legendas para cima</string>
+    <string name="rd_subs_smaller">Legendas mais pequenas</string>
+    <string name="rd_subs_larger">Legendas maiores</string>
 </resources>

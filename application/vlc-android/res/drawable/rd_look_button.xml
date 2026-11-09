@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign: a button of the Subtitles panel (the desktop's LookButton): A4 with a 1 px line of the bright divider,
+     A1 under the finger or the focus (its line in the accent), radius 4 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/rd_dark_bg_a1" />
+            <stroke android:width="1dp" android:color="?attr/colorPrimary" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/rd_dark_bg_a1" />
+            <stroke android:width="1dp" android:color="@color/rd_dark_divider_bright" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/rd_dark_bg_a1" />
+            <stroke android:width="1dp" android:color="?attr/colorPrimary" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/rd_dark_bg_a4" />
+            <stroke android:width="1dp" android:color="@color/rd_dark_divider_bright" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+</selector>

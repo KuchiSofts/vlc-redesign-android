@@ -64,4 +64,20 @@
     <string name="rd_unpin_from_home">Hiqe nga Kreu</string>
     <string name="rd_pinned">Të fiksuara</string>
     <string name="rd_pinned_missing">Kjo dosje ose listë luajtjeje e fiksuar nuk ekziston më.</string>
+    <string name="rd_subs_of_video">Titrat e kësaj videoje</string>
+    <string name="rd_subs_in_video">Në video</string>
+    <string name="rd_subs_next_to">Pranë videos · %1$s</string>
+    <string name="rd_subs_next_to_plain">Pranë videos</string>
+    <string name="rd_subs_opened">Hapur · %1$s</string>
+    <string name="rd_subs_opened_plain">Skedar i hapur</string>
+    <string name="rd_subs_none_yet">Ende nuk ka titra</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Shfaq preferencat</string>
+    <string name="rd_subs_position_size">Pozicioni dhe masa</string>
+    <string name="rd_subs_position">Pozicioni</string>
+    <string name="rd_subs_usual">I zakonshëm</string>
+    <string name="rd_subs_move_down">Lëviz titrat poshtë</string>
+    <string name="rd_subs_move_up">Lëviz titrat lart</string>
+    <string name="rd_subs_smaller">Titra më të vogla</string>
+    <string name="rd_subs_larger">Titra më të mëdha</string>
 </resources>

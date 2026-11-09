@@ -24,39 +24,47 @@
 
 package org.videolan.vlc.gui.dialogs
 
+import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import org.videolan.libvlc.util.AndroidUtil
-import org.videolan.medialibrary.interfaces.media.MediaWrapper
+import kotlinx.coroutines.launch
 import org.videolan.tools.DependencyProvider
 import org.videolan.tools.dp
 import org.videolan.tools.putSingle
 import org.videolan.tools.setGone
-import org.videolan.tools.setVisible
 import org.videolan.vlc.PlaybackService
 import org.videolan.vlc.R
-import org.videolan.vlc.VlcMigrationHelper
 import org.videolan.vlc.databinding.PlayerOverlayTracksBinding
 import org.videolan.vlc.getDisableTrack
 import org.videolan.vlc.gui.dialogs.adapters.TrackAdapter
 import org.videolan.vlc.gui.dialogs.adapters.VlcTrack
 import org.videolan.vlc.gui.helpers.getBitmapFromDrawable
+import org.videolan.vlc.gui.helpers.rdAccent
+import org.videolan.vlc.gui.video.VideoPlayerActivity
+import org.videolan.vlc.gui.view.RdScaleFrame
 import org.videolan.vlc.util.SeriesPreset
 import org.videolan.vlc.util.isTalkbackIsEnabled
 import org.videolan.vlc.isVLC4
-import com.google.android.material.tabs.TabLayout
 
 class VideoTracksDialog : VLCBottomSheetDialogFragment() {
     override fun getDefaultState(): Int = STATE_EXPANDED
@@ -68,18 +76,36 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
 
     private lateinit var binding: PlayerOverlayTracksBinding
 
-    override fun initialFocusedView(): View = binding.subtitleTracks.emptyView
+    // the panel's scale: the desktop's sizes (half a dp a design px on a 1080p TV), 1 dp elsewhere
+    private val scale by lazy { RdScaleFrame.panelScale(requireContext()) }
+
+    // (the tab shown has the focus as the panel opens, as on the desktop)
+    override fun initialFocusedView(): View = tabViews.getOrNull(rdSection) ?: binding.rdTracksTabs
 
     override fun allowRemote() = true
 
+    /** the desktop's panel: Window Background, radius 6, the window's 1 px line */
+    override fun floatingBackground(view: View): Drawable = GradientDrawable().apply {
+        val unit = resources.displayMetrics.density * scale
+        setColor(ContextCompat.getColor(view.context, R.color.rd_dark_bg_b1))
+        setStroke(maxOf(1, (unit + 0.5f).toInt()), ContextCompat.getColor(view.context, R.color.rd_dark_window_border_token))
+        cornerRadius = 6 * unit
+    }
+
+    // (the desktop's 560 high on a TV; elsewhere about half the screen, as the other panels)
+    override fun anchoredMaxHeight(): Int = if (scale < 1f) (560 * resources.displayMetrics.density * scale).toInt() else Int.MAX_VALUE
+
     lateinit var menuItemListener: (VideoTrackOption) -> Unit
     lateinit var trackSelectionListener: (String, TrackType) -> Unit
+
+    private var subsPanel: RdSubtitlesPanel? = null
 
     private fun onServiceChanged(service: PlaybackService?) {
         service?.let { playbackService ->
             // VLC Redesign: each kind of track has its own tab, so a single video track still shows in its tab
             rdService = playbackService
             updateTiming()
+            readLook()
 
             playbackService.videoTracks?.let { trackList ->
                 val trackAdapter = TrackAdapter(generateTrackList(trackList), trackList.firstOrNull { it.getId() == playbackService.videoTrack }, getString(R.string.track_video))
@@ -98,20 +124,9 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
                 binding.audioTracks.trackList.adapter = trackAdapter
                 binding.audioTracks.trackTitle.contentDescription = getString(R.string.talkback_audio_tracks)
             }
-            playbackService.spuTracks?.let { trackList ->
-                // VLC Redesign, casting: the subtitles too (the Chromecast output burns them into the picture)
-                val trackAdapter = TrackAdapter(generateTrackList(trackList), trackList.firstOrNull { it.getId() == playbackService.spuTrack }, getString(R.string.track_text))
-                trackAdapter.setOnTrackSelectedListener { track ->
-                    rdChanged = true
-                    trackSelectionListener.invoke(track.getId(), TrackType.SPU)
-                }
-                binding.subtitleTracks.trackList.adapter = trackAdapter
-                if (trackList.isEmpty()) binding.subtitleTracks.emptyView.setVisible()
-                binding.subtitleTracks.trackTitle.contentDescription = getString(R.string.talkback_subtitle_tracks)
-            }
-            if (playbackService.spuTracks == null) binding.subtitleTracks.emptyView.setVisible()
             applyMediaKind(playbackService)
             setupSeries(playbackService)
+            subsPanel?.start()
         }
     }
 
@@ -133,17 +148,16 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = PlayerOverlayTracksBinding.inflate(layoutInflater, container, false)
-        return binding.root
+        // (on a TV the panel is laid out at the design's sizes and drawn at half)
+        return RdScaleFrame.wrap(requireContext(), binding.root)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.audioTracks.trackTitle.text = getString(R.string.audio)
         binding.videoTracks.trackTitle.text = getString(R.string.video)
-        binding.subtitleTracks.trackTitle.text = getString(R.string.subtitles)
 
         binding.audioTracks.trackList.layoutManager = LinearLayoutManager(requireActivity())
         binding.videoTracks.trackList.layoutManager = LinearLayoutManager(requireActivity())
-        binding.subtitleTracks.trackList.layoutManager = LinearLayoutManager(requireActivity())
 
         binding.videoTracks.trackMore.setGone()
 
@@ -151,7 +165,13 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
         binding.tracksSeparator3.isEnabled = false
         binding.tracksSeparator2.isEnabled = false
 
-
+        // the sheet of a phone held upright: the desktop panel's colour, its top corners rounded
+        binding.rdTracksRoot.background = GradientDrawable().apply {
+            setColor(ContextCompat.getColor(requireContext(), R.color.rd_dark_bg_b1))
+            setStroke(1.dp, ContextCompat.getColor(requireContext(), R.color.rd_dark_window_border_token))
+            val r = 14.dp.toFloat()
+            cornerRadii = floatArrayOf(r, r, r, r, 0f, 0f, 0f, 0f)
+        }
 
         generateSeparator(binding.audioTracks.options)
         generateOptionItem(binding.audioTracks.options, getString(R.string.audio_delay), R.drawable.ic_delay, VideoTrackOption.AUDIO_DELAY)
@@ -160,52 +180,95 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
             binding.audioTracks.trackMore.rotation = if (binding.audioTracks.options.isCollapsed) 180F - (180F * it) else 180F * it
         }
 
-
-        generateSeparator(binding.subtitleTracks.options)
-        generateOptionItem(binding.subtitleTracks.options, getString(R.string.spu_delay), R.drawable.ic_delay, VideoTrackOption.SUB_DELAY)
-        generateOptionItem(binding.subtitleTracks.options, getString(R.string.subtitle_select), R.drawable.ic_subtitles_file, VideoTrackOption.SUB_PICK)
-        generateOptionItem(binding.subtitleTracks.options, getString(R.string.rd_os_search), R.drawable.ic_download_subtitles, VideoTrackOption.SUB_DOWNLOAD)
-        generateSeparator(binding.subtitleTracks.options, true)
-        binding.subtitleTracks.options.setAnimationUpdateListener {
-            binding.subtitleTracks.trackMore.rotation = if (binding.subtitleTracks.options.isCollapsed) 180F - (180F * it) else 180F * it
-        }
-
         binding.audioTracks.trackMore.setOnClickListener {
             binding.audioTracks.options.toggle()
-            binding.subtitleTracks.options.collapse()
         }
 
         if (requireActivity().isTalkbackIsEnabled()) {
-            binding.subtitleTracks.options.onReady {
-                binding.subtitleTracks.trackMore.setGone()
-                binding.subtitleTracks.options.lock()
-            }
             binding.audioTracks.options.onReady {
                 binding.audioTracks.trackMore.setGone()
                 binding.audioTracks.options.lock()
             }
         }
 
-        binding.subtitleTracks.trackMore.setOnClickListener {
-            binding.subtitleTracks.options.toggle()
-            binding.audioTracks.options.collapse()
+        (activity as? VideoPlayerActivity)?.let { player ->
+            subsPanel = RdSubtitlesPanel(rdSubsView, player,
+                selectTrack = { id ->
+                    rdChanged = true
+                    trackSelectionListener.invoke(id, TrackType.SPU)
+                },
+                pickFile = {
+                    menuItemListener.invoke(VideoTrackOption.SUB_PICK)
+                    dismiss()
+                },
+                openServices = { openSettings("rd_sub_services_help") })
         }
         setupTabs()
+        setupFooter()
         setupTiming()
+        setupLook()
         super.onViewCreated(view, savedInstanceState)
         PlaybackService.serviceFlow.onEach { onServiceChanged(it) }.launchIn(lifecycleScope)
     }
 
-    // VLC Redesign: the tabs of the desktop panel (Video, Audio, Subtitles), opening on Subtitles
+    // VLC Redesign: the tabs of the desktop panel (Video, Audio, Subtitles: its icon and its name, the accent line
+    // under the one shown), opening on Subtitles; each hidden when the media has nothing for it
     private var rdTabsKey: String? = null
+    private var tabViews: List<View> = emptyList()
+    private val tabIcons = listOf(Pair(R.drawable.rd_ic_track_video, R.drawable.rd_ic_track_video_active),
+        Pair(R.drawable.rd_ic_track_audio, R.drawable.rd_ic_track_audio_active),
+        Pair(R.drawable.rd_ic_track_subtitles, R.drawable.rd_ic_track_subtitles_active))
 
     private fun setupTabs() {
-        binding.rdTracksTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) = showSection(tab.tag as? Int ?: 2)
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
-            override fun onTabReselected(tab: TabLayout.Tab) {}
-        })
+        val ctx = binding.rdTracksTabs.context
+        val accent = ctx.rdAccent()
+        val d = ctx.resources.displayMetrics.density
+        fun px(v: Int) = (v * d + 0.5f).toInt()
+        tabViews = listOf(R.string.video, R.string.audio, R.string.subtitles).mapIndexed { i, label ->
+            val tab = FrameLayout(ctx)
+            tab.isFocusable = true
+            tab.isClickable = true
+            // (A5 under the finger, as the desktop's under the pointer; a remote's focus is the TV's ring)
+            tab.background = android.graphics.drawable.StateListDrawable().apply {
+                addState(intArrayOf(android.R.attr.state_pressed), android.graphics.drawable.ColorDrawable(ContextCompat.getColor(ctx, R.color.rd_dark_bg_a5)))
+            }
+            tab.contentDescription = getString(label)
+            val content = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
+            val icon = ImageView(ctx).apply { tag = "icon"; scaleType = ImageView.ScaleType.FIT_CENTER }
+            content.addView(icon, LinearLayout.LayoutParams(px(24), px(24)).apply { marginEnd = px(8) })
+            val text = TextView(ctx).apply {
+                tag = "text"
+                text = getString(label)
+                typeface = ResourcesCompat.getFont(ctx, R.font.inter)
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+                isSingleLine = true
+                ellipsize = android.text.TextUtils.TruncateAt.END
+            }
+            content.addView(text, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+            tab.addView(content, FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER))
+            val line = View(ctx).apply { tag = "line"; setBackgroundColor(accent) }
+            tab.addView(line, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, px(2), Gravity.BOTTOM).apply { marginStart = px(12); marginEnd = px(12) })
+            tab.setOnClickListener { showSection(i) }
+            binding.rdTracksTabs.addView(tab, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f))
+            tab
+        }
+        // (the icons when the panel is 320 wide or more, as the desktop's)
+        binding.rdTracksTabs.addOnLayoutChangeListener { v, _, _, _, _, _, _, _, _ ->
+            val wide = v.width >= 320 * d
+            tabViews.forEach { t -> t.findViewWithTag<View>("icon")?.let { if (it.isVisible != wide) v.post { it.isVisible = wide } } }
+        }
         configureTabs(hasVideo = true, subtitles = true)
+    }
+
+    private fun paintTabs() {
+        val ctx = binding.rdTracksTabs.context
+        tabViews.forEachIndexed { i, tab ->
+            val on = i == rdSection
+            tab.findViewWithTag<TextView>("text")?.setTextColor(if (on) ctx.rdAccent() else ContextCompat.getColor(ctx, R.color.rd_dark_fg_a2))
+            tab.findViewWithTag<ImageView>("icon")?.setImageResource(if (on) tabIcons[i].second else tabIcons[i].first)
+            tab.findViewWithTag<View>("line")?.visibility = if (on) View.VISIBLE else View.INVISIBLE
+            tab.isSelected = on
+        }
     }
 
     private var rdStream = false
@@ -213,14 +276,19 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
     // (the series preset under the audio tracks and under the subtitles: a local file only)
     private fun sections() = listOf(listOf<View>(binding.videoTracks.root),
             if (rdStream) listOf<View>(binding.audioTracks.root) else listOf<View>(binding.audioTracks.root, binding.rdSeries.root),
-            if (rdStream) listOf<View>(binding.subtitleTracks.root) else listOf<View>(binding.subtitleTracks.root, binding.rdSubTiming.root, binding.rdSeries.root))
+            if (rdStream) listOf(rdSubsView) else listOf(rdSubsView, binding.rdSubTiming.root, binding.rdSeries.root, binding.rdSubLook.root))
+
+    // the Subtitles tab's panel (rd_subtitles_panel)
+    private val rdSubsView: View get() = binding.root.findViewById(R.id.rd_subs)
 
     private var rdSection = 2
 
     private fun showSection(index: Int) {
         rdSection = index
         val shown = sections().getOrElse(index) { emptyList() }
-        (sections().flatten() + binding.rdSeries.root).distinct().forEach { it.visibility = if (it in shown) View.VISIBLE else View.GONE }
+        (sections().flatten() + binding.rdSeries.root + binding.rdSubTiming.root + binding.rdSubLook.root).distinct()
+            .forEach { it.visibility = if (it in shown) View.VISIBLE else View.GONE }
+        paintTabs()
     }
 
     // The series preset: on, the choices are kept for the episodes of the series (and again as they change here)
@@ -250,6 +318,8 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
     }
 
     override fun onDestroyView() {
+        subsPanel?.stop()
+        subsPanel = null
         // a choice changed here while the series keeps its choices: kept again
         val key = rdSeriesKey
         val service = rdService
@@ -268,14 +338,12 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
         val key = "$hasVideo/$subtitles"
         if (key == rdTabsKey) return
         rdTabsKey = key
-        val tabs = binding.rdTracksTabs
-        val selected = tabs.getTabAt(tabs.selectedTabPosition)?.tag as? Int
-        tabs.removeAllTabs()
         val ids = buildList { if (hasVideo) add(0); add(1); if (subtitles) add(2) }
-        ids.forEach { id -> tabs.addTab(tabs.newTab().setText(listOf(R.string.video, R.string.audio, R.string.subtitles)[id]).setTag(id), false) }
-        val target = selected?.takeIf { it in ids } ?: ids.last()
-        tabs.getTabAt(ids.indexOf(target))?.select()
+        tabViews.forEachIndexed { i, tab -> tab.isVisible = i in ids }
+        val target = rdSection.takeIf { it in ids } ?: ids.last()
+        val hadFocus = tabViews.any { it.hasFocus() }
         showSection(target)
+        if (hadFocus) tabViews.getOrNull(target)?.requestFocus()
     }
 
     private fun applyMediaKind(service: PlaybackService) {
@@ -285,13 +353,39 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
             org.videolan.vlc.livetv.TvPlayback.isCurrent(media.uri?.toString()))
         val streamHasSubs = (service.spuTracks?.size ?: 0) > 0
         rdStream = stream
+        subsPanel?.let { if (it.fileFeatures == stream) it.fileFeatures = !stream }
         configureTabs(hasVideo, hasVideo && (!stream || streamHasSubs))
         showSection(rdSection)
-        if (stream) {
-            binding.rdSubTiming.root.setGone()
-            binding.subtitleTracks.trackMore.setGone()
-            binding.subtitleTracks.options.setGone()
+    }
+
+    /** the footer: Playback (the playback speed) and the settings of the tab shown */
+    private fun setupFooter() {
+        binding.rdTracksPlayback.setOnClickListener {
+            val fm = parentFragmentManager
+            dismiss()
+            if (fm.findFragmentByTag("playback_speed") == null) PlaybackSpeedDialog.newInstance().show(fm, "playback_speed")
         }
+        binding.rdTracksPreferences.setOnClickListener {
+            openSettings(when (rdSection) {
+                0 -> "opengl"
+                1 -> "aout"
+                else -> "subtitle_preferred_language"
+            })
+        }
+    }
+
+    /** Settings at the row of [key] (its page); this panel closes */
+    private fun openSettings(key: String) {
+        val player = activity ?: return
+        player.lifecycleScope.launch {
+            try {
+                org.videolan.vlc.gui.preferences.PreferencesActivity.launchWithPref(player, key)
+            } catch (e: Exception) {
+                // (the row not found: the settings open on their first page)
+                player.startActivity(android.content.Intent(player, org.videolan.vlc.gui.preferences.PreferencesActivity::class.java))
+            }
+        }
+        dismissAllowingStateLoss()
     }
 
     private var rdService: PlaybackService? = null
@@ -329,46 +423,95 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
             dismiss()
             if (fm.findFragmentByTag("subtitle_sync") == null) SubtitleSyncDialog().show(fm, "subtitle_sync")
         }
-        setupSize()
     }
 
     /**
-     * #10: the subtitle size, 25 to 500 % (SubtitleScale): the value follows the thumb, the playing subtitles take
-     * the size as it is let go (VideoPlayerActivity.setSubtitleScale: libvlc 3 reads it when it starts, so the
-     * video is opened again in place, as for the video effects); Reset: 100 %.
+     * Position and size (the desktop's rows: − value + Reset, the buttons repeat while held). The size: 25 to 500 %
+     * (SubtitleScale), the steps of the desktop's Ctrl + wheel; the position: up from the bottom of the video by 1 %
+     * of its height a step ("Usual" at the bottom), the vertical position of Settings › Subtitles. The playing video
+     * takes them a moment after the last change (VideoPlayerActivity: libvlc 3 reads them when it starts).
      */
-    private fun setupSize() {
-        val timing = binding.rdSubTiming
-        val settings = org.videolan.tools.Settings.getInstance(requireContext())
-        val current = org.videolan.tools.SubtitleScale.get(settings)
-        timing.rdSubSizeSlider.value = (current / 5 * 5).toFloat().coerceIn(timing.rdSubSizeSlider.valueFrom, timing.rdSubSizeSlider.valueTo)
-        showSize(current)
-        timing.rdSubSizeSlider.addOnChangeListener { _, value, fromUser -> if (fromUser) showSize(value.toInt()) }
-        timing.rdSubSizeSlider.addOnSliderTouchListener(object : com.google.android.material.slider.Slider.OnSliderTouchListener {
-            override fun onStartTrackingTouch(slider: com.google.android.material.slider.Slider) {}
-            override fun onStopTrackingTouch(slider: com.google.android.material.slider.Slider) = applySize(slider.value.toInt())
-        })
-        // keys (D-pad, keyboard) move the slider without a touch
-        timing.rdSubSizeSlider.setOnKeyListener { v, _, event ->
-            if (event.action == android.view.KeyEvent.ACTION_UP) v.post { applySize(timing.rdSubSizeSlider.value.toInt()) }
-            false
-        }
-        timing.rdSubSizeReset.setOnClickListener {
-            timing.rdSubSizeSlider.value = org.videolan.tools.SubtitleScale.DEFAULT.toFloat()
-            showSize(org.videolan.tools.SubtitleScale.DEFAULT)
-            applySize(org.videolan.tools.SubtitleScale.DEFAULT)
-        }
+    private fun setupLook() {
+        val look = binding.rdSubLook
+        repeatWhileHeld(look.rdSubSizeLower) { applySize(org.videolan.tools.SubtitleScale.step(sizeShown, false)) }
+        repeatWhileHeld(look.rdSubSizeHigher) { applySize(org.videolan.tools.SubtitleScale.step(sizeShown, true)) }
+        look.rdSubSizeReset.setOnClickListener { applySize(org.videolan.tools.SubtitleScale.DEFAULT) }
+        repeatWhileHeld(look.rdSubPositionLower) { applyPosition(positionShown - 1) }
+        repeatWhileHeld(look.rdSubPositionHigher) { applyPosition(positionShown + 1) }
+        look.rdSubPositionReset.setOnClickListener { applyPosition(0) }
+        readLook()
     }
+
+    /** the size and the position as kept (the position in % of the video playing) */
+    private fun readLook() {
+        val settings = org.videolan.tools.Settings.getInstance(requireContext())
+        sizeShown = org.videolan.tools.SubtitleScale.get(settings)
+        positionShown = percentOf(settings.getInt("rd_sub_margin", 0))
+        updateLook()
+    }
+
+    private var sizeShown = org.videolan.tools.SubtitleScale.DEFAULT
+    private var positionShown = 0
+
+    // the video's height, in its pixels (the position's steps are 1 % of it)
+    private fun videoHeight() = rdService?.currentVideoTrack?.getHeight()?.takeIf { it > 0 } ?: 1080
+
+    private fun percentOf(margin: Int) = Math.round(margin * 100f / videoHeight())
+
+    // the highest the position goes: 60 % as on the desktop, within the 400 px libvlc is given
+    private fun maxPosition() = minOf(60, 400 * 100 / videoHeight())
 
     private fun applySize(scale: Int) {
+        val value = org.videolan.tools.SubtitleScale.clamp(scale)
         rdChanged = true
-        (activity as? org.videolan.vlc.gui.video.VideoPlayerActivity)?.setSubtitleScale(scale, osd = false)
-            ?: org.videolan.tools.Settings.getInstance(requireContext()).putSingle(org.videolan.tools.KEY_SUBTITLES_TEXT_SCALE, org.videolan.tools.SubtitleScale.clamp(scale))
-        showSize(scale)
+        sizeShown = value
+        (activity as? VideoPlayerActivity)?.setSubtitleScale(value, osd = false)
+            ?: org.videolan.tools.Settings.getInstance(requireContext()).putSingle(org.videolan.tools.KEY_SUBTITLES_TEXT_SCALE, value)
+        updateLook()
     }
 
-    private fun showSize(scale: Int) {
-        binding.rdSubTiming.rdSubSizeValue.text = String.format(java.util.Locale.getDefault(), "⁦%d %%⁩", scale) // (isolated: "100 %" in a right to left language too)
+    private fun applyPosition(percent: Int) {
+        val value = percent.coerceIn(0, maxPosition())
+        positionShown = value
+        val margin = Math.round(value * videoHeight() / 100f)
+        (activity as? VideoPlayerActivity)?.setSubtitleMargin(margin)
+            ?: org.videolan.tools.Settings.getInstance(requireContext()).putSingle("rd_sub_margin", margin)
+        updateLook()
+    }
+
+    private fun updateLook() {
+        if (!::binding.isInitialized) return
+        val look = binding.rdSubLook
+        // (isolated: "100%" and "+5%" in a right to left language too)
+        look.rdSubSizeValue.text = String.format(java.util.Locale.getDefault(), "⁦%d%%⁩", sizeShown)
+        look.rdSubSizeLower.isEnabled = sizeShown > org.videolan.tools.SubtitleScale.MIN
+        look.rdSubSizeHigher.isEnabled = sizeShown < org.videolan.tools.SubtitleScale.MAX
+        look.rdSubSizeReset.isEnabled = sizeShown != org.videolan.tools.SubtitleScale.DEFAULT
+        look.rdSubPositionValue.text = if (positionShown == 0) getString(R.string.rd_subs_usual)
+            else String.format(java.util.Locale.getDefault(), "⁦+%d%%⁩", positionShown)
+        look.rdSubPositionLower.isEnabled = positionShown > 0
+        look.rdSubPositionHigher.isEnabled = positionShown < maxPosition()
+        look.rdSubPositionReset.isEnabled = positionShown != 0
+    }
+
+    /** a click, and again and again while the button is held (the desktop's autoRepeat) */
+    @SuppressLint("ClickableViewAccessibility")
+    private fun repeatWhileHeld(button: View, action: () -> Unit) {
+        val again = object : Runnable {
+            override fun run() {
+                if (!button.isPressed || !button.isEnabled) return
+                action()
+                button.postDelayed(this, 120L)
+            }
+        }
+        button.setOnClickListener { action() }
+        button.setOnTouchListener { v, event ->
+            when (event.actionMasked) {
+                MotionEvent.ACTION_DOWN -> v.postDelayed(again, 500L)
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> v.removeCallbacks(again)
+            }
+            false
+        }
     }
 
     /** Once both are marked: the text came (text - voice) late, so the subtitles move that much earlier. */
@@ -394,6 +537,7 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
         timing.rdSubMarkText.text = getString(if (textMark >= 0) R.string.rd_text_marked else R.string.rd_mark_text_seen)
         timing.rdSubMarkVoice.isChecked = voiceMark >= 0
         timing.rdSubMarkText.isChecked = textMark >= 0
+        timing.rdSubDelayReset.isEnabled = delay != 0L || voiceMark >= 0 || textMark >= 0
     }
 
     private fun showDelay(ms: Long) {
@@ -437,4 +581,3 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
         SUB_DELAY, SUB_PICK, SUB_DOWNLOAD, AUDIO_DELAY
     }
 }
-

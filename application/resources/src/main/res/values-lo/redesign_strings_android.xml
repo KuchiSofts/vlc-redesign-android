@@ -32,4 +32,20 @@
     <string name="rd_unpin_from_home">ຖອນປັກໝຸດຈາກໜ້າຫຼັກ</string>
     <string name="rd_pinned">ປັກໝຸດແລ້ວ</string>
     <string name="rd_pinned_missing">ໂຟລເດີ ຫຼື ລາຍການຫຼິ້ນທີ່ປັກໝຸດນີ້ບໍ່ມີແລ້ວ.</string>
+    <string name="rd_subs_of_video">ຄຳບັນຍາຍຂອງວິດີໂອນີ້</string>
+    <string name="rd_subs_in_video">ໃນວິດີໂອ</string>
+    <string name="rd_subs_next_to">ຢູ່ຂ້າງວິດີໂອ · %1$s</string>
+    <string name="rd_subs_next_to_plain">ຢູ່ຂ້າງວິດີໂອ</string>
+    <string name="rd_subs_opened">ເປີດແລ້ວ · %1$s</string>
+    <string name="rd_subs_opened_plain">ໄຟລ໌ທີ່ເປີດ</string>
+    <string name="rd_subs_none_yet">ຍັງບໍ່ມີຄຳບັນຍາຍ</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">ສະແດງການຕັ້ງຄ່າ</string>
+    <string name="rd_subs_position_size">ຕຳແໜ່ງ ແລະ ຂະໜາດ</string>
+    <string name="rd_subs_position">ຕຳແໜ່ງ</string>
+    <string name="rd_subs_usual">ປົກກະຕິ</string>
+    <string name="rd_subs_move_down">ຍ້າຍຄຳບັນຍາຍລົງ</string>
+    <string name="rd_subs_move_up">ຍ້າຍຄຳບັນຍາຍຂຶ້ນ</string>
+    <string name="rd_subs_smaller">ຄຳບັນຍາຍນ້ອຍລົງ</string>
+    <string name="rd_subs_larger">ຄຳບັນຍາຍໃຫຍ່ຂຶ້ນ</string>
 </resources>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  VLC Redesign: the Subtitles tab of the player's panel, the desktop's SubtitleTracksPanel at its sizes (1 design px =
+  1 dp; the TV draws the panel at half: 1 px of its 1080p screen): what was found with the search, refresh, settings
+  and add buttons; the services asked; the title search; the languages on the left (the shown one with the accent
+  bar), the subtitles of that language on the right. RdSubtitlesPanel fills it.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rd_subs_panel"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/rd_subs_busy"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="4dp"
+            android:visibility="gone">
+
+            <View
+                android:id="@+id/rd_subs_busy_dot"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/rd_subs_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter"
+            android:includeFontPadding="false"
+            android:singleLine="true"
+            android:textAlignment="viewStart"
+            android:textColor="@color/rd_dark_fg_a3"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:id="@+id/rd_subs_search"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="4dp"
+            android:contentDescription="@string/rd_os_another"
+            android:focusable="true"
+            android:scaleType="center"
+            android:src="@drawable/rd_ic_search" />
+
+        <ImageView
+            android:id="@+id/rd_subs_refresh"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="4dp"
+            android:contentDescription="@string/rd_os_search"
+            android:focusable="true"
+            android:scaleType="center"
+            android:src="@drawable/ic_refresh" />
+
+        <ImageView
+            android:id="@+id/rd_subs_settings"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="4dp"
+            android:contentDescription="@string/rd_os_services"
+            android:focusable="true"
+            android:scaleType="center"
+            android:src="@drawable/rd_ic_settings" />
+
+        <ImageView
+            android:id="@+id/rd_subs_add"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="4dp"
+            android:contentDescription="@string/subtitle_select"
+            android:focusable="true"
+            android:scaleType="center"
+            android:src="@drawable/rd_ic_add" />
+    </LinearLayout>
+
+    <!-- every service asked and what it found: "OpenSubtitles 2  ·  YIFY Subtitles 3", a dash for one that didn't answer -->
+    <TextView
+        android:id="@+id/rd_subs_services"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/inter"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:textAlignment="viewStart"
+        android:textColor="@color/rd_dark_fg_a3"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <!-- why a service didn't answer (the desktop's tooltip of the line) -->
+    <TextView
+        android:id="@+id/rd_subs_why"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/inter"
+        android:includeFontPadding="false"
+        android:textAlignment="viewStart"
+        android:textColor="@color/rd_dark_fg_a3"
+        android:textSize="11sp"
+        android:visibility="gone" />
+
+    <!-- the title of the video, when the search took it for another one -->
+    <LinearLayout
+        android:id="@+id/rd_subs_title_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/rd_subs_title_field"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@drawable/rd_subs_title_field"
+            android:fontFamily="@font/inter"
+            android:hint="@string/rd_os_title_hint"
+            android:imeOptions="actionSearch|flagNoExtractUi"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:singleLine="true"
+            android:textAlignment="viewStart"
+            android:textColor="@color/rd_dark_fg_1"
+            android:textColorHint="#FF5A5A5A"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/rd_subs_title_busy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/inter"
+            android:textAlignment="viewStart"
+            android:textColor="@color/rd_dark_fg_a3"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/rd_subs_title_rows"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </LinearLayout>
+
+    <!-- languages | subtitles (300 high; the left one 38 % of the width) -->
+    <LinearLayout
+        android:id="@+id/rd_subs_columns"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="8dp"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/rd_subs_language_scroll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="38"
+            android:scrollbarSize="4dp"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical">
+
+            <LinearLayout
+                android:id="@+id/rd_subs_languages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="62"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/rd_dark_divider_dim" />
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/rd_subs_variant_scroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbarSize="4dp"
+                    android:scrollbarStyle="insideOverlay"
+                    android:scrollbars="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/rd_subs_variants"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </androidx.core.widget.NestedScrollView>
+
+                <TextView
+                    android:id="@+id/rd_subs_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:fontFamily="@font/inter"
+                    android:gravity="center"
+                    android:textColor="@color/rd_dark_fg_a3"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Eemalda avavaatest</string>
     <string name="rd_pinned">Kinnitatud</string>
     <string name="rd_pinned_missing">Seda kinnitatud kausta või esitusloendit enam pole.</string>
+    <string name="rd_subs_of_video">Selle video subtiitrid</string>
+    <string name="rd_subs_in_video">Videos</string>
+    <string name="rd_subs_next_to">Video kõrval · %1$s</string>
+    <string name="rd_subs_next_to_plain">Video kõrval</string>
+    <string name="rd_subs_opened">Avatud · %1$s</string>
+    <string name="rd_subs_opened_plain">Avatud fail</string>
+    <string name="rd_subs_none_yet">Subtiitreid veel pole</string>
+    <string name="rd_subs_hi_short">VK</string>
+    <string name="rd_show_preferences">Kuva eelistused</string>
+    <string name="rd_subs_position_size">Asukoht ja suurus</string>
+    <string name="rd_subs_position">Asukoht</string>
+    <string name="rd_subs_usual">Tavaline</string>
+    <string name="rd_subs_move_down">Liiguta subtiitreid alla</string>
+    <string name="rd_subs_move_up">Liiguta subtiitreid üles</string>
+    <string name="rd_subs_smaller">Väiksemad subtiitrid</string>
+    <string name="rd_subs_larger">Suuremad subtiitrid</string>
 </resources>

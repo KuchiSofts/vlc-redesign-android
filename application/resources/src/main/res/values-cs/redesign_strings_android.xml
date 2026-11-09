@@ -67,4 +67,20 @@
     <string name="rd_volume_left_side">Levá strana</string>
     <string name="rd_volume_top_right">Pravý horní roh</string>
     <string name="rd_volume_top_left">Levý horní roh</string>
+    <string name="rd_subs_of_video">Titulky tohoto videa</string>
+    <string name="rd_subs_in_video">Ve videu</string>
+    <string name="rd_subs_next_to">Vedle videa · %1$s</string>
+    <string name="rd_subs_next_to_plain">Vedle videa</string>
+    <string name="rd_subs_opened">Otevřeno · %1$s</string>
+    <string name="rd_subs_opened_plain">Otevřený soubor</string>
+    <string name="rd_subs_none_yet">Zatím žádné titulky</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Zobrazit nastavení</string>
+    <string name="rd_subs_position_size">Pozice a velikost</string>
+    <string name="rd_subs_position">Pozice</string>
+    <string name="rd_subs_usual">Obvyklá</string>
+    <string name="rd_subs_move_down">Posunout titulky dolů</string>
+    <string name="rd_subs_move_up">Posunout titulky nahoru</string>
+    <string name="rd_subs_smaller">Menší titulky</string>
+    <string name="rd_subs_larger">Větší titulky</string>
 </resources>

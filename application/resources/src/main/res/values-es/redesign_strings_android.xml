@@ -67,4 +67,20 @@
     <string name="rd_volume_left_side">Lado izquierdo</string>
     <string name="rd_volume_top_right">Esquina superior derecha</string>
     <string name="rd_volume_top_left">Esquina superior izquierda</string>
+    <string name="rd_subs_of_video">Subtítulos de este vídeo</string>
+    <string name="rd_subs_in_video">En el vídeo</string>
+    <string name="rd_subs_next_to">Junto al vídeo · %1$s</string>
+    <string name="rd_subs_next_to_plain">Junto al vídeo</string>
+    <string name="rd_subs_opened">Abierto · %1$s</string>
+    <string name="rd_subs_opened_plain">Archivo abierto</string>
+    <string name="rd_subs_none_yet">Aún no hay subtítulos</string>
+    <string name="rd_subs_hi_short">SDH</string>
+    <string name="rd_show_preferences">Mostrar preferencias</string>
+    <string name="rd_subs_position_size">Posición y tamaño</string>
+    <string name="rd_subs_position">Posición</string>
+    <string name="rd_subs_usual">Habitual</string>
+    <string name="rd_subs_move_down">Bajar los subtítulos</string>
+    <string name="rd_subs_move_up">Subir los subtítulos</string>
+    <string name="rd_subs_smaller">Subtítulos más pequeños</string>
+    <string name="rd_subs_larger">Subtítulos más grandes</string>
 </resources>

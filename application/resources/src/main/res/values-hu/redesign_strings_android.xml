@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Rögzítés feloldása a kezdőlapon</string>
     <string name="rd_pinned">Rögzítve</string>
     <string name="rd_pinned_missing">Ez a rögzített mappa vagy lejátszólista már nem létezik.</string>
+    <string name="rd_subs_of_video">A videó feliratai</string>
+    <string name="rd_subs_in_video">A videóban</string>
+    <string name="rd_subs_next_to">A videó mellett · %1$s</string>
+    <string name="rd_subs_next_to_plain">A videó mellett</string>
+    <string name="rd_subs_opened">Megnyitva · %1$s</string>
+    <string name="rd_subs_opened_plain">Megnyitott fájl</string>
+    <string name="rd_subs_none_yet">Még nincs felirat</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Beállítások megjelenítése</string>
+    <string name="rd_subs_position_size">Pozíció és méret</string>
+    <string name="rd_subs_position">Pozíció</string>
+    <string name="rd_subs_usual">Szokásos</string>
+    <string name="rd_subs_move_down">Feliratok lejjebb</string>
+    <string name="rd_subs_move_up">Feliratok feljebb</string>
+    <string name="rd_subs_smaller">Kisebb feliratok</string>
+    <string name="rd_subs_larger">Nagyobb feliratok</string>
 </resources>

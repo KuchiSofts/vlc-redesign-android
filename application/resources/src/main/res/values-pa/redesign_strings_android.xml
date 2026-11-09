@@ -64,4 +64,20 @@
     <string name="rd_unpin_from_home">ਹੋਮ ਤੋਂ ਅਨਪਿੰਨ ਕਰੋ</string>
     <string name="rd_pinned">ਪਿੰਨ ਕੀਤੇ</string>
     <string name="rd_pinned_missing">ਇਹ ਪਿੰਨ ਕੀਤਾ ਫੋਲਡਰ ਜਾਂ ਪਲੇਅਲਿਸਟ ਹੁਣ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।</string>
+    <string name="rd_subs_of_video">ਇਸ ਵਿਡੀਓ ਦੇ ਸਬ-ਟਾਈਟਲ</string>
+    <string name="rd_subs_in_video">ਵਿਡੀਓ ਵਿੱਚ</string>
+    <string name="rd_subs_next_to">ਵਿਡੀਓ ਦੇ ਨਾਲ · %1$s</string>
+    <string name="rd_subs_next_to_plain">ਵਿਡੀਓ ਦੇ ਨਾਲ</string>
+    <string name="rd_subs_opened">ਖੋਲ੍ਹਿਆ · %1$s</string>
+    <string name="rd_subs_opened_plain">ਖੋਲ੍ਹੀ ਫਾਇਲ</string>
+    <string name="rd_subs_none_yet">ਹਾਲੇ ਕੋਈ ਸਬ-ਟਾਈਟਲ ਨਹੀਂ</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">ਪਸੰਦ ਵੇਖਾਓ</string>
+    <string name="rd_subs_position_size">ਸਥਿਤੀ ਅਤੇ ਸਾਈਜ਼</string>
+    <string name="rd_subs_position">ਸਥਿਤੀ</string>
+    <string name="rd_subs_usual">ਆਮ</string>
+    <string name="rd_subs_move_down">ਸਬ-ਟਾਈਟਲ ਹੇਠਾਂ ਕਰੋ</string>
+    <string name="rd_subs_move_up">ਸਬ-ਟਾਈਟਲ ਉੱਪਰ ਕਰੋ</string>
+    <string name="rd_subs_smaller">ਛੋਟੇ ਸਬ-ਟਾਈਟਲ</string>
+    <string name="rd_subs_larger">ਵੱਡੇ ਸਬ-ਟਾਈਟਲ</string>
 </resources>

@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">ഹോമിൽ നിന്ന് അൺപിൻ ചെയ്യുക</string>
     <string name="rd_pinned">പിൻ ചെയ്തവ</string>
     <string name="rd_pinned_missing">പിൻ ചെയ്ത ഈ ഫോൾഡറോ പ്ലേലിസ്റ്റോ ഇപ്പോൾ നിലവിലില്ല.</string>
+    <string name="rd_subs_of_video">ഈ വീഡിയോയുടെ ഉപശീർഷകങ്ങൾ</string>
+    <string name="rd_subs_in_video">വീഡിയോയിൽ</string>
+    <string name="rd_subs_next_to">വീഡിയോയ്ക്ക് അടുത്ത് · %1$s</string>
+    <string name="rd_subs_next_to_plain">വീഡിയോയ്ക്ക് അടുത്ത്</string>
+    <string name="rd_subs_opened">തുറന്നത് · %1$s</string>
+    <string name="rd_subs_opened_plain">തുറന്ന ഫയൽ</string>
+    <string name="rd_subs_none_yet">ഇതുവരെ ഉപശീർഷകങ്ങളൊന്നുമില്ല</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">മുൻഗണനകൾ കാണിക്കുക</string>
+    <string name="rd_subs_position_size">സ്ഥാനവും വലുപ്പവും</string>
+    <string name="rd_subs_position">സ്ഥാനം</string>
+    <string name="rd_subs_usual">സാധാരണ</string>
+    <string name="rd_subs_move_down">ഉപശീർഷകങ്ങൾ താഴേക്ക് നീക്കുക</string>
+    <string name="rd_subs_move_up">ഉപശീർഷകങ്ങൾ മുകളിലേക്ക് നീക്കുക</string>
+    <string name="rd_subs_smaller">ചെറിയ ഉപശീർഷകങ്ങൾ</string>
+    <string name="rd_subs_larger">വലിയ ഉപശീർഷകങ്ങൾ</string>
 </resources>

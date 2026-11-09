@@ -31,4 +31,20 @@
     <string name="rd_unpin_from_home">Distaca dae sa Pàgina printzipale</string>
     <string name="rd_pinned">Apicados</string>
     <string name="rd_pinned_missing">Custa cartella o iscalita apicada no b\'est prus.</string>
+    <string name="rd_subs_of_video">Sutatìtulos de custu vìdeu</string>
+    <string name="rd_subs_in_video">In su vìdeu</string>
+    <string name="rd_subs_next_to">A costados de su vìdeu · %1$s</string>
+    <string name="rd_subs_next_to_plain">A costados de su vìdeu</string>
+    <string name="rd_subs_opened">Abertu · %1$s</string>
+    <string name="rd_subs_opened_plain">Documentu abertu</string>
+    <string name="rd_subs_none_yet">Ancora perunu sutatìtulu</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Mustra sas preferèntzias</string>
+    <string name="rd_subs_position_size">Positzione e mannària</string>
+    <string name="rd_subs_position">Positzione</string>
+    <string name="rd_subs_usual">Normale</string>
+    <string name="rd_subs_move_down">Move sos sutatìtulos a bàsciu</string>
+    <string name="rd_subs_move_up">Move sos sutatìtulos a susu</string>
+    <string name="rd_subs_smaller">Sutatìtulos prus minores</string>
+    <string name="rd_subs_larger">Sutatìtulos prus mannos</string>
 </resources>

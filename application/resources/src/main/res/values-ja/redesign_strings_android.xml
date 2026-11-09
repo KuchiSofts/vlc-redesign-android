@@ -67,4 +67,20 @@
     <string name="rd_volume_left_side">左側</string>
     <string name="rd_volume_top_right">右上隅</string>
     <string name="rd_volume_top_left">左上隅</string>
+    <string name="rd_subs_of_video">このビデオの字幕</string>
+    <string name="rd_subs_in_video">ビデオ内</string>
+    <string name="rd_subs_next_to">ビデオと同じ場所 · %1$s</string>
+    <string name="rd_subs_next_to_plain">ビデオと同じ場所</string>
+    <string name="rd_subs_opened">開いたファイル · %1$s</string>
+    <string name="rd_subs_opened_plain">開いたファイル</string>
+    <string name="rd_subs_none_yet">まだ字幕はありません</string>
+    <string name="rd_subs_hi_short">聴覚</string>
+    <string name="rd_show_preferences">設定を表示</string>
+    <string name="rd_subs_position_size">位置とサイズ</string>
+    <string name="rd_subs_position">位置</string>
+    <string name="rd_subs_usual">通常</string>
+    <string name="rd_subs_move_down">字幕を下へ移動</string>
+    <string name="rd_subs_move_up">字幕を上へ移動</string>
+    <string name="rd_subs_smaller">字幕を小さく</string>
+    <string name="rd_subs_larger">字幕を大きく</string>
 </resources>

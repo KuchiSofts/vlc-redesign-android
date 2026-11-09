@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Atspraust no sākumlapas</string>
     <string name="rd_pinned">Piesprausts</string>
     <string name="rd_pinned_missing">Šīs piespraustās mapes vai atskaņošanas saraksta vairs nav.</string>
+    <string name="rd_subs_of_video">Šī video subtitri</string>
+    <string name="rd_subs_in_video">Iegulti video</string>
+    <string name="rd_subs_next_to">Blakus video · %1$s</string>
+    <string name="rd_subs_next_to_plain">Blakus video</string>
+    <string name="rd_subs_opened">Atvērts · %1$s</string>
+    <string name="rd_subs_opened_plain">Atvērta datne</string>
+    <string name="rd_subs_none_yet">Vēl nav subtitru</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Rādīt iestatījumus</string>
+    <string name="rd_subs_position_size">Novietojums un izmērs</string>
+    <string name="rd_subs_position">Novietojums</string>
+    <string name="rd_subs_usual">Parasts</string>
+    <string name="rd_subs_move_down">Pārvietot subtitrus uz leju</string>
+    <string name="rd_subs_move_up">Pārvietot subtitrus uz augšu</string>
+    <string name="rd_subs_smaller">Mazāki subtitri</string>
+    <string name="rd_subs_larger">Lielāki subtitri</string>
 </resources>

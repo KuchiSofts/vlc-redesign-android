@@ -63,4 +63,20 @@
     <string name="rd_unpin_from_home">Откачи са Почетне</string>
     <string name="rd_pinned">Закачено</string>
     <string name="rd_pinned_missing">Ова закачена фасцикла или списак нумера више не постоји.</string>
+    <string name="rd_subs_of_video">Титлови овог видеа</string>
+    <string name="rd_subs_in_video">У видеу</string>
+    <string name="rd_subs_next_to">Поред видеа · %1$s</string>
+    <string name="rd_subs_next_to_plain">Поред видеа</string>
+    <string name="rd_subs_opened">Отворено · %1$s</string>
+    <string name="rd_subs_opened_plain">Отворена датотека</string>
+    <string name="rd_subs_none_yet">Још нема титлова</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Прикажи подешавања</string>
+    <string name="rd_subs_position_size">Позиција и величина</string>
+    <string name="rd_subs_position">Позиција</string>
+    <string name="rd_subs_usual">Уобичајено</string>
+    <string name="rd_subs_move_down">Помери титлове надоле</string>
+    <string name="rd_subs_move_up">Помери титлове нагоре</string>
+    <string name="rd_subs_smaller">Мањи титлови</string>
+    <string name="rd_subs_larger">Већи титлови</string>
 </resources>
