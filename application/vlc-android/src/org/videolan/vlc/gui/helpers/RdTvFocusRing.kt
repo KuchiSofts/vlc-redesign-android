@@ -45,14 +45,39 @@ object RdTvFocusRing {
         cornerRadius = 6.dp.toFloat()
     }
 
-    private fun show(view: View) {
-        if (view.getTag(R.id.rd_tv_focus_saved) != null) return
-        // a text field shows its own caret and frame
-        if (view is android.widget.EditText) return
+    /**
+     * What the ring goes around: a text field in a box of its own (the search's, with its icon) the box, else the
+     * view itself.
+     */
+    private fun target(view: View): View {
+        if (view !is android.widget.EditText) return view
+        val box = view.parent as? android.view.ViewGroup ?: return view
+        return if (box.background != null && box.childCount <= 3 && box.height <= view.height * 2 + 16.dp) box else view
+    }
+
+    private fun show(focused: View) {
         // a control that shows its focus itself (the player's play pill)
-        if (view.getTag(R.id.rd_tv_focus_skip) == true) return
-        // a list that has the focus itself (between its rows): its rows show the focus, not the whole list
-        if (view is androidx.recyclerview.widget.RecyclerView) return
+        if (focused.getTag(R.id.rd_tv_focus_skip) == true) return
+        // a list that has the focus itself (between its rows, its rows made again): a row takes it, the one at the
+        // focus before or the first shown (a list holding the focus showed none: where the remote was could not
+        // be told)
+        if (focused is androidx.recyclerview.widget.RecyclerView) {
+            focused.postDelayed({
+                if (focused.isFocused && focused.isAttachedToWindow) {
+                    val lm = focused.layoutManager
+                    val row = (0 until (lm?.childCount ?: 0)).asSequence().mapNotNull { lm?.getChildAt(it) }
+                        .firstOrNull { it.isShown && (it.isFocusable || (it as? android.view.ViewGroup)?.hasFocusable() == true) }
+                    row?.requestFocus()
+                }
+            }, 120)
+            return
+        }
+        // a text field: the ring too, around its box (on a TV it shows no caret until it is typed in: the search
+        // had the focus and nothing showed it)
+        val view = target(focused)
+        if (view.getTag(R.id.rd_tv_focus_saved) != null) return
+        // (the box remembered by the field: the ring taken off the same view)
+        if (view !== focused) focused.setTag(R.id.rd_tv_focus_listener, view)
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             view.setTag(R.id.rd_tv_focus_saved, view.foreground ?: NONE)
             view.foreground = ring(view)
@@ -67,7 +92,8 @@ object RdTvFocusRing {
 
     private class OverlayRing(val drawable: Drawable)
 
-    private fun clear(view: View) {
+    private fun clear(focused: View) {
+        val view = (focused.getTag(R.id.rd_tv_focus_listener) as? View)?.also { focused.setTag(R.id.rd_tv_focus_listener, null) } ?: focused
         val saved = view.getTag(R.id.rd_tv_focus_saved) ?: return
         if (saved is OverlayRing) view.overlay.remove(saved.drawable)
         else if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) view.foreground = saved as? Drawable
