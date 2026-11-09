@@ -30,11 +30,12 @@
     <string name="rd_ob_history_help">Huhifadhiwa kwenye kifaa hiki pekee, ili kuendelea ulipoishia.</string>
     <string name="rd_ob_updates_help">Hutafuta toleo jipya la majaribio la VLC for Android mara moja kwa siku.</string>
     <string-array name="rd_whats_new_items">
-        <item>Manukuu: SubSource (Kiarabu), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 na Legendas.net kwa ufunguo au akaunti yako mwenyewe ya bure. Kila huduma katika Mipangilio › Manukuu, na swichi yake.</item>
-        <item>Lugha za kutafuta: washa au zima kila lugha ya manukuu ili utafutaji uwe wa haraka zaidi.</item>
-        <item>Akaunti za TV ya moja kwa moja: Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR au HDHomeRun yako, na mwongozo wa Schedules Direct. Seva zilizo kwenye mtandao wako hupatikana zenyewe.</item>
-        <item>TV ya moja kwa moja: mwongozo unaopatikana wenyewe kwa chaneli zisizo na mwongozo, kichupo cha Miongozo chenye miongozo ya kila chanzo, na vyanzo vya nchi yako kwanza kwenye katalogi.</item>
-        <item>Marekebisho: manukuu yanahifadhiwa kwenye hifadhi ya programu yenyewe (programu iliacha kufanya kazi kwenye Android 14), sehemu za nenosiri zinaficha nenosiri, ulengaji wa rimoti ya TV, neno Nchi katika lugha nyingi na neno nenosiri kwa Kiarabu.</item>
+        <item>Haraka zaidi na thabiti zaidi: TV ya moja kwa moja na manukuu hufanya kazi chinichini, na programu kuacha kufanya kazi pamoja na kicheza video kukwama kwenye Android 5 na visanduku vya TV kumerekebishwa.</item>
+        <item>Skrini nzima: kitufe, rimoti au ishara inaweza kuonyesha maendeleo pekee au ujumbe pekee badala ya vidhibiti, katika Mipangilio › Kiolesura. Shukrani kwa @BarbodF.</item>
+        <item>Manukuu ya kiotomatiki yenye akili zaidi: folda ya Subs inayokuja na video hutumika kwanza, faili ya tangazo au yenye mistari ya lazima pekee haihesabiwi tena kama manukuu, filamu ambayo picha yake huchelewa bado hutafutiwa, na alama za uakifishaji za Kiebrania na Kiarabu huonekana upande sahihi.</item>
+        <item>Manukuu ya mtandaoni sasa pia kwa video zilizo kwenye folda iliyoshirikiwa kwenye mtandao, seva ya media au nyuma ya kiungo, yakitafutwa kwa mkono na kiotomatiki (shukrani kwa @Elshepl). Kwenye Android 5 hadi 7.0, OpenSubtitles hujibu tena.</item>
+        <item>Paneli ya Manukuu kama kwenye kompyuta: hufunguka juu ya kitufe chake, ikiwa na lugha na idadi yake, matokeo ya mtandaoni na muda mahali pamoja.</item>
+        <item>Husakinishwa kando ya VLC for Android, na programu ya TV kwa Kiebrania na Kiarabu imegeuzwa kama kioo kikamilifu, huku ulengaji wa rimoti ukiwa pale unapotarajia.</item>
     </string-array>
     <string name="rd_subtitle_size">Ukubwa wa manukuu</string>
     <string name="rd_cast_this_phone">Simu hii</string>

@@ -30,11 +30,12 @@
     <string name="rd_ob_history_help">Čuva se samo na ovom uređaju, da biste nastavili gdje ste stali.</string>
     <string name="rd_ob_updates_help">Jednom dnevno traži noviju probnu verziju VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Podnaslovi: SubSource (arapski), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 i Legendas.net s vašim besplatnim ključem ili računom. Svaka usluga u Postavke › Podnaslovi, sa svojim prekidačem.</item>
-        <item>Jezici za pretragu: uključite ili isključite svaki jezik podnaslova za bržu pretragu.</item>
-        <item>Računi za TV uživo: vaš Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR ili HDHomeRun i vodič Schedules Direct. Poslužitelji u vašoj mreži pronalaze se sami.</item>
-        <item>TV uživo: vodič pronađen automatski za kanale koji ga nemaju, kartica „Vodiči” s vodičima svih izvora i izvori vaše države na početku kataloga.</item>
-        <item>Ispravci: preuzeti podnaslovi spremaju se u vlastitu pohranu aplikacije (rušenje na sustavu Android 14), polja za zaporku skrivaju upisanu zaporku, fokus pri upravljanju daljinskim upravljačem, prijevod riječi „Država” na mnogim jezicima i riječ „zaporka” na arapskom.</item>
+        <item>Brže i stabilnije: TV uživo i podnaslovi rade u pozadini, a ispravljena su rušenja i zamrznuti reproduktor na sustavu Android 5 i TV boxovima.</item>
+        <item>Cijeli zaslon: tipka, daljinski upravljač ili pokret mogu umjesto kontrola prikazati samo napredak ili samo poruku, u Postavke › Sučelje. Hvala @BarbodF.</item>
+        <item>Pametniji automatski podnaslovi: najprije se koristi vlastita mapa Subs koja dolazi uz videozapis, datoteka s reklamom ili samo s prisilnim recima više se ne računa kao podnaslov, podnaslovi se traže i za film čija slika kasni, a interpunkcija na hebrejskom i arapskom prikazuje se na pravom kraju.</item>
+        <item>Podnaslovi s interneta sada i za videozapise na mrežnom dijeljenju, medijskom poslužitelju ili iza poveznice, pri ručnom i automatskom traženju (hvala @Elshepl). Na sustavu Android 5 do 7.0 OpenSubtitles ponovno odgovara.</item>
+        <item>Ploča podnaslova kao u verziji za računalo: otvara se iznad svojeg gumba, a jezici s brojem podnaslova, rezultati s mreže i usklađivanje vremena nalaze se na jednom mjestu.</item>
+        <item>Instalira se uz VLC for Android, a TV aplikacija na hebrejskom i arapskom potpuno je zrcaljena, s fokusom daljinskog upravljača ondje gdje ga očekujete.</item>
     </string-array>
     <string name="rd_subtitle_size">Veličina titlova</string>
     <string name="rd_cast_this_phone">Ovaj telefon</string>

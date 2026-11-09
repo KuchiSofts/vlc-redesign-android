@@ -30,11 +30,12 @@
     <string name="rd_ob_history_help">Guardado apenas neste dispositivo, para continuar onde parou.</string>
     <string name="rd_ob_updates_help">Procura uma versão de teste mais recente do VLC for Android uma vez por dia.</string>
     <string-array name="rd_whats_new_items">
-        <item>Legendas: SubSource (árabe), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 e Legendas.net com a sua chave ou conta gratuita. Cada um em Definições › Legendas, com o respetivo interruptor.</item>
-        <item>Idiomas a pesquisar: ative ou desative cada idioma de legendas para uma pesquisa mais rápida.</item>
-        <item>Contas de TV em direto: o seu Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR ou HDHomeRun, e o guia Schedules Direct. Os servidores na sua rede são encontrados automaticamente.</item>
-        <item>TV em direto: um guia encontrado automaticamente para os canais sem guia, um separador Guias com os guias de cada fonte e, primeiro, as fontes do seu país no catálogo.</item>
-        <item>Correções: legendas guardadas no armazenamento próprio da aplicação (uma falha no Android 14), campos de palavra-passe ocultos, o foco do comando da TV, a tradução de «País» em muitos idiomas e a de «palavra-passe» em árabe.</item>
+        <item>Mais rápido e estável: a TV em direto e as legendas funcionam em segundo plano, e foram corrigidas as falhas e o leitor bloqueado no Android 5 e nas boxes de TV.</item>
+        <item>Ecrã inteiro: uma tecla, o comando ou um gesto pode mostrar só o progresso ou só uma mensagem em vez dos controlos, em Definições › Interface. Obrigado a @BarbodF.</item>
+        <item>Legendas automáticas mais inteligentes: a pasta Subs que acompanha o vídeo é usada primeiro, um ficheiro de publicidade ou só com legendas forçadas já não conta como legenda, também se pesquisa para um filme cuja imagem chega tarde, e a pontuação em hebraico e árabe aparece na extremidade certa.</item>
+        <item>Legendas online agora também para vídeos numa partilha de rede, num servidor multimédia ou atrás de uma ligação, procuradas manual ou automaticamente (obrigado a @Elshepl). No Android 5 a 7.0, o OpenSubtitles volta a responder.</item>
+        <item>O painel de legendas como na versão de computador: abre-se por cima do seu botão, com os idiomas e quantas há de cada um, os resultados online e a temporização num só sítio.</item>
+        <item>Instala-se ao lado do VLC for Android, e a aplicação de TV em hebraico e árabe fica totalmente espelhada, com o foco do comando onde o espera.</item>
     </string-array>
     <string name="rd_subtitle_size">Tamanho das legendas</string>
     <string name="rd_cast_this_phone">Este telemóvel</string>

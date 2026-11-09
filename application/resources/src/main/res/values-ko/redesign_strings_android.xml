@@ -30,11 +30,12 @@
     <string name="rd_ob_history_help">이 기기에만 저장되며, 멈춘 곳부터 이어서 보는 데 쓰입니다.</string>
     <string name="rd_ob_updates_help">하루에 한 번 VLC for Android의 새 테스트 빌드를 확인합니다.</string>
     <string-array name="rd_whats_new_items">
-        <item>자막: SubSource(아랍어), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24, Legendas.net은 나만의 무료 키나 계정으로 사용합니다. 모두 설정 › 자막에 있으며 스위치로 켜고 끌 수 있습니다.</item>
-        <item>검색할 언어: 자막 언어마다 켜거나 꺼서 더 빠르게 검색합니다.</item>
-        <item>실시간 TV 계정: 내 Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR 또는 HDHomeRun과 Schedules Direct 편성표. 네트워크에 있는 서버는 자동으로 찾습니다.</item>
-        <item>실시간 TV: 편성표가 없는 채널을 위해 자동으로 찾은 편성표, 모든 소스의 편성표를 모은 ‘편성표’ 탭, 내 국가의 소스가 먼저 나오는 카탈로그.</item>
-        <item>수정: 앱 자체 저장 공간에 저장되는 자막(Android 14의 비정상 종료), 입력이 가려지는 비밀번호 칸, TV 리모컨의 포커스, 여러 언어의 ‘국가’ 번역, 아랍어의 ‘비밀번호’ 번역.</item>
+        <item>더 빠르고 안정적: 실시간 TV와 자막이 백그라운드에서 작동하며, Android 5와 TV 박스에서 발생하던 비정상 종료와 플레이어 멈춤 문제를 해결했습니다.</item>
+        <item>전체 화면: 키, 리모컨 또는 제스처로 컨트롤 대신 진행률만 또는 메시지만 표시할 수 있습니다(설정 › 인터페이스). @BarbodF 님께 감사드립니다.</item>
+        <item>더 똑똑해진 자동 자막: 동영상에 딸린 Subs 폴더를 먼저 사용하고, 광고나 강제 자막 줄만 있는 파일은 더 이상 자막으로 치지 않으며, 영상이 늦게 시작되는 영화도 검색하고, 히브리어와 아랍어 문장 부호가 올바른 끝에 표시됩니다.</item>
+        <item>네트워크 공유, 미디어 서버 또는 링크에 있는 동영상도 이제 온라인에서 자막을 직접 또는 자동으로 찾을 수 있습니다(@Elshepl 님께 감사드립니다). Android 5~7.0에서 OpenSubtitles가 다시 응답합니다.</item>
+        <item>데스크톱과 같은 자막 패널: 버튼 위에 열리며, 언어와 개수, 온라인 결과, 타이밍을 한곳에서 보여 줍니다.</item>
+        <item>VLC for Android와 함께 설치할 수 있으며, 히브리어와 아랍어 TV 앱은 화면 전체가 좌우 반전되고 리모컨 포커스도 예상한 곳에 있습니다.</item>
     </string-array>
     <string name="rd_subtitle_size">자막 크기</string>
     <string name="rd_cast_this_phone">이 휴대전화</string>

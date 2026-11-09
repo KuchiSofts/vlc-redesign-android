@@ -30,11 +30,12 @@
     <string name="rd_ob_history_help">Gailu honetan soilik gordetzen da, utzi zenuen tokitik jarraitzeko.</string>
     <string name="rd_ob_updates_help">VLC for Android-en proba-bertsio berriago bat bilatzen du egunean behin.</string>
     <string-array name="rd_whats_new_items">
-        <item>Azpitituluak: SubSource (arabiera), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 eta Legendas.net zure doako gakoarekin edo kontuarekin. Bakoitza Ezarpenak › Azpitituluak atalean, bere etengailuarekin.</item>
-        <item>Bilatzeko hizkuntzak: aktibatu edo desaktibatu azpitituluen hizkuntza bakoitza, bilaketa azkarragoa izateko.</item>
-        <item>Zuzeneko telebistako kontuak: zure Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR edo HDHomeRun, eta Schedules Direct gida. Zure sareko zerbitzariak automatikoki aurkitzen dira.</item>
-        <item>Zuzeneko telebista: gidarik ez duten kanaletarako automatikoki aurkitutako gida bat, Gidak fitxa bat iturburu bakoitzaren gidekin, eta zure herrialdeko iturburuak lehenengo katalogoan.</item>
-        <item>Zuzenketak: azpitituluak aplikazioaren biltegi propioan gordeta (kraskatze bat Android 14-n), pasahitz-eremuak ezkutatuta, telebistako urruneko agintearen fokua, «Herrialdea» hitzaren itzulpena hizkuntza askotan eta «pasahitza» hitzarena arabieraz.</item>
+        <item>Azkarrago eta egonkorrago: zuzeneko telebista eta azpitituluak atzeko planoan dabiltza, eta Android 5-eko eta telebista-kaxetako kraskatzeak eta erreproduzigailu izoztua konpondu dira.</item>
+        <item>Pantaila osoa: tekla batek, urruneko aginteak edo keinu batek kontrolen ordez progresioa soilik edo mezu bat soilik erakuts dezake, Ezarpenak › Interfazea atalean. Eskerrik asko, @BarbodF.</item>
+        <item>Azpititulu automatiko adimentsuagoak: bideoarekin datorren Subs karpeta erabiltzen da lehenik, iragarki-fitxategi bat edo lerro behartuak soilik dituena ez da jada azpititulutzat hartzen, irudia berandu iristen zaion film baterako ere bilatzen da, eta hebreerazko eta arabierazko puntuazioa dagokion muturrean agertzen da.</item>
+        <item>Lineako azpitituluak orain sareko partekatze batean, multimedia-zerbitzari batean edo esteka baten atzean dauden bideoetarako ere, eskuz zein automatikoki bilatuta (eskerrik asko, @Elshepl). Android 5-etik 7.0-ra, OpenSubtitles-ek berriro erantzuten du.</item>
+        <item>Azpitituluen panela mahaigainean bezala: bere botoiaren gainean irekitzen da, eta hizkuntzak eta horien kopurua, lineako emaitzak eta sinkronizazioa leku bakarrean daude.</item>
+        <item>VLC for Android-en ondoan instalatzen da, eta telebistako aplikazioa osorik dago ispiluan hebreeraz eta arabieraz, urruneko agintearen fokua espero duzun lekuan dagoela.</item>
     </string-array>
     <string name="rd_subtitle_size">Azpitituluen tamaina</string>
     <string name="rd_cast_this_phone">Telefono hau</string>

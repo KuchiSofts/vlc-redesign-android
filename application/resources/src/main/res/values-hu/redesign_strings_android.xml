@@ -30,11 +30,12 @@
     <string name="rd_ob_history_help">Csak ezen az eszközön tárolódik, hogy ott folytathassa, ahol abbahagyta.</string>
     <string name="rd_ob_updates_help">Naponta egyszer keres újabb tesztkiadást a VLC for Androidból.</string>
     <string-array name="rd_whats_new_items">
-        <item>Feliratok: SubSource (arab), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 és Legendas.net saját ingyenes kulccsal vagy fiókkal. Mindegyik a Beállítások › Feliratok alatt, saját kapcsolóval.</item>
-        <item>Keresési nyelvek: a gyorsabb keresésért kapcsolja be vagy ki egyenként a feliratnyelveket.</item>
-        <item>Élő TV-fiókok: saját Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR vagy HDHomeRun, valamint a Schedules Direct műsorújság. A hálózatán lévő kiszolgálókat az alkalmazás magától megtalálja.</item>
-        <item>Élő TV: magától megtalált műsorújság a műsorújság nélküli csatornákhoz, Műsorújságok lap minden forrás műsorújságaival, és a katalógusban elöl az Ön országának forrásai.</item>
-        <item>Javítások: a feliratok az alkalmazás saját tárhelyére kerülnek (összeomlás Android 14 rendszeren), a jelszómezők elrejtik a beírt jelszót, a TV-távirányító fókusza, az Ország szó sok nyelven és a jelszó szó arabul.</item>
+        <item>Gyorsabb és stabilabb: az élő TV és a feliratok a háttérben működnek, és javítottuk az összeomlásokat és a lefagyó lejátszót Android 5 rendszeren és TV-boxokon.</item>
+        <item>Teljes képernyő: egy gomb, a távirányító vagy egy kézmozdulat a vezérlők helyett csak az előrehaladást vagy csak egy üzenetet jeleníthet meg, a Beállítások › Kezelőfelület alatt. Köszönet @BarbodF-nek.</item>
+        <item>Okosabb automatikus feliratok: először a videóhoz tartozó Subs mappa kerül sorra, a reklámot vagy csak kényszerített sorokat tartalmazó fájl már nem számít feliratnak, a keresés akkor is lefut, ha a film képe későn indul, és a héber és arab írásjelek a megfelelő végen jelennek meg.</item>
+        <item>Feliratok az internetről most már hálózati megosztáson, médiaszerveren vagy link mögött lévő videókhoz is, kézi és automatikus kereséssel (köszönet @Elshepl-nek). Android 5–7.0 rendszeren az OpenSubtitles ismét válaszol.</item>
+        <item>A Feliratok panel, mint az asztali változatban: a gombja fölött nyílik meg, és egy helyen mutatja a nyelveket a számukkal, az internetes találatokat és az időzítést.</item>
+        <item>A VLC for Android mellé telepíthető, a TV-alkalmazás héberül és arabul teljesen tükrözött, a távirányító fókusza pedig ott van, ahol várja.</item>
     </string-array>
     <string name="rd_subtitle_size">Feliratméret</string>
     <string name="rd_cast_this_phone">Ez a telefon</string>

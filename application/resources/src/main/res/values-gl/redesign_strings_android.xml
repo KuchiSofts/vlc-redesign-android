@@ -30,11 +30,12 @@
     <string name="rd_ob_history_help">Gárdase só neste dispositivo, para continuar onde o deixaches.</string>
     <string name="rd_ob_updates_help">Busca unha versión de proba máis recente de VLC for Android unha vez ao día.</string>
     <string-array name="rd_whats_new_items">
-        <item>Subtítulos: SubSource (árabe), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 e Legendas.net coa súa chave ou conta gratuíta. Cada un en Configuración › Subtítulos, co seu interruptor.</item>
-        <item>Idiomas de busca: active ou desactive cada idioma de subtítulos para unha busca máis rápida.</item>
-        <item>Contas de TV en directo: o seu Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR ou HDHomeRun, e a guía Schedules Direct. Os servidores da súa rede atópanse automaticamente.</item>
-        <item>TV en directo: unha guía atopada automaticamente para as canles que non a teñen, unha lapela Guías coas guías de cada fonte e, primeiro, as fontes do seu país no catálogo.</item>
-        <item>Correccións: subtítulos gardados no almacenamento propio da aplicación (un fallo en Android 14), campos de contrasinal ocultos, o foco do mando da TV, a tradución de «País» en moitos idiomas e a de «contrasinal» en árabe.</item>
+        <item>Máis rápido e máis estable: a TV en directo e os subtítulos funcionan en segundo plano, e corrixíronse os peches inesperados e o reprodutor conxelado en Android 5 e nos TV box.</item>
+        <item>Pantalla completa: unha tecla, o mando ou un xesto poden mostrar só o progreso ou só unha mensaxe en lugar dos controis, en Configuración › Interface. Grazas a @BarbodF.</item>
+        <item>Subtítulos automáticos máis intelixentes: primeiro úsase o cartafol Subs que acompaña o vídeo, un ficheiro de publicidade ou só con liñas forzadas xa non conta como subtítulo, tamén se buscan para unha película cuxa imaxe chega tarde, e a puntuación en hebreo e árabe aparece no extremo correcto.</item>
+        <item>Subtítulos en liña tamén para vídeos nun recurso compartido da rede, nun servidor multimedia ou tras unha ligazón, buscados a man e automaticamente (grazas a @Elshepl). En Android 5 a 7.0, OpenSubtitles volve responder.</item>
+        <item>O panel de subtítulos como no escritorio: ábrese enriba do seu botón, cos idiomas e cantos hai de cada un, os resultados en liña e a temporización nun só lugar.</item>
+        <item>Instálase xunto a VLC for Android, e a aplicación de TV en hebreo e árabe aparece totalmente en espello, co foco do mando onde o espera.</item>
     </string-array>
     <string name="rd_subtitle_size">Tamaño dos subtítulos</string>
     <string name="rd_cast_this_phone">Este teléfono</string>

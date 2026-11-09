@@ -31,11 +31,12 @@
     <string name="rd_ob_history_help">Vert berre lagra på denne eininga, så du kan halda fram der du slapp.</string>
     <string name="rd_ob_updates_help">Ser etter ein nyare testversjon av VLC for Android éin gong om dagen.</string>
     <string-array name="rd_whats_new_items">
-        <item>Undertekstar: SubSource (arabisk), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 og Legendas.net med din gratis nøkkel eller konto. Kvar teneste under Innstillingar › Undertekstar, med sin eigen brytar.</item>
-        <item>Språk å søkja på: slå kvart undertekstspråk på eller av for raskare søk.</item>
-        <item>Direkte-TV-kontoar: din Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR eller HDHomeRun, og programtablået frå Schedules Direct. Tenarar på nettverket ditt vert funne av seg sjølv.</item>
-        <item>Direkte-TV: eit programtablå som vert funne av seg sjølv for kanalar som manglar eitt, ei fane Programtablå med tablåa til kvar kjelde, og kjeldene i katalogen for landet ditt først.</item>
-        <item>Rettingar: nedlasta undertekstar vert lagra i appen si eiga lagring (rettar eit krasj på Android 14), passordfelt viser ikkje lenger passordet, fokuset til TV-fjernkontrollen, ordet for «Land» på mange språk og ordet for passord på arabisk.</item>
+        <item>Raskare og stødigare: direkte-TV og undertekstar fungerer i bakgrunnen, og krasj og ein frosen avspelar på Android 5 og TV-boksar er retta.</item>
+        <item>Fullskjerm: ein tast, fjernkontrollen eller ei rørsle kan vise berre framdrifta eller berre ei melding i staden for kontrollane, under Innstillingar › Grensesnitt. Takk til @BarbodF.</item>
+        <item>Smartare automatiske undertekstar: videoen si eiga Subs-mappe vert brukt først, ei reklamefil eller ei fil med berre tvungne linjer tel ikkje lenger som undertekst, det vert framleis søkt etter undertekstar til ein film der biletet kjem seint, og hebraisk og arabisk teiknsetjing vert vist i rett ende.</item>
+        <item>Undertekstar frå nettet no òg for videoar på ei nettverksdeling, ein medietenar eller bak ei lenkje, både når du søkjer sjølv og automatisk (takk til @Elshepl). På Android 5 til 7.0 svarar OpenSubtitles igjen.</item>
+        <item>Undertekstpanelet som på datamaskina: det opnar seg over knappen sin, med språka og talet deira, resultata frå nettet og tidsjusteringa på éin stad.</item>
+        <item>Vert installert ved sida av VLC for Android, og TV-appen på hebraisk og arabisk er spegelvend i heilskap, med fokuset til fjernkontrollen der du ventar det.</item>
     </string-array>
     <string name="rd_subtitle_size">Storleik på tekstinga</string>
     <string name="rd_cast_this_phone">Denne telefonen</string>

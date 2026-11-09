@@ -30,11 +30,12 @@
     <string name="rd_ob_history_help">このデバイスにのみ保存され、前回の続きから再開するために使われます。</string>
     <string name="rd_ob_updates_help">1 日に 1 回、VLC for Android の新しいテスト版を確認します。</string>
     <string-array name="rd_whats_new_items">
-        <item>字幕：SubSource（アラビア語）、SubDL、Titlovi、Assrt、Jimaku、BetaSeries、Subs.ro、Napisy24、Legendas.net はご自身の無料キーまたはアカウントで使えます。どれも「設定 › 字幕」にあり、スイッチでオン／オフできます。</item>
-        <item>検索する言語：字幕の言語ごとにオン／オフを切り替えて、検索を速くできます。</item>
-        <item>ライブ TV のアカウント：ご自身の Jellyfin、Emby、Tvheadend、NextPVR、Channels DVR、HDHomeRun と、Schedules Direct のガイド。ネットワーク上のサーバーは自動で見つかります。</item>
-        <item>ライブ TV：ガイドのないチャンネル用にガイドを自動で検出、すべてのソースのガイドを表示する「ガイド」タブ、カタログではお住まいの国のソースを先頭に表示します。</item>
-        <item>修正：字幕をアプリ自身のストレージに保存（Android 14 でのクラッシュ）、パスワード欄の入力を非表示に、TV リモコンのフォーカス、多くの言語での「国」の訳語、アラビア語の「パスワード」の訳語。</item>
+        <item>より速く安定：ライブ TV と字幕がバックグラウンドで動作し、Android 5 と TV ボックスでのクラッシュやプレーヤーのフリーズを修正しました。</item>
+        <item>フルスクリーン：キー、リモコン、ジェスチャーで、操作ボタンの代わりに進行状況のみ、またはメッセージのみを表示できます（「設定 › インターフェース」）。@BarbodF さんに感謝します。</item>
+        <item>自動字幕がより賢く：動画に付属の Subs フォルダーを最優先で使用、広告だけのファイルや強制字幕の行だけのファイルは字幕として数えず、映像が遅れて始まる映画も検索、ヘブライ語とアラビア語の句読点は正しい側の端に表示。</item>
+        <item>ネットワーク共有、メディアサーバー、リンク先の動画でも、オンラインで字幕を手動でも自動でも見つけられるようになりました（@Elshepl さんに感謝します）。Android 5～7.0 では OpenSubtitles が再び応答します。</item>
+        <item>デスクトップ版と同じ字幕パネル：ボタンの上に開き、言語とその件数、オンラインの検索結果、タイミングを 1 か所にまとめて表示。</item>
+        <item>VLC for Android と並べてインストール可能。TV アプリはヘブライ語とアラビア語で画面全体が左右反転し、リモコンのフォーカスも思いどおりの位置に。</item>
     </string-array>
     <string name="rd_subtitle_size">字幕のサイズ</string>
     <string name="rd_cast_this_phone">このスマートフォン</string>

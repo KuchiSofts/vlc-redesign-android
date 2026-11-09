@@ -30,11 +30,12 @@
     <string name="rd_ob_history_help">Faqat shu qurilmada saqlanadi, to‘xtagan joyingizdan davom ettirish uchun.</string>
     <string name="rd_ob_updates_help">Kuniga bir marta VLC for Android ning yangiroq sinov versiyasini qidiradi.</string>
     <string-array name="rd_whats_new_items">
-        <item>Subtitrlar: SubSource (arabcha), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 va Legendas.net oʻzingizning bepul kalitingiz yoki hisobingiz bilan. Har biri Sozlamalar › Subtitrlar boʻlimida, yoqish-oʻchirish tugmasi bilan.</item>
-        <item>Qidiriladigan tillar: tezroq qidirish uchun har bir subtitr tilini yoqing yoki oʻchiring.</item>
-        <item>Jonli TV hisoblari: Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR yoki HDHomeRun serveringiz va Schedules Direct teledasturi. Tarmogʻingizdagi serverlar oʻzi topiladi.</item>
-        <item>Jonli TV: teledasturi yoʻq kanallar uchun oʻzi topilgan teledastur, barcha manbalarning teledasturlari jamlangan “Teledasturlar” varagʻi va katalogda avval mamlakatingiz manbalari.</item>
-        <item>Tuzatishlar: subtitrlar ilovaning oʻz xotirasida saqlanadi (Android 14 da ishdan chiqish), maxfiy soʻz maydonlari yashirin, TV pultining fokusi, koʻp tillarda “Mamlakat” soʻzining tarjimasi va arab tilida “maxfiy soʻz” tarjimasi.</item>
+        <item>Tezroq va barqarorroq: Jonli TV va subtitrlar fonda ishlaydi, Android 5 va TV pristavkalarda ishdan chiqish hamda pleyerning qotib qolishi tuzatildi.</item>
+        <item>Toʻliq ekran: tugma, pult yoki imo-ishora boshqaruv tugmalari oʻrniga faqat jarayonni yoki faqat xabarni koʻrsatishi mumkin, Sozlamalar › Interfeys boʻlimida. @BarbodF ga rahmat.</item>
+        <item>Aqlliroq avtomatik subtitrlar: avval videoning oʻz Subs jildi ishlatiladi, reklama fayli yoki faqat majburiy qatorlardan iborat fayl endi subtitr hisoblanmaydi, tasviri kech keladigan film uchun ham qidiriladi, ibroniy va arab tinish belgilari esa toʻgʻri uchida koʻrsatiladi.</item>
+        <item>Onlayn subtitrlar endi tarmoq ulashmasi, media server yoki havola orqali ochilgan videolar uchun ham, qoʻlda va avtomatik qidiruvda (@Elshepl ga rahmat). Android 5–7.0 da OpenSubtitles yana javob beradi.</item>
+        <item>Kompyuter versiyasidagidek Subtitrlar paneli: oʻz tugmasi ustida ochiladi, tillar va ularning soni, onlayn natijalar va vaqt bir joyda.</item>
+        <item>VLC for Android yonida oʻrnatiladi, ibroniy va arab tilidagi TV ilovasi esa toʻliq oyna kabi aks ettirilgan, pult fokusi siz kutgan joyda.</item>
     </string-array>
     <string name="rd_subtitle_size">Subtitr oʻlchami</string>
     <string name="rd_cast_this_phone">Bu telefon</string>
