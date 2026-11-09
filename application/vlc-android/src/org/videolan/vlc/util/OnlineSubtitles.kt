@@ -934,6 +934,25 @@ object OnlineSubtitles {
         return ""
     }
 
+    /**
+     * A subtitle file of the user's (a release's Subs folder) with Hebrew or Arabic lines written for left-to-right
+     * players: a fixed copy in the app's cache (the user's file untouched); the file itself when nothing changes or
+     * it isn't UTF-8.
+     */
+    fun rtlFixedCopy(context: Context, file: File): File = try {
+        val bytes = file.readBytes()
+        val text = java.nio.charset.StandardCharsets.UTF_8.newDecoder()
+            .onMalformedInput(java.nio.charset.CodingErrorAction.REPORT)
+            .decode(java.nio.ByteBuffer.wrap(bytes)).toString().removePrefix("\uFEFF")
+        val fixed = RdRtlPunctuation.fixSubtitleText(text, file.extension)
+        if (fixed == text) file else {
+            val dir = File(context.cacheDir, "subs-rtl").apply { mkdirs() }
+            File(dir, file.name).apply { writeBytes(fixed.toByteArray(Charsets.UTF_8)) }
+        }
+    } catch (e: Exception) {
+        file
+    }
+
     /** "SDH", "HI", "CC" in a subtitle file's name: the version for the hearing impaired */
     fun isHearingImpairedFile(name: String) =
         name.lowercase(Locale.ROOT).split('.', ' ', '_', '-', '(', ')', '[', ']').any { it == "sdh" || it == "hi" || it == "cc" }
@@ -1829,7 +1848,8 @@ object OnlineSubtitles {
         val file = File(folder, "$stem.${unpacked.extension}")
         try {
             val tmp = File(folder, "$stem.part")
-            tmp.writeBytes(unpacked.text.toByteArray(Charsets.UTF_8))
+            // (Hebrew / Arabic lines written for left-to-right players: their marks put back at the right end)
+            tmp.writeBytes(RdRtlPunctuation.fixSubtitleText(unpacked.text, unpacked.extension).toByteArray(Charsets.UTF_8))
             if (!tmp.renameTo(file)) {
                 tmp.delete()
                 return@withContext Pair(null, Problem.Save)

@@ -2131,7 +2131,10 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                     if (!folder.isDirectory) continue
                     val files = folder.listFiles()?.filter { it.isFile && it.extension.lowercase(java.util.Locale.ROOT) in org.videolan.vlc.util.OnlineSubtitles.subtitleExtensions }
                         ?.map { org.videolan.vlc.util.OnlineSubtitles.SubFile(it.name, rdCuesOf(it)) } ?: continue
-                    for (lang in languages) org.videolan.vlc.util.OnlineSubtitles.subsFolderPick(files, lang, minutes)?.let { return@withContext Triple(lang, name, java.io.File(folder, it)) }
+                    for (lang in languages) org.videolan.vlc.util.OnlineSubtitles.subsFolderPick(files, lang, minutes)?.let {
+                        // (its Hebrew / Arabic marks at the right end: a fixed copy when the file has them reversed)
+                        return@withContext Triple(lang, name, org.videolan.vlc.util.OnlineSubtitles.rtlFixedCopy(applicationContext, java.io.File(folder, it)))
+                    }
                 }
                 null
             } catch (e: Exception) {
