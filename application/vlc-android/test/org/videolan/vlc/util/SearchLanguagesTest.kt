@@ -38,6 +38,18 @@ class SearchLanguagesTest {
     }
 
     @Test
+    fun thePreferredAndTheSecondAlwaysSearched() {
+        // the preferred language first and the second one, even lower in the list or switched off; then the others on
+        val list = listOf(SearchLanguage("fr", true), SearchLanguage("en", false), SearchLanguage("he", true), SearchLanguage("ar", false))
+        assertEquals(listOf("he", "en", "fr"), OnlineSubtitles.searchOrder(list, "he", "en"))
+        assertEquals(listOf("en", "fr", "he"), OnlineSubtitles.searchOrder(list, "en", ""))
+        assertEquals(listOf("fr", "he"), OnlineSubtitles.searchOrder(list, "", ""))
+        // nothing on: the preferred one at least
+        assertEquals(listOf("he"), OnlineSubtitles.searchOrder(listOf(SearchLanguage("he", false)), "he", ""))
+        assertEquals(listOf("pt-BR", "en"), OnlineSubtitles.searchOrder(emptyList(), "pt-BR", "en"))
+    }
+
+    @Test
     fun resultsOfTheLanguagesOn() {
         assertTrue(OnlineSubtitles.inLanguages("he", listOf("he", "en")))
         assertTrue(OnlineSubtitles.inLanguages("pt-BR", listOf("pt")))

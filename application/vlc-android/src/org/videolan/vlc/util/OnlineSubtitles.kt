@@ -320,11 +320,18 @@ object OnlineSubtitles {
         edit.apply()
     }
 
-    /** the user's languages, in their order: those switched on of Languages to search (the preferred one at least) */
-    fun wantedLanguages(context: Context): List<String> {
-        val on = searchLanguages(context).filter { it.on }.map { it.code }
-        return on.ifEmpty { listOfNotNull(preferredLanguage(context).ifEmpty { null }) }
-    }
+    /** the user's languages, in their order: the preferred one first, the second one, then those switched on of
+     *  Languages to search ([searchOrder]) */
+    fun wantedLanguages(context: Context): List<String> =
+        searchOrder(searchLanguages(context), preferredLanguage(context), normalize(Settings.getInstance(context).getString(KEY_SECOND, null)))
+
+    /**
+     * The languages asked for, in order: the preferred language first and the second one, even when the list has
+     * them lower down or switched off (the player's own choices: always searched, as in every app of the redesign),
+     * then the others switched on, in the list's order.
+     */
+    internal fun searchOrder(list: List<SearchLanguage>, preferred: String, second: String): List<String> =
+        (listOf(preferred, second) + list.filter { it.on }.map { it.code }).filter { it.isNotEmpty() }.distinct()
 
     /** a result in one of the languages asked for (pt and pt-BR are told apart in the order, not here) */
     internal fun inLanguages(language: String, wanted: List<String>) = language in wanted || wanted.any { it.substringBefore('-') == language.substringBefore('-') }
@@ -1035,21 +1042,40 @@ object OnlineSubtitles {
         }
         if (showId.isEmpty()) return Pair(emptyList(), null)
         val results = ArrayList<Result>()
+        var problem: Problem? = null
+        var answered = 0
         for ((n, language) in q.languages.take(2).withIndex()) {
             if (n > 0) delay(REQUEST_GAP_MS)
             val e = get("https://api.gestdown.info/subtitles/get/$showId/${q.season}/${q.episode}/${language.substringBefore('-')}", mapOf("User-Agent" to userAgent))
-            if (!ok(e)) continue
-            val items = try { JSONObject(String(e.body, Charsets.UTF_8)).optJSONArray("matchingSubtitles") } catch (x: Exception) { null } ?: continue
-            for (i in 0 until items.length()) {
-                val o = items.optJSONObject(i) ?: continue
-                val id = o.optString("subtitleId")
-                val uri = o.optString("downloadUri")
-                if (id.isEmpty() || !uri.startsWith("/") || !o.optBoolean("completed", true)) continue
-                val downloads = o.optInt("downloadCount")
-                results.add(Result("addic7ed:$id", "addic7ed", fromEnglishName(o.optString("language")).ifEmpty { language },
-                    o.optString("version"), url = "https://api.gestdown.info$uri", hearingImpaired = o.optBoolean("hearingImpaired"),
-                    downloads = downloads, rank = log10(downloads + 1.0) * 3 + if (o.optBoolean("corrected")) 3.0 else 0.0))
-            }
+            val (found, failed) = addic7edEpisode(e, language)
+            if (failed != null) { if (problem == null) problem = failed; continue }
+            answered++
+            results.addAll(found)
+        }
+        // (an episode's answer that is an error page is the service's failure, not "nothing found")
+        return Pair(results, if (answered == 0) problem else null)
+    }
+
+    /**
+     * VLC Redesign: Gestdown's answer for an episode in a language: its subtitles, or the service's failure (an
+     * error page or a status in place of the list); 404 is no such episode there (nothing found)
+     */
+    internal fun addic7edEpisode(e: Response, language: String): Pair<List<Result>, Problem?> {
+        if (e.error == null && e.status == 404) return Pair(emptyList(), null)
+        if (!ok(e)) return Pair(emptyList(), failure("Addic7ed", e))
+        answerProblem("Addic7ed", e)?.let { return Pair(emptyList(), it) }
+        val items = try { JSONObject(String(e.body, Charsets.UTF_8)).optJSONArray("matchingSubtitles") } catch (x: Exception) { null }
+            ?: return Pair(emptyList(), null)
+        val results = ArrayList<Result>()
+        for (i in 0 until items.length()) {
+            val o = items.optJSONObject(i) ?: continue
+            val id = o.optString("subtitleId")
+            val uri = o.optString("downloadUri")
+            if (id.isEmpty() || !uri.startsWith("/") || !o.optBoolean("completed", true)) continue
+            val downloads = o.optInt("downloadCount")
+            results.add(Result("addic7ed:$id", "addic7ed", fromEnglishName(o.optString("language")).ifEmpty { language },
+                o.optString("version"), url = "https://api.gestdown.info$uri", hearingImpaired = o.optBoolean("hearingImpaired"),
+                downloads = downloads, rank = log10(downloads + 1.0) * 3 + if (o.optBoolean("corrected")) 3.0 else 0.0))
         }
         return Pair(results, null)
     }

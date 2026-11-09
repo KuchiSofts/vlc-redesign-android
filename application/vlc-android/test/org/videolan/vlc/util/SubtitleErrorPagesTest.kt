@@ -56,6 +56,27 @@ class SubtitleErrorPagesTest {
         assertEquals(Problem.BadAnswer("YIFY", "502 Bad Gateway"), OnlineSubtitles.answerProblem("YIFY", ok("nginx-502.html"), html = true))
     }
 
+    /** Addic7ed (Gestdown): an episode's answer that is an error page is the service's failure, not "0 found" */
+    @Test
+    fun addic7edEpisodes() {
+        assertEquals(Problem.BadAnswer("Addic7ed", "502 Bad Gateway"), OnlineSubtitles.addic7edEpisode(ok("nginx-502.html"), "en").second)
+        assertEquals(Problem.BadAnswer("Addic7ed", "Just a moment..."), OnlineSubtitles.addic7edEpisode(ok("cloudflare.html"), "en").second)
+        assertEquals(Problem.Status("Addic7ed", 500), OnlineSubtitles.addic7edEpisode(Response(500, ByteArray(0), null), "en").second)
+        assertEquals(Problem.NoAnswer("Addic7ed"), OnlineSubtitles.addic7edEpisode(Response(0, ByteArray(0), "timeout"), "en").second)
+        // no such episode there: nothing found, no failure
+        val none = OnlineSubtitles.addic7edEpisode(Response(404, "{}".toByteArray(), null), "en")
+        assertNull(none.second)
+        assertEquals(0, none.first.size)
+        // its list read
+        val list = OnlineSubtitles.addic7edEpisode(Response(200, """{"matchingSubtitles": [
+            {"subtitleId": "abc", "downloadUri": "/subtitles/download/abc", "language": "English", "version": "WEB", "completed": true, "downloadCount": 99},
+            {"subtitleId": "def", "downloadUri": "/subtitles/download/def", "language": "English", "version": "HDTV", "completed": false}
+            ]}""".toByteArray(), null), "en")
+        assertNull(list.second)
+        assertEquals(listOf("addic7ed:abc"), list.first.map { it.id })
+        assertEquals("https://api.gestdown.info/subtitles/download/abc", list.first[0].url)
+    }
+
     /** each service's check of an answer of 200: an error page counts (it said nothing before: "nothing found") */
     @Test
     fun eachServiceTellsIt() {
