@@ -461,4 +461,5 @@
     <string name="rd_os_find_language">언어 찾기</string>
     <string name="rd_os_picked_in_player">플레이어에서 선택됨</string>
     <string name="rd_os_second_short">두 번째 언어</string>
+    <string name="rd_on_this_device">이 기기</string>
 </resources>

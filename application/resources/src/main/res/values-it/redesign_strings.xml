@@ -461,4 +461,5 @@
     <string name="rd_os_find_language">Cerca una lingua</string>
     <string name="rd_os_picked_in_player">Scelta nel lettore</string>
     <string name="rd_os_second_short">Seconda lingua</string>
+    <string name="rd_on_this_device">Su questo dispositivo</string>
 </resources>
