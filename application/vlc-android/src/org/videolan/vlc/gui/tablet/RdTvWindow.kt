@@ -467,6 +467,9 @@ object RdTvWindow {
             toSidebar -> {
                 // from the page's start back to the current page's row of the sidebar
                 if (!inside(focused, page)) return false
+                // (the guide moves through the time with Left and Right in every language: its key, not the sidebar's;
+                // Up leaves it for the page's buttons and the sidebar)
+                if (focused is org.videolan.vlc.gui.livetv.TvGuideView) return false
                 val next = android.view.FocusFinder.getInstance().findNextFocus(root, focused, if (rtl) View.FOCUS_RIGHT else View.FOCUS_LEFT)
                 if (next != null && inside(next, page) && !inside(focused, next)) return false
                 focusSidebar(activity)
