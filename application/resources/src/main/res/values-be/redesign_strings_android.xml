@@ -78,4 +78,5 @@
     <string name="rd_subs_move_up">Падняць субтытры</string>
     <string name="rd_subs_smaller">Паменшыць субтытры</string>
     <string name="rd_subs_larger">Павялічыць субтытры</string>
+    <string name="rd_os_show_both">Паказваць абедзве мовы адначасова (падвойныя субтытры)</string>
 </resources>

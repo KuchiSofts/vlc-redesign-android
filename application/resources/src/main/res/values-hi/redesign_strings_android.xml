@@ -80,4 +80,5 @@
     <string name="rd_subs_move_up">उपशीर्षक ऊपर ले जाएँ</string>
     <string name="rd_subs_smaller">छोटे उपशीर्षक</string>
     <string name="rd_subs_larger">बड़े उपशीर्षक</string>
+    <string name="rd_os_show_both">दोनों भाषाएँ एक साथ दिखाएँ (दोहरे उपशीर्षक)</string>
 </resources>

@@ -79,4 +79,5 @@
     <string name="rd_subs_move_up">Symud yr isdeitlau i fyny</string>
     <string name="rd_subs_smaller">Isdeitlau llai</string>
     <string name="rd_subs_larger">Isdeitlau mwy</string>
+    <string name="rd_os_show_both">Dangos y ddwy iaith ar yr un pryd (isdeitlau deuol)</string>
 </resources>

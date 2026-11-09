@@ -78,4 +78,5 @@
     <string name="rd_subs_move_up">Premakni podnapise navzgor</string>
     <string name="rd_subs_smaller">Manjši podnapisi</string>
     <string name="rd_subs_larger">Večji podnapisi</string>
+    <string name="rd_os_show_both">Hkrati pokaži oba jezika (dvojni podnapisi)</string>
 </resources>

@@ -80,4 +80,5 @@
     <string name="rd_subs_move_up">Færa skjátexta upp</string>
     <string name="rd_subs_smaller">Minni skjátextar</string>
     <string name="rd_subs_larger">Stærri skjátextar</string>
+    <string name="rd_os_show_both">Sýna bæði tungumálin í einu (tvöfaldir skjátextar)</string>
 </resources>

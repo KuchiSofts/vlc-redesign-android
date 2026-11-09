@@ -83,4 +83,5 @@
     <string name="rd_subs_move_up">Untertitel nach oben verschieben</string>
     <string name="rd_subs_smaller">Kleinere Untertitel</string>
     <string name="rd_subs_larger">Größere Untertitel</string>
+    <string name="rd_os_show_both">Beide Sprachen gleichzeitig anzeigen (Doppeluntertitel)</string>
 </resources>

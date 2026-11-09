@@ -78,4 +78,5 @@
     <string name="rd_subs_move_up">Μετακίνηση υποτίτλων προς τα πάνω</string>
     <string name="rd_subs_smaller">Μικρότεροι υπότιτλοι</string>
     <string name="rd_subs_larger">Μεγαλύτεροι υπότιτλοι</string>
+    <string name="rd_os_show_both">Εμφάνιση και των δύο γλωσσών ταυτόχρονα (διπλοί υπότιτλοι)</string>
 </resources>

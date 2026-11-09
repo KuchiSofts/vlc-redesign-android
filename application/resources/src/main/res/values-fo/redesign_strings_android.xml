@@ -45,4 +45,5 @@
     <string name="rd_subs_move_up">Flyt undirtekstirnar upp</string>
     <string name="rd_subs_smaller">Minni undirtekstir</string>
     <string name="rd_subs_larger">Størri undirtekstir</string>
+    <string name="rd_os_show_both">Vís bæði málini samstundis (tvífaldir undirtekstir)</string>
 </resources>

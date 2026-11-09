@@ -80,4 +80,5 @@
     <string name="rd_subs_move_up">Skuif onderskrifte op</string>
     <string name="rd_subs_smaller">Kleiner onderskrifte</string>
     <string name="rd_subs_larger">Groter onderskrifte</string>
+    <string name="rd_os_show_both">Wys albei tale gelyktydig (dubbele onderskrifte)</string>
 </resources>

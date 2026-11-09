@@ -601,4 +601,5 @@
     <string name="rd_subs_move_up">Move the subtitles up</string>
     <string name="rd_subs_smaller">Smaller subtitles</string>
     <string name="rd_subs_larger">Larger subtitles</string>
+    <string name="rd_os_show_both">Show both languages at once (dual subtitles)</string>
 </resources>

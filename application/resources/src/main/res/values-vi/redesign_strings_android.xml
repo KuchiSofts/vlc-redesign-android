@@ -78,4 +78,5 @@
     <string name="rd_subs_move_up">Dời phụ đề lên</string>
     <string name="rd_subs_smaller">Phụ đề nhỏ hơn</string>
     <string name="rd_subs_larger">Phụ đề lớn hơn</string>
+    <string name="rd_os_show_both">Hiện cả hai ngôn ngữ cùng lúc (phụ đề kép)</string>
 </resources>

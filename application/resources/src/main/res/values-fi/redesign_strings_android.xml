@@ -78,4 +78,5 @@
     <string name="rd_subs_move_up">Siirrä tekstitystä ylös</string>
     <string name="rd_subs_smaller">Pienempi tekstitys</string>
     <string name="rd_subs_larger">Suurempi tekstitys</string>
+    <string name="rd_os_show_both">Näytä molemmat kielet yhtä aikaa (kaksoistekstitys)</string>
 </resources>

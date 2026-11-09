@@ -78,4 +78,5 @@
     <string name="rd_subs_move_up">Alihkan sarikata ke atas</string>
     <string name="rd_subs_smaller">Sarikata lebih kecil</string>
     <string name="rd_subs_larger">Sarikata lebih besar</string>
+    <string name="rd_os_show_both">Tunjuk kedua-dua bahasa serentak (dwisarikata)</string>
 </resources>

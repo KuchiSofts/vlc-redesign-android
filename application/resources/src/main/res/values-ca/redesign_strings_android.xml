@@ -78,4 +78,5 @@
     <string name="rd_subs_move_up">Puja els subtítols</string>
     <string name="rd_subs_smaller">Subtítols més petits</string>
     <string name="rd_subs_larger">Subtítols més grans</string>
+    <string name="rd_os_show_both">Mostra els dos idiomes alhora (subtítols dobles)</string>
 </resources>

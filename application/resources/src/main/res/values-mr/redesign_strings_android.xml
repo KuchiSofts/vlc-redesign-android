@@ -78,4 +78,5 @@
     <string name="rd_subs_move_up">अनुवादपट्ट्या वर हलवा</string>
     <string name="rd_subs_smaller">लहान अनुवादपट्ट्या</string>
     <string name="rd_subs_larger">मोठ्या अनुवादपट्ट्या</string>
+    <string name="rd_os_show_both">दोन्ही भाषा एकाच वेळी दाखवा (दुहेरी अनुवादपट्ट्या)</string>
 </resources>

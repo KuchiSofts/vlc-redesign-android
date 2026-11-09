@@ -83,4 +83,5 @@
     <string name="rd_subs_move_up">Поднять субтитры</string>
     <string name="rd_subs_smaller">Уменьшить субтитры</string>
     <string name="rd_subs_larger">Увеличить субтитры</string>
+    <string name="rd_os_show_both">Показывать оба языка сразу (двойные субтитры)</string>
 </resources>

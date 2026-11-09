@@ -78,4 +78,5 @@
     <string name="rd_subs_move_up">Posunúť titulky nahor</string>
     <string name="rd_subs_smaller">Menšie titulky</string>
     <string name="rd_subs_larger">Väčšie titulky</string>
+    <string name="rd_os_show_both">Zobraziť oba jazyky naraz (duálne titulky)</string>
 </resources>

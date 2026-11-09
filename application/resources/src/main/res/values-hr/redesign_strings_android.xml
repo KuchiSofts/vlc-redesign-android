@@ -78,4 +78,5 @@
     <string name="rd_subs_move_up">Pomakni podnaslove gore</string>
     <string name="rd_subs_smaller">Manji podnaslovi</string>
     <string name="rd_subs_larger">Veći podnaslovi</string>
+    <string name="rd_os_show_both">Prikaži oba jezika istodobno (dvojni podnaslovi)</string>
 </resources>

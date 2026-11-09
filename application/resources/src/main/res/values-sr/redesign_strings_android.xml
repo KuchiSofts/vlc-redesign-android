@@ -79,4 +79,5 @@
     <string name="rd_subs_move_up">Помери титлове нагоре</string>
     <string name="rd_subs_smaller">Мањи титлови</string>
     <string name="rd_subs_larger">Већи титлови</string>
+    <string name="rd_os_show_both">Прикажи оба језика истовремено (двоструки титлови)</string>
 </resources>

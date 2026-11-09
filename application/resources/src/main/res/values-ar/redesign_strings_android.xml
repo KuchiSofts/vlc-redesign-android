@@ -85,4 +85,5 @@
     <string name="rd_subs_move_up">تحريك الترجمة لأعلى</string>
     <string name="rd_subs_smaller">تصغير الترجمة</string>
     <string name="rd_subs_larger">تكبير الترجمة</string>
+    <string name="rd_os_show_both">إظهار اللغتين معًا (ترجمة مزدوجة)</string>
 </resources>

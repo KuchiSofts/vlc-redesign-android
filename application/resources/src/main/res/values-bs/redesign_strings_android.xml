@@ -79,4 +79,5 @@
     <string name="rd_subs_move_up">Pomjeri podtitlove gore</string>
     <string name="rd_subs_smaller">Manji podtitlovi</string>
     <string name="rd_subs_larger">Veći podtitlovi</string>
+    <string name="rd_os_show_both">Prikaži oba jezika istovremeno (dvojni podtitlovi)</string>
 </resources>

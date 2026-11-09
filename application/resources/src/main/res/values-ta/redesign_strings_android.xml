@@ -80,4 +80,5 @@
     <string name="rd_subs_move_up">வசனங்களை மேலே நகர்த்து</string>
     <string name="rd_subs_smaller">சிறிய வசனங்கள்</string>
     <string name="rd_subs_larger">பெரிய வசனங்கள்</string>
+    <string name="rd_os_show_both">இரு மொழிகளையும் ஒரே நேரத்தில் காட்டு (இரட்டை வசனங்கள்)</string>
 </resources>
