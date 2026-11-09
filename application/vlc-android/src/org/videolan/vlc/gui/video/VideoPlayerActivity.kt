@@ -2033,13 +2033,26 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         if (uri == rdOnlineAutoUri) return
         rdOnlineAutoUri = uri
         val scheme = uri.scheme?.lowercase(java.util.Locale.ROOT)
-        if (mw.type != MediaWrapper.TYPE_VIDEO || scheme !in setOf("file", "content", "smb", "nfs", "ftp", "sftp", "upnp", "http", "https")) return
+        // (a link opened is a stream to the library, a video all the same: its video track tells, below)
+        if (mw.type == MediaWrapper.TYPE_AUDIO || scheme !in setOf("file", "content", "smb", "nfs", "ftp", "sftp", "upnp", "http", "https")) return
         lifecycleScope.launch {
             kotlinx.coroutines.delay(1500L)
             val s = service ?: return@launch
             if (s.currentMediaWrapper?.uri != uri || isFinishing) return@launch
+            // (a video on a share or behind a link: its length comes once enough of it is read, slower than a file's)
+            var waited = 0L
+            while (s.length <= 0 && scheme != "file" && scheme != "content" && waited < 10_000L) {
+                kotlinx.coroutines.delay(500L)
+                waited += 500L
+                if (s.currentMediaWrapper?.uri != uri || isFinishing) return@launch
+            }
             // (a Live TV channel, a live stream: no length; their names are no film's)
-            if (org.videolan.vlc.util.OnlineSubtitles.isLive(scheme, s.length, org.videolan.vlc.livetv.TvPlayback.isCurrent(uri.toString()))) return@launch
+            if (org.videolan.vlc.util.OnlineSubtitles.isLive(scheme, s.length, org.videolan.vlc.livetv.TvPlayback.isCurrent(uri.toString()))) {
+                Log.i(TAG, "online subtitles: a channel or a live stream, no search")
+                return@launch
+            }
+            // (music, a radio: no picture, no subtitles)
+            if (s.videoTracksCount == 0) return@launch
             val wanted = org.videolan.vlc.util.OnlineSubtitles.wantedLanguages(ctx)
             if (wanted.isEmpty()) return@launch
             val local = rdLocalSubtitleLanguages(wanted)
