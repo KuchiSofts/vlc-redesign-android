@@ -374,6 +374,8 @@ class MainActivity : ContentActivity(),
         super.onActivityResult(requestCode, resultCode, data)
 //        if (VLCBilling.getInstance(this.application).iabHelper.handleActivityResult(requestCode, resultCode, data)) return
         if (requestCode == ACTIVITY_RESULT_PREFERENCES) {
+            // VLC Redesign, the TV layout: the pages made ahead are made again after Settings (gui/tablet/RdTvPrebuild)
+            org.videolan.vlc.gui.tablet.RdTvPrebuild.reset()
             when (resultCode) {
                 RESULT_RESCAN -> this.reloadLibrary()
                 RESULT_RESTART, RESULT_RESTART_APP -> {

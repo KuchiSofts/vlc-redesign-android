@@ -113,7 +113,8 @@ class MainBrowserFragment : BaseFragment(), View.OnClickListener, CtxActionRecei
     override fun hasFAB() = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.main_browser_fragment, container, false)
+        // VLC Redesign, the TV layout: the page made ahead while the window was idle (gui/tablet/RdTvPrebuild)
+        return org.videolan.vlc.gui.tablet.RdTvPrebuild.inflate(inflater, R.layout.main_browser_fragment, container)
     }
 
     override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {

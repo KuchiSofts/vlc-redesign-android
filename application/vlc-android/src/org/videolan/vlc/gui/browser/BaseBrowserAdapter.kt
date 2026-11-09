@@ -128,8 +128,10 @@ open class BaseBrowserAdapter(val browserContainer: BrowserContainer<MediaLibrar
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<ViewDataBinding> {
         val inflater = LayoutInflater.from(parent.context)
         @Suppress("UNCHECKED_CAST")
+        // VLC Redesign, the TV layout: the items made ahead while the window was idle (gui/tablet/RdTvPrebuild)
         return if (viewType == TYPE_MEDIA || viewType == TYPE_STORAGE)
-            MediaViewHolder(if (browserContainer.inCards) BrowserItemBindingContainer(CardBrowserItemBinding.inflate(inflater, parent, false)) else BrowserItemBindingContainer(BrowserItemBinding.inflate(inflater, parent, false)))
+            MediaViewHolder(if (browserContainer.inCards) BrowserItemBindingContainer(org.videolan.vlc.gui.tablet.RdTvPrebuild.bind(parent, R.layout.card_browser_item) { CardBrowserItemBinding.inflate(inflater, parent, false) })
+                    else BrowserItemBindingContainer(org.videolan.vlc.gui.tablet.RdTvPrebuild.bind(parent, R.layout.browser_item) { BrowserItemBinding.inflate(inflater, parent, false) }))
         else
             SeparatorViewHolder(BrowserItemSeparatorBinding.inflate(inflater, parent, false)) as ViewHolder<ViewDataBinding>
     }

@@ -127,7 +127,8 @@ class AudioBrowserFragment : BaseAudioBrowser<AudioBrowserViewModel>() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = AudioBrowserBinding.inflate(inflater, container, false)
+        // VLC Redesign, the TV layout: the page made ahead while the window was idle (gui/tablet/RdTvPrebuild)
+        binding = org.videolan.vlc.gui.tablet.RdTvPrebuild.bind(container, R.layout.audio_browser) { AudioBrowserBinding.inflate(inflater, container, false) }
         return binding.root
     }
 

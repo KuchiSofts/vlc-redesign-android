@@ -95,7 +95,8 @@ class PlaylistFragment : BaseAudioBrowser<PlaylistsViewModel>(), SwipeRefreshLay
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = PlaylistsFragmentBinding.inflate(inflater, container, false)
+        // VLC Redesign, the TV layout: the page made ahead while the window was idle (gui/tablet/RdTvPrebuild)
+        binding = org.videolan.vlc.gui.tablet.RdTvPrebuild.bind(container, R.layout.playlists_fragment) { PlaylistsFragmentBinding.inflate(inflater, container, false) }
         playlists = binding.swipeLayout.findViewById(R.id.audio_list)
         return binding.root
     }

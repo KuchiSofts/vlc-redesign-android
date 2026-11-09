@@ -79,7 +79,8 @@ class VideoBrowserFragment : BaseFragment(), TabLayout.OnTabSelectedListener, Fi
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.video_browser, container, false)
+        // VLC Redesign, the TV layout: the page made ahead while the window was idle (gui/tablet/RdTvPrebuild)
+        return org.videolan.vlc.gui.tablet.RdTvPrebuild.inflate(inflater, R.layout.video_browser, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

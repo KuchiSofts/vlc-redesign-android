@@ -155,11 +155,12 @@ open class AudioBrowserAdapter @JvmOverloads constructor(
         if (!::inflater.isInitialized) {
             inflater = LayoutInflater.from(parent.context)
         }
+        // VLC Redesign, the TV layout: the cards made ahead while the window was idle (gui/tablet/RdTvPrebuild)
         return if (displayInCard()) {
-            val binding = AudioBrowserCardItemBinding.inflate(inflater, parent, false)
+            val binding = org.videolan.vlc.gui.tablet.RdTvPrebuild.bind(parent, R.layout.audio_browser_card_item) { AudioBrowserCardItemBinding.inflate(inflater, parent, false) }
             MediaItemCardViewHolder(binding) as AbstractMediaItemViewHolder<ViewDataBinding>
         } else {
-            val binding = AudioBrowserItemBinding.inflate(inflater, parent, false)
+            val binding = org.videolan.vlc.gui.tablet.RdTvPrebuild.bind(parent, R.layout.audio_browser_item) { AudioBrowserItemBinding.inflate(inflater, parent, false) }
             MediaItemViewHolder(binding) as AbstractMediaItemViewHolder<ViewDataBinding>
         }
     }

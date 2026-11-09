@@ -132,6 +132,8 @@ object RdTvWindow {
             setMargins(0, (TITLE_BAR_HEIGHT + 8).dp, 0, 8.dp); marginStart = 8.dp
         })
         if (this is MainActivity) backHome()
+        // the library's pages made ahead while the window is idle (their first visit took one long frame)
+        if (this is MainActivity) RdTvPrebuild.start(this)
         // the first focus on the current page's row, once the sidebar is laid out
         // (again a little later: the library's first page may take its focus after the window is laid out)
         // (a playlist's / an album's page: its first track, as a page opened from the library)
@@ -446,6 +448,7 @@ object RdTvWindow {
      */
     fun dispatchKey(activity: AudioPlayerContainerActivity, event: android.view.KeyEvent): Boolean {
         if (!isOn(activity)) return false
+        RdTvPrebuild.onKey()
         val focused = activity.currentFocus ?: return false
         val page = pageView(activity) ?: return false
         val header = activity.findViewById<ViewGroup>(R.id.rd_tv_header) ?: return false
