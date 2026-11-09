@@ -201,6 +201,7 @@ object LiveTv {
         worker = null
         current.set(true)
         updateFlag.set(true)
+        configLoaded = false
         w.shutdownNow()
         synchronized(lock) {
             sources.clear(); states.clear(); guides.clear()
@@ -229,6 +230,7 @@ object LiveTv {
     private fun loadConfig() {
         val file = File(dataDir, "sources.json")
         val list = ArrayList<SourceConfig>()
+        val twice = ArrayList<String>()
         if (file.exists()) try {
             val root = JSONObject(file.readText())
             val a = root.optJSONArray("sources") ?: JSONArray()
@@ -260,7 +262,8 @@ object LiveTv {
                     s.autoGuide = AutoGuide(a.optInt("found"), a.optInt("total"), g, a.optLong("at"))
                 }
                 s.autoGuideOff = o.optBoolean("autoGuideOff")
-                if (s.id.isNotEmpty()) list.add(s)
+                // (the same catalog source added again and again while an update ran: once)
+                if (s.id.isNotEmpty() && list.none { sameSource(it, s) }) list.add(s) else if (s.id.isNotEmpty()) twice.add(s.id)
             }
         } catch (e: Exception) {
             Log.w(TAG, "the sources could not be read", e)
@@ -269,9 +272,23 @@ object LiveTv {
             sources.clear()
             sources.addAll(list)
         }
+        configLoaded = true
+        if (twice.isNotEmpty()) {
+            Log.i(TAG, "${twice.size} sources added twice were let go")
+            saveConfig()
+            for (id in twice) sourceDir(id).deleteRecursively()
+        }
     }
 
-    private fun saveConfig() {
+    /** the sources are read (a source added or changed goes in the list at once, before the worker gets to it) */
+    @Volatile private var configLoaded = false
+
+    private fun saveConfig() = synchronized(configFile) { writeConfig() }
+
+    /** (one writer at a time: the interface's thread and the worker both save) */
+    private val configFile = Any()
+
+    private fun writeConfig() {
         val a = JSONArray()
         synchronized(lock) {
             for (s in sources) a.put(JSONObject().apply {
@@ -307,12 +324,36 @@ object LiveTv {
         c.autoGuide = s.autoGuide; c.autoGuideOff = s.autoGuideOff
     }
 
-    /** Adds a source (id empty) or saves one edited; its channels and guides are read at once. */
+    /**
+     * Adds a source (id empty) or saves one edited; its channels and guides are read at once. It is in the list at
+     * once, while an update may still run (a catalog's Add pressed again and again during a long guide's reading added
+     * the same source five times); the same source is never added twice.
+     */
     fun saveSource(config: SourceConfig) {
         start()
-        post {
+        if (configLoaded) {
+            if (!putSource(config)) return
+            publish()
+            // (kept on disk now, not once the update under way is done)
+            Thread({ saveConfig() }, "LiveTv-save").start()
+            post { refreshNow(listOf(config.id), true) }
+        } else post {
+            if (!putSource(config)) return@post
+            saveConfig()
+            publish()
+            refreshNow(listOf(config.id), true)
+        }
+    }
+
+    /** the same source: the same catalog entry, or the same address and account */
+    private fun sameSource(a: SourceConfig, b: SourceConfig) = (a.catalogId.isNotEmpty() && a.catalogId == b.catalogId) ||
+        (a.kind == b.kind && a.url == b.url && a.server == b.server && a.username == b.username && a.accountType == b.accountType)
+
+    /** the source in the list (false: it is there already) */
+    private fun putSource(config: SourceConfig): Boolean {
             synchronized(lock) {
                 if (config.id.isEmpty()) {
+                    if (sources.any { sameSource(it, config) }) return false
                     config.id = "s" + System.currentTimeMillis().toString(36)
                     sources.add(config)
                 } else {
@@ -335,16 +376,16 @@ object LiveTv {
                     } else sources.add(config)
                 }
             }
-            saveConfig()
-            publish()
-            refreshNow(listOf(config.id), true)
-        }
+            return true
     }
 
-    /** A guide added to a source (the catalog's Guides, Add a Link > Guide). */
+    /** A guide added to a source (the catalog's Guides, Add a Link > Guide): on its row at once. */
     fun addGuide(sourceId: String, url: String) {
+        start()
+        val add = { synchronized(lock) { sources.firstOrNull { it.id == sourceId }?.let { if (!it.epg.contains(url)) it.epg.add(url) } } }
+        if (configLoaded) { add(); publish(); Thread({ saveConfig() }, "LiveTv-save").start() }
         post {
-            synchronized(lock) { sources.firstOrNull { it.id == sourceId }?.let { if (!it.epg.contains(url)) it.epg.add(url) } }
+            if (!configLoaded) add()
             saveConfig()
             // (the playlist and every guide of the source were downloaded and read again: a 300 MB guide again for a
             // small one added)
