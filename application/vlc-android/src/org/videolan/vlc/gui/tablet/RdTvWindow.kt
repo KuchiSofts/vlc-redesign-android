@@ -221,6 +221,11 @@ object RdTvWindow {
                 val rail = findViewById<com.google.android.material.navigationrail.NavigationRailView>(R.id.navigation_rail)
                 val checked = rail?.menu?.let { m -> (0 until m.size()).map { m.getItem(it) }.firstOrNull { it.isChecked }?.itemId }
                 if (supportFragmentManager.backStackEntryCount == 0 && !isAudioPlayerExpanded && checked != null && checked != R.id.nav_home) {
+                    // (the remote's focus to the sidebar's Home first: left in the page that goes, the window gave
+                    // it to the title bar's ⋯)
+                    if (!window.decorView.isInTouchMode) findViewById<ViewGroup>(R.id.rd_tablet_sidebar)?.let { s ->
+                        (0 until s.childCount).map { s.getChildAt(it) }.firstOrNull { it.getTag(R.id.rd_tablet_sidebar_label) == R.id.nav_home }?.requestFocus()
+                    }
                     open(this@backHome, R.id.nav_home)
                     return
                 }
