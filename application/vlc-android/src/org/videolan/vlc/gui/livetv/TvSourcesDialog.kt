@@ -1019,6 +1019,12 @@ class TvSourcesDialog : DialogFragment() {
         return card
     }
 
+    override fun onDismiss(dialog: android.content.DialogInterface) {
+        super.onDismiss(dialog)
+        // the page's focus given back when what had it went while the sources were open (the TV page's own)
+        (parentFragment as? TvFragment)?.let { p -> p.view?.post { p.focusPageIfLost() } }
+    }
+
     companion object {
         const val TAG = "tv_sources"
         fun show(fm: FragmentManager, page: String) {

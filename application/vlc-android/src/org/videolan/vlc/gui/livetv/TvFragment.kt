@@ -302,6 +302,21 @@ class TvFragment : BaseFragment(), Filterable {
         openDialog = d
     }
 
+    /**
+     * The remote's focus back on the page when it is outside it: what had it went while the sources were open (its
+     * last source removed: the header and its Sources button hidden), and the window gave it to the title bar's ⋯.
+     */
+    internal fun focusPageIfLost() {
+        // (the page's root: this page's "view" is Channels or Guide)
+        val root = (this as androidx.fragment.app.Fragment).view ?: return
+        if (root.isInTouchMode || !::list.isInitialized) return
+        var p: View? = activity?.currentFocus
+        while (p != null) { if (p === root) return; p = p.parent as? View }
+        val target = if (empty.visibility == View.VISIBLE) empty.getFocusables(View.FOCUS_DOWN).firstOrNull { it.isShown }
+            else list.findViewHolderForAdapterPosition(0)?.itemView?.takeIf { it.isShown && it.isFocusable } ?: sourcesButton.takeIf { it.isShown }
+        target?.requestFocus()
+    }
+
     private fun refresh(state: TvState = LiveTv.state.value) {
         if (!::list.isInitialized) return
         val ctx = requireContext()
