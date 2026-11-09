@@ -90,7 +90,9 @@ abstract class VLCBottomSheetDialogFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launchWhenStarted {
             dialog?.window?.setLayout(windowWidth(), ViewGroup.LayoutParams.MATCH_PARENT)
-            if (useSideSheet()) applySideSheet(view)
+            val anchored = anchoredWanted()
+            if (anchored) applyAnchored(view)
+            else if (useSideSheet()) applySideSheet(view)
             // VLC Redesign, tablets: a centred framed window instead of a sheet on the bottom edge (gui/tablet)
             else if (TabletSheets.wanted(dialog) && !AndroidDevices.isTv) dialog?.let { TabletSheets.applyCentered(it, view) }
             dialog?.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)?.let {
@@ -99,7 +101,7 @@ abstract class VLCBottomSheetDialogFragment : BottomSheetDialogFragment() {
             }
             dialog?.findViewById<View>(R.id.touch_outside)?.isFocusable = false
             dialog?.findViewById<View>(R.id.touch_outside)?.isFocusableInTouchMode = false
-            if (AndroidDevices.isTv) applyOverscanMargin(view)
+            if (AndroidDevices.isTv && !anchored) applyOverscanMargin(view)
         }
 
 
@@ -107,6 +109,65 @@ abstract class VLCBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     /** The sheet's width (a wider window for an editor shown centred on a tablet) */
     open fun windowWidth() = resources.getDimensionPixelSize(R.dimen.default_context_width)
+
+    /**
+     * VLC Redesign: the control bar's button this panel belongs to (0: none). The panel then opens as the desktop's,
+     * anchored above that button at the bar (on a TV, a tablet, a phone on its side), not in the middle of the
+     * screen; a phone upright keeps its sheet from the bar, the closest native way.
+     */
+    open fun anchorId(): Int = 0
+
+    private fun anchoredWanted(): Boolean {
+        if (anchorId() == 0 || activity !is VideoPlayerActivity) return false
+        val anchor = activity?.findViewById<View>(anchorId()) ?: return false
+        if (!anchor.isShown || anchor.width == 0) return false
+        val cfg = resources.configuration
+        return AndroidDevices.isTv || Settings.showTvUi || cfg.orientation == Configuration.ORIENTATION_LANDSCAPE || cfg.smallestScreenWidthDp >= 600
+    }
+
+    /**
+     * The desktop's player panel (its Video / Audio / Subtitles panel, 600 x 560 at 1920 x 1080): a floating A3 panel
+     * over the video, its bottom 8 above the button, its end edge 14 past the button's, a third of the screen wide
+     * (300 to 440) and about half its height; the video not dimmed under it.
+     */
+    private fun applyAnchored(view: View) {
+        val dialog = dialog ?: return
+        val anchor = activity?.findViewById<View>(anchorId()) ?: return
+        val window = dialog.window ?: return
+        val root = activity?.window?.decorView ?: return
+        val d = resources.displayMetrics.density
+        val screenW = root.width.takeIf { it > 0 } ?: resources.displayMetrics.widthPixels
+        val screenH = root.height.takeIf { it > 0 } ?: resources.displayMetrics.heightPixels
+        val at = IntArray(2).also { anchor.getLocationOnScreen(it) }
+        val gap = (8 * d).toInt()
+        val past = (14 * d).toInt()
+        val width = (screenW * 0.31f).toInt().coerceIn((300 * d).toInt(), (440 * d).toInt()).coerceAtMost(screenW - 2 * gap)
+        val height = (screenH * 0.55f).toInt().coerceAtLeast((280 * d).toInt()).coerceAtMost(at[1] - 2 * gap)
+        window.setLayout(width, height)
+        // the side of the button: its own edge of the screen (the bar is not mirrored in Hebrew or Arabic)
+        val onRight = at[0] + anchor.width / 2 > screenW / 2
+        window.setGravity(Gravity.BOTTOM or if (onRight) Gravity.RIGHT else Gravity.LEFT)
+        window.attributes = window.attributes.apply {
+            x = if (onRight) (screenW - (at[0] + anchor.width) - past).coerceAtLeast(gap) else (at[0] - past).coerceAtLeast(gap)
+            y = (screenH - at[1] + gap).coerceAtLeast(gap)
+        }
+        window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        dialog.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)?.let { sheet ->
+            sheet.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                this.height = ViewGroup.LayoutParams.MATCH_PARENT
+                setMargins(0, 0, 0, 0)
+            }
+            sheet.background = null
+            BottomSheetBehavior.from(sheet).apply {
+                skipCollapsed = true
+                isDraggable = false
+                state = BottomSheetBehavior.STATE_EXPANDED
+            }
+        }
+        view.updateLayoutParams<ViewGroup.LayoutParams> { this.height = ViewGroup.LayoutParams.MATCH_PARENT }
+        view.background = ContextCompat.getDrawable(view.context, R.drawable.rd_panel_float)
+        view.clipToOutline = true
+    }
 
     /**
      * VLC Redesign: in landscape the player's panels are side sheets at the end of the window (the desktop's

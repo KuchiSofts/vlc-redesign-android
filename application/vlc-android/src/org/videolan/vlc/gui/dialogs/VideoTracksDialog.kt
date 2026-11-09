@@ -63,6 +63,9 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
 
     override fun needToManageOrientation(): Boolean = true
 
+    // VLC Redesign: the desktop's panel, above the control bar's button (the Subtitles / tracks button)
+    override fun anchorId(): Int = R.id.player_overlay_tracks
+
     private lateinit var binding: PlayerOverlayTracksBinding
 
     override fun initialFocusedView(): View = binding.subtitleTracks.emptyView
