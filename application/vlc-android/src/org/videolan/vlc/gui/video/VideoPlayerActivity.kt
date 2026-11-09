@@ -586,6 +586,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         supportFragmentManager.registerFragmentLifecycleCallbacks(object : androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks() {
             override fun onFragmentStarted(fm: androidx.fragment.app.FragmentManager, f: androidx.fragment.app.Fragment) {
                 surfaceKey(f)?.let { setSurfaceOpen(it, true) }
+                // (a dialog given a size of its own stays inside the screen)
+                (f as? androidx.fragment.app.DialogFragment)?.dialog?.window?.let { org.videolan.vlc.gui.helpers.RdFit.dialog(it) }
             }
             override fun onFragmentStopped(fm: androidx.fragment.app.FragmentManager, f: androidx.fragment.app.Fragment) {
                 surfaceKey(f)?.let { setSurfaceOpen(it, false) }

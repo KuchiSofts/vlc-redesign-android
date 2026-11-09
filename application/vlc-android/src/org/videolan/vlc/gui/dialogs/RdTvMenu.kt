@@ -188,10 +188,11 @@ object RdTvMenu {
         // where: beside the focused row (11 clear), under a button (8 below), toward the end; inside the page
         val decor = activity.window.decorView
         val frame = Rect().also { decor.getWindowVisibleDisplayFrame(it) }
-        val w = width.dp
-        scroll.measure(View.MeasureSpec.makeMeasureSpec(w, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED))
         val margin = 8.dp
-        val h = minOf(scroll.measuredHeight, frame.height() - 2 * margin)
+        // (the shared rules of what fits a window, RdFitRules: never wider or taller than it, moved back inside it)
+        val w = org.videolan.vlc.util.RdFitRules.size(width.dp, frame.width(), margin)
+        scroll.measure(View.MeasureSpec.makeMeasureSpec(w, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED))
+        val h = org.videolan.vlc.util.RdFitRules.size(scroll.measuredHeight, frame.height(), margin)
         val rtl = decor.layoutDirection == View.LAYOUT_DIRECTION_RTL
         var x: Int
         var y: Int
@@ -213,8 +214,8 @@ object RdTvMenu {
             x = frame.centerX() - w / 2
             y = frame.centerY() - h / 2
         }
-        x = x.coerceIn(frame.left + margin, maxOf(frame.left + margin, frame.right - margin - w))
-        y = y.coerceIn(frame.top + margin, maxOf(frame.top + margin, frame.bottom - margin - h))
+        x = org.videolan.vlc.util.RdFitRules.place(x, w, frame.left, frame.right, margin)
+        y = org.videolan.vlc.util.RdFitRules.place(y, h, frame.top, frame.bottom, margin)
         popup.apply {
             contentView = scroll
             this.width = w

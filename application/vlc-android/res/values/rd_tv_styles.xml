@@ -3,6 +3,7 @@
 <resources>
     <!-- the TV layout's focus line (RdTvFocusRing): its listener on a window, a view's own foreground under it -->
     <item name="rd_tv_focus_listener" type="id" />
+    <item name="rd_fit_listener" type="id" />
     <item name="rd_tv_focus_saved" type="id" />
     <item name="rd_tv_focus_skip" type="id" />
     <item name="rd_tv_mini" type="id" />

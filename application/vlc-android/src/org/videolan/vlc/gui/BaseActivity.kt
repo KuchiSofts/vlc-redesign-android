@@ -107,9 +107,13 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // VLC Redesign, the TV layout: every dialog of a fragment shows where the remote is too (the TV sources, the
         // programme's window, the sheets... had no ring: the focus on a selected tab or a button could not be told)
-        if (Settings.showTvUi) supportFragmentManager.registerFragmentLifecycleCallbacks(object : androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks() {
+        // Every layout: a dialog given a size of its own stays inside the screen (RdFit)
+        supportFragmentManager.registerFragmentLifecycleCallbacks(object : androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks() {
             override fun onFragmentStarted(fm: androidx.fragment.app.FragmentManager, f: androidx.fragment.app.Fragment) {
-                (f as? androidx.fragment.app.DialogFragment)?.dialog?.window?.let { RdTvFocusRing.attach(it) }
+                (f as? androidx.fragment.app.DialogFragment)?.dialog?.window?.let {
+                    if (Settings.showTvUi) RdTvFocusRing.attach(it)
+                    org.videolan.vlc.gui.helpers.RdFit.dialog(it)
+                }
             }
         }, true)
         if (UiTools.currentNightMode != resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
