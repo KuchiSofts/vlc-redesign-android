@@ -114,7 +114,15 @@ abstract class VLCBottomSheetDialogFragment : BottomSheetDialogFragment() {
     open fun floatingBackground(view: View): android.graphics.drawable.Drawable? = ContextCompat.getDrawable(view.context, R.drawable.rd_panel_float)
 
     /** The sheet's width (a wider window for an editor shown centred on a tablet) */
-    open fun windowWidth() = resources.getDimensionPixelSize(R.dimen.default_context_width)
+    open fun windowWidth(): Int {
+        val width = resources.getDimensionPixelSize(R.dimen.default_context_width)
+        // VLC Redesign: the resources of a language chosen in the settings keep the orientation they were made in
+        // (the player turns without being made again): turned upright, a phone's sheet was the 512 of its side
+        // view, wider than the screen. The window's own width tells.
+        val window = activity?.window?.decorView?.width ?: 0
+        if (width > 0 && window > 0 && window / resources.displayMetrics.density < 600f) return ViewGroup.LayoutParams.MATCH_PARENT
+        return width
+    }
 
     /**
      * VLC Redesign: the control bar's button this panel belongs to (0: none). The panel then opens as the desktop's,
