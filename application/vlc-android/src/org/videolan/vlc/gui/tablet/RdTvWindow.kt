@@ -156,7 +156,7 @@ object RdTvWindow {
                 syncPending = true
                 window.decorView.postOnAnimation {
                     syncPending = false
-                    if (!isDestroyed) sync(this)
+                    if (!isDestroyed) sync(this, header)
                 }
             }
         }
@@ -721,17 +721,33 @@ object RdTvWindow {
     private val HEADER_ITEMS = setOf(R.id.ml_menu_sortby, R.id.ml_menu_display_grid, R.id.ml_menu_display_list,
             R.id.ml_menu_display_options, R.id.ml_menu_filter, R.id.ml_menu_search, R.id.ml_menu_renderers)
 
+    /**
+     * The views [sync] reads, found once per window: it runs after every layout pass (each frame of a scrolling
+     * list), and the window's lookups walked its whole tree each time (the rail after the page's views).
+     */
+    private class Parts(activity: AudioPlayerContainerActivity, header: View) {
+        val crumb: TextView = header.findViewById(R.id.rd_tv_header_crumb)
+        val count: TextView = header.findViewById(R.id.rd_tv_header_count)
+        val sort: View = header.findViewById(R.id.rd_tv_header_sort)
+        val view: ImageView = header.findViewById(R.id.rd_tv_header_view)
+        val more: View = header.findViewById(R.id.rd_tv_header_more)
+        val toolbar: Toolbar? = activity.findViewById(R.id.main_toolbar)
+        val rail: com.google.android.material.navigationrail.NavigationRailView? = activity.findViewById(R.id.navigation_rail)
+        val page: ViewGroup? = pageView(activity)
+        val listTitle: TextView? = activity.findViewById(R.id.header_list_title)
+    }
+
     /** The header as the page set its title and menu. */
-    private fun sync(activity: AudioPlayerContainerActivity) {
-        val header = activity.findViewById<View>(R.id.rd_tv_header) ?: return
-        val menu = menu(activity)
-        header.findViewById<TextView>(R.id.rd_tv_header_crumb).let { crumb ->
+    private fun sync(activity: AudioPlayerContainerActivity, header: View) {
+        val parts = header.getTag(R.id.rd_tv_header) as? Parts ?: Parts(activity, header).also { header.setTag(R.id.rd_tv_header, it) }
+        val menu = parts.toolbar?.menu
+        parts.crumb.let { crumb ->
             // the page's own title (the library's pages don't set the activity's)
             val page = activity.supportFragmentManager.findFragmentById(R.id.fragment_placeholder)
             // a page of the sidebar: its name there (Videos, Music); a page opened from it: its own title
-            val rail = activity.findViewById<com.google.android.material.navigationrail.NavigationRailView>(R.id.navigation_rail)
+            val rail = parts.rail
             val railTitle = rail?.menu?.let { m -> (0 until m.size()).map { m.getItem(it) }.firstOrNull { it.isChecked }?.title?.toString() }
-            val title = if (activity is HeaderMediaListActivity) activity.findViewById<TextView>(R.id.header_list_title)?.text?.toString().orEmpty()
+            val title = if (activity is HeaderMediaListActivity) parts.listTitle?.text?.toString().orEmpty()
                 else if (page is org.videolan.vlc.gui.MoreFragment) activity.getString(R.string.more)
                 else if (activity.supportFragmentManager.backStackEntryCount == 0 && railTitle != null) railTitle
                 else (page as? org.videolan.vlc.gui.BaseFragment)?.let { runCatching { it.getTitle() }.getOrNull() } ?: activity.title?.toString().orEmpty()
@@ -742,24 +758,24 @@ object RdTvWindow {
             } else ownPage(activity)?.let { crumbsOf(null, activity.getString(it)) } ?: crumbsOf(lastPageTitle, title)
             if (crumb.text.toString() != crumbs.toString()) crumb.text = crumbs
         }
-        fun show(id: Int, on: Boolean) = header.findViewById<View>(id).let { if (it.isVisible != on) it.isVisible = on }
+        fun show(v: View, on: Boolean) { if (v.isVisible != on) v.isVisible = on }
         // the page's count of items (the desktop's "110 items"): the main list of a library page
         val shownPage = activity.supportFragmentManager.findFragmentById(R.id.fragment_placeholder)
-        val mainList = if (shownPage is org.videolan.vlc.gui.HomeFragment) null else (shownPage?.view ?: pageView(activity))?.let { mainList(it) }
+        val mainList = if (shownPage is org.videolan.vlc.gui.HomeFragment) null else (shownPage?.view ?: parts.page)?.let { mainList(it) }
         val count = mainList?.adapter?.itemCount
-        header.findViewById<TextView>(R.id.rd_tv_header_count).let { c ->
+        parts.count.let { c ->
             val text = count?.let { activity.resources.getQuantityString(R.plurals.rd_items_count, it, it) }
             if (c.text?.toString() != text) c.text = text
-            show(R.id.rd_tv_header_count, text != null)
+            show(c, text != null)
         }
         val options = visible(menu?.findItem(R.id.ml_menu_display_options))
         // (a playlist's / an album's page: the design's has no sort nor view, as the Samsung TV app's playlist page)
         val own = activity is HeaderMediaListActivity
-        show(R.id.rd_tv_header_sort, !own && (visible(menu?.findItem(R.id.ml_menu_sortby)) || options || viewPage(activity.supportFragmentManager) != null))
+        show(parts.sort, !own && (visible(menu?.findItem(R.id.ml_menu_sortby)) || options || viewPage(activity.supportFragmentManager) != null))
         val grid = visible(menu?.findItem(R.id.ml_menu_display_grid))
         val list = visible(menu?.findItem(R.id.ml_menu_display_list))
-        show(R.id.rd_tv_header_view, !own && (grid || list || visible(menu?.findItem(R.id.ml_menu_display_options))))
-        header.findViewById<ImageView>(R.id.rd_tv_header_view).let { v ->
+        show(parts.view, !own && (grid || list || visible(menu?.findItem(R.id.ml_menu_display_options))))
+        parts.view.let { v ->
             // the view the page is in (the desktop shows the grid's icon in the grid view, the list's in the rows)
             val icon = when (inGrid(activity)) {
                 true -> R.drawable.rd_tvd_grid
@@ -769,6 +785,6 @@ object RdTvWindow {
             if (v.getTag(R.id.rd_tv_header_view) != icon) { v.setTag(R.id.rd_tv_header_view, icon); v.setImageResource(icon) }
         }
         val more = playlistsPage(activity) || activity is HeaderMediaListActivity || menu != null && (0 until menu.size()).any { menu.getItem(it).let { i -> visible(i) && i.itemId !in HEADER_ITEMS && !i.hasSubMenu() } }
-        show(R.id.rd_tv_header_more, more)
+        show(parts.more, more)
     }
 }
