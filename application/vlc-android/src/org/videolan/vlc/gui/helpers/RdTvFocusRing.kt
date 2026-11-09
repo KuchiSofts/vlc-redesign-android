@@ -85,7 +85,8 @@ object RdTvFocusRing {
                     val lm = focused.layoutManager
                     val row = (0 until (lm?.childCount ?: 0)).asSequence().mapNotNull { lm?.getChildAt(it) }
                         .firstOrNull { it.isShown && (it.isFocusable || (it as? android.view.ViewGroup)?.hasFocusable() == true) }
-                    row?.requestFocus()
+                    // (an empty list, an empty playlist's page: the focus to what is above it, the page's header)
+                    if (row?.requestFocus() != true) (focused.focusSearch(View.FOCUS_UP) ?: focused.focusSearch(View.FOCUS_LEFT))?.requestFocus()
                 }
             }, 120)
             return

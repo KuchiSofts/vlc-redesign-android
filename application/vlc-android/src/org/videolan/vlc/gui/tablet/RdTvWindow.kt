@@ -502,6 +502,11 @@ object RdTvWindow {
                 return true
             }
             android.view.KeyEvent.KEYCODE_DPAD_DOWN -> {
+                // the page's last row: Down stays there (it went to the sidebar's row below, Recent, out of the page)
+                if (side != null && inside(focused, page)) {
+                    val next = focused.focusSearch(View.FOCUS_DOWN)
+                    return next != null && inside(next, side)
+                }
                 if (!inside(focused, header)) return false
                 val next = android.view.FocusFinder.getInstance().findNextFocus(root, focused, View.FOCUS_DOWN)
                 if (next != null && inside(next, page)) return false
