@@ -2020,8 +2020,9 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
 
     // VLC Redesign: the desktop's automatic search (SubtitleFinder::autoPick), once per media: when a video starts
     // without subtitles in the user's language, the best one found online loads by itself (of that language, else
-    // of the second one), if the user said so (the welcome's privacy step, Settings › Subtitles). Files and shares
-    // only: a stream's or a channel's name is not a film's.
+    // of the second one), if the user said so (the welcome's privacy step, Settings › Subtitles). Files, shares and
+    // links to a video with a length (#73: a link was never searched by itself); not a Live TV channel nor a live
+    // stream: their names are no film's.
     private var rdOnlineAutoUri: Uri? = null
 
     private fun rdAutoOnlineSubtitles() {
@@ -2031,25 +2032,41 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         val uri = mw.uri ?: return
         if (uri == rdOnlineAutoUri) return
         rdOnlineAutoUri = uri
-        if (mw.type != MediaWrapper.TYPE_VIDEO || uri.scheme !in setOf("file", "content", "smb", "nfs", "ftp", "sftp", "upnp")) return
+        val scheme = uri.scheme?.lowercase(java.util.Locale.ROOT)
+        if (mw.type != MediaWrapper.TYPE_VIDEO || scheme !in setOf("file", "content", "smb", "nfs", "ftp", "sftp", "upnp", "http", "https")) return
         lifecycleScope.launch {
             kotlinx.coroutines.delay(1500L)
             val s = service ?: return@launch
             if (s.currentMediaWrapper?.uri != uri || isFinishing) return@launch
+            // (a Live TV channel, a live stream: no length; their names are no film's)
+            if (org.videolan.vlc.util.OnlineSubtitles.isLive(scheme, s.length, org.videolan.vlc.livetv.TvPlayback.isCurrent(uri.toString()))) return@launch
             val wanted = org.videolan.vlc.util.OnlineSubtitles.wantedLanguages(ctx)
             if (wanted.isEmpty()) return@launch
             val local = rdLocalSubtitleLanguages(wanted)
             if (wanted[0] in local) return@launch
-            val (media, downloaded) = withContext(Dispatchers.IO) {
-                val m = org.videolan.vlc.util.OnlineSubtitles.mediaOf(uri, mw.title)
-                Pair(m, wanted.any { org.videolan.vlc.util.OnlineSubtitles.hasDownloaded(ctx, m, it) })
+            val second = wanted.getOrNull(1)
+            val (media, kept) = withContext(Dispatchers.IO) {
+                val m = org.videolan.vlc.util.OnlineSubtitles.mediaOf(uri, mw.title, context = ctx)
+                Pair(m, wanted.take(2).filter { org.videolan.vlc.util.OnlineSubtitles.hasDownloaded(ctx, m, it) })
             }
-            if (downloaded) return@launch
+            // the one chosen for this video before, in the user's language: shown again from the app's storage (the
+            // downloaded subtitles of a media are added as it plays), no search; one in the second language only:
+            // the first one is looked for again, as on the desktop
+            if (wanted[0] in kept) {
+                Log.i(TAG, "online subtitles: the one kept for this video, no search")
+                return@launch
+            }
             val outcome = org.videolan.vlc.util.OnlineSubtitles.searchAll(ctx, media)
-            val pick = outcome.bestOf(wanted[0]) ?: wanted.getOrNull(1)?.takeIf { it !in local }?.let { outcome.bestOf(it) } ?: return@launch
+            val pick = outcome.bestOf(wanted[0]) ?: second?.takeIf { it !in local && it !in kept }?.let { outcome.bestOf(it) }
+            if (pick == null) {
+                // (a guess of the title, nothing made for this file: none loads by itself; the search shows them)
+                Log.i(TAG, "online subtitles: ${outcome.results.size} found, none sure enough to load by itself")
+                return@launch
+            }
             if (service?.currentMediaWrapper?.uri != uri || isFinishing) return@launch
             val (file, _) = org.videolan.vlc.util.OnlineSubtitles.download(ctx, pick.result, media)
             if (file == null || service?.currentMediaWrapper?.uri != uri || isFinishing) return@launch
+            Log.i(TAG, "online subtitles: ${pick.result.language} of ${pick.result.provider} loaded by itself")
             rdAddOnlineSubtitle(file, pick.result, select = true)
             overlayDelegate.showInfo(org.videolan.vlc.gui.dialogs.RdOnlineSubtitlesSheet.loadedText(ctx, pick.result), 3000)
         }

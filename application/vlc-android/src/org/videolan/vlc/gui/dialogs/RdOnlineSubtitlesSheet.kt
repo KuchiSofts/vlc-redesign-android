@@ -146,7 +146,7 @@ class RdOnlineSubtitlesSheet : VLCBottomSheetDialogFragment() {
         rows.removeAllViews()
         setBusy(true, getString(R.string.rd_os_identifying))
         job = lifecycleScope.launch {
-            val m = media ?: withContext(Dispatchers.IO) { OnlineSubtitles.mediaOf(mw.uri, mw.title) }.also { media = it }
+            val m = media ?: withContext(Dispatchers.IO) { OnlineSubtitles.mediaOf(mw.uri, mw.title, context = ctx) }.also { media = it }
             val found = if (identify) withContext(Dispatchers.IO) { OnlineSubtitles.identify(ctx, m) } else match
             setBusy(true, getString(R.string.rd_os_looking))
             show(OnlineSubtitles.search(ctx, m, found))
