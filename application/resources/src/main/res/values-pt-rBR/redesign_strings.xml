@@ -100,6 +100,9 @@
     <string name="rd_sec_diagnostics">Diagnóstico</string>
     <string name="rd_sec_advanced">Opções Avançadas</string>
     <string name="rd_sec_window">Janela</string>
+    <string name="rd_interface_size">Tamanho da interface</string>
+    <string name="rd_interface_size_summary">O tamanho em que as páginas, os textos e os controles são desenhados. Automático escolhe o tamanho adequado para esta tela.</string>
+    <string name="rd_interface_size_auto">Automático (%1$s)</string>
     <string name="rd_sec_playback_controls">Controles de reprodução</string>
     <string name="rd_sec_playlist">Lista de reprodução</string>
     <string name="rd_sec_player_bar">Barra do player</string>

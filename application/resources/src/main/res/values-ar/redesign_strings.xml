@@ -100,6 +100,9 @@
     <string name="rd_sec_diagnostics">التشخيص</string>
     <string name="rd_sec_advanced">خيارت متقدمة</string>
     <string name="rd_sec_window">نافذة</string>
+    <string name="rd_interface_size">حجم الواجهة</string>
+    <string name="rd_interface_size_summary">حجم رسم الصفحات والنصوص وعناصر التحكم. يختار «تلقائي» الحجم المناسب لهذه الشاشة.</string>
+    <string name="rd_interface_size_auto">تلقائي (%1$s)</string>
     <string name="rd_sec_playback_controls">عناصر التحكم في التشغيل</string>
     <string name="rd_sec_playlist">قائمة التشغيل</string>
     <string name="rd_sec_player_bar">شريط المشغل</string>

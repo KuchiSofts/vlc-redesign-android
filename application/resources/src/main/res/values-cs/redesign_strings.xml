@@ -100,6 +100,9 @@
     <string name="rd_sec_diagnostics">Diagnostika</string>
     <string name="rd_sec_advanced">Pokročilé možnosti</string>
     <string name="rd_sec_window">Okno</string>
+    <string name="rd_interface_size">Velikost rozhraní</string>
+    <string name="rd_interface_size_summary">Jak velké se vykreslují stránky, texty a ovládací prvky. Automaticky zvolí velikost vhodnou pro tuto obrazovku.</string>
+    <string name="rd_interface_size_auto">Automaticky (%1$s)</string>
     <string name="rd_sec_playback_controls">Ovládání přehrávání</string>
     <string name="rd_sec_playlist">Seznam skladeb</string>
     <string name="rd_sec_player_bar">Panel přehrávače</string>

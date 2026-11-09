@@ -100,6 +100,9 @@
     <string name="rd_sec_diagnostics">诊断</string>
     <string name="rd_sec_advanced">高级选项</string>
     <string name="rd_sec_window">窗口</string>
+    <string name="rd_interface_size">界面大小</string>
+    <string name="rd_interface_size_summary">页面、文字和控件的显示大小。“自动”会选择适合此屏幕的大小。</string>
+    <string name="rd_interface_size_auto">自动 (%1$s)</string>
     <string name="rd_sec_playback_controls">播放控件</string>
     <string name="rd_sec_playlist">播放列表</string>
     <string name="rd_sec_player_bar">播放栏</string>

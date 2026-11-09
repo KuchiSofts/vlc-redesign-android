@@ -100,6 +100,9 @@
     <string name="rd_sec_diagnostics">診断</string>
     <string name="rd_sec_advanced">詳細設定オプション</string>
     <string name="rd_sec_window">ウィンドウ</string>
+    <string name="rd_interface_size">インターフェースのサイズ</string>
+    <string name="rd_interface_size_summary">ページ、文字、コントロールを表示する大きさです。「自動」はこの画面に合った大きさを選びます。</string>
+    <string name="rd_interface_size_auto">自動 (%1$s)</string>
     <string name="rd_sec_playback_controls">再生コントロール</string>
     <string name="rd_sec_playlist">プレイリスト</string>
     <string name="rd_sec_player_bar">プレイヤーバー</string>
