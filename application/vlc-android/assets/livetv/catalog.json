@@ -8417,6 +8417,30 @@
    "logo": "https://www.open-epg.com/images/cropped-tv-icon.png",
    "verified": "2026-10-28",
    "notes": "Free public guide from open-epg.com; refreshed daily. At verification: 45084 programmes from 2026-10-27 to 2026-11-02 (4.4 days ahead)."
+  },
+  {
+   "id": "epg-team",
+   "name": "EPG.team",
+   "kind": "epg",
+   "url": "https://epg.team/1.7.xml",
+   "epg": [],
+   "website": "https://epg.team",
+   "description": "Free XMLTV guide from epg.team for channels of many countries.",
+   "languages": [],
+   "countries": [],
+   "categories": [],
+   "channels": 3795,
+   "catchup": {
+    "supported": false,
+    "days": 0
+   },
+   "vod": false,
+   "series": false,
+   "price": "free",
+   "signup": false,
+   "logo": "",
+   "verified": "2026-11-09",
+   "notes": "Free public guide from epg.team, sent gzip-compressed when asked (51 MB, 279 MB of XML). At verification: 588531 programmes of 3795 channels from 2026-11-08 to 2026-11-16 (7 days ahead)."
   }
  ]
 }
