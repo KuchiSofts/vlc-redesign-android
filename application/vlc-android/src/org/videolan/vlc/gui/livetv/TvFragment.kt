@@ -312,10 +312,17 @@ class TvFragment : BaseFragment(), Filterable {
         segments.setOptions(listOfNotNull(getString(R.string.rd_tv_channels) to "channels", getString(R.string.rd_tv_guide) to "guide",
             if (films) getString(R.string.rd_tv_films) to "movies" else null, if (series) getString(R.string.rd_tv_series) to "series" else null))
         segments.value = view
+        // (the remote's focus on the empty page's "Add a link": gone with it once a source is in, the window gave it
+        // to the title bar's ⋯; it comes back to the page, its first channel)
+        val emptyHadFocus = hasSources && empty.visibility == View.VISIBLE && empty.hasFocus()
         header.visibility = if (hasSources) View.VISIBLE else View.GONE
         empty.visibility = if (hasSources) View.GONE else View.VISIBLE
         bodyBox.visibility = if (hasSources) View.VISIBLE else View.GONE
         (empty.layoutParams as LinearLayout.LayoutParams).let { it.weight = if (hasSources) 0f else 1f; empty.layoutParams = it }
+        if (emptyHadFocus) {
+            sourcesButton.requestFocus()
+            this.list.post { this.list.findViewHolderForAdapterPosition(0)?.itemView?.requestFocus() }
+        }
         val library = view == "movies" || view == "series"
         chips.visibility = if (hasSources && !library) View.VISIBLE else View.GONE
         // the channels shown: the group, the adult ones only when allowed, the search
