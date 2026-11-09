@@ -78,4 +78,5 @@
     <string name="rd_subs_move_up">Xubir los sotítulos</string>
     <string name="rd_subs_smaller">Sotítulos más pequeños</string>
     <string name="rd_subs_larger">Sotítulos más grandes</string>
+    <string name="rd_os_show_both">Amosar les dos llingües a la vegada (sotítulos dobles)</string>
 </resources>

@@ -48,4 +48,5 @@
     <string name="rd_subs_move_up">စာတန်းထိုးများကို အပေါ်သို့ ရွှေ့ရန်</string>
     <string name="rd_subs_smaller">စာတန်းထိုး ပိုသေးရန်</string>
     <string name="rd_subs_larger">စာတန်းထိုး ပိုကြီးရန်</string>
+    <string name="rd_os_show_both">ဘာသာစကား နှစ်ခုလုံးကို တစ်ပြိုင်နက် ပြရန် (စာတန်းထိုး နှစ်ထပ်)</string>
 </resources>

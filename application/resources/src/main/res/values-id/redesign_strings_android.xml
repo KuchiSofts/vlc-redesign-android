@@ -78,4 +78,5 @@
     <string name="rd_subs_move_up">Pindahkan subtitle ke atas</string>
     <string name="rd_subs_smaller">Subtitle lebih kecil</string>
     <string name="rd_subs_larger">Subtitle lebih besar</string>
+    <string name="rd_os_show_both">Tampilkan kedua bahasa sekaligus (subtitle ganda)</string>
 </resources>

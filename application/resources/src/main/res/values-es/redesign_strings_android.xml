@@ -83,4 +83,5 @@
     <string name="rd_subs_move_up">Subir los subtítulos</string>
     <string name="rd_subs_smaller">Subtítulos más pequeños</string>
     <string name="rd_subs_larger">Subtítulos más grandes</string>
+    <string name="rd_os_show_both">Mostrar ambos idiomas a la vez (subtítulos dobles)</string>
 </resources>

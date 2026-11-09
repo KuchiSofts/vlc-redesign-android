@@ -99,4 +99,5 @@
     <string name="rd_subs_move_up">הזזת הכתוביות למעלה</string>
     <string name="rd_subs_smaller">כתוביות קטנות יותר</string>
     <string name="rd_subs_larger">כתוביות גדולות יותר</string>
+    <string name="rd_os_show_both">הצג את שתי השפות יחד (כתוביות כפולות)</string>
 </resources>

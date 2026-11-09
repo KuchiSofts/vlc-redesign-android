@@ -51,4 +51,5 @@
     <string name="rd_subs_move_up">រំកិលចំណងជើងរងឡើងលើ</string>
     <string name="rd_subs_smaller">ចំណងជើងរងតូចជាង</string>
     <string name="rd_subs_larger">ចំណងជើងរងធំជាង</string>
+    <string name="rd_os_show_both">បង្ហាញភាសាទាំងពីរក្នុងពេលតែមួយ (ចំណងជើងរងពីរ)</string>
 </resources>

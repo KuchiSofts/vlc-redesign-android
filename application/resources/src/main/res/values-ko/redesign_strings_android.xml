@@ -83,4 +83,5 @@
     <string name="rd_subs_move_up">자막을 위로 이동</string>
     <string name="rd_subs_smaller">자막 작게</string>
     <string name="rd_subs_larger">자막 크게</string>
+    <string name="rd_os_show_both">두 언어를 동시에 표시(이중 자막)</string>
 </resources>

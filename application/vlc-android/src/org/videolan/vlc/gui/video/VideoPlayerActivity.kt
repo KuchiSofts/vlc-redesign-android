@@ -1026,6 +1026,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     override fun onStop() {
         super.onStop()
+        rdDualSubtitles.stop()
         if (visibleCount > 0) visibleCount--
         service?.playlistManager?.let {
             savedMediaList = ArrayList(it.getMediaList())
@@ -2116,6 +2117,31 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     /** the ids of the online results this video has as tracks already (downloaded before or now) */
     fun rdLoadedSubtitleIds(): Set<String> = addedExternalSubs.map { it.idSubtitle }.toSet() + rdSubtitleFinder.loadedIds
 
+    /** VLC Redesign: the second language drawn above the first one (the desktop's dual subtitles) */
+    private val rdDualSubtitles by lazy { RdDualSubtitleOverlay(this) }
+
+    /** the subtitles downloaded for the video playing: (file, language) */
+    fun rdDownloadedSubtitleFiles(): List<Pair<String, String>> =
+        addedExternalSubs.map { Pair(it.subtitlePath, org.videolan.vlc.util.OnlineSubtitles.normalize(it.subLanguageID)) }
+
+    /** the subtitle files of a local video: beside it, then in its Subs folder: (file, language); blocking */
+    fun rdLocalSubtitleFiles(): List<Pair<String, String>> {
+        val uri = service?.currentMediaWrapper?.uri ?: return emptyList()
+        if (uri.scheme != "file") return emptyList()
+        return try {
+            val video = java.io.File(uri.path ?: return emptyList())
+            val dir = video.parentFile ?: return emptyList()
+            val base = video.nameWithoutExtension
+            val subtitle = { f: java.io.File -> f.isFile && f.extension.lowercase(java.util.Locale.ROOT) in org.videolan.vlc.util.OnlineSubtitles.subtitleExtensions }
+            val beside = dir.listFiles()?.filter { subtitle(it) && it.name.startsWith(base) }?.sortedBy { it.name }.orEmpty()
+            val folder = org.videolan.vlc.util.OnlineSubtitles.SUBS_FOLDERS.asSequence().map { java.io.File(dir, it) }.firstOrNull { it.isDirectory }
+                ?.listFiles()?.filter { subtitle(it) }?.sortedBy { it.name }.orEmpty()
+            (beside + folder).map { Pair(it.absolutePath, org.videolan.vlc.util.OnlineSubtitles.languageOfSubtitleFile(it.name)) }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
     // VLC Redesign: the desktop's automatic search (SubtitleFinder::autoPick), once per media: when a video starts
     // without subtitles in the user's language, the best one found online loads by itself (of that language, else
     // of the second one), if the user said so (the welcome's privacy step, Settings › Subtitles). Files, shares and
@@ -2352,6 +2378,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         overlayDelegate.hasPlaylist = service?.hasPlaylist() == true
         setPlaybackParameters()
         stopLoading()
+        // the second language above the first one, when the user shows both (Settings › Subtitles)
+        rdDualSubtitles.start()
         overlayDelegate.updateOverlayPausePlay()
         updateNavStatus()
         if (!mw.hasFlag(MediaWrapper.MEDIA_PAUSED) && Settings.videoHudDelay != -1)

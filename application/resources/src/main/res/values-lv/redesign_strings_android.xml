@@ -78,4 +78,5 @@
     <string name="rd_subs_move_up">Pārvietot subtitrus uz augšu</string>
     <string name="rd_subs_smaller">Mazāki subtitri</string>
     <string name="rd_subs_larger">Lielāki subtitri</string>
+    <string name="rd_os_show_both">Rādīt abas valodas vienlaikus (divkārši subtitri)</string>
 </resources>

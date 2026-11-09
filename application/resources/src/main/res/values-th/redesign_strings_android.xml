@@ -80,4 +80,5 @@
     <string name="rd_subs_move_up">เลื่อนบทบรรยายขึ้น</string>
     <string name="rd_subs_smaller">บทบรรยายเล็กลง</string>
     <string name="rd_subs_larger">บทบรรยายใหญ่ขึ้น</string>
+    <string name="rd_os_show_both">แสดงทั้งสองภาษาพร้อมกัน (บทบรรยายคู่)</string>
 </resources>

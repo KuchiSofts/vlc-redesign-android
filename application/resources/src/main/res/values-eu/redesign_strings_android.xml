@@ -78,4 +78,5 @@
     <string name="rd_subs_move_up">Mugitu azpitituluak gora</string>
     <string name="rd_subs_smaller">Azpititulu txikiagoak</string>
     <string name="rd_subs_larger">Azpititulu handiagoak</string>
+    <string name="rd_os_show_both">Erakutsi bi hizkuntzak batera (azpititulu bikoitzak)</string>
 </resources>

@@ -83,4 +83,5 @@
     <string name="rd_subs_move_up">Ondertitels omhoog</string>
     <string name="rd_subs_smaller">Kleinere ondertitels</string>
     <string name="rd_subs_larger">Grotere ondertitels</string>
+    <string name="rd_os_show_both">Beide talen tegelijk weergeven (dubbele ondertitels)</string>
 </resources>

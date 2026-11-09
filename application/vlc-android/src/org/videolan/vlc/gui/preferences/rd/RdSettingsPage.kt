@@ -227,6 +227,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             // (never chosen: the desktop's default, English, unless English is the preferred one)
             if (!it.sharedPreferences!!.contains(it.key)) it.value = org.videolan.vlc.util.OnlineSubtitles.secondLanguage(requireContext())
         }
+        updateShowBoth()
         // the subtitle services, each with its switch, its key or account and its checks (RdSubtitleServices)
         if (pref<Preference>(RdSubtitleServices.CATEGORY) != null) services = RdSubtitleServices(this).also { it.setup() }
         // the languages they are asked for (RdSubtitleLanguages)
@@ -573,6 +574,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         // one language say whether it is on
         languages?.changed(key)
         if (key == org.videolan.vlc.util.OnlineSubtitles.KEY_LANGUAGES) services?.refresh()
+        if (key == org.videolan.vlc.util.OnlineSubtitles.KEY_SECOND) updateShowBoth()
         when (key) {
             // General / Interface
             // the desktop switches its language at once: this screen now, the others as they come back
@@ -804,6 +806,14 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
                 shadow?.isChecked = false
             }
         }
+    }
+
+    /** "Show both languages at once": with a second language only (none: off, as on the desktop) */
+    private fun updateShowBoth() {
+        val row = pref<CheckBoxPreference>(org.videolan.vlc.util.RdDualSubtitles.KEY_SHOW_BOTH) ?: return
+        val second = org.videolan.vlc.util.OnlineSubtitles.normalize(preferenceManager.sharedPreferences?.getString(org.videolan.vlc.util.OnlineSubtitles.KEY_SECOND, null))
+        row.isEnabled = second.isNotEmpty()
+        if (second.isEmpty() && row.isChecked) row.isChecked = false
     }
 
     private fun manageSubtitleVisibilities() {

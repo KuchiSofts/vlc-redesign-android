@@ -83,4 +83,5 @@
     <string name="rd_subs_move_up">字幕を上へ移動</string>
     <string name="rd_subs_smaller">字幕を小さく</string>
     <string name="rd_subs_larger">字幕を大きく</string>
+    <string name="rd_os_show_both">両方の言語を同時に表示 (二重字幕)</string>
 </resources>
