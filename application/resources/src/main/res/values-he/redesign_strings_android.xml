@@ -83,4 +83,20 @@
     <string name="rd_volume_left_side">צד שמאל</string>
     <string name="rd_volume_top_right">פינה ימנית עליונה</string>
     <string name="rd_volume_top_left">פינה שמאלית עליונה</string>
+    <string name="rd_subs_of_video">הכתוביות של סרטון זה</string>
+    <string name="rd_subs_in_video">בתוך הסרטון</string>
+    <string name="rd_subs_next_to">לצד הסרטון · %1$s</string>
+    <string name="rd_subs_next_to_plain">לצד הסרטון</string>
+    <string name="rd_subs_opened">נפתח · %1$s</string>
+    <string name="rd_subs_opened_plain">קובץ שנפתח</string>
+    <string name="rd_subs_none_yet">אין כתוביות עדיין</string>
+    <string name="rd_subs_hi_short">כ״ש</string>
+    <string name="rd_show_preferences">הצג העדפות</string>
+    <string name="rd_subs_position_size">מיקום וגודל</string>
+    <string name="rd_subs_position">מיקום</string>
+    <string name="rd_subs_usual">רגיל</string>
+    <string name="rd_subs_move_down">הזזת הכתוביות למטה</string>
+    <string name="rd_subs_move_up">הזזת הכתוביות למעלה</string>
+    <string name="rd_subs_smaller">כתוביות קטנות יותר</string>
+    <string name="rd_subs_larger">כתוביות גדולות יותר</string>
 </resources>

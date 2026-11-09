@@ -64,4 +64,20 @@
     <string name="rd_unpin_from_home">Losa af heimasíðu</string>
     <string name="rd_pinned">Fest</string>
     <string name="rd_pinned_missing">Þessi festa mappa eða spilunarlisti er ekki lengur til.</string>
+    <string name="rd_subs_of_video">Skjátextar þessa myndskeiðs</string>
+    <string name="rd_subs_in_video">Í myndskeiðinu</string>
+    <string name="rd_subs_next_to">Við hlið myndskeiðsins · %1$s</string>
+    <string name="rd_subs_next_to_plain">Við hlið myndskeiðsins</string>
+    <string name="rd_subs_opened">Opnað · %1$s</string>
+    <string name="rd_subs_opened_plain">Opnuð skrá</string>
+    <string name="rd_subs_none_yet">Engir skjátextar enn</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Sýna kjörstillingar</string>
+    <string name="rd_subs_position_size">Staðsetning og stærð</string>
+    <string name="rd_subs_position">Staðsetning</string>
+    <string name="rd_subs_usual">Venjulegt</string>
+    <string name="rd_subs_move_down">Færa skjátexta niður</string>
+    <string name="rd_subs_move_up">Færa skjátexta upp</string>
+    <string name="rd_subs_smaller">Minni skjátextar</string>
+    <string name="rd_subs_larger">Stærri skjátextar</string>
 </resources>

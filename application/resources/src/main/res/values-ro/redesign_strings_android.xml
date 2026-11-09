@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Anulează fixarea din Acasă</string>
     <string name="rd_pinned">Fixate</string>
     <string name="rd_pinned_missing">Acest dosar sau această listă de redare fixată nu mai există.</string>
+    <string name="rd_subs_of_video">Subtitlurile acestui video</string>
+    <string name="rd_subs_in_video">În video</string>
+    <string name="rd_subs_next_to">Lângă video · %1$s</string>
+    <string name="rd_subs_next_to_plain">Lângă video</string>
+    <string name="rd_subs_opened">Deschis · %1$s</string>
+    <string name="rd_subs_opened_plain">Fișier deschis</string>
+    <string name="rd_subs_none_yet">Încă nu există subtitluri</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Afișează preferințele</string>
+    <string name="rd_subs_position_size">Poziție și dimensiune</string>
+    <string name="rd_subs_position">Poziție</string>
+    <string name="rd_subs_usual">Obișnuit</string>
+    <string name="rd_subs_move_down">Mută subtitlurile în jos</string>
+    <string name="rd_subs_move_up">Mută subtitlurile în sus</string>
+    <string name="rd_subs_smaller">Subtitluri mai mici</string>
+    <string name="rd_subs_larger">Subtitluri mai mari</string>
 </resources>

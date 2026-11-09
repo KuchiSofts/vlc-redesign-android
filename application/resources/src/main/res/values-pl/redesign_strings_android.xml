@@ -67,4 +67,20 @@
     <string name="rd_volume_left_side">Lewa strona</string>
     <string name="rd_volume_top_right">Prawy górny róg</string>
     <string name="rd_volume_top_left">Lewy górny róg</string>
+    <string name="rd_subs_of_video">Napisy do tego wideo</string>
+    <string name="rd_subs_in_video">W wideo</string>
+    <string name="rd_subs_next_to">Obok wideo · %1$s</string>
+    <string name="rd_subs_next_to_plain">Obok wideo</string>
+    <string name="rd_subs_opened">Otwarte · %1$s</string>
+    <string name="rd_subs_opened_plain">Otwarty plik</string>
+    <string name="rd_subs_none_yet">Brak napisów</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Pokaż preferencje</string>
+    <string name="rd_subs_position_size">Położenie i rozmiar</string>
+    <string name="rd_subs_position">Położenie</string>
+    <string name="rd_subs_usual">Zwykły</string>
+    <string name="rd_subs_move_down">Przesuń napisy w dół</string>
+    <string name="rd_subs_move_up">Przesuń napisy w górę</string>
+    <string name="rd_subs_smaller">Mniejsze napisy</string>
+    <string name="rd_subs_larger">Większe napisy</string>
 </resources>

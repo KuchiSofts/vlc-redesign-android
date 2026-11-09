@@ -67,4 +67,20 @@
     <string name="rd_volume_left_side">Vänster sida</string>
     <string name="rd_volume_top_right">Övre högra hörnet</string>
     <string name="rd_volume_top_left">Övre vänstra hörnet</string>
+    <string name="rd_subs_of_video">Den här videons undertexter</string>
+    <string name="rd_subs_in_video">I videon</string>
+    <string name="rd_subs_next_to">Bredvid videon · %1$s</string>
+    <string name="rd_subs_next_to_plain">Bredvid videon</string>
+    <string name="rd_subs_opened">Öppnad · %1$s</string>
+    <string name="rd_subs_opened_plain">Öppnad fil</string>
+    <string name="rd_subs_none_yet">Inga undertexter än</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Visa inställningar</string>
+    <string name="rd_subs_position_size">Position och storlek</string>
+    <string name="rd_subs_position">Position</string>
+    <string name="rd_subs_usual">Normal</string>
+    <string name="rd_subs_move_down">Flytta undertexterna nedåt</string>
+    <string name="rd_subs_move_up">Flytta undertexterna uppåt</string>
+    <string name="rd_subs_smaller">Mindre undertexter</string>
+    <string name="rd_subs_larger">Större undertexter</string>
 </resources>

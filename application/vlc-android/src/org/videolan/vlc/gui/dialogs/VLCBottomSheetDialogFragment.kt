@@ -107,6 +107,12 @@ abstract class VLCBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     }
 
+    /** VLC Redesign: the tallest the panel above its button may be, in px (the desktop's panels have their own) */
+    open fun anchoredMaxHeight(): Int = Int.MAX_VALUE
+
+    /** VLC Redesign: the floating panel's background (above its button, or a side sheet): BG/A3, radius 14, the window's line */
+    open fun floatingBackground(view: View): android.graphics.drawable.Drawable? = ContextCompat.getDrawable(view.context, R.drawable.rd_panel_float)
+
     /** The sheet's width (a wider window for an editor shown centred on a tablet) */
     open fun windowWidth() = resources.getDimensionPixelSize(R.dimen.default_context_width)
 
@@ -143,7 +149,7 @@ abstract class VLCBottomSheetDialogFragment : BottomSheetDialogFragment() {
         val gap = (8 * d).toInt()
         val past = (14 * d).toInt()
         val width = (screenW * 0.31f).toInt().coerceIn((300 * d).toInt(), (440 * d).toInt()).coerceAtMost(screenW - 2 * gap)
-        val height = (screenH * 0.55f).toInt().coerceAtLeast((280 * d).toInt()).coerceAtMost(at[1] - 2 * gap)
+        val height = (screenH * 0.55f).toInt().coerceAtLeast((280 * d).toInt()).coerceAtMost(anchoredMaxHeight()).coerceAtMost(at[1] - 2 * gap)
         window.setLayout(width, height)
         // the side of the button: its own edge of the screen (the bar is not mirrored in Hebrew or Arabic)
         val onRight = at[0] + anchor.width / 2 > screenW / 2
@@ -166,7 +172,7 @@ abstract class VLCBottomSheetDialogFragment : BottomSheetDialogFragment() {
             }
         }
         view.updateLayoutParams<ViewGroup.LayoutParams> { this.height = ViewGroup.LayoutParams.MATCH_PARENT }
-        view.background = ContextCompat.getDrawable(view.context, R.drawable.rd_panel_float)
+        view.background = floatingBackground(view)
         view.clipToOutline = true
     }
 
@@ -214,7 +220,7 @@ abstract class VLCBottomSheetDialogFragment : BottomSheetDialogFragment() {
             }
         }
         view.updateLayoutParams<ViewGroup.LayoutParams> { height = ViewGroup.LayoutParams.MATCH_PARENT }
-        view.background = ContextCompat.getDrawable(view.context, R.drawable.rd_panel_float)
+        view.background = floatingBackground(view)
         view.clipToOutline = true
     }
 

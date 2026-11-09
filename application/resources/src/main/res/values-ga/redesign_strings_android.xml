@@ -64,4 +64,20 @@
     <string name="rd_unpin_from_home">Díghreamaigh ón mBaile</string>
     <string name="rd_pinned">Greamaithe</string>
     <string name="rd_pinned_missing">Níl an fillteán nó an seinnliosta greamaithe seo ann a thuilleadh.</string>
+    <string name="rd_subs_of_video">Fotheidil an fhíseáin seo</string>
+    <string name="rd_subs_in_video">San fhíseán</string>
+    <string name="rd_subs_next_to">In aice leis an bhfíseán · %1$s</string>
+    <string name="rd_subs_next_to_plain">In aice leis an bhfíseán</string>
+    <string name="rd_subs_opened">Oscailte · %1$s</string>
+    <string name="rd_subs_opened_plain">Comhad oscailte</string>
+    <string name="rd_subs_none_yet">Gan fotheidil fós</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Taispeáin na sainroghanna</string>
+    <string name="rd_subs_position_size">Ionad agus méid</string>
+    <string name="rd_subs_position">Ionad</string>
+    <string name="rd_subs_usual">Gnáth</string>
+    <string name="rd_subs_move_down">Bog na fotheidil síos</string>
+    <string name="rd_subs_move_up">Bog na fotheidil suas</string>
+    <string name="rd_subs_smaller">Fotheidil níos lú</string>
+    <string name="rd_subs_larger">Fotheidil níos mó</string>
 </resources>

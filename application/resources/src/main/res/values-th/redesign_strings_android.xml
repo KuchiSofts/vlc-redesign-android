@@ -64,4 +64,20 @@
     <string name="rd_unpin_from_home">เลิกปักหมุดจากหน้าแรก</string>
     <string name="rd_pinned">ปักหมุดไว้</string>
     <string name="rd_pinned_missing">โฟลเดอร์หรือผังเล่นที่ปักหมุดไว้นี้ไม่มีอยู่แล้ว</string>
+    <string name="rd_subs_of_video">บทบรรยายของวีดิทัศน์นี้</string>
+    <string name="rd_subs_in_video">ในวีดิทัศน์</string>
+    <string name="rd_subs_next_to">ข้างวีดิทัศน์ · %1$s</string>
+    <string name="rd_subs_next_to_plain">ข้างวีดิทัศน์</string>
+    <string name="rd_subs_opened">เปิดแล้ว · %1$s</string>
+    <string name="rd_subs_opened_plain">แฟ้มที่เปิด</string>
+    <string name="rd_subs_none_yet">ยังไม่มีบทบรรยาย</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">แสดงค่าปรับแต่ง</string>
+    <string name="rd_subs_position_size">ตำแหน่งและขนาด</string>
+    <string name="rd_subs_position">ตำแหน่ง</string>
+    <string name="rd_subs_usual">ปกติ</string>
+    <string name="rd_subs_move_down">เลื่อนบทบรรยายลง</string>
+    <string name="rd_subs_move_up">เลื่อนบทบรรยายขึ้น</string>
+    <string name="rd_subs_smaller">บทบรรยายเล็กลง</string>
+    <string name="rd_subs_larger">บทบรรยายใหญ่ขึ้น</string>
 </resources>

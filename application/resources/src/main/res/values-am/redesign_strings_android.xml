@@ -32,4 +32,20 @@
     <string name="rd_unpin_from_home">ከመነሻ ንቀል</string>
     <string name="rd_pinned">የተሰኩ</string>
     <string name="rd_pinned_missing">ይህ የተሰካ አቃፊ ወይም የሙዚቃዎች ዝርዝር ከአሁን በኋላ የለም።</string>
+    <string name="rd_subs_of_video">የዚህ ቪዲዮ ንዑስ እርእስቶች</string>
+    <string name="rd_subs_in_video">በቪዲዮው ውስጥ</string>
+    <string name="rd_subs_next_to">ከቪዲዮው አጠገብ · %1$s</string>
+    <string name="rd_subs_next_to_plain">ከቪዲዮው አጠገብ</string>
+    <string name="rd_subs_opened">የተከፈተ · %1$s</string>
+    <string name="rd_subs_opened_plain">የተከፈተ ፋይል</string>
+    <string name="rd_subs_none_yet">እስካሁን ንዑስ እርእስት የለም</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">ምርጫዎችን አሳይ</string>
+    <string name="rd_subs_position_size">ቦታ እና መጠን</string>
+    <string name="rd_subs_position">ቦታ</string>
+    <string name="rd_subs_usual">የተለመደ</string>
+    <string name="rd_subs_move_down">ንዑስ እርእስቶቹን ወደ ታች አንቀሳቅስ</string>
+    <string name="rd_subs_move_up">ንዑስ እርእስቶቹን ወደ ላይ አንቀሳቅስ</string>
+    <string name="rd_subs_smaller">ያነሱ ንዑስ እርእስቶች</string>
+    <string name="rd_subs_larger">የተለቁ ንዑስ እርእስቶች</string>
 </resources>

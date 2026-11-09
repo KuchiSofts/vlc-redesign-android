@@ -64,4 +64,20 @@
     <string name="rd_unpin_from_home">لابردنی جێگیرکردن لە سەرەکی</string>
     <string name="rd_pinned">جێگیرکراو</string>
     <string name="rd_pinned_missing">ئەم بوخچە یان لیستی لێدانە جێگیرکراوە چیتر بوونی نییە.</string>
+    <string name="rd_subs_of_video">ژێرنووسەکانی ئەم ڤیدیۆیە</string>
+    <string name="rd_subs_in_video">لە ناو ڤیدیۆکەدا</string>
+    <string name="rd_subs_next_to">لە تەنیشت ڤیدیۆکەوە · %1$s</string>
+    <string name="rd_subs_next_to_plain">لە تەنیشت ڤیدیۆکەوە</string>
+    <string name="rd_subs_opened">کراوە · %1$s</string>
+    <string name="rd_subs_opened_plain">پەڕگەی کراوە</string>
+    <string name="rd_subs_none_yet">هێشتا هیچ ژێرنووسێک نییە</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">پیشاندانی ویستراوەکان</string>
+    <string name="rd_subs_position_size">شوێن و قەبارە</string>
+    <string name="rd_subs_position">شوێن</string>
+    <string name="rd_subs_usual">ئاسایی</string>
+    <string name="rd_subs_move_down">ژێرنووس بۆ خوارەوە ببە</string>
+    <string name="rd_subs_move_up">ژێرنووس بۆ سەرەوە ببە</string>
+    <string name="rd_subs_smaller">ژێرنووسی بچووکتر</string>
+    <string name="rd_subs_larger">ژێرنووسی گەورەتر</string>
 </resources>

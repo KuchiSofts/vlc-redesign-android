@@ -64,4 +64,20 @@
     <string name="rd_unpin_from_home">მთავარიდან მოხსნა</string>
     <string name="rd_pinned">მიმაგრებული</string>
     <string name="rd_pinned_missing">ეს მიმაგრებული საქაღალდე ან დაკვრის სია აღარ არსებობს.</string>
+    <string name="rd_subs_of_video">ამ ვიდეოს ტიტრები</string>
+    <string name="rd_subs_in_video">ვიდეოში</string>
+    <string name="rd_subs_next_to">ვიდეოს გვერდით · %1$s</string>
+    <string name="rd_subs_next_to_plain">ვიდეოს გვერდით</string>
+    <string name="rd_subs_opened">გახსნილი · %1$s</string>
+    <string name="rd_subs_opened_plain">გახსნილი ფაილი</string>
+    <string name="rd_subs_none_yet">ტიტრები ჯერ არ არის</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">პარამეტრების ჩვენება</string>
+    <string name="rd_subs_position_size">პოზიცია და ზომა</string>
+    <string name="rd_subs_position">პოზიცია</string>
+    <string name="rd_subs_usual">ჩვეულებრივი</string>
+    <string name="rd_subs_move_down">ტიტრების ქვემოთ ჩამოწევა</string>
+    <string name="rd_subs_move_up">ტიტრების ზემოთ აწევა</string>
+    <string name="rd_subs_smaller">ტიტრების დაპატარავება</string>
+    <string name="rd_subs_larger">ტიტრების გადიდება</string>
 </resources>

@@ -64,4 +64,20 @@
     <string name="rd_unpin_from_home">முகப்பிலிருந்து நீக்கு</string>
     <string name="rd_pinned">பொருத்தியவை</string>
     <string name="rd_pinned_missing">பொருத்திய இந்தக் கோப்புறை அல்லது தொகுப்பு பட்டியல் இனி இல்லை.</string>
+    <string name="rd_subs_of_video">இந்த நிகழ்படத்தின் வசனங்கள்</string>
+    <string name="rd_subs_in_video">நிகழ்படத்தில்</string>
+    <string name="rd_subs_next_to">நிகழ்படத்தின் அருகில் · %1$s</string>
+    <string name="rd_subs_next_to_plain">நிகழ்படத்தின் அருகில்</string>
+    <string name="rd_subs_opened">திறக்கப்பட்டது · %1$s</string>
+    <string name="rd_subs_opened_plain">திறக்கப்பட்ட கோப்பு</string>
+    <string name="rd_subs_none_yet">இன்னும் வசனங்கள் இல்லை</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">விருப்பத்தேர்வுகளைக் காட்டு</string>
+    <string name="rd_subs_position_size">நிலை மற்றும் அளவு</string>
+    <string name="rd_subs_position">நிலை</string>
+    <string name="rd_subs_usual">வழக்கமானது</string>
+    <string name="rd_subs_move_down">வசனங்களைக் கீழே நகர்த்து</string>
+    <string name="rd_subs_move_up">வசனங்களை மேலே நகர்த்து</string>
+    <string name="rd_subs_smaller">சிறிய வசனங்கள்</string>
+    <string name="rd_subs_larger">பெரிய வசனங்கள்</string>
 </resources>

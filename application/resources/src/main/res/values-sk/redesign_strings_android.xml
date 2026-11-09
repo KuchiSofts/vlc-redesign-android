@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Odopnúť z Domov</string>
     <string name="rd_pinned">Pripnuté</string>
     <string name="rd_pinned_missing">Tento pripnutý priečinok alebo playlist už neexistuje.</string>
+    <string name="rd_subs_of_video">Titulky tohto videa</string>
+    <string name="rd_subs_in_video">Vo videu</string>
+    <string name="rd_subs_next_to">Vedľa videa · %1$s</string>
+    <string name="rd_subs_next_to_plain">Vedľa videa</string>
+    <string name="rd_subs_opened">Otvorené · %1$s</string>
+    <string name="rd_subs_opened_plain">Otvorený súbor</string>
+    <string name="rd_subs_none_yet">Zatiaľ žiadne titulky</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Zobraziť nastavenia</string>
+    <string name="rd_subs_position_size">Pozícia a veľkosť</string>
+    <string name="rd_subs_position">Pozícia</string>
+    <string name="rd_subs_usual">Obvyklé</string>
+    <string name="rd_subs_move_down">Posunúť titulky nadol</string>
+    <string name="rd_subs_move_up">Posunúť titulky nahor</string>
+    <string name="rd_subs_smaller">Menšie titulky</string>
+    <string name="rd_subs_larger">Väčšie titulky</string>
 </resources>

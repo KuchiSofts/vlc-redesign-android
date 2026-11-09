@@ -69,4 +69,20 @@
     <string name="rd_volume_left_side">الجانب الأيسر</string>
     <string name="rd_volume_top_right">الزاوية العلوية اليمنى</string>
     <string name="rd_volume_top_left">الزاوية العلوية اليسرى</string>
+    <string name="rd_subs_of_video">ترجمات هذا الفيديو</string>
+    <string name="rd_subs_in_video">داخل الفيديو</string>
+    <string name="rd_subs_next_to">بجانب الفيديو · %1$s</string>
+    <string name="rd_subs_next_to_plain">بجانب الفيديو</string>
+    <string name="rd_subs_opened">مفتوحة · %1$s</string>
+    <string name="rd_subs_opened_plain">ملف مفتوح</string>
+    <string name="rd_subs_none_yet">لا توجد ترجمات بعد</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">إظهار التفضيلات</string>
+    <string name="rd_subs_position_size">الموضع والحجم</string>
+    <string name="rd_subs_position">الموضع</string>
+    <string name="rd_subs_usual">المعتاد</string>
+    <string name="rd_subs_move_down">تحريك الترجمة لأسفل</string>
+    <string name="rd_subs_move_up">تحريك الترجمة لأعلى</string>
+    <string name="rd_subs_smaller">تصغير الترجمة</string>
+    <string name="rd_subs_larger">تكبير الترجمة</string>
 </resources>

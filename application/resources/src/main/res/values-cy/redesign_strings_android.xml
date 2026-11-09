@@ -63,4 +63,20 @@
     <string name="rd_unpin_from_home">Dadbinio o\'r Hafan</string>
     <string name="rd_pinned">Wedi\'u pinio</string>
     <string name="rd_pinned_missing">Nid yw\'r ffolder neu\'r rhestr chwarae hon a biniwyd yno bellach.</string>
+    <string name="rd_subs_of_video">Isdeitlau\'r fideo hwn</string>
+    <string name="rd_subs_in_video">Yn y fideo</string>
+    <string name="rd_subs_next_to">Wrth ymyl y fideo · %1$s</string>
+    <string name="rd_subs_next_to_plain">Wrth ymyl y fideo</string>
+    <string name="rd_subs_opened">Agorwyd · %1$s</string>
+    <string name="rd_subs_opened_plain">Ffeil a agorwyd</string>
+    <string name="rd_subs_none_yet">Dim isdeitlau eto</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Dangos y Dewisiadau</string>
+    <string name="rd_subs_position_size">Lleoliad a maint</string>
+    <string name="rd_subs_position">Lleoliad</string>
+    <string name="rd_subs_usual">Arferol</string>
+    <string name="rd_subs_move_down">Symud yr isdeitlau i lawr</string>
+    <string name="rd_subs_move_up">Symud yr isdeitlau i fyny</string>
+    <string name="rd_subs_smaller">Isdeitlau llai</string>
+    <string name="rd_subs_larger">Isdeitlau mwy</string>
 </resources>

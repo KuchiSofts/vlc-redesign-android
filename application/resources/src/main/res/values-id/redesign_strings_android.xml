@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Lepas dari Beranda</string>
     <string name="rd_pinned">Disematkan</string>
     <string name="rd_pinned_missing">Folder atau daftar putar yang disematkan ini sudah tidak ada.</string>
+    <string name="rd_subs_of_video">Subtitle video ini</string>
+    <string name="rd_subs_in_video">Di dalam video</string>
+    <string name="rd_subs_next_to">Di samping video · %1$s</string>
+    <string name="rd_subs_next_to_plain">Di samping video</string>
+    <string name="rd_subs_opened">Dibuka · %1$s</string>
+    <string name="rd_subs_opened_plain">File yang dibuka</string>
+    <string name="rd_subs_none_yet">Belum ada subtitle</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Tampilkan Preferensi</string>
+    <string name="rd_subs_position_size">Posisi dan ukuran</string>
+    <string name="rd_subs_position">Posisi</string>
+    <string name="rd_subs_usual">Biasa</string>
+    <string name="rd_subs_move_down">Pindahkan subtitle ke bawah</string>
+    <string name="rd_subs_move_up">Pindahkan subtitle ke atas</string>
+    <string name="rd_subs_smaller">Subtitle lebih kecil</string>
+    <string name="rd_subs_larger">Subtitle lebih besar</string>
 </resources>

@@ -64,4 +64,20 @@
     <string name="rd_unpin_from_home">برداشتن سنجاق از خانه</string>
     <string name="rd_pinned">سنجاق‌شده</string>
     <string name="rd_pinned_missing">این پوشه یا فهرست پخش سنجاق‌شده دیگر وجود ندارد.</string>
+    <string name="rd_subs_of_video">زیرنویس‌های این ویدئو</string>
+    <string name="rd_subs_in_video">درون ویدئو</string>
+    <string name="rd_subs_next_to">کنار ویدئو · %1$s</string>
+    <string name="rd_subs_next_to_plain">کنار ویدئو</string>
+    <string name="rd_subs_opened">باز شده · %1$s</string>
+    <string name="rd_subs_opened_plain">پروندهٔ باز شده</string>
+    <string name="rd_subs_none_yet">هنوز زیرنویسی نیست</string>
+    <string name="rd_subs_hi_short">ناشنوا</string>
+    <string name="rd_show_preferences">نمایش تنظیمات</string>
+    <string name="rd_subs_position_size">موقعیت و اندازه</string>
+    <string name="rd_subs_position">موقعیت</string>
+    <string name="rd_subs_usual">معمول</string>
+    <string name="rd_subs_move_down">پایین بردن زیرنویس</string>
+    <string name="rd_subs_move_up">بالا بردن زیرنویس</string>
+    <string name="rd_subs_smaller">زیرنویس کوچک‌تر</string>
+    <string name="rd_subs_larger">زیرنویس بزرگ‌تر</string>
 </resources>

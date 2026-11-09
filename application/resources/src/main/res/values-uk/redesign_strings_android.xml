@@ -67,4 +67,20 @@
     <string name="rd_volume_left_side">Ліворуч</string>
     <string name="rd_volume_top_right">Правий верхній кут</string>
     <string name="rd_volume_top_left">Лівий верхній кут</string>
+    <string name="rd_subs_of_video">Субтитри цього відео</string>
+    <string name="rd_subs_in_video">У відео</string>
+    <string name="rd_subs_next_to">Поруч із відео · %1$s</string>
+    <string name="rd_subs_next_to_plain">Поруч із відео</string>
+    <string name="rd_subs_opened">Відкрито · %1$s</string>
+    <string name="rd_subs_opened_plain">Відкритий файл</string>
+    <string name="rd_subs_none_yet">Субтитрів поки немає</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Показати параметри</string>
+    <string name="rd_subs_position_size">Положення і розмір</string>
+    <string name="rd_subs_position">Положення</string>
+    <string name="rd_subs_usual">Звичайно</string>
+    <string name="rd_subs_move_down">Опустити субтитри</string>
+    <string name="rd_subs_move_up">Підняти субтитри</string>
+    <string name="rd_subs_smaller">Зменшити субтитри</string>
+    <string name="rd_subs_larger">Збільшити субтитри</string>
 </resources>

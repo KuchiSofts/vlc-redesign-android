@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  VLC Redesign: Subtitle timing of the tracks panel (docs/wiki/Subtitles.md "Subtitle timing"): the delay, a
-  slider from -10 s (earlier) to +10 s (later) in steps of 50 ms, then Mark voice heard and Mark text seen; Reset beside the delay.
-  Once the voice and the text are both marked, the subtitles move by the time between the two taps.
+  VLC Redesign: Subtitle timing of the tracks panel (the desktop's SubtitleSyncTimeline, docs/wiki/Subtitles.md
+  "Subtitle timing"): the delay, a slider from -10 s (earlier) to +10 s (later) in steps of 50 ms, then Mark voice
+  heard, Mark text seen and Reset. Once the voice and the text are both marked, the subtitles move by the time
+  between the two taps. Sizes in design px (1 dp; the TV draws the panel at half).
 -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -10,20 +11,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingStart="16dp"
-    android:paddingTop="8dp"
-    android:paddingEnd="16dp"
-    android:paddingBottom="8dp">
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="12dp"
         android:background="@color/rd_dark_divider_dim" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:baselineAligned="false"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -36,7 +36,7 @@
             android:text="@string/rd_subtitle_timing"
             android:textAlignment="viewStart"
             android:textColor="@color/rd_dark_fg_1"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/rd_sub_delay_value"
@@ -46,15 +46,6 @@
             android:fontFeatureSettings="tnum"
             android:textColor="@color/rd_dark_fg_a1"
             android:textSize="13sp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/rd_sub_delay_reset"
-            style="@style/Widget.Redesign.Button.Outlined.Player"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:minHeight="32dp"
-            android:text="@string/rd_reset" />
     </LinearLayout>
 
     <com.google.android.material.slider.Slider
@@ -67,13 +58,14 @@
         android:valueFrom="-10000"
         android:valueTo="10000"
         app:haloColor="@color/rd_ripple_dark"
+        app:haloRadius="12dp"
         app:labelBehavior="gone"
         app:thumbColor="?attr/colorPrimary"
         app:thumbRadius="7dp"
         app:tickVisible="false"
         app:trackColorActive="@color/rd_dark_bg_b2"
         app:trackColorInactive="@color/rd_dark_bg_b2"
-        app:trackHeight="6dp" />
+        app:trackHeight="4dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -84,96 +76,62 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/rd_sub_mark_voice"
             style="@style/Widget.Redesign.Button.Outlined.Player"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:checkable="true"
-            android:text="@string/rd_mark_voice_heard" />
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minWidth="0dp"
+            android:minHeight="34dp"
+            android:text="@string/rd_mark_voice_heard"
+            android:textSize="12sp"
+            app:cornerRadius="4dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/rd_sub_mark_text"
             style="@style/Widget.Redesign.Button.Outlined.Player"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_weight="1"
             android:checkable="true"
-            android:text="@string/rd_mark_text_seen" />
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minWidth="0dp"
+            android:minHeight="34dp"
+            android:text="@string/rd_mark_text_seen"
+            android:textSize="12sp"
+            app:cornerRadius="4dp" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/rd_sub_delay_reset"
+            style="@style/Widget.Redesign.Button.Outlined.Player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minWidth="0dp"
+            android:minHeight="34dp"
+            android:text="@string/rd_reset"
+            android:textSize="12sp"
+            app:cornerRadius="4dp" />
     </LinearLayout>
 
     <!-- the sync timeline: the sound and the subtitle lines, dragged in place (SubtitleSyncDialog) -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/rd_sub_sync_open"
         style="@style/Widget.Redesign.Button.Outlined.Player"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:minHeight="34dp"
         android:text="@string/rd_sync_timeline"
+        android:textSize="12sp"
+        app:cornerRadius="4dp"
         app:icon="@drawable/ic_delay"
-        app:iconGravity="textStart" />
-
-    <!-- #10: the subtitle size (percent of the size of the settings, 25 to 500, the desktop's Ctrl + wheel):
-         the playing subtitles take it as the slider is let go; Reset back to 100 % -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:background="@color/rd_dark_divider_dim" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/inter"
-            android:text="@string/rd_subtitle_size"
-            android:textAlignment="viewStart"
-            android:textColor="@color/rd_dark_fg_1"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/rd_sub_size_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter"
-            android:fontFeatureSettings="tnum"
-            android:textColor="@color/rd_dark_fg_a1"
-            android:textSize="13sp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/rd_sub_size_reset"
-            style="@style/Widget.Redesign.Button.Outlined.Player"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:minHeight="32dp"
-            android:text="@string/rd_reset" />
-    </LinearLayout>
-
-    <com.google.android.material.slider.Slider
-        android:id="@+id/rd_sub_size_slider"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/rd_subtitle_size"
-        android:stepSize="5"
-        android:value="100"
-        android:valueFrom="25"
-        android:valueTo="500"
-        app:haloColor="@color/rd_ripple_dark"
-        app:labelBehavior="gone"
-        app:thumbColor="?attr/colorPrimary"
-        app:thumbRadius="7dp"
-        app:tickVisible="false"
-        app:trackColorActive="?attr/colorPrimary"
-        app:trackColorInactive="@color/rd_dark_bg_b2"
-        app:trackHeight="6dp" />
+        app:iconGravity="textStart"
+        app:iconSize="16dp" />
 </LinearLayout>
 </layout>

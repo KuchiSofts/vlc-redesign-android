@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Otkvači s početne</string>
     <string name="rd_pinned">Prikvačeno</string>
     <string name="rd_pinned_missing">Ova prikvačena mapa ili popis za izvođenje više ne postoji.</string>
+    <string name="rd_subs_of_video">Podnaslovi ovog videa</string>
+    <string name="rd_subs_in_video">U videu</string>
+    <string name="rd_subs_next_to">Pokraj videa · %1$s</string>
+    <string name="rd_subs_next_to_plain">Pokraj videa</string>
+    <string name="rd_subs_opened">Otvoreno · %1$s</string>
+    <string name="rd_subs_opened_plain">Otvorena datoteka</string>
+    <string name="rd_subs_none_yet">Još nema podnaslova</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Prikaži postavke</string>
+    <string name="rd_subs_position_size">Položaj i veličina</string>
+    <string name="rd_subs_position">Položaj</string>
+    <string name="rd_subs_usual">Uobičajeno</string>
+    <string name="rd_subs_move_down">Pomakni podnaslove dolje</string>
+    <string name="rd_subs_move_up">Pomakni podnaslove gore</string>
+    <string name="rd_subs_smaller">Manji podnaslovi</string>
+    <string name="rd_subs_larger">Veći podnaslovi</string>
 </resources>

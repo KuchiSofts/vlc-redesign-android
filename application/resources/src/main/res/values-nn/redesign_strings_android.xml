@@ -63,4 +63,20 @@
     <string name="rd_unpin_from_home">Lausne frå Heim</string>
     <string name="rd_pinned">Festa</string>
     <string name="rd_pinned_missing">Denne festa mappa eller spelelista finst ikkje lenger.</string>
+    <string name="rd_subs_of_video">Undertekstar for denne videoen</string>
+    <string name="rd_subs_in_video">I videoen</string>
+    <string name="rd_subs_next_to">Ved sida av videoen · %1$s</string>
+    <string name="rd_subs_next_to_plain">Ved sida av videoen</string>
+    <string name="rd_subs_opened">Opna · %1$s</string>
+    <string name="rd_subs_opened_plain">Opna fil</string>
+    <string name="rd_subs_none_yet">Ingen undertekstar enno</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Vis innstillingar</string>
+    <string name="rd_subs_position_size">Posisjon og storleik</string>
+    <string name="rd_subs_position">Posisjon</string>
+    <string name="rd_subs_usual">Vanleg</string>
+    <string name="rd_subs_move_down">Flytt undertekstane ned</string>
+    <string name="rd_subs_move_up">Flytt undertekstane opp</string>
+    <string name="rd_subs_smaller">Mindre undertekstar</string>
+    <string name="rd_subs_larger">Større undertekstar</string>
 </resources>

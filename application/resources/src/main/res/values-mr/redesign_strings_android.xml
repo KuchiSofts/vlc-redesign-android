@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">गृहवरून अनपिन करा</string>
     <string name="rd_pinned">पिन केलेले</string>
     <string name="rd_pinned_missing">हा पिन केलेला फोल्डर किंवा प्लेलिस्ट आता अस्तित्वात नाही.</string>
+    <string name="rd_subs_of_video">या ध्वनीचित्रफितीच्या अनुवादपट्ट्या</string>
+    <string name="rd_subs_in_video">ध्वनीचित्रफितीत</string>
+    <string name="rd_subs_next_to">ध्वनीचित्रफितीशेजारी · %1$s</string>
+    <string name="rd_subs_next_to_plain">ध्वनीचित्रफितीशेजारी</string>
+    <string name="rd_subs_opened">उघडले · %1$s</string>
+    <string name="rd_subs_opened_plain">उघडलेली धारिका</string>
+    <string name="rd_subs_none_yet">अद्याप अनुवादपट्ट्या नाहीत</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">प्राधान्ये दाखवा</string>
+    <string name="rd_subs_position_size">स्थान आणि आकार</string>
+    <string name="rd_subs_position">स्थान</string>
+    <string name="rd_subs_usual">नेहमीचे</string>
+    <string name="rd_subs_move_down">अनुवादपट्ट्या खाली हलवा</string>
+    <string name="rd_subs_move_up">अनुवादपट्ट्या वर हलवा</string>
+    <string name="rd_subs_smaller">लहान अनुवादपट्ट्या</string>
+    <string name="rd_subs_larger">मोठ्या अनुवादपट्ट्या</string>
 </resources>

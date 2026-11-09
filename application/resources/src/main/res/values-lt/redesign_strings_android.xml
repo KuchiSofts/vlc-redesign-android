@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Atsegti nuo pradžios</string>
     <string name="rd_pinned">Prisegta</string>
     <string name="rd_pinned_missing">Šio prisegto aplanko ar grojaraščio nebėra.</string>
+    <string name="rd_subs_of_video">Šio vaizdo įrašo subtitrai</string>
+    <string name="rd_subs_in_video">Vaizdo įraše</string>
+    <string name="rd_subs_next_to">Šalia vaizdo įrašo · %1$s</string>
+    <string name="rd_subs_next_to_plain">Šalia vaizdo įrašo</string>
+    <string name="rd_subs_opened">Atverta · %1$s</string>
+    <string name="rd_subs_opened_plain">Atvertas failas</string>
+    <string name="rd_subs_none_yet">Subtitrų dar nėra</string>
+    <string name="rd_subs_hi_short">KN</string>
+    <string name="rd_show_preferences">Rodyti parinktis</string>
+    <string name="rd_subs_position_size">Padėtis ir dydis</string>
+    <string name="rd_subs_position">Padėtis</string>
+    <string name="rd_subs_usual">Įprasta</string>
+    <string name="rd_subs_move_down">Perkelti subtitrus žemyn</string>
+    <string name="rd_subs_move_up">Perkelti subtitrus aukštyn</string>
+    <string name="rd_subs_smaller">Mažesni subtitrai</string>
+    <string name="rd_subs_larger">Didesni subtitrai</string>
 </resources>

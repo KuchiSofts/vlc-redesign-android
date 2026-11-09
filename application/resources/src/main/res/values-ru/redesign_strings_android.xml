@@ -67,4 +67,20 @@
     <string name="rd_volume_left_side">Слева</string>
     <string name="rd_volume_top_right">Правый верхний угол</string>
     <string name="rd_volume_top_left">Левый верхний угол</string>
+    <string name="rd_subs_of_video">Субтитры этого видео</string>
+    <string name="rd_subs_in_video">В видео</string>
+    <string name="rd_subs_next_to">Рядом с видео · %1$s</string>
+    <string name="rd_subs_next_to_plain">Рядом с видео</string>
+    <string name="rd_subs_opened">Открыто · %1$s</string>
+    <string name="rd_subs_opened_plain">Открытый файл</string>
+    <string name="rd_subs_none_yet">Субтитров пока нет</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Показать настройки</string>
+    <string name="rd_subs_position_size">Положение и размер</string>
+    <string name="rd_subs_position">Положение</string>
+    <string name="rd_subs_usual">Обычно</string>
+    <string name="rd_subs_move_down">Опустить субтитры</string>
+    <string name="rd_subs_move_up">Поднять субтитры</string>
+    <string name="rd_subs_smaller">Уменьшить субтитры</string>
+    <string name="rd_subs_larger">Увеличить субтитры</string>
 </resources>

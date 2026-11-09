@@ -35,4 +35,20 @@
     <string name="rd_unpin_from_home">ដោះខ្ទាស់ពីទំព័រដើម</string>
     <string name="rd_pinned">បានខ្ទាស់</string>
     <string name="rd_pinned_missing">ថត ឬបញ្ជីចាក់ដែលបានខ្ទាស់នេះលែងមានទៀតហើយ។</string>
+    <string name="rd_subs_of_video">ចំណងជើងរងនៃវីដេអូនេះ</string>
+    <string name="rd_subs_in_video">នៅក្នុងវីដេអូ</string>
+    <string name="rd_subs_next_to">នៅជាប់វីដេអូ · %1$s</string>
+    <string name="rd_subs_next_to_plain">នៅជាប់វីដេអូ</string>
+    <string name="rd_subs_opened">បានបើក · %1$s</string>
+    <string name="rd_subs_opened_plain">ឯកសារដែលបានបើក</string>
+    <string name="rd_subs_none_yet">មិនទាន់មានចំណងជើងរងនៅឡើយទេ</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">បង្ហាញចំណូលចិត្ត</string>
+    <string name="rd_subs_position_size">ទីតាំង និងទំហំ</string>
+    <string name="rd_subs_position">ទីតាំង</string>
+    <string name="rd_subs_usual">ធម្មតា</string>
+    <string name="rd_subs_move_down">រំកិលចំណងជើងរងចុះក្រោម</string>
+    <string name="rd_subs_move_up">រំកិលចំណងជើងរងឡើងលើ</string>
+    <string name="rd_subs_smaller">ចំណងជើងរងតូចជាង</string>
+    <string name="rd_subs_larger">ចំណងជើងរងធំជាង</string>
 </resources>

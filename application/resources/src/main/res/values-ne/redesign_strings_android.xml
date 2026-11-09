@@ -63,4 +63,20 @@
     <string name="rd_unpin_from_home">गृहपृष्ठबाट अनपिन गर्नुहोस्</string>
     <string name="rd_pinned">पिन गरिएका</string>
     <string name="rd_pinned_missing">यो पिन गरिएको फोल्डर वा बजाउने सूची अब छैन।</string>
+    <string name="rd_subs_of_video">यो भिडियोका उपशीर्षकहरू</string>
+    <string name="rd_subs_in_video">भिडियोभित्र</string>
+    <string name="rd_subs_next_to">भिडियोको छेउमा · %1$s</string>
+    <string name="rd_subs_next_to_plain">भिडियोको छेउमा</string>
+    <string name="rd_subs_opened">खोलिएको · %1$s</string>
+    <string name="rd_subs_opened_plain">खोलिएको फाइल</string>
+    <string name="rd_subs_none_yet">अहिलेसम्म कुनै उपशीर्षक छैन</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">प्राथमिकताहरू देखाउनुहोस्</string>
+    <string name="rd_subs_position_size">स्थिति र आकार</string>
+    <string name="rd_subs_position">स्थिति</string>
+    <string name="rd_subs_usual">सामान्य</string>
+    <string name="rd_subs_move_down">उपशीर्षक तल सार्नुहोस्</string>
+    <string name="rd_subs_move_up">उपशीर्षक माथि सार्नुहोस्</string>
+    <string name="rd_subs_smaller">साना उपशीर्षक</string>
+    <string name="rd_subs_larger">ठूला उपशीर्षक</string>
 </resources>

@@ -23,4 +23,20 @@
     <string name="rd_unpin_from_home">Disatetchî do Cominçmint</string>
     <string name="rd_pinned">Atetchîs</string>
     <string name="rd_pinned_missing">Ci ridant ou cisse djivêye a djouwer atetchî n\' est pus la.</string>
+    <string name="rd_subs_of_video">Sortites di cisse videyo ci</string>
+    <string name="rd_subs_in_video">Dins l\' videyo</string>
+    <string name="rd_subs_next_to">A costé del videyo · %1$s</string>
+    <string name="rd_subs_next_to_plain">A costé del videyo</string>
+    <string name="rd_subs_opened">Drovou · %1$s</string>
+    <string name="rd_subs_opened_plain">Fitchî drovou</string>
+    <string name="rd_subs_none_yet">Co nole sortite</string>
+    <string name="rd_subs_hi_short">SM</string>
+    <string name="rd_show_preferences">Mostrer les preferinces</string>
+    <string name="rd_subs_position_size">Pôzucion et grandeu</string>
+    <string name="rd_subs_position">Pôzucion</string>
+    <string name="rd_subs_usual">Costumire</string>
+    <string name="rd_subs_move_down">Bodjî les sortites e bas</string>
+    <string name="rd_subs_move_up">Bodjî les sortites e hôt</string>
+    <string name="rd_subs_smaller">Pus ptitès sortites</string>
+    <string name="rd_subs_larger">Pus grandès sortites</string>
 </resources>

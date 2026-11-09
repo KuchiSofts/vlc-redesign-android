@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign: the text of the Subtitles panel's buttons: FG/1, FG/A2 when it can't be used -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/rd_dark_fg_a2" android:state_enabled="false" />
+    <item android:color="@color/rd_dark_fg_1" />
+</selector>

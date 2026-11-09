@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Deixa de fixar a l\'inici</string>
     <string name="rd_pinned">Fixats</string>
     <string name="rd_pinned_missing">Aquesta carpeta o llista de reproducció fixada ja no hi és.</string>
+    <string name="rd_subs_of_video">Subtítols d\'aquest vídeo</string>
+    <string name="rd_subs_in_video">Al vídeo</string>
+    <string name="rd_subs_next_to">Al costat del vídeo · %1$s</string>
+    <string name="rd_subs_next_to_plain">Al costat del vídeo</string>
+    <string name="rd_subs_opened">Obert · %1$s</string>
+    <string name="rd_subs_opened_plain">Fitxer obert</string>
+    <string name="rd_subs_none_yet">Encara no hi ha subtítols</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Mostra les preferències</string>
+    <string name="rd_subs_position_size">Posició i mida</string>
+    <string name="rd_subs_position">Posició</string>
+    <string name="rd_subs_usual">Habitual</string>
+    <string name="rd_subs_move_down">Baixa els subtítols</string>
+    <string name="rd_subs_move_up">Puja els subtítols</string>
+    <string name="rd_subs_smaller">Subtítols més petits</string>
+    <string name="rd_subs_larger">Subtítols més grans</string>
 </resources>

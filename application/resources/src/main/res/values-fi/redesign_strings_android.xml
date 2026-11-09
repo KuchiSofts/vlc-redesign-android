@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Irrota kotinäkymästä</string>
     <string name="rd_pinned">Kiinnitetyt</string>
     <string name="rd_pinned_missing">Tätä kiinnitettyä kansiota tai soittolistaa ei ole enää olemassa.</string>
+    <string name="rd_subs_of_video">Tämän videon tekstitykset</string>
+    <string name="rd_subs_in_video">Videossa</string>
+    <string name="rd_subs_next_to">Videon vieressä · %1$s</string>
+    <string name="rd_subs_next_to_plain">Videon vieressä</string>
+    <string name="rd_subs_opened">Avattu · %1$s</string>
+    <string name="rd_subs_opened_plain">Avattu tiedosto</string>
+    <string name="rd_subs_none_yet">Ei vielä tekstityksiä</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Näytä asetukset</string>
+    <string name="rd_subs_position_size">Sijainti ja koko</string>
+    <string name="rd_subs_position">Sijainti</string>
+    <string name="rd_subs_usual">Tavallinen</string>
+    <string name="rd_subs_move_down">Siirrä tekstitystä alas</string>
+    <string name="rd_subs_move_up">Siirrä tekstitystä ylös</string>
+    <string name="rd_subs_smaller">Pienempi tekstitys</string>
+    <string name="rd_subs_larger">Suurempi tekstitys</string>
 </resources>

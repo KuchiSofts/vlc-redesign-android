@@ -62,4 +62,20 @@
     <string name="rd_unpin_from_home">Quitar do inicio</string>
     <string name="rd_pinned">Fixados</string>
     <string name="rd_pinned_missing">Este cartafol ou lista de reprodución fixado xa non está.</string>
+    <string name="rd_subs_of_video">Subtítulos deste vídeo</string>
+    <string name="rd_subs_in_video">No vídeo</string>
+    <string name="rd_subs_next_to">Xunto ao vídeo · %1$s</string>
+    <string name="rd_subs_next_to_plain">Xunto ao vídeo</string>
+    <string name="rd_subs_opened">Aberto · %1$s</string>
+    <string name="rd_subs_opened_plain">Ficheiro aberto</string>
+    <string name="rd_subs_none_yet">Aínda non hai subtítulos</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Mostrar as preferencias</string>
+    <string name="rd_subs_position_size">Posición e tamaño</string>
+    <string name="rd_subs_position">Posición</string>
+    <string name="rd_subs_usual">Habitual</string>
+    <string name="rd_subs_move_down">Baixar os subtítulos</string>
+    <string name="rd_subs_move_up">Subir os subtítulos</string>
+    <string name="rd_subs_smaller">Subtítulos máis pequenos</string>
+    <string name="rd_subs_larger">Subtítulos máis grandes</string>
 </resources>

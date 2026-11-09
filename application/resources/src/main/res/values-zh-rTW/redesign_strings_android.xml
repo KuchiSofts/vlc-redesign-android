@@ -67,4 +67,20 @@
     <string name="rd_volume_left_side">左側</string>
     <string name="rd_volume_top_right">右上角</string>
     <string name="rd_volume_top_left">左上角</string>
+    <string name="rd_subs_of_video">此影片的字幕</string>
+    <string name="rd_subs_in_video">影片內</string>
+    <string name="rd_subs_next_to">影片旁 · %1$s</string>
+    <string name="rd_subs_next_to_plain">影片旁</string>
+    <string name="rd_subs_opened">已開啟 · %1$s</string>
+    <string name="rd_subs_opened_plain">已開啟的檔案</string>
+    <string name="rd_subs_none_yet">尚無字幕</string>
+    <string name="rd_subs_hi_short">聽障</string>
+    <string name="rd_show_preferences">顯示偏好設定</string>
+    <string name="rd_subs_position_size">位置與大小</string>
+    <string name="rd_subs_position">位置</string>
+    <string name="rd_subs_usual">一般</string>
+    <string name="rd_subs_move_down">字幕下移</string>
+    <string name="rd_subs_move_up">字幕上移</string>
+    <string name="rd_subs_smaller">縮小字幕</string>
+    <string name="rd_subs_larger">放大字幕</string>
 </resources>
