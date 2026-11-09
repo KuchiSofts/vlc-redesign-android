@@ -2027,7 +2027,9 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
 
     private fun rdAutoOnlineSubtitles() {
         val ctx = applicationContext
-        if (!Settings.getInstance(ctx).getBoolean(org.videolan.vlc.util.OnlineSubtitles.KEY_AUTO, false)) return
+        // (the search by itself only when the user said so; a subtitles folder's file of the user's language is read
+        // whatever the switch: nothing goes online for it)
+        val auto = Settings.getInstance(ctx).getBoolean(org.videolan.vlc.util.OnlineSubtitles.KEY_AUTO, false)
         val mw = service?.currentMediaWrapper ?: return
         val uri = mw.uri ?: return
         if (uri == rdOnlineAutoUri) return
@@ -2051,12 +2053,36 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 Log.i(TAG, "online subtitles: a channel or a live stream, no search")
                 return@launch
             }
-            // (music, a radio: no picture, no subtitles)
-            if (s.videoTracksCount == 0) return@launch
+            // (the picture can come late, a big film opened cold or a slow share: waited for, as the desktop's; music,
+            // a radio: no picture, no subtitles)
+            var pictureWaited = 0L
+            while (s.videoTracksCount == 0 && pictureWaited < 10_000L) {
+                if (pictureWaited == 0L) Log.i(TAG, "online subtitles: waiting for the picture")
+                kotlinx.coroutines.delay(500L)
+                pictureWaited += 500L
+                if (s.currentMediaWrapper?.uri != uri || isFinishing) return@launch
+            }
+            if (s.videoTracksCount == 0) {
+                Log.i(TAG, "online subtitles: no picture (music, a radio), no search")
+                return@launch
+            }
             val wanted = org.videolan.vlc.util.OnlineSubtitles.wantedLanguages(ctx)
-            if (wanted.isEmpty()) return@launch
-            val local = rdLocalSubtitleLanguages(wanted)
-            if (wanted[0] in local) return@launch
+            if (wanted.isEmpty()) {
+                Log.i(TAG, "online subtitles: no language to look for")
+                return@launch
+            }
+            val local = rdLocalSubtitleLanguages(wanted, uri)
+            if (wanted[0] in local) {
+                Log.i(TAG, "online subtitles: has ${wanted[0]} already, no search")
+                return@launch
+            }
+            // a release's subtitles folder beside the only video of its folder ("Subs/Hebrew.heb.srt"): the user's
+            // language from there, no search
+            if (scheme == "file" && rdSubsFolderSubtitle(uri, wanted.take(2).filter { it !in local })) return@launch
+            if (!auto) {
+                Log.i(TAG, "online subtitles: automatic search off")
+                return@launch
+            }
             val second = wanted.getOrNull(1)
             val (media, kept) = withContext(Dispatchers.IO) {
                 val m = org.videolan.vlc.util.OnlineSubtitles.mediaOf(uri, mw.title, context = ctx)
@@ -2066,9 +2092,10 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
             // downloaded subtitles of a media are added as it plays), no search; one in the second language only:
             // the first one is looked for again, as on the desktop
             if (wanted[0] in kept) {
-                Log.i(TAG, "online subtitles: the one kept for this video, no search")
+                Log.i(TAG, "online subtitles: the one kept for this video, no search (remembered)")
                 return@launch
             }
+            Log.i(TAG, "online subtitles: searching by itself (${wanted.joinToString()})")
             val outcome = org.videolan.vlc.util.OnlineSubtitles.searchAll(ctx, media)
             val pick = outcome.bestOf(wanted[0]) ?: second?.takeIf { it !in local && it !in kept }?.let { outcome.bestOf(it) }
             if (pick == null) {
@@ -2085,8 +2112,53 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         }
     }
 
-    /** the user's languages the video has subtitles of already: its tracks' languages, or their names */
-    private fun rdLocalSubtitleLanguages(wanted: List<String>): Set<String> {
+    /**
+     * A subtitles folder's file of the user's language beside the only video of its folder (a release's "Subs/
+     * Hebrew.heb.srt"), the first language before the second: added and shown. False when there is none (or the
+     * folder can't be read: no access to the storage).
+     */
+    private suspend fun rdSubsFolderSubtitle(uri: Uri, languages: List<String>): Boolean {
+        if (languages.isEmpty()) return false
+        val minutes = (service?.length ?: 0L) / 60_000.0
+        val found = withContext(Dispatchers.IO) {
+            try {
+                val video = java.io.File(uri.path ?: return@withContext null)
+                val dir = video.parentFile ?: return@withContext null
+                val videos = dir.listFiles()?.count { it.isFile && it.extension.lowercase(java.util.Locale.ROOT) in org.videolan.vlc.util.OnlineSubtitles.videoExtensions } ?: 0
+                if (videos != 1) return@withContext null
+                for (name in org.videolan.vlc.util.OnlineSubtitles.SUBS_FOLDERS) {
+                    val folder = java.io.File(dir, name)
+                    if (!folder.isDirectory) continue
+                    val files = folder.listFiles()?.filter { it.isFile && it.extension.lowercase(java.util.Locale.ROOT) in org.videolan.vlc.util.OnlineSubtitles.subtitleExtensions }
+                        ?.map { org.videolan.vlc.util.OnlineSubtitles.SubFile(it.name, rdCuesOf(it)) } ?: continue
+                    for (lang in languages) org.videolan.vlc.util.OnlineSubtitles.subsFolderPick(files, lang, minutes)?.let { return@withContext Triple(lang, name, java.io.File(folder, it)) }
+                }
+                null
+            } catch (e: Exception) {
+                null
+            }
+        } ?: return false
+        val s = service ?: return false
+        if (s.currentMediaWrapper?.uri != uri || isFinishing) return false
+        s.addSubtitleTrack(Uri.fromFile(found.third), true)
+        Log.i(TAG, "online subtitles: ${found.first} from the folder ${found.second} (${found.third.name}), no search")
+        return true
+    }
+
+    /** a subtitle file's cues (the first 4 MB of it; -1 when unread or not counted) */
+    private fun rdCuesOf(file: java.io.File): Int = try {
+        val bytes = file.inputStream().use { input -> val b = ByteArray(minOf(file.length(), 4L shl 20).toInt()); var n = 0; while (n < b.size) { val r = input.read(b, n, b.size - n); if (r < 0) break; n += r }; b.copyOf(n) }
+        org.videolan.vlc.util.OnlineSubtitles.countCues(file.name, bytes)
+    } catch (e: Exception) {
+        -1
+    }
+
+    /**
+     * The user's languages the video has subtitles of already: its tracks' languages, or their names. A file beside
+     * a video that is only forced lines, or an advert's few lines (fewer cues than one per 5 minutes of a film of
+     * 20 minutes or more), doesn't count, as on the desktop: its language is still looked for.
+     */
+    private fun rdLocalSubtitleLanguages(wanted: List<String>, uri: Uri? = null): Set<String> {
         val found = HashSet<String>()
         for (track in getCurrentMediaTracks()) {
             if (track.type != IMedia.Track.Type.Text) continue
@@ -2101,6 +2173,27 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 val native = org.videolan.vlc.util.OnlineSubtitles.nativeName(code).lowercase(java.util.Locale.ROOT)
                 if ((english.isNotEmpty() && english in name) || (native.isNotEmpty() && native in name)) found.add(code)
             }
+        }
+        // (the partial files beside a file: a language they alone give is not had)
+        if (uri?.scheme == "file" && found.isNotEmpty()) try {
+            val video = java.io.File(uri.path ?: "")
+            val base = video.nameWithoutExtension
+            val beside = video.parentFile?.listFiles()?.filter {
+                it.isFile && it.name.startsWith(base) && it.extension.lowercase(java.util.Locale.ROOT) in org.videolan.vlc.util.OnlineSubtitles.subtitleExtensions
+            }.orEmpty()
+            if (beside.isNotEmpty()) {
+                val minutes = (service?.length ?: 0L) / 60_000.0
+                val tracks = getCurrentMediaTracks().filter { it.type == IMedia.Track.Type.Text }.map { org.videolan.vlc.util.OnlineSubtitles.normalize(it.language) }
+                for (lang in found.toList()) {
+                    val ofLang = beside.filter { org.videolan.vlc.util.OnlineSubtitles.languageOfSubtitleFile(it.name) == lang }
+                    val partial = ofLang.count { org.videolan.vlc.util.OnlineSubtitles.isPartialSubtitleFile(it.name, rdCuesOf(it), minutes) }
+                    if (partial > 0 && partial == ofLang.size && tracks.count { it == lang } <= partial) {
+                        found.remove(lang)
+                        Log.i(TAG, "online subtitles: the $lang file beside the video is partial (an advert, forced lines), not counted")
+                    }
+                }
+            }
+        } catch (e: Exception) {
         }
         return found
     }
