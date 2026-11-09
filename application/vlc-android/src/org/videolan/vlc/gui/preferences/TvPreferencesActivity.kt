@@ -55,7 +55,7 @@ class TvPreferencesActivity : PreferencesActivity() {
         }
         // the page's background beside the sidebar
         card.addView(View(this).apply { setBackgroundColor(0xFF0F0F0F.toInt()) },
-                FrameLayout.LayoutParams(832.dp, 815.dp).apply { leftMargin = 216.dp; topMargin = 50.dp })
+                FrameLayout.LayoutParams(832.dp, 815.dp).apply { marginStart = 216.dp; topMargin = 50.dp })
         card.addView(page, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
         card.addView(View(this).apply {
             background = GradientDrawable().apply { cornerRadius = 14.dp.toFloat(); setColor(0); setStroke(1.dp, 0xFF4C4A48.toInt()) }
@@ -89,7 +89,7 @@ class TvPreferencesActivity : PreferencesActivity() {
             isClickable = true
             background = GradientDrawable().apply { cornerRadius = 4.dp.toFloat(); setColor(0) }
             setOnClickListener { finish() }
-        }, FrameLayout.LayoutParams(32.dp, 32.dp).apply { leftMargin = 1002.dp; topMargin = 9.dp })
+        }, FrameLayout.LayoutParams(32.dp, 32.dp).apply { marginStart = 1002.dp; topMargin = 9.dp })
 
         // the sidebar at 8, 8 under the bar (200 x 799, #181818, radius 6); the page's content at 240, 784 wide
         findViewById<View>(R.id.rd_settings_sidebar)?.let { side ->

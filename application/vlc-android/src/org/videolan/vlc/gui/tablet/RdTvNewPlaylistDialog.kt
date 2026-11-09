@@ -67,7 +67,7 @@ object RdTvNewPlaylistDialog {
             clipToOutline = true
         }
         fun at(v: View, x: Int, y: Int, w: Int = ViewGroup.LayoutParams.WRAP_CONTENT, h: Int = ViewGroup.LayoutParams.WRAP_CONTENT) =
-                card.addView(v, FrameLayout.LayoutParams(if (w > 0) w.dp else w, if (h > 0) h.dp else h).apply { leftMargin = x.dp; topMargin = y.dp })
+                card.addView(v, FrameLayout.LayoutParams(if (w > 0) w.dp else w, if (h > 0) h.dp else h).apply { marginStart = x.dp; topMargin = y.dp })
         fun text(size: Float, color: Int, x: Int, y: Int, value: CharSequence, w: Int = ViewGroup.LayoutParams.WRAP_CONTENT) = TextView(ctx).apply {
             typeface = inter
             setTextSize(TypedValue.COMPLEX_UNIT_DIP, size)
