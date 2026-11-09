@@ -445,4 +445,5 @@
     <string name="rd_os_find_language">חפש שפה</string>
     <string name="rd_os_picked_in_player">נבחרה בנגן</string>
     <string name="rd_os_second_short">שפה שנייה</string>
+    <string name="rd_on_this_device">במכשיר הזה</string>
 </resources>

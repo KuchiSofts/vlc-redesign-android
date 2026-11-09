@@ -460,4 +460,5 @@
     <string name="rd_os_find_language">ابحث عن لغة</string>
     <string name="rd_os_picked_in_player">المختارة في المشغّل</string>
     <string name="rd_os_second_short">اللغة الثانية</string>
+    <string name="rd_on_this_device">على هذا الجهاز</string>
 </resources>
