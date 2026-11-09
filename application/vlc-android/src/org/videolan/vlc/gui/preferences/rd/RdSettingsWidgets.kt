@@ -176,6 +176,9 @@ open class RdListPreference @JvmOverloads constructor(context: Context, attrs: A
             }
         })
         popup.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.rd_menu_background))
+        // (the D-pad: the focused choice as the TV's lists show it, the accent at 25 %; the platform's full accent
+        // under the choice's own colour left its words unreadable)
+        if (!anchor.isInTouchMode) popup.setListSelector(ContextCompat.getDrawable(context, R.drawable.rd_tv_focus_selector))
         popup.width = maxOf(anchor.width, context.rdDp(180f).toInt())
         popup.isModal = true
         val selected = findIndexOfValue(value)
