@@ -109,7 +109,12 @@ object LiveTv {
         var signature = ByteArray(0)
         var programmes = 0
         var error = ""
+        /** the reading failed (the file didn't read, an error page, the download failed with no file) */
+        var failed = false
     }
+
+    /** the guides whose downloads came cut short in a row (GuideUpdate) */
+    private val cutTries = GuideUpdate.CutTries()
 
     private val sources = ArrayList<SourceConfig>()
     private val states = HashMap<String, SourceState>()
@@ -642,15 +647,26 @@ object LiveTv {
             if (quit.get()) return
             val base = TvNet.hashOf(w.url)
             val path = File(dir, "$base.xmltv")
+            // the last whole guide, set aside while a new one comes and reads (back in place if the app stopped then:
+            // the new one was never read whole)
+            val whole = File(dir, "$base.whole")
+            if (whole.exists()) { path.delete(); whole.renameTo(path) }
             val age = ageOf(path)
             val mine = onlySources.isEmpty() || onlySources.contains(w.sourceId)
             var error = ""
-            if (download && mine && (age < 0 || (forced && onlySources.isNotEmpty()) || (byAge && hours > 0 && age > hours * 3600L - 600))) {
+            var fresh = false
+            val nowMs = System.currentTimeMillis()
+            if (download && mine && (age < 0 || (forced && onlySources.isNotEmpty()) ||
+                        (byAge && hours > 0 && age > hours * 3600L - 600 && cutTries.mayTry(w.url, nowMs)))) {
                 progress(w.sourceId, "guide", 0)
+                // (a new guide that fails or comes cut short leaves its channels' programmes as they were)
+                if (path.exists() && !path.renameTo(whole)) whole.delete()
                 try {
                     if (w.url.startsWith(ACCOUNT_GUIDE)) accountGuide(w.sourceId, path, days)
                     else TvNet.download(app, w.url, path, quit, guideAuthOf(w.sourceId, w.url)) { r, _ -> progress(w.sourceId, "guide", r) }
+                    fresh = path.exists()
                 } catch (e: CancelledException) {
+                    if (!path.exists()) whole.renameTo(path)
                     return
                 } catch (e: Exception) {
                     error = e.message ?: "?"
@@ -658,11 +674,14 @@ object LiveTv {
                     // where it broke (debug builds: no address in it)
                     if (BuildConfig.DEBUG) Log.d(TAG, "guide download failure", e)
                 }
+                // (failed: the last whole one back, its date too: tried again by age; a part written is dropped)
+                if (!fresh && whole.exists()) { path.delete(); whole.renameTo(path) }
                 synchronized(lock) { states[w.sourceId]?.let { it.busy = false; it.stage = "" } }
             }
             val data = GuideData(w.url, w.sourceId)
             data.error = error
             if (!path.exists()) {
+                data.failed = error.isNotEmpty()
                 result[w.url] = data
                 continue
             }
@@ -678,21 +697,51 @@ object LiveTv {
             val indexPath = File(dir, "$base.idx")
             var index = GuideIndex.read(indexPath, path, signature)
             val indexed = index != null
-            if (index == null) {
-                index = GuideIndex.Index()
+            var attempt = 0
+            while (index == null && attempt++ < 2) {
+                val reading = GuideIndex.Index()
                 // every day ahead the file has: the index serves the next starts
                 val all = GuideFilter().also { it.keys.addAll(filter.keys); it.languages.addAll(filter.languages); it.from = filter.from; it.cancel = quit }
                 // the descriptions to a file of their own; a new file each time (the last one may be open)
-                index.descName = "$base-${System.currentTimeMillis()}.desc"
-                val descFile = File(dir, index.descName)
+                reading.descName = "$base-${System.currentTimeMillis()}.desc"
+                val descFile = File(dir, reading.descName)
                 val read = descFile.outputStream().buffered(256 * 1024).use { Xmltv.parse(path, all, it) }
-                if (quit.get()) return
-                if (read.error.isNotEmpty() && read.programmes == 0) data.error = read.error
-                for ((k, v) in read.lists) index.lists[k] = v
-                index.idByName.putAll(read.idByName)
-                index.languages.addAll(read.languages)
-                if (read.error.isEmpty() && !GuideIndex.write(indexPath, path, signature, index))
+                if (quit.get()) {
+                    if (fresh && whole.exists()) { path.delete(); whole.renameTo(path) }
+                    return
+                }
+                val unread = read.error.isNotEmpty() && read.programmes == 0
+                if (fresh) {
+                    if (GuideUpdate.dropNew(read.cut, unread, whole.exists())) {
+                        // cut short, or no guide (an error page): dropped, the last whole one read again (its index
+                        // with it); downloaded again a few times, then by age
+                        Log.i(TAG, "a guide of ${TvNet.hostOf(w.url)} came cut short or unreadable: the last whole one is kept")
+                        descFile.delete()
+                        path.delete()
+                        whole.renameTo(path)
+                        cutTries.cut(w.url, nowMs, hours * 3600_000L)
+                        fresh = false
+                        data.error = if (read.cut) GuideUpdate.CUT else read.error
+                        data.updated = path.lastModified() / 1000
+                        index = GuideIndex.read(indexPath, path, signature)
+                        continue
+                    }
+                    whole.delete()
+                    if (read.cut || unread) cutTries.cut(w.url, nowMs, hours * 3600_000L) else cutTries.whole(w.url)
+                }
+                if (unread) { data.error = read.error; data.failed = true }
+                if (read.cut) data.error = GuideUpdate.CUT
+                for ((k, v) in read.lists) reading.lists[k] = v
+                reading.idByName.putAll(read.idByName)
+                reading.languages.addAll(read.languages)
+                if (read.error.isEmpty() && !GuideIndex.write(indexPath, path, signature, reading))
                     Log.i(TAG, "the index of a guide of ${TvNet.hostOf(w.url)} could not be written")
+                index = reading
+            }
+            if (fresh) whole.delete()
+            if (index == null) {
+                result[w.url] = data.also { it.failed = true }
+                continue
             }
             data.descPath = File(dir, index.descName).path
             // the days kept: from the days back to as many ahead
@@ -711,8 +760,9 @@ object LiveTv {
         synchronized(lock) {
             for ((url, g) in result) {
                 val old = guides[url]
-                // a guide that could not be read again keeps what it had
-                if (g.byKey.isEmpty() && old != null && old.byKey.isNotEmpty()) {
+                // a guide that could not be read again keeps what it had; one that came whole replaces it, an empty
+                // <tv/> too (GuideUpdate)
+                if (old != null && GuideUpdate.keepOld(g.failed, g.byKey.size, old.byKey.size)) {
                     old.error = g.error
                 } else {
                     if (old != null && old.descPath != g.descPath && old.descPath.isNotEmpty()) File(old.descPath).delete()
@@ -739,7 +789,7 @@ object LiveTv {
                 val keep = wanted.map { TvNet.hashOf(it.url) }.toSet()
                 dir.listFiles()?.forEach { f ->
                     val base = f.name.substringBefore('.').substringBefore('-')
-                    if (base !in keep && (f.name.endsWith(".xmltv") || f.name.endsWith(".idx") || f.name.endsWith(".desc") || f.name.endsWith(".part"))) f.delete()
+                    if (base !in keep && (f.name.endsWith(".xmltv") || f.name.endsWith(".idx") || f.name.endsWith(".desc") || f.name.endsWith(".part") || f.name.endsWith(".whole"))) f.delete()
                 }
             }
         }
