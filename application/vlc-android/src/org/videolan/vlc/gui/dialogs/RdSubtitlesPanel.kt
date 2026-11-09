@@ -214,8 +214,8 @@ class RdSubtitlesPanel(
             pulse = null
         }
         for (b in listOf(searchButton, refreshButton, settingsButton, addButton)) b.isVisible = fileFeatures
-        refreshButton.isEnabled = state != State.IDENTIFYING && state != State.SEARCHING
-        refreshButton.alpha = if (refreshButton.isEnabled) 1f else 0.4f
+        // (dimmed while it searches, not disabled: a remote's focus on it stays there)
+        refreshButton.alpha = if (state != State.IDENTIFYING && state != State.SEARCHING) 1f else 0.4f
         refreshButton.contentDescription = ctx.getString(if (state == State.IDLE) R.string.rd_os_search else R.string.rd_os_search_again)
         val error = downloadError
         status.text = when {
@@ -289,6 +289,7 @@ class RdSubtitlesPanel(
             selectTrack("-1")
             root.postDelayed({ refresh() }, 250L)
         }
+        columnKeys(off, languages = true)
         languageList.addView(off, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(ROW_HEIGHT)))
         for (l in languages) {
             val row = Row(ctx, accent)
@@ -307,6 +308,7 @@ class RdSubtitlesPanel(
             row.setCount(l.count)
             row.isActivated = l.code == shown
             row.setOnClickListener { chooseLanguage(l.code) }
+            columnKeys(row, languages = true)
             languageList.addView(row, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(ROW_HEIGHT)))
         }
         focused?.let { tag -> (0 until languageList.childCount).map { languageList.getChildAt(it) }.firstOrNull { it.tag == tag }?.requestFocus() }
@@ -352,10 +354,47 @@ class RdSubtitlesPanel(
                     row.setOnClickListener { load(r) }
                 }
             }
+            columnKeys(row, languages = false)
             variantList.addView(row, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(ROW_HEIGHT)))
         }
         if (!sameLanguage) variantScroll.scrollTo(0, 0)
         focused?.let { tag -> (0 until variantList.childCount).map { variantList.getChildAt(it) }.firstOrNull { it.tag == tag }?.requestFocus() }
+    }
+
+    /**
+     * The remote between the columns, as the desktop's keys: towards the other column, its row shown (the language
+     * shown, the subtitle shown) else its first; towards the panel's edge, nothing (the focus stays in the columns);
+     * down from a column's last row, what is under the columns.
+     */
+    private fun columnKeys(row: View, languages: Boolean) {
+        row.setOnKeyListener { v, keyCode, event ->
+            // (down from a column's last row: what is under the columns, not the other column's next row)
+            if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                val list = v.parent as? ViewGroup ?: return@setOnKeyListener false
+                if (list.indexOfChild(v) != list.childCount - 1) return@setOnKeyListener false
+                if (event.action == KeyEvent.ACTION_DOWN) {
+                    val columns = root.findViewById<View>(R.id.rd_subs_columns)
+                    val top = v.rootView as? ViewGroup ?: return@setOnKeyListener false
+                    val r = android.graphics.Rect()
+                    columns.getDrawingRect(r)
+                    top.offsetDescendantRectToMyCoords(columns, r)
+                    r.top = r.bottom - 1
+                    android.view.FocusFinder.getInstance().findNextFocusFromRect(top, r, View.FOCUS_DOWN)?.requestFocus(View.FOCUS_DOWN)
+                }
+                return@setOnKeyListener true
+            }
+            if (keyCode != KeyEvent.KEYCODE_DPAD_LEFT && keyCode != KeyEvent.KEYCODE_DPAD_RIGHT) return@setOnKeyListener false
+            if (event.action != KeyEvent.ACTION_DOWN) return@setOnKeyListener true
+            // (the languages are at the start: the left, the right in a right to left layout)
+            val rtl = v.layoutDirection == View.LAYOUT_DIRECTION_RTL
+            val towardsEnd = (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) != rtl
+            if (languages == towardsEnd) {
+                val other = if (languages) variantList else languageList
+                val rows = (0 until other.childCount).map { other.getChildAt(it) }
+                (rows.firstOrNull { it.isActivated || (it as? Row)?.isChecked() == true } ?: rows.firstOrNull())?.requestFocus()
+            }
+            true
+        }
     }
 
     private fun sourceText(source: RdSubtitleChoices.Source): String = when (source.kind) {
@@ -496,6 +535,8 @@ class RdSubtitlesPanel(
             check.visibility = if (on) View.VISIBLE else View.INVISIBLE
             updateColors()
         }
+
+        fun isChecked() = checked
 
         fun setHearingImpaired(on: Boolean) { hi.isVisible = on }
 
