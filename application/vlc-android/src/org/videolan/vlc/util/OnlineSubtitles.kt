@@ -797,7 +797,7 @@ object OnlineSubtitles {
         return hashOf(head, tail, size)
     }
 
-    private val videoExtensions = setOf("mp4", "m4v", "mkv", "avi", "mov", "webm", "wmv", "flv", "ts", "m2ts", "mts", "mpg",
+    internal val videoExtensions = setOf("mp4", "m4v", "mkv", "avi", "mov", "webm", "wmv", "flv", "ts", "m2ts", "mts", "mpg",
         "mpeg", "ogv", "ogm", "3gp", "divx", "vob", "rmvb", "asf", "iso")
 
     /**
@@ -878,6 +878,74 @@ object OnlineSubtitles {
     } catch (e: Exception) {
         null
     }
+
+    // ---------------------------------------------------------------------------------------------------------------
+    // Subtitle files beside the video (the desktop's rules of 0.5.9)
+
+    /** the subtitle folders beside a video, as the desktop and VLC's own autodetection know them */
+    val SUBS_FOLDERS = listOf("Subs", "subs", "Subtitles", "subtitles", "Sub", "sub")
+
+    val subtitleExtensions = setOf("srt", "ass", "ssa", "vtt", "sub", "smi", "txt", "idx")
+
+    /** a subtitle file: its name and its count of cues (-1: a format whose cues aren't counted) */
+    class SubFile(val name: String, val cues: Int)
+
+    /**
+     * The cues of a subtitle file: SRT and VTT by their "-->" (a UTF-16 file's zero bytes dropped first), ASS and SSA
+     * by their "Dialogue:" lines; -1 for another format (taken as a real subtitle).
+     */
+    fun countCues(name: String, bytes: ByteArray): Int {
+        val ext = name.substringAfterLast('.', "").lowercase(Locale.ROOT)
+        val text = { String(bytes.filter { it != 0.toByte() }.toByteArray(), Charsets.ISO_8859_1) }
+        return when (ext) {
+            "srt", "vtt" -> text().split("-->").size - 1
+            "ass", "ssa" -> text().lines().count { it.trimStart().startsWith("Dialogue:") }
+            else -> -1
+        }
+    }
+
+    /**
+     * A subtitle file that is no subtitle of the film, as the desktop's rule: the forced lines only ("forced" in its
+     * name), or too few lines for the film (a video of 20 minutes or more, fewer cues than one per 5 minutes: the
+     * 3 lines of "Downloaded from YTS.MX" for 103 minutes). It doesn't count as the user's language: the search
+     * still runs. (A short film's own subtitle, a quiet film's, counts.)
+     */
+    fun isPartialSubtitleFile(name: String, cues: Int, videoMinutes: Double) =
+        name.contains("forced", ignoreCase = true) || (videoMinutes >= 20 && cues >= 0 && cues < videoMinutes / 5)
+
+    /**
+     * The language a subtitle file's name states: its last code ("Hebrew.heb.srt", "Film.en.srt", "Film.he.srt"),
+     * else an English language name in it ("Hebrew.srt", "English (SDH).srt"); empty when it states none.
+     */
+    fun languageOfSubtitleFile(name: String): String {
+        val ext = name.substringAfterLast('.', "").lowercase(Locale.ROOT)
+        if (ext !in subtitleExtensions) return ""
+        val base = name.substringBeforeLast('.')
+        val last = base.substringAfterLast('.', "").trim()
+        if (last.length in 2..3 && last.all { it.isLetter() }) {
+            val code = normalize(last)
+            val lang = code.substringBefore('-')
+            if (lang.isNotEmpty() && !Locale(lang).getDisplayLanguage(Locale.ENGLISH).equals(lang, ignoreCase = true)) return code
+        }
+        for (word in base.split('.', ' ', '_', '-', '(', ')', '[', ']')) {
+            if (word.length < 4) continue
+            fromEnglishName(word).takeIf { it.isNotEmpty() }?.let { return it }
+        }
+        return ""
+    }
+
+    /** "SDH", "HI", "CC" in a subtitle file's name: the version for the hearing impaired */
+    fun isHearingImpairedFile(name: String) =
+        name.lowercase(Locale.ROOT).split('.', ' ', '_', '-', '(', ')', '[', ']').any { it == "sdh" || it == "hi" || it == "cc" }
+
+    /**
+     * A subtitle folder's file for [language]: the plain one before an SDH / HI one, never a forced or partial one;
+     * null when it has none.
+     */
+    fun subsFolderPick(files: List<SubFile>, language: String, videoMinutes: Double): String? =
+        files.filter { !isPartialSubtitleFile(it.name, it.cues, videoMinutes) && languageOfSubtitleFile(it.name) == language }
+            .sortedWith(compareBy<SubFile> { if (isHearingImpairedFile(it.name)) 1 else 0 }.thenBy { it.name })
+            .firstOrNull()?.name
 
     // ---------------------------------------------------------------------------------------------------------------
     // Identifying the video
