@@ -183,7 +183,7 @@ object RdTvWindow {
             id = R.id.rd_tv_title_text
             gravity = Gravity.CENTER
             text = ctx.getString(R.string.app_name)
-        }, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40.dp).apply { leftMargin = 400.dp; rightMargin = 400.dp; topMargin = 1.dp })
+        }, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40.dp).apply { marginStart = 400.dp; marginEnd = 400.dp; topMargin = 1.dp })
         bar.addView(TextClock(ctx).apply {
             typeface = inter(ctx)
             setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)

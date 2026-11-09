@@ -61,7 +61,7 @@ object RdTvNetworkDialog {
             setTextColor(color)
             includeFontPadding = false
             text = value
-            card.addView(this, FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { leftMargin = x.dp; topMargin = y.dp })
+            card.addView(this, FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginStart = x.dp; topMargin = y.dp })
         }
         fun field(x: Int, y: Int, w: Int, h: Int, hint: String, lines: Boolean) = EditText(ctx).apply {
             typeface = inter
@@ -75,7 +75,7 @@ object RdTvNetworkDialog {
             inputType = if (lines) InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE or InputType.TYPE_TEXT_VARIATION_URI else InputType.TYPE_CLASS_TEXT
             isSingleLine = !lines
             background = GradientDrawable().apply { cornerRadius = 2.dp.toFloat(); setColor(0xFF0A0A0A.toInt()) }
-            card.addView(this, FrameLayout.LayoutParams(w.dp, h.dp).apply { leftMargin = x.dp; topMargin = y.dp })
+            card.addView(this, FrameLayout.LayoutParams(w.dp, h.dp).apply { marginStart = x.dp; topMargin = y.dp })
         }
         // the bar
         card.addView(View(ctx).apply { setBackgroundColor(0xFF0E0E0E.toInt()) }, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 50.dp))
@@ -89,12 +89,12 @@ object RdTvNetworkDialog {
             isClickable = true
             background = GradientDrawable().apply { cornerRadius = 4.dp.toFloat(); setColor(0) }
             setOnClickListener { dialog.dismiss() }
-        }, FrameLayout.LayoutParams(32.dp, 32.dp).apply { leftMargin = 1007.dp; topMargin = 9.dp })
+        }, FrameLayout.LayoutParams(32.dp, 32.dp).apply { marginStart = 1007.dp; topMargin = 9.dp })
         // the links
         text(16f, 0xFFC6C6C6.toInt(), 20, 78, ctx.getString(R.string.rd_net_url))
         text(14f, 0xFF6B6B6B.toInt(), 20, 111, ctx.getString(R.string.rd_net_url_help))
         val links = field(22, 152, 1004, 190, ctx.getString(R.string.rd_net_url_hint), true)
-        card.addView(View(ctx).apply { setBackgroundColor(0xFF222222.toInt()) }, FrameLayout.LayoutParams(1008.dp, 1.dp).apply { leftMargin = 20.dp; topMargin = 364.dp })
+        card.addView(View(ctx).apply { setBackgroundColor(0xFF222222.toInt()) }, FrameLayout.LayoutParams(1008.dp, 1.dp).apply { marginStart = 20.dp; topMargin = 364.dp })
         // the playlist's name (optional)
         val title = SpannableStringBuilder(ctx.getString(R.string.rd_net_playlist_name)).append(" ")
         val start = title.length
@@ -114,7 +114,7 @@ object RdTvNetworkDialog {
             isClickable = true
             background = GradientDrawable().apply { cornerRadius = 6.dp.toFloat(); setColor(0xFF1E1E1E.toInt()) }
             setOnClickListener { onClick() }
-            card.addView(this, FrameLayout.LayoutParams(100.dp, 32.dp).apply { leftMargin = x.dp; topMargin = 579.dp })
+            card.addView(this, FrameLayout.LayoutParams(100.dp, 32.dp).apply { marginStart = x.dp; topMargin = 579.dp })
         }
         button(R.string.cancel, 20) { dialog.dismiss() }
         val save = button(R.string.save, 928) {
