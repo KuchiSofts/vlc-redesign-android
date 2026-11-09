@@ -15,6 +15,8 @@
  */
 package org.videolan.vlc.gui.tablet
 
+import android.app.Activity
+import android.content.Context
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
@@ -24,6 +26,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.appcompat.widget.ViewStubCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -75,6 +78,8 @@ object RdTvPrebuild {
     private const val START_DELAY = 2500L
     private const val QUIET = 1000L
     private const val STEP = 48L
+    /** The player's controls: after the video started to play */
+    private const val PLAYER_DELAY = 1500L
     /** The most of one list's item kept ready (what a page took in one go, its burst) */
     private const val MAX_COUNT = 40
     private const val BURST_GAP = 1000L
@@ -178,6 +183,55 @@ object RdTvPrebuild {
             if (BuildConfig.DEBUG) Log.w(TAG, "could not make ${activity.resources.getResourceEntryName(plan.layout)} ahead", e)
         }
         schedule(STEP)
+    }
+
+    /** A stub's layout inflated ahead: the stub's inflater hands it over the first time the stub inflates */
+    private class Ahead(private val base: LayoutInflater, private var view: View?, private val layout: Int) : LayoutInflater(base, base.context) {
+        override fun cloneInContext(newContext: Context): LayoutInflater = base.cloneInContext(newContext)
+        override fun inflate(resource: Int, root: ViewGroup?, attachToRoot: Boolean): View {
+            val v = view
+            if (v != null && resource == layout && !attachToRoot && v.parent == null) {
+                view = null
+                return v
+            }
+            return base.inflate(resource, root, attachToRoot)
+        }
+    }
+
+    /**
+     * The player's controls made ahead (the TV layout): the first key that showed them inflated both bars in that
+     * frame (the main thread busy before it). Once the video plays and the window is idle, the stubs' layouts are
+     * inflated, one per idle moment, and given to the stubs, which take them when the controls first show.
+     */
+    fun stubsAhead(activity: Activity, vararg stubs: Int) {
+        if (!RdTvWindow.isOn(activity)) return
+        val ref = WeakReference(activity)
+        val todo = ArrayDeque(stubs.toList())
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                val a = ref.get() ?: return
+                if (a.isFinishing || a.isDestroyed) return
+                val wait = lastBusy + QUIET - SystemClock.uptimeMillis()
+                if (wait > 0) {
+                    handler.postDelayed(this, wait)
+                    return
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Looper.getMainLooper().queue.isIdle) {
+                    handler.postDelayed(this, STEP)
+                    return
+                }
+                // (a stub already inflated is not in the window any more)
+                val stub = a.findViewById<ViewStubCompat>(todo.removeFirstOrNull() ?: return)
+                val parent = stub?.parent as? ViewGroup
+                if (stub != null && parent != null && stub.layoutResource != 0 && stub.layoutInflater !is Ahead) try {
+                    val base = stub.layoutInflater ?: LayoutInflater.from(stub.context)
+                    stub.layoutInflater = Ahead(base, base.inflate(stub.layoutResource, parent, false), stub.layoutResource)
+                } catch (e: Exception) {
+                    if (BuildConfig.DEBUG) Log.w(TAG, "could not make a stub ahead", e)
+                }
+                if (todo.isNotEmpty()) handler.postDelayed(this, STEP)
+            }
+        }, PLAYER_DELAY)
     }
 
     private fun clear() {
