@@ -163,10 +163,6 @@ class RdSubtitlesPanel(
         pulse = null
     }
 
-    /** the row of the language shown (the focus starts there with a remote) */
-    fun shownLanguageRow(): View? = (0 until languageList.childCount).map { languageList.getChildAt(it) }.firstOrNull { it.isActivated && it.tag != OFF }
-        ?: languageList.getChildAt(0)
-
     private fun languageName(code: String): String {
         if (code.isEmpty()) return ctx.getString(R.string.rd_os_unknown_language)
         val ui = RdCompat.primaryLocale(ctx.resources.configuration)
