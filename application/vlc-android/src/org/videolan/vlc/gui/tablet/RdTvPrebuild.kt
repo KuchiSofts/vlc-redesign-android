@@ -16,7 +16,9 @@
 package org.videolan.vlc.gui.tablet
 
 import android.app.Activity
+import android.content.ComponentCallbacks2
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
@@ -91,6 +93,8 @@ object RdTvPrebuild {
     private val burst = HashMap<Int, Int>()
     private var lastTake = 0L
     private var lastBusy = 0L
+    /** The memory was short: nothing made until the window comes back in front */
+    private var lean = false
     private var listParent: RecyclerView? = null
     private var pageParent: FrameLayout? = null
     private val handler = Handler(Looper.getMainLooper())
@@ -101,10 +105,25 @@ object RdTvPrebuild {
         if (!RdTvWindow.isOn(activity)) return
         clear()
         owner = WeakReference(activity)
+        // the app left (its window hidden) or the memory short: what was made is let go, made again on the return
+        val memory = object : ComponentCallbacks2 {
+            override fun onTrimMemory(level: Int) {
+                if (level < ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW) return
+                ready.clear()
+                lean = true
+            }
+            override fun onLowMemory() = onTrimMemory(ComponentCallbacks2.TRIM_MEMORY_COMPLETE)
+            override fun onConfigurationChanged(newConfig: Configuration) {}
+        }
+        activity.registerComponentCallbacks(memory)
         activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
-            override fun onResume(owner: LifecycleOwner) = schedule(START_DELAY)
+            override fun onResume(owner: LifecycleOwner) {
+                lean = false
+                schedule(START_DELAY)
+            }
             override fun onPause(owner: LifecycleOwner) = handler.removeCallbacks(step)
             override fun onDestroy(owner: LifecycleOwner) {
+                activity.unregisterComponentCallbacks(memory)
                 if (this@RdTvPrebuild.owner?.get() === activity) clear()
             }
         })
@@ -159,7 +178,7 @@ object RdTvPrebuild {
 
     private fun work() {
         val activity = owner?.get() ?: return
-        if (activity.isFinishing || activity.isDestroyed || !activity.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) return
+        if (lean || activity.isFinishing || activity.isDestroyed || !activity.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) return
         val wait = lastBusy + QUIET - SystemClock.uptimeMillis()
         if (wait > 0) {
             schedule(wait)
@@ -239,6 +258,7 @@ object RdTvPrebuild {
         ready.clear()
         failed.clear()
         burst.clear()
+        lean = false
         plans = defaultPlans()
         listParent = null
         pageParent = null
