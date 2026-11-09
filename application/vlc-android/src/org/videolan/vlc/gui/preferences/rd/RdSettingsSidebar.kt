@@ -68,6 +68,9 @@ class RdSettingsSidebar : Fragment() {
         val scroll = ScrollView(ctx).apply {
             isFillViewport = true
             addView(list)
+            // (the remote: a focusable scroll box took the dialog's first focus itself, the TV's ring around the whole
+            // sidebar, one key spent before its rows)
+            if (tv) isFocusable = false
             if (wide && !tv) background = ContextCompat.getDrawable(ctx, R.drawable.rd_settings_sidebar_bg)
         }
         current?.let { select(it) }
