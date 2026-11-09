@@ -32,11 +32,12 @@
     <string name="rd_ob_history_help">Geymt eingöngu á þessu tæki, til að halda áfram þar sem frá var horfið.</string>
     <string name="rd_ob_updates_help">Leitar einu sinni á dag að nýrri prófunarútgáfu af VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Skjátextar: SubSource (arabíska), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 og Legendas.net með þínum ókeypis lykli eða aðgangi. Hver þjónusta í Stillingar › Skjátextar, með sinn eigin rofa.</item>
-        <item>Tungumál til að leita á: kveiktu eða slökktu á hverju skjátextatungumáli fyrir hraðari leit.</item>
-        <item>Aðgangar fyrir beint sjónvarp: þjónninn þinn (Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR eða HDHomeRun) og dagskráin frá Schedules Direct. Þjónar á netkerfinu þínu finnast sjálfkrafa.</item>
-        <item>Beint sjónvarp: dagskrá sem finnst sjálfkrafa fyrir rásir án dagskrár, flipinn Dagskrár með dagskrám hverrar uppsprettu, og uppsprettur landsins þíns fyrst í vörulistanum.</item>
-        <item>Lagfæringar: sóttir skjátextar vistast í eigin geymslu forritsins (lagar hrun í Android 14), lykilorðsreitir sýna ekki lengur lykilorðið, fókus fjarstýringar sjónvarpsins, orðið fyrir „Land“ á mörgum tungumálum og orðið fyrir lykilorð á arabísku.</item>
+        <item>Hraðara og stöðugra: beint sjónvarp og skjátextar virka í bakgrunni, og lagað hefur verið hrun og frosinn spilari í Android 5 og á sjónvarpsboxum.</item>
+        <item>Allur skjárinn: hnappur, fjarstýringin eða bending getur sýnt aðeins framvinduna eða aðeins skilaboð í stað stjórnhnappanna, í Stillingar › Viðmót. Þakkir til @BarbodF.</item>
+        <item>Snjallari sjálfvirkir skjátextar: Subs-mappan sem fylgir myndskeiðinu er notuð fyrst, auglýsingaskrá eða skrá með aðeins þvinguðum línum telst ekki lengur skjátexti, líka er leitað fyrir kvikmynd þar sem myndin byrjar seint, og greinarmerki á hebresku og arabísku birtast á réttum enda.</item>
+        <item>Skjátextar af netinu nú líka fyrir myndskeið á netsameign, margmiðlunarþjóni eða bak við tengil, bæði þegar leitað er handvirkt og sjálfkrafa (þakkir til @Elshepl). Í Android 5 til 7.0 svarar OpenSubtitles aftur.</item>
+        <item>Skjátextaspjaldið eins og í tölvuútgáfunni: það opnast fyrir ofan hnappinn sinn, með tungumálunum og fjölda þeirra, niðurstöðum af netinu og tímasetningunni á einum stað.</item>
+        <item>Setst upp við hlið VLC for Android, og sjónvarpsforritið á hebresku og arabísku er speglað í heild, með fókus fjarstýringarinnar þar sem þú átt von á honum.</item>
     </string-array>
     <string name="rd_subtitle_size">Stærð skjátexta</string>
     <string name="rd_cast_this_phone">Þessi sími</string>

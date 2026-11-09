@@ -30,11 +30,12 @@
     <string name="rd_ob_history_help">Guárdase namás nesti preséu, pa siguir onde lo dexasti.</string>
     <string name="rd_ob_updates_help">Busca una versión de prueba más nueva de VLC for Android una vegada al día.</string>
     <string-array name="rd_whats_new_items">
-        <item>Sotítulos: SubSource (árabe), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 y Legendas.net cola to clave o cuenta de baldre. Caún en Axustes › Sotítulos, col so interruptor.</item>
-        <item>Llingües de busca: activa o desactiva cada llingua de sotítulos pa una busca más rápida.</item>
-        <item>Cuentes de TV en direutu: el to Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR o HDHomeRun, y la guía Schedules Direct. Los sirvidores de la to rede alcuéntrense automáticamente.</item>
-        <item>TV en direutu: una guía alcontrada automáticamente pa canales ensin guía, una llingüeta Guíes coles guíes de cada fonte y, primero, les fontes del to país nel catálogu.</item>
-        <item>Correiciones: sotítulos guardaos nel almacenamientu propiu de l\'aplicación (un casque n\'Android 14), campos de contraseña anubríos, el focu del mandu de la TV, la traducción de «País» en munches llingües y la de «contraseña» n\'árabe.</item>
+        <item>Más rápidu y más estable: la TV en direutu y los sotítulos funcionen en segundu planu, y correxéronse los casques y el reproductor conxeláu n\'Android 5 y nes caxes de TV.</item>
+        <item>Pantalla completa: una tecla, el mandu o un xestu puen amosar namás el progresu o namás un mensaxe en cuenta de los controles, n\'Axustes › Interfaz. Gracies a @BarbodF.</item>
+        <item>Sotítulos automáticos más intelixentes: úsase primero la carpeta Subs que vien col vídeu, un ficheru de publicidá o namás con llinies forzaes yá nun cuenta como sotítulu, tamién se busquen pa una película que la so imaxe llega tarde, y la puntuación n\'hebréu y árabe apaez nel estremu correctu.</item>
+        <item>Sotítulos en llinia tamién pa vídeos nuna compartición de rede, un sirvidor multimedia o tres d\'un enllaz, alcontraos a mano y automáticamente (gracies a @Elshepl). N\'Android 5 a 7.0, OpenSubtitles vuelve a responder.</item>
+        <item>El panel de sotítulos como nel escritoriu: ábrese enriba del so botón, coles llingües y la cantidá de cada una, los resultaos en llinia y la sincronización nun solu sitiu.</item>
+        <item>Instálase xunto a VLC for Android, y l\'aplicación de TV n\'hebréu y árabe apaez espeyada dafechu, col focu del mandu onde lu esperes.</item>
     </string-array>
     <string name="rd_subtitle_size">Tamañu de los subtítulos</string>
     <string name="rd_cast_this_phone">Esti teléfonu</string>

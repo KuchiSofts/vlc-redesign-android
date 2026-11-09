@@ -30,11 +30,12 @@
     <string name="rd_ob_history_help">Shranjeno samo v tej napravi, da lahko nadaljujete tam, kjer ste končali.</string>
     <string name="rd_ob_updates_help">Enkrat na dan poišče novejšo preizkusno izdajo VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Podnapisi: SubSource (arabščina), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 in Legendas.net z vašim brezplačnim ključem ali računom. Vsaka storitev v Nastavitve › Podnapisi, s svojim stikalom.</item>
-        <item>Jeziki za iskanje: vklopite ali izklopite vsak jezik podnapisov za hitrejše iskanje.</item>
-        <item>Računi za TV v živo: vaš Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR ali HDHomeRun in vodnik Schedules Direct. Strežniki v vašem omrežju se najdejo sami.</item>
-        <item>TV v živo: vodnik, samodejno najden za kanale brez njega, zavihek »Vodniki« z vodniki vseh virov in viri vaše države na začetku kataloga.</item>
-        <item>Popravki: preneseni podnapisi se shranijo v lastno shrambo aplikacije (sesutje v sistemu Android 14), polja za geslo skrijejo vneseno geslo, fokus pri upravljanju z daljinskim upravljalnikom, prevod besede »Država« v mnogih jezikih in beseda »geslo« v arabščini.</item>
+        <item>Hitreje in stabilneje: TV v živo in podnapisi delujejo v ozadju, sesutja in zamrznjen predvajalnik v sistemu Android 5 in na TV-sprejemnikih pa so odpravljeni.</item>
+        <item>Celozaslonski način: tipka, daljinski upravljalnik ali kretnja lahko namesto kontrolnikov pokaže samo napredek ali samo sporočilo, v Nastavitve › Vmesnik. Hvala @BarbodF.</item>
+        <item>Pametnejši samodejni podnapisi: najprej se uporabi lastna mapa Subs, ki spada k videu, datoteka z oglasom ali samo s prisilnimi vrsticami ne šteje več za podnapise, iskanje poteka tudi za film, katerega slika se začne pozno, ločila v hebrejščini in arabščini pa so prikazana na pravem koncu.</item>
+        <item>Podnapisi s spleta zdaj tudi za videoposnetke v omrežni mapi v skupni rabi, na medijskem strežniku ali na povezavi, pri ročnem in samodejnem iskanju (hvala @Elshepl). V sistemu Android 5 do 7.0 se OpenSubtitles spet odziva.</item>
+        <item>Podokno podnapisov kot v namizni različici: odpre se nad svojim gumbom, jeziki s številom podnapisov, spletni rezultati in časovna uskladitev pa so na enem mestu.</item>
+        <item>Namesti se poleg VLC for Android, aplikacija za TV v hebrejščini in arabščini pa je v celoti zrcaljena, s fokusom daljinskega upravljalnika tam, kjer ga pričakujete.</item>
     </string-array>
     <string name="rd_subtitle_size">Velikost podnapisov</string>
     <string name="rd_cast_this_phone">Ta telefon</string>

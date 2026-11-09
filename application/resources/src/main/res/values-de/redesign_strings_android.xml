@@ -30,11 +30,12 @@
     <string name="rd_ob_history_help">Nur auf diesem Gerät gespeichert, um dort weiterzumachen, wo Sie aufgehört haben.</string>
     <string name="rd_ob_updates_help">Sucht einmal täglich nach einer neueren Testversion von VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Untertitel: SubSource (Arabisch), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 und Legendas.net mit Ihrem kostenlosen Schlüssel oder Konto. Jeder Dienst unter Einstellungen › Untertitel, mit eigenem Schalter.</item>
-        <item>Sprachen für die Suche: Jede Untertitelsprache lässt sich ein- oder ausschalten, für eine schnellere Suche.</item>
-        <item>Live-TV-Konten: Ihr Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR oder HDHomeRun und das Fernsehprogramm von Schedules Direct. Server in Ihrem Netzwerk werden von selbst gefunden.</item>
-        <item>Live-TV: ein von selbst gefundenes Fernsehprogramm für Sender ohne eigenes, ein Tab „Fernsehprogramme“ mit den Programmen jeder Quelle und im Katalog zuerst die Quellen Ihres Landes.</item>
-        <item>Korrekturen: heruntergeladene Untertitel im eigenen Speicher der App (behebt einen Absturz unter Android 14), Passwortfelder verbergen das Passwort, der Fokus der TV-Fernbedienung, das Wort für „Land“ in vielen Sprachen und das Wort für „Passwort“ auf Arabisch.</item>
+        <item>Schneller und stabiler: Live-TV und Untertitel arbeiten im Hintergrund, und Abstürze sowie ein eingefrorener Player unter Android 5 und auf TV-Boxen sind behoben.</item>
+        <item>Vollbild: Eine Taste, die Fernbedienung oder eine Geste kann statt der Bedienelemente nur den Fortschritt oder nur eine Meldung anzeigen, unter Einstellungen › Oberfläche. Danke an @BarbodF.</item>
+        <item>Klügere automatische Untertitel: Der eigene Subs-Ordner des Releases wird zuerst genutzt, eine Werbedatei oder eine Datei nur mit erzwungenen Zeilen zählt nicht mehr als Untertitel, auch für einen Film, dessen Bild spät einsetzt, wird gesucht, und hebräische und arabische Satzzeichen stehen am richtigen Ende.</item>
+        <item>Online-Untertitel jetzt auch für Videos auf einer Netzwerkfreigabe, einem Medienserver oder hinter einem Link, ob von Hand oder automatisch gesucht (danke an @Elshepl). Unter Android 5 bis 7.0 antwortet OpenSubtitles wieder.</item>
+        <item>Das Untertitel-Panel wie in der Desktop-Version: Es öffnet sich über seiner Schaltfläche, mit den Sprachen und ihrer Anzahl, den Online-Ergebnissen und dem Timing an einem Ort.</item>
+        <item>Lässt sich neben VLC for Android installieren, und die TV-App ist auf Hebräisch und Arabisch vollständig gespiegelt, mit dem Fokus der Fernbedienung dort, wo Sie ihn erwarten.</item>
     </string-array>
     <string name="rd_subtitle_size">Untertitelgröße</string>
     <string name="rd_cast_this_phone">Dieses Telefon</string>

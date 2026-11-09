@@ -30,11 +30,12 @@
     <string name="rd_ob_history_help">Chỉ lưu trên thiết bị này, để tiếp tục từ chỗ bạn đã dừng.</string>
     <string name="rd_ob_updates_help">Mỗi ngày kiểm tra một lần xem có bản thử nghiệm mới hơn của VLC for Android không.</string>
     <string-array name="rd_whats_new_items">
-        <item>Phụ đề: SubSource (tiếng Ả Rập), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 và Legendas.net với khóa miễn phí hoặc tài khoản của riêng bạn. Mỗi dịch vụ đều có trong Thiết lập › Phụ đề, kèm công tắc riêng.</item>
-        <item>Ngôn ngữ cần tìm: bật hoặc tắt từng ngôn ngữ phụ đề để tìm nhanh hơn.</item>
-        <item>Tài khoản TV trực tiếp: Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR hoặc HDHomeRun của bạn, và hướng dẫn chương trình Schedules Direct. Máy chủ trong mạng của bạn được tự động tìm thấy.</item>
-        <item>TV trực tiếp: tự tìm hướng dẫn chương trình cho các kênh chưa có, thẻ Hướng dẫn chứa hướng dẫn của mọi nguồn, và danh mục hiện các nguồn của quốc gia bạn trước.</item>
-        <item>Sửa lỗi: phụ đề lưu trong bộ nhớ riêng của ứng dụng (lỗi dừng đột ngột trên Android 14), ô mật khẩu được che, tiêu điểm của điều khiển từ xa TV, từ dịch cho Quốc gia trong nhiều ngôn ngữ và từ dịch cho mật khẩu trong tiếng Ả Rập.</item>
+        <item>Nhanh và ổn định hơn: TV trực tiếp và phụ đề hoạt động ở chế độ nền, đồng thời đã sửa lỗi dừng đột ngột và trình phát bị treo trên Android 5 và TV box.</item>
+        <item>Toàn màn hình: một phím, điều khiển từ xa hoặc một cử chỉ có thể chỉ hiện tiến độ hoặc chỉ hiện thông báo thay cho các nút điều khiển, trong Thiết lập › Giao diện. Cảm ơn @BarbodF.</item>
+        <item>Phụ đề tự động thông minh hơn: thư mục Subs đi kèm video được dùng trước, tệp quảng cáo hoặc tệp chỉ có các dòng bắt buộc không còn được tính là phụ đề, phim có hình ảnh đến muộn vẫn được tìm, và dấu câu tiếng Do Thái và tiếng Ả Rập hiển thị ở đúng phía.</item>
+        <item>Phụ đề trực tuyến giờ dùng được cả cho video trên thư mục chia sẻ mạng, máy chủ đa phương tiện hoặc qua liên kết, khi tìm thủ công lẫn tự động (cảm ơn @Elshepl). Trên Android 5 đến 7.0, OpenSubtitles đã phản hồi trở lại.</item>
+        <item>Bảng phụ đề như trên máy tính: mở ra phía trên nút của nó, với các ngôn ngữ và số lượng, kết quả trực tuyến và căn thời gian ở cùng một chỗ.</item>
+        <item>Cài đặt được song song với VLC for Android, và ứng dụng TV bằng tiếng Do Thái và tiếng Ả Rập được lật gương toàn bộ, với tiêu điểm của điều khiển từ xa ở đúng nơi bạn mong đợi.</item>
     </string-array>
     <string name="rd_subtitle_size">Cỡ phụ đề</string>
     <string name="rd_cast_this_phone">Điện thoại này</string>
