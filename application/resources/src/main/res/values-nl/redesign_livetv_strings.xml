@@ -273,4 +273,20 @@
     <string name="rd_tv_its_guide_id">Gids-id</string>
     <string name="rd_tv_forget_guide_id">Gids-id vergeten</string>
     <string name="rd_tv_guide_id_of">De id van %1$s in de gids</string>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">De gids van %1$s lezen… %2$s MB · %3$d zender</item>
+        <item quantity="other">De gids van %1$s lezen… %2$s MB · %3$d zenders</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">De gids lezen… %1$s MB · %2$d zender</item>
+        <item quantity="other">De gids lezen… %1$s MB · %2$d zenders</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Gids te groot: de volgende %1$d dag van je zenders bewaard</item>
+        <item quantity="other">Gids te groot: de volgende %1$d dagen van je zenders bewaard</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Gids te groot: de programma\'s van %1$d van je zenders bewaard</item>
+        <item quantity="other">Gids te groot: de programma\'s van %1$d van je zenders bewaard</item>
+    </plurals>
 </resources>

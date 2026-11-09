@@ -210,6 +210,8 @@ class TvSourcesDialog : DialogFragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 LiveTv.state.collect {
+                    // (an update's progress, every half second: its lines only, not the whole page again)
+                    if ((page == "sources" || page == "guides") && progressOnly(it.sources)) return@collect
                     if (page == "sources" || page == "accounts" || page == "guides") build()
                     else if (page == "catalog") { setTabs(); refreshCatalogList(requireContext()) }
                 }
@@ -258,9 +260,37 @@ class TvSourcesDialog : DialogFragment() {
     /** the focus to give back once the page is drawn again (two rebuilds in a row: the first one's, not the tabs') */
     private var pendingFocus: Pair<String, Int>? = null
 
+    /** the sources as the page was built, their progress left out */
+    private var builtSources: List<SourceStatus>? = null
+
+    private fun withoutProgress(l: List<SourceStatus>) = l.map { it.copy(received = 0L, matched = 0) }
+
+    /** Only an update's progress changed: its lines told it in place (true), else the page is built again. */
+    private fun progressOnly(sources: List<SourceStatus>): Boolean {
+        val root = view ?: return false
+        if (builtSources != withoutProgress(sources)) return false
+        val busy = sources.filter { it.busy }.associateBy { "pg:" + it.id }
+        if (busy.isEmpty()) return true
+        // (the source's line and its guides' lines)
+        fun walk(v: View) {
+            if (v is TextView) (v.tag as? String)?.let { t -> busy[t]?.let { v.text = progressText(it) } }
+            if (v is ViewGroup) for (i in 0 until v.childCount) walk(v.getChildAt(i))
+        }
+        walk(root)
+        return true
+    }
+
+    /** what a source being updated is doing: its playlist, its guide downloaded (MB), read (MB, channels found) */
+    private fun progressText(s: SourceStatus): String = when (s.stage) {
+        "guide" -> getString(R.string.rd_tv_updating_guide, "%.1f".format(s.received / 1048576.0))
+        "reading" -> resources.getQuantityString(R.plurals.rd_tv_reading_guide, s.matched, "%.0f".format(s.received / 1048576.0), s.matched)
+        else -> getString(R.string.rd_tv_updating_channels)
+    }
+
     private fun build() {
         if (!::body.isInitialized) return
         val ctx = context ?: return
+        builtSources = withoutProgress(LiveTv.state.value.sources)
         val root = view
         val kept = pendingFocus ?: root?.let { focusKey(it) }
         // an account's form opened with the remote (Add, Edit): its first field has the focus, not the tabs
@@ -357,12 +387,12 @@ class TvSourcesDialog : DialogFragment() {
         if (s.series) badge(ctx.tvBadge(getString(R.string.rd_tv_series), R.drawable.rd_ic_playlists))
         card.addView(badges, gap(ctx, 8f))
         val status = when {
-            s.busy -> if (s.stage == "guide") getString(R.string.rd_tv_updating_guide, "%.1f".format(s.received / 1048576.0)) else getString(R.string.rd_tv_updating_channels)
+            s.busy -> progressText(s)
             s.error.isNotEmpty() && s.channels == 0 -> getString(R.string.rd_tv_could_not_load, s.name, s.error)
             s.updated > 0 -> getString(R.string.rd_tv_updated_at, TvTexts.day(ctx, s.updated), TvTexts.time(ctx, s.updated))
             else -> ""
         }
-        if (status.isNotEmpty()) card.addView(ctx.tvText(status, 12f, ctx.tvColor(if (s.error.isNotEmpty() && s.channels == 0 && !s.busy) R.color.rd_warning else R.color.rd_fg_a3), lines = 2), gap(ctx, 8f))
+        if (status.isNotEmpty()) card.addView(ctx.tvText(status, 12f, ctx.tvColor(if (s.error.isNotEmpty() && s.channels == 0 && !s.busy) R.color.rd_warning else R.color.rd_fg_a3), lines = 2).apply { if (s.busy) tag = "pg:" + s.id }, gap(ctx, 8f))
         // the guide found for its channels by itself, with Undo
         autoLine(ctx, s)?.let { card.addView(it, gap(ctx, 6f)) }
         val buttons = TvFlow(ctx, ctx.tvPx(6f), ctx.tvPx(6f))
@@ -371,6 +401,8 @@ class TvSourcesDialog : DialogFragment() {
             add(ctx.tvIconButton(R.drawable.rd_ic_chevron_down, getString(R.string.rd_tv_move_up)) { LiveTv.moveSource(s.id, -1) }.apply { rotation = 180f; usable(index > 0); minimumWidth = ctx.tvPx(36f); minimumHeight = ctx.tvPx(36f) })
             add(ctx.tvIconButton(R.drawable.rd_ic_chevron_down, getString(R.string.rd_tv_move_down)) { LiveTv.moveSource(s.id, 1) }.apply { usable(index < count - 1); minimumWidth = ctx.tvPx(36f); minimumHeight = ctx.tvPx(36f) })
         }
+        // an update under way stops (the last guide kept)
+        if (s.busy) add(ctx.tvButton(getString(R.string.stop)) { LiveTv.stopUpdate() }.apply { tag = "fk:stop:" + s.id })
         add(ctx.tvButton(getString(if (s.enabled) R.string.rd_tv_turn_off else R.string.rd_tv_turn_on)) { LiveTv.setSourceEnabled(s.id, !s.enabled) })
         add(ctx.tvButton(getString(R.string.rd_tv_update)) { LiveTv.refresh(listOf(s.id)) }.usable(s.enabled && !s.busy))
         add(ctx.tvButton(getString(R.string.rd_tv_edit)) { edit(s.id) })
@@ -699,13 +731,15 @@ class TvSourcesDialog : DialogFragment() {
         })
         row.addView(ctx.tvText(android.text.BidiFormatter.getInstance().unicodeWrap(name) + " · " + kind, 13f, ctx.tvColor(R.color.rd_fg_2), medium = true, lines = 1))
         val state = when {
-            s.busy && s.stage == "guide" -> getString(R.string.rd_tv_updating_guide, "%.1f".format(s.received / 1048576.0))
+            s.busy && (s.stage == "guide" || s.stage == "reading") -> progressText(s)
             g.error.isNotEmpty() && g.channels == 0 -> getString(R.string.rd_tv_could_not_load, name, g.error)
             g.updated > 0 -> getString(R.string.rd_tv_updated_at, TvTexts.day(ctx, g.updated), TvTexts.time(ctx, g.updated)) +
                 if (g.channels > 0) " · " + resources.getQuantityString(R.plurals.rd_tv_guide_n, g.channels, g.channels) else ""
             else -> ""
         }
-        if (state.isNotEmpty()) row.addView(ctx.tvText(state, 12f, ctx.tvColor(if (g.error.isNotEmpty() && g.channels == 0) R.color.rd_warning else R.color.rd_fg_a3), lines = 2), gap(ctx, 4f))
+        if (state.isNotEmpty()) row.addView(ctx.tvText(state, 12f, ctx.tvColor(if (g.error.isNotEmpty() && g.channels == 0) R.color.rd_warning else R.color.rd_fg_a3), lines = 2).apply { if (s.busy) tag = "pg:" + s.id }, gap(ctx, 4f))
+        // too large for the device: what it kept ("kept the next 3 days of your channels")
+        if (g.note.isNotEmpty() && !s.busy) row.addView(ctx.tvText(g.note, 12f, ctx.tvColor(R.color.rd_warning), lines = 2), gap(ctx, 4f))
         val acts = TvFlow(ctx, ctx.tvPx(6f), ctx.tvPx(6f))
         acts.addView(ctx.tvButton(getString(if (g.on) R.string.rd_tv_turn_off else R.string.rd_tv_turn_on)) { LiveTv.setGuideOn(s.id, g.url, !g.on) }, wrap())
         acts.addView(ctx.tvButton(getString(R.string.rd_tv_update)) { LiveTv.refreshGuides(s.id) }.usable(g.on && s.enabled && !s.busy), wrap())

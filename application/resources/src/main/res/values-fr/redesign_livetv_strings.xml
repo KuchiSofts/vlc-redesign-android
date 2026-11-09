@@ -283,4 +283,24 @@
     <string name="rd_tv_its_guide_id">Son identifiant de guide</string>
     <string name="rd_tv_forget_guide_id">Oublier son identifiant de guide</string>
     <string name="rd_tv_guide_id_of">L\'identifiant de guide de %1$s</string>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Lecture du guide de %1$s… %2$s Mo · %3$d chaîne</item>
+        <item quantity="many">Lecture du guide de %1$s… %2$s Mo · %3$d chaînes</item>
+        <item quantity="other">Lecture du guide de %1$s… %2$s Mo · %3$d chaînes</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Lecture du guide… %1$s Mo · %2$d chaîne</item>
+        <item quantity="many">Lecture du guide… %1$s Mo · %2$d chaînes</item>
+        <item quantity="other">Lecture du guide… %1$s Mo · %2$d chaînes</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Guide trop volumineux : %1$d prochain jour de vos chaînes conservé</item>
+        <item quantity="many">Guide trop volumineux : les %1$d prochains jours de vos chaînes conservés</item>
+        <item quantity="other">Guide trop volumineux : les %1$d prochains jours de vos chaînes conservés</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Guide trop volumineux : programmes de %1$d de vos chaînes conservés</item>
+        <item quantity="many">Guide trop volumineux : programmes de %1$d de vos chaînes conservés</item>
+        <item quantity="other">Guide trop volumineux : programmes de %1$d de vos chaînes conservés</item>
+    </plurals>
 </resources>

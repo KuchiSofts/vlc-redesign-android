@@ -264,4 +264,16 @@
     <string name="rd_tv_its_guide_id">ガイド ID</string>
     <string name="rd_tv_forget_guide_id">ガイド ID を消去</string>
     <string name="rd_tv_guide_id_of">ガイドでの %1$s の ID</string>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="other">%1$s のガイドを読み込み中… %2$s MB · %3$d チャンネル</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="other">ガイドを読み込み中… %1$s MB · %2$d チャンネル</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="other">ガイドが大きすぎます: チャンネルの今後 %1$d 日分を保持しました</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="other">ガイドが大きすぎます: %1$d チャンネル分の番組を保持しました</item>
+    </plurals>
 </resources>

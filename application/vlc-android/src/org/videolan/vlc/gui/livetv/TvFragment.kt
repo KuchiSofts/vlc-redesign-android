@@ -41,6 +41,8 @@ import org.videolan.vlc.gui.BaseFragment
 import org.videolan.vlc.interfaces.Filterable
 import org.videolan.vlc.livetv.KEY_IPTV_ADULT
 import org.videolan.vlc.livetv.KEY_IPTV_DESCRIPTIONS
+import org.videolan.vlc.livetv.KEY_IPTV_NEXT
+import org.videolan.vlc.livetv.KEY_IPTV_PROGRESS
 import org.videolan.vlc.livetv.KEY_IPTV_GUIDE_HOURS
 import org.videolan.vlc.livetv.KEY_IPTV_LANGUAGES
 import org.videolan.vlc.livetv.LiveTv
@@ -64,6 +66,8 @@ class TvFragment : BaseFragment(), Filterable {
     private lateinit var chips: RecyclerView
     private lateinit var chipAdapter: TvChipAdapter
     private lateinit var status: TextView
+    private lateinit var statusRow: LinearLayout
+    private lateinit var stopButton: View
     private lateinit var list: RecyclerView
     private lateinit var adapter: TvChannelAdapter
     private lateinit var guideBox: LinearLayout
@@ -77,6 +81,8 @@ class TvFragment : BaseFragment(), Filterable {
     private lateinit var languageButton: com.google.android.material.button.MaterialButton
     private lateinit var descriptionsChip: FrameLayout
     private var shown: List<TvChannel> = emptyList()
+    /** what the channels shown were made of (the list is made again only when it changes) */
+    private var listKey: List<Any?>? = null
 
     override fun getTitle() = getString(R.string.rd_nav_tv)
     override fun hasFAB() = false
@@ -126,9 +132,16 @@ class TvFragment : BaseFragment(), Filterable {
             overScrollMode = View.OVER_SCROLL_NEVER
         }
         root.addView(chips, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ctx.tvPx(32f)).apply { topMargin = ctx.tvPx(14f) })
-        // what the add-on is doing (a guide of 30 MB takes a while)
+        // what the add-on is doing (a guide of 30 MB takes a while), with Stop (the last guide kept)
         status = ctx.tvText("", 12f, ctx.tvColor(R.color.rd_fg_a3))
-        root.addView(status, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { setMargins(ctx.tvPx(20f), ctx.tvPx(10f), ctx.tvPx(20f), 0) })
+        stopButton = ctx.tvButton(getString(R.string.stop)) { LiveTv.stopUpdate() }.apply { visibility = View.GONE }
+        statusRow = LinearLayout(ctx).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+            addView(status, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
+            addView(stopButton, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginStart = ctx.tvPx(8f) })
+        }
+        root.addView(statusRow, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { setMargins(ctx.tvPx(20f), ctx.tvPx(10f), ctx.tvPx(20f), 0) })
         bodyBox = FrameLayout(ctx)
         root.addView(bodyBox, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f).apply { topMargin = ctx.tvPx(10f) })
         // the channels
@@ -277,7 +290,15 @@ class TvFragment : BaseFragment(), Filterable {
     override fun onDestroyView() {
         openDialog?.dismiss()
         openDialog = null
+        listKey = null
         super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        // the page left for another one, or the app closed: the update running stops (the last guides kept), a TV
+        // read a guide of 500 MB on its own long after
+        if (isRemoving || activity?.isFinishing == true) LiveTv.stopUpdate()
+        super.onDestroy()
     }
 
     private fun editGuideId(c: TvChannel) {
@@ -358,22 +379,40 @@ class TvFragment : BaseFragment(), Filterable {
             else -> all.filter { M3u.displayGroup(it.group) == group }
         }
         val q = search.trim().lowercase()
-        if (q.isNotEmpty()) list = list.filter { it.name.lowercase().contains(q) || it.number.toString() == q }
-        shown = list
-        adapter.submit(list)
-        guide.channels = list
+        // (the same channels, groups and search: the list as it is; the progress of an update came every half second
+        // and rebuilt 4,000 channels each time, the remote's focus thrown back to the top)
+        val key = listOf(state.channels, adult, favorites, group, q, view, if (group == "recent") LiveTv.recent else null,
+            settings.getBoolean(KEY_IPTV_NEXT, true), settings.getBoolean(KEY_IPTV_PROGRESS, true), settings.getBoolean(KEY_IPTV_DESCRIPTIONS, true))
+        if (key != listKey) {
+            if (q.isNotEmpty()) list = list.filter { it.name.lowercase().contains(q) || it.number.toString() == q }
+            listKey = key
+            shown = list
+            adapter.submit(list)
+            guide.channels = list
+        } else list = shown
         // the status of the sources
         val busy = state.sources.firstOrNull { it.busy }
         // (one turned off says nothing)
         val failed = state.sources.firstOrNull { it.enabled && it.error.isNotEmpty() && it.channels == 0 }
         status.text = when {
-            busy != null -> if (busy.stage == "guide") getString(R.string.rd_tv_updating_guide_of, busy.name, "%.1f".format(busy.received / 1048576.0))
-                            else getString(R.string.rd_tv_updating_channels_of, busy.name)
+            busy != null -> when (busy.stage) {
+                "guide" -> getString(R.string.rd_tv_updating_guide_of, busy.name, "%.1f".format(busy.received / 1048576.0))
+                // a large guide read: the MB of it read, the channels found in it so far
+                "reading" -> resources.getQuantityString(R.plurals.rd_tv_reading_guide_of, busy.matched, busy.name, "%.0f".format(busy.received / 1048576.0), busy.matched)
+                else -> getString(R.string.rd_tv_updating_channels_of, busy.name)
+            }
             failed != null -> getString(R.string.rd_tv_could_not_load, failed.name, failed.error)
             else -> ""
         }
         status.setTextColor(ctx.tvColor(if (busy != null) R.color.rd_fg_a3 else R.color.rd_warning))
-        status.visibility = if (hasSources && status.text.isNotEmpty()) View.VISIBLE else View.GONE
+        statusRow.visibility = if (hasSources && status.text.isNotEmpty()) View.VISIBLE else View.GONE
+        val stoppable = hasSources && busy != null
+        if (stoppable != (stopButton.visibility == View.VISIBLE)) {
+            val hadFocus = stopButton.hasFocus()
+            stopButton.visibility = if (stoppable) View.VISIBLE else View.GONE
+            // (the remote was on Stop as the update ended: the page's first channel, never nowhere)
+            if (hadFocus) statusRow.post { focusPageIfLost() }
+        }
         this.list.visibility = if (hasSources && view == "channels" && list.isNotEmpty()) View.VISIBLE else View.GONE
         guideBox.visibility = if (hasSources && view == "guide") View.VISIBLE else View.GONE
         libraryList.visibility = if (hasSources && library) View.VISIBLE else View.GONE

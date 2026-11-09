@@ -284,4 +284,24 @@
     <string name="rd_tv_its_guide_id">מזהה המדריך שלו</string>
     <string name="rd_tv_forget_guide_id">מחיקת מזהה המדריך שלו</string>
     <string name="rd_tv_guide_id_of">המזהה של %1$s במדריך</string>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">המדריך של %1$s נקרא… %2$s MB · %3$d ערוץ</item>
+        <item quantity="two">המדריך של %1$s נקרא… %2$s MB · %3$d ערוצים</item>
+        <item quantity="other">המדריך של %1$s נקרא… %2$s MB · %3$d ערוצים</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">המדריך נקרא… %1$s MB · %2$d ערוץ</item>
+        <item quantity="two">המדריך נקרא… %1$s MB · %2$d ערוצים</item>
+        <item quantity="other">המדריך נקרא… %1$s MB · %2$d ערוצים</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">המדריך גדול מדי: נשמר היום הבא של הערוצים שלך</item>
+        <item quantity="two">המדריך גדול מדי: נשמרו היומיים הבאים של הערוצים שלך</item>
+        <item quantity="other">המדריך גדול מדי: נשמרו %1$d הימים הבאים של הערוצים שלך</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">המדריך גדול מדי: נשמרו התוכניות של %1$d מהערוצים שלך</item>
+        <item quantity="two">המדריך גדול מדי: נשמרו התוכניות של %1$d מהערוצים שלך</item>
+        <item quantity="other">המדריך גדול מדי: נשמרו התוכניות של %1$d מהערוצים שלך</item>
+    </plurals>
 </resources>

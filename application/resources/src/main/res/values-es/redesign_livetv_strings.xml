@@ -284,4 +284,24 @@
     <string name="rd_tv_its_guide_id">Su identificador de la guía</string>
     <string name="rd_tv_forget_guide_id">Olvidar su identificador de la guía</string>
     <string name="rd_tv_guide_id_of">El identificador de %1$s en la guía</string>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Leyendo la guía de %1$s… %2$s MB · %3$d canal</item>
+        <item quantity="many">Leyendo la guía de %1$s… %2$s MB · %3$d canales</item>
+        <item quantity="other">Leyendo la guía de %1$s… %2$s MB · %3$d canales</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Leyendo la guía… %1$s MB · %2$d canal</item>
+        <item quantity="many">Leyendo la guía… %1$s MB · %2$d canales</item>
+        <item quantity="other">Leyendo la guía… %1$s MB · %2$d canales</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Guía demasiado grande: se conservó el próximo %1$d día de tus canales</item>
+        <item quantity="many">Guía demasiado grande: se conservaron los próximos %1$d días de tus canales</item>
+        <item quantity="other">Guía demasiado grande: se conservaron los próximos %1$d días de tus canales</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Guía demasiado grande: se conservaron los programas de %1$d de tus canales</item>
+        <item quantity="many">Guía demasiado grande: se conservaron los programas de %1$d de tus canales</item>
+        <item quantity="other">Guía demasiado grande: se conservaron los programas de %1$d de tus canales</item>
+    </plurals>
 </resources>
