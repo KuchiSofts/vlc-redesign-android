@@ -109,6 +109,10 @@ class TitleListView : ConstraintLayout {
                 }
                 titleContent.isEnabled = actionClickListener != null
                 list.isNestedScrollingEnabled = false
+                // VLC Redesign, the TV's window: the section's title at the page's edge (28 from the sidebar, as
+                // the header and its rows), not 12 before it
+                if (org.videolan.vlc.gui.tablet.RdTvWindow.isOn(context))
+                    (titleView.layoutParams as? android.view.ViewGroup.MarginLayoutParams)?.let { it.marginStart = 28.dp; titleView.layoutParams = it }
             } catch (e: Exception) {
                 Log.w("", e.message, e)
             } finally {
