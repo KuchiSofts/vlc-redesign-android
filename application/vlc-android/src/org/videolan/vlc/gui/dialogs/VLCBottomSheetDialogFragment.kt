@@ -120,7 +120,8 @@ abstract class VLCBottomSheetDialogFragment : BottomSheetDialogFragment() {
     private fun anchoredWanted(): Boolean {
         if (anchorId() == 0 || activity !is VideoPlayerActivity) return false
         val anchor = activity?.findViewById<View>(anchorId()) ?: return false
-        if (!anchor.isShown || anchor.width == 0) return false
+        // (laid out is enough: the controls hide as the panel opens, the button keeps its place)
+        if (anchor.width == 0 || anchor.height == 0) return false
         val cfg = resources.configuration
         return AndroidDevices.isTv || Settings.showTvUi || cfg.orientation == Configuration.ORIENTATION_LANDSCAPE || cfg.smallestScreenWidthDp >= 600
     }
