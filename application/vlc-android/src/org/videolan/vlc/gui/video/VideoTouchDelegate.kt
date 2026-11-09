@@ -535,13 +535,14 @@ class VideoTouchDelegate(private val player: VideoPlayerActivity,
             // unseekable stream
             if (service.length <= 0 || !service.isSeekable) return
 
-            var position = player.time + delta
+            val from = player.time
+            var position = from + delta
             if (position < 0) position = 0
             if (position > service.length) position = service.length
             player.seek(position, fast = false)
             // VLC Redesign (#72): the setting's feedback (the line and its pill) rather than the seek's circles
             if (player.keyFeedback.active) {
-                player.keyFeedback.seek(delta.toLong(), position)
+                player.keyFeedback.seek(delta.toLong(), position, from)
                 return
             }
             val sb = StringBuilder()

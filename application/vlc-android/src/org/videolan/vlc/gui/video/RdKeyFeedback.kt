@@ -60,8 +60,9 @@ object RdKeyFeedbackRules {
 
     /** [ltr] keeps a signed number left to right in a right-to-left language ("+30", not "30+") */
     fun seekText(ms: Long, seconds: (String) -> String, ltr: (String) -> String): String {
-        val sign = if (ms < 0) "−" else "+"
         val s = abs(ms) / 1000
+        // (no move at all, at the start or the end already: "0 s")
+        val sign = if (s == 0L) "" else if (ms < 0) "−" else "+"
         return when {
             s < 60 -> seconds(ltr(sign + s))
             s < 3600 -> ltr(sign + "%d:%02d".format(Locale.ROOT, s / 60, s % 60))
@@ -94,21 +95,40 @@ object RdKeyFeedbackRules {
         return text + "×"
     }
 
+    /**
+     * How far a run of seeks really moved the video: its start plus the keys' sum, kept between 0 and [length]
+     * (unknown: 0 or less), less its start. At 0:05 three jumps of −10 s move it −5 s, not −30 s; past the end alike.
+     */
+    fun realMove(start: Long, sum: Long, length: Long): Long {
+        var target = start + sum
+        if (length > 0 && target > length) target = length
+        if (target < 0) target = 0
+        return target - start
+    }
+
     /** The seeks pressed in a row, added up (the same way, within [windowMs] of the last one). */
     class SeekSum(private val windowMs: Long = SHOWN_MS) {
         private var total = 0L
         private var last = -1L
+        /** the position at the run's first key */
+        private var start = 0L
 
-        fun add(delta: Long, now: Long): Long {
+        /** a seek of [delta] from [from] (the position before it; the run's start when it starts one): the keys' sum */
+        fun add(delta: Long, now: Long, from: Long = 0L): Long {
             val inRow = last >= 0 && now - last <= windowMs && total != 0L && (total > 0) == (delta > 0)
+            if (!inRow) start = from
             total = if (inRow) total + delta else delta
             last = now
             return total
         }
 
+        /** the run's real move ([realMove]): what its pill says */
+        fun moved(length: Long): Long = realMove(start, total, length)
+
         fun reset() {
             total = 0
             last = -1
+            start = 0
         }
     }
 }
@@ -247,10 +267,13 @@ class RdKeyFeedback(private val player: VideoPlayerActivity) {
 
     private fun ltr(text: String): String = bidi.unicodeWrap(text, TextDirectionHeuristics.LTR)
 
-    /** a seek of [delta] ms to [target]: "+30 s  00:02:50 / 00:25:40", those in a row added up */
-    fun seek(delta: Long, target: Long) {
-        val total = sum.add(delta, SystemClock.elapsedRealtime())
-        show(pill(total, target), target)
+    /**
+     * a seek of [delta] ms from [from] to [target]: "+30 s  00:02:50 / 00:25:40", those in a row added up; the pill
+     * says how far the video really moved since the run's first key (kept between its start and its end)
+     */
+    fun seek(delta: Long, target: Long, from: Long) {
+        sum.add(delta, SystemClock.elapsedRealtime(), from)
+        show(pill(sum.moved(player.service?.length ?: 0L), target), target)
     }
 
     /** a swipe that seeks: its jump so far (not added up: the gesture says the whole of it) */
