@@ -158,20 +158,32 @@ open class RdListPreference @JvmOverloads constructor(context: Context, attrs: A
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
         well = holder.findViewById(R.id.rd_well)
-        (holder.findViewById(R.id.rd_well_text) as? TextView)?.text = entry?.takeIf { it.isNotEmpty() } ?: "—"
+        (holder.findViewById(R.id.rd_well_text) as? TextView)?.text = entries?.getOrNull(shownIndex())?.takeIf { it.isNotEmpty() } ?: "—"
         holder.findViewById(android.R.id.summary)?.visibility = if (help.isNullOrEmpty()) View.GONE else View.VISIBLE
     }
 
     /** the values the device is set to (a language list: its languages, listed first), marked "On this device" */
     var detected: Set<String> = emptySet()
 
+    /** a list of languages: a value kept under the language's other code ("he" kept, "iw" listed) is that row */
+    var locales = false
+
+    /** The row of the value: its own, else in a list of languages the row of the same language. */
+    private fun shownIndex(): Int {
+        val own = findIndexOfValue(value)
+        val v = value
+        if (own >= 0 || !locales || v.isNullOrEmpty()) return own
+        val values = entryValues?.map { it.toString() } ?: return -1
+        return org.videolan.vlc.util.RdLocaleChoices.match(values, v)?.let { values.indexOf(it) } ?: -1
+    }
+
     override fun onClick() {
         val anchor = well
         val values = entryValues
         val names = entries
         if (anchor == null || names == null || values == null || !anchor.isAttachedToWindow) return super.onClick()
-        val rows = names.indices.map { i -> org.videolan.vlc.gui.helpers.RdDropdown.Row(names[i], values[i] == value, values[i].toString() in detected) }
-        val selected = findIndexOfValue(value)
+        val selected = shownIndex()
+        val rows = names.indices.map { i -> org.videolan.vlc.gui.helpers.RdDropdown.Row(names[i], i == selected, values[i].toString() in detected) }
         org.videolan.vlc.gui.helpers.RdDropdown.show(anchor, rows, if (selected >= 0) selected else rows.indexOfFirst { it.detected }.coerceAtLeast(0)) { position ->
             val v = values[position].toString()
             if (callChangeListener(v)) value = v
