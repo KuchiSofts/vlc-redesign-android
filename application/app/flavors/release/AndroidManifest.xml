@@ -26,16 +26,19 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- VLC Redesign: the app's own names. A permission can belong to one signer only: with VLC's names, the app
+         didn't install next to VLC for Android (INSTALL_FAILED_DUPLICATE_PERMISSION), and once installed it kept
+         VLC from installing. -->
     <permission
-        android:name="org.videolan.vlc.permission.READ_EXTENSION_DATA"
+        android:name="${applicationId}.permission.READ_EXTENSION_DATA"
         android:protectionLevel="normal" />
 
     <permission
-        android:name="org.videolan.vlc.permission.BIND_DATA_CONSUMER"
+        android:name="${applicationId}.permission.BIND_DATA_CONSUMER"
         android:protectionLevel="normal" />
 
-    <uses-permission android:name="org.videolan.vlc.permission.READ_EXTENSION_DATA" />
-    <uses-permission android:name="org.videolan.vlc.permission.BIND_DATA_CONSUMER" />
+    <uses-permission android:name="${applicationId}.permission.READ_EXTENSION_DATA" />
+    <uses-permission android:name="${applicationId}.permission.BIND_DATA_CONSUMER" />
 
     <application/>
 
