@@ -56,6 +56,7 @@ object TvNet {
         while (true) {
             if (cancel?.get() == true) throw CancelledException()
             val c = url.openConnection() as HttpURLConnection
+            org.videolan.vlc.util.RdTls.apply(c)
             c.connectTimeout = 20000
             c.readTimeout = 60000
             c.instanceFollowRedirects = false

@@ -439,6 +439,7 @@ object OnlineSubtitles {
         var connection: HttpURLConnection? = null
         return try {
             connection = URL(url).openConnection() as HttpURLConnection
+            org.videolan.vlc.util.RdTls.apply(connection)
             connection.connectTimeout = timeoutMs
             connection.readTimeout = timeoutMs
             connection.instanceFollowRedirects = true
@@ -468,6 +469,7 @@ object OnlineSubtitles {
         var connection: HttpURLConnection? = null
         return try {
             connection = URL(url).openConnection() as HttpURLConnection
+            org.videolan.vlc.util.RdTls.apply(connection)
             connection.connectTimeout = timeoutMs
             connection.readTimeout = timeoutMs
             connection.requestMethod = "POST"
@@ -492,6 +494,7 @@ object OnlineSubtitles {
         var connection: HttpURLConnection? = null
         return try {
             connection = URL(url).openConnection() as HttpURLConnection
+            org.videolan.vlc.util.RdTls.apply(connection)
             connection.connectTimeout = timeoutMs
             connection.readTimeout = timeoutMs
             connection.requestMethod = "POST"
@@ -760,6 +763,7 @@ object OnlineSubtitles {
         var connection: HttpURLConnection? = null
         return try {
             connection = URL(url).openConnection() as HttpURLConnection
+            org.videolan.vlc.util.RdTls.apply(connection)
             connection.connectTimeout = 10_000
             connection.readTimeout = 10_000
             connection.instanceFollowRedirects = true
