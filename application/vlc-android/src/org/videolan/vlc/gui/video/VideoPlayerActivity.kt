@@ -2066,6 +2066,9 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 Log.i(TAG, "online subtitles: no picture (music, a radio), no search")
                 return@launch
             }
+            // the user's own Hebrew / Arabic file beside the video, its marks written for left-to-right players: a
+            // fixed copy shown in its place
+            if (scheme == "file") rdSidecarRtlFix(uri)
             val wanted = org.videolan.vlc.util.OnlineSubtitles.wantedLanguages(ctx)
             if (wanted.isEmpty()) {
                 Log.i(TAG, "online subtitles: no language to look for")
@@ -2109,6 +2112,43 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
             Log.i(TAG, "online subtitles: ${pick.result.language} of ${pick.result.provider} loaded by itself")
             rdAddOnlineSubtitle(file, pick.result, select = true)
             overlayDelegate.showInfo(org.videolan.vlc.gui.dialogs.RdOnlineSubtitlesSheet.loadedText(ctx, pick.result), 3000)
+        }
+    }
+
+    /**
+     * The subtitle files beside a video (its name, .srt / .vtt) whose Hebrew or Arabic lines have their marks written
+     * for left-to-right players (".שלום", "?מה-"): a fixed copy in the app's cache, added and shown in place of the
+     * file (the user's file untouched; the copy is kept with the video's other subtitles, not added twice).
+     */
+    private suspend fun rdSidecarRtlFix(uri: Uri) {
+        val fixes = withContext(Dispatchers.IO) {
+            try {
+                val video = java.io.File(uri.path ?: return@withContext emptyList())
+                val base = video.nameWithoutExtension
+                video.parentFile?.listFiles()?.filter {
+                    it.isFile && it.name.startsWith(base) && it.extension.lowercase(java.util.Locale.ROOT) in setOf("srt", "vtt")
+                }.orEmpty().mapNotNull { f ->
+                    val copy = org.videolan.vlc.util.OnlineSubtitles.rtlFixedCopy(applicationContext, f)
+                    if (copy != f) f to copy else null
+                }
+            } catch (e: Exception) {
+                emptyList()
+            }
+        }
+        if (fixes.isEmpty()) return
+        val s = service ?: return
+        if (s.currentMediaWrapper?.uri != uri || isFinishing) return
+        val loaded = s.currentMediaWrapper?.slaves?.mapNotNull { it.uri }.orEmpty()
+        for ((original, copy) in fixes) {
+            val copyUri = Uri.fromFile(copy).toString()
+            if (loaded.any { it == copyUri || it == copy.absolutePath }) continue
+            // shown when the file's track is the one shown (the only file beside it, or its language's track)
+            val lang = org.videolan.vlc.util.OnlineSubtitles.languageOfSubtitleFile(original.name)
+            val english = if (lang.isEmpty()) "" else java.util.Locale(lang.substringBefore('-')).getDisplayLanguage(java.util.Locale.ENGLISH)
+            val shownName = s.spuTracks?.firstOrNull { it.getId() == s.spuTrack }?.getName().orEmpty()
+            val select = fixes.size == 1 || (english.isNotEmpty() && shownName.contains(english, ignoreCase = true))
+            s.addSubtitleTrack(Uri.fromFile(copy), select)
+            Log.i(TAG, "online subtitles: ${original.name} has its marks written left to right, a fixed copy shown")
         }
     }
 
