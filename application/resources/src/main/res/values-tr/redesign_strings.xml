@@ -461,4 +461,5 @@
     <string name="rd_os_find_language">Dil bul</string>
     <string name="rd_os_picked_in_player">Oynatıcıda seçilir</string>
     <string name="rd_os_second_short">İkinci dil</string>
+    <string name="rd_on_this_device">Bu cihazda</string>
 </resources>

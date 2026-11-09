@@ -162,33 +162,20 @@ open class RdListPreference @JvmOverloads constructor(context: Context, attrs: A
         holder.findViewById(android.R.id.summary)?.visibility = if (help.isNullOrEmpty()) View.GONE else View.VISIBLE
     }
 
+    /** the values the device is set to (a language list: its languages, listed first), marked "On this device" */
+    var detected: Set<String> = emptySet()
+
     override fun onClick() {
         val anchor = well
         val values = entryValues
-        if (anchor == null || entries == null || values == null || !anchor.isAttachedToWindow) return super.onClick()
-        val popup = ListPopupWindow(context)
-        popup.anchorView = anchor
-        popup.setAdapter(object : ArrayAdapter<CharSequence>(context, R.layout.rd_pref_choice, android.R.id.text1, entries) {
-            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val v = super.getView(position, convertView, parent)
-                v.isActivated = values[position] == value
-                return v
-            }
-        })
-        popup.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.rd_menu_background))
-        // (the D-pad: the focused choice as the TV's lists show it, the accent at 25 %; the platform's full accent
-        // under the choice's own colour left its words unreadable)
-        if (!anchor.isInTouchMode) popup.setListSelector(ContextCompat.getDrawable(context, R.drawable.rd_tv_focus_selector))
-        popup.width = maxOf(anchor.width, context.rdDp(180f).toInt())
-        popup.isModal = true
+        val names = entries
+        if (anchor == null || names == null || values == null || !anchor.isAttachedToWindow) return super.onClick()
+        val rows = names.indices.map { i -> org.videolan.vlc.gui.helpers.RdDropdown.Row(names[i], values[i] == value, values[i].toString() in detected) }
         val selected = findIndexOfValue(value)
-        popup.setOnItemClickListener { _, _, position, _ ->
+        org.videolan.vlc.gui.helpers.RdDropdown.show(anchor, rows, if (selected >= 0) selected else rows.indexOfFirst { it.detected }.coerceAtLeast(0)) { position ->
             val v = values[position].toString()
             if (callChangeListener(v)) value = v
-            popup.dismiss()
         }
-        popup.show()
-        if (selected >= 0) popup.listView?.setSelection(selected)
     }
 }
 

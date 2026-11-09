@@ -461,4 +461,5 @@
     <string name="rd_os_find_language">查找语言</string>
     <string name="rd_os_picked_in_player">在播放器中选择</string>
     <string name="rd_os_second_short">第二语言</string>
+    <string name="rd_on_this_device">此设备</string>
 </resources>

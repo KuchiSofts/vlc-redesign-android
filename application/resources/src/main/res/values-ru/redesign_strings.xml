@@ -462,4 +462,5 @@
     <string name="rd_os_find_language">Найти язык</string>
     <string name="rd_os_picked_in_player">Выбирается в плеере</string>
     <string name="rd_os_second_short">Второй язык</string>
+    <string name="rd_on_this_device">На этом устройстве</string>
 </resources>

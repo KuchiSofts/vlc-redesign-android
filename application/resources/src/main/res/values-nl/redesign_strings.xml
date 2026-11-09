@@ -461,4 +461,5 @@
     <string name="rd_os_find_language">Taal zoeken</string>
     <string name="rd_os_picked_in_player">Gekozen in de speler</string>
     <string name="rd_os_second_short">Tweede taal</string>
+    <string name="rd_on_this_device">Op dit apparaat</string>
 </resources>
