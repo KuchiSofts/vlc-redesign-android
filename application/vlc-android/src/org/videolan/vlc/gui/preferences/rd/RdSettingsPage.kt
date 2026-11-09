@@ -224,6 +224,8 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             val localePair = LocaleUtils.getLocalesUsedInProject(BuildConfig.TRANSLATION_ARRAY, getString(R.string.no_track_preference), requireActivity().getLocales())
             it.entries = localePair.localeEntries
             it.entryValues = localePair.localeEntryValues
+            // (never chosen: the desktop's default, English, unless English is the preferred one)
+            if (!it.sharedPreferences!!.contains(it.key)) it.value = org.videolan.vlc.util.OnlineSubtitles.secondLanguage(requireContext())
         }
         // the subtitle services, each with its switch, its key or account and its checks (RdSubtitleServices)
         if (pref<Preference>(RdSubtitleServices.CATEGORY) != null) services = RdSubtitleServices(this).also { it.setup() }
@@ -702,7 +704,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             }
             KEY_VIDEO_JUMP_DELAY -> Settings.videoJumpDelay = sharedPreferences.getInt(KEY_VIDEO_JUMP_DELAY, 10)
             KEY_VIDEO_LONG_JUMP_DELAY -> Settings.videoLongJumpDelay = sharedPreferences.getInt(KEY_VIDEO_LONG_JUMP_DELAY, 20)
-            KEY_VIDEO_DOUBLE_TAP_JUMP_DELAY -> Settings.videoDoubleTapJumpDelay = sharedPreferences.getInt(KEY_VIDEO_DOUBLE_TAP_JUMP_DELAY, 20)
+            KEY_VIDEO_DOUBLE_TAP_JUMP_DELAY -> Settings.videoDoubleTapJumpDelay = sharedPreferences.getInt(KEY_VIDEO_DOUBLE_TAP_JUMP_DELAY, 10)
             FASTPLAY_SPEED -> {
                 Settings.fastplaySpeed = sharedPreferences.getInt(FASTPLAY_SPEED, 20) / 10f
                 updateFastplaySpeedSummary()
@@ -773,7 +775,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         pref<SeekBarPreference>(KEY_SUBTITLES_COLOR_OPACITY)?.value = 255
         background?.isChecked = false
         pref<ColorPreferenceCompat>(KEY_SUBTITLES_BACKGROUND_COLOR)?.saveValue(ContextCompat.getColor(requireActivity(), R.color.black))
-        backgroundOpacity?.value = 255
+        backgroundOpacity?.value = 128
         shadow?.isChecked = true
         pref<ColorPreferenceCompat>(KEY_SUBTITLES_SHADOW_COLOR)?.saveValue(ContextCompat.getColor(requireActivity(), R.color.black))
         pref<SeekBarPreference>(KEY_SUBTITLES_SHADOW_COLOR_OPACITY)?.value = 128
