@@ -58,6 +58,7 @@ import org.videolan.resources.util.parcelable
 import org.videolan.tools.MultiSelectHelper
 import org.videolan.tools.Settings
 import org.videolan.tools.dp
+import org.videolan.tools.rdWidthDp
 import org.videolan.tools.isStarted
 import org.videolan.tools.retrieveParent
 import org.videolan.vlc.BuildConfig
@@ -224,9 +225,13 @@ abstract class BaseAudioBrowser<T : MedialibraryViewModel> : MediaBrowserFragmen
      * a row as the page holds (the rest of the row left empty).
      */
     private fun rdTvGrid(list: RecyclerView, adapter: AudioBrowserAdapter) {
-        val card = if (adapter.rdType == MediaLibraryItem.TYPE_PLAYLIST) 316 else 200
-        val width = (resources.configuration.screenWidthDp / org.videolan.tools.rdPageScale).toInt() - org.videolan.vlc.gui.tablet.RdTvWindow.MAIN_START
-        nbColumns = ((width - 18 - 13) / (card + 20)).coerceAtLeast(1)
+        val base = if (adapter.rdType == MediaLibraryItem.TYPE_PLAYLIST) 316 else 200
+        val width = resources.configuration.rdWidthDp - org.videolan.vlc.gui.tablet.RdTvWindow.MAIN_START
+        // whole cards from 28 to 20 before the page's end, grown a little to fill the row (the desktop's grids): at
+        // a larger interface size the design's 200 left room for most of another card, empty
+        val fit = org.videolan.vlc.util.RdFitRules.cards(width - 28 - 20, base, 20)
+        nbColumns = fit.count
+        val card = fit.width
         adapter.cardSize = card.dp
         list.layoutManager = GridLayoutManager(requireActivity(), nbColumns)
         while (list.itemDecorationCount > 0) list.removeItemDecorationAt(0)
