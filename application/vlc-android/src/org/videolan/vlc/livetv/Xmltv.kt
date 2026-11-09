@@ -45,11 +45,18 @@ class GuideRead {
     val languages = HashSet<String>()
     var error = ""
     var programmes = 0
+    /** the guide's root closed (</tv>, or <tv/>): it came whole */
+    var whole = false
+    /** it stops before its end (a download cut short): its programmes up to there only */
+    var cut = false
 }
 
 class CancelledException : IOException("cancelled")
 
 object Xmltv {
+
+    /** the XML reader (Android's; another one in the unit tests, where Android's is a stub) */
+    internal var newParser: () -> XmlPullParser = { Xml.newPullParser() }
 
     private val SUFFIXES = arrayOf("uhd", "fhd", "hd", "sd", "4k", "hevc", "h265", "+1", "orig", "original")
 
@@ -170,6 +177,11 @@ object Xmltv {
         } catch (e: Exception) {
             if (out.programmes == 0) out.error = e.message ?: e.javaClass.simpleName
         }
+        // one that stops before its end: cut short, its programmes up to there kept (an empty <tv/> is whole); stopped
+        // before any programme, or no XML at all: no guide
+        if (out.error.isEmpty() && !out.whole) {
+            if (out.programmes > 0) out.cut = true else out.error = "not an XMLTV guide"
+        }
         // sorted, the missing ends taken from the next start, and one programme at a time (a long one holding shorter
         // ones shows around them: withoutOverlaps)
         for (entry in out.lists.entries) {
@@ -190,7 +202,7 @@ object Xmltv {
     }
 
     private fun parse(input: InputStream, filter: GuideFilter, desc: OutputStream?, out: GuideRead) {
-        val xml = Xml.newPullParser()
+        val xml = newParser()
         xml.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
         xml.setInput(input, null)
         // a guide id -> the key its programmes are kept under ("" dropped)
@@ -212,6 +224,8 @@ object Xmltv {
         var event = xml.eventType
         while (event != XmlPullParser.END_DOCUMENT) {
             if (event == XmlPullParser.START_TAG) {
+                // (an error page given in place of the guide is no guide, not an empty one)
+                if (xml.depth == 1 && xml.name != "tv") throw IOException("not an XMLTV guide")
                 if (++sinceCheck >= 4096) {
                     sinceCheck = 0
                     if (filter.cancel?.get() == true) throw CancelledException()
@@ -265,6 +279,8 @@ object Xmltv {
                     }
                 }
             }
+            // the root's end: the guide came whole
+            if (event == XmlPullParser.END_TAG && xml.depth == 1 && xml.name == "tv") out.whole = true
             event = xml.next()
         }
     }
