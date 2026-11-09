@@ -51,6 +51,7 @@ object TvHttp {
         while (true) {
             if (cancel?.get() == true) throw CancelledException()
             val c = (URL(r.url).openConnection() as HttpURLConnection)
+            org.videolan.vlc.util.RdTls.apply(c)
             c.connectTimeout = minOf(r.timeoutMs, 20_000)
             c.readTimeout = r.timeoutMs
             c.instanceFollowRedirects = true

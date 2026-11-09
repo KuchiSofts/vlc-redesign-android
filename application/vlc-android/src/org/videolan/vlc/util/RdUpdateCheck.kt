@@ -48,6 +48,7 @@ object RdUpdateCheck {
 
     private fun fetch(): Release? {
         val connection = URL(LATEST).openConnection() as HttpURLConnection
+        org.videolan.vlc.util.RdTls.apply(connection)
         try {
             connection.connectTimeout = 10_000
             connection.readTimeout = 10_000
