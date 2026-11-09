@@ -226,10 +226,10 @@ object RdContextMenu {
         var x = if (!rtl) px else px - width
         if (x + width > frame.right - margin) x = px - width
         if (x < frame.left + margin) x = if (!rtl) frame.left + margin else minOf(px, frame.right - margin - width)
-        x = x.coerceIn(frame.left + margin, maxOf(frame.left + margin, frame.right - margin - width))
+        x = org.videolan.vlc.util.RdFitRules.place(x, width, frame.left, frame.right, margin)
         var y = py
         if (y + height > frame.bottom - margin) y = py - height
-        y = y.coerceIn(frame.top + margin, maxOf(frame.top + margin, frame.bottom - margin - height))
+        y = org.videolan.vlc.util.RdFitRules.place(y, height, frame.top, frame.bottom, margin)
 
         popup.apply {
             contentView = scroll

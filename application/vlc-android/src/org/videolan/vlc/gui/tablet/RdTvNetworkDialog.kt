@@ -138,10 +138,10 @@ object RdTvNetworkDialog {
             override fun afterTextChanged(s: Editable?) = refresh()
         })
         refresh()
-        dialog.setContentView(card, ViewGroup.LayoutParams(1048.dp, 631.dp))
+        // (the design's size, smaller as a whole on a screen that does not hold it: RdFit)
+        org.videolan.vlc.gui.helpers.RdFit.design(dialog, card, 1048.dp, 631.dp)
         dialog.window?.apply {
             setBackgroundDrawable(ColorDrawable(0))
-            setLayout(1048.dp, 631.dp)
             setDimAmount(0.4f)
             addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
         }

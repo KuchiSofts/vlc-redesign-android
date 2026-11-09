@@ -26,6 +26,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import org.videolan.tools.dp
+import org.videolan.tools.rdWidthDp
 import org.videolan.vlc.R
 
 object RdTvPlayerTopBar {
@@ -78,9 +79,13 @@ object RdTvPlayerTopBar {
             importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
         }, FrameLayout.LayoutParams(24.dp, 24.dp).apply { marginStart = 143.dp; topMargin = 8.dp })
         val folderName = text(14f)
-        bar.addView(folderName, FrameLayout.LayoutParams(280.dp, 28.dp).apply { marginStart = 173.dp; topMargin = 7.dp })
+        // the design's bar on its 1920 page: the folder 280 wide at 173, the name 1000 wide in the middle; at a
+        // larger interface size the page holds fewer dp: the name keeps the middle between the folder and the clock
+        val page = ctx.resources.configuration.rdWidthDp
+        val side = ((page - 1000) / 2).coerceIn(300, 460)
+        bar.addView(folderName, FrameLayout.LayoutParams(minOf(280, side - 173 - 8).dp, 28.dp).apply { marginStart = 173.dp; topMargin = 7.dp })
         val centre = text(14f).apply { gravity = Gravity.CENTER }
-        bar.addView(centre, FrameLayout.LayoutParams(1000.dp, 28.dp).apply { marginStart = 460.dp; topMargin = 7.dp })
+        bar.addView(centre, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 28.dp).apply { marginStart = side.dp; marginEnd = side.dp; topMargin = 7.dp })
         bar.addView(TextClock(ctx).apply {
             typeface = inter
             setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)

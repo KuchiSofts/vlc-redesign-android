@@ -94,18 +94,25 @@ abstract class VLCBottomSheetDialogFragment : BottomSheetDialogFragment() {
             if (anchored) applyAnchored(view)
             else if (useSideSheet()) applySideSheet(view)
             // VLC Redesign, tablets: a centred framed window instead of a sheet on the bottom edge (gui/tablet)
-            else if (TabletSheets.wanted(dialog) && !AndroidDevices.isTv) dialog?.let { TabletSheets.applyCentered(it, view) }
+            // (the TV layout as well, on a TV too: its sheets were glued to the screen's bottom edge, a long one
+            // ran under it)
+            else if (centred()) dialog?.let { TabletSheets.applyCentered(it, view) }
             dialog?.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)?.let {
                 val bsb = BottomSheetBehavior.from(it)
                 if (bsb.state == BottomSheetBehavior.STATE_COLLAPSED) bsb.state = getDefaultState()
             }
             dialog?.findViewById<View>(R.id.touch_outside)?.isFocusable = false
             dialog?.findViewById<View>(R.id.touch_outside)?.isFocusableInTouchMode = false
-            if (AndroidDevices.isTv && !anchored) applyOverscanMargin(view)
+            if (AndroidDevices.isTv && !anchored && !centred()) applyOverscanMargin(view)
+            // VLC Redesign: whatever its size, inside the screen
+            org.videolan.vlc.gui.helpers.RdFit.dialog(dialog?.window)
         }
 
 
     }
+
+    /** VLC Redesign: a centred framed window (a tablet, the TV layout) instead of a sheet on the bottom edge */
+    private fun centred() = TabletSheets.wanted(dialog) && (!AndroidDevices.isTv || Settings.showTvUi)
 
     /** VLC Redesign: the tallest the panel above its button may be, in px (the desktop's panels have their own) */
     open fun anchoredMaxHeight(): Int = Int.MAX_VALUE
@@ -121,7 +128,8 @@ abstract class VLCBottomSheetDialogFragment : BottomSheetDialogFragment() {
         // view, wider than the screen. The window's own width tells.
         val window = activity?.window?.decorView?.width ?: 0
         if (width > 0 && window > 0 && window / resources.displayMetrics.density < 600f) return ViewGroup.LayoutParams.MATCH_PARENT
-        return width
+        // (never wider than the window: a large interface size leaves fewer dp than the resources were chosen for)
+        return if (width > 0) org.videolan.vlc.gui.helpers.RdFit.width(activity, width) else width
     }
 
     /**

@@ -66,8 +66,10 @@ object RdDropdown {
         if (!anchor.isInTouchMode) popup.setListSelector(ContextCompat.getDrawable(ctx, R.drawable.rd_tv_focus_selector))
         val dp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, ctx.resources.displayMetrics)
         val marked = if (rows.any { it.detected }) (260 * dp).toInt() else 0
-        popup.width = maxOf(anchor.width, (180 * dp).toInt(), minWidth, marked)
-        // (a long list stays on the screen: at most what fits between the control and the window's edge)
+        // (never wider than the window; a long list stays on the screen: at most what fits between the control and
+        // the window's edge, the list scrolling inside)
+        val frame = android.graphics.Rect().also { anchor.getWindowVisibleDisplayFrame(it) }
+        popup.width = org.videolan.vlc.util.RdFitRules.size(maxOf(anchor.width, (180 * dp).toInt(), minWidth, marked), frame.width(), (8 * dp).toInt())
         popup.isModal = true
         popup.setOnItemClickListener { _, _, position, _ ->
             popup.dismiss()

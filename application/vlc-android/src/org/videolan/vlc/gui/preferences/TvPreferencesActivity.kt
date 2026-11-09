@@ -44,6 +44,11 @@ class TvPreferencesActivity : PreferencesActivity() {
         val page = content.getChildAt(0)
         content.removeView(page)
 
+        // the design's window, 1048 x 865, on its 1920 x 1080 page; at a larger interface size (fewer dp across and
+        // down) what the screen holds less the margin, its page and sidebar following (RdFit)
+        val dm = resources.displayMetrics
+        val cardW = org.videolan.vlc.util.RdFitRules.size(1048.dp, dm.widthPixels, org.videolan.vlc.gui.helpers.RdFit.MARGIN.dp)
+        val cardH = org.videolan.vlc.util.RdFitRules.size(865.dp, dm.heightPixels, org.videolan.vlc.gui.helpers.RdFit.MARGIN.dp)
         // the library under a veil of 50 % black (.dlg-veil); Back or the close button closes
         val veil = FrameLayout(this).apply { setBackgroundColor(0x80000000.toInt()) }
         val card = FrameLayout(this).apply {
@@ -55,13 +60,13 @@ class TvPreferencesActivity : PreferencesActivity() {
         }
         // the page's background beside the sidebar
         card.addView(View(this).apply { setBackgroundColor(0xFF0F0F0F.toInt()) },
-                FrameLayout.LayoutParams(832.dp, 815.dp).apply { marginStart = 216.dp; topMargin = 50.dp })
+                FrameLayout.LayoutParams(cardW - 216.dp, cardH - 50.dp).apply { marginStart = 216.dp; topMargin = 50.dp })
         card.addView(page, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
         card.addView(View(this).apply {
             background = GradientDrawable().apply { cornerRadius = 14.dp.toFloat(); setColor(0); setStroke(1.dp, 0xFF4C4A48.toInt()) }
             isFocusable = false
         }, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
-        veil.addView(card, FrameLayout.LayoutParams(1048.dp, 865.dp, Gravity.CENTER))
+        veil.addView(card, FrameLayout.LayoutParams(cardW, cardH, Gravity.CENTER))
         content.addView(veil, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
         page.setBackgroundColor(Color.TRANSPARENT)
 
@@ -89,18 +94,18 @@ class TvPreferencesActivity : PreferencesActivity() {
             isClickable = true
             background = GradientDrawable().apply { cornerRadius = 4.dp.toFloat(); setColor(0) }
             setOnClickListener { finish() }
-        }, FrameLayout.LayoutParams(32.dp, 32.dp).apply { marginStart = 1002.dp; topMargin = 9.dp })
+        }, FrameLayout.LayoutParams(32.dp, 32.dp).apply { marginStart = cardW - 46.dp; topMargin = 9.dp })
 
         // the sidebar at 8, 8 under the bar (200 x 799, #181818, radius 6); the page's content at 240, 784 wide
         findViewById<View>(R.id.rd_settings_sidebar)?.let { side ->
-            (side.layoutParams as LinearLayout.LayoutParams).apply { width = 200.dp; height = 799.dp; setMargins(8.dp, 8.dp, 0, 8.dp) }
+            (side.layoutParams as LinearLayout.LayoutParams).apply { width = 200.dp; height = cardH - 66.dp; setMargins(8.dp, 8.dp, 0, 8.dp) }
             side.background = GradientDrawable().apply { cornerRadius = 6.dp.toFloat(); setColor(0xFF181818.toInt()) }
             side.clipToOutline = true
         }
         findViewById<View>(R.id.fragment_placeholder)?.let { pane ->
             // (815 high: under the bar, as the sidebar; the coordinator gave it the card's whole height, its last 50
             // under the card's edge, where a row the remote moved to stayed out of sight and the focus was lost)
-            (pane.layoutParams as LinearLayout.LayoutParams).apply { width = 784.dp; height = 815.dp; weight = 0f; marginStart = 32.dp }
+            (pane.layoutParams as LinearLayout.LayoutParams).apply { width = cardW - 264.dp; height = cardH - 50.dp; weight = 0f; marginStart = 32.dp }
         }
     }
 
