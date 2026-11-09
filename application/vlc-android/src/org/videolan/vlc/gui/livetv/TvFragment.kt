@@ -442,17 +442,16 @@ class TvFragment : BaseFragment(), Filterable {
 
     /** Keeps only the programmes in a language when the guides give several (the guides are read again). */
     private fun chooseLanguage(anchor: View) {
-        val langs = LiveTv.state.value.languages.sorted()
-        val m = PopupMenu(requireContext(), anchor)
-        m.menu.add(0, 0, 0, getString(R.string.rd_tv_all))
-        langs.forEachIndexed { i, l -> m.menu.add(0, i + 1, i + 1, languageName(l) + " (" + l + ")") }
-        m.setOnMenuItemClickListener { item ->
-            settings.edit { putString(KEY_IPTV_LANGUAGES, if (item.itemId == 0) "" else langs[item.itemId - 1]) }
+        // the shared list (RdDropdown): All, the device's languages first, marked, the others from A to Z
+        val langs = LiveTv.state.value.languages.toList()
+        val choices = org.videolan.vlc.util.RdLocaleChoices.order(listOf(org.videolan.vlc.util.RdLocaleChoices.Choice("", getString(R.string.rd_tv_all))), langs.map { it to languageName(it) + " (" + it + ")" },
+                org.videolan.vlc.util.RdLocaleChoices.detectedLanguages(langs, org.videolan.vlc.util.RdDeviceLocale.languageTags()))
+        val current = settings.getString(KEY_IPTV_LANGUAGES, "") ?: ""
+        org.videolan.vlc.gui.helpers.RdDropdown.show(anchor, org.videolan.vlc.gui.helpers.RdDropdown.rows(choices, current), org.videolan.vlc.util.RdLocaleChoices.openAt(choices, current)) { i ->
+            settings.edit { putString(KEY_IPTV_LANGUAGES, choices[i].value) }
             LiveTv.reloadGuides()
             refresh()
-            true
         }
-        m.show()
     }
 
     /* Films and series of the first account that has them */

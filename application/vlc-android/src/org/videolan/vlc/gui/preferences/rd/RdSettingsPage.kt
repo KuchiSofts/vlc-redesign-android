@@ -169,14 +169,31 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
 
     private fun <T : Preference> pref(key: String): T? = findPreference(key)
 
+    /**
+     * A list of languages as every picker shows it (RdLocaleChoices): its first row as it is (Device default, No
+     * preference), then the languages this device is set to, marked "On this device", then the others from A to Z;
+     * a language once, whichever of its codes the lists gave ("iw" and "he").
+     */
+    private fun localeList(lp: ListPreference, pair: org.videolan.tools.LocalePair) {
+        val values = pair.localeEntryValues.map { it.toString() }
+        val names = pair.localeEntries.map { it.toString() }
+        if (values.isEmpty()) return
+        val head = listOf(org.videolan.vlc.util.RdLocaleChoices.Choice(values[0], names[0]))
+        val seen = HashSet<Pair<String, String>>()
+        val items = (1 until values.size).filter { seen.add(org.videolan.vlc.util.RdLocaleChoices.split(values[it])) }.map { values[it] to names[it] }
+        val detected = org.videolan.vlc.util.RdLocaleChoices.detectedLanguages(items.map { it.first }, org.videolan.vlc.util.RdDeviceLocale.languageTags())
+        val rows = org.videolan.vlc.util.RdLocaleChoices.order(head, items, detected)
+        lp.entries = rows.map { it.label }.toTypedArray()
+        lp.entryValues = rows.map { it.value }.toTypedArray()
+        (lp as? RdListPreference)?.let { it.detected = detected.toSet(); it.locales = true }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         settings = Settings.getInstance(requireActivity())
         // Interface / General
         pref<ListPreference>(KEY_SET_LOCALE)?.let { lp ->
-            val localePair = LocaleUtils.getLocalesUsedInProject(BuildConfig.TRANSLATION_ARRAY, getString(R.string.device_default))
-            lp.entries = localePair.localeEntries
-            lp.entryValues = localePair.localeEntryValues
+            localeList(lp, LocaleUtils.getLocalesUsedInProject(BuildConfig.TRANSLATION_ARRAY, getString(R.string.device_default)))
         }
         if (pref<Preference>(KEY_APP_THEME) != null) setupTheme()
         // the TV layout's size: "Automatic (150 %)" with the size found for this screen, then the sizes
@@ -223,21 +240,15 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             }
         }
         pref<ListPreference>(KEY_AUDIO_PREFERRED_LANGUAGE)?.let {
-            val localePair = LocaleUtils.getLocalesUsedInProject(BuildConfig.TRANSLATION_ARRAY, getString(R.string.no_track_preference), requireActivity().getLocales())
-            it.entries = localePair.localeEntries
-            it.entryValues = localePair.localeEntryValues
+            localeList(it, LocaleUtils.getLocalesUsedInProject(BuildConfig.TRANSLATION_ARRAY, getString(R.string.no_track_preference), requireActivity().getLocales()))
         }
         // Subtitles
         pref<ListPreference>(KEY_SUBTITLE_PREFERRED_LANGUAGE)?.let {
-            val localePair = LocaleUtils.getLocalesUsedInProject(BuildConfig.TRANSLATION_ARRAY, getString(R.string.no_track_preference), requireActivity().getLocales())
-            it.entries = localePair.localeEntries
-            it.entryValues = localePair.localeEntryValues
+            localeList(it, LocaleUtils.getLocalesUsedInProject(BuildConfig.TRANSLATION_ARRAY, getString(R.string.no_track_preference), requireActivity().getLocales()))
         }
         // VLC Redesign: the second language and the online subtitles (OnlineSubtitles)
         pref<ListPreference>(org.videolan.vlc.util.OnlineSubtitles.KEY_SECOND)?.let {
-            val localePair = LocaleUtils.getLocalesUsedInProject(BuildConfig.TRANSLATION_ARRAY, getString(R.string.no_track_preference), requireActivity().getLocales())
-            it.entries = localePair.localeEntries
-            it.entryValues = localePair.localeEntryValues
+            localeList(it, LocaleUtils.getLocalesUsedInProject(BuildConfig.TRANSLATION_ARRAY, getString(R.string.no_track_preference), requireActivity().getLocales()))
             // (never chosen: the desktop's default, English, unless English is the preferred one)
             if (!it.sharedPreferences!!.contains(it.key)) it.value = org.videolan.vlc.util.OnlineSubtitles.secondLanguage(requireContext())
         }

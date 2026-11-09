@@ -816,10 +816,8 @@ class TvSourcesDialog : DialogFragment() {
                 if (sources.isNotEmpty()) {
                     val chosen = sources.firstOrNull { it.id == fFor }
                     val drop = dropdown(ctx, chosen?.name ?: "") { anchor ->
-                        val menu = PopupMenu(ctx, anchor)
-                        sources.forEachIndexed { i, s -> menu.menu.add(0, i, i, s.name) }
-                        menu.setOnMenuItemClickListener { fFor = sources[it.itemId].id; build(); true }
-                        menu.show()
+                        org.videolan.vlc.gui.helpers.RdDropdown.show(anchor, sources.map { org.videolan.vlc.gui.helpers.RdDropdown.Row(it.name, it.id == fFor) },
+                                sources.indexOfFirst { it.id == fFor }) { i -> fFor = sources[i].id; build() }
                     }
                     body.addView(drop, gap(ctx, 6f))
                 }
@@ -915,21 +913,23 @@ class TvSourcesDialog : DialogFragment() {
         body.addView(search, gap(ctx, 4f))
         // the filters: choices of the values the sources have
         val filters = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
-        fun filter(label: String, value: String, values: List<Pair<String, String>>, set: (String) -> Unit) {
+        // (the shared list, RdDropdown: All, then what this device is set to, marked, then the others from A to Z;
+        // it scrolls inside the window and opens on the value chosen)
+        fun filter(label: String, value: String, values: List<Pair<String, String>>, detected: List<String> = emptyList(), set: (String) -> Unit) {
             val text = if (value.isEmpty()) label else values.firstOrNull { it.first == value }?.second ?: value
             filters.addView(dropdown(ctx, text) { anchor ->
-                val menu = PopupMenu(ctx, anchor)
-                menu.menu.add(0, 0, 0, getString(R.string.rd_tv_all))
-                values.forEachIndexed { i, (_, name) -> menu.menu.add(0, i + 1, i + 1, name) }
-                menu.setOnMenuItemClickListener { set(if (it.itemId == 0) "" else values[it.itemId - 1].first); build(); true }
-                menu.show()
+                val choices = org.videolan.vlc.util.RdLocaleChoices.order(listOf(org.videolan.vlc.util.RdLocaleChoices.Choice("", getString(R.string.rd_tv_all))), values, detected)
+                org.videolan.vlc.gui.helpers.RdDropdown.show(anchor, org.videolan.vlc.gui.helpers.RdDropdown.rows(choices, value),
+                        org.videolan.vlc.util.RdLocaleChoices.openAt(choices, value), minWidth = ctx.tvPx(220f)) { i -> set(choices[i].value); build() }
             }.apply { contentDescription = label }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginEnd = ctx.tvPx(8f) })
         }
         val languages = all.flatMap { strings(it, "languages") }.distinct().map { it to languageName(it) }.sortedBy { it.second }
         val countries = all.flatMap { strings(it, "countries") }.distinct().map { it to countryName(it) }.sortedBy { it.second }
         val categories = all.flatMap { strings(it, "categories") }.distinct().sorted().map { it to it.replaceFirstChar { c -> c.titlecase(Locale.getDefault()) } }
-        filter(getString(R.string.rd_tv_language), cLanguage, languages) { cLanguage = it }
-        filter(getString(R.string.rd_tv_country), cCountry, countries) { cCountry = it }
+        filter(getString(R.string.rd_tv_language), cLanguage, languages,
+                org.videolan.vlc.util.RdLocaleChoices.detectedLanguages(languages.map { it.first }, org.videolan.vlc.util.RdDeviceLocale.languageTags())) { cLanguage = it }
+        filter(getString(R.string.rd_tv_country), cCountry, countries,
+                org.videolan.vlc.util.RdLocaleChoices.detectedCountries(countries.map { it.first }, org.videolan.vlc.util.RdDeviceLocale.country())) { cCountry = it }
         filter(getString(R.string.rd_tv_category), cCategory, categories) { cCategory = it }
         // the order: for you (the country, the languages), A-Z, the most channels
         filters.addView(ctx.tvButton(getString(when (cSort) { "you" -> R.string.rd_tv_for_you; "name" -> R.string.rd_tv_sort_az; else -> R.string.rd_tv_sort_most })) {
