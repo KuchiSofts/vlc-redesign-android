@@ -179,6 +179,20 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             lp.entryValues = localePair.localeEntryValues
         }
         if (pref<Preference>(KEY_APP_THEME) != null) setupTheme()
+        // the TV layout's size: "Automatic (150 %)" with the size found for this screen, then the sizes
+        pref<ListPreference>(org.videolan.tools.KEY_RD_INTERFACE_SCALE)?.let { lp ->
+            lp.isVisible = Settings.showTvUi
+            val percent = java.text.NumberFormat.getPercentInstance()
+            val metrics = android.util.DisplayMetrics().also {
+                @Suppress("DEPRECATION")
+                requireActivity().windowManager.defaultDisplay.getRealMetrics(it)
+            }
+            val auto = org.videolan.vlc.gui.helpers.rdAutoInterfaceScale(maxOf(metrics.widthPixels, metrics.heightPixels), metrics.densityDpi)
+            val sizes = org.videolan.vlc.gui.helpers.RD_INTERFACE_SCALES
+            lp.entries = sizes.map { if (it == 0) getString(R.string.rd_interface_size_auto, percent.format(auto / 100.0)) else percent.format(it / 100.0) }.toTypedArray()
+            lp.entryValues = sizes.map { it.toString() }.toTypedArray()
+            if (lp.value == null || lp.value !in lp.entryValues) lp.value = "0"
+        }
         pref<Preference>("default_sleep_timer")?.let { manageSleepTimerSummary() }
         // (#72) what still shows the controls: touching the screen on a phone or a tablet (the row's help), the
         // remote's keys on a TV (a note under the row: the TV's rows have no help, as the Samsung TV app's)
@@ -588,6 +602,11 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
                 activity.setRestart()
                 sharedPreferences.getString(KEY_APP_THEME, "-1")?.toIntOrNull()?.let { AppCompatDelegate.setDefaultNightMode(it) }
                 // drawn again from its theme, with the accent overlay (an in-place day/night update drops it)
+                activity.recreate()
+            }
+            // the interface size changes at once: this screen now, the others when they come back
+            org.videolan.tools.KEY_RD_INTERFACE_SCALE -> {
+                activity.setRestart()
                 activity.recreate()
             }
             "rd_accent" -> {

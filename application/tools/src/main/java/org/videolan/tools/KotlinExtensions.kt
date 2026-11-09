@@ -81,6 +81,17 @@ fun View?.setGone() = setVisibility(View.GONE)
 @Volatile var rdDensityOverride: Float? = null
 private val appDensity: Float get() = rdDensityOverride ?: Resources.getSystem().displayMetrics.density
 
+/**
+ * VLC Redesign: how much larger than the design's own size the TV layout is drawn (the interface size of Settings,
+ * RdTvDesignScale): the configuration still says the design's page (its resources are chosen by it), the window
+ * holds that many times fewer dp. 1 outside the TV layout.
+ */
+@Volatile var rdPageScale: Float = 1f
+
+/** The width the pages really have in dp: the configuration's, less the interface size of the TV layout. */
+val android.content.res.Configuration.rdWidthDp: Int get() = (screenWidthDp / rdPageScale).toInt()
+val android.content.res.Configuration.rdHeightDp: Int get() = (screenHeightDp / rdPageScale).toInt()
+
 val Int.dp: Int get() = (this * appDensity).toInt()
 val Int.px: Int get() = (this / appDensity).toInt()
 

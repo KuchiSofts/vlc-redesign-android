@@ -225,7 +225,7 @@ abstract class BaseAudioBrowser<T : MedialibraryViewModel> : MediaBrowserFragmen
      */
     private fun rdTvGrid(list: RecyclerView, adapter: AudioBrowserAdapter) {
         val card = if (adapter.rdType == MediaLibraryItem.TYPE_PLAYLIST) 316 else 200
-        val width = resources.configuration.screenWidthDp - org.videolan.vlc.gui.tablet.RdTvWindow.MAIN_START
+        val width = (resources.configuration.screenWidthDp / org.videolan.tools.rdPageScale).toInt() - org.videolan.vlc.gui.tablet.RdTvWindow.MAIN_START
         nbColumns = ((width - 18 - 13) / (card + 20)).coerceAtLeast(1)
         adapter.cardSize = card.dp
         list.layoutManager = GridLayoutManager(requireActivity(), nbColumns)

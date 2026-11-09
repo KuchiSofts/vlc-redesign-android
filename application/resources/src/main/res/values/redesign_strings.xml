@@ -157,6 +157,9 @@
     <string name="rd_sec_diagnostics">Diagnostics</string>
     <string name="rd_sec_advanced">Advanced Options</string>
     <string name="rd_sec_window">Window</string>
+    <string name="rd_interface_size">Interface size</string>
+    <string name="rd_interface_size_summary">How large the pages, texts and controls are drawn. Automatic picks the size that suits this screen.</string>
+    <string name="rd_interface_size_auto">Automatic (%1$s)</string>
     <string name="rd_sec_playback_controls">Playback Controls</string>
     <string name="rd_sec_notifications">Notifications</string>
     <string name="rd_sec_playlist">Playlist</string>
