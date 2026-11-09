@@ -33,7 +33,10 @@ import org.videolan.vlc.R
 open class SelectorViewHolder<T : ViewDataBinding>(vdb: T) : RecyclerView.ViewHolder(vdb.root) {
 
     var binding: T = vdb
-    private val ITEM_FOCUS_ON: Int = vdb.root.context.rdAccent(0.71f)
+    // VLC Redesign, the TV's window: the remote's focus is the ring every page draws (RdTvFocusRing), not a row
+    // filled with the accent (Recent's rows were orange bars under the remote)
+    private val ITEM_FOCUS_ON: Int = if (org.videolan.vlc.gui.tablet.RdTvWindow.isOn(vdb.root.context)) ContextCompat.getColor(vdb.root.context, R.color.transparent)
+        else vdb.root.context.rdAccent(0.71f)
     private val ITEM_FOCUS_OFF: Int = ContextCompat.getColor(vdb.root.context, R.color.transparent)
     private val ITEM_SELECTION_ON: Int = vdb.root.context.rdAccent(0.39f)
 
