@@ -5,6 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:title="@string/rd_title_interface">
     <PreferenceCategory android:title="@string/rd_sec_window">
+        <!-- the TV layout's size (RdTvDesignScale): found for the screen unless chosen; RdSettingsPage fills and shows it -->
+        <org.videolan.vlc.gui.preferences.rd.RdListPreference
+            android:key="rd_interface_scale"
+            android:defaultValue="0"
+            android:summary="@string/rd_interface_size_summary"
+            android:title="@string/rd_interface_size"
+            app:isPreferenceVisible="false" />
         <org.videolan.vlc.gui.preferences.rd.RdListPreference
             android:key="video_action_switch"
             android:defaultValue="0"

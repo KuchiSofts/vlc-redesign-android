@@ -235,7 +235,7 @@ class TvFragment : BaseFragment(), Filterable {
 
     private fun applyLayout() {
         val ctx = requireContext()
-        val widthDp = resources.configuration.screenWidthDp
+        val widthDp = (resources.configuration.screenWidthDp / org.videolan.tools.rdPageScale).toInt()
         adapter.wide = widthDp >= 600
         if (grid) {
             val span = maxOf(2, (widthDp - 24) / 180)
