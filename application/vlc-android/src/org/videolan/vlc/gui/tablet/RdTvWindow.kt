@@ -43,6 +43,7 @@ import androidx.core.view.isVisible
 import com.google.android.material.appbar.AppBarLayout
 import org.videolan.tools.Settings
 import org.videolan.tools.dp
+import org.videolan.tools.rdWidthDp
 import org.videolan.vlc.R
 import org.videolan.vlc.gui.dialogs.RdTvMenu
 import org.videolan.vlc.gui.AudioPlayerContainerActivity
@@ -123,7 +124,9 @@ object RdTvWindow {
             (ph.layoutParams as ViewGroup.MarginLayoutParams).apply { marginStart = MAIN_START.dp }
             // (a screen over the library had the Leanback TV's margins and no scrolling behaviour)
             if (this !is MainActivity) (ph.layoutParams as CoordinatorLayout.LayoutParams).apply {
-                topMargin = 0; marginStart = MAIN_START.dp; marginEnd = 0; bottomMargin = 0
+                // (the title bar's height at the bottom: the scrolling behaviour does not count the header's top
+                // margin, the page ended that much below the screen)
+                topMargin = 0; marginStart = MAIN_START.dp; marginEnd = 0; bottomMargin = TITLE_BAR_HEIGHT.dp
                 behavior = AppBarLayout.ScrollingViewBehavior()
             }
         }
@@ -185,7 +188,12 @@ object RdTvWindow {
             id = R.id.rd_tv_title_text
             gravity = Gravity.CENTER
             text = ctx.getString(R.string.app_name)
-        }, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40.dp).apply { marginStart = 400.dp; marginEnd = 400.dp; topMargin = 1.dp })
+        }, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40.dp).apply {
+            // (the design's 400 on its 1920 page; at a larger interface size as much as leaves the name its room,
+            // clear of the menu and of the clock)
+            val side = ((ctx.resources.configuration.rdWidthDp - 520) / 2).coerceIn(110, 400)
+            marginStart = side.dp; marginEnd = side.dp; topMargin = 1.dp
+        })
         bar.addView(TextClock(ctx).apply {
             typeface = inter(ctx)
             setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)

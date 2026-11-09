@@ -267,6 +267,9 @@ open class AudioPlayerContainerActivity : BaseActivity(), KeycodeListener, Sched
         bottomMargin += if (this is MainActivity && !useNavigationRail()) 58.dp else 0
         //mini player
         bottomMargin += if (::playerBehavior.isInitialized && playerBehavior.state != STATE_HIDDEN && !org.videolan.vlc.gui.tablet.RdTvWindow.isOn(this)) 72.dp else 0 + 4.dp
+        // VLC Redesign, the TV layout: the page is laid under the header as if the header started at the window's top,
+        // but the title bar is over it: the page ran that much below the screen (a focused card's name out of sight)
+        if (org.videolan.vlc.gui.tablet.RdTvWindow.isOn(this)) bottomMargin += org.videolan.vlc.gui.tablet.RdTvWindow.TITLE_BAR_HEIGHT.dp
         fragmentContainer.setPadding(fragmentContainer.paddingLeft, fragmentContainer.paddingTop, fragmentContainer.paddingRight, bottomMargin)
     }
 

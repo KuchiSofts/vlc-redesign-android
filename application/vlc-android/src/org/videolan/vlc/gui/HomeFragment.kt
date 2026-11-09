@@ -41,6 +41,7 @@ import org.videolan.tools.Settings
 import org.videolan.tools.retrieveParent
 import org.videolan.vlc.R
 import org.videolan.tools.dp
+import org.videolan.tools.rdWidthDp
 import org.videolan.vlc.gui.tablet.RdTvPrebuild
 import org.videolan.vlc.gui.tablet.RdTvWindow
 import org.videolan.vlc.databinding.RdHomeCardBinding
@@ -97,9 +98,27 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
                 }
                 root.findViewById<View>(R.id.rd_section_chevron).layoutParams = (root.findViewById<View>(R.id.rd_section_chevron).layoutParams as ViewGroup.MarginLayoutParams).apply { width = 24.dp; height = 24.dp; marginStart = 6.dp }
                 (list.layoutParams as ViewGroup.MarginLayoutParams).topMargin = 21.dp
-                list.setPaddingRelative(28.dp, 0, 0, 0)
-                (root.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin = 76.dp
+                // the row from 28 to 20 before the page's end, as the header over it; its cards are sized to fill it
+                // (cardWidth), so the window cuts none: the row itself is the clip, not the page's edge
+                list.setPaddingRelative(0, 0, 0, 0)
+                list.clipToPadding = true
+                (list.layoutParams as ViewGroup.MarginLayoutParams).apply { marginStart = 28.dp; marginEnd = 20.dp }
+                org.videolan.vlc.gui.helpers.RdFit.wholeCards(list)
+                list.setFadingEdgeLength(24.dp)
+                (root.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin = 70.dp
             }
+        }
+
+        /**
+         * The TV layout: a card's width in this row, the design's ([base] px) grown a little so that whole cards
+         * fill the row at every interface size (a 4th card cut by the screen's edge at 150 %).
+         */
+        fun cardWidth(base: Int): Int {
+            // a row of both shapes (favourites) cannot end on a card's edge for each: the design's sizes, a fade
+            if (list.isHorizontalFadingEdgeEnabled) return base
+            val row = (list.layoutManager?.width ?: 0).takeIf { it > 0 } ?: list.width.takeIf { it > 0 }
+                    ?: ((list.resources.configuration.rdWidthDp - RdTvWindow.MAIN_START - 28 - 20).dp)
+            return org.videolan.vlc.gui.helpers.RdFit.cards(row, base, 20.dp).width
         }
 
         private var signature = ""
@@ -113,6 +132,8 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
             if (newSignature == signature && view.visibility == (if (newCards.isEmpty()) View.GONE else View.VISIBLE)) return
             signature = newSignature
             cards = newCards
+            // (a row of videos and songs together ends in a fade: its cards are of two widths)
+            list.isHorizontalFadingEdgeEnabled = newCards.any { it.media.type == MediaWrapper.TYPE_VIDEO && !it.folder } && newCards.any { it.media.type != MediaWrapper.TYPE_VIDEO || it.folder }
             adapter.notifyDataSetChanged()
             view.visibility = if (newCards.isEmpty()) View.GONE else View.VISIBLE
         }
@@ -134,13 +155,14 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
             val video = !card.folder && media.type == MediaWrapper.TYPE_VIDEO
             // a 16:9 picture for a video, a square one for a song or a folder
             val tv = RdTvWindow.isOn(b.root.context)
-            val width = if (tv) (if (video) 316.dp else 200.dp) else res.getDimensionPixelSize(if (video) R.dimen.rd_home_video_width else R.dimen.rd_home_square_width)
-            val height = if (tv && video) 178.dp else if (video) width * 9 / 16 else width
+            val width = if (tv) section.cardWidth(if (video) 316.dp else 200.dp) else res.getDimensionPixelSize(if (video) R.dimen.rd_home_video_width else R.dimen.rd_home_square_width)
+            val height = if (tv && video) width * 178 / 316 else if (video) width * 9 / 16 else width
             if (tv) {
                 // the design's card (.sh-card): no frame around it, 20 to the next; the picture radius 8; the name
                 // 16 in FG/2, 20 under the picture; the artist 16 in FG/A1, 10 under the name
                 (b.root.layoutParams as ViewGroup.MarginLayoutParams).apply { marginStart = 0; marginEnd = 20.dp }
-                b.root.setPadding(0, 0, 0, 0)
+                // (6 under the name: the remote's ring went along the letters' feet)
+                b.root.setPadding(0, 0, 0, 6.dp)
                 b.rdCoverCard.radius = 8.dp.toFloat()
                 for ((t, top) in listOf(b.rdTitle to 20, b.rdSubtitle to 10)) {
                     t.setTextSize(android.util.TypedValue.COMPLEX_UNIT_DIP, 16f)
