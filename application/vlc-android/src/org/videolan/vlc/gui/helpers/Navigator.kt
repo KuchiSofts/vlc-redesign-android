@@ -100,9 +100,20 @@ class Navigator : NavigationBarView.OnItemSelectedListener, DefaultLifecycleObse
     override fun onStart(owner: LifecycleOwner) {
         refreshPages()
         if (currentFragmentId == R.id.nav_tv && !org.videolan.vlc.livetv.LiveTv.enabled) currentFragmentId = defaultFragmentId
-        if (currentFragment === null && !currentIdIsExtension()) showFragment(if (currentFragmentId != 0) currentFragmentId else settings.getInt(KEY_FRAGMENT_ID, defaultFragmentId).let { if (it == R.id.nav_tv && !org.videolan.vlc.livetv.LiveTv.enabled) defaultFragmentId else it })
+        if (currentFragment === null && !currentIdIsExtension()) showFragment(if (currentFragmentId != 0) currentFragmentId else savedPage())
         navigationView.forEach { it.setOnItemSelectedListener(this) }
     }
+
+    /**
+     * VLC Redesign: the page the last run ended on. It is kept as a resource id, and those change from one version
+     * to the next: after an update, an id that is no page any more opened the video page while the bar still marked
+     * Home. One that is none of today's pages (or TV with the Live TV add-on off) opens the default page.
+     */
+    private fun savedPage(): Int = settings.getInt(KEY_FRAGMENT_ID, defaultFragmentId).let {
+        if (it !in pages || (it == R.id.nav_tv && !org.videolan.vlc.livetv.LiveTv.enabled)) defaultFragmentId else it
+    }
+
+    private val pages = setOf(R.id.nav_home, R.id.nav_video, R.id.nav_audio, R.id.nav_directories, R.id.nav_playlists, R.id.nav_more, R.id.nav_tv)
 
     override fun onStop(owner: LifecycleOwner) {
         navigationView.forEach { it.setOnItemSelectedListener(null) }
@@ -145,7 +156,7 @@ class Navigator : NavigationBarView.OnItemSelectedListener, DefaultLifecycleObse
     private fun idIsExtension(id: Int) = id in 1..100
 
     override fun reloadPreferences() {
-        currentFragmentId = settings.getInt(KEY_FRAGMENT_ID, defaultFragmentId)
+        currentFragmentId = savedPage()
     }
 
     override fun configurationChanged(size: Int) {
