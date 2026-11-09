@@ -118,8 +118,11 @@ class TvFragment : BaseFragment(), Filterable {
         segments = TvSegmented(ctx) { v -> setView(v) }
         head.addView(HorizontalScrollView(ctx).apply { isHorizontalScrollBarEnabled = false; addView(segments, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ctx.tvPx(34f))) },
             LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
+        // Stop, while an update runs (the last guide kept): beside Sources, where the remote reaches it from the tabs
+        stopButton = ctx.tvButton(getString(R.string.stop)) { LiveTv.stopUpdate() }.apply { visibility = View.GONE }
+        head.addView(stopButton, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginStart = ctx.tvPx(12f) })
         sourcesButton = ctx.tvButton(getString(R.string.rd_tv_sources)) { TvSourcesDialog.show(childFragmentManager, if (LiveTv.state.value.sources.isEmpty()) "link" else "sources") }
-        head.addView(sourcesButton, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginStart = ctx.tvPx(12f) })
+        head.addView(sourcesButton, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginStart = ctx.tvPx(8f) })
         header = head
         root.addView(head, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { setMargins(ctx.tvPx(16f), ctx.tvPx(10f), ctx.tvPx(16f), 0) })
         // the groups: All, the favourites, the ones watched last, then the provider's
@@ -132,14 +135,12 @@ class TvFragment : BaseFragment(), Filterable {
             overScrollMode = View.OVER_SCROLL_NEVER
         }
         root.addView(chips, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ctx.tvPx(32f)).apply { topMargin = ctx.tvPx(14f) })
-        // what the add-on is doing (a guide of 30 MB takes a while), with Stop (the last guide kept)
+        // what the add-on is doing (a guide of 30 MB takes a while)
         status = ctx.tvText("", 12f, ctx.tvColor(R.color.rd_fg_a3))
-        stopButton = ctx.tvButton(getString(R.string.stop)) { LiveTv.stopUpdate() }.apply { visibility = View.GONE }
         statusRow = LinearLayout(ctx).apply {
             orientation = LinearLayout.HORIZONTAL
             gravity = Gravity.CENTER_VERTICAL
             addView(status, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
-            addView(stopButton, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginStart = ctx.tvPx(8f) })
         }
         root.addView(statusRow, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { setMargins(ctx.tvPx(20f), ctx.tvPx(10f), ctx.tvPx(20f), 0) })
         bodyBox = FrameLayout(ctx)
@@ -408,10 +409,9 @@ class TvFragment : BaseFragment(), Filterable {
         statusRow.visibility = if (hasSources && status.text.isNotEmpty()) View.VISIBLE else View.GONE
         val stoppable = hasSources && busy != null
         if (stoppable != (stopButton.visibility == View.VISIBLE)) {
-            val hadFocus = stopButton.hasFocus()
+            // (the remote on Stop as the update ends: on Sources beside it, never thrown to the top of the window)
+            if (!stoppable && stopButton.hasFocus()) sourcesButton.requestFocus()
             stopButton.visibility = if (stoppable) View.VISIBLE else View.GONE
-            // (the remote was on Stop as the update ended: the page's first channel, never nowhere)
-            if (hadFocus) statusRow.post { focusPageIfLost() }
         }
         this.list.visibility = if (hasSources && view == "channels" && list.isNotEmpty()) View.VISIBLE else View.GONE
         guideBox.visibility = if (hasSources && view == "guide") View.VISIBLE else View.GONE
