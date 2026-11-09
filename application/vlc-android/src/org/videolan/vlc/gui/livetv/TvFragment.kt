@@ -104,7 +104,8 @@ class TvFragment : BaseFragment(), Filterable {
         val ctx = requireContext()
         val root = LinearLayout(ctx).apply {
             orientation = LinearLayout.VERTICAL
-            setBackgroundColor(ctx.tvColor(R.color.rd_bg_a4))
+            // (the design's window on a TV: the page of every other page, not a lighter one)
+            setBackgroundColor(if (org.videolan.vlc.gui.tablet.RdTvWindow.isOn(ctx)) org.videolan.vlc.gui.tablet.RdTvWindow.PAGE else ctx.tvColor(R.color.rd_bg_a4))
         }
         // Channels | Guide (| Films | Series), the sources at its end
         val head = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }

@@ -231,7 +231,8 @@ abstract class BaseAudioBrowser<T : MedialibraryViewModel> : MediaBrowserFragmen
         list.layoutManager = GridLayoutManager(requireActivity(), nbColumns)
         while (list.itemDecorationCount > 0) list.removeItemDecorationAt(0)
         list.addItemDecoration(org.videolan.vlc.gui.helpers.ItemOffsetDecoration(10.dp, 10.dp))
-        list.setPadding(18.dp, 9.dp, (width - 18 - nbColumns * (card + 20)).dp, 40.dp)
+        // (relative: the cards from the sidebar's side in a right-to-left language too, what is left over at the far end)
+        list.setPaddingRelative(18.dp, 9.dp, (width - 18 - nbColumns * (card + 20)).dp, 40.dp)
         list.clipToPadding = false
     }
 

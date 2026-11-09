@@ -450,7 +450,8 @@ class VideoGridFragment : MediaBrowserFragment<VideosViewModel>(), SwipeRefreshL
             gridItemDecoration = org.videolan.vlc.gui.helpers.ItemOffsetDecoration(10.dp, 10.dp)
             binding.videoGrid.columnWidth = 316.dp
             binding.videoGrid.addItemDecoration(gridItemDecoration!!)
-            binding.videoGrid.setPadding(18.dp, 9.dp, 13.dp, 40.dp)
+            // (relative: a right-to-left language has the first card beside the sidebar on the right)
+            binding.videoGrid.setPaddingRelative(18.dp, 9.dp, 13.dp, 40.dp)
         } else if (!listMode) {
             val thumbnailWidth = res.getDimensionPixelSize(R.dimen.grid_card_thumb_width)
             val margin = binding.videoGrid.paddingStart + binding.videoGrid.paddingEnd
@@ -462,7 +463,7 @@ class VideoGridFragment : MediaBrowserFragment<VideosViewModel>(), SwipeRefreshL
             // the design's rows (Figma 970:3308): four columns of rows 32 high, 10 apart
             gridItemDecoration = org.videolan.vlc.gui.helpers.ItemOffsetDecoration(0, 5.dp)
             binding.videoGrid.addItemDecoration(gridItemDecoration!!)
-            binding.videoGrid.setPadding(28.dp, 24.dp, 19.dp, 40.dp)
+            binding.videoGrid.setPaddingRelative(28.dp, 24.dp, 19.dp, 40.dp)
         } else {
             binding.videoGrid.setPadding(0, 0, 0, 0)
         }

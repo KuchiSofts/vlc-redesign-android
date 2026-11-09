@@ -110,6 +110,9 @@ object RdTvWindow {
         // the page and its header beside the sidebar, under the title bar
         val appbar = findViewById<AppBarLayout>(R.id.appbar)
         appbar.setBackgroundColor(PAGE)
+        // (flat as the design: the bar's elevation drew a shadow under the music pages' tabs)
+        appbar.stateListAnimator = null
+        appbar.elevation = 0f
         (appbar.layoutParams as ViewGroup.MarginLayoutParams).apply { marginStart = MAIN_START.dp; topMargin = TITLE_BAR_HEIGHT.dp }
         findViewById<Toolbar>(R.id.main_toolbar).visibility = View.GONE
         val header = header(this)
@@ -120,22 +123,27 @@ object RdTvWindow {
             (ph.layoutParams as ViewGroup.MarginLayoutParams).apply { marginStart = MAIN_START.dp }
             // (a screen over the library had the Leanback TV's margins and no scrolling behaviour)
             if (this !is MainActivity) (ph.layoutParams as CoordinatorLayout.LayoutParams).apply {
-                topMargin = 0; leftMargin = MAIN_START.dp; rightMargin = 0; bottomMargin = 0
+                topMargin = 0; marginStart = MAIN_START.dp; marginEnd = 0; bottomMargin = 0
                 behavior = AppBarLayout.ScrollingViewBehavior()
             }
         }
         if (this !is MainActivity) coordinator.addView(sidebar(this), 1, CoordinatorLayout.LayoutParams(201.dp, ViewGroup.LayoutParams.MATCH_PARENT).apply {
             gravity = Gravity.START
-            setMargins(8.dp, (TITLE_BAR_HEIGHT + 8).dp, 0, 8.dp)
+            setMargins(0, (TITLE_BAR_HEIGHT + 8).dp, 0, 8.dp); marginStart = 8.dp
         })
         if (this is MainActivity) backHome()
         // the first focus on the current page's row, once the sidebar is laid out
         // (again a little later: the library's first page may take its focus after the window is laid out)
         // (a playlist's / an album's page: its first track, as a page opened from the library)
-        for (delay in longArrayOf(600, 1500, 3000)) coordinator.postDelayed({
-            if (currentFocus == null || currentFocus?.id == R.id.rd_tv_title_menu) {
-                val first = if (this is HeaderMediaListActivity) pageView(this)?.let { mainList(it) }?.getChildAt(0) else null
-                if (first?.requestFocus() != true) focusSidebar(this)
+        // (any screen over the library, a group, an artist or a folder opened with OK: its first item, not the
+        // sidebar's row; the sidebar only while the page has none yet, its first item then once it is there)
+        var sidebarGiven: View? = null
+        for ((i, delay) in longArrayOf(400, 900, 1500, 3000).withIndex()) coordinator.postDelayed({
+            val f = currentFocus
+            if (f == null || f.id == R.id.rd_tv_title_menu || (f === sidebarGiven && this !is MainActivity)) {
+                val first = if (this !is MainActivity) pageView(this)?.let { mainList(it) }?.getChildAt(0) else null
+                if (first?.requestFocus() == true) sidebarGiven = null
+                else if (f !== sidebarGiven && (this is MainActivity || i >= 1)) { focusSidebar(this); sidebarGiven = currentFocus }
             }
         }, delay)
         // the header follows the page's menu and title as each page sets them
@@ -162,14 +170,15 @@ object RdTvWindow {
         bar.addView(ImageView(ctx).apply {
             setImageResource(R.drawable.rd_ic_logo)
             importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
-        }, FrameLayout.LayoutParams(24.dp, 24.dp).apply { leftMargin = 13.dp; topMargin = 8.dp })
+        }, FrameLayout.LayoutParams(24.dp, 24.dp).apply { marginStart = 13.dp; topMargin = 8.dp })
         val menu = iconButton(ctx, R.drawable.rd_tvd_more, ICON, ctx.getString(R.string.more)).apply {
             setPadding(2.dp, 2.dp, 2.dp, 2.dp)
             id = R.id.rd_tv_title_menu
             // the app's menu (the desktop's ⋯ of the title bar, the Samsung TV app's: shell.js mainMenu)
             setOnClickListener { v -> appMenu(activity, v) }
         }
-        bar.addView(menu, FrameLayout.LayoutParams(28.dp, 28.dp).apply { leftMargin = 51.dp; topMargin = 6.dp })
+        // (start and end, not left and right: in Hebrew or Arabic the window is mirrored, its edges kept)
+        bar.addView(menu, FrameLayout.LayoutParams(28.dp, 28.dp).apply { marginStart = 51.dp; topMargin = 6.dp })
         bar.addView(text(ctx, 14f, ICON).apply {
             id = R.id.rd_tv_title_text
             gravity = Gravity.CENTER
@@ -181,7 +190,7 @@ object RdTvWindow {
             setTextColor(ICON)
             includeFontPadding = false
             gravity = Gravity.CENTER_VERTICAL
-        }, FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 40.dp, Gravity.END).apply { rightMargin = 16.dp })
+        }, FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 40.dp, Gravity.END).apply { marginEnd = 16.dp })
         return bar
     }
 
@@ -315,11 +324,13 @@ object RdTvWindow {
             orientation = LinearLayout.HORIZONTAL
             gravity = Gravity.CENTER_VERTICAL
         }
-        box.addView(row, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 34.dp).apply { leftMargin = 28.dp; rightMargin = 20.dp; topMargin = 20.dp })
+        box.addView(row, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 34.dp).apply { marginStart = 28.dp; marginEnd = 20.dp; topMargin = 20.dp })
         box.addView(View(ctx).apply { setBackgroundColor(LINE) },
-                FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2.dp).apply { leftMargin = 28.dp; rightMargin = 20.dp; topMargin = 70.dp })
+                FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2.dp).apply { marginStart = 28.dp; marginEnd = 20.dp; topMargin = 70.dp })
 
-        fun lp(left: Int, right: Int, w: Int = 32, h: Int = 32) = LinearLayout.LayoutParams(w.dp, h.dp).apply { leftMargin = left.dp; rightMargin = right.dp }
+        // (a right-to-left language: the row mirrored, its gaps on the same sides of each control; the count
+        // touched the sort button, the search's hint ran under its icon)
+        fun lp(start: Int, end: Int, w: Int = 32, h: Int = 32) = LinearLayout.LayoutParams(w.dp, h.dp).apply { marginStart = start.dp; marginEnd = end.dp }
         row.addView(iconButton(ctx, R.drawable.rd_tvd_arrow_left, ICON, ctx.getString(androidx.appcompat.R.string.abc_action_bar_up_description)).apply {
             id = R.id.rd_tv_header_back
             setOnClickListener { activity.onBackPressedDispatcher.onBackPressed() }
@@ -334,9 +345,9 @@ object RdTvWindow {
             // the current crumb in bold (a span), the earlier ones regular
             typeface = inter(ctx)
             setPadding(2.dp, 0, 2.dp, 0)
-        }, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f).apply { leftMargin = 7.dp })
+        }, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f).apply { marginStart = 7.dp })
         row.addView(text(ctx, 14f, MUTED).apply { id = R.id.rd_tv_header_count; visibility = View.GONE },
-                LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { rightMargin = 20.dp })
+                LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginEnd = 20.dp })
         row.addView(iconButton(ctx, R.drawable.rd_tvd_sort, MUTED, ctx.getString(R.string.sortby)).apply {
             id = R.id.rd_tv_header_sort
             setOnClickListener { v ->
@@ -350,7 +361,7 @@ object RdTvWindow {
             id = R.id.rd_tv_header_view
             setOnClickListener { toggleView(activity) }
         }, lp(16, -4))
-        row.addView(searchField(activity), LinearLayout.LayoutParams(325.dp, 34.dp).apply { leftMargin = 20.dp })
+        row.addView(searchField(activity), LinearLayout.LayoutParams(325.dp, 34.dp).apply { marginStart = 20.dp })
         row.addView(iconButton(ctx, R.drawable.rd_tvd_more, MUTED, ctx.getString(R.string.more)).apply {
             id = R.id.rd_tv_header_more
             setOnClickListener { v -> popup(activity, v, 0) }
@@ -368,7 +379,7 @@ object RdTvWindow {
         field.addView(ImageView(ctx).apply {
             setImageResource(R.drawable.rd_tvd_search)
             setColorFilter(DISABLED)
-        }, FrameLayout.LayoutParams(24.dp, 24.dp).apply { leftMargin = 7.dp; topMargin = 5.dp })
+        }, FrameLayout.LayoutParams(24.dp, 24.dp).apply { marginStart = 7.dp; topMargin = 5.dp })
         val edit = EditText(ctx).apply {
             id = R.id.rd_tv_header_search_text
             background = null
@@ -401,7 +412,7 @@ object RdTvWindow {
                 } else false
             }
         }
-        field.addView(edit, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT).apply { leftMargin = 41.dp; rightMargin = 8.dp })
+        field.addView(edit, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT).apply { marginStart = 41.dp; marginEnd = 8.dp })
         return field
     }
 
@@ -567,7 +578,7 @@ object RdTvWindow {
         list.layoutManager = androidx.recyclerview.widget.GridLayoutManager(list.context, 4)
         while (list.itemDecorationCount > 0) list.removeItemDecorationAt(0)
         list.addItemDecoration(org.videolan.vlc.gui.helpers.ItemOffsetDecoration(0, 5.dp))
-        list.setPadding(28.dp, 24.dp, 19.dp, 40.dp)
+        list.setPaddingRelative(28.dp, 24.dp, 19.dp, 40.dp)
         list.clipToPadding = false
         return true
     }
