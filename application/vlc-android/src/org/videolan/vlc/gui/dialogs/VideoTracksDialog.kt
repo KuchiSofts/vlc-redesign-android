@@ -95,6 +95,11 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
     // (the desktop's 560 high on a TV; elsewhere about half the screen, as the other panels)
     override fun anchoredMaxHeight(): Int = if (scale < 1f) (560 * resources.displayMetrics.density * scale).toInt() else Int.MAX_VALUE
 
+    // (the TV layout: the desktop's 560 at every interface size, not the half screen that held less and less of it)
+    override fun anchoredHeight(): Int = if (org.videolan.tools.Settings.showTvUi) (560 * resources.displayMetrics.density * scale).toInt() else 0
+
+    override fun anchoredScale(): Float = scale
+
     lateinit var menuItemListener: (VideoTrackOption) -> Unit
     lateinit var trackSelectionListener: (String, TrackType) -> Unit
 

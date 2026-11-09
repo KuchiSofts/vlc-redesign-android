@@ -116,7 +116,7 @@ class TvFragment : BaseFragment(), Filterable {
         // Channels | Guide (| Films | Series), the sources at its end
         val head = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
         segments = TvSegmented(ctx) { v -> setView(v) }
-        head.addView(HorizontalScrollView(ctx).apply { isHorizontalScrollBarEnabled = false; addView(segments, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ctx.tvPx(34f))) },
+        head.addView(HorizontalScrollView(ctx).apply { org.videolan.vlc.gui.helpers.RdFit.fade(this); isHorizontalScrollBarEnabled = false; addView(segments, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ctx.tvPx(34f))) },
             LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
         // Stop, while an update runs (the last guide kept): beside Sources, where the remote reaches it from the tabs
         stopButton = ctx.tvButton(getString(R.string.stop)) { LiveTv.stopUpdate() }.apply { visibility = View.GONE }
@@ -130,6 +130,7 @@ class TvFragment : BaseFragment(), Filterable {
         chips = RecyclerView(ctx).apply {
             layoutManager = LinearLayoutManager(ctx, LinearLayoutManager.HORIZONTAL, false)
             adapter = chipAdapter
+            org.videolan.vlc.gui.helpers.RdFit.fade(this)
             clipToPadding = false
             setPadding(ctx.tvPx(16f), 0, ctx.tvPx(16f), 0)
             overScrollMode = View.OVER_SCROLL_NEVER
@@ -171,7 +172,7 @@ class TvFragment : BaseFragment(), Filterable {
         guideTools.addView(languageButton, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginEnd = ctx.tvPx(8f) })
         descriptionsChip = FrameLayout(ctx)
         guideTools.addView(descriptionsChip, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ctx.tvPx(32f)))
-        guideBox.addView(HorizontalScrollView(ctx).apply { isHorizontalScrollBarEnabled = false; addView(guideTools) },
+        guideBox.addView(HorizontalScrollView(ctx).apply { org.videolan.vlc.gui.helpers.RdFit.fade(this); isHorizontalScrollBarEnabled = false; addView(guideTools) },
             LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { setMargins(ctx.tvPx(16f), 0, ctx.tvPx(16f), 0) })
         guideBox.addView(guide, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f).apply { setMargins(ctx.tvPx(12f), ctx.tvPx(10f), ctx.tvPx(12f), 0) })
         bodyBox.addView(guideBox, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))

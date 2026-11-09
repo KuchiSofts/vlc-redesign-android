@@ -117,6 +117,12 @@ abstract class VLCBottomSheetDialogFragment : BottomSheetDialogFragment() {
     /** VLC Redesign: the tallest the panel above its button may be, in px (the desktop's panels have their own) */
     open fun anchoredMaxHeight(): Int = Int.MAX_VALUE
 
+    /** VLC Redesign: the height the panel above its button wants, in px (0: about half the screen) */
+    open fun anchoredHeight(): Int = 0
+
+    /** VLC Redesign: the scale the panel's content is drawn at (RdScaleFrame): its width's bounds follow it */
+    open fun anchoredScale(): Float = 1f
+
     /** VLC Redesign: the floating panel's background (above its button, or a side sheet): BG/A3, radius 14, the window's line */
     open fun floatingBackground(view: View): android.graphics.drawable.Drawable? = ContextCompat.getDrawable(view.context, R.drawable.rd_panel_float)
 
@@ -164,8 +170,12 @@ abstract class VLCBottomSheetDialogFragment : BottomSheetDialogFragment() {
         val at = IntArray(2).also { anchor.getLocationOnScreen(it) }
         val gap = (8 * d).toInt()
         val past = (14 * d).toInt()
-        val width = (screenW * 0.31f).toInt().coerceIn((300 * d).toInt(), (440 * d).toInt()).coerceAtMost(screenW - 2 * gap)
-        val height = (screenH * 0.55f).toInt().coerceAtLeast((280 * d).toInt()).coerceAtMost(anchoredMaxHeight()).coerceAtMost(at[1] - 2 * gap)
+        val unit = d * anchoredScale()
+        val width = (screenW * 0.31f).toInt().coerceIn((300 * unit).toInt(), (440 * unit).toInt()).coerceAtMost(screenW - 2 * gap)
+        // (never taller than the room above the bar; at a large interface size half the screen is few dp: up to 400)
+        val room = (at[1] - 2 * gap).coerceAtLeast(1)
+        val height = (anchoredHeight().takeIf { it > 0 } ?: (screenH * 0.55f).toInt().coerceAtLeast(minOf((400 * d).toInt(), room)))
+                .coerceAtLeast(minOf((280 * d).toInt(), room)).coerceAtMost(anchoredMaxHeight()).coerceAtMost(room)
         window.setLayout(width, height)
         // the side of the button: its own edge of the screen (the bar is not mirrored in Hebrew or Arabic)
         val onRight = at[0] + anchor.width / 2 > screenW / 2

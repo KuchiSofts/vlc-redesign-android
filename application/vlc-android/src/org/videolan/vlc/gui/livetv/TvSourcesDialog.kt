@@ -190,6 +190,8 @@ class TvSourcesDialog : DialogFragment() {
         // (the scrolling boxes never hold the focus themselves: a box with the focus that has nothing to scroll
         // takes any key, Back too, to give it to its first row; opened with the remote, the first Back only did that)
         root.addView(HorizontalScrollView(ctx).apply {
+            // (a window narrower than the tabs: they end in a fade, not a hard cut)
+            org.videolan.vlc.gui.helpers.RdFit.fade(this)
             isHorizontalScrollBarEnabled = false
             isFocusable = false
             addView(tabs, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ctx.tvPx(36f)))
@@ -787,7 +789,7 @@ class TvSourcesDialog : DialogFragment() {
         if (editing.isEmpty()) options.add(getString(R.string.rd_tv_kind_epg) to "epg")
         kinds.setOptions(options)
         kinds.value = kind
-        body.addView(HorizontalScrollView(ctx).apply { isHorizontalScrollBarEnabled = false; isFocusable = false; addView(kinds, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ctx.tvPx(36f))) }, gap(ctx, 4f))
+        body.addView(HorizontalScrollView(ctx).apply { org.videolan.vlc.gui.helpers.RdFit.fade(this); isHorizontalScrollBarEnabled = false; isFocusable = false; addView(kinds, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ctx.tvPx(36f))) }, gap(ctx, 4f))
         if (kind != "epg") {
             heading(ctx, getString(R.string.rd_tv_name), getString(R.string.rd_tv_optional))
             body.addView(ctx.tvField(getString(R.string.rd_tv_name_hint)).apply { setText(fName); watch(this) { fName = it }; contentDescription = getString(R.string.rd_tv_name) }, gap(ctx, 6f))
@@ -935,13 +937,13 @@ class TvSourcesDialog : DialogFragment() {
         filters.addView(ctx.tvButton(getString(when (cSort) { "you" -> R.string.rd_tv_for_you; "name" -> R.string.rd_tv_sort_az; else -> R.string.rd_tv_sort_most })) {
             cSort = when (cSort) { "you" -> "name"; "name" -> "channels"; else -> "you" }; build()
         })
-        body.addView(HorizontalScrollView(ctx).apply { isHorizontalScrollBarEnabled = false; isFocusable = false; addView(filters) }, gap(ctx, 10f))
+        body.addView(HorizontalScrollView(ctx).apply { org.videolan.vlc.gui.helpers.RdFit.fade(this); isHorizontalScrollBarEnabled = false; isFocusable = false; addView(filters) }, gap(ctx, 10f))
         // what the sources can do (a row of its own)
         val features = TvSegmented(ctx) { v -> cFeature = v; refreshCatalogList(ctx) }
         features.setOptions(listOf(getString(R.string.rd_tv_recommended) to "rec", getString(R.string.rd_tv_all) to "", getString(R.string.rd_tv_guide) to "epg", getString(R.string.rd_tv_catchup) to "catchup",
             getString(R.string.rd_tv_films) to "vod", getString(R.string.rd_tv_free) to "free", getString(R.string.rd_tv_guides) to "guides"))
         features.value = cFeature
-        body.addView(HorizontalScrollView(ctx).apply { isHorizontalScrollBarEnabled = false; isFocusable = false; addView(features, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ctx.tvPx(36f))) }, gap(ctx, 10f))
+        body.addView(HorizontalScrollView(ctx).apply { org.videolan.vlc.gui.helpers.RdFit.fade(this); isHorizontalScrollBarEnabled = false; isFocusable = false; addView(features, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ctx.tvPx(36f))) }, gap(ctx, 10f))
         body.addView(LinearLayout(ctx).apply { orientation = LinearLayout.VERTICAL; tag = "list" }, gap(ctx, 4f))
         refreshCatalogList(ctx)
         // the legal note and the suggestion form (the project's discussions)
@@ -1034,7 +1036,7 @@ class TvSourcesDialog : DialogFragment() {
         // what the app saw of it: works (its channels then), or not answering (failed twice)
         if (health?.notAnswering == true) badge(ctx.tvBadge(getString(R.string.rd_tv_not_answering)))
         else if (health?.ok == true) badge(ctx.tvBadge(getString(R.string.rd_tv_works) + if (!isGuide && health.channels > 0) " · " + health.channels else "", accent = true))
-        texts.addView(HorizontalScrollView(ctx).apply { isHorizontalScrollBarEnabled = false; isFocusable = false; addView(badges) }, gap(ctx, 8f))
+        texts.addView(HorizontalScrollView(ctx).apply { org.videolan.vlc.gui.helpers.RdFit.fade(this); isHorizontalScrollBarEnabled = false; isFocusable = false; addView(badges) }, gap(ctx, 8f))
         card.addView(texts, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
         val button = ctx.tvButton(getString(when { added -> R.string.rd_tv_added; isGuide -> R.string.rd_tv_add_guide; else -> R.string.rd_tv_add }), accent = !added) {
             if (isGuide) {
