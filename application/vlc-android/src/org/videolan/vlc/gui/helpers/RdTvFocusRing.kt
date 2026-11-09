@@ -39,10 +39,28 @@ object RdTvFocusRing {
         decor.findFocus()?.let { show(it) }
     }
 
-    private fun ring(view: View) = GradientDrawable().apply {
+    private fun ring(view: View): Drawable = Ring(view, GradientDrawable().apply {
         setColor(0)
         setStroke(2.dp, ContextCompat.getColor(view.context, R.color.rd_dark_fg_1))
         cornerRadius = 6.dp.toFloat()
+    })
+
+    /**
+     * The ring around the view as it is on screen: a one-line text (a button, a centred title) is scrolled within
+     * itself, and a foreground drawn where the view's scrolled content is was out of sight (no ring on the buttons).
+     */
+    private class Ring(private val view: View, private val line: GradientDrawable) : Drawable() {
+        override fun draw(canvas: android.graphics.Canvas) {
+            canvas.save()
+            canvas.translate(view.scrollX.toFloat(), view.scrollY.toFloat())
+            line.setBounds(0, 0, view.width, view.height)
+            line.draw(canvas)
+            canvas.restore()
+        }
+        override fun setAlpha(alpha: Int) { line.alpha = alpha }
+        override fun setColorFilter(colorFilter: android.graphics.ColorFilter?) { line.colorFilter = colorFilter }
+        @Deprecated("Deprecated in Java")
+        override fun getOpacity(): Int = android.graphics.PixelFormat.TRANSLUCENT
     }
 
     /**
