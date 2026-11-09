@@ -447,19 +447,24 @@ object RdTvWindow {
         if (event.action != android.view.KeyEvent.ACTION_DOWN) return false
         val root = activity.window.decorView as ViewGroup
         val side = activity.findViewById<View>(R.id.rd_tablet_sidebar)
+        // (the sidebar is at the start: on the left, on the right in Hebrew or Arabic; Left there went from the page
+        // to the sidebar on the other side)
+        val rtl = root.layoutDirection == View.LAYOUT_DIRECTION_RTL
+        val toSidebar = if (rtl) android.view.KeyEvent.KEYCODE_DPAD_RIGHT else android.view.KeyEvent.KEYCODE_DPAD_LEFT
+        val intoPage = if (rtl) android.view.KeyEvent.KEYCODE_DPAD_LEFT else android.view.KeyEvent.KEYCODE_DPAD_RIGHT
         when (event.keyCode) {
-            android.view.KeyEvent.KEYCODE_DPAD_LEFT -> {
+            toSidebar -> {
                 // from the page's start back to the current page's row of the sidebar
                 if (!inside(focused, page)) return false
-                val next = android.view.FocusFinder.getInstance().findNextFocus(root, focused, View.FOCUS_LEFT)
+                val next = android.view.FocusFinder.getInstance().findNextFocus(root, focused, if (rtl) View.FOCUS_RIGHT else View.FOCUS_LEFT)
                 if (next != null && inside(next, page) && !inside(focused, next)) return false
                 focusSidebar(activity)
                 return activity.currentFocus !== focused
             }
-            android.view.KeyEvent.KEYCODE_DPAD_RIGHT -> {
+            intoPage -> {
                 // from the sidebar into the page (not along the header)
                 if (side == null || !inside(focused, side)) return false
-                val first = page.getFocusables(View.FOCUS_RIGHT).firstOrNull { it.isShown } ?: return false
+                val first = page.getFocusables(if (rtl) View.FOCUS_LEFT else View.FOCUS_RIGHT).firstOrNull { it.isShown } ?: return false
                 first.requestFocus()
                 return true
             }
