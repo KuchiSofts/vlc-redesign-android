@@ -236,15 +236,22 @@ class TvSourcesDialog : DialogFragment() {
     }
 
     private fun refocus(root: View, key: Pair<String, Int>) {
-        if (key.second < 0) { root.findViewWithTag<View>(key.first)?.requestFocus(); return }
-        var n = 0
-        fun walk(v: View): Boolean {
-            val t = ((v as? TextView)?.text ?: v.contentDescription)?.toString()
-            if (v.isFocusable && v.isEnabled && t == key.first) { if (n == key.second) { v.requestFocus(); return true }; n++ }
-            if (v is ViewGroup) for (i in 0 until v.childCount) if (walk(v.getChildAt(i))) return true
-            return false
+        if (key.second < 0) root.findViewWithTag<View>(key.first)?.requestFocus()
+        else {
+            var n = 0
+            fun walk(v: View): Boolean {
+                val t = ((v as? TextView)?.text ?: v.contentDescription)?.toString()
+                if (v.isFocusable && v.isEnabled && t == key.first) { if (n == key.second) { v.requestFocus(); return true }; n++ }
+                if (v is ViewGroup) for (i in 0 until v.childCount) if (walk(v.getChildAt(i))) return true
+                return false
+            }
+            walk(root)
         }
-        walk(root)
+        // (what had the focus is gone, a source removed or added: the remote's focus was nowhere and the next key
+        // took it to the last tab; it is on the page's tab)
+        if (!root.isInTouchMode) root.findFocus().let { f ->
+            if (f == null || f is ScrollView || f is HorizontalScrollView) (0 until tabs.childCount).map { tabs.getChildAt(it) }.firstOrNull { it.isSelected }?.requestFocus()
+        }
     }
 
     private var lastPage = ""
