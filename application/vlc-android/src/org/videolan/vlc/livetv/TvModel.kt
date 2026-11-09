@@ -222,6 +222,8 @@ data class GuideStatus(
     val programmes: Int,
     val error: String,
     val updated: Long,
+    /** the device could not hold all of it: what was kept ("kept the next 3 days of your channels") */
+    val note: String = "",
 )
 
 /** What a source holds and what the add-on is doing with it, for the interface. */
@@ -256,6 +258,8 @@ data class SourceStatus(
     val guides: List<GuideStatus> = emptyList(),
     /** an account's server address (no secret in it): a server found on the network and added isn't offered again */
     val address: String = "",
+    /** the channels with programmes so far, while a guide is read (stage "reading") */
+    val matched: Int = 0,
 )
 
 /** A channel of the add-on: its key, its source, its guide when one has it. */

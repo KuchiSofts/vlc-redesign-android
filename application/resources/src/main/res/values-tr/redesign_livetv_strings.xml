@@ -274,4 +274,20 @@
     <string name="rd_tv_its_guide_id">Kılavuz kimliği</string>
     <string name="rd_tv_forget_guide_id">Kılavuz Kimliğini Unut</string>
     <string name="rd_tv_guide_id_of">%1$s için kılavuzdaki kimlik</string>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">%1$s kılavuzu okunuyor… %2$s MB · %3$d kanal</item>
+        <item quantity="other">%1$s kılavuzu okunuyor… %2$s MB · %3$d kanal</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Kılavuz okunuyor… %1$s MB · %2$d kanal</item>
+        <item quantity="other">Kılavuz okunuyor… %1$s MB · %2$d kanal</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Kılavuz çok büyük: kanallarınızın sonraki %1$d günü tutuldu</item>
+        <item quantity="other">Kılavuz çok büyük: kanallarınızın sonraki %1$d günü tutuldu</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Kılavuz çok büyük: kanallarınızdan %1$d tanesinin programları tutuldu</item>
+        <item quantity="other">Kılavuz çok büyük: kanallarınızdan %1$d tanesinin programları tutuldu</item>
+    </plurals>
 </resources>

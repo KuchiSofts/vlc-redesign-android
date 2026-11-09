@@ -38,7 +38,7 @@ object TvNet {
     /** The host of an address, for the messages (never the whole address: it often holds a token). */
     fun hostOf(url: String) = try { Uri.parse(url).host ?: "a file" } catch (e: Exception) { "?" }
 
-    private fun open(context: Context, address: String, cancel: AtomicBoolean?, auth: TvAuth? = null): Pair<InputStream, Long> {
+    private fun open(context: Context, address: String, cancel: AtomicBoolean?, auth: TvAuth? = null, gzip: Boolean = false): Pair<InputStream, Long> {
         val uri = Uri.parse(address)
         when (uri.scheme?.lowercase()) {
             "content" -> {
@@ -61,8 +61,9 @@ object TvNet {
             c.readTimeout = 60000
             c.instanceFollowRedirects = false
             c.setRequestProperty("User-Agent", USER_AGENT)
-            // as it is: a gzip-compressed guide stays so (read inflated later)
-            c.setRequestProperty("Accept-Encoding", "identity")
+            // as it is: a gzip-compressed guide stays so (read inflated later); a guide or a playlist sent compressed
+            // when the server can (a guide of 280 MB is 50 MB so), kept compressed and read inflated (Xmltv.open)
+            c.setRequestProperty("Accept-Encoding", if (gzip) "gzip" else "identity")
             if (authorization != null) c.setRequestProperty("Authorization", authorization)
             val code = c.responseCode
             // an account's list or guide (Tvheadend, an M3U with a sign-in): answered once as the server asks
@@ -94,11 +95,11 @@ object TvNet {
      * and the size when known (-1). The file is replaced only once the whole of it came.
      */
     fun download(context: Context, address: String, file: File, cancel: AtomicBoolean?, auth: TvAuth? = null, maxBytes: Long = MAX_DOWNLOAD,
-                 progress: ((Long, Long) -> Unit)? = null) {
+                 gzip: Boolean = false, progress: ((Long, Long) -> Unit)? = null) {
         file.parentFile?.mkdirs()
         val tmp = File(file.path + ".part")
         try {
-            val (input, total) = open(context, address, cancel, auth)
+            val (input, total) = open(context, address, cancel, auth, gzip)
             input.use { inp ->
                 tmp.outputStream().buffered(256 * 1024).use { out ->
                     val buf = ByteArray(64 * 1024)

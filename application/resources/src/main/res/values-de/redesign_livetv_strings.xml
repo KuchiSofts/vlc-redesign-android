@@ -273,4 +273,20 @@
     <string name="rd_tv_its_guide_id">Programm-ID</string>
     <string name="rd_tv_forget_guide_id">Programm-ID vergessen</string>
     <string name="rd_tv_guide_id_of">Die ID von %1$s im Fernsehprogramm</string>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Fernsehprogramm von %1$s wird gelesen… %2$s MB · %3$d Sender</item>
+        <item quantity="other">Fernsehprogramm von %1$s wird gelesen… %2$s MB · %3$d Sender</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Fernsehprogramm wird gelesen… %1$s MB · %2$d Sender</item>
+        <item quantity="other">Fernsehprogramm wird gelesen… %1$s MB · %2$d Sender</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Fernsehprogramm zu groß: der nächste %1$d Tag deiner Sender behalten</item>
+        <item quantity="other">Fernsehprogramm zu groß: die nächsten %1$d Tage deiner Sender behalten</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Fernsehprogramm zu groß: die Sendungen von %1$d deiner Sender behalten</item>
+        <item quantity="other">Fernsehprogramm zu groß: die Sendungen von %1$d deiner Sender behalten</item>
+    </plurals>
 </resources>

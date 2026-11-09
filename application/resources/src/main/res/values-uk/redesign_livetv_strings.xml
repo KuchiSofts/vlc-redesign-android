@@ -294,4 +294,28 @@
     <string name="rd_tv_its_guide_id">Його ID у програмі передач</string>
     <string name="rd_tv_forget_guide_id">Забути його ID у програмі передач</string>
     <string name="rd_tv_guide_id_of">ID каналу %1$s у програмі передач</string>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Читання програми передач %1$s… %2$s МБ · %3$d канал</item>
+        <item quantity="few">Читання програми передач %1$s… %2$s МБ · %3$d канали</item>
+        <item quantity="many">Читання програми передач %1$s… %2$s МБ · %3$d каналів</item>
+        <item quantity="other">Читання програми передач %1$s… %2$s МБ · %3$d каналів</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Читання програми передач… %1$s МБ · %2$d канал</item>
+        <item quantity="few">Читання програми передач… %1$s МБ · %2$d канали</item>
+        <item quantity="many">Читання програми передач… %1$s МБ · %2$d каналів</item>
+        <item quantity="other">Читання програми передач… %1$s МБ · %2$d каналів</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Програма передач завелика: збережено %1$d найближчий день ваших каналів</item>
+        <item quantity="few">Програма передач завелика: збережено %1$d найближчі дні ваших каналів</item>
+        <item quantity="many">Програма передач завелика: збережено %1$d найближчих днів ваших каналів</item>
+        <item quantity="other">Програма передач завелика: збережено %1$d найближчих днів ваших каналів</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Програма передач завелика: збережено передачі %1$d з ваших каналів</item>
+        <item quantity="few">Програма передач завелика: збережено передачі %1$d з ваших каналів</item>
+        <item quantity="many">Програма передач завелика: збережено передачі %1$d з ваших каналів</item>
+        <item quantity="other">Програма передач завелика: збережено передачі %1$d з ваших каналів</item>
+    </plurals>
 </resources>

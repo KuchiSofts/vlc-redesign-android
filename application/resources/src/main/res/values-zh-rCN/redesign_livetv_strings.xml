@@ -264,4 +264,16 @@
     <string name="rd_tv_its_guide_id">其节目指南 ID</string>
     <string name="rd_tv_forget_guide_id">清除其节目指南 ID</string>
     <string name="rd_tv_guide_id_of">%1$s 在节目指南中的 ID</string>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="other">正在读取 %1$s 的节目指南… %2$s MB · %3$d 个频道</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="other">正在读取节目指南… %1$s MB · %2$d 个频道</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="other">节目指南过大：已保留你的频道未来 %1$d 天的节目</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="other">节目指南过大：已保留你的 %1$d 个频道的节目</item>
+    </plurals>
 </resources>

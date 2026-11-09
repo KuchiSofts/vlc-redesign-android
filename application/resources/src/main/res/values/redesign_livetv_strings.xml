@@ -300,4 +300,21 @@
     <string name="rd_tv_its_guide_id">Its guide id</string>
     <string name="rd_tv_forget_guide_id">Forget its guide id</string>
     <string name="rd_tv_guide_id_of">The id of %1$s in the guide</string>
+    <!-- a large guide read (the MB of it read, the channels found so far); a guide too large for the device -->
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Reading the guide of %1$s… %2$s MB · %3$d channel</item>
+        <item quantity="other">Reading the guide of %1$s… %2$s MB · %3$d channels</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Reading the guide… %1$s MB · %2$d channel</item>
+        <item quantity="other">Reading the guide… %1$s MB · %2$d channels</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Guide too large: kept the next %1$d day of your channels</item>
+        <item quantity="other">Guide too large: kept the next %1$d days of your channels</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Guide too large: kept the programmes of %1$d of your channels</item>
+        <item quantity="other">Guide too large: kept the programmes of %1$d of your channels</item>
+    </plurals>
 </resources>

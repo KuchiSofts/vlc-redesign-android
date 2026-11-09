@@ -294,4 +294,28 @@
     <string name="rd_tv_its_guide_id">Его ID в телепрограмме</string>
     <string name="rd_tv_forget_guide_id">Забыть его ID в телепрограмме</string>
     <string name="rd_tv_guide_id_of">ID канала %1$s в телепрограмме</string>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Чтение телепрограммы %1$s… %2$s МБ · %3$d канал</item>
+        <item quantity="few">Чтение телепрограммы %1$s… %2$s МБ · %3$d канала</item>
+        <item quantity="many">Чтение телепрограммы %1$s… %2$s МБ · %3$d каналов</item>
+        <item quantity="other">Чтение телепрограммы %1$s… %2$s МБ · %3$d каналов</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Чтение телепрограммы… %1$s МБ · %2$d канал</item>
+        <item quantity="few">Чтение телепрограммы… %1$s МБ · %2$d канала</item>
+        <item quantity="many">Чтение телепрограммы… %1$s МБ · %2$d каналов</item>
+        <item quantity="other">Чтение телепрограммы… %1$s МБ · %2$d каналов</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Телепрограмма слишком большая: сохранён %1$d ближайший день ваших каналов</item>
+        <item quantity="few">Телепрограмма слишком большая: сохранены %1$d ближайших дня ваших каналов</item>
+        <item quantity="many">Телепрограмма слишком большая: сохранены %1$d ближайших дней ваших каналов</item>
+        <item quantity="other">Телепрограмма слишком большая: сохранены %1$d ближайших дней ваших каналов</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Телепрограмма слишком большая: сохранены передачи %1$d из ваших каналов</item>
+        <item quantity="few">Телепрограмма слишком большая: сохранены передачи %1$d из ваших каналов</item>
+        <item quantity="many">Телепрограмма слишком большая: сохранены передачи %1$d из ваших каналов</item>
+        <item quantity="other">Телепрограмма слишком большая: сохранены передачи %1$d из ваших каналов</item>
+    </plurals>
 </resources>
