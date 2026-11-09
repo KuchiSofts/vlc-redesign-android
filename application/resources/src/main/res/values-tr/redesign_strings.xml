@@ -100,6 +100,9 @@
     <string name="rd_sec_diagnostics">Tanılama</string>
     <string name="rd_sec_advanced">Gelişmiş Ayarlar</string>
     <string name="rd_sec_window">Pencere</string>
+    <string name="rd_interface_size">Arayüz boyutu</string>
+    <string name="rd_interface_size_summary">Sayfaların, metinlerin ve denetimlerin ne kadar büyük çizileceği. Otomatik, bu ekrana uygun boyutu seçer.</string>
+    <string name="rd_interface_size_auto">Otomatik (%1$s)</string>
     <string name="rd_sec_playback_controls">Oynatma Denetimleri</string>
     <string name="rd_sec_playlist">Oynatma Listesi</string>
     <string name="rd_sec_player_bar">Oynatıcı Çubuğu</string>

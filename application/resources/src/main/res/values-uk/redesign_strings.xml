@@ -100,6 +100,9 @@
     <string name="rd_sec_diagnostics">Діагностика</string>
     <string name="rd_sec_advanced">Додаткові параметри</string>
     <string name="rd_sec_window">Вікно</string>
+    <string name="rd_interface_size">Розмір інтерфейсу</string>
+    <string name="rd_interface_size_summary">Наскільки великими малюються сторінки, тексти й елементи керування. «Автоматично» вибирає розмір, що підходить цьому екрану.</string>
+    <string name="rd_interface_size_auto">Автоматично (%1$s)</string>
     <string name="rd_sec_playback_controls">Елементи керування відтворенням</string>
     <string name="rd_sec_playlist">Список відтворення</string>
     <string name="rd_sec_player_bar">Панель програвача</string>
