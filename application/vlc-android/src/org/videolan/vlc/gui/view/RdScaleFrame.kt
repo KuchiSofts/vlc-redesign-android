@@ -43,8 +43,14 @@ class RdScaleFrame(context: Context, private val scale: Float) : FrameLayout(con
          * 1080p TV at density 2), as the desktop at 1920 x 1080; elsewhere 1 dp.
          */
         fun panelScale(context: Context): Float {
-            if (!org.videolan.resources.AndroidDevices.isTv) return 1f
             val dm = context.resources.displayMetrics
+            // the TV layout: its dp are already the design's px at the interface size chosen (RdTvDesignScale), so
+            // the panel is drawn as it is; smaller only at the sizes whose screen cannot hold the desktop's panel
+            // (560 high) above the control bar. (It was drawn at the design's own size whatever the interface
+            // size: a panel of tiny letters at 150 % and more.)
+            if (org.videolan.tools.Settings.showTvUi && org.videolan.tools.rdDensityOverride != null)
+                return (minOf(dm.widthPixels, dm.heightPixels) * 0.8f / (560f * dm.density)).coerceIn(0.5f, 1f)
+            if (!org.videolan.resources.AndroidDevices.isTv) return 1f
             return (maxOf(dm.widthPixels, dm.heightPixels) / 1920f / dm.density).coerceIn(0.3f, 1f)
         }
 
