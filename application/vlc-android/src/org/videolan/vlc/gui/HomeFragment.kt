@@ -41,6 +41,7 @@ import org.videolan.tools.Settings
 import org.videolan.tools.retrieveParent
 import org.videolan.vlc.R
 import org.videolan.tools.dp
+import org.videolan.vlc.gui.tablet.RdTvPrebuild
 import org.videolan.vlc.gui.tablet.RdTvWindow
 import org.videolan.vlc.databinding.RdHomeCardBinding
 import org.videolan.vlc.gui.browser.KEY_MEDIA
@@ -123,7 +124,7 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
         override fun getItemCount() = section.cards.size
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-                CardHolder(RdHomeCardBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+                CardHolder(RdTvPrebuild.bind(parent, R.layout.rd_home_card) { RdHomeCardBinding.inflate(LayoutInflater.from(parent.context), parent, false) })
 
         override fun onBindViewHolder(holder: CardHolder, position: Int) {
             val card = section.cards[position]
@@ -204,7 +205,7 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
     override fun hasFAB() = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-            inflater.inflate(R.layout.rd_home_fragment, container, false)
+            RdTvPrebuild.inflate(inflater, R.layout.rd_home_fragment, container)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

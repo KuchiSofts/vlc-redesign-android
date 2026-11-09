@@ -82,7 +82,9 @@ class VideoListAdapter(private var isSeenMediaMarkerVisible: Boolean, private va
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, if (viewType == 0) R.layout.video_list_card else R.layout.video_grid_card, parent, false)
+        val layout = if (viewType == 0) R.layout.video_list_card else R.layout.video_grid_card
+        // VLC Redesign, the TV layout: the cards made ahead while the window was idle (gui/tablet/RdTvPrebuild)
+        val binding = org.videolan.vlc.gui.tablet.RdTvPrebuild.bind(parent, layout) { DataBindingUtil.inflate<ViewDataBinding>(inflater, layout, parent, false) }
         if (BuildConfig.DEBUG) Log.d(this::class.java.simpleName, "Creating View Holder with list: $isListMode")
         return ViewHolder(binding)
     }
