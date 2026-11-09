@@ -278,6 +278,10 @@ object OnlineSubtitles {
     internal fun formatLanguages(list: List<SearchLanguage>) = list.joinToString(",") { it.code + ":" + if (it.on) "1" else "0" }
 
     /** the preferred language (else the app's) */
+    /** the second language: the one chosen, else the desktop's default, English (none when English is the preferred) */
+    fun secondLanguage(context: Context): String = Settings.getInstance(context).getString(KEY_SECOND, null)?.let { normalize(it) }
+        ?: if (preferredLanguage(context) == "en") "" else "en"
+
     fun preferredLanguage(context: Context): String = normalize(Settings.getInstance(context).getString(KEY_SUBTITLE_PREFERRED_LANGUAGE, null)).ifEmpty {
         normalize(RdCompat.primaryLocale(context.resources.configuration).toLanguageTag())
     }
@@ -297,7 +301,7 @@ object OnlineSubtitles {
     fun searchLanguages(context: Context): List<SearchLanguage> {
         val settings = Settings.getInstance(context)
         val stored = settings.getString(KEY_LANGUAGES, null)?.let { parseLanguages(it) }
-        return completeLanguages(stored, preferredLanguage(context), normalize(settings.getString(KEY_SECOND, null)), pickedLanguages(context))
+        return completeLanguages(stored, preferredLanguage(context), secondLanguage(context), pickedLanguages(context))
     }
 
     fun setSearchLanguages(context: Context, list: List<SearchLanguage>) =
@@ -323,7 +327,7 @@ object OnlineSubtitles {
     /** the user's languages, in their order: the preferred one first, the second one, then those switched on of
      *  Languages to search ([searchOrder]) */
     fun wantedLanguages(context: Context): List<String> =
-        searchOrder(searchLanguages(context), preferredLanguage(context), normalize(Settings.getInstance(context).getString(KEY_SECOND, null)))
+        searchOrder(searchLanguages(context), preferredLanguage(context), secondLanguage(context))
 
     /**
      * The languages asked for, in order: the preferred language first and the second one, even when the list has

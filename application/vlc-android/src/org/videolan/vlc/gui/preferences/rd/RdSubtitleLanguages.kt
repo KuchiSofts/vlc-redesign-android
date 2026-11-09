@@ -102,7 +102,7 @@ class RdSubtitleLanguages(private val page: PreferenceFragmentCompat) {
         val ctx = page.context ?: return
         val l = pref.language
         val preferred = OnlineSubtitles.preferredLanguage(app)
-        val second = OnlineSubtitles.normalize(org.videolan.tools.Settings.getInstance(app).getString(OnlineSubtitles.KEY_SECOND, null))
+        val second = OnlineSubtitles.secondLanguage(app)
         val role = when (l.code) {
             preferred -> ctx.getString(R.string.rd_preferred_language)
             second -> ctx.getString(R.string.rd_os_second_short)

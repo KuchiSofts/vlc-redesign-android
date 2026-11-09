@@ -2029,7 +2029,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         val ctx = applicationContext
         // (the search by itself only when the user said so; a subtitles folder's file of the user's language is read
         // whatever the switch: nothing goes online for it)
-        val auto = Settings.getInstance(ctx).getBoolean(org.videolan.vlc.util.OnlineSubtitles.KEY_AUTO, false)
+        val auto = Settings.getInstance(ctx).getBoolean(org.videolan.vlc.util.OnlineSubtitles.KEY_AUTO, true)
         val mw = service?.currentMediaWrapper ?: return
         val uri = mw.uri ?: return
         if (uri == rdOnlineAutoUri) return
