@@ -165,8 +165,54 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
 
     private inner class CardHolder(val binding: RdHomeCardBinding) : RecyclerView.ViewHolder(binding.root)
 
+    /**
+     * The TV layout, the remote along a row: the card before or after takes the focus at once, the row moved by whole
+     * cards so that it is in sight. Left to the focus search, a quick second press while the row was still sliding
+     * found no card (the next one lies beyond the row's edge) and the focus left the row for its heading or the
+     * title bar.
+     */
+    private fun rowKey(section: Section, card: View, code: Int, event: android.view.KeyEvent): Boolean {
+        if (code != android.view.KeyEvent.KEYCODE_DPAD_LEFT && code != android.view.KeyEvent.KEYCODE_DPAD_RIGHT) return false
+        val list = section.list
+        val lm = list.layoutManager as? LinearLayoutManager ?: return false
+        val rtl = list.layoutDirection == View.LAYOUT_DIRECTION_RTL
+        val forward = (code == android.view.KeyEvent.KEYCODE_DPAD_RIGHT) != rtl
+        val at = lm.getPosition(card)
+        val next = at + if (forward) 1 else -1
+        // the row's first card: on to the sidebar (the window's own rule); its last: the focus stays
+        if (next < 0) return false
+        if (next >= section.cards.size) return true
+        if (event.action != android.view.KeyEvent.ACTION_DOWN) return true
+        list.stopScroll()
+        fun bring(): Boolean {
+            val v = lm.findViewByPosition(next) ?: return false
+            val lp = v.layoutParams as ViewGroup.MarginLayoutParams
+            // whole in the row: by as much as it is past the row's end or before its start
+            val over = v.right - (list.width - list.paddingRight)
+            val under = list.paddingLeft - v.left
+            if (over > 0) list.scrollBy(over, 0) else if (under > 0) list.scrollBy(-under, 0)
+            return lp.width != 0 && v.requestFocus()
+        }
+        if (!bring()) {
+            // not laid out yet (the row holds whole cards only): the row moved one card on, then the focus
+            val step = card.width + (card.layoutParams as ViewGroup.MarginLayoutParams).let { it.leftMargin + it.rightMargin }
+            list.scrollBy(if (forward != rtl) step else -step, 0)
+            if (!bring()) list.post { bring() }
+        }
+        return true
+    }
+
     private inner class CardAdapter(val section: Section) : RecyclerView.Adapter<CardHolder>() {
+        init { setHasStableIds(true) }
+
         override fun getItemCount() = section.cards.size
+
+        // (the same card keeps its view, and the remote's focus, when the row is drawn again: the library reports
+        // every thumbnail it makes, and the focus fell off the row to its heading)
+        override fun getItemId(position: Int): Long {
+            val c = section.cards[position]
+            return ((c.media.uri?.toString() ?: c.media.title ?: "") + "|" + c.folder + "|" + (c.pin != null)).hashCode().toLong()
+        }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
                 CardHolder(RdTvPrebuild.bind(parent, R.layout.rd_home_card) { RdHomeCardBinding.inflate(LayoutInflater.from(parent.context), parent, false) })
@@ -226,6 +272,7 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
             }
             if (!card.folder && card.pin == null) loadImage(b.rdCover, media, width, card = true)
             b.root.contentDescription = media.title
+            if (tv) b.root.setOnKeyListener { v, code, event -> rowKey(section, v, code, event) }
             b.root.setOnClickListener { onCardClick(section, holder.bindingAdapterPosition) }
             b.root.setOnLongClickListener {
                 onCardLongClick(section, holder.bindingAdapterPosition)
