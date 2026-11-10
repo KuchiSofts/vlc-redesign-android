@@ -194,6 +194,19 @@ class PlayerOptionsDelegate(val activity: FragmentActivity, val service: Playbac
             if (lp is FrameLayout.LayoutParams) lp.gravity = Gravity.BOTTOM
             rootView.layoutParams = lp
         }
+        // VLC Redesign: the video player's menu on its button's side of the screen. The control bar is not mirrored in
+        // Hebrew or Arabic, so "end" put the menu at the far left, over the play buttons, away from the settings
+        // button it belongs to (the desktop's menu opens above its button in every language).
+        if (video) (recyclerview.layoutParams as? FrameLayout.LayoutParams)?.let { lp ->
+            val anchor = activity.findViewById<View>(R.id.player_overlay_adv_function)
+            val across = activity.window?.decorView?.width ?: 0
+            if (anchor != null && anchor.width > 0 && across > 0) {
+                val at = IntArray(2).also { anchor.getLocationInWindow(it) }
+                val onRight = at[0] + anchor.width / 2 > across / 2
+                lp.gravity = Gravity.CENTER_VERTICAL or (if (onRight) Gravity.RIGHT else Gravity.LEFT)
+                recyclerview.layoutParams = lp
+            }
+        }
         setup()
         rootView.visibility = View.VISIBLE
         // VLC Redesign (#10): the settings button shows the menu is open

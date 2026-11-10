@@ -171,7 +171,10 @@ abstract class VLCBottomSheetDialogFragment : BottomSheetDialogFragment() {
         val gap = (8 * d).toInt()
         val past = (14 * d).toInt()
         val unit = d * anchoredScale()
-        val width = (screenW * 0.31f).toInt().coerceIn((300 * unit).toInt(), (440 * unit).toInt()).coerceAtMost(screenW - 2 * gap)
+        // (the TV layout: the desktop's 600 at the interface size, as its height is: a third of the screen held the
+        // panel's texts at 100 % only, larger letters in the same box were cut, "Unknown la...")
+        val width = (if (Settings.showTvUi) (600 * unit).toInt()
+                else (screenW * 0.31f).toInt().coerceIn((300 * unit).toInt(), (440 * unit).toInt())).coerceAtMost(screenW - 2 * gap)
         // (never taller than the room above the bar; at a large interface size half the screen is few dp: up to 400)
         val room = (at[1] - 2 * gap).coerceAtLeast(1)
         val height = (anchoredHeight().takeIf { it > 0 } ?: (screenH * 0.55f).toInt().coerceAtLeast(minOf((400 * d).toInt(), room)))
