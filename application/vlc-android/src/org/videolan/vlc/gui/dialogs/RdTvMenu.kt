@@ -42,7 +42,8 @@ import org.videolan.vlc.util.ContextOption.*
 object RdTvMenu {
 
     const val GREY = 0xFF8F8F8F.toInt()
-    private const val PANEL = 0xF2191919.toInt()
+    // (opaque: with no blur behind it, the page's words showed through the menu's)
+    private const val PANEL = 0xFF191919.toInt()
     private const val FOCUS = 0xFF1F1F1F.toInt()
     private const val DIVIDER = 0xFF222222.toInt()
 
@@ -180,6 +181,9 @@ object RdTvMenu {
         }
         val scroll = ScrollView(ctx).apply {
             isVerticalScrollBarEnabled = false
+            // (a menu longer than the window: its rows fade at the edge they go on under, not a row cut in half)
+            isVerticalFadingEdgeEnabled = true
+            setFadingEdgeLength(28.dp)
             addView(column)
             setPadding(4.dp, 4.dp, 4.dp, 4.dp)
             background = GradientDrawable().apply { cornerRadius = 10.dp.toFloat(); setColor(PANEL) }

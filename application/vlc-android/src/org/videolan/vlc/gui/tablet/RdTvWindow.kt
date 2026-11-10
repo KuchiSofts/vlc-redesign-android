@@ -334,6 +334,9 @@ object RdTvWindow {
             orientation = LinearLayout.HORIZONTAL
             gravity = Gravity.CENTER_VERTICAL
         }
+        // (the back button starts 4 before the row, its arrow on the page's edge: not cut there)
+        row.clipChildren = false
+        box.clipChildren = false
         box.addView(row, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 34.dp).apply { marginStart = 28.dp; marginEnd = 20.dp; topMargin = 20.dp })
         box.addView(View(ctx).apply { setBackgroundColor(LINE) },
                 FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2.dp).apply { marginStart = 28.dp; marginEnd = 20.dp; topMargin = 70.dp })
@@ -440,6 +443,8 @@ object RdTvWindow {
     /** "Videos › The Wand": the earlier crumbs in FG/A2, the separator in #404040 (.sh-sep), the current one bold */
     private fun crumbsOf(first: String?, current: String): CharSequence {
         val b = android.text.SpannableStringBuilder()
+        // (a page with no name of its own: the page it came from alone, not "Home ›" with nothing after the arrow)
+        if (current.isBlank() && !first.isNullOrEmpty()) return crumbsOf(null, first)
         if (first.isNullOrEmpty()) return b.append(current, android.text.style.StyleSpan(Typeface.BOLD), android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         b.append(first, android.text.style.StyleSpan(Typeface.NORMAL), 0)
         b.setSpan(android.text.style.ForegroundColorSpan(ICON), 0, b.length, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -763,7 +768,9 @@ object RdTvWindow {
             val title = if (activity is HeaderMediaListActivity) parts.listTitle?.text?.toString().orEmpty()
                 else if (page is org.videolan.vlc.gui.MoreFragment) activity.getString(R.string.more)
                 else if (activity.supportFragmentManager.backStackEntryCount == 0 && railTitle != null) railTitle
-                else (page as? org.videolan.vlc.gui.BaseFragment)?.let { runCatching { it.getTitle() }.getOrNull() } ?: activity.title?.toString().orEmpty()
+                else ((page as? org.videolan.vlc.gui.BaseFragment)?.let { runCatching { it.getTitle() }.getOrNull() } ?: activity.title?.toString().orEmpty())
+                        // (About has no title of its own: its name in the menu)
+                        .ifBlank { if (page is org.videolan.vlc.gui.AboutFragment) activity.getString(R.string.rd_set_about) else "" }
             val crumbs: CharSequence = if (activity is MainActivity) {
                 lastPage = rail?.menu?.let { m -> (0 until m.size()).map { m.getItem(it) }.firstOrNull { it.isChecked }?.itemId } ?: lastPage
                 lastPageTitle = railTitle ?: lastPageTitle

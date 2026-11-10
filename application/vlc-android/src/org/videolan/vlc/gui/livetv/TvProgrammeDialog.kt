@@ -64,7 +64,7 @@ internal object TvProgrammeDialog {
             }
         }
         if (onNow && c.catchupDays > 0) b.setNeutralButton(R.string.rd_tv_watch_from_the_start) { _, _ -> TvPlayback.playCatchup(context, c.key, e.start, e.stop, e.title) }
-        b.show()
+        org.videolan.vlc.gui.helpers.RdFit.card(b.show(), context.tvPx(620f))
     }
 
     private fun lp(context: Context, top: Float) = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { topMargin = context.tvPx(top) }

@@ -71,6 +71,25 @@ object RdFit {
     }
 
     /**
+     * A dialog of rows or text (a list to edit, a programme's details) as a card of a readable width, [maxWidth] px
+     * at most and never wider than the window: its rows were stretched across most of the screen, the value far
+     * from its label. In the TV layout it also gets the design's panel (the sheets' colour, radius 14, the window's
+     * line) instead of the platform's lighter grey. Call it once the dialog is shown.
+     */
+    fun card(dialog: android.app.Dialog?, maxWidth: Int) {
+        val window = dialog?.window ?: return
+        val ctx = dialog.context
+        val dm = ctx.resources.displayMetrics
+        window.setLayout(RdFitRules.size(maxWidth, dm.widthPixels, MARGIN.dp), ViewGroup.LayoutParams.WRAP_CONTENT)
+        if (org.videolan.tools.Settings.showTvUi) window.setBackgroundDrawable(android.graphics.drawable.GradientDrawable().apply {
+            cornerRadius = 14.dp.toFloat()
+            setColor(UiTools.getColorFromAttribute(ctx, R.attr.bottom_sheet_background) or 0xFF000000.toInt())
+            setStroke(1, androidx.core.content.ContextCompat.getColor(ctx, R.color.rd_window_border_token))
+        })
+        dialog(window)
+    }
+
+    /**
      * A dialog drawn at the design's own places ([width] x [height] px, its parts at fixed points): shown at that
      * size when the screen holds it with the margin, else the whole card smaller by one factor, so that nothing in
      * it moves or is cut (the design's 1048 x 631 window at the largest interface sizes). Sets the content and the

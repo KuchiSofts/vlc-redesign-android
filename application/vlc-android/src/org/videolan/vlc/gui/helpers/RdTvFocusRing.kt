@@ -10,7 +10,7 @@
 package org.videolan.vlc.gui.helpers
 
 import android.app.Activity
-import android.graphics.drawable.Drawable
+import android.graphics.Rect
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.Window
@@ -21,101 +21,92 @@ import org.videolan.tools.dp
 import org.videolan.vlc.R
 
 object RdTvFocusRing {
-    private val NONE = Any()
+
+    /** How far outside the focused view the line is drawn, in dp: clear of a card's name, of a button's words. */
+    private const val OUTSET = 3
 
     fun attach(activity: Activity) = attach(activity.window)
 
-    /** A dialog's or a sheet's window as well (its own view tree). */
+    /**
+     * One ring a window (a dialog's or a sheet's window as well: its own view tree), drawn over the window's content
+     * around whatever has the focus. It is drawn by the window, not by the focused view: a view's own foreground was
+     * cut by the view's edges (the line went through a card's name, a button at a row's start lost one side) and
+     * stayed on a list's row that was recycled while it had the focus (two rings on a page, one of them stale).
+     */
     fun attach(window: Window?) {
         if (!Settings.showTvUi || window == null) return
         val decor = window.decorView
         if (decor.getTag(R.id.rd_tv_focus_listener) != null) return
-        val listener = ViewTreeObserver.OnGlobalFocusChangeListener { old, new ->
-            old?.let { clear(it) }
-            new?.let { show(it) }
+        val ring = Ring(decor)
+        decor.setTag(R.id.rd_tv_focus_listener, ring)
+        decor.overlay.add(ring.line)
+        decor.viewTreeObserver.addOnGlobalFocusChangeListener(ring)
+        decor.viewTreeObserver.addOnPreDrawListener(ring)
+        decor.findFocus()?.let { ring.onGlobalFocusChanged(null, it) }
+    }
+
+    private class Ring(val decor: View) : ViewTreeObserver.OnGlobalFocusChangeListener, ViewTreeObserver.OnPreDrawListener {
+        val line = GradientDrawable().apply {
+            setColor(0)
+            setStroke(2.dp, ContextCompat.getColor(decor.context, R.color.rd_dark_fg_1))
+            cornerRadius = (6 + OUTSET).dp.toFloat()
+            setBounds(0, 0, 0, 0)
         }
-        decor.setTag(R.id.rd_tv_focus_listener, listener)
-        decor.viewTreeObserver.addOnGlobalFocusChangeListener(listener)
-        decor.findFocus()?.let { show(it) }
-    }
+        private var target: java.lang.ref.WeakReference<View>? = null
+        private val at = Rect()
+        private val last = Rect()
 
-    private fun ring(view: View): Drawable = Ring(view, GradientDrawable().apply {
-        setColor(0)
-        setStroke(2.dp, ContextCompat.getColor(view.context, R.color.rd_dark_fg_1))
-        cornerRadius = 6.dp.toFloat()
-    })
-
-    /**
-     * The ring around the view as it is on screen: a one-line text (a button, a centred title) is scrolled within
-     * itself, and a foreground drawn where the view's scrolled content is was out of sight (no ring on the buttons).
-     */
-    private class Ring(private val view: View, private val line: GradientDrawable) : Drawable() {
-        override fun draw(canvas: android.graphics.Canvas) {
-            canvas.save()
-            canvas.translate(view.scrollX.toFloat(), view.scrollY.toFloat())
-            line.setBounds(0, 0, view.width, view.height)
-            line.draw(canvas)
-            canvas.restore()
+        override fun onGlobalFocusChanged(old: View?, new: View?) {
+            target = null
+            if (new != null && new.getTag(R.id.rd_tv_focus_skip) != true) {
+                if (new is androidx.recyclerview.widget.RecyclerView) handOn(new)
+                else target = java.lang.ref.WeakReference(around(new))
+            }
+            decor.invalidate()
         }
-        override fun setAlpha(alpha: Int) { line.alpha = alpha }
-        override fun setColorFilter(colorFilter: android.graphics.ColorFilter?) { line.colorFilter = colorFilter }
-        @Deprecated("Deprecated in Java")
-        override fun getOpacity(): Int = android.graphics.PixelFormat.TRANSLUCENT
-    }
 
-    /**
-     * What the ring goes around: a text field in a box of its own (the search's, with its icon) the box, else the
-     * view itself.
-     */
-    private fun target(view: View): View {
-        if (view !is android.widget.EditText) return view
-        val box = view.parent as? android.view.ViewGroup ?: return view
-        return if (box.background != null && box.childCount <= 3 && box.height <= view.height * 2 + 16.dp) box else view
-    }
+        /** Before every frame: the ring where the focused view is now (a list scrolled, a row moved), or nowhere. */
+        override fun onPreDraw(): Boolean {
+            val view = target?.get()
+            if (view == null || !view.isAttachedToWindow || !view.isShown || !(view.hasFocus() || view.isFocused) || !view.getGlobalVisibleRect(at)) {
+                at.setEmpty()
+            } else {
+                val out = OUTSET.dp
+                // (inside the window: a row as wide as the page keeps its line on the screen)
+                at.set(maxOf(at.left - out, 1), maxOf(at.top - out, 1), minOf(at.right + out, decor.width - 1), minOf(at.bottom + out, decor.height - 1))
+            }
+            if (at != last) {
+                last.set(at)
+                line.bounds = at
+                decor.invalidate()
+            }
+            return true
+        }
 
-    private fun show(focused: View) {
-        // a control that shows its focus itself (the player's play pill)
-        if (focused.getTag(R.id.rd_tv_focus_skip) == true) return
-        // a list that has the focus itself (between its rows, its rows made again): a row takes it, the one at the
-        // focus before or the first shown (a list holding the focus showed none: where the remote was could not
-        // be told)
-        if (focused is androidx.recyclerview.widget.RecyclerView) {
-            focused.postDelayed({
-                if (focused.isFocused && focused.isAttachedToWindow) {
-                    val lm = focused.layoutManager
+        /**
+         * A list that has the focus itself (between its rows, its rows made again): a row takes it, the first shown
+         * (a list holding the focus showed none: where the remote was could not be told).
+         */
+        private fun handOn(list: androidx.recyclerview.widget.RecyclerView) {
+            list.postDelayed({
+                if (list.isFocused && list.isAttachedToWindow) {
+                    val lm = list.layoutManager
                     val row = (0 until (lm?.childCount ?: 0)).asSequence().mapNotNull { lm?.getChildAt(it) }
                         .firstOrNull { it.isShown && (it.isFocusable || (it as? android.view.ViewGroup)?.hasFocusable() == true) }
                     // (an empty list, an empty playlist's page: the focus to what is above it, the page's header)
-                    if (row?.requestFocus() != true) (focused.focusSearch(View.FOCUS_UP) ?: focused.focusSearch(View.FOCUS_LEFT))?.requestFocus()
+                    if (row?.requestFocus() != true) (list.focusSearch(View.FOCUS_UP) ?: list.focusSearch(View.FOCUS_LEFT))?.requestFocus()
                 }
             }, 120)
-            return
         }
-        // a text field: the ring too, around its box (on a TV it shows no caret until it is typed in: the search
-        // had the focus and nothing showed it)
-        val view = target(focused)
-        if (view.getTag(R.id.rd_tv_focus_saved) != null) return
-        // (the box remembered by the field: the ring taken off the same view)
-        if (view !== focused) focused.setTag(R.id.rd_tv_focus_listener, view)
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            view.setTag(R.id.rd_tv_focus_saved, view.foreground ?: NONE)
-            view.foreground = ring(view)
-        } else {
-            // a foreground is Android 6 (FrameLayout's only before): the ring is drawn in the view's overlay,
-            // over its content as well, with the view's size
-            val r = ring(view).apply { setBounds(0, 0, view.width, view.height) }
-            view.overlay.add(r)
-            view.setTag(R.id.rd_tv_focus_saved, OverlayRing(r))
+
+        /**
+         * What the ring goes around: a text field in a box of its own (the search's, with its icon) the box, else the
+         * view itself.
+         */
+        private fun around(view: View): View {
+            if (view !is android.widget.EditText) return view
+            val box = view.parent as? android.view.ViewGroup ?: return view
+            return if (box.background != null && box.childCount <= 3 && box.height <= view.height * 2 + 16.dp) box else view
         }
-    }
-
-    private class OverlayRing(val drawable: Drawable)
-
-    private fun clear(focused: View) {
-        val view = (focused.getTag(R.id.rd_tv_focus_listener) as? View)?.also { focused.setTag(R.id.rd_tv_focus_listener, null) } ?: focused
-        val saved = view.getTag(R.id.rd_tv_focus_saved) ?: return
-        if (saved is OverlayRing) view.overlay.remove(saved.drawable)
-        else if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) view.foreground = saved as? Drawable
-        view.setTag(R.id.rd_tv_focus_saved, null)
     }
 }
