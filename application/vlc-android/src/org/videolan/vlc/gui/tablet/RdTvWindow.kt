@@ -356,6 +356,9 @@ object RdTvWindow {
         val id = pendingPage.takeIf { it != 0 } ?: return
         pendingPage = 0
         open(this, id)
+        // (the remote: on that page's row of the sidebar, not on the row of the screen that was left, where the
+        // focus had stayed: Recent's row was marked while Network was shown)
+        window.decorView.postDelayed({ if (!isFinishing && !window.decorView.isInTouchMode) focusSidebar(this) }, 200)
     }
 
     /**

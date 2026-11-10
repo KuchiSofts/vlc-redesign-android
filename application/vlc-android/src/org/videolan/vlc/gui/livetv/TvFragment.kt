@@ -220,7 +220,16 @@ class TvFragment : BaseFragment(), Filterable {
         applyLayout()
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch { LiveTv.state.collect { refresh(it) } }
+                launch {
+                    // (the toolbar's Cards / List and search too once the sources are known: a page opened before
+                    // they were read kept a header without them until its tab was changed)
+                    var had: Boolean? = null
+                    LiveTv.state.collect {
+                        refresh(it)
+                        val has = it.sources.isNotEmpty()
+                        if (had != has) { had = has; activity?.invalidateOptionsMenu() }
+                    }
+                }
                 launch { LiveTv.favorites.collect { refresh() } }
                 launch { TvPlayback.current.collect { adapter.tick(); guide.invalidate() } }
                 launch {
