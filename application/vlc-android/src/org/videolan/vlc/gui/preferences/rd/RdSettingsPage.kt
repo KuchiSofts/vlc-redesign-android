@@ -349,6 +349,17 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
 
     override fun onStart() {
         super.onStart()
+        // a title too long for a phone's bar ("Network Connections & Securi…"): the page's short name, as in the list
+        (activity as? PreferencesActivity)?.let { act ->
+            val bar = act.findViewById<androidx.appcompat.widget.Toolbar>(R.id.main_toolbar) ?: return@let
+            bar.post {
+                if (!isAdded) return@post
+                val full = getString(page.title)
+                val title = (0 until bar.childCount).map { bar.getChildAt(it) }.filterIsInstance<android.widget.TextView>().firstOrNull { it.text?.toString() == full }
+                val cut = title?.layout?.let { l -> l.lineCount > 0 && l.getEllipsisCount(l.lineCount - 1) > 0 } == true
+                if (cut) act.supportActionBar?.title = getString(page.label)
+            }
+        }
         preferenceScreen.sharedPreferences?.registerOnSharedPreferenceChangeListener(this)
         (activity as? PreferencesActivity)?.onPageShown(page)
         hideEmptySections()
