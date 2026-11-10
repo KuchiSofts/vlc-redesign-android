@@ -38,6 +38,8 @@
         <item>Aanlyn onderskrifte nou ook vir video’s op ’n netwerkdeling, ’n mediabediener of agter ’n skakel, met die hand en outomaties gevind (dankie aan @Elshepl). Op Android 5 tot 7.0 reageer OpenSubtitles weer.</item>
         <item>Die onderskrifpaneel soos op die rekenaar: dit maak bo sy knoppie oop, met die tale en hul getalle, die aanlyn resultate en die tydsberekening op een plek.</item>
         <item>Installeer langs VLC for Android, en die TV-app in Hebreeus en Arabies is heeltemal gespieël, met die fokus van die afstandbeheer waar u dit verwag.</item>
+        <item>Grootte wat by u skerm pas: op \'n TV is die app nou groter en maklik leesbaar van die bank af, die grootte word volgens die skerm bepaal en kan verander word in Instellings › Koppelvlak › Koppelvlakgrootte. Rye wys hele kaarte en elke venster pas op die skerm.</item>
+        <item>Baie groot TV-gidse laai sonder om die geheue vol te maak, twee onderskriftale kan gelyktydig wys, en die fokus van die afstandbeheer is altyd sigbaar.</item>
     </string-array>
     <string name="rd_subtitle_size">Onderskrifgrootte</string>
     <string name="rd_cast_this_phone">Hierdie foon</string>

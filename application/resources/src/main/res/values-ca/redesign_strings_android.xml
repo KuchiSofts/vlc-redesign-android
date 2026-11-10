@@ -36,6 +36,8 @@
         <item>Subtítols en línia també per a vídeos d\'una compartició de xarxa, d\'un servidor multimèdia o d\'un enllaç, cercats a mà i automàticament (gràcies a @Elshepl). Entre Android 5 i 7.0, OpenSubtitles torna a respondre.</item>
         <item>El tauler de subtítols com a l\'escriptori: s\'obre damunt del seu botó, amb els idiomes i quants n\'hi ha de cada un, els resultats en línia i la temporització en un sol lloc.</item>
         <item>S\'instal·la al costat de VLC for Android, i l\'aplicació de TV en hebreu i àrab apareix completament en mirall, amb el focus del comandament on l\'espereu.</item>
+        <item>A la mida de la vostra pantalla: en un televisor l\'aplicació ara és més gran i fàcil de llegir des del sofà, la mida es determina a partir de la pantalla i es pot canviar a Configuració › Interfície › Mida de la interfície. Les files mostren targetes senceres i cada finestra cap a la pantalla.</item>
+        <item>Les guies de TV molt grans es carreguen sense omplir la memòria, es poden mostrar dos idiomes de subtítols alhora, i el focus del comandament sempre és visible.</item>
     </string-array>
     <string name="rd_subtitle_size">Mida dels subtítols</string>
     <string name="rd_cast_this_phone">Aquest telèfon</string>

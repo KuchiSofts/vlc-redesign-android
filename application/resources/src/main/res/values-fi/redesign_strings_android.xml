@@ -36,6 +36,8 @@
         <item>Tekstitykset verkosta nyt myös videoille, jotka ovat verkkojaossa, mediapalvelimella tai linkin takana, sekä käsin että automaattisesti haettuina (kiitos @Elshepl:lle). Android 5–7.0:ssa OpenSubtitles vastaa taas.</item>
         <item>Tekstityspaneeli kuten työpöytäversiossa: avautuu painikkeensa yläpuolelle, ja kielet määrineen, verkon hakutulokset ja ajoitus ovat yhdessä paikassa.</item>
         <item>Asentuu VLC for Android -sovelluksen rinnalle, ja TV-sovellus on hepreaksi ja arabiaksi kokonaan peilattu, ja kaukosäätimen kohdistus on siellä, missä sitä odotat.</item>
+        <item>Näytöllesi sopiva koko: televisiossa sovellus on nyt suurempi ja helppo lukea sohvalta, koko määritetään näytön perusteella ja sitä voi muuttaa kohdassa Asetukset › Käyttöliittymä › Käyttöliittymän koko. Rivit näyttävät kokonaisia kortteja, ja jokainen ikkuna mahtuu näytölle.</item>
+        <item>Hyvin suuret TV-oppaat latautuvat täyttämättä muistia, kaksi tekstityskieltä voi näkyä yhtä aikaa, ja kaukosäätimen kohdistus on aina näkyvissä.</item>
     </string-array>
     <string name="rd_subtitle_size">Tekstityksen koko</string>
     <string name="rd_cast_this_phone">Tämä puhelin</string>

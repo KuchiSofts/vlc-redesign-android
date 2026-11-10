@@ -36,6 +36,8 @@
         <item>Phụ đề trực tuyến giờ dùng được cả cho video trên thư mục chia sẻ mạng, máy chủ đa phương tiện hoặc qua liên kết, khi tìm thủ công lẫn tự động (cảm ơn @Elshepl). Trên Android 5 đến 7.0, OpenSubtitles đã phản hồi trở lại.</item>
         <item>Bảng phụ đề như trên máy tính: mở ra phía trên nút của nó, với các ngôn ngữ và số lượng, kết quả trực tuyến và căn thời gian ở cùng một chỗ.</item>
         <item>Cài đặt được song song với VLC for Android, và ứng dụng TV bằng tiếng Do Thái và tiếng Ả Rập được lật gương toàn bộ, với tiêu điểm của điều khiển từ xa ở đúng nơi bạn mong đợi.</item>
+        <item>Vừa với màn hình của bạn: trên TV ứng dụng giờ lớn hơn và dễ đọc từ ghế sofa, kích thước được xác định theo màn hình và có thể thay đổi trong Cài đặt › Giao diện › Kích thước giao diện. Các hàng hiển thị trọn thẻ và mọi cửa sổ đều vừa màn hình.</item>
+        <item>Lịch phát sóng TV rất lớn được tải mà không làm đầy bộ nhớ, hai ngôn ngữ phụ đề có thể hiển thị cùng lúc, và tiêu điểm của điều khiển từ xa luôn hiển thị rõ.</item>
     </string-array>
     <string name="rd_subtitle_size">Cỡ phụ đề</string>
     <string name="rd_cast_this_phone">Điện thoại này</string>

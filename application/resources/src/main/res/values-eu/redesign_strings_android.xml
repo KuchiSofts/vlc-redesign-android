@@ -36,6 +36,8 @@
         <item>Lineako azpitituluak orain sareko partekatze batean, multimedia-zerbitzari batean edo esteka baten atzean dauden bideoetarako ere, eskuz zein automatikoki bilatuta (eskerrik asko, @Elshepl). Android 5-etik 7.0-ra, OpenSubtitles-ek berriro erantzuten du.</item>
         <item>Azpitituluen panela mahaigainean bezala: bere botoiaren gainean irekitzen da, eta hizkuntzak eta horien kopurua, lineako emaitzak eta sinkronizazioa leku bakarrean daude.</item>
         <item>VLC for Android-en ondoan instalatzen da, eta telebistako aplikazioa osorik dago ispiluan hebreeraz eta arabieraz, urruneko agintearen fokua espero duzun lekuan dagoela.</item>
+        <item>Zure pantailaren neurrira: telebistan aplikazioa handiagoa da orain eta sofatik erraz irakurtzen da, tamaina pantailaren arabera kalkulatzen da eta Ezarpenak › Interfazea › Interfazearen tamaina atalean alda daiteke. Errenkadek txartel osoak erakusten dituzte eta leiho guztiak pantailan sartzen dira.</item>
+        <item>Telebista-gida oso handiak memoria bete gabe kargatzen dira, bi azpititulu-hizkuntza batera erakuts daitezke, eta urruneko agintearen fokua beti dago ikusgai.</item>
     </string-array>
     <string name="rd_subtitle_size">Azpitituluen tamaina</string>
     <string name="rd_cast_this_phone">Telefono hau</string>

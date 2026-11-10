@@ -36,6 +36,8 @@
         <item>Sotítulos en llinia tamién pa vídeos nuna compartición de rede, un sirvidor multimedia o tres d\'un enllaz, alcontraos a mano y automáticamente (gracies a @Elshepl). N\'Android 5 a 7.0, OpenSubtitles vuelve a responder.</item>
         <item>El panel de sotítulos como nel escritoriu: ábrese enriba del so botón, coles llingües y la cantidá de cada una, los resultaos en llinia y la sincronización nun solu sitiu.</item>
         <item>Instálase xunto a VLC for Android, y l\'aplicación de TV n\'hebréu y árabe apaez espeyada dafechu, col focu del mandu onde lu esperes.</item>
+        <item>A la midida de la to pantalla: nuna TV l\'aplicación agora ye más grande y fácil de lleer dende\'l sofá, el tamañu calcúlase a partir de la pantalla y pue camudase n\'Axustes › Interfaz › Tamañu de la interfaz. Les fileres amuesen tarxetes enteres y cada ventana cabe na pantalla.</item>
+        <item>Les guíes de TV mui grandes carguen ensin enllenar la memoria, puen amosase dos llingües de sotítulos al empar, y el focu del mandu siempre ta visible.</item>
     </string-array>
     <string name="rd_subtitle_size">Tamañu de los subtítulos</string>
     <string name="rd_cast_this_phone">Esti teléfonu</string>

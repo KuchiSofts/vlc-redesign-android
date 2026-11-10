@@ -36,6 +36,8 @@
         <item>Subtitle online kini juga untuk video di folder berbagi jaringan, server media, atau di balik tautan, baik dicari manual maupun otomatis (terima kasih kepada @Elshepl). Di Android 5 hingga 7.0, OpenSubtitles kembali merespons.</item>
         <item>Panel Subtitle seperti di desktop: terbuka di atas tombolnya, dengan bahasa dan jumlahnya, hasil online, dan pengaturan waktu di satu tempat.</item>
         <item>Dapat dipasang berdampingan dengan VLC for Android, dan aplikasi TV dalam bahasa Ibrani dan Arab dicerminkan sepenuhnya, dengan fokus remote di tempat yang Anda harapkan.</item>
+        <item>Disesuaikan dengan layar Anda: di TV aplikasi kini lebih besar dan mudah dibaca dari sofa, ukurannya ditentukan dari layar dan dapat diubah di Setelan › Antarmuka › Ukuran antarmuka. Baris menampilkan kartu secara utuh dan setiap jendela muat di layar.</item>
+        <item>Panduan TV yang sangat besar dimuat tanpa memenuhi memori, dua bahasa subtitle dapat tampil sekaligus, dan fokus remote selalu terlihat.</item>
     </string-array>
     <string name="rd_subtitle_size">Ukuran subtitel</string>
     <string name="rd_cast_this_phone">Ponsel ini</string>

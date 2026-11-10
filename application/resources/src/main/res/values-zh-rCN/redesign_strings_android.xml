@@ -36,6 +36,8 @@
         <item>网络共享、媒体服务器或链接中的视频现在也能在线查找字幕，手动和自动均可（感谢 @Elshepl）。在 Android 5 至 7.0 上，OpenSubtitles 恢复响应。</item>
         <item>与桌面版一样的字幕面板：在其按钮上方打开，语言及各自的数量、在线结果和时间轴都集中在一处。</item>
         <item>可与 VLC for Android 并存安装；希伯来语和阿拉伯语的电视应用整体镜像显示，遥控器焦点也在您预期的位置。</item>
+        <item>大小适配您的屏幕：在电视上应用现在更大，坐在沙发上也能轻松看清，大小根据屏幕自动确定，可在“设置 › 界面 › 界面大小”中更改。每行显示完整的卡片，每个窗口都能完整显示在屏幕内。</item>
+        <item>超大的电视节目指南加载时不会占满内存，可同时显示两种语言的字幕，遥控器焦点始终可见。</item>
     </string-array>
     <string name="rd_subtitle_size">字幕大小</string>
     <string name="rd_cast_this_phone">此手机</string>

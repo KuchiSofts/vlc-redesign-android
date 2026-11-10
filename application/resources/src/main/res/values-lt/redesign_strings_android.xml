@@ -36,6 +36,8 @@
         <item>Subtitrai iš interneto dabar ir vaizdo įrašams bendrinamame tinklo aplanke, medijos serveryje ar už nuorodos, ieškant rankiniu būdu ir automatiškai (ačiū @Elshepl). Android 5–7.0 sistemoje OpenSubtitles vėl atsako.</item>
         <item>Subtitrų skydelis kaip kompiuterio versijoje: atsidaro virš savo mygtuko, o kalbos su jų skaičiumi, internetiniai rezultatai ir sinchronizavimas yra vienoje vietoje.</item>
         <item>Įdiegiama šalia VLC for Android, o TV programėlė hebrajų ir arabų kalbomis visiškai atspindėta veidrodiškai, pulto fokusas ten, kur jo tikitės.</item>
+        <item>Pritaikyta jūsų ekranui: televizoriuje programėlė dabar didesnė ir lengvai skaitoma nuo sofos, dydis nustatomas pagal ekraną ir jį galima pakeisti Nustatymai › Sąsaja › Sąsajos dydis. Eilėse rodomos visos kortelės, o kiekvienas langas telpa ekrane.</item>
+        <item>Labai didelės TV programos įkeliamos neužpildant atminties, vienu metu galima rodyti dvi subtitrų kalbas, o pulto fokusas visada matomas.</item>
     </string-array>
     <string name="rd_subtitle_size">Subtitrų dydis</string>
     <string name="rd_cast_this_phone">Šis telefonas</string>

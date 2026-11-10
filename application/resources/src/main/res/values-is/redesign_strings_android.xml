@@ -38,6 +38,8 @@
         <item>Skjátextar af netinu nú líka fyrir myndskeið á netsameign, margmiðlunarþjóni eða bak við tengil, bæði þegar leitað er handvirkt og sjálfkrafa (þakkir til @Elshepl). Í Android 5 til 7.0 svarar OpenSubtitles aftur.</item>
         <item>Skjátextaspjaldið eins og í tölvuútgáfunni: það opnast fyrir ofan hnappinn sinn, með tungumálunum og fjölda þeirra, niðurstöðum af netinu og tímasetningunni á einum stað.</item>
         <item>Setst upp við hlið VLC for Android, og sjónvarpsforritið á hebresku og arabísku er speglað í heild, með fókus fjarstýringarinnar þar sem þú átt von á honum.</item>
+        <item>Stærð sem hentar skjánum þínum: í sjónvarpi er forritið nú stærra og auðlesið úr sófanum, stærðin er fundin út frá skjánum og henni má breyta í Stillingar › Viðmót › Stærð viðmóts. Raðir sýna heil spjöld og hver gluggi passar á skjáinn.</item>
+        <item>Mjög stórar sjónvarpsdagskrár hlaðast án þess að fylla minnið, tvö skjátextatungumál geta birst samtímis, og fókus fjarstýringarinnar er alltaf sýnilegur.</item>
     </string-array>
     <string name="rd_subtitle_size">Stærð skjátexta</string>
     <string name="rd_cast_this_phone">Þessi sími</string>
