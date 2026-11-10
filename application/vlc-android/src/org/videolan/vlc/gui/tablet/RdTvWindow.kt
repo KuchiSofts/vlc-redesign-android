@@ -606,6 +606,8 @@ object RdTvWindow {
                 if (band != null && inside(focused, band)) return page.getFocusables(View.FOCUS_DOWN).firstOrNull { it.isShown }?.requestFocus() == true
                 if (!inside(focused, header)) return false
                 if (band != null && band.getFocusables(View.FOCUS_DOWN).firstOrNull { it.isShown }?.requestFocus() == true) return true
+                // an empty page's button (New Playlist): the empty list under it took the search and kept the focus above
+                page.findViewById<View>(R.id.noMediaButton)?.takeIf { it.isShown && it.isFocusable }?.let { if (it.requestFocus()) return true }
                 val next = android.view.FocusFinder.getInstance().findNextFocus(root, focused, View.FOCUS_DOWN)
                 if (next != null && inside(next, page)) return false
                 val first = page.getFocusables(View.FOCUS_DOWN).firstOrNull { it.isShown } ?: return false
