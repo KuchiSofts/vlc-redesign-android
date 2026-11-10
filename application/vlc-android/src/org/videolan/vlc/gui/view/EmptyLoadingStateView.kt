@@ -94,7 +94,7 @@ class EmptyLoadingStateView : FrameLayout {
             grantPermissionButton.visibility = if (value in arrayOf(EmptyLoadingState.MISSING_PERMISSION, EmptyLoadingState.MISSING_VIDEO_PERMISSION, EmptyLoadingState.MISSING_AUDIO_PERMISSION)) VISIBLE else GONE
             pickFileButton.visibility = if (value in arrayOf(EmptyLoadingState.MISSING_PERMISSION, EmptyLoadingState.MISSING_VIDEO_PERMISSION, EmptyLoadingState.MISSING_AUDIO_PERMISSION) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) VISIBLE else GONE
             noMediaButton.visibility = if (showNoMedia && value == EmptyLoadingState.EMPTY) VISIBLE else if (value == EmptyLoadingState.EMPTY_FAVORITES) INVISIBLE else GONE
-            rdApplyEmptyAction()
+            rdApplyEmptyAction(value)
             permissionTextView.text = when (state) {
                 EmptyLoadingState.MISSING_VIDEO_PERMISSION -> context.getString(R.string.permission_video)
                 EmptyLoadingState.MISSING_AUDIO_PERMISSION -> context.getString(R.string.permission_audio)
@@ -132,10 +132,11 @@ class EmptyLoadingStateView : FrameLayout {
             if (::noMediaButton.isInitialized) rdApplyEmptyAction()
         }
 
-    private fun rdActionShown() = emptyAction != null && state in arrayOf(EmptyLoadingState.EMPTY, EmptyLoadingState.EMPTY_SEARCH)
+    private fun rdActionShown(now: EmptyLoadingState = state) = emptyAction != null && now in arrayOf(EmptyLoadingState.EMPTY, EmptyLoadingState.EMPTY_SEARCH)
 
-    private fun rdApplyEmptyAction() {
-        if (!rdActionShown()) return
+    // (the state's setter keeps its new value last: it is given here)
+    private fun rdApplyEmptyAction(now: EmptyLoadingState = state) {
+        if (!rdActionShown(now)) return
         noMediaButton.text = emptyAction?.first
         noMediaButton.visibility = VISIBLE
     }
