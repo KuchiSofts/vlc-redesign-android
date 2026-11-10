@@ -305,6 +305,13 @@ internal class TvFlow(context: Context, private val hGap: Int, private val vGap:
 }
 
 internal object TvTexts {
+    /**
+     * A channel's or a programme's words in their own direction, whatever the page's (a first-strong isolate): in a
+     * Hebrew or Arabic interface "Friends!" was drawn "!Friends" and "CNN (US)" with its brackets apart, the
+     * page's direction taking the marks at the ends.
+     */
+    fun own(text: String?): String = if (text.isNullOrEmpty()) "" else "\u2068$text\u2069"
+
     /** the language of the app (it can differ from the phone's), as the desktop's QLocale().toString(time, ShortFormat) */
     private fun locale(context: Context) = org.videolan.vlc.util.RdCompat.primaryLocale(context.resources.configuration)
 

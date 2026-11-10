@@ -140,7 +140,7 @@ internal class TvChannelAdapter(
             channel = c
             number.text = if (c.number > 0) c.number.toString() else ""
             logo.set(c.logo, c.name)
-            name.text = c.name
+            name.text = TvTexts.own(c.name)
             badge?.let { marks.removeView(it) }
             badge = null
             if (c.catchupDays > 0) {
@@ -165,7 +165,7 @@ internal class TvChannelAdapter(
             row.isActivated = current
             name.setTextColor(if (current) ctx.tvAccent else ctx.tvColor(R.color.rd_fg_a1))
             nowTitle.text = when {
-                now != null -> TvTexts.time(ctx, now.start) + "  " + now.title
+                now != null -> TvTexts.time(ctx, now.start) + "  " + TvTexts.own(now.title)
                 c.hasGuide -> ""
                 else -> ctx.getString(R.string.rd_tv_no_guide)
             }
@@ -173,7 +173,7 @@ internal class TvChannelAdapter(
             if (now != null) progress.fraction = (t - now.start).toFloat() / maxOf(1L, now.stop - now.start)
             fun showDesc(text: String) {
                 val d = text.replace('\n', ' ').take(200)
-                desc.text = d
+                desc.text = TvTexts.own(d)
                 desc.visibility = if (d.isEmpty()) View.GONE else View.VISIBLE
             }
             if (showDescription && now != null && now.descLength > 0) {
@@ -189,7 +189,7 @@ internal class TvChannelAdapter(
             val next = if (showNext && wide) c.next(t) else null
             nextBox.visibility = if (wide && showNext) View.VISIBLE else View.GONE
             nextTime.text = if (next != null) ctx.getString(R.string.rd_tv_next_at, TvTexts.time(ctx, next.start)) else ""
-            nextTitle.text = next?.title ?: ""
+            nextTitle.text = TvTexts.own(next?.title)
             itemView.contentDescription = listOfNotNull(c.number.takeIf { it > 0 }?.toString(), c.name, now?.title).joinToString(", ")
         }
     }
@@ -242,7 +242,7 @@ internal class TvChannelAdapter(
             channel = c
             logo.set(c.logo, c.name)
             number.text = if (c.number > 0) c.number.toString() else ""
-            name.text = c.name
+            name.text = TvTexts.own(c.name)
             badgeBox.removeAllViews()
             if (c.catchupDays > 0) badgeBox.addView(ctx.tvBadge(ctx.resources.getQuantityString(R.plurals.rd_tv_days_short, c.catchupDays, c.catchupDays), R.drawable.rd_ic_recent))
             bindNow(c)
@@ -254,7 +254,7 @@ internal class TvChannelAdapter(
             val now = c.now(t)
             current = TvPlayback.current.value == c.key
             look()
-            nowTitle.text = now?.title ?: if (c.hasGuide) "" else ctx.getString(R.string.rd_tv_no_guide)
+            nowTitle.text = now?.title?.let { TvTexts.own(it) } ?: if (c.hasGuide) "" else ctx.getString(R.string.rd_tv_no_guide)
             progress.fraction = if (now != null && showProgress) (t - now.start).toFloat() / maxOf(1L, now.stop - now.start) else 0f
             itemView.contentDescription = listOfNotNull(c.number.takeIf { it > 0 }?.toString(), c.name, now?.title).joinToString(", ")
         }

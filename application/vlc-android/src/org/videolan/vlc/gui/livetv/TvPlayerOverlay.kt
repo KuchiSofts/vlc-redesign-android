@@ -500,7 +500,9 @@ class TvPlayerOverlay(private val activity: VideoPlayerActivity) {
             archive -> catchup!!.title.ifEmpty { ctx.getString(R.string.rd_tv_programme) }
             !full -> c.name
             e != null -> e.title
-            c.hasGuide -> ctx.getString(R.string.rd_tv_loading_guide)
+            // (while its source is being read only: a channel whose guide says nothing about this hour kept
+            // "Loading the guide…" for good)
+            c.hasGuide && LiveTv.state.value.sources.any { it.id == c.sourceId && it.busy } -> ctx.getString(R.string.rd_tv_loading_guide)
             else -> ctx.getString(R.string.rd_tv_no_guide_channel)
         }
         // with Settings > TV: its episode and kind, two lines of its story
