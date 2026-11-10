@@ -11,6 +11,7 @@
  */
 package org.videolan.vlc.gui.livetv
 
+import androidx.core.view.doOnNextLayout
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Gravity
@@ -426,7 +427,20 @@ class TvFragment : BaseFragment(), Filterable {
             if (q.isNotEmpty()) list = list.filter { it.name.lowercase().contains(q) || it.number.toString() == q }
             listKey = key
             shown = list
+            // (the remote on a channel while the list is made again, a source updating: it stays on the channel's
+            // place; its card gone, the window gave the focus to the title bar's menu at the top of the screen)
+            val rows = this.list
+            val heldAt = if (rows.hasFocus() && !rows.isInTouchMode) rows.focusedChild?.let { rows.getChildAdapterPosition(it) } ?: 0 else -1
             adapter.submit(list)
+            // (once the new rows are laid out)
+            if (heldAt >= 0 && list.isNotEmpty()) rows.doOnNextLayout {
+                rows.post {
+                    if (isAdded && !rows.hasFocus() && !rows.isInTouchMode) {
+                        val at = heldAt.coerceIn(0, shown.size - 1)
+                        (rows.layoutManager?.findViewByPosition(at) ?: rows.getChildAt(0))?.requestFocus()
+                    }
+                }
+            }
             guide.channels = list
             // the page opens where the user is: on the channel playing, else the one watched last (its row or its
             // card's row at the top, the one before it still in sight); a search or a group starts at its top
