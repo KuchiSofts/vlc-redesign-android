@@ -1193,6 +1193,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
 
     /** A subtitle track was chosen: the size changed while none was shown is taken now (#10) */
     fun onSubtitleTrackChosen(trackId: String) {
+        // (the lift above the bar follows: the picture never moves for subtitles switched off)
+        handler.post { overlayDelegate.rdSubtitleTrackChanged() }
         if (subtitleScalePending && trackId != "-1") handler.postDelayed(subtitleScaleReload, 300L)
         // VLC Redesign: the language of a subtitle the user chose joins Settings › Subtitles › Languages to search
         // (off until turned on there)

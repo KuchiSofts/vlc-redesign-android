@@ -546,7 +546,8 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
     }
 
     private fun showDelay(ms: Long) {
-        binding.rdSubTiming.rdSubDelayValue.text = String.format(java.util.Locale.US, "%+d ms", ms)
+        // (isolated: "+50 ms" in a right to left language too; it read "ms 0+" in Hebrew)
+        binding.rdSubTiming.rdSubDelayValue.text = String.format(java.util.Locale.US, "⁦%+d ms⁩", ms)
     }
 
     private fun generateSeparator(parent: ViewGroup, margin: Boolean = false) {
