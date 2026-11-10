@@ -52,7 +52,14 @@ class RdWhatsNewDialog : VLCBottomSheetDialogFragment() {
         val ctx = requireContext()
         resources.getStringArray(R.array.rd_whats_new_items).forEach { item ->
             list.addView(TextView(ctx).apply {
-                text = "•  $item"
+                typeface = ResourcesCompat.getFont(ctx, R.font.inter)
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+                // the lines after the first start under the words, not back under the bullet (the reading side's
+                // margin: on the right in Hebrew or Arabic)
+                val bullet = "•  "
+                text = android.text.SpannableString(bullet + item).apply {
+                    setSpan(android.text.style.LeadingMarginSpan.Standard(0, paint.measureText(bullet).toInt()), 0, length, android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+                }
                 setTextColor(ContextCompat.getColor(ctx, R.color.rd_fg_2))
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
                 typeface = ResourcesCompat.getFont(ctx, R.font.inter)

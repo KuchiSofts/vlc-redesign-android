@@ -84,7 +84,8 @@ fun loadImage(v: View, item: MediaLibraryItem?, imageWidth: Int = 0, tv: Boolean
         else -> ThumbnailsProvider.getMediaCacheKey(isMedia, item, cacheWidth.toString())
     }
     val bitmap = if (cacheKey !== null) BitmapCache.getBitmapFromMemCache(cacheKey) else null
-    if (bitmap !== null) updateImageView(bitmap, v, binding, tv = tv, card = card)
+    // (VLC Redesign: a video's picture that is a black frame says nothing: the video's own icon stays)
+    if (bitmap !== null) { if (!rdBlackFrame(item, bitmap)) updateImageView(bitmap, v, binding, tv = tv, card = card) }
     else {
         v.scope.takeIf { it.isActive }?.launch { getImage(v, findInLibrary(item, isMedia), binding, imageWidth, tv = tv, card = card) }
     }
@@ -256,8 +257,29 @@ private suspend fun getImage(v: View, item: MediaLibraryItem, binding: ViewDataB
         return
     }
 
-    if (!bindChanged) updateImageView(image, v, binding, tv = tv, card = card)
+    if (!bindChanged && !rdBlackFrame(item, image)) updateImageView(image, v, binding, tv = tv, card = card)
     binding?.removeOnRebindCallback(rebindCallbacks!!)
+}
+
+/**
+ * VLC Redesign: a video's thumbnail that is (nearly) all black, the frame of a fade-in or of a dark opening: a card
+ * of pure black looked like a picture that failed to load. The video's icon on its card is shown instead.
+ */
+private val rdBlackFrames = java.util.Collections.synchronizedMap(java.util.WeakHashMap<Bitmap, Boolean>())
+internal fun rdBlackFrame(item: MediaLibraryItem?, bitmap: Bitmap): Boolean {
+    if ((item as? MediaWrapper)?.type != MediaWrapper.TYPE_VIDEO || bitmap.isRecycled || bitmap.width < 8 || bitmap.height < 8) return false
+    return rdBlackFrames.getOrPut(bitmap) {
+        try {
+            // a grid of 12 x 12 points: black when the brightest of them is still nearly black
+            var brightest = 0
+            for (y in 1..12) for (x in 1..12) {
+                val c = bitmap.getPixel(bitmap.width * x / 13, bitmap.height * y / 13)
+                val luma = (android.graphics.Color.red(c) * 3 + android.graphics.Color.green(c) * 6 + android.graphics.Color.blue(c)) / 10
+                if (luma > brightest) brightest = luma
+            }
+            brightest < 16
+        } catch (e: Exception) { false }
+    }
 }
 
 private suspend fun getPlaylistOrGenreImage(v: View, item: MediaLibraryItem, binding: ViewDataBinding?, width: Int, card: Boolean) {
@@ -302,7 +324,10 @@ fun updateImageViewTv(@DrawableRes res: Int, target: View) {
 fun updateImageView(bitmap: Bitmap?, target: View, vdb: ViewDataBinding?, updateScaleType: Boolean = true, tv: Boolean = false, card: Boolean = false) {
     if (bitmap === null || bitmap.width <= 1 || bitmap.height <= 1) return
     if (vdb !== null && !tv) {
-        vdb.setVariable(BR.scaleType, if (card) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER)
+        // (VLC Redesign: art much smaller than its card is drawn at its own size in the middle of the card, not blown
+        // up to a blur of large squares)
+        val small = card && target.width > 0 && bitmap.width * 5 < target.width * 2
+        vdb.setVariable(BR.scaleType, if (small) ImageView.ScaleType.CENTER_INSIDE else if (card) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER)
         vdb.setVariable(BR.cover, BitmapDrawable(target.resources, bitmap))
         vdb.setVariable(BR.protocol, null)
         vdb.setVariable(BR.showProgress, false)
