@@ -94,6 +94,13 @@ class HistoryFragment : MediaBrowserFragment<HistoryModel>(), IRefreshable, IHis
         super.onViewCreated(view, savedInstanceState)
         list = view.findViewById(R.id.list)
         empty = view.findViewById(R.id.empty)
+        // VLC Redesign, the TV layout: the rows between the page's margins (as wide as the page, the remote's ring ran
+        // from under the sidebar to the screen's edge, the pictures left of the header's line)
+        if (org.videolan.vlc.gui.tablet.RdTvWindow.isOn(view.context)) {
+            val d = view.resources.displayMetrics.density
+            list.setPaddingRelative((28 * d).toInt(), (10 * d).toInt(), (19 * d).toInt(), list.paddingBottom)
+            list.clipToPadding = false
+        }
         viewModel.dataset.observe(viewLifecycleOwner) { list ->
             list?.let {
                 historyAdapter.update(it)

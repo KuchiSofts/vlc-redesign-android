@@ -16,6 +16,8 @@
     <item name="rd_tv_header_count" type="id" />
     <item name="rd_tv_header_sort" type="id" />
     <item name="rd_tv_header_view" type="id" />
+    <item name="rd_tv_band_cover" type="id" />
+    <item name="rd_tv_band" type="id" />
     <item name="rd_tv_header_more" type="id" />
     <item name="rd_tv_header_search" type="id" />
     <item name="rd_tv_header_search_text" type="id" />

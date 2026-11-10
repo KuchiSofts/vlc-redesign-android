@@ -217,8 +217,16 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         // (set both ways: the base page shows every row it doesn't know, the XML's hidden note too: a phone showed
         // the TV's words under the row as well)
         pref<Preference>(org.videolan.vlc.gui.video.RdKeyFeedbackRules.KEY + "_note")?.isVisible = Settings.showTvUi
+        // an Android TV: no rows for what a TV does not have (a screen that turns, a window over other apps, a second
+        // display to clone to, a lock screen, a touch screen to lock by the sensor)
+        if (AndroidDevices.isAndroidTv) {
+            for (key in arrayOf("video_action_switch", "popup_force_legacy", "restore_background_video", "screen_orientation",
+                "enable_clone_mode", LOCK_USE_SENSOR, "lockscreen_cover", "show_seek_in_compact_notification", "save_brightness",
+                "enable_headset_detection", "enable_play_on_headset_insertion", "ignore_headset_media_button_presses", "android_auto_category"))
+                pref<Preference>(key)?.isVisible = false
+        }
         // Video
-        if (page == RdPage.VIDEO && settings.getBoolean(PREF_SHOW_VIDEO_SETTINGS_DISCLAIMER, false)) {
+        if (page == RdPage.VIDEO &&settings.getBoolean(PREF_SHOW_VIDEO_SETTINGS_DISCLAIMER, false)) {
             UiTools.snackerConfirm(requireActivity(), requireActivity().getString(R.string.video_settings_disclaimer), indefinite = true) {
                 Settings.getInstance(AppContextProvider.appContext).putSingle(PREF_SHOW_VIDEO_SETTINGS_DISCLAIMER, false)
             }
@@ -339,6 +347,16 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         super.onStart()
         preferenceScreen.sharedPreferences?.registerOnSharedPreferenceChangeListener(this)
         (activity as? PreferencesActivity)?.onPageShown(page)
+        hideEmptySections()
+    }
+
+    /** A section whose rows are all hidden on this device shows no heading either ("Snapshots" over nothing on a TV). */
+    private fun hideEmptySections() {
+        val screen = preferenceScreen ?: return
+        for (i in 0 until screen.preferenceCount) {
+            val section = screen.getPreference(i) as? androidx.preference.PreferenceCategory ?: continue
+            if (section.preferenceCount > 0 && (0 until section.preferenceCount).none { section.getPreference(it).isVisible }) section.isVisible = false
+        }
     }
 
     override fun onStop() {

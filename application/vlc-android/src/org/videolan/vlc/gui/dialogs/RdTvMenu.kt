@@ -196,6 +196,8 @@ object RdTvMenu {
         // (the shared rules of what fits a window, RdFitRules: never wider or taller than it, moved back inside it)
         val w = org.videolan.vlc.util.RdFitRules.size(width.dp, frame.width(), margin)
         scroll.measure(View.MeasureSpec.makeMeasureSpec(w, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED))
+        // (under the window's title bar: a long menu went up over the app's name and the clock)
+        if (org.videolan.vlc.gui.tablet.RdTvWindow.isOn(activity)) frame.top += org.videolan.vlc.gui.tablet.RdTvWindow.TITLE_BAR_HEIGHT.dp
         val h = org.videolan.vlc.util.RdFitRules.size(scroll.measuredHeight, frame.height(), margin)
         val rtl = decor.layoutDirection == View.LAYOUT_DIRECTION_RTL
         var x: Int

@@ -48,7 +48,7 @@
             android:title="@string/enable_clone_mode" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/rd_sec_playback_controls">
-        <SeekBarPreference
+        <org.videolan.vlc.gui.preferences.rd.RdValueSeekBarPreference
             android:defaultValue="4"
             android:key="video_hud_timeout_in_s"
             android:max="16"

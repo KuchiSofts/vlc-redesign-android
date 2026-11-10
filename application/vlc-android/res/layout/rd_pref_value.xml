@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign: a row's value in words at its end ("10s"), for the TV layout's rows, which draw no help line: a
+     row whose value was its help showed its name alone -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rd_pref_value"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fontFamily="@font/inter"
+    android:includeFontPadding="false"
+    android:maxLines="1"
+    android:textSize="14dp"
+    android:textColor="@color/rd_fg_2"
+    android:visibility="gone" />

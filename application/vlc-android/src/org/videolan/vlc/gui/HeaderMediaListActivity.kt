@@ -285,6 +285,7 @@ open class HeaderMediaListActivity : AudioPlayerContainerActivity(), IEventsHand
             }
             if (cover != null) {
                 binding.cover = BitmapDrawable(this@HeaderMediaListActivity.resources, cover)
+                org.videolan.vlc.gui.tablet.RdTvWindow.bandCover(this@HeaderMediaListActivity, binding.cover)
                 binding.appbar.setExpanded(true, true)
                 if (showBackground) {
                     val radius = if (isPlaylist) 25f else 15f

@@ -84,6 +84,75 @@ object RdTvWindow {
         ellipsize = TextUtils.TruncateAt.END
     }
 
+    /**
+     * An album's or a playlist's page: what the page is about, under the header: the cover (96, radius 6), the name,
+     * the artist and the length, then Play and Shuffle for the remote. The words and the picture are those of the
+     * page's own (hidden) banner, followed as they arrive; the buttons press the banner's.
+     */
+    private fun band(activity: HeaderMediaListActivity): View {
+        val ctx: Context = activity
+        fun from(id: Int) = activity.findViewById<View>(id)
+        val cover = ImageView(ctx).apply {
+            id = R.id.rd_tv_band_cover
+            scaleType = ImageView.ScaleType.CENTER_CROP
+            background = GradientDrawable().apply { cornerRadius = 6.dp.toFloat(); setColor(0xFF1A1A1A.toInt()) }
+            clipToOutline = true
+            importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
+        }
+        val name = text(ctx, 22f, 0xFFE6E6E6.toInt())
+        val about = text(ctx, 14f, FG_2)
+        fun words() {
+            name.text = (from(R.id.header_list_title) as? TextView)?.text
+            about.text = listOf(R.id.header_list_artist, R.id.release_date, R.id.duration)
+                    .mapNotNull { id -> (from(id) as? TextView)?.takeIf { it.visibility == View.VISIBLE }?.text?.toString()?.trim()?.takeIf { it.isNotEmpty() } }
+                    .joinToString("  ·  ")
+            about.visibility = if (about.text.isNullOrEmpty()) View.GONE else View.VISIBLE
+        }
+        for (id in intArrayOf(R.id.header_list_title, R.id.header_list_artist, R.id.release_date, R.id.duration)) (from(id) as? TextView)?.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: android.text.Editable?) { name.post { words() } }
+        })
+        words()
+        fun button(label: CharSequence, primary: Boolean, target: Int) = text(ctx, 14f, if (primary) 0xFF0E0E0E.toInt() else 0xFFE6E6E6.toInt()).apply {
+            text = label
+            gravity = Gravity.CENTER
+            setPadding(18.dp, 0, 18.dp, 0)
+            minWidth = 96.dp
+            isFocusable = true
+            isClickable = true
+            background = GradientDrawable().apply { cornerRadius = 6.dp.toFloat(); setColor(if (primary) org.videolan.vlc.gui.helpers.UiTools.getColorFromAttribute(ctx, androidx.appcompat.R.attr.colorPrimary) else 0xFF222222.toInt()) }
+            setOnClickListener { from(target)?.performClick() }
+        }
+        val buttons = LinearLayout(ctx).apply {
+            orientation = LinearLayout.HORIZONTAL
+            addView(button(ctx.getString(R.string.play), true, R.id.play_btn), LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 36.dp))
+            addView(button(ctx.getString(R.string.shuffle_all_title), false, R.id.btn_shuffle), LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 36.dp).apply { marginStart = 10.dp })
+        }
+        val texts = LinearLayout(ctx).apply {
+            orientation = LinearLayout.VERTICAL
+            gravity = Gravity.CENTER_VERTICAL
+            addView(name, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+            addView(about, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { topMargin = 6.dp })
+            addView(buttons, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { topMargin = 14.dp })
+        }
+        return LinearLayout(ctx).apply {
+            id = R.id.rd_tv_band
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+            setPaddingRelative(28.dp, 20.dp, 28.dp, 0)
+            clipChildren = false
+            clipToPadding = false
+            addView(cover, LinearLayout.LayoutParams(112.dp, 112.dp))
+            addView(texts, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f).apply { marginStart = 20.dp })
+        }
+    }
+
+    /** The picture of an album's / a playlist's page, once found (see [band]). */
+    fun bandCover(activity: HeaderMediaListActivity, picture: android.graphics.drawable.Drawable?) {
+        if (picture != null) activity.findViewById<ImageView>(R.id.rd_tv_band_cover)?.setImageDrawable(picture)
+    }
+
     /** An icon button of the header (.sh-ib): 32 x 32, the icon 24, radius 6, the hover colour on focus. */
     private fun iconButton(ctx: Context, icon: Int, tint: Int, desc: CharSequence?) = ImageView(ctx).apply {
         setImageResource(icon)
@@ -120,6 +189,8 @@ object RdTvWindow {
         appbar.addView(header, 0, AppBarLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, HEADER_HEIGHT.dp).apply { scrollFlags = 0 })
         // a playlist's or an album's page (HeaderMediaListActivity): the library's header instead of its cover's
         findViewById<View>(R.id.collapsing_toolbar)?.visibility = View.GONE
+        // (its cover, artist, length and Play under the header: the page was one line of small text on an empty page)
+        if (this is HeaderMediaListActivity) appbar.addView(band(this), 1, AppBarLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { scrollFlags = 0 })
         pageView(this)?.let { ph ->
             (ph.layoutParams as ViewGroup.MarginLayoutParams).apply { marginStart = MAIN_START.dp }
             // (a screen over the library had the Leanback TV's margins and no scrolling behaviour)
@@ -162,6 +233,13 @@ object RdTvWindow {
                     if (!isDestroyed) sync(this, header)
                 }
             }
+        }
+        // (and once a sideways move ends: a tab slides in without any layout, the header kept the count of the tab
+        // before: "15 items" over five genres)
+        val settled = Runnable { if (!isDestroyed) sync(this, header) }
+        window.decorView.viewTreeObserver.addOnScrollChangedListener {
+            window.decorView.removeCallbacks(settled)
+            window.decorView.postDelayed(settled, 300)
         }
     }
 
@@ -499,10 +577,14 @@ object RdTvWindow {
                 return true
             }
             android.view.KeyEvent.KEYCODE_DPAD_UP -> {
-                if (!inside(focused, page)) return false
-                val next = android.view.FocusFinder.getInstance().findNextFocus(root, focused, View.FOCUS_UP)
+                // (an album's / a playlist's page: its Play and Shuffle are between the rows and the header)
+                val band = root.findViewById<View>(R.id.rd_tv_band)?.takeIf { it.isShown }
+                val inBand = band != null && inside(focused, band)
+                if (!inBand && !inside(focused, page)) return false
+                val next = if (inBand) null else android.view.FocusFinder.getInstance().findNextFocus(root, focused, View.FOCUS_UP)
                 // (a scrolling container of the focused view itself is not "above" it)
                 if (next != null && inside(next, page) && !inside(focused, next)) return false
+                if (band != null && !inBand && band.getFocusables(View.FOCUS_UP).firstOrNull { it.isShown }?.requestFocus() == true) return true
                 // the header's control nearest above
                 val at = IntArray(2).also { focused.getLocationOnScreen(it) }
                 val x = at[0] + focused.width / 2
@@ -520,7 +602,10 @@ object RdTvWindow {
                     val next = focused.focusSearch(View.FOCUS_DOWN)
                     return next != null && inside(next, side)
                 }
+                val band = root.findViewById<View>(R.id.rd_tv_band)?.takeIf { it.isShown }
+                if (band != null && inside(focused, band)) return page.getFocusables(View.FOCUS_DOWN).firstOrNull { it.isShown }?.requestFocus() == true
                 if (!inside(focused, header)) return false
+                if (band != null && band.getFocusables(View.FOCUS_DOWN).firstOrNull { it.isShown }?.requestFocus() == true) return true
                 val next = android.view.FocusFinder.getInstance().findNextFocus(root, focused, View.FOCUS_DOWN)
                 if (next != null && inside(next, page)) return false
                 val first = page.getFocusables(View.FOCUS_DOWN).firstOrNull { it.isShown } ?: return false
@@ -622,7 +707,9 @@ object RdTvWindow {
 
     /** The page's main list: the first vertical list in it (a grid or the rows of a library page) */
     private fun mainList(v: View): androidx.recyclerview.widget.RecyclerView? {
-        if (v is androidx.recyclerview.widget.RecyclerView && v.isShown) {
+        // (really on the screen: the pager's neighbouring tabs are "shown" too, beside the screen, and the count in
+        // the header was another tab's: "0 items" over a page of albums)
+        if (v is androidx.recyclerview.widget.RecyclerView && v.isShown && v.getGlobalVisibleRect(android.graphics.Rect())) {
             val lm = v.layoutManager
             val vertical = (lm as? androidx.recyclerview.widget.LinearLayoutManager)?.orientation != androidx.recyclerview.widget.RecyclerView.HORIZONTAL
             if (vertical) return v
@@ -782,6 +869,15 @@ object RdTvWindow {
         fun show(v: View, on: Boolean) { if (v.isVisible != on) v.isVisible = on }
         // the page's count of items (the desktop's "110 items"): the main list of a library page
         val shownPage = activity.supportFragmentManager.findFragmentById(R.id.fragment_placeholder)
+        // (another page: its own search starts empty. The words typed for the page before stayed in the field over a
+        // page they no longer filtered)
+        header.findViewById<EditText>(R.id.rd_tv_header_search_text)?.let { field ->
+            val now = shownPage?.let { System.identityHashCode(it) } ?: 0
+            if (field.tag != now) {
+                if (field.tag != null && !field.text.isNullOrEmpty()) field.setText("")
+                field.tag = now
+            }
+        }
         val mainList = if (shownPage is org.videolan.vlc.gui.HomeFragment) null else (shownPage?.view ?: parts.page)?.let { mainList(it) }
         val count = mainList?.adapter?.itemCount
         parts.count.let { c ->

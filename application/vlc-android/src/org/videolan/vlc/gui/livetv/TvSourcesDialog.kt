@@ -154,7 +154,8 @@ class TvSourcesDialog : DialogFragment() {
         dialog?.window?.let { w ->
             val dm = resources.displayMetrics
             val width = minOf(dm.widthPixels - requireContext().tvPx(24f), requireContext().tvPx(720f))
-            w.setLayout(width, (dm.heightPixels * 0.9f).toInt())
+            w.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+            fit()
             w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         }
         // opened with the remote: the page's tab has the focus (the window's first focus went to a scrolling box,
@@ -166,6 +167,22 @@ class TvSourcesDialog : DialogFragment() {
     }
 
     private var focusGiven = false
+
+    /**
+     * The window as tall as its page: between 360 and nine tenths of the screen (one source in a window made for
+     * forty left two thirds of it empty). The rows scroll inside when they are more, the buttons stay under them.
+     */
+    private fun fit() {
+        val root = view ?: return
+        val window = dialog?.window ?: return
+        val ctx = context ?: return
+        val dm = resources.displayMetrics
+        val width = minOf(dm.widthPixels - ctx.tvPx(24f), ctx.tvPx(720f))
+        val most = (dm.heightPixels * 0.9f).toInt()
+        root.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(most, View.MeasureSpec.AT_MOST))
+        val height = root.measuredHeight.coerceIn(minOf(ctx.tvPx(360f), most), most)
+        if (window.attributes.height != height || window.attributes.width != width) window.setLayout(width, height)
+    }
 
     private fun focusTab() {
         val root = view ?: return
@@ -197,8 +214,10 @@ class TvSourcesDialog : DialogFragment() {
             addView(tabs, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ctx.tvPx(36f)))
         }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { topMargin = ctx.tvPx(14f) })
         body = LinearLayout(ctx).apply { orientation = LinearLayout.VERTICAL }
-        scroll = ScrollView(ctx).apply { isFillViewport = true; isFocusable = false; addView(body) }
-        root.addView(scroll, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f).apply { topMargin = ctx.tvPx(14f) })
+        // (a list longer than the window fades where it goes on: its last row was cut through its words)
+        scroll = ScrollView(ctx).apply { isFillViewport = true; isFocusable = false; isVerticalFadingEdgeEnabled = true; setFadingEdgeLength(ctx.tvPx(24f)); addView(body) }
+        // (as tall as its rows, shorter when the window has no more room: the window is sized to its content, fit())
+        root.addView(scroll, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f).apply { topMargin = ctx.tvPx(14f) })
         footerBar = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
         footer = TvFlow(ctx, ctx.tvPx(8f), ctx.tvPx(8f), alignEnd = true)
         footerBar.addView(footer, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f).apply { marginStart = ctx.tvPx(8f) })
@@ -294,6 +313,8 @@ class TvSourcesDialog : DialogFragment() {
         val ctx = context ?: return
         builtSources = withoutProgress(LiveTv.state.value.sources)
         val root = view
+        // (once the page is built: the window as tall as it)
+        root?.post { fit() }
         val kept = pendingFocus ?: root?.let { focusKey(it) }
         // an account's form opened with the remote (Add, Edit): its first field has the focus, not the tabs
         val opened = page == "account" && lastPage != "account"

@@ -48,9 +48,11 @@ class TvPreferencesActivity : PreferencesActivity() {
         // down) what the screen holds less the margin, its page and sidebar following (RdFit)
         val dm = resources.displayMetrics
         val cardW = org.videolan.vlc.util.RdFitRules.size(1048.dp, dm.widthPixels, org.videolan.vlc.gui.helpers.RdFit.MARGIN.dp)
-        val cardH = org.videolan.vlc.util.RdFitRules.size(865.dp, dm.heightPixels, org.videolan.vlc.gui.helpers.RdFit.MARGIN.dp)
+        // (clear of the title bar above and as much below: its top edge cut through the app's name)
+        val cardH = org.videolan.vlc.util.RdFitRules.size(865.dp, dm.heightPixels, (org.videolan.vlc.gui.tablet.RdTvWindow.TITLE_BAR_HEIGHT + 8).dp)
         // the library under a veil of 50 % black (.dlg-veil); Back or the close button closes
-        val veil = FrameLayout(this).apply { setBackgroundColor(0x80000000.toInt()) }
+        // (70 %: at 50 the page's pictures still shone beside the window)
+        val veil = FrameLayout(this).apply { setBackgroundColor(0xB3000000.toInt()) }
         val card = FrameLayout(this).apply {
             background = GradientDrawable().apply { cornerRadius = 14.dp.toFloat(); setColor(0xFF0E0E0E.toInt()) }
             outlineProvider = object : ViewOutlineProvider() {
@@ -85,6 +87,9 @@ class TvPreferencesActivity : PreferencesActivity() {
         toolbar.findViewById<View>(R.id.toolbar_icon)?.visibility = View.GONE
         toolbar.findViewById<View>(R.id.toolbar_vlc_title)?.visibility = View.GONE
         toolbar.post { styleTitle(toolbar) }
+        // (the bar stays where it is: a scrolled page slid it away, and the rows went up under the close button, the
+        // sidebar with them)
+        for (i in 0 until appbar.childCount) (appbar.getChildAt(i).layoutParams as? AppBarLayout.LayoutParams)?.scrollFlags = 0
         card.addView(ImageView(this).apply {
             setImageResource(R.drawable.rd_ic_close)
             setColorFilter(0xFF8F8F8F.toInt())
