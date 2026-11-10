@@ -32,6 +32,18 @@ import org.videolan.vlc.R
 
 class NumberPickerPreference(context: Context, attrs: AttributeSet?) : DialogPreference(context, attrs) {
 
+    // VLC Redesign: the value at the row's end where the row draws no help line (the TV layout's rows: "Forward/
+    // backward time delay" stood there without its seconds)
+    init { widgetLayoutResource = R.layout.rd_pref_value }
+
+    override fun onBindViewHolder(holder: androidx.preference.PreferenceViewHolder) {
+        super.onBindViewHolder(holder)
+        val value = holder.findViewById(R.id.rd_pref_value) as? android.widget.TextView ?: return
+        val helpDrawn = holder.findViewById(android.R.id.summary)?.layoutParams?.height != 0
+        value.text = summary
+        value.visibility = if (helpDrawn) android.view.View.GONE else android.view.View.VISIBLE
+    }
+
     override fun getSummary(): CharSequence {
         return context.getString(R.string.jump_delay_summary, getPersistedInt().toString())
     }

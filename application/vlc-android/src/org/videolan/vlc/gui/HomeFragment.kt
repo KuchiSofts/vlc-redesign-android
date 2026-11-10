@@ -225,7 +225,10 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
             val video = !card.folder && media.type == MediaWrapper.TYPE_VIDEO
             // a 16:9 picture for a video, a square one for a song or a folder
             val tv = RdTvWindow.isOn(b.root.context)
-            val width = if (tv) section.cardWidth(if (video) 316.dp else 200.dp) else res.getDimensionPixelSize(if (video) R.dimen.rd_home_video_width else R.dimen.rd_home_square_width)
+            // (a short window, the interface at 150 % and more: five covers a little under the design's size, not four
+            // grown by a fifth, so the row under the first shows its covers and names before any scrolling)
+            val square = if (res.displayMetrics.heightPixels / res.displayMetrics.density < 760f) 184.dp else 200.dp
+            val width = if (tv) section.cardWidth(if (video) 316.dp else square) else res.getDimensionPixelSize(if (video) R.dimen.rd_home_video_width else R.dimen.rd_home_square_width)
             val height = if (tv && video) width * 178 / 316 else if (video) width * 9 / 16 else width
             if (tv) {
                 // the design's card (.sh-card): no frame around it, 20 to the next; the picture radius 8; the name

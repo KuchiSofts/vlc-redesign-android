@@ -67,6 +67,9 @@ class RdSettingsSidebar : Fragment() {
         })
         val scroll = ScrollView(ctx).apply {
             isFillViewport = true
+            // (a window shorter than the pages' list: it fades where it goes on, not a row cut in half)
+            isVerticalFadingEdgeEnabled = true
+            setFadingEdgeLength(d(28f))
             addView(list)
             // (the remote: a focusable scroll box took the dialog's first focus itself, the TV's ring around the whole
             // sidebar, one key spent before its rows)

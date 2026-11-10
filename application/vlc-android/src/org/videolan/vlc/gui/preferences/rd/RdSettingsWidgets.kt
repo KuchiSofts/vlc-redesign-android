@@ -191,6 +191,20 @@ open class RdListPreference @JvmOverloads constructor(context: Context, attrs: A
     }
 }
 
+/**
+ * A slider whose summary is its value in words ("4s", "2.0x"): the value is shown once, at the row's end, where the
+ * bare number stood (the row said "4s" under its name and "4" beside it).
+ */
+class RdValueSeekBarPreference @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : androidx.preference.SeekBarPreference(context, attrs) {
+    override fun onBindViewHolder(holder: PreferenceViewHolder) {
+        super.onBindViewHolder(holder)
+        val words = summary?.toString().orEmpty()
+        if (words.isEmpty() || words == "%s") return
+        (holder.findViewById(R.id.seekbar_value) as? TextView)?.let { it.visibility = View.VISIBLE; it.text = words }
+        holder.findViewById(android.R.id.summary)?.visibility = View.GONE
+    }
+}
+
 /** A note under a setting, its words alone (the Samsung TV app's settings.js nt()): never focused, never clicked. */
 class RdNotePreference @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : Preference(context, attrs) {
     init {

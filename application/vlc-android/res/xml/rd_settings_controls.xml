@@ -58,7 +58,7 @@
             android:key="enable_fastplay"
             android:summary="@string/enable_tap_and_hold_fastplay_summary"
             android:title="@string/enable_tap_and_hold_fastplay_title" />
-        <SeekBarPreference
+        <org.videolan.vlc.gui.preferences.rd.RdValueSeekBarPreference
             android:defaultValue="20"
             android:dependency="enable_fastplay"
             android:key="fastplay_speed"

@@ -79,6 +79,9 @@ fun Context.rdTvDesignScale(): Context {
     val config = Configuration(resources.configuration)
     val landscape = config.orientation != Configuration.ORIENTATION_PORTRAIT
     config.densityDpi = dpi
+    // the TV layout is the design's dark pages whatever the system says: its resources (texts, panels) are the
+    // night ones from the start
+    config.uiMode = (config.uiMode and Configuration.UI_MODE_NIGHT_MASK.inv()) or Configuration.UI_MODE_NIGHT_YES
     config.screenWidthDp = (if (landscape) longSide else shortSide) * DisplayMetrics.DENSITY_DEFAULT / designDpi
     config.screenHeightDp = (if (landscape) shortSide else longSide) * DisplayMetrics.DENSITY_DEFAULT / designDpi
     config.smallestScreenWidthDp = shortSide * DisplayMetrics.DENSITY_DEFAULT / designDpi
@@ -86,6 +89,20 @@ fun Context.rdTvDesignScale(): Context {
     rdDensityOverride = dpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT
     rdPageScale = dpi.toFloat() / designDpi
     return createConfigurationContext(config)
+}
+
+/**
+ * The TV layout's resources kept the night ones. Back from the player or from Settings, the activity's configuration
+ * came back as the system's (a TV has no dark mode: "day"), and a window opened then (the TV sources, a channel's
+ * menu) drew the light theme's dark texts on the design's dark panels: titles that could not be read.
+ */
+fun Activity.rdTvKeepNight() {
+    if (!Settings.showTvUi) return
+    val now = resources.configuration
+    if (now.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES) return
+    val night = Configuration(now).apply { uiMode = (uiMode and Configuration.UI_MODE_NIGHT_MASK.inv()) or Configuration.UI_MODE_NIGHT_YES }
+    @Suppress("DEPRECATION")
+    resources.updateConfiguration(night, resources.displayMetrics)
 }
 
 /** The TV layout over the whole screen, as on a TV: a tablet's status and navigation bars hidden, back with a swipe. */

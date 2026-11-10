@@ -40,7 +40,11 @@ class HistoryModel(context: Context, coroutineContextProvider: CoroutineContextP
     override suspend fun updateList() {
         if (!Settings.getInstance(context).getBoolean(PLAYBACK_HISTORY, true)) return
         dataset.value = withContext(coroutineContextProvider.Default) { medialibrary.history(
-            Medialibrary.HISTORY_TYPE_LOCAL).toMutableList() }
+            Medialibrary.HISTORY_TYPE_LOCAL)
+            // VLC Redesign: one file once (the same film played from the library and opened from another app was
+            // listed twice, as on Home): the newest play of each is kept
+            .distinctBy { m -> m.uri?.path?.takeIf { it.isNotEmpty() && (m.uri?.scheme == null || m.uri?.scheme == "file") } ?: m.location ?: m }
+            .toMutableList() }
     }
 
     fun moveUp(media: MediaWrapper) = dataset.move(media, 0)
