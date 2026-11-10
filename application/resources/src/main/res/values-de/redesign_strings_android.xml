@@ -36,6 +36,8 @@
         <item>Online-Untertitel jetzt auch für Videos auf einer Netzwerkfreigabe, einem Medienserver oder hinter einem Link, ob von Hand oder automatisch gesucht (danke an @Elshepl). Unter Android 5 bis 7.0 antwortet OpenSubtitles wieder.</item>
         <item>Das Untertitel-Panel wie in der Desktop-Version: Es öffnet sich über seiner Schaltfläche, mit den Sprachen und ihrer Anzahl, den Online-Ergebnissen und dem Timing an einem Ort.</item>
         <item>Lässt sich neben VLC for Android installieren, und die TV-App ist auf Hebräisch und Arabisch vollständig gespiegelt, mit dem Fokus der Fernbedienung dort, wo Sie ihn erwarten.</item>
+        <item>Passend für Ihren Bildschirm: Auf einem Fernseher ist die App jetzt größer und vom Sofa aus gut lesbar, die Größe wird anhand des Bildschirms ermittelt und lässt sich unter Einstellungen › Oberfläche › Größe der Oberfläche ändern. Reihen zeigen ganze Karten, und jedes Fenster passt auf den Bildschirm.</item>
+        <item>Sehr große TV-Programmführer werden geladen, ohne den Speicher zu füllen, zwei Untertitelsprachen können gleichzeitig angezeigt werden, und der Fokus der Fernbedienung ist immer sichtbar.</item>
     </string-array>
     <string name="rd_subtitle_size">Untertitelgröße</string>
     <string name="rd_cast_this_phone">Dieses Telefon</string>

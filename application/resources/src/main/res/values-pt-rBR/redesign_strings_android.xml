@@ -36,6 +36,8 @@
         <item>Legendas online agora também para vídeos em um compartilhamento de rede, um servidor de mídia ou atrás de um link, buscadas manual ou automaticamente (agradecimentos a @Elshepl). No Android 5 a 7.0, o OpenSubtitles volta a responder.</item>
         <item>O painel de legendas como na versão para computador: abre acima do seu botão, com os idiomas e quantas há em cada um, os resultados online e o ajuste de tempo em um só lugar.</item>
         <item>Pode ser instalado ao lado do VLC for Android, e o app de TV em hebraico e árabe fica totalmente espelhado, com o foco do controle remoto onde você espera.</item>
+        <item>Do tamanho da sua tela: em uma TV o app agora fica maior e fácil de ler do sofá, o tamanho é definido a partir da tela e pode ser alterado em Configurações › Interface › Tamanho da interface. As fileiras mostram cartões inteiros e toda janela cabe na tela.</item>
+        <item>Guias de TV muito grandes carregam sem encher a memória, dois idiomas de legenda podem aparecer ao mesmo tempo, e o foco do controle remoto fica sempre visível.</item>
     </string-array>
     <string name="rd_subtitle_size">Tamanho das legendas</string>
     <string name="rd_cast_this_phone">Este celular</string>

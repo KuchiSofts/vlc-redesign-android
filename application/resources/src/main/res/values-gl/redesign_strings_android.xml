@@ -36,6 +36,8 @@
         <item>Subtítulos en liña tamén para vídeos nun recurso compartido da rede, nun servidor multimedia ou tras unha ligazón, buscados a man e automaticamente (grazas a @Elshepl). En Android 5 a 7.0, OpenSubtitles volve responder.</item>
         <item>O panel de subtítulos como no escritorio: ábrese enriba do seu botón, cos idiomas e cantos hai de cada un, os resultados en liña e a temporización nun só lugar.</item>
         <item>Instálase xunto a VLC for Android, e a aplicación de TV en hebreo e árabe aparece totalmente en espello, co foco do mando onde o espera.</item>
+        <item>Á medida da súa pantalla: nun televisor a aplicación agora é máis grande e fácil de ler desde o sofá, o tamaño calcúlase a partir da pantalla e pódese cambiar en Axustes › Interface › Tamaño da interface. As filas amosan tarxetas enteiras e cada xanela cabe na pantalla.</item>
+        <item>As guías de TV moi grandes cárganse sen encher a memoria, pódense amosar dous idiomas de subtítulos á vez, e o foco do mando sempre está visible.</item>
     </string-array>
     <string name="rd_subtitle_size">Tamaño dos subtítulos</string>
     <string name="rd_cast_this_phone">Este teléfono</string>

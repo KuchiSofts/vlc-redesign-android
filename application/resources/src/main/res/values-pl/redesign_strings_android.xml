@@ -36,6 +36,8 @@
         <item>Napisy z internetu teraz także dla filmów z udziału sieciowego, serwera multimediów lub linku, wyszukiwane ręcznie i automatycznie (dziękujemy @Elshepl). W systemie Android 5–7.0 OpenSubtitles znów odpowiada.</item>
         <item>Panel napisów jak w wersji na komputer: otwiera się nad swoim przyciskiem, a języki z liczbą napisów, wyniki z internetu i synchronizacja są w jednym miejscu.</item>
         <item>Instaluje się obok VLC for Android, a aplikacja na telewizor po hebrajsku i arabsku jest w całości odbita lustrzanie, z fokusem pilota tam, gdzie się go spodziewasz.</item>
+        <item>Dopasowane do Twojego ekranu: na telewizorze aplikacja jest teraz większa i dobrze czytelna z kanapy, rozmiar jest ustalany na podstawie ekranu i można go zmienić w Ustawienia › Interfejs › Rozmiar interfejsu. Rzędy pokazują całe karty, a każde okno mieści się na ekranie.</item>
+        <item>Bardzo duże programy TV wczytują się bez zapełniania pamięci, napisy w dwóch językach mogą być wyświetlane jednocześnie, a fokus pilota jest zawsze widoczny.</item>
     </string-array>
     <string name="rd_subtitle_size">Rozmiar napisów</string>
     <string name="rd_cast_this_phone">Ten telefon</string>

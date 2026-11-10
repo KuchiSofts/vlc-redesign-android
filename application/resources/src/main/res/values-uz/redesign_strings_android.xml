@@ -36,6 +36,8 @@
         <item>Onlayn subtitrlar endi tarmoq ulashmasi, media server yoki havola orqali ochilgan videolar uchun ham, qoʻlda va avtomatik qidiruvda (@Elshepl ga rahmat). Android 5–7.0 da OpenSubtitles yana javob beradi.</item>
         <item>Kompyuter versiyasidagidek Subtitrlar paneli: oʻz tugmasi ustida ochiladi, tillar va ularning soni, onlayn natijalar va vaqt bir joyda.</item>
         <item>VLC for Android yonida oʻrnatiladi, ibroniy va arab tilidagi TV ilovasi esa toʻliq oyna kabi aks ettirilgan, pult fokusi siz kutgan joyda.</item>
+        <item>Ekraningizga mos oʻlcham: televizorda ilova endi kattaroq va divandan oson oʻqiladi, oʻlcham ekranga qarab aniqlanadi va uni Sozlamalar › Interfeys › Interfeys oʻlchami boʻlimida oʻzgartirish mumkin. Qatorlar butun kartalarni koʻrsatadi va har bir oyna ekranga sigʻadi.</item>
+        <item>Juda katta teledasturlar xotirani toʻldirmasdan yuklanadi, ikki subtitr tili bir vaqtda koʻrsatilishi mumkin, pult fokusi esa doim koʻrinib turadi.</item>
     </string-array>
     <string name="rd_subtitle_size">Subtitr oʻlchami</string>
     <string name="rd_cast_this_phone">Bu telefon</string>

@@ -36,6 +36,8 @@
         <item>Online titulky teraz aj pre videá zo zdieľaného priečinka v sieti, z mediálneho servera alebo z odkazu, hľadané ručne aj automaticky (vďaka @Elshepl). V systéme Android 5 až 7.0 OpenSubtitles opäť odpovedá.</item>
         <item>Panel titulkov ako v počítačovej verzii: otvára sa nad svojím tlačidlom a jazyky s počtami titulkov, online výsledky aj časovanie sú na jednom mieste.</item>
         <item>Inštaluje sa vedľa VLC for Android a aplikácia pre TV v hebrejčine a arabčine je celá zrkadlovo otočená, s fokusom diaľkového ovládača tam, kde ho čakáte.</item>
+        <item>Veľkosť podľa vašej obrazovky: na televízore je aplikácia teraz väčšia a dobre čitateľná z gauča, veľkosť sa určí podľa obrazovky a dá sa zmeniť v Nastavenia › Rozhranie › Veľkosť rozhrania. Rady zobrazujú celé karty a každé okno sa zmestí na obrazovku.</item>
+        <item>Veľmi rozsiahle TV programy sa načítajú bez zaplnenia pamäte, naraz sa dajú zobraziť titulky v dvoch jazykoch a fokus diaľkového ovládača je vždy viditeľný.</item>
     </string-array>
     <string name="rd_subtitle_size">Veľkosť titulkov</string>
     <string name="rd_cast_this_phone">Tento telefón</string>

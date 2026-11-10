@@ -37,6 +37,8 @@
         <item>Isdeitlau ar-lein hefyd ar gyfer fideos ar ffolder wedi\'i rannu ar y rhwydwaith, gweinydd cyfryngau neu y tu ôl i ddolen, wedi\'u canfod â llaw ac yn awtomatig (diolch i @Elshepl). Ar Android 5 i 7.0, mae OpenSubtitles yn ateb eto.</item>
         <item>Y panel Isdeitlau fel ar y bwrdd gwaith: mae\'n agor uwchben ei fotwm, gyda\'r ieithoedd a\'u niferoedd, y canlyniadau ar-lein a\'r amseru mewn un lle.</item>
         <item>Gellir ei osod ochr yn ochr â VLC for Android, ac mae\'r ap teledu yn Hebraeg ac Arabeg wedi\'i adlewyrchu\'n llwyr, gyda ffocws y teclyn rheoli o bell lle rydych chi\'n ei ddisgwyl.</item>
+        <item>Maint sy\'n addas i\'ch sgrin: ar deledu mae\'r ap bellach yn fwy ac yn hawdd ei ddarllen o\'r soffa, pennir y maint o\'r sgrin a gellir ei newid yn Gosodiadau › Rhyngwyneb › Maint y rhyngwyneb. Mae rhesi\'n dangos cardiau cyfan ac mae pob ffenestr yn ffitio\'r sgrin.</item>
+        <item>Mae amserlenni teledu mawr iawn yn llwytho heb lenwi\'r cof, gellir dangos dwy iaith isdeitlau ar yr un pryd, ac mae ffocws y teclyn rheoli o bell bob amser yn weladwy.</item>
     </string-array>
     <string name="rd_subtitle_size">Maint isdeitlau</string>
     <string name="rd_cast_this_phone">Y ffôn hwn</string>

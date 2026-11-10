@@ -36,6 +36,8 @@
         <item>Manukuu ya mtandaoni sasa pia kwa video zilizo kwenye folda iliyoshirikiwa kwenye mtandao, seva ya media au nyuma ya kiungo, yakitafutwa kwa mkono na kiotomatiki (shukrani kwa @Elshepl). Kwenye Android 5 hadi 7.0, OpenSubtitles hujibu tena.</item>
         <item>Paneli ya Manukuu kama kwenye kompyuta: hufunguka juu ya kitufe chake, ikiwa na lugha na idadi yake, matokeo ya mtandaoni na muda mahali pamoja.</item>
         <item>Husakinishwa kando ya VLC for Android, na programu ya TV kwa Kiebrania na Kiarabu imegeuzwa kama kioo kikamilifu, huku ulengaji wa rimoti ukiwa pale unapotarajia.</item>
+        <item>Ukubwa unaolingana na skrini yako: kwenye TV programu sasa ni kubwa zaidi na inasomeka kwa urahisi ukiwa kwenye sofa, ukubwa hupatikana kutokana na skrini na unaweza kubadilishwa katika Mipangilio › Kiolesura › Ukubwa wa kiolesura. Safu huonyesha kadi nzima na kila dirisha hutoshea kwenye skrini.</item>
+        <item>Miongozo mikubwa sana ya TV hupakiwa bila kujaza kumbukumbu, lugha mbili za manukuu zinaweza kuonekana kwa wakati mmoja, na ulengaji wa rimoti huonekana kila wakati.</item>
     </string-array>
     <string name="rd_subtitle_size">Ukubwa wa manukuu</string>
     <string name="rd_cast_this_phone">Simu hii</string>

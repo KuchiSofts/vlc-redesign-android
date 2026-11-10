@@ -36,6 +36,8 @@
         <item>Tiešsaistes subtitri tagad arī videoklipiem tīkla koplietojumā, multivides serverī vai aiz saites, meklējot gan manuāli, gan automātiski (paldies @Elshepl). Android 5–7.0 ierīcēs OpenSubtitles atkal atbild.</item>
         <item>Subtitru panelis kā datora versijā: tas atveras virs savas pogas, un valodas ar to skaitu, tiešsaistes rezultāti un laiks ir vienuviet.</item>
         <item>Instalējama blakus VLC for Android, un TV lietotne ivritā un arābu valodā ir pilnībā spoguļota, ar tālvadības pults fokusu tur, kur to gaidāt.</item>
+        <item>Pielāgots jūsu ekrānam: televizorā lietotne tagad ir lielāka un viegli salasāma no dīvāna, izmērs tiek noteikts pēc ekrāna, un to var mainīt sadaļā Iestatījumi › Saskarne › Saskarnes izmērs. Rindās redzamas veselas kartītes, un katrs logs ietilpst ekrānā.</item>
+        <item>Ļoti lieli TV ceļveži tiek ielādēti, neaizpildot atmiņu, vienlaikus var rādīt divas subtitru valodas, un tālvadības pults fokuss vienmēr ir redzams.</item>
     </string-array>
     <string name="rd_subtitle_size">Subtitru izmērs</string>
     <string name="rd_cast_this_phone">Šis tālrunis</string>

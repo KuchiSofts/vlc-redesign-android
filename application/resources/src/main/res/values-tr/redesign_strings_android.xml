@@ -36,6 +36,8 @@
         <item>Çevrim içi altyazılar artık ağ paylaşımındaki, medya sunucusundaki veya bir bağlantının arkasındaki videolar için de hem elle hem otomatik olarak bulunuyor (@Elshepl\'e teşekkürler). Android 5–7.0\'da OpenSubtitles yeniden yanıt veriyor.</item>
         <item>Masaüstündeki gibi Altyazı paneli: kendi düğmesinin üzerinde açılıyor; diller ve sayıları, çevrim içi sonuçlar ve zamanlama tek bir yerde.</item>
         <item>VLC for Android ile yan yana kurulabiliyor ve TV uygulaması İbranice ve Arapçada tamamen aynalanıyor, kumandanın odağı da beklediğiniz yerde.</item>
+        <item>Ekranınıza göre boyut: TV\'de uygulama artık daha büyük ve koltuktan kolayca okunuyor, boyut ekrana göre belirleniyor ve Ayarlar › Arayüz › Arayüz boyutu bölümünden değiştirilebiliyor. Satırlar kartları bütün olarak gösteriyor ve her pencere ekrana sığıyor.</item>
+        <item>Çok büyük TV rehberleri belleği doldurmadan yükleniyor, iki altyazı dili aynı anda gösterilebiliyor ve kumandanın odağı her zaman görünüyor.</item>
     </string-array>
     <string name="rd_subtitle_size">Altyazı boyutu</string>
     <string name="rd_cast_this_phone">Bu telefon</string>

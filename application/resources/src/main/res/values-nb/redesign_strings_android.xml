@@ -36,6 +36,8 @@
         <item>Undertekster fra nettet nå også for videoer på en nettverksdeling, en medieserver eller bak en lenke, både når du søker selv og automatisk (takk til @Elshepl). På Android 5 til 7.0 svarer OpenSubtitles igjen.</item>
         <item>Undertekstpanelet som på datamaskinen: det åpnes over knappen sin, med språkene og antallet deres, resultatene fra nettet og tidsjusteringen på ett sted.</item>
         <item>Installeres ved siden av VLC for Android, og TV-appen på hebraisk og arabisk er speilvendt i sin helhet, med fokuset til fjernkontrollen der du forventer det.</item>
+        <item>Tilpasset skjermen din: på en TV er appen nå større og lett å lese fra sofaen, størrelsen bestemmes ut fra skjermen og kan endres i Innstillinger › Grensesnitt › Grensesnittstørrelse. Rader viser hele kort, og alle vinduer får plass på skjermen.</item>
+        <item>Svært store TV-guider lastes inn uten å fylle minnet, to undertekstspråk kan vises samtidig, og fokuset til fjernkontrollen er alltid synlig.</item>
     </string-array>
     <string name="rd_subtitle_size">Undertekststørrelse</string>
     <string name="rd_cast_this_phone">Denne telefonen</string>

@@ -36,6 +36,8 @@
         <item>Podnaslovi s interneta sada i za videozapise na mrežnom dijeljenju, medijskom poslužitelju ili iza poveznice, pri ručnom i automatskom traženju (hvala @Elshepl). Na sustavu Android 5 do 7.0 OpenSubtitles ponovno odgovara.</item>
         <item>Ploča podnaslova kao u verziji za računalo: otvara se iznad svojeg gumba, a jezici s brojem podnaslova, rezultati s mreže i usklađivanje vremena nalaze se na jednom mjestu.</item>
         <item>Instalira se uz VLC for Android, a TV aplikacija na hebrejskom i arapskom potpuno je zrcaljena, s fokusom daljinskog upravljača ondje gdje ga očekujete.</item>
+        <item>Veličina prilagođena vašem zaslonu: na televizoru je aplikacija sada veća i lako čitljiva s kauča, veličina se određuje prema zaslonu i može se promijeniti u Postavke › Sučelje › Veličina sučelja. Redovi prikazuju cijele kartice i svaki prozor stane na zaslon.</item>
+        <item>Vrlo veliki TV vodiči učitavaju se bez punjenja memorije, dva jezika podnaslova mogu se prikazati istodobno, a fokus daljinskog upravljača uvijek je vidljiv.</item>
     </string-array>
     <string name="rd_subtitle_size">Veličina titlova</string>
     <string name="rd_cast_this_phone">Ovaj telefon</string>

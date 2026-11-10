@@ -36,6 +36,8 @@
         <item>Feliratok az internetről most már hálózati megosztáson, médiaszerveren vagy link mögött lévő videókhoz is, kézi és automatikus kereséssel (köszönet @Elshepl-nek). Android 5–7.0 rendszeren az OpenSubtitles ismét válaszol.</item>
         <item>A Feliratok panel, mint az asztali változatban: a gombja fölött nyílik meg, és egy helyen mutatja a nyelveket a számukkal, az internetes találatokat és az időzítést.</item>
         <item>A VLC for Android mellé telepíthető, a TV-alkalmazás héberül és arabul teljesen tükrözött, a távirányító fókusza pedig ott van, ahol várja.</item>
+        <item>A képernyőjéhez méretezve: tévén az alkalmazás mostantól nagyobb, és a kanapéról is jól olvasható, a méretet a képernyő alapján határozza meg, és a Beállítások › Felület › Felület mérete menüpontban módosítható. A sorok egész kártyákat mutatnak, és minden ablak elfér a képernyőn.</item>
+        <item>A nagyon nagy műsorújságok a memória megtöltése nélkül töltődnek be, egyszerre két feliratnyelv is megjeleníthető, és a távirányító fókusza mindig látható.</item>
     </string-array>
     <string name="rd_subtitle_size">Feliratméret</string>
     <string name="rd_cast_this_phone">Ez a telefon</string>

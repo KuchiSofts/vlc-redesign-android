@@ -36,6 +36,8 @@
         <item>Online ondertitels nu ook voor video\'s in een gedeelde netwerkmap, op een mediaserver of achter een link, zowel zelf gezocht als automatisch (met dank aan @Elshepl). Op Android 5 tot 7.0 reageert OpenSubtitles weer.</item>
         <item>Het ondertitelpaneel net als op de desktop: het opent boven zijn knop, met de talen en hun aantal, de online resultaten en de timing op één plek.</item>
         <item>Kan naast VLC for Android worden geïnstalleerd, en de tv-app in het Hebreeuws en Arabisch is volledig gespiegeld, met de focus van de afstandsbediening waar u die verwacht.</item>
+        <item>Afgestemd op uw scherm: op een tv is de app nu groter en goed leesbaar vanaf de bank, de grootte wordt bepaald aan de hand van het scherm en kan worden gewijzigd in Instellingen › Interface › Grootte van de interface. Rijen tonen hele kaarten en elk venster past op het scherm.</item>
+        <item>Zeer grote tv-gidsen laden zonder het geheugen te vullen, twee ondertiteltalen kunnen tegelijk worden getoond, en de focus van de afstandsbediening is altijd zichtbaar.</item>
     </string-array>
     <string name="rd_subtitle_size">Ondertitelgrootte</string>
     <string name="rd_cast_this_phone">Deze telefoon</string>

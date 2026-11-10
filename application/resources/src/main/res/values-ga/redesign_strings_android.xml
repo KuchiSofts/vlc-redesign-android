@@ -38,6 +38,8 @@
         <item>Fotheidil ar líne anois freisin d\'fhíseáin ar chomhroinnt líonra, ar fhreastalaí meán nó taobh thiar de nasc, aimsithe de láimh agus go huathoibríoch (buíochas le @Elshepl). Ar Android 5 go 7.0, freagraíonn OpenSubtitles arís.</item>
         <item>An painéal Fotheideal mar atá ar an deasc: osclaíonn sé os cionn a chnaipe, leis na teangacha agus a líon, na torthaí ar líne agus an t-uainiú in aon áit amháin.</item>
         <item>Suiteáiltear é taobh le VLC for Android, agus tá an aip teilifíse scáthánaithe go hiomlán in Eabhrais agus in Araibis, le fócas an chianrialtáin san áit a mbeifeá ag súil leis.</item>
+        <item>Méid a oireann do do scáileán: ar theilifís tá an aip níos mó anois agus éasca le léamh ón tolg, faightear an méid ón scáileán agus is féidir é a athrú i Socruithe › Comhéadan › Méid an chomhéadain. Taispeánann sraitheanna cártaí iomlána agus oireann gach fuinneog don scáileán.</item>
+        <item>Lódáiltear treoracha teilifíse an-mhóra gan an chuimhne a líonadh, is féidir dhá theanga fotheideal a thaispeáint ag an am céanna, agus bíonn fócas an chianrialtáin le feiceáil i gcónaí.</item>
     </string-array>
     <string name="rd_subtitle_size">Méid na bhfotheideal</string>
     <string name="rd_cast_this_phone">An fón seo</string>
