@@ -146,7 +146,28 @@ class TvSourcesDialog : DialogFragment() {
         outState.putBundle("aFields", Bundle().apply { for ((k, v) in aFields) if (k !in secret) putString(k, v) })
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog = Dialog(requireContext(), R.style.Theme_AppCompat_DayNight_Dialog).apply {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog = object : Dialog(requireContext(), R.style.Theme_AppCompat_DayNight_Dialog) {
+        /**
+         * The remote: Left and Right move along a row only. At the end of a source's buttons the search for the next
+         * thing sideways went up to a tab of the window, another page opening under the thumb; Up and Down change rows.
+         */
+        override fun dispatchKeyEvent(event: android.view.KeyEvent): Boolean {
+            val code = event.keyCode
+            if (event.action == android.view.KeyEvent.ACTION_DOWN && (code == android.view.KeyEvent.KEYCODE_DPAD_LEFT || code == android.view.KeyEvent.KEYCODE_DPAD_RIGHT)) {
+                val from = currentFocus
+                if (from != null && from !is android.widget.EditText) {
+                    val to = from.focusSearch(if (code == android.view.KeyEvent.KEYCODE_DPAD_LEFT) View.FOCUS_LEFT else View.FOCUS_RIGHT)
+                    if (to != null && to !== from) {
+                        val a = IntArray(2).also { from.getLocationOnScreen(it) }
+                        val b = IntArray(2).also { to.getLocationOnScreen(it) }
+                        val sameRow = a[1] < b[1] + to.height && b[1] < a[1] + from.height
+                        if (!sameRow) return true
+                    }
+                }
+            }
+            return super.dispatchKeyEvent(event)
+        }
+    }.apply {
         window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 
