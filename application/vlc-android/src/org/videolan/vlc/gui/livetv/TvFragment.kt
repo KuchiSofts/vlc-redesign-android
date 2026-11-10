@@ -58,7 +58,10 @@ class TvFragment : BaseFragment(), Filterable {
     private var view = "channels"
     private var group = ""
     private var search = ""
-    private var grid = false
+    private var grid = true
+
+    /** the channel playing (else the one watched last) brought into view once, when the page first lists its channels */
+    private var broughtToChannel = false
 
     private lateinit var segments: TvSegmented
     private lateinit var sourcesButton: View
@@ -94,7 +97,8 @@ class TvFragment : BaseFragment(), Filterable {
         super.onCreate(savedInstanceState)
         val prefs = requireContext().getSharedPreferences("livetv", 0)
         view = prefs.getString("view", "channels") ?: "channels"
-        grid = prefs.getBoolean("grid", false)
+        // (cards unless the list was chosen: the desktop's TV page)
+        grid = prefs.getBoolean("grid", true)
         group = savedInstanceState?.getString("group") ?: ""
         LiveTv.init(requireContext())
         LiveTv.start()
@@ -148,6 +152,7 @@ class TvFragment : BaseFragment(), Filterable {
         root.addView(bodyBox, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f).apply { topMargin = ctx.tvPx(10f) })
         // the channels
         adapter = TvChannelAdapter(ctx, { c -> play(c) }, { c, v -> menu(c, v) })
+        broughtToChannel = false
         list = RecyclerView(ctx).apply {
             this.adapter = this@TvFragment.adapter
             clipToPadding = false
@@ -156,6 +161,13 @@ class TvFragment : BaseFragment(), Filterable {
             isVerticalScrollBarEnabled = true
         }
         bodyBox.addView(list, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+        // (the cards of a row follow the page's real width: the side bar, the interface size, a window resized)
+        list.addOnLayoutChangeListener { _, l, _, r, _, oldL, _, oldR, _ ->
+            if (r - l != oldR - oldL) (list.layoutManager as? GridLayoutManager)?.let { m ->
+                val columns = cardColumns(r - l)
+                if (m.spanCount != columns) list.post { m.spanCount = columns; adapter.notifyItemRangeChanged(0, adapter.itemCount) }
+            }
+        }
         // the guide: the day and the way through the days, the languages, the descriptions
         guideBox = LinearLayout(ctx).apply { orientation = LinearLayout.VERTICAL }
         guideTools = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
@@ -238,12 +250,28 @@ class TvFragment : BaseFragment(), Filterable {
         val ctx = requireContext()
         val widthDp = (resources.configuration.screenWidthDp / org.videolan.tools.rdPageScale).toInt()
         adapter.wide = widthDp >= 600
+        // (the channel at the top stays there when the cards and the list change places)
+        val top = (list.layoutManager as? LinearLayoutManager)?.findFirstVisibleItemPosition() ?: RecyclerView.NO_POSITION
         if (grid) {
-            val span = maxOf(2, (widthDp - 24) / 180)
-            list.layoutManager = GridLayoutManager(ctx, span)
-        } else list.layoutManager = LinearLayoutManager(ctx)
+            // the desktop's grid: 20 before the first card and after the last (half of it is each card's own)
+            list.setPadding(ctx.tvPx(10f), 0, ctx.tvPx(10f), ctx.tvPx(20f))
+            list.layoutManager = GridLayoutManager(ctx, cardColumns(list.width.takeIf { it > 0 } ?: (widthDp * resources.displayMetrics.density).toInt()))
+        } else {
+            list.setPadding(ctx.tvPx(12f), 0, ctx.tvPx(12f), ctx.tvPx(20f))
+            list.layoutManager = LinearLayoutManager(ctx)
+        }
         adapter.grid = grid
+        if (top > 0) list.scrollToPosition(top)
         libraryList.layoutManager = GridLayoutManager(ctx, maxOf(2, (widthDp - 24) / 140))
+    }
+
+    /**
+     * The cards in a row of the desktop's grid: as many of the design's 196 wide, 20 apart, as the page holds, which
+     * then grow to fill the row (two at least: a phone held upright shows two smaller ones rather than one giant).
+     */
+    private fun cardColumns(widthPx: Int): Int {
+        val ctx = requireContext()
+        return maxOf(2, (widthPx - ctx.tvPx(20f)) / ctx.tvPx(216f))
     }
 
     private fun setView(v: String) {
@@ -391,6 +419,16 @@ class TvFragment : BaseFragment(), Filterable {
             shown = list
             adapter.submit(list)
             guide.channels = list
+            // the page opens where the user is: on the channel playing, else the one watched last (its row or its
+            // card's row at the top, the one before it still in sight); a search or a group starts at its top
+            if (!broughtToChannel && list.isNotEmpty() && q.isEmpty() && group.isEmpty()) {
+                broughtToChannel = true
+                val wanted = TvPlayback.current.value.ifEmpty { LiveTv.recent.firstOrNull().orEmpty() }
+                val at = if (wanted.isEmpty()) -1 else list.indexOfFirst { it.key == wanted }
+                if (at > 0) this.list.post {
+                    (this.list.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(at, ctx.tvPx(48f))
+                }
+            }
         } else list = shown
         // the status of the sources
         val busy = state.sources.firstOrNull { it.busy }
