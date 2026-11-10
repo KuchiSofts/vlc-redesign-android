@@ -74,11 +74,6 @@
                     android:visibility="gone" />
             </LinearLayout>
 
-            <org.videolan.vlc.gui.preferences.rd.RdToggleView
-                android:id="@+id/rd_svc_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp" />
         </LinearLayout>
 
         <ImageView
@@ -92,6 +87,13 @@
             android:clickable="true"
             android:focusable="true"
             android:contentDescription="@string/more_actions" />
+        <org.videolan.vlc.gui.preferences.rd.RdToggleView
+            android:id="@+id/rd_svc_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:clickable="true"
+            android:focusable="false" />
     </LinearLayout>
 
     <LinearLayout

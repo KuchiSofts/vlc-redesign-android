@@ -11,6 +11,7 @@
  */
 package org.videolan.vlc.gui.preferences.rd
 
+import org.videolan.vlc.gui.helpers.rdAutoInterfaceScaleHere
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
@@ -200,17 +201,17 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         pref<ListPreference>(org.videolan.tools.KEY_RD_INTERFACE_SCALE)?.let { lp ->
             lp.isVisible = Settings.showTvUi
             val percent = java.text.NumberFormat.getPercentInstance()
-            val metrics = android.util.DisplayMetrics().also {
-                @Suppress("DEPRECATION")
-                requireActivity().windowManager.defaultDisplay.getRealMetrics(it)
-            }
-            val auto = org.videolan.vlc.gui.helpers.rdAutoInterfaceScale(maxOf(metrics.widthPixels, metrics.heightPixels), metrics.densityDpi)
+            val auto = requireActivity().rdAutoInterfaceScaleHere()
             val sizes = org.videolan.vlc.gui.helpers.RD_INTERFACE_SCALES
             lp.entries = sizes.map { if (it == 0) getString(R.string.rd_interface_size_auto, percent.format(auto / 100.0)) else percent.format(it / 100.0) }.toTypedArray()
             lp.entryValues = sizes.map { it.toString() }.toTypedArray()
             if (lp.value == null || lp.value !in lp.entryValues) lp.value = "0"
         }
         pref<Preference>("default_sleep_timer")?.let { manageSleepTimerSummary() }
+        // the skip times of video and of audio had the same two names, nothing to tell them apart
+        for ((key, kind) in listOf("video_jump_delay" to R.string.video, "video_long_jump_delay" to R.string.video,
+                "audio_jump_delay" to R.string.audio, "audio_long_jump_delay" to R.string.audio))
+            pref<Preference>(key)?.let { p -> p.title = getString(kind) + ": " + p.title }
         // (#72) what still shows the controls: touching the screen on a phone or a tablet (the row's help), the
         // remote's keys on a TV (a note under the row: the TV's rows have no help, as the Samsung TV app's)
         if (Settings.showTvUi) pref<RdListPreference>(org.videolan.vlc.gui.video.RdKeyFeedbackRules.KEY)?.help = null

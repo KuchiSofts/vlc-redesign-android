@@ -198,6 +198,9 @@ class TvSourcesDialog : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val ctx = requireContext()
         val root = LinearLayout(ctx).apply {
+            // (the window is measured before it is shown, to fit the screen: without its own direction every text was
+            // laid out left to right then, Latin names at the left of a Hebrew window until the next refresh)
+            layoutDirection = ctx.resources.configuration.layoutDirection
             orientation = LinearLayout.VERTICAL
             background = ContextCompat.getDrawable(ctx, R.drawable.rd_panel_framed)
             setPadding(ctx.tvPx(20f), ctx.tvPx(18f), ctx.tvPx(20f), ctx.tvPx(14f))
