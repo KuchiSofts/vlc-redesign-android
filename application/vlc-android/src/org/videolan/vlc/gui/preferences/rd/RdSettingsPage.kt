@@ -197,6 +197,9 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             localeList(lp, LocaleUtils.getLocalesUsedInProject(BuildConfig.TRANSLATION_ARRAY, getString(R.string.device_default)))
         }
         if (pref<Preference>(KEY_APP_THEME) != null) setupTheme()
+        // the TV layout is always dark (applyTheme): its Theme row showed Dark whatever was pressed, a choice that
+        // did nothing. Not shown there; a phone or a tablet keeps it.
+        if (Settings.showTvUi) pref<Preference>(KEY_APP_THEME)?.isVisible = false
         // the TV layout's size: "Automatic (150 %)" with the size found for this screen, then the sizes
         pref<ListPreference>(org.videolan.tools.KEY_RD_INTERFACE_SCALE)?.let { lp ->
             lp.isVisible = Settings.showTvUi

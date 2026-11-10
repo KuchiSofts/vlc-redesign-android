@@ -163,7 +163,7 @@ open class PreferencesActivity : BaseActivity() {
     }
 
     /** Opens a page of the settings: beside the sidebar (two panes) or over it */
-    fun openPage(page: RdPage, scrollTo: String? = null) {
+    open fun openPage(page: RdPage, scrollTo: String? = null) {
         val fm = supportFragmentManager
         if (twoPane) {
             fm.popBackStackImmediate(null, androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE)
@@ -177,7 +177,7 @@ open class PreferencesActivity : BaseActivity() {
     }
 
     /** A screen of its own (parental control, remote access, Android Auto, optional features) over the page */
-    fun openSubScreen(fragment: androidx.fragment.app.Fragment) {
+    open fun openSubScreen(fragment: androidx.fragment.app.Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.fragment_placeholder, fragment).addToBackStack("sub").commit()
     }
 

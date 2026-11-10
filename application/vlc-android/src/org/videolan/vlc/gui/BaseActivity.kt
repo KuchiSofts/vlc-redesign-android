@@ -250,6 +250,9 @@ abstract class BaseActivity : AppCompatActivity() {
         if (hasFocus) {
             rdTvFullScreenIfTv()
             RdTvFocusRing.attach(this)
+        } else if (Settings.showTvUi) {
+            // (a dialog took it: one made with a builder gets its ring here, a fragment's when it starts)
+            window.decorView.post { RdTvFocusRing.attachToDialogs() }
         }
     }
 

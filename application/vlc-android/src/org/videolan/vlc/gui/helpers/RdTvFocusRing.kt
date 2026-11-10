@@ -33,19 +33,42 @@ object RdTvFocusRing {
      * cut by the view's edges (the line went through a card's name, a button at a row's start lost one side) and
      * stayed on a list's row that was recycled while it had the focus (two rings on a page, one of them stale).
      */
-    fun attach(window: Window?) {
-        if (!Settings.showTvUi || window == null) return
-        val decor = window.decorView
+    fun attach(window: Window?) = attach(window?.decorView)
+
+    /**
+     * The dialogs made with a builder (a confirmation, a text to fill in), which no fragment announces: every window
+     * of the app that is a dialog's and has no ring yet gets one. Called when an activity's window loses the focus
+     * (a menu's popup is left alone: it has its own highlight).
+     */
+    fun attachToDialogs() {
+        if (!Settings.showTvUi) return
+        val roots: List<View> = try {
+            if (android.os.Build.VERSION.SDK_INT >= 29) android.view.inspector.WindowInspector.getGlobalWindowViews().toList()
+            else {
+                val global = Class.forName("android.view.WindowManagerGlobal")
+                val views = global.getDeclaredField("mViews").apply { isAccessible = true }.get(global.getMethod("getInstance").invoke(null))
+                (views as? List<*>)?.toList()?.filterIsInstance<View>() ?: emptyList()
+            }
+        } catch (e: Throwable) {
+            emptyList()
+        }
+        for (root in roots) if (root.javaClass.simpleName == "DecorView") attach(root)
+    }
+
+    fun attach(decor: View?) {
+        if (!Settings.showTvUi || decor == null) return
         if (decor.getTag(R.id.rd_tv_focus_listener) != null) return
         val ring = Ring(decor)
         decor.setTag(R.id.rd_tv_focus_listener, ring)
         decor.overlay.add(ring.line)
         decor.viewTreeObserver.addOnGlobalFocusChangeListener(ring)
         decor.viewTreeObserver.addOnPreDrawListener(ring)
+        decor.viewTreeObserver.addOnWindowFocusChangeListener(ring)
         decor.findFocus()?.let { ring.onGlobalFocusChanged(null, it) }
     }
 
-    private class Ring(val decor: View) : ViewTreeObserver.OnGlobalFocusChangeListener, ViewTreeObserver.OnPreDrawListener {
+    private class Ring(val decor: View) : ViewTreeObserver.OnGlobalFocusChangeListener, ViewTreeObserver.OnPreDrawListener,
+            ViewTreeObserver.OnWindowFocusChangeListener {
         val line = GradientDrawable().apply {
             setColor(0)
             setStroke(2.dp, ContextCompat.getColor(decor.context, R.color.rd_dark_fg_1))
@@ -60,21 +83,49 @@ object RdTvFocusRing {
             target = null
             if (new != null && new.getTag(R.id.rd_tv_focus_skip) != true) {
                 if (new is androidx.recyclerview.widget.RecyclerView) handOn(new)
-                else target = java.lang.ref.WeakReference(around(new))
+                else {
+                    target = java.lang.ref.WeakReference(around(new))
+                    // a platform list or grid (the colour picker's swatches) moves a selection of its own inside: shown
+                    // with the ring's line (its own mark could not be seen: the remote moved blind)
+                    if (new is android.widget.AbsListView && new.getTag(R.id.rd_tv_focus_listener) == null) {
+                        new.setTag(R.id.rd_tv_focus_listener, true)
+                        new.setDrawSelectorOnTop(true)
+                        new.selector = GradientDrawable().apply {
+                            setColor(0)
+                            setStroke(2.dp, ContextCompat.getColor(new.context, R.color.rd_dark_fg_1))
+                            cornerRadius = 8.dp.toFloat()
+                        }
+                    }
+                    // a window that opens with the focus on a scroll box (a dialog's buttons, asked before they were
+                    // laid out; a picker's grid) or on its title: OK did nothing there, and nothing showed where the
+                    // remote was
+                    val box = new is android.widget.ScrollView || new is android.widget.HorizontalScrollView || new is androidx.core.widget.NestedScrollView
+                    val label = old == null && new is android.widget.TextView && new !is android.widget.EditText && !new.isClickable
+                            && !new.isLongClickable && new.movementMethod == null
+                    if (box || label) passOn(new)
+                }
             }
             decor.invalidate()
         }
 
+        /**
+         * The ring of the window the remote is in only: a window opened over this one (Settings, a dialog, a menu)
+         * left this one's ring showing through its veil, a second ring on the screen.
+         */
+        override fun onWindowFocusChanged(hasFocus: Boolean) = decor.invalidate()
+
         /** Before every frame: the ring where the focused view is now (a list scrolled, a row moved), or nowhere. */
         override fun onPreDraw(): Boolean {
             val view = target?.get()
-            if (view == null || !view.isAttachedToWindow || !view.isShown || !(view.hasFocus() || view.isFocused) || !view.getGlobalVisibleRect(at)) {
+            if (view == null || !decor.hasWindowFocus() || !view.isAttachedToWindow || !view.isShown || !(view.hasFocus() || view.isFocused) || !view.getGlobalVisibleRect(at)) {
                 at.setEmpty()
             } else {
                 // (a card, its name at its very edge: twice as far out as around a button or a row)
                 val out = if (view.height > 96.dp && view.width < decor.width / 2) (2 * OUTSET).dp else OUTSET.dp
                 // (inside the window: a row as wide as the page keeps its line on the screen)
-                at.set(maxOf(at.left - out, 1), maxOf(at.top - out, 1), minOf(at.right + out, decor.width - 1), minOf(at.bottom + out, decor.height - 1))
+                // (a row as wide as its page, its words from its very edge, a Settings row: clear of them at the sides)
+                val side = if (view.height <= 96.dp && view.width >= decor.width / 2) maxOf(out, 8.dp) else out
+                at.set(maxOf(at.left - side, 1), maxOf(at.top - out, 1), minOf(at.right + side, decor.width - 1), minOf(at.bottom + out, decor.height - 1))
             }
             if (at != last) {
                 last.set(at)
@@ -82,6 +133,20 @@ object RdTvFocusRing {
                 decor.invalidate()
             }
             return true
+        }
+
+        /**
+         * From a scroll box to the first thing in it that takes the focus (a box of text alone keeps it: the remote
+         * scrolls it); from a title to the first thing in the window that can be pressed.
+         */
+        private fun passOn(view: View) {
+            view.postDelayed({
+                if (!view.isFocused || !view.isAttachedToWindow) return@postDelayed
+                val all = ArrayList<View>().also { decor.addFocusables(it, View.FOCUS_FORWARD) }.filter { it !== view && it.isShown }
+                val next = if (view is android.view.ViewGroup) all.firstOrNull { v -> generateSequence(v.parent) { it.parent }.any { it === view } }
+                else all.firstOrNull { it.isClickable }
+                next?.requestFocus()
+            }, 80)
         }
 
         /**

@@ -291,6 +291,30 @@ abstract class VLCBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
         initialFocusedView().requestFocus()
         if (requireActivity().isTalkbackIsEnabled()) initialFocusedView().sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED)
+        else if (org.videolan.tools.Settings.showTvUi) rdStartOnSomethingToPress(initialFocusedView())
+    }
+
+    /**
+     * VLC Redesign, the TV's remote: a sheet that starts on its title or its picture (a confirmation, the update's
+     * offer, the permissions...) left the remote on a text: OK did nothing until an arrow was pressed. The focus
+     * goes to something that can be pressed, Cancel when the sheet has one (a second OK by mistake changes nothing),
+     * and the title is no stop any more.
+     */
+    private fun rdStartOnSomethingToPress(first: View) {
+        val label = !first.isClickable && (first is android.widget.ImageView
+                || first is android.widget.TextView && first !is android.widget.EditText && first !is android.widget.Button)
+        val root = view
+        if (!label || root == null) return
+        first.isFocusable = false
+        first.isFocusableInTouchMode = false
+        val stops = ArrayList<View>().also { root.addFocusables(it, View.FOCUS_FORWARD) }.filter { it.isClickable && it.isEnabled }
+        val cancel = stops.firstOrNull { v -> v.id != View.NO_ID && runCatching { resources.getResourceEntryName(v.id) }.getOrNull()?.contains("cancel") == true }
+        if ((cancel ?: stops.firstOrNull())?.requestFocus() != true) {
+            // (nothing to press: as it was)
+            first.isFocusable = true
+            first.isFocusableInTouchMode = true
+            first.requestFocus()
+        }
     }
 
 

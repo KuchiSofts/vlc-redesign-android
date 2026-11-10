@@ -76,6 +76,9 @@ abstract class BasePreferenceFragment : PreferenceFragmentCompat() {
             return
         }
         if (preference is NumberPickerPreference) {
+            // (its row's title may have been set for the device since: a TV's "Navigation keys time delay" opened a
+            // dialog named "Double tap time delay")
+            preference.dialogTitle = preference.title
             val dialog = NumberPickerPreferenceDialog.newInstance(preference.key)
             dialog.setTargetFragment(this, 0)
             dialog.show(parentFragmentManager, DIALOG_FRAGMENT_TAG)

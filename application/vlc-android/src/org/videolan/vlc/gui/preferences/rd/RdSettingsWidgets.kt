@@ -285,6 +285,9 @@ class RdSegmentedPreference @JvmOverloads constructor(context: Context, attrs: A
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
         holder.itemView.isClickable = false
+        // (the remote goes straight to the choices: the row itself took the focus, and OK on it did nothing)
+        holder.itemView.isFocusable = false
+        (holder.itemView as? ViewGroup)?.descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
         holder.itemView.background = null
         holder.findViewById(android.R.id.summary)?.visibility = View.GONE
         val box = holder.findViewById(R.id.rd_segments) as? LinearLayout ?: return
@@ -310,6 +313,7 @@ class RdSegmentedPreference @JvmOverloads constructor(context: Context, attrs: A
                 }
                 isSelected = chosen
                 contentDescription = label
+                isFocusable = true
                 setOnClickListener { if (!chosen && callChangeListener(v)) value = v }
             }
             if (org.videolan.vlc.gui.tablet.RdTvWindow.isOn(ctx)) {
@@ -341,6 +345,9 @@ class RdAccentPreference @JvmOverloads constructor(context: Context, attrs: Attr
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
         holder.itemView.isClickable = false
+        // (the remote goes straight to the choices: the row itself took the focus, and OK on it did nothing)
+        holder.itemView.isFocusable = false
+        (holder.itemView as? ViewGroup)?.descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
         holder.itemView.background = null
         val box = holder.findViewById(R.id.rd_swatches) as? ViewGroup ?: return
         box.removeAllViews()
@@ -360,6 +367,7 @@ class RdAccentPreference @JvmOverloads constructor(context: Context, attrs: Attr
                 }
                 contentDescription = ctx.getString(R.string.rd_accent_named, entries[i])
                 isSelected = chosen
+                isFocusable = true
                 setOnClickListener { if (!chosen && callChangeListener(v)) value = v }
             }
             if (org.videolan.vlc.gui.tablet.RdTvWindow.isOn(ctx) && box is LinearLayout) {

@@ -113,6 +113,28 @@ class RdSettingsSidebar : Fragment() {
             setOnClickListener { onClick() }
             background = ContextCompat.getDrawable(ctx, R.drawable.rd_settings_sidebar_item)
         }
+        row.tag = key
+        if (tv) {
+            // the TV's remote: the page follows the focus, a moment after it rests on a row, and OK goes into the page
+            // (About opens a screen of its own: on OK only)
+            row.setOnFocusChangeListener { v, has ->
+                follow?.let { v.removeCallbacks(it) }
+                follow = null
+                if (!has || v.isInTouchMode) return@setOnFocusChangeListener
+                if (key != ABOUT && current != key) follow = Runnable { if (v.isFocused && current != key && isResumed) onClick() }.also { v.postDelayed(it, 160) }
+                // the first row with its heading above it, the last with the list's end under it (the scroll box
+                // brought in the row alone: the heading stayed cut in half)
+                val list = v.parent as? ViewGroup ?: return@setOnFocusChangeListener
+                val scroll = list.parent as? ScrollView ?: return@setOnFocusChangeListener
+                val stops = (0 until list.childCount).map { list.getChildAt(it) }.filter { it.isFocusable }
+                if (v === stops.firstOrNull()) scroll.post { scroll.smoothScrollTo(0, 0) }
+                else if (v === stops.lastOrNull()) scroll.post { scroll.smoothScrollTo(0, list.height) }
+            }
+            if (key != ABOUT) row.setOnClickListener { v ->
+                if (current != key) onClick()
+                if (!v.isInTouchMode) (activity as? org.videolan.vlc.gui.preferences.TvPreferencesActivity)?.enterPage()
+            }
+        }
         val image = ImageView(ctx).apply {
             setImageResource(icon)
             importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
@@ -144,6 +166,13 @@ class RdSettingsSidebar : Fragment() {
         rows[key] = row
         return row
     }
+
+    private var follow: Runnable? = null
+
+    /** The focus on the row of the page shown (the remote, coming back from the page) */
+    fun focusCurrent(): Boolean = rows[current]?.requestFocus() == true
+
+    fun isCurrent(key: String) = current == key
 
     private fun open(page: RdPage) {
         (activity as? PreferencesActivity)?.openPage(page)
