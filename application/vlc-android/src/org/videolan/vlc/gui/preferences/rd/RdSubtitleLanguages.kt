@@ -118,6 +118,7 @@ class RdSubtitleLanguages(private val page: PreferenceFragmentCompat) {
         holder.findViewById(R.id.rd_svc_account)?.isVisible = false
         (holder.findViewById(R.id.rd_svc_switch) as? RdToggleView)?.isChecked = l.on
         holder.findViewById(R.id.rd_svc_main)?.setOnClickListener { set(l.code) { it.copy(on = !it.on) } }
+        holder.findViewById(R.id.rd_svc_switch)?.setOnClickListener { set(l.code) { it.copy(on = !it.on) } }
         holder.findViewById(R.id.rd_svc_more)?.let { more ->
             more.contentDescription = ctx.getString(R.string.more_actions) + ", " + native
             more.setOnClickListener { menu(l, preferred, it) }

@@ -2124,6 +2124,9 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     /** VLC Redesign: the second language drawn above the first one (the desktop's dual subtitles) */
     private val rdDualSubtitles by lazy { RdDualSubtitleOverlay(this) }
 
+    /** how far the subtitles are lifted now, in pixels (the control bar shows: VideoPlayerOverlayDelegate.rdLiftSubtitles) */
+    var rdSubtitleLift = 0
+
     /** the subtitles downloaded for the video playing: (file, language) */
     fun rdDownloadedSubtitleFiles(): List<Pair<String, String>> =
         addedExternalSubs.map { Pair(it.subtitlePath, org.videolan.vlc.util.OnlineSubtitles.normalize(it.subLanguageID)) }

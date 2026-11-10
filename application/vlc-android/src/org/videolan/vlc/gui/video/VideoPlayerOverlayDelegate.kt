@@ -541,7 +541,30 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
             }
 
             resetSleepTimer(service)
+            hudBinding.rdBar.post { rdLiftSubtitles() }
         }
+    }
+
+    /**
+     * VLC Redesign: the subtitles lifted above the control bar while it shows, back down when it hides (the desktop
+     * does the same): a subtitle's second line was drawn under the bar. Both languages of dual subtitles move.
+     */
+    fun rdLiftSubtitles() {
+        val video = player.findViewById<View>(R.id.surface_video)
+        var lift = 0
+        if (player.isShowing && !player.isLocked && ::hudBinding.isInitialized && video != null && video.height > 0) {
+            val bar = hudBinding.rdBar
+            if (bar.isShown && bar.height > 0) {
+                val at = IntArray(2)
+                bar.getLocationInWindow(at)
+                val barTop = at[1]
+                video.getLocationInWindow(at)
+                lift = (at[1] + video.height - barTop).coerceIn(0, video.height / 2)
+            }
+        }
+        if (player.rdSubtitleLift == lift) return
+        player.rdSubtitleLift = lift
+        player.findViewById<View>(R.id.surface_subtitles)?.translationY = -lift.toFloat()
     }
 
     private fun resetSleepTimer(service: PlaybackService) {
@@ -687,7 +710,7 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
                 manageTitleConstraints()
                 updateTitleConstraints()
                 updateHudMargins()
-                hudBinding.rdBar.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> syncHudBackground() }
+                hudBinding.rdBar.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> syncHudBackground(); rdLiftSubtitles() }
                 if (RdTvWindow.isOn(player)) tvSeekBarKeys()
 
                 initSeekButton()
@@ -1428,6 +1451,7 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
 
             showControls(false)
             player.isShowing = false
+            rdLiftSubtitles()
             dimStatusBar(true)
             playlistSearchText.editText?.setText("")
         } else if (!fromUser) {

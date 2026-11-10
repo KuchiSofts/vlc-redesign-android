@@ -38,9 +38,9 @@ val RD_INTERFACE_SCALES = intArrayOf(0, 100, 110, 125, 150, 175, 200)
  * smaller than the design nor so large that less than a 1280 dp page is left: 150 % on a TV, about 110 % on a
  * tablet, 100 % on a desktop-like screen.
  */
-fun rdAutoInterfaceScale(longSidePx: Int, systemDpi: Int): Int {
-    if (longSidePx <= 0 || systemDpi <= 0) return 100
-    val systemDp = longSidePx * DisplayMetrics.DENSITY_DEFAULT / systemDpi
+fun rdAutoInterfaceScale(widthPx: Int, systemDpi: Int): Int {
+    if (widthPx <= 0 || systemDpi <= 0) return 100
+    val systemDp = widthPx * DisplayMetrics.DENSITY_DEFAULT / systemDpi
     val page = (systemDp * 4 / 3).coerceIn(1280, DESIGN_WIDTH)
     // (to 5 %: the sizes stay on whole pixels more often)
     return ((DESIGN_WIDTH * 100f / page) / 5f).roundToInt() * 5
@@ -50,8 +50,42 @@ fun rdAutoInterfaceScale(longSidePx: Int, systemDpi: Int): Int {
 fun Context.rdInterfaceScale(): Int {
     val chosen = try { Settings.getInstance(this).getString(KEY_RD_INTERFACE_SCALE, "0")?.toIntOrNull() ?: 0 } catch (e: Exception) { 0 }
     if (chosen in 75..300) return chosen
-    val metrics = rdRealMetrics()
-    return rdAutoInterfaceScale(maxOf(metrics.widthPixels, metrics.heightPixels), metrics.densityDpi)
+    return rdAutoInterfaceScaleHere()
+}
+
+/**
+ * The size found for the window as it is now: from its current width (a tablet held upright, or sharing the screen
+ * with another app, has a narrower window than the screen's long side: its pages were drawn at the size of the wide
+ * one, two thirds of the tablet's own with half the page empty).
+ */
+fun Context.rdAutoInterfaceScaleHere(): Int = rdAutoInterfaceScale(rdWindowSize().first, rdRealMetrics().densityDpi)
+
+/**
+ * The window's size in pixels: the whole screen as it is turned now (the bars are hidden in the TV layout), or the
+ * part of it the window has when it shares the screen.
+ */
+private fun Context.rdWindowSize(): Pair<Int, Int> {
+    val real = rdRealMetrics()
+    var w = 0
+    var h = 0
+    try {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+            val bounds = (getSystemService(Context.WINDOW_SERVICE) as android.view.WindowManager).currentWindowMetrics.bounds
+            w = bounds.width(); h = bounds.height()
+        } else {
+            val own = resources.configuration
+            val density = resources.displayMetrics.densityDpi
+            // (before Android 11: the window's size from its configuration; a context at the design's scale has ours)
+            if (rdDensityOverride == null || density == real.densityDpi) {
+                w = own.screenWidthDp * density / DisplayMetrics.DENSITY_DEFAULT
+                h = own.screenHeightDp * density / DisplayMetrics.DENSITY_DEFAULT
+            }
+        }
+    } catch (e: Throwable) { }
+    // a window over (nearly) the whole screen: the screen itself (a navigation bar's strip is not a narrower window)
+    if (w <= 0 || w > real.widthPixels * 0.85f) w = real.widthPixels
+    if (h <= 0 || h > real.heightPixels * 0.85f) h = real.heightPixels
+    return w to h
 }
 
 /** The whole screen (the bars are hidden in the TV layout), not the window less a tablet's navigation bar. */
@@ -77,13 +111,13 @@ fun Context.rdTvDesignScale(): Context {
     val percent = rdInterfaceScale()
     val dpi = (designDpi * percent / 100).coerceAtLeast(DisplayMetrics.DENSITY_LOW / 2)
     val config = Configuration(resources.configuration)
-    val landscape = config.orientation != Configuration.ORIENTATION_PORTRAIT
+    val (windowWidth, windowHeight) = rdWindowSize()
     config.densityDpi = dpi
     // the TV layout is the design's dark pages whatever the system says: its resources (texts, panels) are the
     // night ones from the start
     config.uiMode = (config.uiMode and Configuration.UI_MODE_NIGHT_MASK.inv()) or Configuration.UI_MODE_NIGHT_YES
-    config.screenWidthDp = (if (landscape) longSide else shortSide) * DisplayMetrics.DENSITY_DEFAULT / designDpi
-    config.screenHeightDp = (if (landscape) shortSide else longSide) * DisplayMetrics.DENSITY_DEFAULT / designDpi
+    config.screenWidthDp = windowWidth * DisplayMetrics.DENSITY_DEFAULT / designDpi
+    config.screenHeightDp = windowHeight * DisplayMetrics.DENSITY_DEFAULT / designDpi
     config.smallestScreenWidthDp = shortSide * DisplayMetrics.DENSITY_DEFAULT / designDpi
     // the sizes computed in code (Int.dp) at the same scale as the resources
     rdDensityOverride = dpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT

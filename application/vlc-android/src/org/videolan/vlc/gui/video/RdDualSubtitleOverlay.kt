@@ -189,7 +189,7 @@ class RdDualSubtitleOverlay(private val activity: VideoPlayerActivity) {
         text.setText(line)
         text.visibility = View.VISIBLE
         val bottom = location[1] - frameLocation[1] + video.height -
-            RdDualSubtitles.bottomOffset(video.height, scale, settings.getInt("rd_sub_margin", 0), pictureHeight)
+            RdDualSubtitles.bottomOffset(video.height, scale, settings.getInt("rd_sub_margin", 0), pictureHeight) - activity.rdSubtitleLift
         text.translationY = (bottom - text.measuredHeight.coerceAtLeast(text.height)).toFloat()
     }
 

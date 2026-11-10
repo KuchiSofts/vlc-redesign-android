@@ -394,7 +394,25 @@ object LiveTv {
         }
     }
 
+    /**
+     * Removes a source: gone from the list and the channels at once, and what was being downloaded or read for it is
+     * stopped (Remove pressed during a long guide's reading did nothing to see until the reading ended: it waited in
+     * the worker's queue behind it). Its files are deleted after, and what the stop cut off for the others is updated.
+     */
     fun removeSource(id: String) {
+        if (configLoaded) {
+            val busy: Boolean
+            synchronized(lock) {
+                busy = states[id]?.busy == true
+                sources.removeAll { it.id == id }
+                states.remove(id)
+                lastChannels = lastChannels.filter { it.sourceId != id }
+                ++revision
+            }
+            if (busy) stopUpdate()
+            publish()
+            Thread({ saveConfig() }, "LiveTv-save").start()
+        }
         post {
             synchronized(lock) {
                 sources.removeAll { it.id == id }
@@ -404,6 +422,7 @@ object LiveTv {
             sourceDir(id).deleteRecursively()
             loadGuides(false, emptyList())
             rebuild()
+            refreshDue()
         }
     }
 
@@ -448,6 +467,9 @@ object LiveTv {
             if (s.autoGuide != null) st.autoKeys = readAutoKeys(s.id)
             synchronized(lock) { states[s.id] = st }
         }
+        // the channels show at once from the stored lists; their guide fills in as it is read (a guide read again from
+        // its file took 10 s to minutes, the TV page empty all that time)
+        if (synchronized(lock) { states.values.any { it.channels.isNotEmpty() } }) rebuild(loaded = true)
         loadGuides(false, emptyList())
         rebuild(loaded = true)
         Log.d(TAG, "Live TV ready from the cache in ${SystemClock.elapsedRealtime() - took} ms")
@@ -506,7 +528,8 @@ object LiveTv {
             } finally { st.busy = false; st.stage = "" }
             // what the app saw of a catalog entry: works (its channels), else one more failure
             if (cfg.catalogId.isNotEmpty() && !update.get()) setCatalogHealth(cfg.catalogId, ok && st.channels.isNotEmpty(), st.channels.size)
-            publish()
+            // its channels now (with the guide read so far), not once every guide is read
+            if (synchronized(lock) { sources.any { it.id == id } }) rebuild() else publish()
         }
         loadGuides(true, if (force) ids else emptyList(), forced = force, byAge = guidesByAge || !force, update = update)
         rebuild()
@@ -770,6 +793,8 @@ object LiveTv {
         if (filter.keys.isNotEmpty()) for (w in wanted) {
             if (quit.get()) return
             if (update.get()) { stopped = true; keepAsItWas(w.url); continue }
+            // its source removed meanwhile: nothing downloaded or read for it
+            if (synchronized(lock) { sources.none { it.id == w.sourceId } }) { stopped = true; continue }
             val base = TvNet.hashOf(w.url)
             val path = File(dir, "$base.xmltv")
             // the last whole guide, set aside while a new one comes and reads (back in place if the app stopped then:
