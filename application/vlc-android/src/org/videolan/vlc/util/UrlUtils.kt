@@ -26,7 +26,7 @@ package org.videolan.vlc.util
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ResolveInfo
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.widget.ImageView
@@ -37,26 +37,26 @@ import com.google.zxing.qrcode.QRCodeWriter
 import org.videolan.vlc.R
 
 
+/**
+ * False when a web link would only reach the TV's placeholder ("You don't have an app that can do this"): an Android
+ * TV without a browser answers every link with it, so starting the link looked like a button that does nothing.
+ * (The manifest's <queries> lets the app see who takes a link, on Android 11 and later.)
+ */
+fun Context.rdLinkOpens(url: String): Boolean = try {
+    val found = packageManager.resolveActivity(Intent(Intent.ACTION_VIEW, url.toUri()), PackageManager.MATCH_DEFAULT_ONLY)
+    found?.activityInfo?.packageName?.contains("frameworkpackagestubs") != true
+} catch (e: Exception) {
+    true
+}
+
 fun Context.openLinkIfPossible(url: String, size: Int = 512) {
-
-
     try {
-
-
-            val intent = Intent(Intent.ACTION_VIEW, url.toUri())
-        val match: List<ResolveInfo> = packageManager.queryIntentActivities(intent, 0)
-
-        if (match.size == 1) {
-            val resolveActivity = intent.resolveActivity(packageManager)
-            if (resolveActivity == null || resolveActivity.packageName.startsWith("com.google.android.tv.frameworkpackagestubs")) throw IllegalStateException("No web browser found")
-        }
-        startActivity(intent)
+        if (!rdLinkOpens(url)) throw IllegalStateException("No web browser found")
+        startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
     } catch (e: Exception) {
         val image = ImageView(this)
-
-
         image.setImageBitmap(UrlUtils.generateQRCode(url, size))
-        AlertDialog.Builder(this)
+        val dialog = AlertDialog.Builder(this)
                 .setTitle(getString(R.string.no_web_browser))
                 .setMessage(getString(R.string.no_web_browser_message, url))
                 .setView(image)
@@ -64,6 +64,7 @@ fun Context.openLinkIfPossible(url: String, size: Int = 512) {
 
                 }
                 .show()
+        org.videolan.vlc.gui.helpers.RdTvFocusRing.attach(dialog.window)
     }
 }
 

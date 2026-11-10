@@ -13,6 +13,7 @@
  */
 package org.videolan.vlc.gui.livetv
 
+import org.videolan.vlc.util.openLinkIfPossible
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -974,7 +975,7 @@ class TvSourcesDialog : DialogFragment() {
         val note = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
         note.addView(ctx.tvText(getString(R.string.rd_tv_catalog_legal), 12f, ctx.tvColor(R.color.rd_fg_a4), lines = 0), LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
         note.addView(ctx.tvButton(getString(R.string.rd_tv_suggest)) {
-            try { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(LiveTv.suggestionUrl()))) } catch (e: Exception) { }
+            activity?.openLinkIfPossible(LiveTv.suggestionUrl())
         }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginStart = ctx.tvPx(10f) })
         body.addView(note, gap(ctx, 16f))
     }

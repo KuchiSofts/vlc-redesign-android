@@ -20,6 +20,7 @@
 
 package org.videolan.vlc.gui
 
+import org.videolan.vlc.util.openLinkIfPossible
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
@@ -115,11 +116,8 @@ class MainActivity : ContentActivity(),
     @SuppressLint("SetTextI18n")
     /** a link of the update's offer, in the browser when there is one */
     private fun rdOpenLink(url: String) {
-        try {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-        } catch (e: android.content.ActivityNotFoundException) {
-            org.videolan.vlc.gui.helpers.UiTools.snacker(this, url)
-        }
+        // (with no browser, a TV: the address and its QR code)
+        openLinkIfPossible(url)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -85,12 +85,12 @@ class PreferencesRemoteAccess : BasePreferenceFragment(), SharedPreferences.OnSh
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.findItem(R.id.menu_remote_access_onboarding).isVisible = true
+        menu.findItem(R.id.menu_remote_access_onboarding)?.isVisible = true
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
-        menu.findItem(R.id.menu_remote_access_onboarding).isVisible = true
+        menu.findItem(R.id.menu_remote_access_onboarding)?.isVisible = true
         super.onPrepareOptionsMenu(menu)
     }
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign: the colour picker's own words (its library has them in English only), from the app's texts, so
+     that they follow the interface's language. -->
+<resources>
+    <string name="cpv_default_title" translatable="false">@string/rd_fx_color</string>
+    <string name="cpv_presets" translatable="false">@string/rd_fx_colors</string>
+    <string name="cpv_custom" translatable="false">@string/custom</string>
+    <string name="cpv_select" translatable="false">@string/ok</string>
+    <string name="cpv_transparency" translatable="false">@string/opacity</string>
+</resources>

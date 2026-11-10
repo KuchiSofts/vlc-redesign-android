@@ -14,6 +14,7 @@
  */
 package org.videolan.vlc.gui.preferences.rd
 
+import org.videolan.vlc.util.rdLinkOpens
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -425,6 +426,8 @@ class RdSubtitleServices(private val page: PreferenceFragmentCompat) {
     private fun openPage(p: Provider) {
         val activity = page.activity ?: return
         try {
+            // (a TV's placeholder for a browser only says that nothing opens links: the address to go to, instead)
+            if (!activity.rdLinkOpens(p.page)) throw ActivityNotFoundException()
             activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(p.page)))
         } catch (e: ActivityNotFoundException) {
             // no browser (a TV): where to go, on another device

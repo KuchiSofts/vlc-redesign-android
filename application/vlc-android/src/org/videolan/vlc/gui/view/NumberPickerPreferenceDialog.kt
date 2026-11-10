@@ -25,11 +25,16 @@
 package org.videolan.vlc.gui.view
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import android.widget.NumberPicker
 import androidx.preference.PreferenceDialogFragmentCompat
+import org.videolan.tools.Settings
+import org.videolan.tools.dp
 import org.videolan.vlc.R
+import org.videolan.vlc.gui.helpers.RdFit
 
 class NumberPickerPreferenceDialog : PreferenceDialogFragmentCompat() {
     private lateinit var numberPicker: NumberPicker
@@ -39,6 +44,8 @@ class NumberPickerPreferenceDialog : PreferenceDialogFragmentCompat() {
         numberPicker = container.findViewById(R.id.number_picker)
         numberPicker.minValue = NumberPickerPreference.MIN_VALUE
         numberPicker.maxValue = NumberPickerPreference.MAX_VALUE
+        // (the TV's narrower card: the wheel under the title, not beside its last word)
+        if (Settings.showTvUi) container.setPadding(container.paddingLeft, 12.dp, container.paddingRight, container.paddingBottom)
 
         return container
     }
@@ -46,6 +53,25 @@ class NumberPickerPreferenceDialog : PreferenceDialogFragmentCompat() {
     override fun onBindDialogView(view: View) {
         super.onBindDialogView(view)
         numberPicker.value = (preference as NumberPickerPreference).getPersistedInt()
+    }
+
+    /**
+     * The TV: a card as wide as its wheel needs (it was stretched over most of the screen), and OK on the wheel takes
+     * the number (Up and Down turn it; OK did nothing there, the buttons a Left away).
+     */
+    override fun onStart() {
+        super.onStart()
+        val dialog = dialog ?: return
+        if (!Settings.showTvUi) return
+        RdFit.card(dialog, 420.dp)
+        var down = false
+        dialog.setOnKeyListener { _, code, event ->
+            val ok = code == KeyEvent.KEYCODE_DPAD_CENTER || code == KeyEvent.KEYCODE_ENTER || code == KeyEvent.KEYCODE_NUMPAD_ENTER
+            if (!ok || !numberPicker.hasFocus()) return@setOnKeyListener false
+            if (event.action == KeyEvent.ACTION_DOWN) down = true
+            else if (event.action == KeyEvent.ACTION_UP && down) (dialog as? androidx.appcompat.app.AlertDialog)?.getButton(DialogInterface.BUTTON_POSITIVE)?.performClick()
+            true
+        }
     }
 
     override fun onDialogClosed(positiveResult: Boolean) {
