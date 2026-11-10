@@ -822,7 +822,9 @@ object RdTvWindow {
         val menu = menu(activity) ?: return
         val target = listOf(R.id.ml_menu_display_grid, R.id.ml_menu_display_list, R.id.ml_menu_display_options)
                 .firstNotNullOfOrNull { id -> menu.findItem(id)?.takeIf { visible(it) } } ?: return
-        activity.onOptionsItemSelected(target)
+        // (as a choice of the menu: the window first, then its pages. Asked of the window alone, a page that holds
+        // the item itself never heard of it: the TV page's cards and list could not be changed with the remote)
+        activity.onMenuItemSelected(android.view.Window.FEATURE_OPTIONS_PANEL, target)
     }
 
     /** The items the header shows as its own buttons (not in its menu). */
