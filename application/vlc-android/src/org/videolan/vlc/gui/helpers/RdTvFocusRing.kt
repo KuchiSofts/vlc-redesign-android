@@ -71,7 +71,8 @@ object RdTvFocusRing {
             if (view == null || !view.isAttachedToWindow || !view.isShown || !(view.hasFocus() || view.isFocused) || !view.getGlobalVisibleRect(at)) {
                 at.setEmpty()
             } else {
-                val out = OUTSET.dp
+                // (a card, its name at its very edge: twice as far out as around a button or a row)
+                val out = if (view.height > 96.dp && view.width < decor.width / 2) (2 * OUTSET).dp else OUTSET.dp
                 // (inside the window: a row as wide as the page keeps its line on the screen)
                 at.set(maxOf(at.left - out, 1), maxOf(at.top - out, 1), minOf(at.right + out, decor.width - 1), minOf(at.bottom + out, decor.height - 1))
             }

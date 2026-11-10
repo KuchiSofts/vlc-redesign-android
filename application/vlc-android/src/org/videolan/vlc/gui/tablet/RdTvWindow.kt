@@ -549,7 +549,8 @@ object RdTvWindow {
         val more = item.findViewById<View>(R.id.item_more)
         if (more == null || !more.performClick()) {
             // (a context click is Android 6; a long click before)
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) item.performContextClick() else item.performLongClick()
+            // (an item with a long click only, a card of Home: its long click, or the remote's long OK did nothing)
+            if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M || !item.performContextClick()) item.performLongClick()
         }
     }
 
