@@ -105,6 +105,7 @@ object RdTvMiniPlayer {
         val artist = chip(R.drawable.rd_ic_artist)
         row.addView(View(ctx), LinearLayout.LayoutParams(0, 1, 1f))
         row.addView(ImageView(ctx).apply {
+            id = R.id.rd_tv_mini_queue
             setImageResource(R.drawable.rd_ic_queue)
             setColorFilter(RdTvWindow.ICON)
             setPadding(3.dp, 4.dp, 3.dp, 4.dp)
@@ -113,12 +114,14 @@ object RdTvMiniPlayer {
             isClickable = true
             background = GradientDrawable().apply { cornerRadius = 4.dp.toFloat(); setColor(0) }
             onFocusChangeListener = View.OnFocusChangeListener { v, has -> (v.background as GradientDrawable).setColor(if (has) 0xFF222222.toInt() else 0) }
-            setOnClickListener { open(activity) }
+            setOnClickListener { queue(activity, card) }
         }, LinearLayout.LayoutParams(30.dp, 32.dp))
         card.addView(row, LinearLayout.LayoutParams(359.dp, 32.dp).apply { setMargins(8.dp, 14.dp, 8.dp, 4.dp) })
         coordinator.addView(card, CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
             gravity = Gravity.BOTTOM or Gravity.END
-            setMargins(0, 0, 6.dp, 6.dp)
+            // (the end's margin, not the right's: in Hebrew and Arabic the card touched the window's edge)
+            marginEnd = 6.dp
+            bottomMargin = 6.dp
         })
         val views = Views(card, picture, fill, well, title, folder, artist)
         // the playback followed twice a second while the library is on screen (no listener to keep in step);
@@ -150,6 +153,34 @@ object RdTvMiniPlayer {
             activity.startActivity(android.content.Intent().setClassName(activity, org.videolan.resources.TV_AUDIOPLAYER_ACTIVITY))
         }
     }
+
+    /**
+     * The queue as the desktop shows it: a panel of its own at the window's end (over the mini player, as wide as it),
+     * not the music player's centred column, which took the whole page to answer "what comes next". What plays is
+     * checked and has the focus; OK on a row plays it; Back closes the panel. A very long queue shows the rows
+     * around what plays (each row of the panel is a view).
+     */
+    private fun queue(activity: AudioPlayerContainerActivity, card: View) {
+        val service = PlaybackService.instance ?: return
+        val list = service.media
+        if (list.isEmpty()) return open(activity)
+        val current = service.currentMediaPosition
+        val from = (current - QUEUE_BEFORE).coerceAtLeast(0)
+        val to = (from + QUEUE_ROWS).coerceAtMost(list.size)
+        val entries = (from until to).map { i ->
+            val m = list[i]
+            val by = m.artistName?.takeIf { it.isNotBlank() && m.type != MediaWrapper.TYPE_VIDEO }
+            org.videolan.vlc.gui.dialogs.RdTvMenu.Entry(if (by != null) "${m.title}  ·  $by" else m.title.orEmpty(), checked = i == current) {
+                if (i != service.currentMediaPosition) service.playIndex(i)
+            }
+        }
+        // (placed by the card, not by its button: as wide as the card and 8 over it)
+        org.videolan.vlc.gui.dialogs.RdTvMenu.show(activity, card, entries, width = 391, below = true)
+    }
+
+    /** the rows of the queue's panel: at most these, starting this many before what plays */
+    private const val QUEUE_ROWS = 200
+    private const val QUEUE_BEFORE = 20
 
     private fun update(activity: AudioPlayerContainerActivity, v: Views) {
         val service = PlaybackService.instance

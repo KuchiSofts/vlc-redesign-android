@@ -379,6 +379,18 @@ open class AudioPlayerContainerActivity : BaseActivity(), KeycodeListener, Sched
             }
     }
 
+    /**
+     * VLC Redesign: the TV layout has no bar at the bottom, so the closed music player is under the window's edge.
+     * Its buttons still took the remote's focus: Down from a page's last row went to a place the eye does not see,
+     * and never to the mini player. Closed, nothing in it takes the focus.
+     */
+    private fun tvPlayerFocus(state: Int) {
+        if (!org.videolan.vlc.gui.tablet.RdTvWindow.isOn(this)) return
+        val open = state == STATE_EXPANDED
+        audioPlayerContainer.descendantFocusability = if (open) android.view.ViewGroup.FOCUS_AFTER_DESCENDANTS else android.view.ViewGroup.FOCUS_BLOCK_DESCENDANTS
+        if (!open && audioPlayerContainer.hasFocus()) audioPlayerContainer.clearFocus()
+    }
+
     private fun initAudioPlayer() {
         findViewById<View>(R.id.audio_player_stub).visibility = View.VISIBLE
         audioPlayer = supportFragmentManager.findFragmentById(R.id.audio_player) as AudioPlayer
@@ -390,6 +402,7 @@ open class AudioPlayerContainerActivity : BaseActivity(), KeycodeListener, Sched
         if (bottomIsHiddden) bottomBehavior?.setCollapsed() else hideStatusIfNeeded(playerBehavior.state)
         // VLC Redesign: the TV layout at the design's size shows its own mini player (RdTvMiniPlayer): no bar at the bottom
         playerBehavior.peekHeight = if (org.videolan.vlc.gui.tablet.RdTvWindow.isOn(this)) 0 else resources.getDimensionPixelSize(R.dimen.player_peek_height)
+        tvPlayerFocus(playerBehavior.state)
         updateFragmentMargins()
         playerBehavior.setPeekHeightListener {
             applyMarginToProgressBar(playerBehavior.peekHeight)
@@ -415,6 +428,7 @@ open class AudioPlayerContainerActivity : BaseActivity(), KeycodeListener, Sched
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 onPlayerStateChanged(bottomSheet, newState)
+                tvPlayerFocus(newState)
                 hideStatusIfNeeded(newState)
                 audioPlayer.onStateChanged(newState)
                 if (newState == STATE_COLLAPSED || newState == STATE_HIDDEN) removeTipViewIfDisplayed()
