@@ -80,7 +80,7 @@
     <string name="rd_pin_to_home">הצמדה לבית</string>
     <string name="rd_unpin_from_home">ביטול הצמדה מהבית</string>
     <string name="rd_pinned">מוצמדים</string>
-    <string name="rd_pinned_missing">התיקייה או רשימת ההשמעה המוצמדת כבר לא קיימת.</string>
+    <string name="rd_pinned_missing">התיקייה או רשימת הנגינה המוצמדת כבר לא קיימת.</string>
     <string name="rd_volume_indicator">מחוון עוצמת הקול</string>
     <string name="rd_volume_right_side">צד ימין</string>
     <string name="rd_volume_left_side">צד שמאל</string>
