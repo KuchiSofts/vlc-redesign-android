@@ -95,7 +95,7 @@ object TabletSidebar {
         coordinator.addView(sidebar, coordinator.indexOfChild(rail) + 1,
                 CoordinatorLayout.LayoutParams(if (desktop) 201.dp else resources.getDimensionPixelSize(R.dimen.navigation_margin), ViewGroup.LayoutParams.MATCH_PARENT).apply {
                     gravity = Gravity.START
-                    if (desktop) setMargins(8.dp, (RdTvWindow.TITLE_BAR_HEIGHT + 8).dp, 0, 8.dp)
+                    if (desktop) { setMargins(0, (RdTvWindow.TITLE_BAR_HEIGHT + 8).dp, 0, 8.dp); marginStart = 8.dp }
                 })
         if (desktop) sidebar.background = GradientDrawable().apply {
             cornerRadius = 6.dp.toFloat(); setColor(RdTvWindow.SIDEBAR)

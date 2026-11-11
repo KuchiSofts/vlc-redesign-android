@@ -94,6 +94,7 @@ class EmptyLoadingStateView : FrameLayout {
             grantPermissionButton.visibility = if (value in arrayOf(EmptyLoadingState.MISSING_PERMISSION, EmptyLoadingState.MISSING_VIDEO_PERMISSION, EmptyLoadingState.MISSING_AUDIO_PERMISSION)) VISIBLE else GONE
             pickFileButton.visibility = if (value in arrayOf(EmptyLoadingState.MISSING_PERMISSION, EmptyLoadingState.MISSING_VIDEO_PERMISSION, EmptyLoadingState.MISSING_AUDIO_PERMISSION) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) VISIBLE else GONE
             noMediaButton.visibility = if (showNoMedia && value == EmptyLoadingState.EMPTY) VISIBLE else if (value == EmptyLoadingState.EMPTY_FAVORITES) INVISIBLE else GONE
+            rdApplyEmptyAction(value)
             permissionTextView.text = when (state) {
                 EmptyLoadingState.MISSING_VIDEO_PERMISSION -> context.getString(R.string.permission_video)
                 EmptyLoadingState.MISSING_AUDIO_PERMISSION -> context.getString(R.string.permission_audio)
@@ -120,6 +121,25 @@ class EmptyLoadingStateView : FrameLayout {
         }
 
     private var noMediaClickListener: (() -> Unit)? = null
+
+    /**
+     * VLC Redesign: what an empty page offers (its button's name, what it does): an empty state says what to do next
+     * (the empty Playlists page was a line of text only).
+     */
+    var emptyAction: Pair<String, () -> Unit>? = null
+        set(value) {
+            field = value
+            if (::noMediaButton.isInitialized) rdApplyEmptyAction()
+        }
+
+    private fun rdActionShown(now: EmptyLoadingState = state) = emptyAction != null && now in arrayOf(EmptyLoadingState.EMPTY, EmptyLoadingState.EMPTY_SEARCH)
+
+    // (the state's setter keeps its new value last: it is given here)
+    private fun rdApplyEmptyAction(now: EmptyLoadingState = state) {
+        if (!rdActionShown(now)) return
+        noMediaButton.text = emptyAction?.first
+        noMediaButton.visibility = VISIBLE
+    }
 
     fun setOnNoMediaClickListener(l: () -> Unit) {
         noMediaClickListener = l
@@ -156,6 +176,7 @@ class EmptyLoadingStateView : FrameLayout {
         state = EmptyLoadingState.LOADING
 
         noMediaButton.setOnClickListener {
+            emptyAction?.takeIf { rdActionShown() }?.let { it.second(); return@setOnClickListener }
             val intent = Intent(context.applicationContext, SecondaryActivity::class.java)
             intent.putExtra("fragment", SecondaryActivity.STORAGE_BROWSER)
             (context as Activity).startActivityForResult(intent, ACTIVITY_RESULT_PREFERENCES)

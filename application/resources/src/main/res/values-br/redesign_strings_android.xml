@@ -31,4 +31,21 @@
     <string name="rd_unpin_from_home">Dispilhennañ diouzh an Degemer</string>
     <string name="rd_pinned">Spilhennet</string>
     <string name="rd_pinned_missing">N\'emañ ket ken an teuliad pe ar roll-lenn spilhennet-mañ.</string>
+    <string name="rd_subs_of_video">Istitloù ar video-mañ</string>
+    <string name="rd_subs_in_video">Er video</string>
+    <string name="rd_subs_next_to">E-kichen ar video · %1$s</string>
+    <string name="rd_subs_next_to_plain">E-kichen ar video</string>
+    <string name="rd_subs_opened">Digoret · %1$s</string>
+    <string name="rd_subs_opened_plain">Restr digoret</string>
+    <string name="rd_subs_none_yet">Istitl ebet c\'hoazh</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Diskouez ar gwellvezioù</string>
+    <string name="rd_subs_position_size">Lec\'hiadur ha ment</string>
+    <string name="rd_subs_position">Lec\'hiadur</string>
+    <string name="rd_subs_usual">Boas</string>
+    <string name="rd_subs_move_down">Diskenn an istitloù</string>
+    <string name="rd_subs_move_up">Sevel an istitloù</string>
+    <string name="rd_subs_smaller">Istitloù bihanoc\'h</string>
+    <string name="rd_subs_larger">Istitloù brasoc\'h</string>
+    <string name="rd_os_show_both">Diskouez an div yezh war un dro (istitloù doubl)</string>
 </resources>

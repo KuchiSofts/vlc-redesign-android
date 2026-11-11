@@ -32,11 +32,14 @@
     <string name="rd_ob_history_help">ਸਿਰਫ਼ ਇਸੇ ਡਿਵਾਈਸ ਉੱਤੇ ਰੱਖਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਜੋ ਤੁਸੀਂ ਉੱਥੋਂ ਜਾਰੀ ਰੱਖ ਸਕੋ ਜਿੱਥੇ ਛੱਡਿਆ ਸੀ।</string>
     <string name="rd_ob_updates_help">ਦਿਨ ਵਿੱਚ ਇੱਕ ਵਾਰ VLC for Android ਦਾ ਨਵਾਂ ਟੈਸਟ ਬਿਲਡ ਲੱਭਦਾ ਹੈ।</string>
     <string-array name="rd_whats_new_items">
-        <item>ਸਬ-ਟਾਈਟਲ: SubSource (ਅਰਬੀ), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 ਅਤੇ Legendas.net ਤੁਹਾਡੀ ਆਪਣੀ ਮੁਫ਼ਤ ਕੁੰਜੀ ਜਾਂ ਖਾਤੇ ਨਾਲ। ਹਰ ਇੱਕ ਸੈਟਿੰਗ › ਸਬ-ਟਾਈਟਲ ਵਿੱਚ, ਆਪਣੇ ਸਵਿੱਚ ਨਾਲ।</item>
-        <item>ਖੋਜ ਲਈ ਭਾਸ਼ਾਵਾਂ: ਤੇਜ਼ ਖੋਜ ਲਈ ਹਰ ਸਬ-ਟਾਈਟਲ ਭਾਸ਼ਾ ਨੂੰ ਚਾਲੂ ਜਾਂ ਬੰਦ ਕਰੋ।</item>
-        <item>ਲਾਈਵ TV ਖਾਤੇ: ਤੁਹਾਡਾ Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR ਜਾਂ HDHomeRun, ਅਤੇ Schedules Direct ਗਾਈਡ। ਤੁਹਾਡੇ ਨੈੱਟਵਰਕ ਉੱਤੇ ਸਰਵਰ ਆਪਣੇ ਆਪ ਲੱਭ ਜਾਂਦੇ ਹਨ।</item>
-        <item>ਲਾਈਵ TV: ਬਿਨਾਂ ਗਾਈਡ ਵਾਲੇ ਚੈਨਲਾਂ ਲਈ ਆਪਣੇ ਆਪ ਲੱਭੀ ਗਾਈਡ, ਹਰ ਸਰੋਤ ਦੀਆਂ ਗਾਈਡਾਂ ਲਈ \"ਗਾਈਡਾਂ\" ਟੈਬ, ਅਤੇ ਕੈਟਾਲਾਗ ਵਿੱਚ ਤੁਹਾਡੇ ਦੇਸ਼ ਦੇ ਸਰੋਤ ਸਭ ਤੋਂ ਪਹਿਲਾਂ।</item>
-        <item>ਸੁਧਾਰ: ਡਾਊਨਲੋਡ ਕੀਤੇ ਸਬ-ਟਾਈਟਲ ਐਪ ਦੀ ਆਪਣੀ ਸਟੋਰੇਜ ਵਿੱਚ ਸੰਭਾਲੇ ਜਾਂਦੇ ਹਨ (Android 14 ਉੱਤੇ ਕ੍ਰੈਸ਼), ਪਾਸਵਰਡ ਖੇਤਰ ਲੁਕੇ ਰਹਿੰਦੇ ਹਨ, TV ਰਿਮੋਟ ਦਾ ਫੋਕਸ, ਕਈ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ \"ਦੇਸ਼\" ਸ਼ਬਦ ਅਤੇ ਅਰਬੀ ਵਿੱਚ \"ਪਾਸਵਰਡ\" ਸ਼ਬਦ।</item>
+        <item>ਹੋਰ ਤੇਜ਼ ਅਤੇ ਸਥਿਰ: ਲਾਈਵ TV ਅਤੇ ਸਬ-ਟਾਈਟਲ ਬੈਕਗ੍ਰਾਊਂਡ ਵਿੱਚ ਕੰਮ ਕਰਦੇ ਹਨ, ਅਤੇ Android 5 ਅਤੇ TV ਬਾਕਸਾਂ ਉੱਤੇ ਕ੍ਰੈਸ਼ ਅਤੇ ਪਲੇਅਰ ਦੇ ਰੁਕ ਜਾਣ ਦੀ ਸਮੱਸਿਆ ਠੀਕ ਕਰ ਦਿੱਤੀ ਗਈ ਹੈ।</item>
+        <item>ਪੂਰੀ ਸਕ੍ਰੀਨ: ਕੋਈ ਕੁੰਜੀ, ਰਿਮੋਟ ਜਾਂ ਇਸ਼ਾਰਾ ਕੰਟਰੋਲਾਂ ਦੀ ਥਾਂ ਸਿਰਫ਼ ਤਰੱਕੀ ਜਾਂ ਸਿਰਫ਼ ਇੱਕ ਸੁਨੇਹਾ ਵੇਖਾ ਸਕਦਾ ਹੈ, ਸੈਟਿੰਗ › ਇੰਟਰਫੇਸ ਵਿੱਚ। @BarbodF ਦਾ ਧੰਨਵਾਦ।</item>
+        <item>ਹੋਰ ਸਮਝਦਾਰ ਆਟੋਮੈਟਿਕ ਸਬ-ਟਾਈਟਲ: ਵੀਡੀਓ ਨਾਲ ਆਇਆ Subs ਫੋਲਡਰ ਪਹਿਲਾਂ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਇਸ਼ਤਿਹਾਰ ਵਾਲੀ ਜਾਂ ਸਿਰਫ਼ ਲਾਜ਼ਮੀ ਲਾਈਨਾਂ ਵਾਲੀ ਫਾਇਲ ਹੁਣ ਸਬ-ਟਾਈਟਲ ਨਹੀਂ ਗਿਣੀ ਜਾਂਦੀ, ਜਿਸ ਫ਼ਿਲਮ ਦੀ ਤਸਵੀਰ ਦੇਰ ਨਾਲ ਆਉਂਦੀ ਹੈ ਉਸ ਲਈ ਵੀ ਖੋਜ ਹੁੰਦੀ ਹੈ, ਅਤੇ ਹਿਬਰੂ ਅਤੇ ਅਰਬੀ ਦੇ ਵਿਸ਼ਰਾਮ ਚਿੰਨ੍ਹ ਸਹੀ ਸਿਰੇ ਉੱਤੇ ਦਿਸਦੇ ਹਨ।</item>
+        <item>ਨੈੱਟਵਰਕ ਸ਼ੇਅਰ, ਮੀਡੀਆ ਸਰਵਰ ਜਾਂ ਲਿੰਕ ਵਾਲੀਆਂ ਵੀਡੀਓਜ਼ ਲਈ ਵੀ ਹੁਣ ਆਨਲਾਈਨ ਸਬ-ਟਾਈਟਲ ਮਿਲਦੇ ਹਨ, ਆਪ ਖੋਜਣ \'ਤੇ ਵੀ ਅਤੇ ਆਪਣੇ-ਆਪ ਵੀ (@Elshepl ਦਾ ਧੰਨਵਾਦ)। Android 5 ਤੋਂ 7.0 ਉੱਤੇ OpenSubtitles ਫਿਰ ਤੋਂ ਜਵਾਬ ਦਿੰਦਾ ਹੈ।</item>
+        <item>ਡੈਸਕਟਾਪ ਵਰਗਾ ਸਬ-ਟਾਈਟਲ ਪੈਨਲ: ਇਹ ਆਪਣੇ ਬਟਨ ਦੇ ਉੱਪਰ ਖੁੱਲ੍ਹਦਾ ਹੈ, ਅਤੇ ਭਾਸ਼ਾਵਾਂ ਤੇ ਉਹਨਾਂ ਦੀ ਗਿਣਤੀ, ਆਨਲਾਈਨ ਨਤੀਜੇ ਅਤੇ ਟਾਈਮਿੰਗ ਇੱਕੋ ਥਾਂ ਉੱਤੇ।</item>
+        <item>VLC for Android ਦੇ ਨਾਲ-ਨਾਲ ਇੰਸਟਾਲ ਹੁੰਦਾ ਹੈ, ਅਤੇ ਹਿਬਰੂ ਅਤੇ ਅਰਬੀ ਵਿੱਚ TV ਐਪ ਪੂਰੀ ਤਰ੍ਹਾਂ ਸ਼ੀਸ਼ੇ ਵਾਂਗ ਉਲਟਾ ਹੁੰਦਾ ਹੈ, ਰਿਮੋਟ ਦਾ ਫੋਕਸ ਉੱਥੇ ਹੀ ਜਿੱਥੇ ਤੁਸੀਂ ਉਮੀਦ ਕਰਦੇ ਹੋ।</item>
+        <item>ਤੁਹਾਡੀ ਸਕਰੀਨ ਮੁਤਾਬਕ ਆਕਾਰ: TV ਉੱਤੇ ਐਪ ਹੁਣ ਵੱਡਾ ਹੈ ਅਤੇ ਸੋਫ਼ੇ ਤੋਂ ਸੌਖਿਆਂ ਪੜ੍ਹਿਆ ਜਾਂਦਾ ਹੈ, ਆਕਾਰ ਸਕਰੀਨ ਤੋਂ ਤੈਅ ਹੁੰਦਾ ਹੈ ਅਤੇ ਸੈਟਿੰਗਾਂ › ਇੰਟਰਫੇਸ › ਇੰਟਰਫੇਸ ਦਾ ਆਕਾਰ ਵਿੱਚ ਬਦਲਿਆ ਜਾ ਸਕਦਾ ਹੈ। ਕਤਾਰਾਂ ਪੂਰੇ ਕਾਰਡ ਵਿਖਾਉਂਦੀਆਂ ਹਨ ਅਤੇ ਹਰ ਵਿੰਡੋ ਸਕਰੀਨ ਵਿੱਚ ਪੂਰੀ ਆਉਂਦੀ ਹੈ।</item>
+        <item>ਬਹੁਤ ਵੱਡੀਆਂ TV ਗਾਈਡਾਂ ਮੈਮੋਰੀ ਭਰੇ ਬਿਨਾਂ ਲੋਡ ਹੁੰਦੀਆਂ ਹਨ, ਦੋ ਸਬ-ਟਾਈਟਲ ਭਾਸ਼ਾਵਾਂ ਇੱਕੋ ਵੇਲੇ ਦਿਸ ਸਕਦੀਆਂ ਹਨ, ਅਤੇ ਰਿਮੋਟ ਦਾ ਫੋਕਸ ਹਮੇਸ਼ਾ ਦਿਸਦਾ ਹੈ।</item>
     </string-array>
     <string name="rd_subtitle_size">ਉਪਸਿਰਲੇਖ ਦਾ ਆਕਾਰ</string>
     <string name="rd_cast_this_phone">ਇਹ ਫ਼ੋਨ</string>
@@ -64,4 +67,21 @@
     <string name="rd_unpin_from_home">ਹੋਮ ਤੋਂ ਅਨਪਿੰਨ ਕਰੋ</string>
     <string name="rd_pinned">ਪਿੰਨ ਕੀਤੇ</string>
     <string name="rd_pinned_missing">ਇਹ ਪਿੰਨ ਕੀਤਾ ਫੋਲਡਰ ਜਾਂ ਪਲੇਅਲਿਸਟ ਹੁਣ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।</string>
+    <string name="rd_subs_of_video">ਇਸ ਵਿਡੀਓ ਦੇ ਸਬ-ਟਾਈਟਲ</string>
+    <string name="rd_subs_in_video">ਵਿਡੀਓ ਵਿੱਚ</string>
+    <string name="rd_subs_next_to">ਵਿਡੀਓ ਦੇ ਨਾਲ · %1$s</string>
+    <string name="rd_subs_next_to_plain">ਵਿਡੀਓ ਦੇ ਨਾਲ</string>
+    <string name="rd_subs_opened">ਖੋਲ੍ਹਿਆ · %1$s</string>
+    <string name="rd_subs_opened_plain">ਖੋਲ੍ਹੀ ਫਾਇਲ</string>
+    <string name="rd_subs_none_yet">ਹਾਲੇ ਕੋਈ ਸਬ-ਟਾਈਟਲ ਨਹੀਂ</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">ਪਸੰਦ ਵੇਖਾਓ</string>
+    <string name="rd_subs_position_size">ਸਥਿਤੀ ਅਤੇ ਸਾਈਜ਼</string>
+    <string name="rd_subs_position">ਸਥਿਤੀ</string>
+    <string name="rd_subs_usual">ਆਮ</string>
+    <string name="rd_subs_move_down">ਸਬ-ਟਾਈਟਲ ਹੇਠਾਂ ਕਰੋ</string>
+    <string name="rd_subs_move_up">ਸਬ-ਟਾਈਟਲ ਉੱਪਰ ਕਰੋ</string>
+    <string name="rd_subs_smaller">ਛੋਟੇ ਸਬ-ਟਾਈਟਲ</string>
+    <string name="rd_subs_larger">ਵੱਡੇ ਸਬ-ਟਾਈਟਲ</string>
+    <string name="rd_os_show_both">ਦੋਵੇਂ ਭਾਸ਼ਾਵਾਂ ਇੱਕੋ ਵਾਰ ਵੇਖਾਓ (ਦੋਹਰੇ ਸਬ-ਟਾਈਟਲ)</string>
 </resources>

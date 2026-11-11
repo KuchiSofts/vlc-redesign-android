@@ -42,8 +42,10 @@ import org.videolan.vlc.util.ContextOption.*
 object RdTvMenu {
 
     const val GREY = 0xFF8F8F8F.toInt()
-    private const val PANEL = 0xF2191919.toInt()
-    private const val FOCUS = 0xFF1F1F1F.toInt()
+    // (opaque: with no blur behind it, the page's words showed through the menu's)
+    private const val PANEL = 0xFF191919.toInt()
+    // (the Samsung TV app's .menu-item.focus: #1F1F1F on the panel's #191919 could not be told from across a room)
+    private const val FOCUS = 0xFF2A2A2A.toInt()
     private const val DIVIDER = 0xFF222222.toInt()
 
     /** An entry: its text, its design icon ("play": rd_tvd_duo_play + _a), checked (the accent's check), its action. */
@@ -180,18 +182,24 @@ object RdTvMenu {
         }
         val scroll = ScrollView(ctx).apply {
             isVerticalScrollBarEnabled = false
+            // (a menu longer than the window: its rows fade at the edge they go on under, not a row cut in half)
+            isVerticalFadingEdgeEnabled = true
+            setFadingEdgeLength(28.dp)
             addView(column)
             setPadding(4.dp, 4.dp, 4.dp, 4.dp)
-            background = GradientDrawable().apply { cornerRadius = 10.dp.toFloat(); setColor(PANEL) }
+            background = GradientDrawable().apply { cornerRadius = 10.dp.toFloat(); setColor(PANEL); setStroke(1.dp, 0xFF4C4A48.toInt()) }
             clipToOutline = true
         }
         // where: beside the focused row (11 clear), under a button (8 below), toward the end; inside the page
         val decor = activity.window.decorView
         val frame = Rect().also { decor.getWindowVisibleDisplayFrame(it) }
-        val w = width.dp
-        scroll.measure(View.MeasureSpec.makeMeasureSpec(w, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED))
         val margin = 8.dp
-        val h = minOf(scroll.measuredHeight, frame.height() - 2 * margin)
+        // (the shared rules of what fits a window, RdFitRules: never wider or taller than it, moved back inside it)
+        val w = org.videolan.vlc.util.RdFitRules.size(width.dp, frame.width(), margin)
+        scroll.measure(View.MeasureSpec.makeMeasureSpec(w, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED))
+        // (under the window's title bar: a long menu went up over the app's name and the clock)
+        if (org.videolan.vlc.gui.tablet.RdTvWindow.isOn(activity)) frame.top += org.videolan.vlc.gui.tablet.RdTvWindow.TITLE_BAR_HEIGHT.dp
+        val h = org.videolan.vlc.util.RdFitRules.size(scroll.measuredHeight, frame.height(), margin)
         val rtl = decor.layoutDirection == View.LAYOUT_DIRECTION_RTL
         var x: Int
         var y: Int
@@ -213,8 +221,8 @@ object RdTvMenu {
             x = frame.centerX() - w / 2
             y = frame.centerY() - h / 2
         }
-        x = x.coerceIn(frame.left + margin, maxOf(frame.left + margin, frame.right - margin - w))
-        y = y.coerceIn(frame.top + margin, maxOf(frame.top + margin, frame.bottom - margin - h))
+        x = org.videolan.vlc.util.RdFitRules.place(x, w, frame.left, frame.right, margin)
+        y = org.videolan.vlc.util.RdFitRules.place(y, h, frame.top, frame.bottom, margin)
         popup.apply {
             contentView = scroll
             this.width = w

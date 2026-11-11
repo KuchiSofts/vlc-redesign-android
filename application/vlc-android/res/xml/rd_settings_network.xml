@@ -6,7 +6,7 @@
     android:title="@string/rd_title_network">
     <PreferenceCategory android:title="@string/rd_sec_buffering">
         <org.videolan.vlc.gui.preferences.rd.RdEditTextPreference
-            android:defaultValue="0"
+            android:defaultValue="1000"
             android:key="network_caching"
             android:maxLength="5"
             android:summary="@string/network_caching_summary"

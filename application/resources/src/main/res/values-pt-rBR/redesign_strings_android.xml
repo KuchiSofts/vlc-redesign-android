@@ -30,11 +30,14 @@
     <string name="rd_ob_history_help">Mantido somente neste dispositivo, para continuar de onde você parou.</string>
     <string name="rd_ob_updates_help">Procura uma versão de teste mais nova do VLC for Android uma vez por dia.</string>
     <string-array name="rd_whats_new_items">
-        <item>Legendas: SubSource (árabe), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 e Legendas.net com sua chave ou conta gratuita. Cada um em Configurações › Legendas, com seu botão liga/desliga.</item>
-        <item>Idiomas para buscar: ative ou desative cada idioma de legenda para uma busca mais rápida.</item>
-        <item>Contas de TV ao vivo: seu Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR ou HDHomeRun, e o guia Schedules Direct. Os servidores na sua rede são encontrados automaticamente.</item>
-        <item>TV ao vivo: um guia encontrado automaticamente para canais sem guia, uma aba Guias com os guias de cada fonte e, primeiro, as fontes do seu país no catálogo.</item>
-        <item>Correções: legendas salvas no armazenamento do próprio app (um travamento no Android 14), campos de senha ocultos, o foco do controle remoto da TV, a tradução de “País” em vários idiomas e a de “senha” em árabe.</item>
+        <item>Mais rápido e estável: a TV ao vivo e as legendas funcionam em segundo plano, e os travamentos e o player congelado no Android 5 e em TV boxes foram corrigidos.</item>
+        <item>Tela cheia: uma tecla, o controle remoto ou um gesto pode mostrar só o progresso ou só uma mensagem no lugar dos controles, em Configurações › Interface. Agradecimentos a @BarbodF.</item>
+        <item>Legendas automáticas mais inteligentes: a pasta Subs que acompanha o vídeo é usada primeiro, um arquivo de propaganda ou só com legendas forçadas não conta mais como legenda, a busca acontece mesmo para um filme cuja imagem chega atrasada, e a pontuação em hebraico e árabe aparece na ponta certa.</item>
+        <item>Legendas online agora também para vídeos em um compartilhamento de rede, um servidor de mídia ou atrás de um link, buscadas manual ou automaticamente (agradecimentos a @Elshepl). No Android 5 a 7.0, o OpenSubtitles volta a responder.</item>
+        <item>O painel de legendas como na versão para computador: abre acima do seu botão, com os idiomas e quantas há em cada um, os resultados online e o ajuste de tempo em um só lugar.</item>
+        <item>Pode ser instalado ao lado do VLC for Android, e o app de TV em hebraico e árabe fica totalmente espelhado, com o foco do controle remoto onde você espera.</item>
+        <item>Do tamanho da sua tela: em uma TV o app agora fica maior e fácil de ler do sofá, o tamanho é definido a partir da tela e pode ser alterado em Configurações › Interface › Tamanho da interface. As fileiras mostram cartões inteiros e toda janela cabe na tela.</item>
+        <item>Guias de TV muito grandes carregam sem encher a memória, dois idiomas de legenda podem aparecer ao mesmo tempo, e o foco do controle remoto fica sempre visível.</item>
     </string-array>
     <string name="rd_subtitle_size">Tamanho das legendas</string>
     <string name="rd_cast_this_phone">Este celular</string>
@@ -67,4 +70,21 @@
     <string name="rd_volume_left_side">Lado esquerdo</string>
     <string name="rd_volume_top_right">Canto superior direito</string>
     <string name="rd_volume_top_left">Canto superior esquerdo</string>
+    <string name="rd_subs_of_video">Legendas deste vídeo</string>
+    <string name="rd_subs_in_video">No vídeo</string>
+    <string name="rd_subs_next_to">Ao lado do vídeo · %1$s</string>
+    <string name="rd_subs_next_to_plain">Ao lado do vídeo</string>
+    <string name="rd_subs_opened">Aberta · %1$s</string>
+    <string name="rd_subs_opened_plain">Arquivo aberto</string>
+    <string name="rd_subs_none_yet">Ainda sem legendas</string>
+    <string name="rd_subs_hi_short">SDH</string>
+    <string name="rd_show_preferences">Mostrar preferências</string>
+    <string name="rd_subs_position_size">Posição e tamanho</string>
+    <string name="rd_subs_position">Posição</string>
+    <string name="rd_subs_usual">Usual</string>
+    <string name="rd_subs_move_down">Mover as legendas para baixo</string>
+    <string name="rd_subs_move_up">Mover as legendas para cima</string>
+    <string name="rd_subs_smaller">Legendas menores</string>
+    <string name="rd_subs_larger">Legendas maiores</string>
+    <string name="rd_os_show_both">Mostrar os dois idiomas ao mesmo tempo (legendas duplas)</string>
 </resources>

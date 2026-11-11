@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">कळ किंवा रिमोट वापरल्यावर</string>
+    <string name="rd_fs_show_controls">नियंत्रणे दाखवा</string>
+    <string name="rd_fs_show_progress">फक्त प्रगती दाखवा</string>
+    <string name="rd_fs_show_message">फक्त एक संदेश दाखवा</string>
+    <string name="rd_fs_seconds">%1$s से.</string>
+    <string name="rd_fs_paused">विरामित</string>
+    <string name="rd_fs_playing">सुरू आहे</string>
+    <string name="rd_fs_info_touch">पटलाला स्पर्श केल्याने नियंत्रणे अजूनही दिसतात.</string>
+    <string name="rd_fs_info_tv">OK, वर, खाली किंवा मेनू दाबल्याने नियंत्रणे अजूनही दिसतात.</string>
+</resources>

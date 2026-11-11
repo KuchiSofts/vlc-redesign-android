@@ -32,4 +32,21 @@
     <string name="rd_unpin_from_home">Баш биттән аерырга</string>
     <string name="rd_pinned">Беркетелгән</string>
     <string name="rd_pinned_missing">Бу беркетелгән папка яки уйнату исемлеге инде юк.</string>
+    <string name="rd_subs_of_video">Бу видеоның субтитрлары</string>
+    <string name="rd_subs_in_video">Видео эчендә</string>
+    <string name="rd_subs_next_to">Видео янында · %1$s</string>
+    <string name="rd_subs_next_to_plain">Видео янында</string>
+    <string name="rd_subs_opened">Ачылган · %1$s</string>
+    <string name="rd_subs_opened_plain">Ачылган файл</string>
+    <string name="rd_subs_none_yet">Әлегә субтитрлар юк</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Көйләүләрне күрсәтү</string>
+    <string name="rd_subs_position_size">Урын һәм зурлык</string>
+    <string name="rd_subs_position">Урын</string>
+    <string name="rd_subs_usual">Гадәти</string>
+    <string name="rd_subs_move_down">Субтитрларны түбәнрәк күчерү</string>
+    <string name="rd_subs_move_up">Субтитрларны югарырак күчерү</string>
+    <string name="rd_subs_smaller">Кечерәк субтитрлар</string>
+    <string name="rd_subs_larger">Зуррак субтитрлар</string>
+    <string name="rd_os_show_both">Ике телне дә бер үк вакытта күрсәтү (икеле субтитрлар)</string>
 </resources>

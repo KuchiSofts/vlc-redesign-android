@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">כשמשתמשים במקש או בשלט</string>
+    <string name="rd_fs_show_controls">הצגת הפקדים</string>
+    <string name="rd_fs_show_progress">הצגת ההתקדמות בלבד</string>
+    <string name="rd_fs_show_message">הצגת הודעה בלבד</string>
+    <string name="rd_fs_seconds">%1$s שנ׳</string>
+    <string name="rd_fs_paused">מושהה</string>
+    <string name="rd_fs_playing">מתנגן</string>
+    <string name="rd_fs_info_touch">נגיעה במסך עדיין מציגה את הפקדים.</string>
+    <string name="rd_fs_info_tv">לחיצה על OK, למעלה, למטה או תפריט עדיין מציגה את הפקדים.</string>
+</resources>

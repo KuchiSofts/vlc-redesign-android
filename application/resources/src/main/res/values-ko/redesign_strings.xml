@@ -100,6 +100,9 @@
     <string name="rd_sec_diagnostics">진단</string>
     <string name="rd_sec_advanced">고급 옵션</string>
     <string name="rd_sec_window">창</string>
+    <string name="rd_interface_size">인터페이스 크기</string>
+    <string name="rd_interface_size_summary">페이지, 글자, 컨트롤을 그리는 크기입니다. 자동은 이 화면에 맞는 크기를 고릅니다.</string>
+    <string name="rd_interface_size_auto">자동 (%1$s)</string>
     <string name="rd_sec_playback_controls">재생 컨트롤</string>
     <string name="rd_sec_playlist">재생목록</string>
     <string name="rd_sec_player_bar">플레이어 막대</string>
@@ -461,4 +464,5 @@
     <string name="rd_os_find_language">언어 찾기</string>
     <string name="rd_os_picked_in_player">플레이어에서 선택됨</string>
     <string name="rd_os_second_short">두 번째 언어</string>
+    <string name="rd_on_this_device">이 기기</string>
 </resources>

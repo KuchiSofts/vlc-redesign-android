@@ -32,11 +32,14 @@
     <string name="rd_ob_history_help">Net op hierdie toestel gehou, om voort te gaan waar jy opgehou het.</string>
     <string name="rd_ob_updates_help">Soek een keer per dag na ’n nuwer toetsweergawe van VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Onderskrifte: SubSource (Arabies), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 en Legendas.net met u gratis sleutel of rekening. Elkeen in Instellings › Onderskrifte, met sy eie skakelaar.</item>
-        <item>Tale om in te soek: skakel elke onderskriftaal aan of af vir \'n vinniger soektog.</item>
-        <item>Regstreekse TV-rekeninge: u Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR of HDHomeRun, en die gids van Schedules Direct. Bedieners op u netwerk word vanself gevind.</item>
-        <item>Regstreekse TV: \'n gids wat vanself gevind word vir kanale sonder een, \'n oortjie Gidse met elke bron se gidse, en eerste die katalogus se bronne vir u land.</item>
-        <item>Regstellings: afgelaaide onderskrifte in die app se eie berging (verhoed \'n ineenstorting op Android 14), wagwoordvelde wys nie meer die wagwoord nie, die fokus van die TV-afstandbeheer, die woord vir \"Land\" in baie tale en die woord vir wagwoord in Arabies.</item>
+        <item>Vinniger en stabieler: Regstreekse TV en onderskrifte werk in die agtergrond, en ineenstortings en ’n vasgevriesde speler op Android 5 en TV-kassies is reggestel.</item>
+        <item>Volskerm: ’n sleutel, die afstandbeheer of ’n gebaar kan slegs die vordering of slegs ’n boodskap wys in plaas van die kontroles, in Instellings › Koppelvlak. Dankie aan @BarbodF.</item>
+        <item>Slimmer outomatiese onderskrifte: die video se eie Subs-vouer word eerste gebruik, \'n advertensie of \'n lêer met net gedwonge reëls tel nie meer as \'n onderskrif nie, \'n fliek waarvan die beeld laat begin, word steeds gesoek, en Hebreeuse en Arabiese leestekens verskyn aan die regte kant van die reël.</item>
+        <item>Aanlyn onderskrifte nou ook vir video’s op ’n netwerkdeling, ’n mediabediener of agter ’n skakel, met die hand en outomaties gevind (dankie aan @Elshepl). Op Android 5 tot 7.0 reageer OpenSubtitles weer.</item>
+        <item>Die onderskrifpaneel soos op die rekenaar: dit maak bo sy knoppie oop, met die tale en hul getalle, die aanlyn resultate en die tydsberekening op een plek.</item>
+        <item>Installeer langs VLC for Android, en die TV-app in Hebreeus en Arabies is heeltemal gespieël, met die fokus van die afstandbeheer waar u dit verwag.</item>
+        <item>Grootte wat by u skerm pas: op \'n TV is die app nou groter en maklik leesbaar van die bank af, die grootte word volgens die skerm bepaal en kan verander word in Instellings › Koppelvlak › Koppelvlakgrootte. Rye wys hele kaarte en elke venster pas op die skerm.</item>
+        <item>Baie groot TV-gidse laai sonder om die geheue vol te maak, twee onderskriftale kan gelyktydig wys, en die fokus van die afstandbeheer is altyd sigbaar.</item>
     </string-array>
     <string name="rd_subtitle_size">Onderskrifgrootte</string>
     <string name="rd_cast_this_phone">Hierdie foon</string>
@@ -64,4 +67,21 @@
     <string name="rd_unpin_from_home">Ontspeld van tuisblad</string>
     <string name="rd_pinned">Vasgespeld</string>
     <string name="rd_pinned_missing">Hierdie vasgespelde vouer of afspeellys is nie meer daar nie.</string>
+    <string name="rd_subs_of_video">Onderskrifte van hierdie video</string>
+    <string name="rd_subs_in_video">In die video</string>
+    <string name="rd_subs_next_to">Langs die video · %1$s</string>
+    <string name="rd_subs_next_to_plain">Langs die video</string>
+    <string name="rd_subs_opened">Oopgemaak · %1$s</string>
+    <string name="rd_subs_opened_plain">Oopgemaakte lêer</string>
+    <string name="rd_subs_none_yet">Nog geen onderskrifte nie</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Wys voorkeure</string>
+    <string name="rd_subs_position_size">Posisie en grootte</string>
+    <string name="rd_subs_position">Posisie</string>
+    <string name="rd_subs_usual">Gewoon</string>
+    <string name="rd_subs_move_down">Skuif onderskrifte af</string>
+    <string name="rd_subs_move_up">Skuif onderskrifte op</string>
+    <string name="rd_subs_smaller">Kleiner onderskrifte</string>
+    <string name="rd_subs_larger">Groter onderskrifte</string>
+    <string name="rd_os_show_both">Wys albei tale gelyktydig (dubbele onderskrifte)</string>
 </resources>

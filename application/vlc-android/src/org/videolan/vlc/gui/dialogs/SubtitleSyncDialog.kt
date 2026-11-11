@@ -154,7 +154,7 @@ class SubtitleSyncDialog : VLCBottomSheetDialogFragment() {
                 }
             }
             // (what is read so far shows at once: a slow phone takes seconds for the minute)
-            val levels = withContext(Dispatchers.IO) {
+            val levels = kotlinx.coroutines.runInterruptible(Dispatchers.IO) {
                 Waveform.levels(ctx, uri, from, from + LEVELS_SPAN, BIN_MS) { part -> binding.root.post { show(part) } }
             }
             if (!isAdded || levelsUri != uri) return@launch

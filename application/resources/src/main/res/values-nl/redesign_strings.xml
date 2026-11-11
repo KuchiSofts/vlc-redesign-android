@@ -100,6 +100,9 @@
     <string name="rd_sec_diagnostics">Diagnostiek</string>
     <string name="rd_sec_advanced">Geavanceerde opties</string>
     <string name="rd_sec_window">Venster</string>
+    <string name="rd_interface_size">Grootte van de interface</string>
+    <string name="rd_interface_size_summary">Hoe groot de pagina\'s, teksten en knoppen worden getekend. Automatisch kiest de grootte die bij dit scherm past.</string>
+    <string name="rd_interface_size_auto">Automatisch (%1$s)</string>
     <string name="rd_sec_playback_controls">Afspeelbediening</string>
     <string name="rd_sec_playlist">Afspeellijst</string>
     <string name="rd_sec_player_bar">Spelerbalk</string>
@@ -461,4 +464,5 @@
     <string name="rd_os_find_language">Taal zoeken</string>
     <string name="rd_os_picked_in_player">Gekozen in de speler</string>
     <string name="rd_os_second_short">Tweede taal</string>
+    <string name="rd_on_this_device">Op dit apparaat</string>
 </resources>

@@ -13,6 +13,7 @@
  */
 package org.videolan.vlc.gui.livetv
 
+import org.videolan.vlc.util.openLinkIfPossible
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -110,14 +111,63 @@ class TvSourcesDialog : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         page = savedInstanceState?.getString("page") ?: arguments?.getString("page") ?: "sources"
+        // the forms as they were (a rotation lost them; an Edit came back as an Add, and its Save made a second
+        // source); a password, a PIN or a key not kept there: typed again
+        savedInstanceState?.let { b ->
+            editing = b.getString("editing", ""); kind = b.getString("kind", kind)
+            fName = b.getString("fName", ""); fUrl = b.getString("fUrl", ""); fServer = b.getString("fServer", "")
+            fUser = b.getString("fUser", ""); fEpg = b.getString("fEpg", ""); fFor = b.getString("fFor", "")
+            aType = b.getString("aType", "")
+            b.getBundle("aFields")?.let { f -> for (k in f.keySet()) aFields[k] = f.getString(k, "") }
+        }
+    }
+
+    /** set when the dialog goes: a Quick Connect sign-in stops asking (it asked for 5 minutes, holding the dialog) */
+    private val closing = java.util.concurrent.atomic.AtomicBoolean(false)
+
+    /** a dialog of the page (a guide's link): closed with it (a rotation leaked its window) */
+    private var openDialog: android.app.Dialog? = null
+
+    override fun onDestroyView() {
+        closing.set(true)
+        openDialog?.dismiss()
+        openDialog = null
+        super.onDestroyView()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString("page", page)
+        outState.putString("editing", editing); outState.putString("kind", kind)
+        outState.putString("fName", fName); outState.putString("fUrl", fUrl); outState.putString("fServer", fServer)
+        outState.putString("fUser", fUser); outState.putString("fEpg", fEpg); outState.putString("fFor", fFor)
+        outState.putString("aType", aType)
+        val secret = TvAccounts.type(aType)?.fields?.filter { it.secret }?.map { it.name }?.toSet() ?: emptySet()
+        outState.putBundle("aFields", Bundle().apply { for ((k, v) in aFields) if (k !in secret) putString(k, v) })
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog = Dialog(requireContext(), R.style.Theme_AppCompat_DayNight_Dialog).apply {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog = object : Dialog(requireContext(), R.style.Theme_AppCompat_DayNight_Dialog) {
+        /**
+         * The remote: Left and Right move along a row only. At the end of a source's buttons the search for the next
+         * thing sideways went up to a tab of the window, another page opening under the thumb; Up and Down change rows.
+         */
+        override fun dispatchKeyEvent(event: android.view.KeyEvent): Boolean {
+            val code = event.keyCode
+            if (event.action == android.view.KeyEvent.ACTION_DOWN && (code == android.view.KeyEvent.KEYCODE_DPAD_LEFT || code == android.view.KeyEvent.KEYCODE_DPAD_RIGHT)) {
+                val from = currentFocus
+                if (from != null && from !is android.widget.EditText) {
+                    val to = from.focusSearch(if (code == android.view.KeyEvent.KEYCODE_DPAD_LEFT) View.FOCUS_LEFT else View.FOCUS_RIGHT)
+                    if (to != null && to !== from) {
+                        val a = IntArray(2).also { from.getLocationOnScreen(it) }
+                        val b = IntArray(2).also { to.getLocationOnScreen(it) }
+                        val sameRow = a[1] < b[1] + to.height && b[1] < a[1] + from.height
+                        if (!sameRow) return true
+                    }
+                }
+            }
+            return super.dispatchKeyEvent(event)
+        }
+    }.apply {
         window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 
@@ -126,27 +176,73 @@ class TvSourcesDialog : DialogFragment() {
         dialog?.window?.let { w ->
             val dm = resources.displayMetrics
             val width = minOf(dm.widthPixels - requireContext().tvPx(24f), requireContext().tvPx(720f))
-            w.setLayout(width, (dm.heightPixels * 0.9f).toInt())
+            w.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+            fit()
             w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         }
+        // opened with the remote: the page's tab has the focus (the window's first focus went to a scrolling box,
+        // which took the first key, Back too, or to Close at the bottom)
+        if (!focusGiven) {
+            focusGiven = true
+            view?.post { focusTab() }
+        }
+    }
+
+    private var focusGiven = false
+
+    /**
+     * The window as tall as its page: between 360 and nine tenths of the screen (one source in a window made for
+     * forty left two thirds of it empty). The rows scroll inside when they are more, the buttons stay under them.
+     */
+    private fun fit() {
+        val root = view ?: return
+        val window = dialog?.window ?: return
+        val ctx = context ?: return
+        val dm = resources.displayMetrics
+        val width = minOf(dm.widthPixels - ctx.tvPx(24f), ctx.tvPx(720f))
+        val most = (dm.heightPixels * 0.9f).toInt()
+        root.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(most, View.MeasureSpec.AT_MOST))
+        val height = root.measuredHeight.coerceIn(minOf(ctx.tvPx(360f), most), most)
+        if (window.attributes.height != height || window.attributes.width != width) window.setLayout(width, height)
+    }
+
+    private fun focusTab() {
+        val root = view ?: return
+        if (root.isInTouchMode || page == "account") return
+        val f = root.findFocus()
+        var inFooter = false
+        var p: View? = f
+        while (p != null && p !== root) { if (p === footerBar) inFooter = true; p = p.parent as? View }
+        if (f == null || f is ScrollView || f is HorizontalScrollView || inFooter)
+            (0 until tabs.childCount).map { tabs.getChildAt(it) }.firstOrNull { it.isSelected }?.requestFocus()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val ctx = requireContext()
         val root = LinearLayout(ctx).apply {
+            // (the window is measured before it is shown, to fit the screen: without its own direction every text was
+            // laid out left to right then, Latin names at the left of a Hebrew window until the next refresh)
+            layoutDirection = ctx.resources.configuration.layoutDirection
             orientation = LinearLayout.VERTICAL
             background = ContextCompat.getDrawable(ctx, R.drawable.rd_panel_framed)
             setPadding(ctx.tvPx(20f), ctx.tvPx(18f), ctx.tvPx(20f), ctx.tvPx(14f))
         }
         root.addView(ctx.tvText(getString(R.string.rd_tv_tv_sources), 18f, ctx.tvColor(R.color.rd_fg_1), medium = true))
         tabs = TvSegmented(ctx) { v -> page = v; editing = ""; error = ""; build() }
+        // (the scrolling boxes never hold the focus themselves: a box with the focus that has nothing to scroll
+        // takes any key, Back too, to give it to its first row; opened with the remote, the first Back only did that)
         root.addView(HorizontalScrollView(ctx).apply {
+            // (a window narrower than the tabs: they end in a fade, not a hard cut)
+            org.videolan.vlc.gui.helpers.RdFit.fade(this)
             isHorizontalScrollBarEnabled = false
+            isFocusable = false
             addView(tabs, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ctx.tvPx(36f)))
         }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { topMargin = ctx.tvPx(14f) })
         body = LinearLayout(ctx).apply { orientation = LinearLayout.VERTICAL }
-        scroll = ScrollView(ctx).apply { isFillViewport = true; addView(body) }
-        root.addView(scroll, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f).apply { topMargin = ctx.tvPx(14f) })
+        // (a list longer than the window fades where it goes on: its last row was cut through its words)
+        scroll = ScrollView(ctx).apply { isFillViewport = true; isFocusable = false; isVerticalFadingEdgeEnabled = true; setFadingEdgeLength(ctx.tvPx(24f)); addView(body) }
+        // (as tall as its rows, shorter when the window has no more room: the window is sized to its content, fit())
+        root.addView(scroll, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f).apply { topMargin = ctx.tvPx(14f) })
         footerBar = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
         footer = TvFlow(ctx, ctx.tvPx(8f), ctx.tvPx(8f), alignEnd = true)
         footerBar.addView(footer, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f).apply { marginStart = ctx.tvPx(8f) })
@@ -160,6 +256,8 @@ class TvSourcesDialog : DialogFragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 LiveTv.state.collect {
+                    // (an update's progress, every half second: its lines only, not the whole page again)
+                    if ((page == "sources" || page == "guides") && progressOnly(it.sources)) return@collect
                     if (page == "sources" || page == "accounts" || page == "guides") build()
                     else if (page == "catalog") { setTabs(); refreshCatalogList(requireContext()) }
                 }
@@ -186,25 +284,62 @@ class TvSourcesDialog : DialogFragment() {
     }
 
     private fun refocus(root: View, key: Pair<String, Int>) {
-        if (key.second < 0) { root.findViewWithTag<View>(key.first)?.requestFocus(); return }
-        var n = 0
-        fun walk(v: View): Boolean {
-            val t = ((v as? TextView)?.text ?: v.contentDescription)?.toString()
-            if (v.isFocusable && v.isEnabled && t == key.first) { if (n == key.second) { v.requestFocus(); return true }; n++ }
-            if (v is ViewGroup) for (i in 0 until v.childCount) if (walk(v.getChildAt(i))) return true
-            return false
+        if (key.second < 0) root.findViewWithTag<View>(key.first)?.requestFocus()
+        else {
+            var n = 0
+            fun walk(v: View): Boolean {
+                val t = ((v as? TextView)?.text ?: v.contentDescription)?.toString()
+                if (v.isFocusable && v.isEnabled && t == key.first) { if (n == key.second) { v.requestFocus(); return true }; n++ }
+                if (v is ViewGroup) for (i in 0 until v.childCount) if (walk(v.getChildAt(i))) return true
+                return false
+            }
+            walk(root)
         }
-        walk(root)
+        // (what had the focus is gone, a source removed or added: the remote's focus was nowhere and the next key
+        // took it to the last tab; it is on the page's tab)
+        if (!root.isInTouchMode) root.findFocus().let { f ->
+            if (f == null || f is ScrollView || f is HorizontalScrollView) (0 until tabs.childCount).map { tabs.getChildAt(it) }.firstOrNull { it.isSelected }?.requestFocus()
+        }
     }
 
     private var lastPage = ""
     /** the focus to give back once the page is drawn again (two rebuilds in a row: the first one's, not the tabs') */
     private var pendingFocus: Pair<String, Int>? = null
 
+    /** the sources as the page was built, their progress left out */
+    private var builtSources: List<SourceStatus>? = null
+
+    private fun withoutProgress(l: List<SourceStatus>) = l.map { it.copy(received = 0L, matched = 0) }
+
+    /** Only an update's progress changed: its lines told it in place (true), else the page is built again. */
+    private fun progressOnly(sources: List<SourceStatus>): Boolean {
+        val root = view ?: return false
+        if (builtSources != withoutProgress(sources)) return false
+        val busy = sources.filter { it.busy }.associateBy { "pg:" + it.id }
+        if (busy.isEmpty()) return true
+        // (the source's line and its guides' lines)
+        fun walk(v: View) {
+            if (v is TextView) (v.tag as? String)?.let { t -> busy[t]?.let { v.text = progressText(it) } }
+            if (v is ViewGroup) for (i in 0 until v.childCount) walk(v.getChildAt(i))
+        }
+        walk(root)
+        return true
+    }
+
+    /** what a source being updated is doing: its playlist, its guide downloaded (MB), read (MB, channels found) */
+    private fun progressText(s: SourceStatus): String = when (s.stage) {
+        "guide" -> getString(R.string.rd_tv_updating_guide, "%.1f".format(s.received / 1048576.0))
+        "reading" -> resources.getQuantityString(R.plurals.rd_tv_reading_guide, s.matched, "%.0f".format(s.received / 1048576.0), s.matched)
+        else -> getString(R.string.rd_tv_updating_channels)
+    }
+
     private fun build() {
         if (!::body.isInitialized) return
         val ctx = context ?: return
+        builtSources = withoutProgress(LiveTv.state.value.sources)
         val root = view
+        // (once the page is built: the window as tall as it)
+        root?.post { fit() }
         val kept = pendingFocus ?: root?.let { focusKey(it) }
         // an account's form opened with the remote (Add, Edit): its first field has the focus, not the tabs
         val opened = page == "account" && lastPage != "account"
@@ -300,12 +435,12 @@ class TvSourcesDialog : DialogFragment() {
         if (s.series) badge(ctx.tvBadge(getString(R.string.rd_tv_series), R.drawable.rd_ic_playlists))
         card.addView(badges, gap(ctx, 8f))
         val status = when {
-            s.busy -> if (s.stage == "guide") getString(R.string.rd_tv_updating_guide, "%.1f".format(s.received / 1048576.0)) else getString(R.string.rd_tv_updating_channels)
+            s.busy -> progressText(s)
             s.error.isNotEmpty() && s.channels == 0 -> getString(R.string.rd_tv_could_not_load, s.name, s.error)
             s.updated > 0 -> getString(R.string.rd_tv_updated_at, TvTexts.day(ctx, s.updated), TvTexts.time(ctx, s.updated))
             else -> ""
         }
-        if (status.isNotEmpty()) card.addView(ctx.tvText(status, 12f, ctx.tvColor(if (s.error.isNotEmpty() && s.channels == 0 && !s.busy) R.color.rd_warning else R.color.rd_fg_a3), lines = 2), gap(ctx, 8f))
+        if (status.isNotEmpty()) card.addView(ctx.tvText(status, 12f, ctx.tvColor(if (s.error.isNotEmpty() && s.channels == 0 && !s.busy) R.color.rd_warning else R.color.rd_fg_a3), lines = 2).apply { if (s.busy) tag = "pg:" + s.id }, gap(ctx, 8f))
         // the guide found for its channels by itself, with Undo
         autoLine(ctx, s)?.let { card.addView(it, gap(ctx, 6f)) }
         val buttons = TvFlow(ctx, ctx.tvPx(6f), ctx.tvPx(6f))
@@ -314,6 +449,8 @@ class TvSourcesDialog : DialogFragment() {
             add(ctx.tvIconButton(R.drawable.rd_ic_chevron_down, getString(R.string.rd_tv_move_up)) { LiveTv.moveSource(s.id, -1) }.apply { rotation = 180f; usable(index > 0); minimumWidth = ctx.tvPx(36f); minimumHeight = ctx.tvPx(36f) })
             add(ctx.tvIconButton(R.drawable.rd_ic_chevron_down, getString(R.string.rd_tv_move_down)) { LiveTv.moveSource(s.id, 1) }.apply { usable(index < count - 1); minimumWidth = ctx.tvPx(36f); minimumHeight = ctx.tvPx(36f) })
         }
+        // an update under way stops (the last guide kept)
+        if (s.busy) add(ctx.tvButton(getString(R.string.stop)) { LiveTv.stopUpdate() }.apply { tag = "fk:stop:" + s.id })
         add(ctx.tvButton(getString(if (s.enabled) R.string.rd_tv_turn_off else R.string.rd_tv_turn_on)) { LiveTv.setSourceEnabled(s.id, !s.enabled) })
         add(ctx.tvButton(getString(R.string.rd_tv_update)) { LiveTv.refresh(listOf(s.id)) }.usable(s.enabled && !s.busy))
         add(ctx.tvButton(getString(R.string.rd_tv_edit)) { edit(s.id) })
@@ -466,7 +603,7 @@ class TvSourcesDialog : DialogFragment() {
         add(ctx.tvButton(getString(R.string.rd_tv_update)) { LiveTv.refresh(listOf(s.id)) }.usable(s.enabled && !s.busy))
         val cfg = LiveTv.source(s.id)
         add(ctx.tvButton(getString(if (type?.signsIn == true && (cfg?.username?.isNotEmpty() == true || cfg?.pin?.isNotEmpty() == true)) R.string.rd_os_sign_in else R.string.rd_os_test)) {
-            cfg?.let { LiveTv.checkAccount(it, { p -> view?.post { if (page == "accounts") build() } }) { view?.post { if (page == "accounts") build() } } }
+            cfg?.let { LiveTv.checkAccount(it, { p -> view?.post { if (page == "accounts") build() } }, closing) { view?.post { if (page == "accounts") build() } } }
         }.usable(!s.checking))
         add(ctx.tvButton(getString(R.string.rd_tv_edit)) { editAccount(s.id) })
         if (cfg != null && (cfg.password.isNotEmpty() || cfg.pin.isNotEmpty() || cfg.key.isNotEmpty() || cfg.code.isNotEmpty() || cfg.token.isNotEmpty()))
@@ -575,7 +712,7 @@ class TvSourcesDialog : DialogFragment() {
             aChecking = true
             aCheck = null
             build()
-            LiveTv.checkAccount(accountConfig(), { p -> view?.post { aCheck = p; if (page == "account") build() } }) { r ->
+            LiveTv.checkAccount(accountConfig(), { p -> view?.post { aCheck = p; if (page == "account") build() } }, closing) { r ->
                 view?.post { aChecking = false; aCheck = r; if (page == "account") build() }
             }
         }.usable(!aChecking), wrap().apply { marginStart = ctx.tvPx(8f) })
@@ -642,13 +779,15 @@ class TvSourcesDialog : DialogFragment() {
         })
         row.addView(ctx.tvText(android.text.BidiFormatter.getInstance().unicodeWrap(name) + " · " + kind, 13f, ctx.tvColor(R.color.rd_fg_2), medium = true, lines = 1))
         val state = when {
-            s.busy && s.stage == "guide" -> getString(R.string.rd_tv_updating_guide, "%.1f".format(s.received / 1048576.0))
+            s.busy && (s.stage == "guide" || s.stage == "reading") -> progressText(s)
             g.error.isNotEmpty() && g.channels == 0 -> getString(R.string.rd_tv_could_not_load, name, g.error)
             g.updated > 0 -> getString(R.string.rd_tv_updated_at, TvTexts.day(ctx, g.updated), TvTexts.time(ctx, g.updated)) +
                 if (g.channels > 0) " · " + resources.getQuantityString(R.plurals.rd_tv_guide_n, g.channels, g.channels) else ""
             else -> ""
         }
-        if (state.isNotEmpty()) row.addView(ctx.tvText(state, 12f, ctx.tvColor(if (g.error.isNotEmpty() && g.channels == 0) R.color.rd_warning else R.color.rd_fg_a3), lines = 2), gap(ctx, 4f))
+        if (state.isNotEmpty()) row.addView(ctx.tvText(state, 12f, ctx.tvColor(if (g.error.isNotEmpty() && g.channels == 0) R.color.rd_warning else R.color.rd_fg_a3), lines = 2).apply { if (s.busy) tag = "pg:" + s.id }, gap(ctx, 4f))
+        // too large for the device: what it kept ("kept the next 3 days of your channels")
+        if (g.note.isNotEmpty() && !s.busy) row.addView(ctx.tvText(g.note, 12f, ctx.tvColor(R.color.rd_warning), lines = 2), gap(ctx, 4f))
         val acts = TvFlow(ctx, ctx.tvPx(6f), ctx.tvPx(6f))
         acts.addView(ctx.tvButton(getString(if (g.on) R.string.rd_tv_turn_off else R.string.rd_tv_turn_on)) { LiveTv.setGuideOn(s.id, g.url, !g.on) }, wrap())
         acts.addView(ctx.tvButton(getString(R.string.rd_tv_update)) { LiveTv.refreshGuides(s.id) }.usable(g.on && s.enabled && !s.busy), wrap())
@@ -668,6 +807,7 @@ class TvSourcesDialog : DialogFragment() {
             .setNegativeButton(R.string.cancel, null)
             .show()
         org.videolan.vlc.gui.helpers.RdTvFocusRing.attach(d.window)
+        openDialog = d
     }
 
     private fun edit(id: String) {
@@ -695,7 +835,7 @@ class TvSourcesDialog : DialogFragment() {
         if (editing.isEmpty()) options.add(getString(R.string.rd_tv_kind_epg) to "epg")
         kinds.setOptions(options)
         kinds.value = kind
-        body.addView(HorizontalScrollView(ctx).apply { isHorizontalScrollBarEnabled = false; addView(kinds, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ctx.tvPx(36f))) }, gap(ctx, 4f))
+        body.addView(HorizontalScrollView(ctx).apply { org.videolan.vlc.gui.helpers.RdFit.fade(this); isHorizontalScrollBarEnabled = false; isFocusable = false; addView(kinds, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ctx.tvPx(36f))) }, gap(ctx, 4f))
         if (kind != "epg") {
             heading(ctx, getString(R.string.rd_tv_name), getString(R.string.rd_tv_optional))
             body.addView(ctx.tvField(getString(R.string.rd_tv_name_hint)).apply { setText(fName); watch(this) { fName = it }; contentDescription = getString(R.string.rd_tv_name) }, gap(ctx, 6f))
@@ -724,10 +864,8 @@ class TvSourcesDialog : DialogFragment() {
                 if (sources.isNotEmpty()) {
                     val chosen = sources.firstOrNull { it.id == fFor }
                     val drop = dropdown(ctx, chosen?.name ?: "") { anchor ->
-                        val menu = PopupMenu(ctx, anchor)
-                        sources.forEachIndexed { i, s -> menu.menu.add(0, i, i, s.name) }
-                        menu.setOnMenuItemClickListener { fFor = sources[it.itemId].id; build(); true }
-                        menu.show()
+                        org.videolan.vlc.gui.helpers.RdDropdown.show(anchor, sources.map { org.videolan.vlc.gui.helpers.RdDropdown.Row(it.name, it.id == fFor) },
+                                sources.indexOfFirst { it.id == fFor }) { i -> fFor = sources[i].id; build() }
                     }
                     body.addView(drop, gap(ctx, 6f))
                 }
@@ -823,40 +961,42 @@ class TvSourcesDialog : DialogFragment() {
         body.addView(search, gap(ctx, 4f))
         // the filters: choices of the values the sources have
         val filters = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
-        fun filter(label: String, value: String, values: List<Pair<String, String>>, set: (String) -> Unit) {
+        // (the shared list, RdDropdown: All, then what this device is set to, marked, then the others from A to Z;
+        // it scrolls inside the window and opens on the value chosen)
+        fun filter(label: String, value: String, values: List<Pair<String, String>>, detected: List<String> = emptyList(), set: (String) -> Unit) {
             val text = if (value.isEmpty()) label else values.firstOrNull { it.first == value }?.second ?: value
             filters.addView(dropdown(ctx, text) { anchor ->
-                val menu = PopupMenu(ctx, anchor)
-                menu.menu.add(0, 0, 0, getString(R.string.rd_tv_all))
-                values.forEachIndexed { i, (_, name) -> menu.menu.add(0, i + 1, i + 1, name) }
-                menu.setOnMenuItemClickListener { set(if (it.itemId == 0) "" else values[it.itemId - 1].first); build(); true }
-                menu.show()
+                val choices = org.videolan.vlc.util.RdLocaleChoices.order(listOf(org.videolan.vlc.util.RdLocaleChoices.Choice("", getString(R.string.rd_tv_all))), values, detected)
+                org.videolan.vlc.gui.helpers.RdDropdown.show(anchor, org.videolan.vlc.gui.helpers.RdDropdown.rows(choices, value),
+                        org.videolan.vlc.util.RdLocaleChoices.openAt(choices, value), minWidth = ctx.tvPx(220f)) { i -> set(choices[i].value); build() }
             }.apply { contentDescription = label }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginEnd = ctx.tvPx(8f) })
         }
         val languages = all.flatMap { strings(it, "languages") }.distinct().map { it to languageName(it) }.sortedBy { it.second }
         val countries = all.flatMap { strings(it, "countries") }.distinct().map { it to countryName(it) }.sortedBy { it.second }
         val categories = all.flatMap { strings(it, "categories") }.distinct().sorted().map { it to it.replaceFirstChar { c -> c.titlecase(Locale.getDefault()) } }
-        filter(getString(R.string.rd_tv_language), cLanguage, languages) { cLanguage = it }
-        filter(getString(R.string.rd_tv_country), cCountry, countries) { cCountry = it }
+        filter(getString(R.string.rd_tv_language), cLanguage, languages,
+                org.videolan.vlc.util.RdLocaleChoices.detectedLanguages(languages.map { it.first }, org.videolan.vlc.util.RdDeviceLocale.languageTags())) { cLanguage = it }
+        filter(getString(R.string.rd_tv_country), cCountry, countries,
+                org.videolan.vlc.util.RdLocaleChoices.detectedCountries(countries.map { it.first }, org.videolan.vlc.util.RdDeviceLocale.country())) { cCountry = it }
         filter(getString(R.string.rd_tv_category), cCategory, categories) { cCategory = it }
         // the order: for you (the country, the languages), A-Z, the most channels
         filters.addView(ctx.tvButton(getString(when (cSort) { "you" -> R.string.rd_tv_for_you; "name" -> R.string.rd_tv_sort_az; else -> R.string.rd_tv_sort_most })) {
             cSort = when (cSort) { "you" -> "name"; "name" -> "channels"; else -> "you" }; build()
         })
-        body.addView(HorizontalScrollView(ctx).apply { isHorizontalScrollBarEnabled = false; addView(filters) }, gap(ctx, 10f))
+        body.addView(HorizontalScrollView(ctx).apply { org.videolan.vlc.gui.helpers.RdFit.fade(this); isHorizontalScrollBarEnabled = false; isFocusable = false; addView(filters) }, gap(ctx, 10f))
         // what the sources can do (a row of its own)
         val features = TvSegmented(ctx) { v -> cFeature = v; refreshCatalogList(ctx) }
         features.setOptions(listOf(getString(R.string.rd_tv_recommended) to "rec", getString(R.string.rd_tv_all) to "", getString(R.string.rd_tv_guide) to "epg", getString(R.string.rd_tv_catchup) to "catchup",
             getString(R.string.rd_tv_films) to "vod", getString(R.string.rd_tv_free) to "free", getString(R.string.rd_tv_guides) to "guides"))
         features.value = cFeature
-        body.addView(HorizontalScrollView(ctx).apply { isHorizontalScrollBarEnabled = false; addView(features, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ctx.tvPx(36f))) }, gap(ctx, 10f))
+        body.addView(HorizontalScrollView(ctx).apply { org.videolan.vlc.gui.helpers.RdFit.fade(this); isHorizontalScrollBarEnabled = false; isFocusable = false; addView(features, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ctx.tvPx(36f))) }, gap(ctx, 10f))
         body.addView(LinearLayout(ctx).apply { orientation = LinearLayout.VERTICAL; tag = "list" }, gap(ctx, 4f))
         refreshCatalogList(ctx)
         // the legal note and the suggestion form (the project's discussions)
         val note = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
         note.addView(ctx.tvText(getString(R.string.rd_tv_catalog_legal), 12f, ctx.tvColor(R.color.rd_fg_a4), lines = 0), LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
         note.addView(ctx.tvButton(getString(R.string.rd_tv_suggest)) {
-            try { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(LiveTv.suggestionUrl()))) } catch (e: Exception) { }
+            activity?.openLinkIfPossible(LiveTv.suggestionUrl())
         }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginStart = ctx.tvPx(10f) })
         body.addView(note, gap(ctx, 16f))
     }
@@ -942,7 +1082,7 @@ class TvSourcesDialog : DialogFragment() {
         // what the app saw of it: works (its channels then), or not answering (failed twice)
         if (health?.notAnswering == true) badge(ctx.tvBadge(getString(R.string.rd_tv_not_answering)))
         else if (health?.ok == true) badge(ctx.tvBadge(getString(R.string.rd_tv_works) + if (!isGuide && health.channels > 0) " · " + health.channels else "", accent = true))
-        texts.addView(HorizontalScrollView(ctx).apply { isHorizontalScrollBarEnabled = false; addView(badges) }, gap(ctx, 8f))
+        texts.addView(HorizontalScrollView(ctx).apply { org.videolan.vlc.gui.helpers.RdFit.fade(this); isHorizontalScrollBarEnabled = false; isFocusable = false; addView(badges) }, gap(ctx, 8f))
         card.addView(texts, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
         val button = ctx.tvButton(getString(when { added -> R.string.rd_tv_added; isGuide -> R.string.rd_tv_add_guide; else -> R.string.rd_tv_add }), accent = !added) {
             if (isGuide) {
@@ -959,6 +1099,12 @@ class TvSourcesDialog : DialogFragment() {
         button.tag = "fk:cat:$id"
         card.addView(button, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginStart = ctx.tvPx(10f); gravity = Gravity.CENTER_VERTICAL })
         return card
+    }
+
+    override fun onDismiss(dialog: android.content.DialogInterface) {
+        super.onDismiss(dialog)
+        // the page's focus given back when what had it went while the sources were open (the TV page's own)
+        (parentFragment as? TvFragment)?.let { p -> p.view?.post { p.focusPageIfLost() } }
     }
 
     companion object {

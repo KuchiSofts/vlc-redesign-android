@@ -30,11 +30,14 @@
     <string name="rd_ob_history_help">Csak ezen az eszközön tárolódik, hogy ott folytathassa, ahol abbahagyta.</string>
     <string name="rd_ob_updates_help">Naponta egyszer keres újabb tesztkiadást a VLC for Androidból.</string>
     <string-array name="rd_whats_new_items">
-        <item>Feliratok: SubSource (arab), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 és Legendas.net saját ingyenes kulccsal vagy fiókkal. Mindegyik a Beállítások › Feliratok alatt, saját kapcsolóval.</item>
-        <item>Keresési nyelvek: a gyorsabb keresésért kapcsolja be vagy ki egyenként a feliratnyelveket.</item>
-        <item>Élő TV-fiókok: saját Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR vagy HDHomeRun, valamint a Schedules Direct műsorújság. A hálózatán lévő kiszolgálókat az alkalmazás magától megtalálja.</item>
-        <item>Élő TV: magától megtalált műsorújság a műsorújság nélküli csatornákhoz, Műsorújságok lap minden forrás műsorújságaival, és a katalógusban elöl az Ön országának forrásai.</item>
-        <item>Javítások: a feliratok az alkalmazás saját tárhelyére kerülnek (összeomlás Android 14 rendszeren), a jelszómezők elrejtik a beírt jelszót, a TV-távirányító fókusza, az Ország szó sok nyelven és a jelszó szó arabul.</item>
+        <item>Gyorsabb és stabilabb: az élő TV és a feliratok a háttérben működnek, és javítottuk az összeomlásokat és a lefagyó lejátszót Android 5 rendszeren és TV-boxokon.</item>
+        <item>Teljes képernyő: egy gomb, a távirányító vagy egy kézmozdulat a vezérlők helyett csak az előrehaladást vagy csak egy üzenetet jeleníthet meg, a Beállítások › Kezelőfelület alatt. Köszönet @BarbodF-nek.</item>
+        <item>Okosabb automatikus feliratok: először a videóhoz tartozó Subs mappa kerül sorra, a reklámot vagy csak kényszerített sorokat tartalmazó fájl már nem számít feliratnak, a keresés akkor is lefut, ha a film képe későn indul, és a héber és arab írásjelek a megfelelő végen jelennek meg.</item>
+        <item>Feliratok az internetről most már hálózati megosztáson, médiaszerveren vagy link mögött lévő videókhoz is, kézi és automatikus kereséssel (köszönet @Elshepl-nek). Android 5–7.0 rendszeren az OpenSubtitles ismét válaszol.</item>
+        <item>A Feliratok panel, mint az asztali változatban: a gombja fölött nyílik meg, és egy helyen mutatja a nyelveket a számukkal, az internetes találatokat és az időzítést.</item>
+        <item>A VLC for Android mellé telepíthető, a TV-alkalmazás héberül és arabul teljesen tükrözött, a távirányító fókusza pedig ott van, ahol várja.</item>
+        <item>A képernyőjéhez méretezve: tévén az alkalmazás mostantól nagyobb, és a kanapéról is jól olvasható, a méretet a képernyő alapján határozza meg, és a Beállítások › Felület › Felület mérete menüpontban módosítható. A sorok egész kártyákat mutatnak, és minden ablak elfér a képernyőn.</item>
+        <item>A nagyon nagy műsorújságok a memória megtöltése nélkül töltődnek be, egyszerre két feliratnyelv is megjeleníthető, és a távirányító fókusza mindig látható.</item>
     </string-array>
     <string name="rd_subtitle_size">Feliratméret</string>
     <string name="rd_cast_this_phone">Ez a telefon</string>
@@ -62,4 +65,21 @@
     <string name="rd_unpin_from_home">Rögzítés feloldása a kezdőlapon</string>
     <string name="rd_pinned">Rögzítve</string>
     <string name="rd_pinned_missing">Ez a rögzített mappa vagy lejátszólista már nem létezik.</string>
+    <string name="rd_subs_of_video">A videó feliratai</string>
+    <string name="rd_subs_in_video">A videóban</string>
+    <string name="rd_subs_next_to">A videó mellett · %1$s</string>
+    <string name="rd_subs_next_to_plain">A videó mellett</string>
+    <string name="rd_subs_opened">Megnyitva · %1$s</string>
+    <string name="rd_subs_opened_plain">Megnyitott fájl</string>
+    <string name="rd_subs_none_yet">Még nincs felirat</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Beállítások megjelenítése</string>
+    <string name="rd_subs_position_size">Pozíció és méret</string>
+    <string name="rd_subs_position">Pozíció</string>
+    <string name="rd_subs_usual">Szokásos</string>
+    <string name="rd_subs_move_down">Feliratok lejjebb</string>
+    <string name="rd_subs_move_up">Feliratok feljebb</string>
+    <string name="rd_subs_smaller">Kisebb feliratok</string>
+    <string name="rd_subs_larger">Nagyobb feliratok</string>
+    <string name="rd_os_show_both">Mindkét nyelv egyidejű megjelenítése (kettős felirat)</string>
 </resources>

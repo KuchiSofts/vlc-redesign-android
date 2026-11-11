@@ -90,23 +90,120 @@ abstract class VLCBottomSheetDialogFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launchWhenStarted {
             dialog?.window?.setLayout(windowWidth(), ViewGroup.LayoutParams.MATCH_PARENT)
-            if (useSideSheet()) applySideSheet(view)
+            val anchored = anchoredWanted()
+            if (anchored) applyAnchored(view)
+            else if (useSideSheet()) applySideSheet(view)
             // VLC Redesign, tablets: a centred framed window instead of a sheet on the bottom edge (gui/tablet)
-            else if (TabletSheets.wanted(dialog) && !AndroidDevices.isTv) dialog?.let { TabletSheets.applyCentered(it, view) }
+            // (the TV layout as well, on a TV too: its sheets were glued to the screen's bottom edge, a long one
+            // ran under it)
+            else if (centred()) dialog?.let { TabletSheets.applyCentered(it, view) }
             dialog?.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)?.let {
                 val bsb = BottomSheetBehavior.from(it)
                 if (bsb.state == BottomSheetBehavior.STATE_COLLAPSED) bsb.state = getDefaultState()
             }
             dialog?.findViewById<View>(R.id.touch_outside)?.isFocusable = false
             dialog?.findViewById<View>(R.id.touch_outside)?.isFocusableInTouchMode = false
-            if (AndroidDevices.isTv) applyOverscanMargin(view)
+            if (AndroidDevices.isTv && !anchored && !centred()) applyOverscanMargin(view)
+            // VLC Redesign: whatever its size, inside the screen
+            org.videolan.vlc.gui.helpers.RdFit.dialog(dialog?.window)
         }
 
 
     }
 
+    /** VLC Redesign: a centred framed window (a tablet, the TV layout) instead of a sheet on the bottom edge */
+    private fun centred() = TabletSheets.wanted(dialog) && (!AndroidDevices.isTv || Settings.showTvUi)
+
+    /** VLC Redesign: the tallest the panel above its button may be, in px (the desktop's panels have their own) */
+    open fun anchoredMaxHeight(): Int = Int.MAX_VALUE
+
+    /** VLC Redesign: the height the panel above its button wants, in px (0: about half the screen) */
+    open fun anchoredHeight(): Int = 0
+
+    /** VLC Redesign: the scale the panel's content is drawn at (RdScaleFrame): its width's bounds follow it */
+    open fun anchoredScale(): Float = 1f
+
+    /** VLC Redesign: the floating panel's background (above its button, or a side sheet): BG/A3, radius 14, the window's line */
+    open fun floatingBackground(view: View): android.graphics.drawable.Drawable? = ContextCompat.getDrawable(view.context, R.drawable.rd_panel_float)
+
     /** The sheet's width (a wider window for an editor shown centred on a tablet) */
-    open fun windowWidth() = resources.getDimensionPixelSize(R.dimen.default_context_width)
+    open fun windowWidth(): Int {
+        val width = resources.getDimensionPixelSize(R.dimen.default_context_width)
+        // VLC Redesign: the resources of a language chosen in the settings keep the orientation they were made in
+        // (the player turns without being made again): turned upright, a phone's sheet was the 512 of its side
+        // view, wider than the screen. The window's own width tells.
+        val window = activity?.window?.decorView?.width ?: 0
+        if (width > 0 && window > 0 && window / resources.displayMetrics.density < 600f) return ViewGroup.LayoutParams.MATCH_PARENT
+        // (never wider than the window: a large interface size leaves fewer dp than the resources were chosen for)
+        return if (width > 0) org.videolan.vlc.gui.helpers.RdFit.width(activity, width) else width
+    }
+
+    /**
+     * VLC Redesign: the control bar's button this panel belongs to (0: none). The panel then opens as the desktop's,
+     * anchored above that button at the bar (on a TV, a tablet, a phone on its side), not in the middle of the
+     * screen; a phone upright keeps its sheet from the bar, the closest native way.
+     */
+    open fun anchorId(): Int = 0
+
+    private fun anchoredWanted(): Boolean {
+        if (anchorId() == 0 || activity !is VideoPlayerActivity) return false
+        val anchor = activity?.findViewById<View>(anchorId()) ?: return false
+        // (laid out is enough: the controls hide as the panel opens, the button keeps its place)
+        if (anchor.width == 0 || anchor.height == 0) return false
+        val cfg = resources.configuration
+        return AndroidDevices.isTv || Settings.showTvUi || cfg.orientation == Configuration.ORIENTATION_LANDSCAPE || cfg.smallestScreenWidthDp >= 600
+    }
+
+    /**
+     * The desktop's player panel (its Video / Audio / Subtitles panel, 600 x 560 at 1920 x 1080): a floating A3 panel
+     * over the video, its bottom 8 above the button, its end edge 14 past the button's, a third of the screen wide
+     * (300 to 440) and about half its height; the video not dimmed under it.
+     */
+    private fun applyAnchored(view: View) {
+        val dialog = dialog ?: return
+        val anchor = activity?.findViewById<View>(anchorId()) ?: return
+        val window = dialog.window ?: return
+        val root = activity?.window?.decorView ?: return
+        val d = resources.displayMetrics.density
+        val screenW = root.width.takeIf { it > 0 } ?: resources.displayMetrics.widthPixels
+        val screenH = root.height.takeIf { it > 0 } ?: resources.displayMetrics.heightPixels
+        val at = IntArray(2).also { anchor.getLocationOnScreen(it) }
+        val gap = (8 * d).toInt()
+        val past = (14 * d).toInt()
+        val unit = d * anchoredScale()
+        // (the TV layout: the desktop's 600 at the interface size, as its height is: a third of the screen held the
+        // panel's texts at 100 % only, larger letters in the same box were cut, "Unknown la...")
+        val width = (if (Settings.showTvUi) (600 * unit).toInt()
+                else (screenW * 0.31f).toInt().coerceIn((300 * unit).toInt(), (440 * unit).toInt())).coerceAtMost(screenW - 2 * gap)
+        // (never taller than the room above the bar; at a large interface size half the screen is few dp: up to 400)
+        val room = (at[1] - 2 * gap).coerceAtLeast(1)
+        val height = (anchoredHeight().takeIf { it > 0 } ?: (screenH * 0.55f).toInt().coerceAtLeast(minOf((400 * d).toInt(), room)))
+                .coerceAtLeast(minOf((280 * d).toInt(), room)).coerceAtMost(anchoredMaxHeight()).coerceAtMost(room)
+        window.setLayout(width, height)
+        // the side of the button: its own edge of the screen (the bar is not mirrored in Hebrew or Arabic)
+        val onRight = at[0] + anchor.width / 2 > screenW / 2
+        window.setGravity(Gravity.BOTTOM or if (onRight) Gravity.RIGHT else Gravity.LEFT)
+        window.attributes = window.attributes.apply {
+            x = if (onRight) (screenW - (at[0] + anchor.width) - past).coerceAtLeast(gap) else (at[0] - past).coerceAtLeast(gap)
+            y = (screenH - at[1] + gap).coerceAtLeast(gap)
+        }
+        window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        dialog.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)?.let { sheet ->
+            sheet.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                this.height = ViewGroup.LayoutParams.MATCH_PARENT
+                setMargins(0, 0, 0, 0)
+            }
+            sheet.background = null
+            BottomSheetBehavior.from(sheet).apply {
+                skipCollapsed = true
+                isDraggable = false
+                state = BottomSheetBehavior.STATE_EXPANDED
+            }
+        }
+        view.updateLayoutParams<ViewGroup.LayoutParams> { this.height = ViewGroup.LayoutParams.MATCH_PARENT }
+        view.background = floatingBackground(view)
+        view.clipToOutline = true
+    }
 
     /**
      * VLC Redesign: in landscape the player's panels are side sheets at the end of the window (the desktop's
@@ -152,7 +249,7 @@ abstract class VLCBottomSheetDialogFragment : BottomSheetDialogFragment() {
             }
         }
         view.updateLayoutParams<ViewGroup.LayoutParams> { height = ViewGroup.LayoutParams.MATCH_PARENT }
-        view.background = ContextCompat.getDrawable(view.context, R.drawable.rd_panel_float)
+        view.background = floatingBackground(view)
         view.clipToOutline = true
     }
 
@@ -194,6 +291,30 @@ abstract class VLCBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
         initialFocusedView().requestFocus()
         if (requireActivity().isTalkbackIsEnabled()) initialFocusedView().sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED)
+        else if (org.videolan.tools.Settings.showTvUi) rdStartOnSomethingToPress(initialFocusedView())
+    }
+
+    /**
+     * VLC Redesign, the TV's remote: a sheet that starts on its title or its picture (a confirmation, the update's
+     * offer, the permissions...) left the remote on a text: OK did nothing until an arrow was pressed. The focus
+     * goes to something that can be pressed, Cancel when the sheet has one (a second OK by mistake changes nothing),
+     * and the title is no stop any more.
+     */
+    private fun rdStartOnSomethingToPress(first: View) {
+        val label = !first.isClickable && (first is android.widget.ImageView
+                || first is android.widget.TextView && first !is android.widget.EditText && first !is android.widget.Button)
+        val root = view
+        if (!label || root == null) return
+        first.isFocusable = false
+        first.isFocusableInTouchMode = false
+        val stops = ArrayList<View>().also { root.addFocusables(it, View.FOCUS_FORWARD) }.filter { it.isClickable && it.isEnabled }
+        val cancel = stops.firstOrNull { v -> v.id != View.NO_ID && runCatching { resources.getResourceEntryName(v.id) }.getOrNull()?.contains("cancel") == true }
+        if ((cancel ?: stops.firstOrNull())?.requestFocus() != true) {
+            // (nothing to press: as it was)
+            first.isFocusable = true
+            first.isFocusableInTouchMode = true
+            first.requestFocus()
+        }
     }
 
 

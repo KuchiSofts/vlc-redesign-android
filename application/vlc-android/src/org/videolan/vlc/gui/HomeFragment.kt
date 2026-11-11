@@ -41,6 +41,8 @@ import org.videolan.tools.Settings
 import org.videolan.tools.retrieveParent
 import org.videolan.vlc.R
 import org.videolan.tools.dp
+import org.videolan.tools.rdWidthDp
+import org.videolan.vlc.gui.tablet.RdTvPrebuild
 import org.videolan.vlc.gui.tablet.RdTvWindow
 import org.videolan.vlc.databinding.RdHomeCardBinding
 import org.videolan.vlc.gui.browser.KEY_MEDIA
@@ -70,6 +72,9 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
 
     private enum class Kind { VIDEO, AUDIO, FOLDER, MIXED }
 
+    /** The TV layout: room kept around a card inside its row, in dp (none: the remote's ring is drawn outside the card) */
+    private val RING = 0
+
     private inner class Section(root: View, titleRes: Int, val kind: Kind, onMore: (() -> Unit)?) {
         val view: View = root
         val list: RecyclerView = root.findViewById(R.id.rd_section_list)
@@ -84,7 +89,24 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
                 header.isClickable = false
                 header.background = null
             } else header.setOnClickListener { onMore() }
-            list.layoutManager = LinearLayoutManager(root.context, LinearLayoutManager.HORIZONTAL, false)
+            list.layoutManager = object : LinearLayoutManager(root.context, HORIZONTAL, false) {
+                /**
+                 * The remote past the last whole card: the row's cards fill it exactly, so the next card is laid out
+                 * beyond the row's edge and not "touching" it, which the list takes for nothing to go to (the focus
+                 * then left the row for the title bar). The card before or after the focused one is the answer.
+                 */
+                override fun onFocusSearchFailed(focused: View, direction: Int, recycler: RecyclerView.Recycler, state: RecyclerView.State): View? {
+                    super.onFocusSearchFailed(focused, direction, recycler, state)?.let { return it }
+                    val item = findContainingItemView(focused) ?: return null
+                    val rtl = layoutDirection == View.LAYOUT_DIRECTION_RTL
+                    val step = when (direction) {
+                        View.FOCUS_RIGHT -> if (rtl) -1 else 1
+                        View.FOCUS_LEFT -> if (rtl) 1 else -1
+                        else -> return null
+                    }
+                    return findViewByPosition(getPosition(item) + step)
+                }
+            }
             list.adapter = adapter
             if (RdTvWindow.isOn(root.context)) {
                 // the design's section (.sh-sec): the title 20 in FG/2 at 28 with its chevron 24, the cards 21 under
@@ -95,10 +117,32 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
                     setTextSize(android.util.TypedValue.COMPLEX_UNIT_DIP, 20f); setTextColor(RdTvWindow.FG_2); includeFontPadding = false
                 }
                 root.findViewById<View>(R.id.rd_section_chevron).layoutParams = (root.findViewById<View>(R.id.rd_section_chevron).layoutParams as ViewGroup.MarginLayoutParams).apply { width = 24.dp; height = 24.dp; marginStart = 6.dp }
-                (list.layoutParams as ViewGroup.MarginLayoutParams).topMargin = 21.dp
-                list.setPaddingRelative(28.dp, 0, 0, 0)
-                (root.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin = 76.dp
+                (list.layoutParams as ViewGroup.MarginLayoutParams).topMargin = (21 - RING).dp
+                // the row from 28 to 20 before the page's end, as the header over it; its cards are sized to fill it
+                // (cardWidth), so the window cuts none: the row itself is the clip, not the page's edge
+                // (each card has RING dp around it for the remote's ring, so the row starts and ends that much earlier
+                // and later: the pictures still run from 28 to 20 before the page's end)
+                list.setPaddingRelative(0, 0, 0, 0)
+                list.clipToPadding = true
+                (list.layoutParams as ViewGroup.MarginLayoutParams).apply { marginStart = (28 - RING).dp; marginEnd = (20 - RING).dp }
+                org.videolan.vlc.gui.helpers.RdFit.wholeCards(list)
+                list.setFadingEdgeLength(24.dp)
+                // (76 on the design's own page; at a larger interface size the page holds fewer dp down: 28, so that
+                // two rows are whole at rest, not one and three quarters with the second one's cards cut)
+                (root.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin = (if (org.videolan.tools.rdPageScale > 1.01f) 28 else 76 - 2 * RING).dp
             }
+        }
+
+        /**
+         * The TV layout: a card's width in this row, the design's ([base] px) grown a little so that whole cards
+         * fill the row at every interface size (a 4th card cut by the screen's edge at 150 %).
+         */
+        fun cardWidth(base: Int): Int {
+            // a row of both shapes (favourites) cannot end on a card's edge for each: the design's sizes, a fade
+            if (list.isHorizontalFadingEdgeEnabled) return base
+            val row = (list.layoutManager?.width ?: 0).takeIf { it > 0 } ?: list.width.takeIf { it > 0 }
+                    ?: ((list.resources.configuration.rdWidthDp - RdTvWindow.MAIN_START - 28 - 20 + 2 * RING).dp)
+            return org.videolan.vlc.gui.helpers.RdFit.cards(row - 2 * RING.dp, base, 20.dp).width
         }
 
         private var signature = ""
@@ -112,6 +156,8 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
             if (newSignature == signature && view.visibility == (if (newCards.isEmpty()) View.GONE else View.VISIBLE)) return
             signature = newSignature
             cards = newCards
+            // (a row of videos and songs together ends in a fade: its cards are of two widths)
+            list.isHorizontalFadingEdgeEnabled = newCards.any { it.media.type == MediaWrapper.TYPE_VIDEO && !it.folder } && newCards.any { it.media.type != MediaWrapper.TYPE_VIDEO || it.folder }
             adapter.notifyDataSetChanged()
             view.visibility = if (newCards.isEmpty()) View.GONE else View.VISIBLE
         }
@@ -119,11 +165,57 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
 
     private inner class CardHolder(val binding: RdHomeCardBinding) : RecyclerView.ViewHolder(binding.root)
 
+    /**
+     * The TV layout, the remote along a row: the card before or after takes the focus at once, the row moved by whole
+     * cards so that it is in sight. Left to the focus search, a quick second press while the row was still sliding
+     * found no card (the next one lies beyond the row's edge) and the focus left the row for its heading or the
+     * title bar.
+     */
+    private fun rowKey(section: Section, card: View, code: Int, event: android.view.KeyEvent): Boolean {
+        if (code != android.view.KeyEvent.KEYCODE_DPAD_LEFT && code != android.view.KeyEvent.KEYCODE_DPAD_RIGHT) return false
+        val list = section.list
+        val lm = list.layoutManager as? LinearLayoutManager ?: return false
+        val rtl = list.layoutDirection == View.LAYOUT_DIRECTION_RTL
+        val forward = (code == android.view.KeyEvent.KEYCODE_DPAD_RIGHT) != rtl
+        val at = lm.getPosition(card)
+        val next = at + if (forward) 1 else -1
+        // the row's first card: on to the sidebar (the window's own rule); its last: the focus stays
+        if (next < 0) return false
+        if (next >= section.cards.size) return true
+        if (event.action != android.view.KeyEvent.ACTION_DOWN) return true
+        list.stopScroll()
+        fun bring(): Boolean {
+            val v = lm.findViewByPosition(next) ?: return false
+            val lp = v.layoutParams as ViewGroup.MarginLayoutParams
+            // whole in the row: by as much as it is past the row's end or before its start
+            val over = v.right - (list.width - list.paddingRight)
+            val under = list.paddingLeft - v.left
+            if (over > 0) list.scrollBy(over, 0) else if (under > 0) list.scrollBy(-under, 0)
+            return lp.width != 0 && v.requestFocus()
+        }
+        if (!bring()) {
+            // not laid out yet (the row holds whole cards only): the row moved one card on, then the focus
+            val step = card.width + (card.layoutParams as ViewGroup.MarginLayoutParams).let { it.leftMargin + it.rightMargin }
+            list.scrollBy(if (forward != rtl) step else -step, 0)
+            if (!bring()) list.post { bring() }
+        }
+        return true
+    }
+
     private inner class CardAdapter(val section: Section) : RecyclerView.Adapter<CardHolder>() {
+        init { setHasStableIds(true) }
+
         override fun getItemCount() = section.cards.size
 
+        // (the same card keeps its view, and the remote's focus, when the row is drawn again: the library reports
+        // every thumbnail it makes, and the focus fell off the row to its heading)
+        override fun getItemId(position: Int): Long {
+            val c = section.cards[position]
+            return ((c.media.uri?.toString() ?: c.media.title ?: "") + "|" + c.folder + "|" + (c.pin != null)).hashCode().toLong()
+        }
+
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-                CardHolder(RdHomeCardBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+                CardHolder(RdTvPrebuild.bind(parent, R.layout.rd_home_card) { RdHomeCardBinding.inflate(LayoutInflater.from(parent.context), parent, false) })
 
         override fun onBindViewHolder(holder: CardHolder, position: Int) {
             val card = section.cards[position]
@@ -133,13 +225,17 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
             val video = !card.folder && media.type == MediaWrapper.TYPE_VIDEO
             // a 16:9 picture for a video, a square one for a song or a folder
             val tv = RdTvWindow.isOn(b.root.context)
-            val width = if (tv) (if (video) 316.dp else 200.dp) else res.getDimensionPixelSize(if (video) R.dimen.rd_home_video_width else R.dimen.rd_home_square_width)
-            val height = if (tv && video) 178.dp else if (video) width * 9 / 16 else width
+            // (a short window, the interface at 150 % and more: five covers a little under the design's size, not four
+            // grown by a fifth, so the row under the first shows its covers and names before any scrolling)
+            val square = if (res.displayMetrics.heightPixels / res.displayMetrics.density < 760f) 184.dp else 200.dp
+            val width = if (tv) section.cardWidth(if (video) 316.dp else square) else res.getDimensionPixelSize(if (video) R.dimen.rd_home_video_width else R.dimen.rd_home_square_width)
+            val height = if (tv && video) width * 178 / 316 else if (video) width * 9 / 16 else width
             if (tv) {
                 // the design's card (.sh-card): no frame around it, 20 to the next; the picture radius 8; the name
                 // 16 in FG/2, 20 under the picture; the artist 16 in FG/A1, 10 under the name
-                (b.root.layoutParams as ViewGroup.MarginLayoutParams).apply { marginStart = 0; marginEnd = 20.dp }
-                b.root.setPadding(0, 0, 0, 0)
+                // (RING around the card: the remote's ring went through the name's first letter and along its feet)
+                (b.root.layoutParams as ViewGroup.MarginLayoutParams).apply { marginStart = 0; marginEnd = (20 - 2 * RING).dp }
+                b.root.setPadding(RING.dp, RING.dp, RING.dp, RING.dp)
                 b.rdCoverCard.radius = 8.dp.toFloat()
                 for ((t, top) in listOf(b.rdTitle to 20, b.rdSubtitle to 10)) {
                     t.setTextSize(android.util.TypedValue.COMPLEX_UNIT_DIP, 16f)
@@ -179,6 +275,7 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
             }
             if (!card.folder && card.pin == null) loadImage(b.rdCover, media, width, card = true)
             b.root.contentDescription = media.title
+            if (tv) b.root.setOnKeyListener { v, code, event -> rowKey(section, v, code, event) }
             b.root.setOnClickListener { onCardClick(section, holder.bindingAdapterPosition) }
             b.root.setOnLongClickListener {
                 onCardLongClick(section, holder.bindingAdapterPosition)
@@ -204,13 +301,13 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
     override fun hasFAB() = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-            inflater.inflate(R.layout.rd_home_fragment, container, false)
+            RdTvPrebuild.inflate(inflater, R.layout.rd_home_fragment, container)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         emptyView = view.findViewById(R.id.rd_home_empty)
         // the design's Home: the first title 35 under the header's line (.sh-home)
-        if (RdTvWindow.isOn(view.context)) view.findViewById<View>(R.id.rd_home_scroll).let { it.setPadding(it.paddingLeft, 36.dp, it.paddingRight, 40.dp) }
+        if (RdTvWindow.isOn(view.context)) view.findViewById<View>(R.id.rd_home_scroll).let { it.setPadding(it.paddingLeft, (if (org.videolan.tools.rdPageScale > 1.01f) 24 else 36).dp, it.paddingRight, 40.dp) }
         continueWatching = Section(view.findViewById(R.id.rd_home_continue), R.string.rd_continue_watching, Kind.VIDEO) { openSecondary(SecondaryActivity.HISTORY) }
         listenAgain = Section(view.findViewById(R.id.rd_home_listen), R.string.rd_listen_again, Kind.AUDIO) { openSecondary(SecondaryActivity.HISTORY) }
         folders = Section(view.findViewById(R.id.rd_home_folders), R.string.rd_frequent_folders, Kind.FOLDER) { selectTab(R.id.nav_directories) }
@@ -220,9 +317,10 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
         pinned = Section(view.findViewById(R.id.rd_home_pinned), R.string.rd_pinned, Kind.FOLDER, null)
         sections = listOf(pinned, continueWatching, listenAgain, folders, favorites, newVideos, newMusic)
         // a folder or a playlist pinned or unpinned anywhere
-        lifecycleScope.launch { Pins.pins(view.context).collect { if (it != null) refresh() } }
+        // (the view's scope: a view made again kept the old one's collectors; the current pins are onStart's refresh)
+        viewLifecycleOwner.lifecycleScope.launch { Pins.pins(view.context).drop(1).collect { if (it != null) refresh() } }
         // moved or hidden in Edit Sidebar
-        lifecycleScope.launch { Pins.layout.drop(1).collect { refresh() } }
+        viewLifecycleOwner.lifecycleScope.launch { Pins.layout.drop(1).collect { refresh() } }
     }
 
     /** The pins, on Home only when the window has no sidebar to show them; in Edit Sidebar's order, the hidden left out */
@@ -282,7 +380,9 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
             val data = withContext(Dispatchers.IO) {
                 val ml = Medialibrary.getInstance()
                 if (!ml.isInitiated) return@withContext null
-                val history = if (historyOn) ml.history(Medialibrary.HISTORY_TYPE_LOCAL).toList() else emptyList()
+                // (a file once: opened from another app it is in the history a second time, by its address alone)
+                val history = (if (historyOn) ml.history(Medialibrary.HISTORY_TYPE_LOCAL).toList() else emptyList())
+                        .distinctBy { m -> m.uri?.path?.takeIf { it.isNotEmpty() && (m.uri?.scheme == null || m.uri?.scheme == "file") } ?: m.location ?: m }
                 HomeData(
                         history.filter { it.type == MediaWrapper.TYPE_VIDEO }.take(MAX_CARDS).map { Card(it) },
                         history.filter { it.type == MediaWrapper.TYPE_AUDIO }.take(MAX_CARDS).map { Card(it) },

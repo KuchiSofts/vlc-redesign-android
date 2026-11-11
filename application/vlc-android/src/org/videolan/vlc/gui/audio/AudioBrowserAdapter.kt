@@ -155,11 +155,12 @@ open class AudioBrowserAdapter @JvmOverloads constructor(
         if (!::inflater.isInitialized) {
             inflater = LayoutInflater.from(parent.context)
         }
+        // VLC Redesign, the TV layout: the cards made ahead while the window was idle (gui/tablet/RdTvPrebuild)
         return if (displayInCard()) {
-            val binding = AudioBrowserCardItemBinding.inflate(inflater, parent, false)
+            val binding = org.videolan.vlc.gui.tablet.RdTvPrebuild.bind(parent, R.layout.audio_browser_card_item) { AudioBrowserCardItemBinding.inflate(inflater, parent, false) }
             MediaItemCardViewHolder(binding) as AbstractMediaItemViewHolder<ViewDataBinding>
         } else {
-            val binding = AudioBrowserItemBinding.inflate(inflater, parent, false)
+            val binding = org.videolan.vlc.gui.tablet.RdTvPrebuild.bind(parent, R.layout.audio_browser_item) { AudioBrowserItemBinding.inflate(inflater, parent, false) }
             MediaItemViewHolder(binding) as AbstractMediaItemViewHolder<ViewDataBinding>
         }
     }
@@ -446,7 +447,8 @@ open class AudioBrowserAdapter @JvmOverloads constructor(
         private fun rdTvCard() {
             val c = binding.container
             c.background = null
-            c.foreground = null
+            // (View.setForeground is Android 6: every music card of the TV layout crashed on Android TV 5)
+            org.videolan.vlc.util.RdCompat.setForeground(c, null)
             c.minHeight = 0
             binding.mediaCoverContainer.apply {
                 radius = 8.dp.toFloat()

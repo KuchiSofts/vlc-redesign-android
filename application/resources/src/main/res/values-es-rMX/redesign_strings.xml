@@ -100,6 +100,9 @@
     <string name="rd_sec_diagnostics">Diagnóstico</string>
     <string name="rd_sec_advanced">Opciones avanzadas</string>
     <string name="rd_sec_window">Ventana</string>
+    <string name="rd_interface_size">Tamaño de la interfaz</string>
+    <string name="rd_interface_size_summary">El tamaño con el que se dibujan las páginas, los textos y los controles. Automático elige el tamaño adecuado para esta pantalla.</string>
+    <string name="rd_interface_size_auto">Automático (%1$s)</string>
     <string name="rd_sec_playback_controls">Controles de reproducción</string>
     <string name="rd_sec_playlist">Lista de reproducción</string>
     <string name="rd_sec_player_bar">Barra del reproductor</string>
@@ -438,4 +441,5 @@
     <string name="rd_os_find_language">Buscar un idioma</string>
     <string name="rd_os_picked_in_player">Elegido en el reproductor</string>
     <string name="rd_os_second_short">Segundo idioma</string>
+    <string name="rd_on_this_device">En este dispositivo</string>
 </resources>

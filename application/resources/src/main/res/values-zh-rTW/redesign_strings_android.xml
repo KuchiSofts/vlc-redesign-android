@@ -30,11 +30,14 @@
     <string name="rd_ob_history_help">只儲存在這部裝置上，用來從上次停止的地方繼續。</string>
     <string name="rd_ob_updates_help">每天檢查一次是否有較新的 VLC for Android 測試版。</string>
     <string-array name="rd_whats_new_items">
-        <item>字幕：SubSource（阿拉伯文）、SubDL、Titlovi、Assrt、Jimaku、BetaSeries、Subs.ro、Napisy24 和 Legendas.net 使用您自己的免費金鑰或帳號。每項服務都在「設定 › 字幕」中，各有開關。</item>
-        <item>要搜尋的語言：可個別開啟或關閉每種字幕語言，讓搜尋更快。</item>
-        <item>電視直播帳戶：您的 Jellyfin、Emby、Tvheadend、NextPVR、Channels DVR 或 HDHomeRun，以及 Schedules Direct 節目表。網路上的伺服器會自動找到。</item>
-        <item>電視直播：為沒有節目表的頻道自動找到節目表，新的「節目表」分頁彙整所有來源的節目表，目錄中您所在國家的來源排在最前面。</item>
-        <item>修正：字幕儲存在應用程式自己的儲存空間（Android 14 上曾當機）、密碼欄位隱藏輸入內容、電視遙控器的焦點問題、多種語言中「國家」的譯法，以及阿拉伯文中「密碼」的譯法。</item>
+        <item>更快更穩定：電視直播和字幕可在背景執行，並修正了在 Android 5 和電視盒上的當機及播放器卡住問題。</item>
+        <item>全螢幕：按鍵、遙控器或手勢可以只顯示進度或只顯示訊息，而不顯示控制按鈕，位於「設定 › 介面」中。感謝 @BarbodF。</item>
+        <item>更聰明的自動字幕：優先使用影片隨附的 Subs 資料夾，廣告檔或只有強制字幕行的檔案不再算作字幕，畫面較晚出現的影片也照樣搜尋，希伯來文與阿拉伯文的標點顯示在正確的一端。</item>
+        <item>網路分享、媒體伺服器或連結中的影片現在也能線上尋找字幕，手動和自動皆可（感謝 @Elshepl）。在 Android 5 至 7.0 上，OpenSubtitles 恢復回應。</item>
+        <item>與桌面版一樣的字幕面板：在其按鈕上方開啟，語言及各自的數量、線上結果與時間同步都集中在一處。</item>
+        <item>可與 VLC for Android 並存安裝；希伯來文與阿拉伯文的電視應用程式整體鏡像顯示，遙控器焦點也在您預期的位置。</item>
+        <item>大小配合您的螢幕：在電視上應用程式現在更大，坐在沙發上也能輕鬆閱讀，大小依螢幕自動決定，可在「設定 › 介面 › 介面大小」中變更。每列顯示完整的卡片，每個視窗都能完整顯示在螢幕內。</item>
+        <item>超大型的電視節目表載入時不會佔滿記憶體，可同時顯示兩種語言的字幕，遙控器焦點始終可見。</item>
     </string-array>
     <string name="rd_subtitle_size">字幕大小</string>
     <string name="rd_cast_this_phone">這支手機</string>
@@ -67,4 +70,21 @@
     <string name="rd_volume_left_side">左側</string>
     <string name="rd_volume_top_right">右上角</string>
     <string name="rd_volume_top_left">左上角</string>
+    <string name="rd_subs_of_video">此影片的字幕</string>
+    <string name="rd_subs_in_video">影片內</string>
+    <string name="rd_subs_next_to">影片旁 · %1$s</string>
+    <string name="rd_subs_next_to_plain">影片旁</string>
+    <string name="rd_subs_opened">已開啟 · %1$s</string>
+    <string name="rd_subs_opened_plain">已開啟的檔案</string>
+    <string name="rd_subs_none_yet">尚無字幕</string>
+    <string name="rd_subs_hi_short">聽障</string>
+    <string name="rd_show_preferences">顯示偏好設定</string>
+    <string name="rd_subs_position_size">位置與大小</string>
+    <string name="rd_subs_position">位置</string>
+    <string name="rd_subs_usual">一般</string>
+    <string name="rd_subs_move_down">字幕下移</string>
+    <string name="rd_subs_move_up">字幕上移</string>
+    <string name="rd_subs_smaller">縮小字幕</string>
+    <string name="rd_subs_larger">放大字幕</string>
+    <string name="rd_os_show_both">同時顯示兩種語言 (雙字幕)</string>
 </resources>

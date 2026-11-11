@@ -11,6 +11,7 @@
  */
 package org.videolan.vlc.gui.livetv
 
+import androidx.core.view.doOnNextLayout
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Gravity
@@ -41,6 +42,8 @@ import org.videolan.vlc.gui.BaseFragment
 import org.videolan.vlc.interfaces.Filterable
 import org.videolan.vlc.livetv.KEY_IPTV_ADULT
 import org.videolan.vlc.livetv.KEY_IPTV_DESCRIPTIONS
+import org.videolan.vlc.livetv.KEY_IPTV_NEXT
+import org.videolan.vlc.livetv.KEY_IPTV_PROGRESS
 import org.videolan.vlc.livetv.KEY_IPTV_GUIDE_HOURS
 import org.videolan.vlc.livetv.KEY_IPTV_LANGUAGES
 import org.videolan.vlc.livetv.LiveTv
@@ -56,7 +59,10 @@ class TvFragment : BaseFragment(), Filterable {
     private var view = "channels"
     private var group = ""
     private var search = ""
-    private var grid = false
+    private var grid = true
+
+    /** the channel playing (else the one watched last) brought into view once, when the page first lists its channels */
+    private var broughtToChannel = false
 
     private lateinit var segments: TvSegmented
     private lateinit var sourcesButton: View
@@ -64,6 +70,8 @@ class TvFragment : BaseFragment(), Filterable {
     private lateinit var chips: RecyclerView
     private lateinit var chipAdapter: TvChipAdapter
     private lateinit var status: TextView
+    private lateinit var statusRow: LinearLayout
+    private lateinit var stopButton: View
     private lateinit var list: RecyclerView
     private lateinit var adapter: TvChannelAdapter
     private lateinit var guideBox: LinearLayout
@@ -77,6 +85,8 @@ class TvFragment : BaseFragment(), Filterable {
     private lateinit var languageButton: com.google.android.material.button.MaterialButton
     private lateinit var descriptionsChip: FrameLayout
     private var shown: List<TvChannel> = emptyList()
+    /** what the channels shown were made of (the list is made again only when it changes) */
+    private var listKey: List<Any?>? = null
 
     override fun getTitle() = getString(R.string.rd_nav_tv)
     override fun hasFAB() = false
@@ -88,7 +98,8 @@ class TvFragment : BaseFragment(), Filterable {
         super.onCreate(savedInstanceState)
         val prefs = requireContext().getSharedPreferences("livetv", 0)
         view = prefs.getString("view", "channels") ?: "channels"
-        grid = prefs.getBoolean("grid", false)
+        // (cards unless the list was chosen: the desktop's TV page)
+        grid = prefs.getBoolean("grid", true)
         group = savedInstanceState?.getString("group") ?: ""
         LiveTv.init(requireContext())
         LiveTv.start()
@@ -104,15 +115,19 @@ class TvFragment : BaseFragment(), Filterable {
         val ctx = requireContext()
         val root = LinearLayout(ctx).apply {
             orientation = LinearLayout.VERTICAL
-            setBackgroundColor(ctx.tvColor(R.color.rd_bg_a4))
+            // (the design's window on a TV: the page of every other page, not a lighter one)
+            setBackgroundColor(if (org.videolan.vlc.gui.tablet.RdTvWindow.isOn(ctx)) org.videolan.vlc.gui.tablet.RdTvWindow.PAGE else ctx.tvColor(R.color.rd_bg_a4))
         }
         // Channels | Guide (| Films | Series), the sources at its end
         val head = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
         segments = TvSegmented(ctx) { v -> setView(v) }
-        head.addView(HorizontalScrollView(ctx).apply { isHorizontalScrollBarEnabled = false; addView(segments, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ctx.tvPx(34f))) },
+        head.addView(HorizontalScrollView(ctx).apply { org.videolan.vlc.gui.helpers.RdFit.fade(this); isHorizontalScrollBarEnabled = false; addView(segments, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ctx.tvPx(34f))) },
             LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
+        // Stop, while an update runs (the last guide kept): beside Sources, where the remote reaches it from the tabs
+        stopButton = ctx.tvButton(getString(R.string.stop)) { LiveTv.stopUpdate() }.apply { visibility = View.GONE }
+        head.addView(stopButton, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginStart = ctx.tvPx(12f) })
         sourcesButton = ctx.tvButton(getString(R.string.rd_tv_sources)) { TvSourcesDialog.show(childFragmentManager, if (LiveTv.state.value.sources.isEmpty()) "link" else "sources") }
-        head.addView(sourcesButton, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginStart = ctx.tvPx(12f) })
+        head.addView(sourcesButton, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginStart = ctx.tvPx(8f) })
         header = head
         root.addView(head, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { setMargins(ctx.tvPx(16f), ctx.tvPx(10f), ctx.tvPx(16f), 0) })
         // the groups: All, the favourites, the ones watched last, then the provider's
@@ -120,6 +135,7 @@ class TvFragment : BaseFragment(), Filterable {
         chips = RecyclerView(ctx).apply {
             layoutManager = LinearLayoutManager(ctx, LinearLayoutManager.HORIZONTAL, false)
             adapter = chipAdapter
+            org.videolan.vlc.gui.helpers.RdFit.fade(this)
             clipToPadding = false
             setPadding(ctx.tvPx(16f), 0, ctx.tvPx(16f), 0)
             overScrollMode = View.OVER_SCROLL_NEVER
@@ -127,11 +143,17 @@ class TvFragment : BaseFragment(), Filterable {
         root.addView(chips, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ctx.tvPx(32f)).apply { topMargin = ctx.tvPx(14f) })
         // what the add-on is doing (a guide of 30 MB takes a while)
         status = ctx.tvText("", 12f, ctx.tvColor(R.color.rd_fg_a3))
-        root.addView(status, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { setMargins(ctx.tvPx(20f), ctx.tvPx(10f), ctx.tvPx(20f), 0) })
+        statusRow = LinearLayout(ctx).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+            addView(status, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
+        }
+        root.addView(statusRow, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { setMargins(ctx.tvPx(20f), ctx.tvPx(10f), ctx.tvPx(20f), 0) })
         bodyBox = FrameLayout(ctx)
         root.addView(bodyBox, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f).apply { topMargin = ctx.tvPx(10f) })
         // the channels
         adapter = TvChannelAdapter(ctx, { c -> play(c) }, { c, v -> menu(c, v) })
+        broughtToChannel = false
         list = RecyclerView(ctx).apply {
             this.adapter = this@TvFragment.adapter
             clipToPadding = false
@@ -140,6 +162,13 @@ class TvFragment : BaseFragment(), Filterable {
             isVerticalScrollBarEnabled = true
         }
         bodyBox.addView(list, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+        // (the cards of a row follow the page's real width: the side bar, the interface size, a window resized)
+        list.addOnLayoutChangeListener { _, l, _, r, _, oldL, _, oldR, _ ->
+            if (r - l != oldR - oldL) (list.layoutManager as? GridLayoutManager)?.let { m ->
+                val columns = cardColumns(r - l)
+                if (m.spanCount != columns) list.post { m.spanCount = columns; adapter.notifyItemRangeChanged(0, adapter.itemCount) }
+            }
+        }
         // the guide: the day and the way through the days, the languages, the descriptions
         guideBox = LinearLayout(ctx).apply { orientation = LinearLayout.VERTICAL }
         guideTools = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
@@ -156,7 +185,7 @@ class TvFragment : BaseFragment(), Filterable {
         guideTools.addView(languageButton, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginEnd = ctx.tvPx(8f) })
         descriptionsChip = FrameLayout(ctx)
         guideTools.addView(descriptionsChip, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ctx.tvPx(32f)))
-        guideBox.addView(HorizontalScrollView(ctx).apply { isHorizontalScrollBarEnabled = false; addView(guideTools) },
+        guideBox.addView(HorizontalScrollView(ctx).apply { org.videolan.vlc.gui.helpers.RdFit.fade(this); isHorizontalScrollBarEnabled = false; addView(guideTools) },
             LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { setMargins(ctx.tvPx(16f), 0, ctx.tvPx(16f), 0) })
         guideBox.addView(guide, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f).apply { setMargins(ctx.tvPx(12f), ctx.tvPx(10f), ctx.tvPx(12f), 0) })
         bodyBox.addView(guideBox, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
@@ -192,10 +221,23 @@ class TvFragment : BaseFragment(), Filterable {
         applyLayout()
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch { LiveTv.state.collect { refresh(it) } }
+                launch {
+                    // (the toolbar's Cards / List and search too once the sources are known: a page opened before
+                    // they were read kept a header without them until its tab was changed)
+                    var had: Boolean? = null
+                    LiveTv.state.collect {
+                        refresh(it)
+                        val has = it.sources.isNotEmpty()
+                        if (had != has) { had = has; activity?.invalidateOptionsMenu() }
+                    }
+                }
                 launch { LiveTv.favorites.collect { refresh() } }
                 launch { TvPlayback.current.collect { adapter.tick(); guide.invalidate() } }
-                launch { LiveTv.messages.collect { m -> m?.let { activity?.let { a -> org.videolan.vlc.gui.helpers.UiTools.snacker(a, it.second) } } } }
+                launch {
+                    LiveTv.messages.collect { m ->
+                        if (m != null && android.os.SystemClock.elapsedRealtime() - m.first < 3000) activity?.let { a -> org.videolan.vlc.gui.helpers.UiTools.snacker(a, m.second) }
+                    }
+                }
                 // the clock: what is on and its progress
                 launch { while (true) { delay(30_000); adapter.tick(); guide.invalidate() } }
             }
@@ -216,14 +258,30 @@ class TvFragment : BaseFragment(), Filterable {
 
     private fun applyLayout() {
         val ctx = requireContext()
-        val widthDp = resources.configuration.screenWidthDp
+        val widthDp = (resources.configuration.screenWidthDp / org.videolan.tools.rdPageScale).toInt()
         adapter.wide = widthDp >= 600
+        // (the channel at the top stays there when the cards and the list change places)
+        val top = (list.layoutManager as? LinearLayoutManager)?.findFirstVisibleItemPosition() ?: RecyclerView.NO_POSITION
         if (grid) {
-            val span = maxOf(2, (widthDp - 24) / 180)
-            list.layoutManager = GridLayoutManager(ctx, span)
-        } else list.layoutManager = LinearLayoutManager(ctx)
+            // the desktop's grid: 20 before the first card and after the last (half of it is each card's own)
+            list.setPadding(ctx.tvPx(10f), 0, ctx.tvPx(10f), ctx.tvPx(20f))
+            list.layoutManager = GridLayoutManager(ctx, cardColumns(list.width.takeIf { it > 0 } ?: (widthDp * resources.displayMetrics.density).toInt()))
+        } else {
+            list.setPadding(ctx.tvPx(12f), 0, ctx.tvPx(12f), ctx.tvPx(20f))
+            list.layoutManager = LinearLayoutManager(ctx)
+        }
         adapter.grid = grid
+        if (top > 0) list.scrollToPosition(top)
         libraryList.layoutManager = GridLayoutManager(ctx, maxOf(2, (widthDp - 24) / 140))
+    }
+
+    /**
+     * The cards in a row of the desktop's grid: as many of the design's 196 wide, 20 apart, as the page holds, which
+     * then grow to fill the row (two at least: a phone held upright shows two smaller ones rather than one giant).
+     */
+    private fun cardColumns(widthPx: Int): Int {
+        val ctx = requireContext()
+        return maxOf(2, (widthPx - ctx.tvPx(20f)) / ctx.tvPx(216f))
     }
 
     private fun setView(v: String) {
@@ -267,6 +325,22 @@ class TvFragment : BaseFragment(), Filterable {
     }
 
     /** "The id of BBC One in the guide": the channel's id as its guide names it ("BBCOne.uk") */
+    private var openDialog: android.app.Dialog? = null
+
+    override fun onDestroyView() {
+        openDialog?.dismiss()
+        openDialog = null
+        listKey = null
+        super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        // the page left for another one, or the app closed: the update running stops (the last guides kept), a TV
+        // read a guide of 500 MB on its own long after
+        if (isRemoving || activity?.isFinishing == true) LiveTv.stopUpdate()
+        super.onDestroy()
+    }
+
     private fun editGuideId(c: TvChannel) {
         val ctx = requireContext()
         val field = ctx.tvField(c.channel.tvgId.ifEmpty { "BBCOne.uk" }).apply {
@@ -286,6 +360,23 @@ class TvFragment : BaseFragment(), Filterable {
             .setNegativeButton(R.string.cancel, null)
             .show()
         org.videolan.vlc.gui.helpers.RdTvFocusRing.attach(d.window)
+        // (closed with the page: a rotation leaked its window)
+        openDialog = d
+    }
+
+    /**
+     * The remote's focus back on the page when it is outside it: what had it went while the sources were open (its
+     * last source removed: the header and its Sources button hidden), and the window gave it to the title bar's ⋯.
+     */
+    internal fun focusPageIfLost() {
+        // (the page's root: this page's "view" is Channels or Guide)
+        val root = (this as androidx.fragment.app.Fragment).view ?: return
+        if (root.isInTouchMode || !::list.isInitialized) return
+        var p: View? = activity?.currentFocus
+        while (p != null) { if (p === root) return; p = p.parent as? View }
+        val target = if (empty.visibility == View.VISIBLE) empty.getFocusables(View.FOCUS_DOWN).firstOrNull { it.isShown }
+            else list.findViewHolderForAdapterPosition(0)?.itemView?.takeIf { it.isShown && it.isFocusable } ?: sourcesButton.takeIf { it.isShown }
+        target?.requestFocus()
     }
 
     private fun refresh(state: TvState = LiveTv.state.value) {
@@ -298,10 +389,17 @@ class TvFragment : BaseFragment(), Filterable {
         segments.setOptions(listOfNotNull(getString(R.string.rd_tv_channels) to "channels", getString(R.string.rd_tv_guide) to "guide",
             if (films) getString(R.string.rd_tv_films) to "movies" else null, if (series) getString(R.string.rd_tv_series) to "series" else null))
         segments.value = view
+        // (the remote's focus on the empty page's "Add a link": gone with it once a source is in, the window gave it
+        // to the title bar's ⋯; it comes back to the page, its first channel)
+        val emptyHadFocus = hasSources && empty.visibility == View.VISIBLE && empty.hasFocus()
         header.visibility = if (hasSources) View.VISIBLE else View.GONE
         empty.visibility = if (hasSources) View.GONE else View.VISIBLE
         bodyBox.visibility = if (hasSources) View.VISIBLE else View.GONE
         (empty.layoutParams as LinearLayout.LayoutParams).let { it.weight = if (hasSources) 0f else 1f; empty.layoutParams = it }
+        if (emptyHadFocus) {
+            sourcesButton.requestFocus()
+            this.list.post { this.list.findViewHolderForAdapterPosition(0)?.itemView?.requestFocus() }
+        }
         val library = view == "movies" || view == "series"
         chips.visibility = if (hasSources && !library) View.VISIBLE else View.GONE
         // the channels shown: the group, the adult ones only when allowed, the search
@@ -321,22 +419,62 @@ class TvFragment : BaseFragment(), Filterable {
             else -> all.filter { M3u.displayGroup(it.group) == group }
         }
         val q = search.trim().lowercase()
-        if (q.isNotEmpty()) list = list.filter { it.name.lowercase().contains(q) || it.number.toString() == q }
-        shown = list
-        adapter.submit(list)
-        guide.channels = list
+        // (the same channels, groups and search: the list as it is; the progress of an update came every half second
+        // and rebuilt 4,000 channels each time, the remote's focus thrown back to the top)
+        val key = listOf(state.channels, adult, favorites, group, q, view, if (group == "recent") LiveTv.recent else null,
+            settings.getBoolean(KEY_IPTV_NEXT, true), settings.getBoolean(KEY_IPTV_PROGRESS, true), settings.getBoolean(KEY_IPTV_DESCRIPTIONS, true))
+        if (key != listKey) {
+            if (q.isNotEmpty()) list = list.filter { it.name.lowercase().contains(q) || it.number.toString() == q }
+            listKey = key
+            shown = list
+            // (the remote on a channel while the list is made again, a source updating: it stays on the channel's
+            // place; its card gone, the window gave the focus to the title bar's menu at the top of the screen)
+            val rows = this.list
+            val heldAt = if (rows.hasFocus() && !rows.isInTouchMode) rows.focusedChild?.let { rows.getChildAdapterPosition(it) } ?: 0 else -1
+            adapter.submit(list)
+            // (once the new rows are laid out)
+            if (heldAt >= 0 && list.isNotEmpty()) rows.doOnNextLayout {
+                rows.post {
+                    if (isAdded && !rows.hasFocus() && !rows.isInTouchMode) {
+                        val at = heldAt.coerceIn(0, shown.size - 1)
+                        (rows.layoutManager?.findViewByPosition(at) ?: rows.getChildAt(0))?.requestFocus()
+                    }
+                }
+            }
+            guide.channels = list
+            // the page opens where the user is: on the channel playing, else the one watched last (its row or its
+            // card's row at the top, the one before it still in sight); a search or a group starts at its top
+            if (!broughtToChannel && list.isNotEmpty() && q.isEmpty() && group.isEmpty()) {
+                broughtToChannel = true
+                val wanted = TvPlayback.current.value.ifEmpty { LiveTv.recent.firstOrNull().orEmpty() }
+                val at = if (wanted.isEmpty()) -1 else list.indexOfFirst { it.key == wanted }
+                if (at > 0) this.list.post {
+                    (this.list.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(at, ctx.tvPx(48f))
+                }
+            }
+        } else list = shown
         // the status of the sources
         val busy = state.sources.firstOrNull { it.busy }
         // (one turned off says nothing)
         val failed = state.sources.firstOrNull { it.enabled && it.error.isNotEmpty() && it.channels == 0 }
         status.text = when {
-            busy != null -> if (busy.stage == "guide") getString(R.string.rd_tv_updating_guide_of, busy.name, "%.1f".format(busy.received / 1048576.0))
-                            else getString(R.string.rd_tv_updating_channels_of, busy.name)
+            busy != null -> when (busy.stage) {
+                "guide" -> getString(R.string.rd_tv_updating_guide_of, busy.name, "%.1f".format(busy.received / 1048576.0))
+                // a large guide read: the MB of it read, the channels found in it so far
+                "reading" -> resources.getQuantityString(R.plurals.rd_tv_reading_guide_of, busy.matched, busy.name, "%.0f".format(busy.received / 1048576.0), busy.matched)
+                else -> getString(R.string.rd_tv_updating_channels_of, busy.name)
+            }
             failed != null -> getString(R.string.rd_tv_could_not_load, failed.name, failed.error)
             else -> ""
         }
         status.setTextColor(ctx.tvColor(if (busy != null) R.color.rd_fg_a3 else R.color.rd_warning))
-        status.visibility = if (hasSources && status.text.isNotEmpty()) View.VISIBLE else View.GONE
+        statusRow.visibility = if (hasSources && status.text.isNotEmpty()) View.VISIBLE else View.GONE
+        val stoppable = hasSources && busy != null
+        if (stoppable != (stopButton.visibility == View.VISIBLE)) {
+            // (the remote on Stop as the update ends: on Sources beside it, never thrown to the top of the window)
+            if (!stoppable && stopButton.hasFocus()) sourcesButton.requestFocus()
+            stopButton.visibility = if (stoppable) View.VISIBLE else View.GONE
+        }
         this.list.visibility = if (hasSources && view == "channels" && list.isNotEmpty()) View.VISIBLE else View.GONE
         guideBox.visibility = if (hasSources && view == "guide") View.VISIBLE else View.GONE
         libraryList.visibility = if (hasSources && library) View.VISIBLE else View.GONE
@@ -366,17 +504,16 @@ class TvFragment : BaseFragment(), Filterable {
 
     /** Keeps only the programmes in a language when the guides give several (the guides are read again). */
     private fun chooseLanguage(anchor: View) {
-        val langs = LiveTv.state.value.languages.sorted()
-        val m = PopupMenu(requireContext(), anchor)
-        m.menu.add(0, 0, 0, getString(R.string.rd_tv_all))
-        langs.forEachIndexed { i, l -> m.menu.add(0, i + 1, i + 1, languageName(l) + " (" + l + ")") }
-        m.setOnMenuItemClickListener { item ->
-            settings.edit { putString(KEY_IPTV_LANGUAGES, if (item.itemId == 0) "" else langs[item.itemId - 1]) }
+        // the shared list (RdDropdown): All, the device's languages first, marked, the others from A to Z
+        val langs = LiveTv.state.value.languages.toList()
+        val choices = org.videolan.vlc.util.RdLocaleChoices.order(listOf(org.videolan.vlc.util.RdLocaleChoices.Choice("", getString(R.string.rd_tv_all))), langs.map { it to languageName(it) + " (" + it + ")" },
+                org.videolan.vlc.util.RdLocaleChoices.detectedLanguages(langs, org.videolan.vlc.util.RdDeviceLocale.languageTags()))
+        val current = settings.getString(KEY_IPTV_LANGUAGES, "") ?: ""
+        org.videolan.vlc.gui.helpers.RdDropdown.show(anchor, org.videolan.vlc.gui.helpers.RdDropdown.rows(choices, current), org.videolan.vlc.util.RdLocaleChoices.openAt(choices, current)) { i ->
+            settings.edit { putString(KEY_IPTV_LANGUAGES, choices[i].value) }
             LiveTv.reloadGuides()
             refresh()
-            true
         }
-        m.show()
     }
 
     /* Films and series of the first account that has them */

@@ -278,6 +278,10 @@ object OnlineSubtitles {
     internal fun formatLanguages(list: List<SearchLanguage>) = list.joinToString(",") { it.code + ":" + if (it.on) "1" else "0" }
 
     /** the preferred language (else the app's) */
+    /** the second language: the one chosen, else the desktop's default, English (none when English is the preferred) */
+    fun secondLanguage(context: Context): String = Settings.getInstance(context).getString(KEY_SECOND, null)?.let { normalize(it) }
+        ?: if (preferredLanguage(context) == "en") "" else "en"
+
     fun preferredLanguage(context: Context): String = normalize(Settings.getInstance(context).getString(KEY_SUBTITLE_PREFERRED_LANGUAGE, null)).ifEmpty {
         normalize(RdCompat.primaryLocale(context.resources.configuration).toLanguageTag())
     }
@@ -297,7 +301,7 @@ object OnlineSubtitles {
     fun searchLanguages(context: Context): List<SearchLanguage> {
         val settings = Settings.getInstance(context)
         val stored = settings.getString(KEY_LANGUAGES, null)?.let { parseLanguages(it) }
-        return completeLanguages(stored, preferredLanguage(context), normalize(settings.getString(KEY_SECOND, null)), pickedLanguages(context))
+        return completeLanguages(stored, preferredLanguage(context), secondLanguage(context), pickedLanguages(context))
     }
 
     fun setSearchLanguages(context: Context, list: List<SearchLanguage>) =
@@ -320,11 +324,18 @@ object OnlineSubtitles {
         edit.apply()
     }
 
-    /** the user's languages, in their order: those switched on of Languages to search (the preferred one at least) */
-    fun wantedLanguages(context: Context): List<String> {
-        val on = searchLanguages(context).filter { it.on }.map { it.code }
-        return on.ifEmpty { listOfNotNull(preferredLanguage(context).ifEmpty { null }) }
-    }
+    /** the user's languages, in their order: the preferred one first, the second one, then those switched on of
+     *  Languages to search ([searchOrder]) */
+    fun wantedLanguages(context: Context): List<String> =
+        searchOrder(searchLanguages(context), preferredLanguage(context), secondLanguage(context))
+
+    /**
+     * The languages asked for, in order: the preferred language first and the second one, even when the list has
+     * them lower down or switched off (the player's own choices: always searched, as in every app of the redesign),
+     * then the others switched on, in the list's order.
+     */
+    internal fun searchOrder(list: List<SearchLanguage>, preferred: String, second: String): List<String> =
+        (listOf(preferred, second) + list.filter { it.on }.map { it.code }).filter { it.isNotEmpty() }.distinct()
 
     /** a result in one of the languages asked for (pt and pt-BR are told apart in the order, not here) */
     internal fun inLanguages(language: String, wanted: List<String>) = language in wanted || wanted.any { it.substringBefore('-') == language.substringBefore('-') }
@@ -432,6 +443,7 @@ object OnlineSubtitles {
         var connection: HttpURLConnection? = null
         return try {
             connection = URL(url).openConnection() as HttpURLConnection
+            org.videolan.vlc.util.RdTls.apply(connection)
             connection.connectTimeout = timeoutMs
             connection.readTimeout = timeoutMs
             connection.instanceFollowRedirects = true
@@ -461,6 +473,7 @@ object OnlineSubtitles {
         var connection: HttpURLConnection? = null
         return try {
             connection = URL(url).openConnection() as HttpURLConnection
+            org.videolan.vlc.util.RdTls.apply(connection)
             connection.connectTimeout = timeoutMs
             connection.readTimeout = timeoutMs
             connection.requestMethod = "POST"
@@ -485,6 +498,7 @@ object OnlineSubtitles {
         var connection: HttpURLConnection? = null
         return try {
             connection = URL(url).openConnection() as HttpURLConnection
+            org.videolan.vlc.util.RdTls.apply(connection)
             connection.connectTimeout = timeoutMs
             connection.readTimeout = timeoutMs
             connection.requestMethod = "POST"
@@ -527,6 +541,85 @@ object OnlineSubtitles {
         object Save : Problem()
         object Offline : Problem()
         data class Download(val code: Int) : Problem()
+        /** an answer that is no list of results: an error page, JSON that says its error ([error]: its words) */
+        data class BadAnswer(val service: String, val error: String) : Problem()
+    }
+
+    private val htmlTitleRe = Regex("""<title[^>]*>(.*?)</title>""", setOf(RegexOption.IGNORE_CASE, RegexOption.DOT_MATCHES_ALL))
+    private val htmlHeadingRe = Regex("""<h1[^>]*>(.*?)</h1>""", setOf(RegexOption.IGNORE_CASE, RegexOption.DOT_MATCHES_ALL))
+    private val tagRe = Regex("""<[^>]*>""")
+    private val spacesRe = Regex("""\s+""")
+    private val refusedRe = Regex("""api[\s_\-]?key|token|auth|unauthori[sz]ed|forbidden|invalid key|permission|credential|password""", RegexOption.IGNORE_CASE)
+    private val busyRe = Regex("""limit|too many|quota|slow down""", RegexOption.IGNORE_CASE)
+    private val noneRe = Regex("""not found|no (?:subtitle|result|movie|show)|can'?t find|cannot find|does not exist|doesn'?t exist""", RegexOption.IGNORE_CASE)
+
+    /** a page's or an answer's words, short and plain: "502 Bad Gateway" */
+    private fun shortText(text: String): String {
+        val plain = spacesRe.replace(tagRe.replace(text, " "), " ").trim()
+            .replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">").replace("&quot;", "\"").replace("&#39;", "'").replace("&nbsp;", " ")
+        return if (plain.length > 100) plain.take(99).trimEnd() + "…" else plain
+    }
+
+    /** what an answer's own error says: {"success": false, "message": …}, {"status": false, "error": …}, {"errors": […]} */
+    private fun errorOf(o: JSONObject): String? {
+        fun words(v: Any?): String = when (v) {
+            is String -> v
+            is JSONObject -> listOf("message", "text", "error", "detail", "description").firstNotNullOfOrNull { k -> v.optString(k).takeIf { it.isNotBlank() && it != "null" } } ?: ""
+            is JSONArray -> if (v.length() > 0) words(v.opt(0)) else ""
+            null, JSONObject.NULL, is Boolean -> ""
+            is Number -> if (v.toDouble() != 0.0) v.toString() else ""
+            else -> v.toString()
+        }
+        val status = o.opt("status")
+        val failed = o.opt("success") == false || status == false || o.opt("error") == true || (status is String && status.lowercase(Locale.ROOT) in setOf("error", "fail", "failed")) ||
+            words(o.opt("error")).isNotBlank() || (o.optJSONArray("errors")?.length() ?: 0) > 0 || (o.optJSONObject("errors")?.length() ?: 0) > 0
+        if (!failed) return null
+        return listOf(o.opt("error"), o.opt("errors"), o.opt("message"), o.opt("msg"), o.opt("detail"), o.opt("error_description"))
+            .map { words(it) }.firstOrNull { it.isNotBlank() } ?: ""
+    }
+
+    /** the words of an error said in its answer: its kind (a key refused, too many searches, nothing found) or its failure */
+    private fun saidProblem(service: String, said: String, login: Boolean): Problem? = when {
+        noneRe.containsMatchIn(said) -> null
+        refusedRe.containsMatchIn(said) -> if (login) Problem.LoginRefused(service) else Problem.KeyRefused(service)
+        busyRe.containsMatchIn(said) -> Problem.Busy(service)
+        else -> Problem.BadAnswer(service, shortText(said))
+    }
+
+    /**
+     * VLC Redesign: an answer of 2xx that is no list of results (an error page of the service, of its proxy or of a
+     * browser check; JSON that doesn't read; JSON or text that says its error) is that service's failure with its
+     * words, never "nothing found" (as the desktop's and the Samsung TV app's). Null: the answer reads, or it says it
+     * found nothing. html: the service answers web pages (YIFY): only a page that says an error counts. login: the
+     * service signs in with a user name and password (a refusal is the sign-in's).
+     */
+    internal fun answerProblem(service: String, r: Response, html: Boolean = false, login: Boolean = false): Problem? {
+        if (r.error != null || r.status !in 200..299) return null
+        val text = String(r.body, Charsets.UTF_8).removePrefix("\uFEFF").trim()
+        if (text.isEmpty()) return Problem.BadAnswer(service, "")
+        val head = text.take(512)
+        val page = head.startsWith("<") || head.contains("<html", true) || head.contains("<!doctype", true)
+        if (page) {
+            val title = htmlTitleRe.find(text)?.groupValues?.get(1)?.let { shortText(it) }.orEmpty()
+                .ifEmpty { htmlHeadingRe.find(text)?.groupValues?.get(1)?.let { shortText(it) }.orEmpty() }
+            if (html) {
+                // (its own pages are the answer: only an error's page or a browser check counts)
+                val error = Regex("""just a moment|attention required|access denied|forbidden|bad gateway|service unavailable|gateway time-?out|internal server error|too many requests|captcha|\b5\d\d\b""", RegexOption.IGNORE_CASE)
+                return if (error.containsMatchIn(title)) Problem.BadAnswer(service, title) else null
+            }
+            // (a page in place of JSON is never "nothing found" nor the key: a server's or a proxy's error)
+            return if (busyRe.containsMatchIn(title)) Problem.Busy(service) else Problem.BadAnswer(service, title)
+        }
+        if (html) return null
+        if (text.startsWith("{")) {
+            val o = try { JSONObject(text) } catch (e: Exception) { return Problem.BadAnswer(service, "") }
+            val said = errorOf(o) ?: return null
+            return saidProblem(service, said, login)
+        }
+        if (text.startsWith("[")) return try { JSONArray(text); null } catch (e: Exception) { Problem.BadAnswer(service, "") }
+        // plain text in place of JSON ("Rate limit exceeded", "Forbidden", "Service Unavailable")
+        val line = text.lineSequence().first().trim()
+        return saidProblem(service, line, login) ?: Problem.BadAnswer(service, "")
     }
 
     internal fun failure(name: String, r: Response): Problem = when (r.status) {
@@ -617,40 +710,265 @@ object OnlineSubtitles {
         return ParsedName(title, year, season, episode, tokens)
     }
 
+    private const val HASH_CHUNK = 65536
+
     /** the OpenSubtitles hash: the size plus the 64-bit words of the first and the last 64 KiB */
     fun openSubtitlesHash(file: File): Pair<String, Long>? = try {
         RandomAccessFile(file, "r").use { raf ->
             val size = raf.length()
-            val chunk = 65536
-            if (size < chunk) return null
-            val head = ByteArray(chunk)
-            val tail = ByteArray(chunk)
+            if (size < HASH_CHUNK) return null
+            val head = ByteArray(HASH_CHUNK)
+            val tail = ByteArray(HASH_CHUNK)
             raf.readFully(head)
-            raf.seek(size - chunk)
+            raf.seek(size - HASH_CHUNK)
             raf.readFully(tail)
-            var hash = size
-            val h = ByteBuffer.wrap(head).order(ByteOrder.LITTLE_ENDIAN).asLongBuffer()
-            val t = ByteBuffer.wrap(tail).order(ByteOrder.LITTLE_ENDIAN).asLongBuffer()
-            for (i in 0 until chunk / 8) {
-                hash += h.get(i)
-                hash += t.get(i)
-            }
-            Pair("%016x".format(hash), size)
+            hashOf(head, tail, size)
         }
     } catch (e: Exception) {
         null
     }
 
-    /** what is known of a media: its name read, its local file hashed */
-    fun mediaOf(uri: Uri, title: String?, fps: Double = 0.0): Media {
-        val path = if (uri.scheme == "file" || uri.scheme == null) uri.path else null
-        val name = path?.let { File(it).name } ?: uri.lastPathSegment?.takeIf { '.' in it } ?: (title ?: uri.lastPathSegment ?: "")
+    /** the hash of a media of [size] bytes from its first and its last 64 KiB */
+    internal fun hashOf(head: ByteArray, tail: ByteArray, size: Long): Pair<String, Long>? {
+        if (size < HASH_CHUNK || head.size < HASH_CHUNK || tail.size < HASH_CHUNK) return null
+        var hash = size
+        val h = ByteBuffer.wrap(head).order(ByteOrder.LITTLE_ENDIAN).asLongBuffer()
+        val t = ByteBuffer.wrap(tail).order(ByteOrder.LITTLE_ENDIAN).asLongBuffer()
+        for (i in 0 until HASH_CHUNK / 8) {
+            hash += h.get(i)
+            hash += t.get(i)
+        }
+        return Pair("%016x".format(hash), size)
+    }
+
+    /** VLC Redesign (#73): a file shared by a content provider (a file manager, Downloads) hashed through it */
+    private fun contentHash(context: Context, uri: Uri): Pair<String, Long>? = try {
+        context.contentResolver.openFileDescriptor(uri, "r")?.use { pfd ->
+            java.io.FileInputStream(pfd.fileDescriptor).channel.use { ch ->
+                val size = ch.size()
+                if (size < HASH_CHUNK) return@use null
+                val head = ByteBuffer.allocate(HASH_CHUNK)
+                val tail = ByteBuffer.allocate(HASH_CHUNK)
+                while (head.hasRemaining() && ch.read(head, head.position().toLong()) > 0) { }
+                while (tail.hasRemaining() && ch.read(tail, size - HASH_CHUNK + tail.position()) > 0) { }
+                if (head.hasRemaining() || tail.hasRemaining()) null else hashOf(head.array(), tail.array(), size)
+            }
+        }
+    } catch (e: Exception) {
+        null
+    }
+
+    /** "bytes 0-65535/21697080": the whole size (null: unknown, "*") */
+    internal fun rangeTotal(contentRange: String?): Long? =
+        contentRange?.substringAfterLast('/', "")?.trim()?.toLongOrNull()?.takeIf { it > 0 }
+
+    /** one part of a file on a web server ([range]: "bytes=0-65535", "bytes=-65536"): its bytes, the whole size */
+    private fun rangeOf(url: String, range: String): Pair<ByteArray, Long>? {
+        var connection: HttpURLConnection? = null
+        return try {
+            connection = URL(url).openConnection() as HttpURLConnection
+            org.videolan.vlc.util.RdTls.apply(connection)
+            connection.connectTimeout = 10_000
+            connection.readTimeout = 10_000
+            connection.instanceFollowRedirects = true
+            connection.setRequestProperty("Range", range)
+            connection.setRequestProperty("User-Agent", userAgent)
+            // (a server without ranges answers 200 with the whole file: not read)
+            if (connection.responseCode != 206) return null
+            val total = rangeTotal(connection.getHeaderField("Content-Range")) ?: return null
+            val out = ByteArrayOutputStream(HASH_CHUNK)
+            connection.inputStream.use { input ->
+                val buffer = ByteArray(16 * 1024)
+                while (out.size() < HASH_CHUNK) {
+                    val n = input.read(buffer)
+                    if (n < 0) break
+                    out.write(buffer, 0, n)
+                }
+            }
+            Pair(out.toByteArray().copyOf(HASH_CHUNK), total)
+        } catch (e: Exception) {
+            null
+        } finally {
+            connection?.disconnect()
+        }
+    }
+
+    /** VLC Redesign (#73): a file on a web server hashed by two ranges (its first and its last 64 KiB) */
+    private fun httpHash(url: String): Pair<String, Long>? {
+        val (head, size) = rangeOf(url, "bytes=0-${HASH_CHUNK - 1}") ?: return null
+        if (size < HASH_CHUNK) return null
+        val (tail, _) = rangeOf(url, "bytes=${size - HASH_CHUNK}-${size - 1}") ?: return null
+        return hashOf(head, tail, size)
+    }
+
+    internal val videoExtensions = setOf("mp4", "m4v", "mkv", "avi", "mov", "webm", "wmv", "flv", "ts", "m2ts", "mts", "mpg",
+        "mpeg", "ogv", "ogm", "3gp", "divx", "vob", "rmvb", "asf", "iso")
+
+    /**
+     * VLC Redesign (#73): the name of a media given by an address, as a file name: the last part of its path, decoded,
+     * without its query or fragment ("http://host/films/Sintel%20(2010).mp4?token=1" -> "Sintel (2010).mp4", a
+     * provider's "primary:Movies/Sintel.mp4" -> "Sintel.mp4"); null without one
+     */
+    internal fun nameInAddress(address: String): String? {
+        var path = address.substringBefore('#').substringBefore('?')
+        val scheme = path.indexOf("://")
+        if (scheme >= 0) path = path.substring(scheme + 3).let { rest -> rest.indexOf('/').let { if (it < 0) "" else rest.substring(it) } }
+        var segment = path.trimEnd('/').substringAfterLast('/')
+        segment = try { java.net.URLDecoder.decode(segment.replace("+", "%2B"), "UTF-8") } catch (e: Exception) { segment }
+        segment = segment.substringAfterLast('/').substringAfterLast(':').trim()
+        return segment.ifEmpty { null }
+    }
+
+    /**
+     * VLC Redesign (#73): the name a media is searched by: its file's in the address when it reads as one (a video's
+     * extension, some letters), else the title the source gives it (a media server's "23.mp4", a stream's "watch"),
+     * else what the address has
+     */
+    internal fun mediaName(address: String, title: String?): String {
+        val fromAddress = nameInAddress(address)
+        val t = title?.trim().orEmpty()
+        val readsAsFile = fromAddress != null && fromAddress.substringAfterLast('.', "").lowercase(Locale.ROOT) in videoExtensions &&
+            fromAddress.substringBeforeLast('.').any { it.isLetter() }
+        return when {
+            readsAsFile -> fromAddress!!
+            t.isNotEmpty() && "://" !in t && t != fromAddress -> t
+            else -> fromAddress ?: t
+        }
+    }
+
+    /**
+     * VLC Redesign (#73): a Live TV channel or a live stream (an address with no length): no online subtitles, no
+     * subtitle file or timing (its own subtitle tracks only). A video on the device, on a share, on a media server
+     * or behind a link (a length known) is a film as a file is.
+     */
+    fun isLive(scheme: String?, length: Long, liveTv: Boolean): Boolean {
+        if (liveTv) return true
+        val s = scheme?.lowercase(Locale.ROOT) ?: return false
+        if (s == "file" || s == "content") return false
+        return length <= 0
+    }
+
+    /** VLC Redesign (#73): a media remembered by its address without its query (a link's token changes) */
+    internal fun addressKey(address: String) = address.substringBefore('#').substringBefore('?')
+
+    /**
+     * what is known of a media: its name read, its file hashed. A local file, a provider's file (content://) and a
+     * file on a web server that gives ranges are hashed; a share (SMB, NFS, FTP, a media server) is known by its name
+     * (#73: a network media was known only by its address's last part, never hashed, and not searched by itself)
+     */
+    fun mediaOf(uri: Uri, title: String?, fps: Double = 0.0, context: Context? = null): Media {
+        val scheme = uri.scheme?.lowercase(Locale.ROOT)
+        val path = if (scheme == "file" || scheme == null) uri.path else null
+        var name = path?.let { File(it).name } ?: mediaName(uri.toString(), title)
+        if (scheme == "content" && context != null) contentName(context, uri)?.let { name = it }
         val folder = path?.let { File(it).parentFile?.name } ?: ""
         val parsed = parseName(name, folder)
-        val hashed = path?.let { openSubtitlesHash(File(it)) }
+        val hashed = when {
+            path != null -> openSubtitlesHash(File(path))
+            scheme == "content" && context != null -> contentHash(context, uri)
+            scheme == "http" || scheme == "https" -> httpHash(uri.toString())
+            else -> null
+        }
+        val key = hashed?.let { "${it.first}:${it.second}" } ?: if (path != null) uri.toString() else addressKey(uri.toString())
         return Media(name, parsed.title.ifEmpty { title ?: "" }, parsed.year, parsed.season, parsed.episode, parsed.tokens,
-            hashed?.first ?: "", hashed?.second ?: 0L, fps, key = hashed?.let { "${it.first}:${it.second}" } ?: uri.toString())
+            hashed?.first ?: "", hashed?.second ?: 0L, fps, key = key)
     }
+
+    /** a provider's file's own name (its display name) */
+    private fun contentName(context: Context, uri: Uri): String? = try {
+        context.contentResolver.query(uri, arrayOf(android.provider.OpenableColumns.DISPLAY_NAME), null, null, null)?.use { c ->
+            if (c.moveToFirst()) c.getString(0)?.takeIf { it.isNotBlank() } else null
+        }
+    } catch (e: Exception) {
+        null
+    }
+
+    // ---------------------------------------------------------------------------------------------------------------
+    // Subtitle files beside the video (the desktop's rules of 0.5.9)
+
+    /** the subtitle folders beside a video, as the desktop and VLC's own autodetection know them */
+    val SUBS_FOLDERS = listOf("Subs", "subs", "Subtitles", "subtitles", "Sub", "sub")
+
+    val subtitleExtensions = setOf("srt", "ass", "ssa", "vtt", "sub", "smi", "txt", "idx")
+
+    /** a subtitle file: its name and its count of cues (-1: a format whose cues aren't counted) */
+    class SubFile(val name: String, val cues: Int)
+
+    /**
+     * The cues of a subtitle file: SRT and VTT by their "-->" (a UTF-16 file's zero bytes dropped first), ASS and SSA
+     * by their "Dialogue:" lines; -1 for another format (taken as a real subtitle).
+     */
+    fun countCues(name: String, bytes: ByteArray): Int {
+        val ext = name.substringAfterLast('.', "").lowercase(Locale.ROOT)
+        val text = { String(bytes.filter { it != 0.toByte() }.toByteArray(), Charsets.ISO_8859_1) }
+        return when (ext) {
+            "srt", "vtt" -> text().split("-->").size - 1
+            "ass", "ssa" -> text().lines().count { it.trimStart().startsWith("Dialogue:") }
+            else -> -1
+        }
+    }
+
+    /**
+     * A subtitle file that is no subtitle of the film, as the desktop's rule: the forced lines only ("forced" in its
+     * name), or too few lines for the film (a video of 20 minutes or more, fewer cues than one per 5 minutes: the
+     * 3 lines that only name a site for 103 minutes). It doesn't count as the user's language: the search
+     * still runs. (A short film's own subtitle, a quiet film's, counts.)
+     */
+    fun isPartialSubtitleFile(name: String, cues: Int, videoMinutes: Double) =
+        name.contains("forced", ignoreCase = true) || (videoMinutes >= 20 && cues >= 0 && cues < videoMinutes / 5)
+
+    /**
+     * The language a subtitle file's name states: its last code ("Hebrew.heb.srt", "Film.en.srt", "Film.he.srt"),
+     * else an English language name in it ("Hebrew.srt", "English (SDH).srt"); empty when it states none.
+     */
+    fun languageOfSubtitleFile(name: String): String {
+        val ext = name.substringAfterLast('.', "").lowercase(Locale.ROOT)
+        if (ext !in subtitleExtensions) return ""
+        val base = name.substringBeforeLast('.')
+        val last = base.substringAfterLast('.', "").trim()
+        if (last.length in 2..3 && last.all { it.isLetter() }) {
+            val code = normalize(last)
+            val lang = code.substringBefore('-')
+            if (lang.isNotEmpty() && !Locale(lang).getDisplayLanguage(Locale.ENGLISH).equals(lang, ignoreCase = true)) return code
+        }
+        for (word in base.split('.', ' ', '_', '-', '(', ')', '[', ']')) {
+            if (word.length < 4) continue
+            fromEnglishName(word).takeIf { it.isNotEmpty() }?.let { return it }
+        }
+        return ""
+    }
+
+    /**
+     * A subtitle file of the user's (a release's Subs folder) with Hebrew or Arabic lines written for left-to-right
+     * players: a fixed copy in the app's cache (the user's file untouched); the file itself when nothing changes or
+     * it isn't UTF-8.
+     */
+    fun rtlFixedCopy(context: Context, file: File): File = try {
+        val bytes = file.readBytes()
+        val text = java.nio.charset.StandardCharsets.UTF_8.newDecoder()
+            .onMalformedInput(java.nio.charset.CodingErrorAction.REPORT)
+            .decode(java.nio.ByteBuffer.wrap(bytes)).toString().removePrefix("\uFEFF")
+        val fixed = RdRtlPunctuation.fixSubtitleText(text, file.extension)
+        if (fixed == text) file else {
+            val dir = File(context.cacheDir, "subs-rtl").apply { mkdirs() }
+            File(dir, file.name).apply { writeBytes(fixed.toByteArray(Charsets.UTF_8)) }
+        }
+    } catch (e: Exception) {
+        file
+    }
+
+    /** "SDH", "HI", "CC" in a subtitle file's name: the version for the hearing impaired */
+    fun isHearingImpairedFile(name: String) =
+        name.lowercase(Locale.ROOT).split('.', ' ', '_', '-', '(', ')', '[', ']').any { it == "sdh" || it == "hi" || it == "cc" }
+
+    /**
+     * A subtitle folder's file for [language]: the plain one before an SDH / HI one, never a forced or partial one;
+     * null when it has none.
+     */
+    fun subsFolderPick(files: List<SubFile>, language: String, videoMinutes: Double): String? =
+        files.filter { !isPartialSubtitleFile(it.name, it.cues, videoMinutes) && languageOfSubtitleFile(it.name) == language }
+            .sortedWith(compareBy<SubFile> { if (isHearingImpairedFile(it.name)) 1 else 0 }.thenBy { it.name })
+            .firstOrNull()?.name
 
     // ---------------------------------------------------------------------------------------------------------------
     // Identifying the video
@@ -875,7 +1193,8 @@ object OnlineSubtitles {
         if (q.hash.isNotEmpty() && q.size > 0) urls.add(osUrl(listOf("moviebytesize-${q.size}", "moviehash-${q.hash}")))
         val imdb = if (q.imdb.startsWith("tt")) q.imdb.substring(2) else ""
         if (imdb.isNotEmpty()) {
-            val padded = "imdbid-%07d".format(imdb.toLongOrNull() ?: 0L)
+            // (the root locale: in Persian or Arabic the digits came out in their script, every search malformed)
+            val padded = "imdbid-%07d".format(Locale.ROOT, imdb.toLongOrNull() ?: 0L)
             for (code in wanted) urls.add(osUrl(episode + padded + "sublanguageid-$code"))
             if (q.everyOther || wanted.isEmpty()) urls.add(osUrl(episode + padded))
         } else if (q.title.isNotEmpty()) {
@@ -894,10 +1213,17 @@ object OnlineSubtitles {
         for ((n, url) in urls.withIndex()) {
             if (n > 0) delay(REQUEST_GAP_MS)
             val r = get(url, mapOf("User-Agent" to userAgent, "X-User-Agent" to userAgent))
-            if (ok(r)) {
+            val page = answerProblem("OpenSubtitles", r)
+            if (ok(r) && page == null) {
                 answered++
                 parseOpenSubtitles(String(r.body, Charsets.UTF_8), results, seen)
-            } else if (error == null) error = failure("OpenSubtitles", r)
+            } else if (page != null) {
+                if (error == null) error = page
+            } else {
+                if (error == null) error = failure("OpenSubtitles", r)
+                // (no answer at all: the next addresses of the same server won't answer either, 15 s each)
+                if (r.status == 0) break
+            }
         }
         return Pair(results, if (answered == 0 && urls.isNotEmpty()) error else null)
     }
@@ -923,6 +1249,7 @@ object OnlineSubtitles {
             mapOf("User-Agent" to userAgent))
         if (r.error == null && r.status == 500) return Pair(emptyList(), null) // (it answers 500 when it has nothing)
         if (!ok(r)) return Pair(emptyList(), failure("Wizdom", r))
+        answerProblem("Wizdom", r)?.let { return Pair(emptyList(), it) }
         return Pair(parseWizdom(String(r.body, Charsets.UTF_8)), null)
     }
 
@@ -931,6 +1258,7 @@ object OnlineSubtitles {
         val r = get("https://api.gestdown.info/shows/search/${enc(q.title)}", mapOf("User-Agent" to userAgent))
         if (r.error == null && r.status == 404) return Pair(emptyList(), null)
         if (!ok(r)) return Pair(emptyList(), failure("Addic7ed", r))
+        answerProblem("Addic7ed", r)?.let { return Pair(emptyList(), it) }
         val wanted = simplified(q.title)
         var showId = ""
         var best = 0.0
@@ -946,21 +1274,40 @@ object OnlineSubtitles {
         }
         if (showId.isEmpty()) return Pair(emptyList(), null)
         val results = ArrayList<Result>()
+        var problem: Problem? = null
+        var answered = 0
         for ((n, language) in q.languages.take(2).withIndex()) {
             if (n > 0) delay(REQUEST_GAP_MS)
             val e = get("https://api.gestdown.info/subtitles/get/$showId/${q.season}/${q.episode}/${language.substringBefore('-')}", mapOf("User-Agent" to userAgent))
-            if (!ok(e)) continue
-            val items = try { JSONObject(String(e.body, Charsets.UTF_8)).optJSONArray("matchingSubtitles") } catch (x: Exception) { null } ?: continue
-            for (i in 0 until items.length()) {
-                val o = items.optJSONObject(i) ?: continue
-                val id = o.optString("subtitleId")
-                val uri = o.optString("downloadUri")
-                if (id.isEmpty() || !uri.startsWith("/") || !o.optBoolean("completed", true)) continue
-                val downloads = o.optInt("downloadCount")
-                results.add(Result("addic7ed:$id", "addic7ed", fromEnglishName(o.optString("language")).ifEmpty { language },
-                    o.optString("version"), url = "https://api.gestdown.info$uri", hearingImpaired = o.optBoolean("hearingImpaired"),
-                    downloads = downloads, rank = log10(downloads + 1.0) * 3 + if (o.optBoolean("corrected")) 3.0 else 0.0))
-            }
+            val (found, failed) = addic7edEpisode(e, language)
+            if (failed != null) { if (problem == null) problem = failed; continue }
+            answered++
+            results.addAll(found)
+        }
+        // (an episode's answer that is an error page is the service's failure, not "nothing found")
+        return Pair(results, if (answered == 0) problem else null)
+    }
+
+    /**
+     * VLC Redesign: Gestdown's answer for an episode in a language: its subtitles, or the service's failure (an
+     * error page or a status in place of the list); 404 is no such episode there (nothing found)
+     */
+    internal fun addic7edEpisode(e: Response, language: String): Pair<List<Result>, Problem?> {
+        if (e.error == null && e.status == 404) return Pair(emptyList(), null)
+        if (!ok(e)) return Pair(emptyList(), failure("Addic7ed", e))
+        answerProblem("Addic7ed", e)?.let { return Pair(emptyList(), it) }
+        val items = try { JSONObject(String(e.body, Charsets.UTF_8)).optJSONArray("matchingSubtitles") } catch (x: Exception) { null }
+            ?: return Pair(emptyList(), null)
+        val results = ArrayList<Result>()
+        for (i in 0 until items.length()) {
+            val o = items.optJSONObject(i) ?: continue
+            val id = o.optString("subtitleId")
+            val uri = o.optString("downloadUri")
+            if (id.isEmpty() || !uri.startsWith("/") || !o.optBoolean("completed", true)) continue
+            val downloads = o.optInt("downloadCount")
+            results.add(Result("addic7ed:$id", "addic7ed", fromEnglishName(o.optString("language")).ifEmpty { language },
+                o.optString("version"), url = "https://api.gestdown.info$uri", hearingImpaired = o.optBoolean("hearingImpaired"),
+                downloads = downloads, rank = log10(downloads + 1.0) * 3 + if (o.optBoolean("corrected")) 3.0 else 0.0))
         }
         return Pair(results, null)
     }
@@ -990,6 +1337,7 @@ object OnlineSubtitles {
         val r = get("https://yifysubtitles.ch/movie-imdb/${q.imdb}", mapOf("User-Agent" to userAgent))
         if (r.error == null && r.status == 404) return Pair(emptyList(), null)
         if (!ok(r)) return Pair(emptyList(), failure("YIFY", r))
+        answerProblem("YIFY", r, html = true)?.let { return Pair(emptyList(), it) }
         return Pair(parseYify(String(r.body, Charsets.UTF_8)), null)
     }
 
@@ -1050,6 +1398,7 @@ object OnlineSubtitles {
         // (it asks for the parameters in alphabetical order)
         val r = get(OSCOM_API + "subtitles?" + params.sorted().joinToString("&"), oscomHeaders(key))
         if (!ok(r)) return Pair(emptyList(), if (r.status == 401 || r.status == 403) Problem.KeyRefused("OpenSubtitles.com") else failure("OpenSubtitles.com", r))
+        answerProblem("OpenSubtitles.com", r)?.let { return Pair(emptyList(), it) }
         return Pair(parseOscom(String(r.body, Charsets.UTF_8)), null)
     }
 
@@ -1283,6 +1632,9 @@ object OnlineSubtitles {
         return out.toByteArray()
     }
 
+    /** a warning in the log (the unit tests, on a JVM without android.util.Log, replace it) */
+    internal var warn: (String) -> Unit = { Log.w(TAG, it) }
+
     /** the subtitles of a zip archive: (name, data), at most MAX_UNPACKED_BYTES in all */
     internal fun unzip(zip: ByteArray): List<Pair<String, ByteArray>> {
         val files = ArrayList<Pair<String, ByteArray>>()
@@ -1305,7 +1657,7 @@ object OnlineSubtitles {
                 }
             }
         } catch (e: Exception) {
-            Log.w(TAG, "unzip: ${e.message}")
+            warn("unzip: ${e.message}")
         }
         return files
     }
@@ -1447,9 +1799,32 @@ object OnlineSubtitles {
     }
 
     /** downloads a result into the app's subtitle folder of the media: its file, or the error to show */
-    suspend fun download(context: Context, result: Result, media: Media): Pair<File?, Problem?> = withContext(Dispatchers.IO) {
+    suspend fun download(context: Context, result: Result, media: Media): Pair<File?, Problem?> = try {
+        downloadNow(context, result, media)
+    } catch (e: OutOfMemoryError) {
+        // (a hostile or broken service: an archive that unpacks huge, copied a few times over; told, not a crash)
+        Pair(null, Problem.Unpack)
+    }
+
+    /** a name's start that fits a file name: at most [max] bytes in UTF-8 (80 Chinese characters were 240 bytes) */
+    internal fun utf8Prefix(text: String, max: Int): String {
+        var bytes = 0
+        val out = StringBuilder()
+        var i = 0
+        while (i < text.length) {
+            val cp = text.codePointAt(i)
+            val n = when { cp < 0x80 -> 1; cp < 0x800 -> 2; cp < 0x10000 -> 3; else -> 4 }
+            if (bytes + n > max) break
+            out.appendCodePoint(cp)
+            bytes += n
+            i += Character.charCount(cp)
+        }
+        return out.toString()
+    }
+
+    private suspend fun downloadNow(context: Context, result: Result, media: Media): Pair<File?, Problem?> = withContext(Dispatchers.IO) {
         val folder = subtitleFolders(context, media).first()
-        val release = result.release.replace(Regex("""[\\/:*?"<>|\s\p{Cc}]+"""), ".").take(80)
+        val release = utf8Prefix(result.release.replace(Regex("""[\\/:*?"<>|\s\p{Cc}]+"""), ".").take(80), 150)
         val stem = "$release-${safeFileName(result.id.replace(':', '-'))}.${iso639_2(result.language)}"
         for (dir in subtitleFolders(context, media)) for (ext in listOf("srt", "vtt", "ass", "ssa", "sub", "smi")) File(dir, "$stem.$ext").takeIf { it.exists() }?.let { return@withContext Pair(it, null) }
         val headers = HashMap<String, String>()
@@ -1477,7 +1852,8 @@ object OnlineSubtitles {
         val file = File(folder, "$stem.${unpacked.extension}")
         try {
             val tmp = File(folder, "$stem.part")
-            tmp.writeBytes(unpacked.text.toByteArray(Charsets.UTF_8))
+            // (Hebrew / Arabic lines written for left-to-right players: their marks put back at the right end)
+            tmp.writeBytes(RdRtlPunctuation.fixSubtitleText(unpacked.text, unpacked.extension).toByteArray(Charsets.UTF_8))
             if (!tmp.renameTo(file)) {
                 tmp.delete()
                 return@withContext Pair(null, Problem.Save)

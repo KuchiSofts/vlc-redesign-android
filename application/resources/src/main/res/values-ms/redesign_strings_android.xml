@@ -30,11 +30,14 @@
     <string name="rd_ob_history_help">Disimpan pada peranti ini sahaja, untuk menyambung dari tempat anda berhenti.</string>
     <string name="rd_ob_updates_help">Mencari binaan ujian VLC for Android yang lebih baharu sekali sehari.</string>
     <string-array name="rd_whats_new_items">
-        <item>Sarikata: SubSource (Arab), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 dan Legendas.net dengan kunci percuma atau akaun anda sendiri. Setiap satu dalam Tetapan › Sarikata, dengan suisnya.</item>
-        <item>Bahasa untuk dicari: hidupkan atau matikan setiap bahasa sarikata untuk carian lebih pantas.</item>
-        <item>Akaun TV Langsung: Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR atau HDHomeRun anda, dan panduan Schedules Direct. Pelayan dalam rangkaian anda ditemui secara automatik.</item>
-        <item>TV Langsung: panduan yang ditemui secara automatik untuk saluran tanpa panduan, tab Panduan untuk panduan setiap sumber, dan sumber negara anda dahulu dalam katalog.</item>
-        <item>Pembetulan: sarikata disimpan dalam storan aplikasi sendiri (ranap pada Android 14), medan kata laluan disembunyikan, fokus alat kawalan jauh TV, terjemahan Negara dalam banyak bahasa dan terjemahan kata laluan dalam bahasa Arab.</item>
+        <item>Lebih pantas dan stabil: TV Langsung dan sarikata berfungsi di latar belakang, dan ranap serta pemain yang beku pada Android 5 dan kotak TV telah dibaiki.</item>
+        <item>Skrin penuh: kekunci, alat kawalan jauh atau gerak isyarat boleh menunjukkan hanya kemajuan atau hanya mesej sebagai ganti kawalan, dalam Tetapan › Antaramuka. Terima kasih kepada @BarbodF.</item>
+        <item>Sarikata automatik yang lebih bijak: folder Subs yang disertakan dengan video digunakan dahulu, fail iklan atau fail yang hanya mengandungi baris paksa tidak lagi dikira sebagai sarikata, filem yang gambarnya lambat muncul tetap dicari, dan tanda baca bahasa Ibrani dan Arab dipaparkan di hujung yang betul.</item>
+        <item>Sarikata dalam talian kini juga untuk video pada perkongsian rangkaian, pelayan media atau di sebalik pautan, dicari secara manual dan automatik (terima kasih kepada @Elshepl). Pada Android 5 hingga 7.0, OpenSubtitles bertindak balas semula.</item>
+        <item>Panel Sarikata seperti di desktop: dibuka di atas butangnya, dengan bahasa dan bilangannya, hasil dalam talian dan pemasaan di satu tempat.</item>
+        <item>Boleh dipasang bersebelahan dengan VLC for Android, dan aplikasi TV dalam bahasa Ibrani dan Arab dicerminkan sepenuhnya, dengan fokus alat kawalan jauh di tempat yang anda jangkakan.</item>
+        <item>Disesuaikan dengan skrin anda: pada TV aplikasi kini lebih besar dan mudah dibaca dari sofa, saiznya ditentukan daripada skrin dan boleh diubah dalam Tetapan › Antara muka › Saiz antara muka. Baris memaparkan kad penuh dan setiap tetingkap muat pada skrin.</item>
+        <item>Panduan TV yang sangat besar dimuatkan tanpa memenuhkan memori, dua bahasa sarikata boleh dipaparkan serentak, dan fokus alat kawalan jauh sentiasa kelihatan.</item>
     </string-array>
     <string name="rd_subtitle_size">Saiz sari kata</string>
     <string name="rd_cast_this_phone">Telefon ini</string>
@@ -62,4 +65,21 @@
     <string name="rd_unpin_from_home">Nyahsemat daripada Laman Utama</string>
     <string name="rd_pinned">Disemat</string>
     <string name="rd_pinned_missing">Folder atau senarai main yang disemat ini sudah tiada.</string>
+    <string name="rd_subs_of_video">Sarikata video ini</string>
+    <string name="rd_subs_in_video">Dalam video</string>
+    <string name="rd_subs_next_to">Di sebelah video · %1$s</string>
+    <string name="rd_subs_next_to_plain">Di sebelah video</string>
+    <string name="rd_subs_opened">Dibuka · %1$s</string>
+    <string name="rd_subs_opened_plain">Fail dibuka</string>
+    <string name="rd_subs_none_yet">Belum ada sarikata</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Tunjuk Keutamaan</string>
+    <string name="rd_subs_position_size">Kedudukan dan saiz</string>
+    <string name="rd_subs_position">Kedudukan</string>
+    <string name="rd_subs_usual">Biasa</string>
+    <string name="rd_subs_move_down">Alihkan sarikata ke bawah</string>
+    <string name="rd_subs_move_up">Alihkan sarikata ke atas</string>
+    <string name="rd_subs_smaller">Sarikata lebih kecil</string>
+    <string name="rd_subs_larger">Sarikata lebih besar</string>
+    <string name="rd_os_show_both">Tunjuk kedua-dua bahasa serentak (dwisarikata)</string>
 </resources>

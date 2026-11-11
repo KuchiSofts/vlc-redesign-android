@@ -100,6 +100,9 @@
     <string name="rd_sec_diagnostics">Диагностика</string>
     <string name="rd_sec_advanced">Расширенные параметры</string>
     <string name="rd_sec_window">Окно</string>
+    <string name="rd_interface_size">Размер интерфейса</string>
+    <string name="rd_interface_size_summary">Насколько крупно рисуются страницы, тексты и элементы управления. «Автоматически» выбирает размер, подходящий этому экрану.</string>
+    <string name="rd_interface_size_auto">Автоматически (%1$s)</string>
     <string name="rd_sec_playback_controls">Управление воспроизведением</string>
     <string name="rd_sec_playlist">Плейлист</string>
     <string name="rd_sec_player_bar">Панель воспроизведения</string>
@@ -462,4 +465,5 @@
     <string name="rd_os_find_language">Найти язык</string>
     <string name="rd_os_picked_in_player">Выбирается в плеере</string>
     <string name="rd_os_second_short">Второй язык</string>
+    <string name="rd_on_this_device">На этом устройстве</string>
 </resources>

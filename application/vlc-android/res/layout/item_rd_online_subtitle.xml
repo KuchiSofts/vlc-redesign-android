@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
                 android:fontFamily="@font/inter"
-                android:maxLines="1"
+                android:singleLine="true"
                 android:textAlignment="viewStart"
                 android:textDirection="firstStrong"
                 android:textColor="?android:attr/textColorPrimary"

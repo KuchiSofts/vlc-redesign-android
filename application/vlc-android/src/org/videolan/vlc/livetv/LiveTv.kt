@@ -18,6 +18,7 @@ import android.content.SharedPreferences
 import android.os.SystemClock
 import android.util.Log
 import org.videolan.vlc.BuildConfig
+import org.videolan.vlc.R
 import androidx.core.content.edit
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -31,6 +32,12 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 
 private const val TAG = "VLC/LiveTv"
+
+/** what a programme kept in memory takes, about (its entry, its texts shared with the others, its list's slot) */
+private const val BYTES_PER_PROGRAMME = 110L
+
+/** the longest a guide is read (a guide of gigabytes on a slow TV): what was read by then is kept */
+private const val READ_SECONDS = 600L
 /** the guide of an account given as JSON, read by TvAccounts.guide: "account:<source id>" */
 private const val ACCOUNT_GUIDE = "account:"
 
@@ -63,8 +70,17 @@ object LiveTv {
     private val prefs: SharedPreferences by lazy { app.getSharedPreferences("livetv", Context.MODE_PRIVATE) }
     private val settings: SharedPreferences get() = Settings.getInstance(app)
 
-    private var worker: ScheduledExecutorService? = null
-    private var quit = AtomicBoolean(false)
+    @Volatile private var worker: ScheduledExecutorService? = null
+    /** the flag of the worker started last; a job checks its own worker's (below) */
+    @Volatile private var current = AtomicBoolean(false)
+
+    /** a worker's thread, with its worker's stop flag */
+    private class Worker(r: Runnable, val stopped: AtomicBoolean) : Thread(r, "LiveTv") {
+        init { priority = NORM_PRIORITY - 1 }
+    }
+
+    /** the stop flag of the job running: its worker's (one turned off and on again doesn't revive an old job) */
+    private val quit: AtomicBoolean get() = (Thread.currentThread() as? Worker)?.stopped ?: current
     private val lock = Any()
 
     private class SourceState {
@@ -74,6 +90,8 @@ object LiveTv {
         var error = ""
         var stage = ""
         var received = 0L
+        /** the channels with programmes so far, while a guide is read */
+        var matched = 0
         var busy = false
         var hasVod = false
         var hasSeries = false
@@ -100,7 +118,14 @@ object LiveTv {
         var signature = ByteArray(0)
         var programmes = 0
         var error = ""
+        /** the reading failed (the file didn't read, an error page, the download failed with no file) */
+        var failed = false
+        /** the device could not hold all of it: what was kept (said on its row) */
+        var note = ""
     }
+
+    /** the guides whose downloads came cut short in a row (GuideUpdate) */
+    private val cutTries = GuideUpdate.CutTries()
 
     private val sources = ArrayList<SourceConfig>()
     private val states = HashMap<String, SourceState>()
@@ -123,8 +148,27 @@ object LiveTv {
     fun init(context: Context) {
         if (::app.isInitialized) return
         app = context.applicationContext
-        _favorites.value = prefs.getString("favorites", "")!!.split('\n').filter { it.isNotEmpty() }
+        // the favourites read off the main thread (this runs in Application.onCreate, Live TV used or not)
+        Thread({ loadFavorites() }, "LiveTv-init").start()
+        // the app left (Home, another app): the update running stops (the last guides kept) and none starts by itself
+        // (a TV went on reading a guide of 500 MB behind another app); back: what is due is updated
+        android.os.Handler(android.os.Looper.getMainLooper()).post {
+            androidx.lifecycle.ProcessLifecycleOwner.get().lifecycle.addObserver(object : androidx.lifecycle.DefaultLifecycleObserver {
+                override fun onStart(owner: androidx.lifecycle.LifecycleOwner) {
+                    if (appShown) return
+                    appShown = true
+                    if (worker != null) post { refreshDue() }
+                }
+                override fun onStop(owner: androidx.lifecycle.LifecycleOwner) {
+                    appShown = false
+                    stopUpdate()
+                }
+            })
+        }
     }
+
+    /** the app is in front (its updates by age wait while it isn't) */
+    @Volatile private var appShown = true
 
     val isInitialized get() = ::app.isInitialized
 
@@ -140,12 +184,14 @@ object LiveTv {
     @Synchronized
     fun start() {
         if (!enabled || worker != null) return
-        quit = AtomicBoolean(false)
-        val w = Executors.newSingleThreadScheduledExecutor { r -> Thread(r, "LiveTv").apply { priority = Thread.NORM_PRIORITY - 1 } }
+        val q = AtomicBoolean(false)
+        current = q
+        val w = Executors.newSingleThreadScheduledExecutor { r -> Worker(r, q) }
         worker = w
-        w.execute { startup() }
+        // (an exception there stopped the start, or every later update, silently: "Loading channels" for ever)
+        w.execute { guarded { startup() } }
         // the updates of the sources, by the interval of Settings > TV
-        w.scheduleWithFixedDelay({ refreshDue() }, 30, 30, TimeUnit.MINUTES)
+        w.scheduleWithFixedDelay({ guarded { refreshDue() } }, 30, 30, TimeUnit.MINUTES)
     }
 
     /** The add-on switched off: its thread stops, what it held is let go (the cache stays on disk). */
@@ -153,20 +199,29 @@ object LiveTv {
     fun stop() {
         val w = worker ?: return
         worker = null
-        quit.set(true)
+        current.set(true)
+        updateFlag.set(true)
+        configLoaded = false
         w.shutdownNow()
         synchronized(lock) {
             sources.clear(); states.clear(); guides.clear()
+            // (the channels and their guide let go too: they were kept until the next start)
+            lastChannels = emptyList(); isLoaded = false
+            _state.value = TvState(revision = ++revision)
         }
-        _state.value = TvState(revision = ++revision)
+        synchronized(matchTables) { matchTables.clear() }
+        descriptions.evictAll()
+    }
+
+    /** a job of the worker: its failure (an OutOfMemoryError of a huge list too) logged, never the worker's end */
+    private fun guarded(job: () -> Unit) {
+        try { job() } catch (e: CancelledException) { } catch (e: Throwable) { Log.w(TAG, "a job failed", e) }
     }
 
     private fun post(job: () -> Unit) {
         val w = worker ?: return
         try {
-            w.execute {
-                try { job() } catch (e: CancelledException) { } catch (e: Throwable) { Log.w(TAG, "a job failed", e) }
-            }
+            w.execute { guarded(job) }
         } catch (e: Exception) { }
     }
 
@@ -175,6 +230,7 @@ object LiveTv {
     private fun loadConfig() {
         val file = File(dataDir, "sources.json")
         val list = ArrayList<SourceConfig>()
+        val twice = ArrayList<String>()
         if (file.exists()) try {
             val root = JSONObject(file.readText())
             val a = root.optJSONArray("sources") ?: JSONArray()
@@ -206,7 +262,8 @@ object LiveTv {
                     s.autoGuide = AutoGuide(a.optInt("found"), a.optInt("total"), g, a.optLong("at"))
                 }
                 s.autoGuideOff = o.optBoolean("autoGuideOff")
-                if (s.id.isNotEmpty()) list.add(s)
+                // (the same catalog source added again and again while an update ran: once)
+                if (s.id.isNotEmpty() && list.none { sameSource(it, s) }) list.add(s) else if (s.id.isNotEmpty()) twice.add(s.id)
             }
         } catch (e: Exception) {
             Log.w(TAG, "the sources could not be read", e)
@@ -215,9 +272,23 @@ object LiveTv {
             sources.clear()
             sources.addAll(list)
         }
+        configLoaded = true
+        if (twice.isNotEmpty()) {
+            Log.i(TAG, "${twice.size} sources added twice were let go")
+            saveConfig()
+            for (id in twice) sourceDir(id).deleteRecursively()
+        }
     }
 
-    private fun saveConfig() {
+    /** the sources are read (a source added or changed goes in the list at once, before the worker gets to it) */
+    @Volatile private var configLoaded = false
+
+    private fun saveConfig() = synchronized(configFile) { writeConfig() }
+
+    /** (one writer at a time: the interface's thread and the worker both save) */
+    private val configFile = Any()
+
+    private fun writeConfig() {
         val a = JSONArray()
         synchronized(lock) {
             for (s in sources) a.put(JSONObject().apply {
@@ -253,12 +324,36 @@ object LiveTv {
         c.autoGuide = s.autoGuide; c.autoGuideOff = s.autoGuideOff
     }
 
-    /** Adds a source (id empty) or saves one edited; its channels and guides are read at once. */
+    /**
+     * Adds a source (id empty) or saves one edited; its channels and guides are read at once. It is in the list at
+     * once, while an update may still run (a catalog's Add pressed again and again during a long guide's reading added
+     * the same source five times); the same source is never added twice.
+     */
     fun saveSource(config: SourceConfig) {
         start()
-        post {
+        if (configLoaded) {
+            if (!putSource(config)) return
+            publish()
+            // (kept on disk now, not once the update under way is done)
+            Thread({ saveConfig() }, "LiveTv-save").start()
+            post { refreshNow(listOf(config.id), true) }
+        } else post {
+            if (!putSource(config)) return@post
+            saveConfig()
+            publish()
+            refreshNow(listOf(config.id), true)
+        }
+    }
+
+    /** the same source: the same catalog entry, or the same address and account */
+    private fun sameSource(a: SourceConfig, b: SourceConfig) = (a.catalogId.isNotEmpty() && a.catalogId == b.catalogId) ||
+        (a.kind == b.kind && a.url == b.url && a.server == b.server && a.username == b.username && a.accountType == b.accountType)
+
+    /** the source in the list (false: it is there already) */
+    private fun putSource(config: SourceConfig): Boolean {
             synchronized(lock) {
                 if (config.id.isEmpty()) {
+                    if (sources.any { sameSource(it, config) }) return false
                     config.id = "s" + System.currentTimeMillis().toString(36)
                     sources.add(config)
                 } else {
@@ -281,22 +376,43 @@ object LiveTv {
                     } else sources.add(config)
                 }
             }
-            saveConfig()
-            publish()
-            refreshNow(listOf(config.id), true)
-        }
+            return true
     }
 
-    /** A guide added to a source (the catalog's Guides, Add a Link > Guide). */
+    /** A guide added to a source (the catalog's Guides, Add a Link > Guide): on its row at once. */
     fun addGuide(sourceId: String, url: String) {
+        start()
+        val add = { synchronized(lock) { sources.firstOrNull { it.id == sourceId }?.let { if (!it.epg.contains(url)) it.epg.add(url) } } }
+        if (configLoaded) { add(); publish(); Thread({ saveConfig() }, "LiveTv-save").start() }
         post {
-            synchronized(lock) { sources.firstOrNull { it.id == sourceId }?.let { if (!it.epg.contains(url)) it.epg.add(url) } }
+            if (!configLoaded) add()
             saveConfig()
-            refreshNow(listOf(sourceId), true)
+            // (the playlist and every guide of the source were downloaded and read again: a 300 MB guide again for a
+            // small one added)
+            loadGuides(true, listOf(sourceId), byAge = false)
+            rebuild()
         }
     }
 
+    /**
+     * Removes a source: gone from the list and the channels at once, and what was being downloaded or read for it is
+     * stopped (Remove pressed during a long guide's reading did nothing to see until the reading ended: it waited in
+     * the worker's queue behind it). Its files are deleted after, and what the stop cut off for the others is updated.
+     */
     fun removeSource(id: String) {
+        if (configLoaded) {
+            val busy: Boolean
+            synchronized(lock) {
+                busy = states[id]?.busy == true
+                sources.removeAll { it.id == id }
+                states.remove(id)
+                lastChannels = lastChannels.filter { it.sourceId != id }
+                ++revision
+            }
+            if (busy) stopUpdate()
+            publish()
+            Thread({ saveConfig() }, "LiveTv-save").start()
+        }
         post {
             synchronized(lock) {
                 sources.removeAll { it.id == id }
@@ -306,6 +422,7 @@ object LiveTv {
             sourceDir(id).deleteRecursively()
             loadGuides(false, emptyList())
             rebuild()
+            refreshDue()
         }
     }
 
@@ -350,6 +467,9 @@ object LiveTv {
             if (s.autoGuide != null) st.autoKeys = readAutoKeys(s.id)
             synchronized(lock) { states[s.id] = st }
         }
+        // the channels show at once from the stored lists; their guide fills in as it is read (a guide read again from
+        // its file took 10 s to minutes, the TV page empty all that time)
+        if (synchronized(lock) { states.values.any { it.channels.isNotEmpty() } }) rebuild(loaded = true)
         loadGuides(false, emptyList())
         rebuild(loaded = true)
         Log.d(TAG, "Live TV ready from the cache in ${SystemClock.elapsedRealtime() - took} ms")
@@ -368,6 +488,7 @@ object LiveTv {
 
     /** The sources whose playlist is older than the interval (or missing) downloaded again. */
     private fun refreshDue() {
+        if (!appShown) return
         val hours = refreshHours()
         val due = synchronized(lock) {
             sources.filter { s ->
@@ -390,31 +511,45 @@ object LiveTv {
     private fun accountIsJson(s: SourceConfig) = s.accountType in setOf("jellyfin", "emby", "nextpvr", "hdhomerun", "schedulesdirect")
 
     private fun refreshNow(ids: List<String>, force: Boolean, guidesByAge: Boolean = false) {
+        // (Stop: the playlist being downloaded and the guides left as they were, the rest of the update let go)
+        val update = newUpdate()
         for (id in ids) {
             if (quit.get()) return
+            if (update.get()) break
             val cfg = synchronized(lock) { sources.firstOrNull { it.id == id && it.enabled } } ?: continue
             val st = synchronized(lock) { states.getOrPut(id) { SourceState().also { if (cfg.autoGuide != null) it.autoKeys = readAutoKeys(id) } } }
             st.busy = true; st.stage = "playlist"; st.received = 0
             publish()
-            val ok = loadPlaylist(cfg, true, st)
-            st.busy = false; st.stage = ""
+            val ok = try {
+                loadPlaylist(cfg, true, st, update)
+            } catch (e: CancelledException) {
+                if (quit.get()) throw e
+                false
+            } finally { st.busy = false; st.stage = "" }
             // what the app saw of a catalog entry: works (its channels), else one more failure
-            if (cfg.catalogId.isNotEmpty()) setCatalogHealth(cfg.catalogId, ok && st.channels.isNotEmpty(), st.channels.size)
-            publish()
+            if (cfg.catalogId.isNotEmpty() && !update.get()) setCatalogHealth(cfg.catalogId, ok && st.channels.isNotEmpty(), st.channels.size)
+            // its channels now (with the guide read so far), not once every guide is read
+            if (synchronized(lock) { sources.any { it.id == id } }) rebuild() else publish()
         }
-        loadGuides(true, if (force) ids else emptyList(), forced = force, byAge = guidesByAge || !force)
+        loadGuides(true, if (force) ids else emptyList(), forced = force, byAge = guidesByAge || !force, update = update)
         rebuild()
         // a source without a guide finds one by itself (unless the user took it away), once a day the others
-        for (id in ids) autoGuideIfDue(id)
+        if (!update.get()) for (id in ids) autoGuideIfDue(id)
     }
 
-    private fun progress(id: String, stage: String, received: Long) {
+    @Volatile private var lastProgress = 0L
+
+    private fun progress(id: String, stage: String, received: Long, matched: Int = 0) {
         val st = synchronized(lock) { states[id] } ?: return
-        st.busy = true; st.stage = stage; st.received = received
+        st.busy = true; st.stage = stage; st.received = received; st.matched = matched
+        // (a 100 MB guide reported every 256 KB: 400 states, each a rebuild of the pages that show them)
+        val now = SystemClock.elapsedRealtime()
+        if (now - lastProgress < 500) return
+        lastProgress = now
         publish()
     }
 
-    private fun loadPlaylist(cfg: SourceConfig, download: Boolean, st: SourceState): Boolean {
+    private fun loadPlaylist(cfg: SourceConfig, download: Boolean, st: SourceState, update: AtomicBoolean = quit): Boolean {
         val dir = sourceDir(cfg.id).apply { mkdirs() }
         try {
             if (cfg.kind == "xtream") return loadXtream(cfg, download, st, dir)
@@ -422,7 +557,7 @@ object LiveTv {
             val file = File(dir, "playlist.m3u")
             if (download || !file.exists()) {
                 try {
-                    TvNet.download(app, cfg.url, file, quit) { r, _ -> progress(cfg.id, "playlist", r) }
+                    TvNet.download(app, cfg.url, file, update, gzip = true) { r, _ -> progress(cfg.id, "playlist", r) }
                     st.error = ""
                 } catch (e: CancelledException) {
                     throw e
@@ -583,14 +718,51 @@ object LiveTv {
     fun guideLanguages(): Set<String> = (settings.getString(KEY_IPTV_LANGUAGES, "") ?: "").split(',', ' ', ';')
         .map { it.trim().lowercase() }.filter { it.isNotEmpty() }.toSet()
 
+    /** the programmes a guide may keep in memory: about a quarter of what the app is meant to use (Android's memory
+     *  class: 192 MB on a TV of 2 GB, where 4,000 channels of a week are 600,000 programmes); a low-memory device less */
+    private fun guideBudget(): Int {
+        val am = app.getSystemService(Context.ACTIVITY_SERVICE) as? android.app.ActivityManager
+        val mb = minOf(am?.memoryClass ?: 128, (Runtime.getRuntime().maxMemory() shr 20).toInt())
+        val share = if (am?.isLowRamDevice == true) 6 else 4
+        return (mb.toLong() * 1048576L / share / BYTES_PER_PROGRAMME).toInt().coerceIn(60_000, 3_000_000)
+    }
+
+    /** the days back the guides keep: one, or the channels' catch-up days (at most the days of Settings > TV) */
+    private fun backDays(days: Int): Int {
+        var most = 0
+        for ((id, st) in states) if (sources.any { it.id == id && it.enabled }) for (c in st.channels)
+            if (c.catchup != CatchupMode.NONE && c.catchupDays > most) most = c.catchupDays
+        return most.coerceIn(1, days)
+    }
+
+    /** the stop flag of the update running (Stop, the TV page left, the add-on stopped) */
+    @Volatile private var updateFlag = AtomicBoolean(false)
+
+    /** a new update's stop flag */
+    private fun newUpdate(): AtomicBoolean = AtomicBoolean(false).also { updateFlag = it }
+
+    /**
+     * Stops the update running (the TV page's Stop, the page left, the app closed): the guide being downloaded or read
+     * is dropped, the last one kept; the rest of the update is let go.
+     */
+    fun stopUpdate() {
+        updateFlag.set(true)
+    }
+
     /**
      * The guides of every source read (downloaded first when asked and due), each from its index when it is the
-     * one of this file and these channels.
+     * one of this file and these channels. Only what the channels show is kept: their programmes, from a day back
+     * (their catch-up days) to the days ahead of Settings > TV; a guide too large for the device keeps fewer days
+     * ahead (said on its row), and one read for too long stops there (what was read kept). Stop (stopUpdate) leaves
+     * every guide as it was.
      */
-    private fun loadGuides(download: Boolean, onlySources: List<String>, forced: Boolean = false, byAge: Boolean = true) {
+    private fun loadGuides(download: Boolean, onlySources: List<String>, forced: Boolean = false, byAge: Boolean = true,
+                           update: AtomicBoolean = newUpdate()) {
         class Wanted(val url: String, val sourceId: String)
         val wanted = ArrayList<Wanted>()
         val filter = GuideFilter()
+        val days = guideDays()
+        val back: Int
         synchronized(lock) {
             for (s in sources) {
                 if (!s.enabled) continue
@@ -603,42 +775,67 @@ object LiveTv {
                 for (st in states.values) for (c in st.channels) filter.keys.add(Xmltv.guideKey(c.name))
             // the guide ids the user gave channels
             for (v in guideIds().values) Xmltv.guideKey(v).takeIf { it.isNotEmpty() }?.let { filter.keys.add(it) }
+            back = backDays(days)
         }
-        val days = guideDays()
         val hours = refreshHours()
+        val budget = guideBudget()
         filter.languages.addAll(guideLanguages())
         val now = System.currentTimeMillis() / 1000
-        filter.from = now - days * 86400L
+        filter.from = now - back * 86400L
         filter.until = now + days * 86400L
-        filter.cancel = quit
-        val signature = GuideIndex.signatureOf(filter, days)
+        filter.cancel = update
+        val signature = GuideIndex.signatureOf(filter, days, "back $back, at most $budget")
         val result = HashMap<String, GuideData>()
         val dir = File(cacheDir, "guides").apply { mkdirs() }
+        // what was there before: kept when the update is stopped
+        fun keepAsItWas(url: String) { synchronized(lock) { guides[url] }?.let { result[url] = it } }
+        var stopped = false
         if (filter.keys.isNotEmpty()) for (w in wanted) {
             if (quit.get()) return
+            if (update.get()) { stopped = true; keepAsItWas(w.url); continue }
+            // its source removed meanwhile: nothing downloaded or read for it
+            if (synchronized(lock) { sources.none { it.id == w.sourceId } }) { stopped = true; continue }
             val base = TvNet.hashOf(w.url)
             val path = File(dir, "$base.xmltv")
+            // the last whole guide, set aside while a new one comes and reads (back in place if the app stopped then:
+            // the new one was never read whole)
+            val whole = File(dir, "$base.whole")
+            if (whole.exists()) { path.delete(); whole.renameTo(path) }
             val age = ageOf(path)
             val mine = onlySources.isEmpty() || onlySources.contains(w.sourceId)
             var error = ""
-            if (download && mine && (age < 0 || (forced && onlySources.isNotEmpty()) || (byAge && hours > 0 && age > hours * 3600L - 600))) {
+            var fresh = false
+            val nowMs = System.currentTimeMillis()
+            if (download && mine && (age < 0 || (forced && onlySources.isNotEmpty()) ||
+                        (byAge && hours > 0 && age > hours * 3600L - 600 && cutTries.mayTry(w.url, nowMs)))) {
                 progress(w.sourceId, "guide", 0)
+                // (a new guide that fails or comes cut short leaves its channels' programmes as they were)
+                if (path.exists() && !path.renameTo(whole)) whole.delete()
                 try {
                     if (w.url.startsWith(ACCOUNT_GUIDE)) accountGuide(w.sourceId, path, days)
-                    else TvNet.download(app, w.url, path, quit, guideAuthOf(w.sourceId, w.url)) { r, _ -> progress(w.sourceId, "guide", r) }
+                    else TvNet.download(app, w.url, path, update, guideAuthOf(w.sourceId, w.url), gzip = true) { r, _ -> progress(w.sourceId, "guide", r) }
+                    fresh = path.exists()
                 } catch (e: CancelledException) {
-                    return
+                    if (!path.exists()) whole.renameTo(path)
+                    if (quit.get()) return
+                    synchronized(lock) { states[w.sourceId]?.let { it.busy = false; it.stage = "" } }
+                    stopped = true
+                    keepAsItWas(w.url)
+                    continue
                 } catch (e: Exception) {
                     error = e.message ?: "?"
                     Log.i(TAG, "a guide of ${TvNet.hostOf(w.url)} could not be downloaded: $error")
                     // where it broke (debug builds: no address in it)
                     if (BuildConfig.DEBUG) Log.d(TAG, "guide download failure", e)
                 }
+                // (failed: the last whole one back, its date too: tried again by age; a part written is dropped)
+                if (!fresh && whole.exists()) { path.delete(); whole.renameTo(path) }
                 synchronized(lock) { states[w.sourceId]?.let { it.busy = false; it.stage = "" } }
             }
             val data = GuideData(w.url, w.sourceId)
             data.error = error
             if (!path.exists()) {
+                data.failed = error.isNotEmpty()
                 result[w.url] = data
                 continue
             }
@@ -652,34 +849,86 @@ object LiveTv {
                 continue
             }
             val indexPath = File(dir, "$base.idx")
-            var index = GuideIndex.read(indexPath, path, signature)
+            // (only the days kept: an index holds a day more ahead, read again the next day)
+            var index = GuideIndex.read(indexPath, path, signature, filter.from, filter.until)
             val indexed = index != null
-            if (index == null) {
-                index = GuideIndex.Index()
-                // every day ahead the file has: the index serves the next starts
-                val all = GuideFilter().also { it.keys.addAll(filter.keys); it.languages.addAll(filter.languages); it.from = filter.from; it.cancel = quit }
+            var attempt = 0
+            while (index == null && attempt++ < 2) {
+                val reading = GuideIndex.Index()
+                // the days kept and one more ahead (the index serves tomorrow too), at most the programmes the device
+                // holds: fewer days ahead then, never less than one
+                val all = GuideFilter().also {
+                    it.keys.addAll(filter.keys); it.languages.addAll(filter.languages); it.from = filter.from
+                    it.until = filter.until + 86400L; it.cancel = update
+                    it.maxProgrammes = budget; it.minUntil = now + 86400L
+                    it.deadline = System.nanoTime() + READ_SECONDS * 1_000_000_000L
+                    it.progress = { bytes, channels -> progress(w.sourceId, "reading", bytes, channels) }
+                }
                 // the descriptions to a file of their own; a new file each time (the last one may be open)
-                index.descName = "$base-${System.currentTimeMillis()}.desc"
-                val descFile = File(dir, index.descName)
-                val read = descFile.outputStream().buffered(256 * 1024).use { Xmltv.parse(path, all, it) }
-                if (quit.get()) return
-                if (read.error.isNotEmpty() && read.programmes == 0) data.error = read.error
-                for ((k, v) in read.lists) index.lists[k] = v
-                index.idByName.putAll(read.idByName)
-                index.languages.addAll(read.languages)
-                if (read.error.isEmpty() && !GuideIndex.write(indexPath, path, signature, index))
+                reading.descName = "$base-${System.currentTimeMillis()}.desc"
+                val descFile = File(dir, reading.descName)
+                progress(w.sourceId, "reading", 0, 0)
+                val read = try {
+                    descFile.outputStream().buffered(256 * 1024).use { Xmltv.parse(path, all, it) }
+                } finally {
+                    synchronized(lock) { states[w.sourceId]?.let { it.busy = false; it.stage = ""; it.matched = 0 } }
+                }
+                if (update.get()) {
+                    // stopped (Stop, the page left, the add-on off): the last whole guide back, as it was
+                    descFile.delete()
+                    if (fresh && whole.exists()) { path.delete(); whole.renameTo(path) }
+                    if (quit.get()) return
+                    stopped = true
+                    break
+                }
+                val unread = read.error.isNotEmpty() && read.programmes == 0
+                if (fresh) {
+                    if (GuideUpdate.dropNew(read.cut, unread, whole.exists())) {
+                        // cut short, or no guide (an error page): dropped, the last whole one read again (its index
+                        // with it); downloaded again a few times, then by age
+                        Log.i(TAG, "a guide of ${TvNet.hostOf(w.url)} came cut short or unreadable: the last whole one is kept")
+                        descFile.delete()
+                        path.delete()
+                        whole.renameTo(path)
+                        cutTries.cut(w.url, nowMs, hours * 3600_000L)
+                        fresh = false
+                        data.error = if (read.cut) GuideUpdate.CUT else read.error
+                        data.updated = path.lastModified() / 1000
+                        index = GuideIndex.read(indexPath, path, signature, filter.from, filter.until)
+                        continue
+                    }
+                    whole.delete()
+                    if (read.cut || unread) cutTries.cut(w.url, nowMs, hours * 3600_000L) else cutTries.whole(w.url)
+                }
+                if (unread) { data.error = read.error; data.failed = true }
+                if (read.cut) data.error = GuideUpdate.CUT
+                reading.idByName.putAll(read.idByName)
+                reading.languages.addAll(read.languages)
+                reading.shortenedUntil = read.shortenedUntil
+                reading.limited = read.limited
+                for ((k, v) in read.lists) reading.lists[k] = v
+                if (read.error.isEmpty() && !GuideIndex.write(indexPath, path, signature, reading))
                     Log.i(TAG, "the index of a guide of ${TvNet.hostOf(w.url)} could not be written")
+                // the days kept (the index holds one more): the lists cut in place, never copied
+                for (list in read.lists.values) list.removeAll { (it.stop > 0 && it.stop < filter.from) || it.start > filter.until }
+                index = reading
+            }
+            if (stopped) { keepAsItWas(w.url); continue }
+            if (fresh) whole.delete()
+            if (index == null) {
+                result[w.url] = data.also { it.failed = true }
+                continue
             }
             data.descPath = File(dir, index.descName).path
-            // the days kept: from the days back to as many ahead
             for ((k, list) in index.lists) {
-                val kept = list.filter { !(it.stop > 0 && it.stop < filter.from) && it.start <= filter.until }
-                if (kept.isEmpty()) continue
-                data.programmes += kept.size
-                data.byKey[k] = if (kept is ArrayList) kept.apply { trimToSize() } else kept
+                if (list.isEmpty()) continue
+                data.programmes += list.size
+                data.byKey[k] = list
             }
             data.idByName.putAll(index.idByName)
             data.languages.addAll(index.languages)
+            data.note = limitNote(index, now, data.byKey.size)
+            if (data.note.isNotEmpty()) Log.i(TAG, "a guide of ${TvNet.hostOf(w.url)} is too large for the device: ${data.note}")
             Log.d(TAG, "guide of ${TvNet.hostOf(w.url)}: ${data.programmes} programmes of ${data.byKey.size} channels, " +
                     "${if (indexed) "from its index" else "read"} in ${SystemClock.elapsedRealtime() - took} ms")
             result[w.url] = data
@@ -687,8 +936,10 @@ object LiveTv {
         synchronized(lock) {
             for ((url, g) in result) {
                 val old = guides[url]
-                // a guide that could not be read again keeps what it had
-                if (g.byKey.isEmpty() && old != null && old.byKey.isNotEmpty()) {
+                if (old === g) continue
+                // a guide that could not be read again keeps what it had; one that came whole replaces it, an empty
+                // <tv/> too (GuideUpdate)
+                if (old != null && GuideUpdate.keepOld(g.failed, g.byKey.size, old.byKey.size)) {
                     old.error = g.error
                 } else {
                     if (old != null && old.descPath != g.descPath && old.descPath.isNotEmpty()) File(old.descPath).delete()
@@ -698,7 +949,7 @@ object LiveTv {
             val it = guides.entries.iterator()
             while (it.hasNext()) {
                 val e = it.next()
-                if (!result.containsKey(e.key) && onlySources.isEmpty()) {
+                if (!result.containsKey(e.key) && onlySources.isEmpty() && !stopped) {
                     if (e.value.descPath.isNotEmpty()) File(e.value.descPath).delete()
                     it.remove()
                 }
@@ -709,6 +960,29 @@ object LiveTv {
             dir.listFiles()?.forEach { f ->
                 if (f.name.endsWith(".desc") && bases.contains(f.name.substringBefore('-')) && !inUse.contains(f.name)) f.delete()
             }
+            // the files of guides no source has any more (removed, turned off, a catalog guide only tried): 50 to
+            // 500 MB each, kept for ever before
+            if (onlySources.isEmpty() && filter.keys.isNotEmpty() && !quit.get() && !stopped) {
+                val keep = wanted.map { TvNet.hashOf(it.url) }.toSet()
+                dir.listFiles()?.forEach { f ->
+                    val base = f.name.substringBefore('.').substringBefore('-')
+                    if (base !in keep && (f.name.endsWith(".xmltv") || f.name.endsWith(".idx") || f.name.endsWith(".desc") || f.name.endsWith(".part") || f.name.endsWith(".whole"))) f.delete()
+                }
+            }
+        }
+        if (stopped) Log.i(TAG, "the guides' update was stopped: the last guides are kept")
+    }
+
+    /** what a guide's row says when the device could not hold all of it (the days ahead it kept, or part of its channels) */
+    private fun limitNote(index: GuideIndex.Index, now: Long, channels: Int): String {
+        val r = app.resources
+        return when {
+            index.limited -> r.getQuantityString(R.plurals.rd_tv_guide_too_large_channels, channels, channels)
+            index.shortenedUntil > 0L -> {
+                val ahead = ((index.shortenedUntil - now + 43200L) / 86400L).toInt().coerceAtLeast(1)
+                r.getQuantityString(R.plurals.rd_tv_guide_too_large_days, ahead, ahead)
+            }
+            else -> ""
         }
     }
 
@@ -784,17 +1058,17 @@ object LiveTv {
                 val guideStatuses = all.map { u ->
                     val d = guides[u]
                     GuideStatus(u, when { u.startsWith(ACCOUNT_GUIDE) -> "account"; u in s.epg -> "added"; u in found -> "found"; u in own -> "playlist"; else -> "added" },
-                        u !in s.guidesOff, d?.byKey?.size ?: 0, d?.programmes ?: 0, d?.error ?: "", d?.updated ?: 0)
+                        u !in s.guidesOff, d?.byKey?.size ?: 0, d?.programmes ?: 0, d?.error ?: "", d?.updated ?: 0, d?.note ?: "")
                 }
                 statuses.add(SourceStatus(s.id, s.name, s.kind, s.enabled, s.catalogId, mine.size, mine.count { it.hasGuide },
                     mine.maxOfOrNull { it.catchupDays } ?: 0, st?.busy == true, st?.stage ?: "", st?.received ?: 0, error,
                     st?.playlistUpdated ?: 0, st?.hasVod == true, st?.hasSeries == true, s.epg.toList(), s.accountType,
                     st?.refused == true, st?.check, st?.checking == true, s.autoGuide?.found ?: 0, s.autoGuide?.total ?: 0,
-                    st?.autoBusy == true, st?.autoNone == true, guideStatuses, if (s.kind == "account") s.server else ""))
+                    st?.autoBusy == true, st?.autoNone == true, guideStatuses, if (s.kind == "account") s.server else "", st?.matched ?: 0))
             }
             for (g in guides.values) languages.addAll(g.languages)
+            _state.value = TvState(revision, isLoaded, lastChannels, statuses, languages)
         }
-        _state.value = TvState(revision, isLoaded, lastChannels, statuses, languages)
     }
 
     /* Accounts, guides, the automatic guide, the catalog's health */
@@ -864,7 +1138,7 @@ object LiveTv {
     }
 
     /** Sign in / Test of an account (a new one, or one added): its answer kept for its row; a token kept. */
-    fun checkAccount(config: SourceConfig, progress: (TvCheck) -> Unit, done: (TvCheck) -> Unit) {
+    fun checkAccount(config: SourceConfig, progress: (TvCheck) -> Unit, cancel: AtomicBoolean? = null, done: (TvCheck) -> Unit) {
         start()
         val id = config.id
         synchronized(lock) { states[id]?.let { it.checking = true } }
@@ -879,7 +1153,10 @@ object LiveTv {
                 if (a.key.isEmpty()) a.key = kept.key
                 if (a.code.isEmpty()) a.code = kept.code
             }
-            val r = TvAccounts.check(config.accountType, a, progress)
+            val r = try { TvAccounts.check(config.accountType, a, progress, cancel) } catch (e: Throwable) {
+                Log.w(TAG, "a sign-in failed: ${e.javaClass.simpleName}")
+                TvCheck(TvCheckState.NO_ANSWER)
+            }
             synchronized(lock) {
                 states[id]?.let { it.checking = false; it.check = r; it.refused = r.state == TvCheckState.WRONG || r.state == TvCheckState.REFUSED }
                 if (r.token.isNotEmpty()) sources.firstOrNull { it.id == id }?.let { it.token = r.token; it.userId = r.userId; it.tokenUntil = r.tokenUntil }
@@ -920,7 +1197,8 @@ object LiveTv {
         post {
             synchronized(lock) { sources.firstOrNull { it.id == sourceId }?.let { if (on) it.guidesOff.remove(url) else if (url !in it.guidesOff) it.guidesOff.add(url) } }
             saveConfig()
-            if (on) refreshNow(listOf(sourceId), true) else { loadGuides(false, emptyList()); rebuild() }
+            loadGuides(on, if (on) listOf(sourceId) else emptyList(), byAge = false)
+            rebuild()
         }
     }
 
@@ -946,7 +1224,8 @@ object LiveTv {
         post {
             synchronized(lock) { sources.firstOrNull { it.id == sourceId }?.let { s -> val i = s.epg.indexOf(old); if (i >= 0) s.epg[i] = new.trim() else s.epg.add(new.trim()) } }
             saveConfig()
-            refreshNow(listOf(sourceId), true)
+            loadGuides(true, listOf(sourceId), byAge = false)
+            rebuild()
         }
     }
 
@@ -1166,6 +1445,25 @@ object LiveTv {
         return GuideIndex.readDescription(channel.descPath, e.descOffset, e.descLength).also { descriptions.put(key, it) }
     }
 
+    private val descriptionReader = java.util.concurrent.Executors.newSingleThreadExecutor { r -> Thread(r, "LiveTv-descriptions").apply { priority = Thread.NORM_PRIORITY - 1 } }
+    private val mainHandler by lazy { android.os.Handler(android.os.Looper.getMainLooper()) }
+
+    /**
+     * The description of a programme for the interface: at once when it was read already, else read on a thread of
+     * its own and given to [done] on the main thread (read on the main thread, a list of channels took a third of a
+     * second at the start)
+     */
+    fun description(channel: TvChannel, e: Entry, done: (String) -> Unit): String? {
+        if (e.descLength <= 0) return ""
+        val key = channel.descPath + ":" + e.descOffset
+        descriptions.get(key)?.let { return it }
+        descriptionReader.execute {
+            val text = try { description(channel, e) } catch (t: Throwable) { "" }
+            mainHandler.post { done(text) }
+        }
+        return null
+    }
+
     /** The guides read again (their days or languages changed in the settings). */
     fun reloadGuides() {
         if (worker == null) return
@@ -1189,9 +1487,22 @@ object LiveTv {
 
     /* Favourites, the channels watched last, the last one */
 
+    @Volatile private var favoritesLoaded = false
+
+    /** the favourites read once (a toggle before the start's reading reads them first: none lost) */
+    private fun loadFavorites() {
+        if (favoritesLoaded) return
+        synchronized(_favorites) {
+            if (favoritesLoaded) return
+            _favorites.value = try { prefs.getString("favorites", "")!!.split('\n').filter { it.isNotEmpty() } } catch (e: Exception) { emptyList() }
+            favoritesLoaded = true
+        }
+    }
+
     fun isFavorite(key: String) = _favorites.value.contains(key)
 
     fun toggleFavorite(key: String) {
+        loadFavorites()
         val list = _favorites.value.toMutableList()
         if (!list.remove(key)) list.add(key)
         _favorites.value = list
@@ -1213,16 +1524,22 @@ object LiveTv {
 
     data class Reminder(val key: String, val start: Long, val title: String)
 
-    val reminders: List<Reminder> get() = (prefs.getString("reminders", "") ?: "").split('\n').mapNotNull {
+    /** (read once, kept with every change: the guide asked for every future programme on every frame) */
+    @Volatile private var remindersCache: List<Reminder>? = null
+
+    private fun allReminders(): List<Reminder> = remindersCache ?: (prefs.getString("reminders", "") ?: "").split('\n').mapNotNull {
         val p = it.split('\t')
         if (p.size == 3) Reminder(p[0], p[1].toLongOrNull() ?: 0, p[2]) else null
-    }.filter { it.start > System.currentTimeMillis() / 1000 - 600 }
+    }.also { remindersCache = it }
 
-    fun hasReminder(key: String, start: Long) = reminders.any { it.key == key && it.start == start }
+    val reminders: List<Reminder> get() = allReminders().filter { it.start > System.currentTimeMillis() / 1000 - 600 }
+
+    fun hasReminder(key: String, start: Long) = allReminders().any { it.key == key && it.start == start }
 
     fun toggleReminder(key: String, start: Long, title: String) {
         val list = reminders.toMutableList()
         if (!list.removeAll { it.key == key && it.start == start }) list.add(Reminder(key, start, title.replace('\t', ' ').replace('\n', ' ')))
+        remindersCache = list
         prefs.edit { putString("reminders", list.joinToString("\n") { "${it.key}\t${it.start}\t${it.title}" }) }
     }
 

@@ -30,11 +30,14 @@
     <string name="rd_ob_history_help">Conservé sur cet appareil uniquement, pour reprendre là où vous vous êtes arrêté.</string>
     <string name="rd_ob_updates_help">Recherche une version de test plus récente de VLC for Android une fois par jour.</string>
     <string-array name="rd_whats_new_items">
-        <item>Sous-titres : SubSource (arabe), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 et Legendas.net avec votre clé ou votre compte gratuit. Chacun dans Paramètres › Sous-titres, avec son interrupteur.</item>
-        <item>Langues à rechercher : activez ou désactivez chaque langue de sous-titres pour une recherche plus rapide.</item>
-        <item>Comptes TV en direct : votre Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR ou HDHomeRun, et le guide Schedules Direct. Les serveurs de votre réseau sont trouvés automatiquement.</item>
-        <item>TV en direct : un guide trouvé automatiquement pour les chaînes qui n\'en ont pas, un onglet Guides pour les guides de chaque source, et les sources de votre pays en premier dans le catalogue.</item>
-        <item>Corrections : sous-titres enregistrés dans le stockage propre de l\'application (un plantage sous Android 14), champs de mot de passe masqués, le focus de la télécommande TV, la traduction de « Pays » dans de nombreuses langues et celle de « mot de passe » en arabe.</item>
+        <item>Plus rapide et plus stable : la TV en direct et les sous-titres fonctionnent en arrière-plan, et les plantages et le lecteur figé sous Android 5 et sur les box TV sont corrigés.</item>
+        <item>Plein écran : une touche, la télécommande ou un geste peut afficher seulement la progression ou seulement un message au lieu des commandes, dans Paramètres › Interface. Merci à @BarbodF.</item>
+        <item>Sous-titres automatiques plus malins : le dossier Subs fourni avec la vidéo est utilisé en premier, un fichier publicitaire ou ne contenant que des sous-titres forcés ne compte plus comme sous-titre, la recherche a lieu même pour un film dont l\'image arrive en retard, et la ponctuation en hébreu et en arabe s\'affiche du bon côté.</item>
+        <item>Sous-titres en ligne aussi pour les vidéos sur un partage réseau, un serveur multimédia ou derrière un lien, recherchés à la main comme automatiquement (merci à @Elshepl). Sous Android 5 à 7.0, OpenSubtitles répond de nouveau.</item>
+        <item>Le panneau Sous-titres comme dans la version de bureau : il s\'ouvre au-dessus de son bouton, avec les langues et leur nombre, les résultats en ligne et la synchronisation au même endroit.</item>
+        <item>S\'installe à côté de VLC for Android, et l\'application TV en hébreu et en arabe est entièrement en miroir, avec le focus de la télécommande là où vous l\'attendez.</item>
+        <item>À la taille de votre écran : sur un téléviseur, l\'application est désormais plus grande et facile à lire depuis le canapé, la taille est déterminée d\'après l\'écran et peut être modifiée dans Paramètres › Interface › Taille de l\'interface. Les rangées affichent des cartes entières et chaque fenêtre tient à l\'écran.</item>
+        <item>Les très grands guides TV se chargent sans saturer la mémoire, deux langues de sous-titres peuvent s\'afficher en même temps, et le focus de la télécommande est toujours visible.</item>
     </string-array>
     <string name="rd_subtitle_size">Taille des sous-titres</string>
     <string name="rd_cast_this_phone">Ce téléphone</string>
@@ -67,4 +70,21 @@
     <string name="rd_volume_left_side">Côté gauche</string>
     <string name="rd_volume_top_right">Coin supérieur droit</string>
     <string name="rd_volume_top_left">Coin supérieur gauche</string>
+    <string name="rd_subs_of_video">Sous-titres de cette vidéo</string>
+    <string name="rd_subs_in_video">Dans la vidéo</string>
+    <string name="rd_subs_next_to">À côté de la vidéo · %1$s</string>
+    <string name="rd_subs_next_to_plain">À côté de la vidéo</string>
+    <string name="rd_subs_opened">Ouvert · %1$s</string>
+    <string name="rd_subs_opened_plain">Fichier ouvert</string>
+    <string name="rd_subs_none_yet">Pas encore de sous-titres</string>
+    <string name="rd_subs_hi_short">SME</string>
+    <string name="rd_show_preferences">Afficher les préférences</string>
+    <string name="rd_subs_position_size">Position et taille</string>
+    <string name="rd_subs_position">Position</string>
+    <string name="rd_subs_usual">Normale</string>
+    <string name="rd_subs_move_down">Descendre les sous-titres</string>
+    <string name="rd_subs_move_up">Monter les sous-titres</string>
+    <string name="rd_subs_smaller">Sous-titres plus petits</string>
+    <string name="rd_subs_larger">Sous-titres plus grands</string>
+    <string name="rd_os_show_both">Afficher les deux langues à la fois (double sous-titrage)</string>
 </resources>

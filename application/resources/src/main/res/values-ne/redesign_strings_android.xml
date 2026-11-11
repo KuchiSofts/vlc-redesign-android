@@ -31,11 +31,14 @@
     <string name="rd_ob_history_help">यसै यन्त्रमा मात्र राखिन्छ, तपाईंले छोडेको ठाउँबाट जारी राख्न।</string>
     <string name="rd_ob_updates_help">दिनमा एक पटक VLC for Android को नयाँ परीक्षण बिल्ड खोज्छ।</string>
     <string-array name="rd_whats_new_items">
-        <item>उपशीर्षक: SubSource (अरबी), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 र Legendas.net तपाईंको आफ्नै निःशुल्क कुञ्जी वा खातासँग। प्रत्येक सेटिङ्हरू › उपशीर्षकमा, आफ्नै स्विचसहित।</item>
-        <item>खोज्ने भाषाहरू: छिटो खोजका लागि हरेक उपशीर्षक भाषा सक्रिय वा निष्क्रिय गर्नुहोस्।</item>
-        <item>प्रत्यक्ष TV खाताहरू: तपाईंको Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR वा HDHomeRun, र Schedules Direct तालिका। तपाईंको सञ्जालमा भएका सर्भरहरू आफैँ भेटिन्छन्।</item>
-        <item>प्रत्यक्ष TV: तालिका नभएका च्यानलका लागि आफैँ भेटिएको तालिका, हरेक स्रोतका तालिकाहरूका लागि \"तालिकाहरू\" ट्याब, र क्याटलगमा तपाईंको देशका स्रोतहरू सबैभन्दा पहिले।</item>
-        <item>सुधारहरू: डाउनलोड गरिएका उपशीर्षक एपको आफ्नै भण्डारणमा सुरक्षित हुन्छन् (Android 14 मा क्र्यास), पासवर्ड फिल्डहरू लुकाइएका, TV रिमोटको फोकस, धेरै भाषामा \"देश\" शब्द र अरबीमा \"पासवर्ड\" शब्द।</item>
+        <item>अझ छिटो र स्थिर: प्रत्यक्ष TV र उपशीर्षकहरू पृष्ठभूमिमा चल्छन्, र Android 5 तथा TV बक्सहरूमा हुने क्र्यास र प्लेयर अड्किने समस्या सुधारिएको छ।</item>
+        <item>पूर्ण स्क्रिन: कुनै कुञ्जी, रिमोट वा इशाराले नियन्त्रणहरूको सट्टा प्रगति मात्र वा सन्देश मात्र देखाउन सक्छ, सेटिङ्हरू › इन्टरफेसमा। @BarbodF लाई धन्यवाद।</item>
+        <item>अझ स्मार्ट स्वचालित उपशीर्षक: भिडियोसँगै आएको Subs फोल्डर पहिले प्रयोग हुन्छ, विज्ञापन वा अनिवार्य पङ्क्ति मात्र भएको फाइल अब उपशीर्षक मानिँदैन, चित्र ढिलो आउने चलचित्रका लागि पनि खोजिन्छ, र हिब्रू र अरबी विराम चिह्न सही छेउमा देखिन्छन्।</item>
+        <item>नेटवर्क साझेदारी, मिडिया सर्भर वा लिङ्कमा रहेका भिडियोहरूका लागि पनि अब अनलाइन उपशीर्षकहरू भेटिन्छन्, आफैँ खोज्दा र स्वचालित रूपमा पनि (@Elshepl लाई धन्यवाद)। Android 5 देखि 7.0 सम्म OpenSubtitles ले फेरि जवाब दिन्छ।</item>
+        <item>डेस्कटपमा जस्तै उपशीर्षक प्यानल: यो आफ्नो बटनमाथि खुल्छ, र भाषाहरू र तिनको सङ्ख्या, अनलाइन नतिजा र समय एकै ठाउँमा।</item>
+        <item>VLC for Android सँगै इन्स्टल हुन्छ, र हिब्रू र अरबीमा TV एप पूरै ऐनाझैँ उल्टिन्छ, रिमोटको फोकस तपाईंले अपेक्षा गरेकै ठाउँमा।</item>
+        <item>तपाईंको स्क्रिनअनुसारको आकार: TV मा एप अब ठूलो छ र सोफाबाट सजिलै पढ्न सकिन्छ, आकार स्क्रिनबाट निर्धारण हुन्छ र सेटिङ › इन्टरफेस › इन्टरफेसको आकार मा बदल्न सकिन्छ। पङ्क्तिहरूले पूरा कार्ड देखाउँछन् र हरेक विन्डो स्क्रिनमा अटाउँछ।</item>
+        <item>धेरै ठूला TV गाइडहरू मेमोरी नभरी लोड हुन्छन्, दुई उपशीर्षक भाषा एकैसाथ देखिन सक्छन्, र रिमोटको फोकस सधैँ देखिन्छ।</item>
     </string-array>
     <string name="rd_subtitle_size">उपशीर्षकको आकार</string>
     <string name="rd_cast_this_phone">यो फोन</string>
@@ -63,4 +66,21 @@
     <string name="rd_unpin_from_home">गृहपृष्ठबाट अनपिन गर्नुहोस्</string>
     <string name="rd_pinned">पिन गरिएका</string>
     <string name="rd_pinned_missing">यो पिन गरिएको फोल्डर वा बजाउने सूची अब छैन।</string>
+    <string name="rd_subs_of_video">यो भिडियोका उपशीर्षकहरू</string>
+    <string name="rd_subs_in_video">भिडियोभित्र</string>
+    <string name="rd_subs_next_to">भिडियोको छेउमा · %1$s</string>
+    <string name="rd_subs_next_to_plain">भिडियोको छेउमा</string>
+    <string name="rd_subs_opened">खोलिएको · %1$s</string>
+    <string name="rd_subs_opened_plain">खोलिएको फाइल</string>
+    <string name="rd_subs_none_yet">अहिलेसम्म कुनै उपशीर्षक छैन</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">प्राथमिकताहरू देखाउनुहोस्</string>
+    <string name="rd_subs_position_size">स्थिति र आकार</string>
+    <string name="rd_subs_position">स्थिति</string>
+    <string name="rd_subs_usual">सामान्य</string>
+    <string name="rd_subs_move_down">उपशीर्षक तल सार्नुहोस्</string>
+    <string name="rd_subs_move_up">उपशीर्षक माथि सार्नुहोस्</string>
+    <string name="rd_subs_smaller">साना उपशीर्षक</string>
+    <string name="rd_subs_larger">ठूला उपशीर्षक</string>
+    <string name="rd_os_show_both">दुवै भाषा एकैसाथ देखाउनुहोस् (दोहोरो उपशीर्षक)</string>
 </resources>

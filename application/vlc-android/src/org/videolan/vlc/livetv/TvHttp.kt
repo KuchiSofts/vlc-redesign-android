@@ -32,6 +32,8 @@ class TvRequest(
     val auth: TvAuth? = null,
     val timeoutMs: Int = 30_000,
     val limit: Int = 32 shl 20,
+    /** past the limit: what came so far is the answer (a check that only needs its start), not a failure */
+    val truncate: Boolean = false,
 )
 
 /** Its answer: the status (0: no answer), the body, why it failed when it did. */
@@ -49,6 +51,7 @@ object TvHttp {
         while (true) {
             if (cancel?.get() == true) throw CancelledException()
             val c = (URL(r.url).openConnection() as HttpURLConnection)
+            org.videolan.vlc.util.RdTls.apply(c)
             c.connectTimeout = minOf(r.timeoutMs, 20_000)
             c.readTimeout = r.timeoutMs
             c.instanceFollowRedirects = true
@@ -74,7 +77,7 @@ object TvHttp {
                 break
             }
             val stream = if (status in 200..299) c.inputStream else c.errorStream
-            val body = stream?.use { read(it, r.limit, cancel) } ?: ""
+            val body = stream?.use { read(it, r.limit, cancel, r.truncate) } ?: ""
             c.disconnect()
             answer = TvAnswer(status, body)
             break
@@ -87,7 +90,7 @@ object TvHttp {
         TvAnswer(0, "", e.javaClass.simpleName)
     }
 
-    private fun read(input: java.io.InputStream, limit: Int, cancel: AtomicBoolean?): String {
+    private fun read(input: java.io.InputStream, limit: Int, cancel: AtomicBoolean?, truncate: Boolean = false): String {
         val out = ByteArrayOutputStream()
         val buf = ByteArray(64 * 1024)
         while (true) {
@@ -95,7 +98,10 @@ object TvHttp {
             val n = input.read(buf)
             if (n < 0) break
             out.write(buf, 0, n)
-            if (out.size() > limit) throw IOException("the answer is too large")
+            if (out.size() > limit) {
+                if (truncate) break
+                throw IOException("the answer is too large")
+            }
         }
         return out.toString("UTF-8")
     }

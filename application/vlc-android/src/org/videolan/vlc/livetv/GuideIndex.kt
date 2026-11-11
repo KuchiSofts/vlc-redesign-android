@@ -10,27 +10,35 @@
  */
 package org.videolan.vlc.livetv
 
+import java.io.BufferedInputStream
 import java.io.BufferedOutputStream
+import java.io.DataInputStream
 import java.io.DataOutputStream
 import java.io.File
-import java.nio.ByteBuffer
+import java.io.IOException
 import java.security.MessageDigest
 
 object GuideIndex {
     private const val MAGIC = 0x56544749   // "VTGI"
-    private const val VERSION = 1
+    // (2: the programmes without overlaps; 3: what the limits kept; an older index is read again from its guide)
+    private const val VERSION = 3
 
     class Index {
         val lists = HashMap<String, List<Entry>>()
         val idByName = HashMap<String, String>()
         val languages = HashSet<String>()
         var descName = ""
+        /** the end the days ahead were shortened to (the programmes a device holds), 0 when they were not */
+        var shortenedUntil = 0L
+        /** the reading stopped by the limits: the programmes of part of the channels only */
+        var limited = false
     }
 
-    /** What the index was made for: the channels, the languages, the days back. */
-    fun signatureOf(filter: GuideFilter, days: Int): ByteArray {
+    /** What the index was made for: the channels, the languages, the days (and the limits: [extra]). */
+    fun signatureOf(filter: GuideFilter, days: Int, extra: String = ""): ByteArray {
         val md = MessageDigest.getInstance("SHA-1")
         md.update(days.toString().toByteArray())
+        if (extra.isNotEmpty()) md.update(("/" + extra).toByteArray())
         md.update("\n\n".toByteArray())
         md.update(filter.languages.sorted().joinToString("\n").toByteArray())
         md.update("\n\n".toByteArray())
@@ -40,7 +48,9 @@ object GuideIndex {
 
     fun write(path: File, xmltv: File, signature: ByteArray, index: Index): Boolean {
         val desc = File(xmltv.parentFile, index.descName)
-        val ids = HashMap<String, Int>()
+        // (the texts are shared by the reading, one copy each: found by identity, a map of 500,000 texts' copies held
+        // 20 MB more as the index was written)
+        val ids = java.util.IdentityHashMap<String, Int>()
         val texts = ArrayList<String>()
         fun idOf(text: String) = ids.getOrPut(text) { texts.add(text); texts.size - 1 }
         // the texts first (their ids come from the entries)
@@ -55,6 +65,8 @@ object GuideIndex {
                 out.writeInt(signature.size); out.write(signature)
                 writeString(out, index.descName)
                 out.writeLong(if (desc.exists()) desc.length() else -1L)
+                out.writeLong(index.shortenedUntil)
+                out.writeBoolean(index.limited)
                 out.writeInt(index.languages.size)
                 for (l in index.languages) writeString(out, l)
                 out.writeInt(index.idByName.size)
@@ -86,58 +98,73 @@ object GuideIndex {
         out.write(b)
     }
 
-    /** The index when it is the one of this XMLTV file and these channels, null otherwise. */
-    fun read(path: File, xmltv: File, signature: ByteArray): Index? {
+    /**
+     * The index when it is the one of this XMLTV file and these channels, null otherwise; only the programmes between
+     * [from] and [until] (seconds; 0: no bound) kept. Read as a stream: an index of 500,000 programmes was read whole
+     * into memory first, then copied for the days kept.
+     */
+    fun read(path: File, xmltv: File, signature: ByteArray, from: Long = 0L, until: Long = 0L): Index? {
         if (!path.exists()) return null
+        val size = path.length()
         return try {
-            val bytes = path.readBytes()
-            val b = ByteBuffer.wrap(bytes)
-            fun str(): String {
-                val n = b.int
-                if (n < 0 || n > b.remaining()) throw IllegalStateException("bad index")
-                val s = String(bytes, b.position(), n, Charsets.UTF_8)
-                b.position(b.position() + n)
-                return s
-            }
-            if (b.int != MAGIC || b.int != VERSION) return null
-            if (b.long != xmltv.length() || b.long != xmltv.lastModified()) return null
-            val sigLen = b.int
-            if (sigLen != signature.size) return null
-            val sig = ByteArray(sigLen).also { b.get(it) }
-            if (!sig.contentEquals(signature)) return null
-            val index = Index()
-            index.descName = str()
-            val descSize = b.long
-            // the descriptions it points into, as they were written
-            val desc = File(xmltv.parentFile, index.descName)
-            if (index.descName.isEmpty() || index.descName.contains('/') || (if (desc.exists()) desc.length() else -1L) != descSize) return null
-            repeat(b.int) { index.languages.add(str()) }
-            repeat(b.int) { val k = str(); index.idByName[k] = str() }
-            val textCount = b.int
-            if (textCount < 0 || textCount > bytes.size) return null
-            val texts = Array(textCount) { str() }
-            val keys = b.int
-            for (k in 0 until keys) {
-                val key = str()
-                val count = b.int
-                if (count < 0 || count > (1 shl 24)) return null
-                val list = ArrayList<Entry>(count)
-                for (i in 0 until count) {
-                    val start = b.long
-                    val stop = b.long
-                    val title = b.int; val subtitle = b.int; val category = b.int; val episode = b.int
-                    val offset = b.long
-                    val length = b.int
-                    if (title !in 0 until textCount || subtitle !in 0 until textCount || category !in 0 until textCount || episode !in 0 until textCount) return null
-                    list.add(Entry(start, stop, texts[title], texts[subtitle], texts[category], texts[episode], offset, length))
+            DataInputStream(BufferedInputStream(path.inputStream(), 256 * 1024)).use { b ->
+                fun str(): String {
+                    val n = b.readInt()
+                    if (n < 0 || n > size) throw IOException("bad index")
+                    if (n == 0) return ""
+                    val bytes = ByteArray(n)
+                    b.readFully(bytes)
+                    return String(bytes, Charsets.UTF_8)
                 }
-                index.lists[key] = list
+                if (b.readInt() != MAGIC || b.readInt() != VERSION) return null
+                if (b.readLong() != xmltv.length() || b.readLong() != xmltv.lastModified()) return null
+                val sigLen = b.readInt()
+                if (sigLen != signature.size) return null
+                val sig = ByteArray(sigLen).also { b.readFully(it) }
+                if (!sig.contentEquals(signature)) return null
+                val index = Index()
+                index.descName = str()
+                val descSize = b.readLong()
+                // the descriptions it points into, as they were written
+                val desc = File(xmltv.parentFile, index.descName)
+                if (index.descName.isEmpty() || index.descName.contains('/') || (if (desc.exists()) desc.length() else -1L) != descSize) return null
+                index.shortenedUntil = b.readLong()
+                index.limited = b.readBoolean()
+                repeat(count(b.readInt(), size)) { index.languages.add(str()) }
+                repeat(count(b.readInt(), size)) { val k = str(); index.idByName[k] = str() }
+                val textCount = count(b.readInt(), size)
+                val texts = Array(textCount) { str() }
+                val keys = count(b.readInt(), size)
+                for (k in 0 until keys) {
+                    val key = str()
+                    val n = b.readInt()
+                    if (n < 0 || n > (1 shl 24)) return null
+                    var list: ArrayList<Entry>? = null
+                    for (i in 0 until n) {
+                        val start = b.readLong()
+                        val stop = b.readLong()
+                        val title = b.readInt(); val subtitle = b.readInt(); val category = b.readInt(); val episode = b.readInt()
+                        val offset = b.readLong()
+                        val length = b.readInt()
+                        if (title !in 0 until textCount || subtitle !in 0 until textCount || category !in 0 until textCount || episode !in 0 until textCount) return null
+                        // the days kept only
+                        if ((from > 0L && stop > 0L && stop < from) || (until > 0L && start > until)) continue
+                        if (list == null) list = ArrayList(n)
+                        list.add(Entry(start, stop, texts[title], texts[subtitle], texts[category], texts[episode], offset, length))
+                    }
+                    if (list != null) {
+                        list.trimToSize()
+                        index.lists[key] = list
+                    }
+                }
+                index
             }
-            index
         } catch (e: Exception) {
             null
         }
     }
+
+    private fun count(n: Int, size: Long): Int = if (n < 0 || n > size) throw IOException("bad index") else n
 
     /** A description of the file of a guide's descriptions. */
     fun readDescription(path: String, offset: Long, length: Int): String {

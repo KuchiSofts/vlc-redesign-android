@@ -30,11 +30,14 @@
     <string name="rd_ob_history_help">Säilytetään vain tällä laitteella, jotta voit jatkaa siitä, mihin jäit.</string>
     <string name="rd_ob_updates_help">Etsii kerran päivässä uudempaa VLC for Androidin testiversiota.</string>
     <string-array name="rd_whats_new_items">
-        <item>Tekstitykset: SubSource (arabia), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 ja Legendas.net omalla ilmaisella avaimellasi tai tililläsi. Jokainen palvelu kohdassa Asetukset › Tekstitykset omalla kytkimellään.</item>
-        <item>Haettavat kielet: kytke jokainen tekstityskieli päälle tai pois, niin haku on nopeampi.</item>
-        <item>Suoran TV:n tilit: oma Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR tai HDHomeRun sekä Schedules Direct -ohjelmaopas. Verkossasi olevat palvelimet löytyvät itsestään.</item>
-        <item>Suora TV: itsestään löytyvä ohjelmaopas kanaville, joilla sitä ei ole, Ohjelmaoppaat-välilehti jokaisen lähteen oppaille ja luettelossa ensin maasi lähteet.</item>
-        <item>Korjaukset: ladatut tekstitykset tallennetaan sovelluksen omaan tallennustilaan (korjaa kaatumisen Android 14 -versiossa), salasanakentät eivät enää näytä salasanaa, TV-kaukosäätimen kohdistus, sanan \"Maa\" käännös monella kielellä ja salasanaa tarkoittava sana arabiaksi.</item>
+        <item>Nopeampi ja vakaampi: suora TV ja tekstitykset toimivat taustalla, ja kaatumiset sekä jumittuva soitin Android 5:ssä ja TV-bokseissa on korjattu.</item>
+        <item>Koko näyttö: näppäin, kaukosäädin tai ele voi näyttää säätimien sijaan vain edistymisen tai vain viestin, kohdassa Asetukset › Käyttöliittymä. Kiitos @BarbodF:lle.</item>
+        <item>Fiksummat automaattiset tekstitykset: ensin käytetään videon omaa Subs-kansiota, mainostiedosto tai pelkät pakotetut rivit sisältävä tiedosto ei enää kelpaa tekstitykseksi, tekstityksiä haetaan myös elokuvalle, jonka kuva alkaa myöhässä, ja heprean ja arabian välimerkit näkyvät oikeassa päässä.</item>
+        <item>Tekstitykset verkosta nyt myös videoille, jotka ovat verkkojaossa, mediapalvelimella tai linkin takana, sekä käsin että automaattisesti haettuina (kiitos @Elshepl:lle). Android 5–7.0:ssa OpenSubtitles vastaa taas.</item>
+        <item>Tekstityspaneeli kuten työpöytäversiossa: avautuu painikkeensa yläpuolelle, ja kielet määrineen, verkon hakutulokset ja ajoitus ovat yhdessä paikassa.</item>
+        <item>Asentuu VLC for Android -sovelluksen rinnalle, ja TV-sovellus on hepreaksi ja arabiaksi kokonaan peilattu, ja kaukosäätimen kohdistus on siellä, missä sitä odotat.</item>
+        <item>Näytöllesi sopiva koko: televisiossa sovellus on nyt suurempi ja helppo lukea sohvalta, koko määritetään näytön perusteella ja sitä voi muuttaa kohdassa Asetukset › Käyttöliittymä › Käyttöliittymän koko. Rivit näyttävät kokonaisia kortteja, ja jokainen ikkuna mahtuu näytölle.</item>
+        <item>Hyvin suuret TV-oppaat latautuvat täyttämättä muistia, kaksi tekstityskieltä voi näkyä yhtä aikaa, ja kaukosäätimen kohdistus on aina näkyvissä.</item>
     </string-array>
     <string name="rd_subtitle_size">Tekstityksen koko</string>
     <string name="rd_cast_this_phone">Tämä puhelin</string>
@@ -62,4 +65,21 @@
     <string name="rd_unpin_from_home">Irrota kotinäkymästä</string>
     <string name="rd_pinned">Kiinnitetyt</string>
     <string name="rd_pinned_missing">Tätä kiinnitettyä kansiota tai soittolistaa ei ole enää olemassa.</string>
+    <string name="rd_subs_of_video">Tämän videon tekstitykset</string>
+    <string name="rd_subs_in_video">Videossa</string>
+    <string name="rd_subs_next_to">Videon vieressä · %1$s</string>
+    <string name="rd_subs_next_to_plain">Videon vieressä</string>
+    <string name="rd_subs_opened">Avattu · %1$s</string>
+    <string name="rd_subs_opened_plain">Avattu tiedosto</string>
+    <string name="rd_subs_none_yet">Ei vielä tekstityksiä</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Näytä asetukset</string>
+    <string name="rd_subs_position_size">Sijainti ja koko</string>
+    <string name="rd_subs_position">Sijainti</string>
+    <string name="rd_subs_usual">Tavallinen</string>
+    <string name="rd_subs_move_down">Siirrä tekstitystä alas</string>
+    <string name="rd_subs_move_up">Siirrä tekstitystä ylös</string>
+    <string name="rd_subs_smaller">Pienempi tekstitys</string>
+    <string name="rd_subs_larger">Suurempi tekstitys</string>
+    <string name="rd_os_show_both">Näytä molemmat kielet yhtä aikaa (kaksoistekstitys)</string>
 </resources>

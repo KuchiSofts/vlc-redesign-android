@@ -100,6 +100,9 @@
     <string name="rd_sec_diagnostics">אבחון</string>
     <string name="rd_sec_advanced">אפשרויות מתקדמות</string>
     <string name="rd_sec_window">חלון</string>
+    <string name="rd_interface_size">גודל הממשק</string>
+    <string name="rd_interface_size_summary">באיזה גודל מצוירים הדפים, הטקסטים והפקדים. ‏«אוטומטי» בוחר את הגודל שמתאים למסך הזה.</string>
+    <string name="rd_interface_size_auto">אוטומטי (%1$s)</string>
     <string name="rd_sec_playback_controls">פקדי נגינה</string>
     <string name="rd_sec_playlist">רשימת נגינה</string>
     <string name="rd_sec_player_bar">סרגל הנגן</string>
@@ -445,4 +448,5 @@
     <string name="rd_os_find_language">חפש שפה</string>
     <string name="rd_os_picked_in_player">נבחרה בנגן</string>
     <string name="rd_os_second_short">שפה שנייה</string>
+    <string name="rd_on_this_device">במכשיר הזה</string>
 </resources>

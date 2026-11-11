@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">ღილაკის ან დისტანციური პულტის გამოყენებისას</string>
+    <string name="rd_fs_show_controls">სამართავების ჩვენება</string>
+    <string name="rd_fs_show_progress">მხოლოდ წინსვლის ჩვენება</string>
+    <string name="rd_fs_show_message">მხოლოდ შეტყობინების ჩვენება</string>
+    <string name="rd_fs_seconds">%1$s წმ</string>
+    <string name="rd_fs_paused">შეჩერებულია</string>
+    <string name="rd_fs_playing">იკვრება</string>
+    <string name="rd_fs_info_touch">ეკრანზე შეხება მაინც აჩენს სამართავებს.</string>
+    <string name="rd_fs_info_tv">OK-ზე, ზემო ან ქვემო ისარზე ან მენიუს ღილაკზე დაჭერა მაინც აჩენს სამართავებს.</string>
+</resources>

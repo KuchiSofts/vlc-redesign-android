@@ -31,11 +31,14 @@
     <string name="rd_ob_history_help">Yn cael ei gadw ar y ddyfais hon yn unig, i barhau o\'r man lle gadawoch chi.</string>
     <string name="rd_ob_updates_help">Yn chwilio am fersiwn prawf mwy newydd o VLC for Android unwaith y dydd.</string>
     <string-array name="rd_whats_new_items">
-        <item>Isdeitlau: SubSource (Arabeg), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 a Legendas.net gyda\'ch allwedd neu\'ch cyfrif eich hun am ddim. Pob un yn Gosodiadau › Isdeitlau, gyda\'i switsh ei hun.</item>
-        <item>Ieithoedd i\'w chwilio: trowch bob iaith isdeitlau ymlaen neu i ffwrdd i chwilio\'n gyflymach.</item>
-        <item>Cyfrifon Teledu Byw: eich Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR neu HDHomeRun, ac amserlen Schedules Direct. Caiff gweinyddion ar eich rhwydwaith eu canfod yn awtomatig.</item>
-        <item>Teledu Byw: amserlen wedi\'i chanfod yn awtomatig ar gyfer sianeli heb un, tab Amserlenni gydag amserlenni pob ffynhonnell, a ffynonellau eich gwlad yn gyntaf yn y catalog.</item>
-        <item>Atgyweiriadau: isdeitlau\'n cael eu cadw yn storfa\'r ap ei hun (chwalfa ar Android 14), meysydd cyfrinair yn cuddio\'r cyfrinair, ffocws teclyn rheoli o bell y teledu, y gair Gwlad mewn llawer o ieithoedd a\'r gair am gyfrinair yn Arabeg.</item>
+        <item>Cyflymach a mwy sefydlog: mae Teledu Byw ac isdeitlau\'n gweithio yn y cefndir, ac mae chwalfeydd a chwaraewr wedi rhewi ar Android 5 a blychau teledu wedi\'u trwsio.</item>
+        <item>Sgrin lawn: gall botwm, y teclyn rheoli o bell neu ystum ddangos y cynnydd yn unig neu neges yn unig yn lle\'r rheolyddion, yn Gosodiadau › Rhyngwyneb. Diolch i @BarbodF.</item>
+        <item>Isdeitlau awtomatig callach: defnyddir ffolder Subs y fideo ei hun yn gyntaf, nid yw ffeil hysbyseb neu ffeil â llinellau gorfodol yn unig yn cyfrif fel isdeitl mwyach, chwilir o hyd ar gyfer ffilm y daw ei llun yn hwyr, ac mae atalnodi Hebraeg ac Arabeg yn dangos ar y pen cywir.</item>
+        <item>Isdeitlau ar-lein hefyd ar gyfer fideos ar ffolder wedi\'i rannu ar y rhwydwaith, gweinydd cyfryngau neu y tu ôl i ddolen, wedi\'u canfod â llaw ac yn awtomatig (diolch i @Elshepl). Ar Android 5 i 7.0, mae OpenSubtitles yn ateb eto.</item>
+        <item>Y panel Isdeitlau fel ar y bwrdd gwaith: mae\'n agor uwchben ei fotwm, gyda\'r ieithoedd a\'u niferoedd, y canlyniadau ar-lein a\'r amseru mewn un lle.</item>
+        <item>Gellir ei osod ochr yn ochr â VLC for Android, ac mae\'r ap teledu yn Hebraeg ac Arabeg wedi\'i adlewyrchu\'n llwyr, gyda ffocws y teclyn rheoli o bell lle rydych chi\'n ei ddisgwyl.</item>
+        <item>Maint sy\'n addas i\'ch sgrin: ar deledu mae\'r ap bellach yn fwy ac yn hawdd ei ddarllen o\'r soffa, pennir y maint o\'r sgrin a gellir ei newid yn Gosodiadau › Rhyngwyneb › Maint y rhyngwyneb. Mae rhesi\'n dangos cardiau cyfan ac mae pob ffenestr yn ffitio\'r sgrin.</item>
+        <item>Mae amserlenni teledu mawr iawn yn llwytho heb lenwi\'r cof, gellir dangos dwy iaith isdeitlau ar yr un pryd, ac mae ffocws y teclyn rheoli o bell bob amser yn weladwy.</item>
     </string-array>
     <string name="rd_subtitle_size">Maint isdeitlau</string>
     <string name="rd_cast_this_phone">Y ffôn hwn</string>
@@ -63,4 +66,21 @@
     <string name="rd_unpin_from_home">Dadbinio o\'r Hafan</string>
     <string name="rd_pinned">Wedi\'u pinio</string>
     <string name="rd_pinned_missing">Nid yw\'r ffolder neu\'r rhestr chwarae hon a biniwyd yno bellach.</string>
+    <string name="rd_subs_of_video">Isdeitlau\'r fideo hwn</string>
+    <string name="rd_subs_in_video">Yn y fideo</string>
+    <string name="rd_subs_next_to">Wrth ymyl y fideo · %1$s</string>
+    <string name="rd_subs_next_to_plain">Wrth ymyl y fideo</string>
+    <string name="rd_subs_opened">Agorwyd · %1$s</string>
+    <string name="rd_subs_opened_plain">Ffeil a agorwyd</string>
+    <string name="rd_subs_none_yet">Dim isdeitlau eto</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Dangos y Dewisiadau</string>
+    <string name="rd_subs_position_size">Lleoliad a maint</string>
+    <string name="rd_subs_position">Lleoliad</string>
+    <string name="rd_subs_usual">Arferol</string>
+    <string name="rd_subs_move_down">Symud yr isdeitlau i lawr</string>
+    <string name="rd_subs_move_up">Symud yr isdeitlau i fyny</string>
+    <string name="rd_subs_smaller">Isdeitlau llai</string>
+    <string name="rd_subs_larger">Isdeitlau mwy</string>
+    <string name="rd_os_show_both">Dangos y ddwy iaith ar yr un pryd (isdeitlau deuol)</string>
 </resources>

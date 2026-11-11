@@ -140,7 +140,7 @@ internal class TvChannelAdapter(
             channel = c
             number.text = if (c.number > 0) c.number.toString() else ""
             logo.set(c.logo, c.name)
-            name.text = c.name
+            name.text = TvTexts.own(c.name)
             badge?.let { marks.removeView(it) }
             badge = null
             if (c.catchupDays > 0) {
@@ -165,56 +165,76 @@ internal class TvChannelAdapter(
             row.isActivated = current
             name.setTextColor(if (current) ctx.tvAccent else ctx.tvColor(R.color.rd_fg_a1))
             nowTitle.text = when {
-                now != null -> TvTexts.time(ctx, now.start) + "  " + now.title
+                now != null -> TvTexts.time(ctx, now.start) + "  " + TvTexts.own(now.title)
                 c.hasGuide -> ""
                 else -> ctx.getString(R.string.rd_tv_no_guide)
             }
             progress.visibility = if (now != null && showProgress) View.VISIBLE else View.GONE
             if (now != null) progress.fraction = (t - now.start).toFloat() / maxOf(1L, now.stop - now.start)
-            val d = if (showDescription && now != null && now.descLength > 0) LiveTv.description(c, now).replace('\n', ' ').take(200) else ""
-            desc.text = d
-            desc.visibility = if (d.isEmpty()) View.GONE else View.VISIBLE
+            fun showDesc(text: String) {
+                val d = text.replace('\n', ' ').take(200)
+                desc.text = TvTexts.own(d)
+                desc.visibility = if (d.isEmpty()) View.GONE else View.VISIBLE
+            }
+            if (showDescription && now != null && now.descLength > 0) {
+                // (read off the main thread when not known yet; shown if the row still shows this programme)
+                val wanted = c.key + ":" + now.start
+                desc.tag = wanted
+                val known = LiveTv.description(c, now) { text -> if (desc.tag == wanted) showDesc(text) }
+                showDesc(known ?: "")
+            } else {
+                desc.tag = null
+                showDesc("")
+            }
             val next = if (showNext && wide) c.next(t) else null
             nextBox.visibility = if (wide && showNext) View.VISIBLE else View.GONE
             nextTime.text = if (next != null) ctx.getString(R.string.rd_tv_next_at, TvTexts.time(ctx, next.start)) else ""
-            nextTitle.text = next?.title ?: ""
+            nextTitle.text = TvTexts.own(next?.title)
             itemView.contentDescription = listOfNotNull(c.number.takeIf { it > 0 }?.toString(), c.name, now?.title).joinToString(", ")
         }
     }
 
+    /**
+     * A channel as the desktop's card (TvDisplay.qml's grid): the well 16:9 with a radius of 12, the logo 64 in its
+     * middle, the number in its corner, the catch-up mark in the other, what is on as a line of 4 along its foot
+     * (from the left: a time axis), then the name and what is on. 20 between the cards, 20 under them. The channel
+     * playing has the accent's well and name; the remote's focus the accent's name and a line round the well.
+     */
     inner class CardHolder(ctx: Context) : RecyclerView.ViewHolder(LinearLayout(ctx)) {
         private val card = itemView as LinearLayout
-        private val picture = FrameLayout(ctx)
+        private val picture = CardPicture(ctx)
         private val logo = TvLogoView(ctx, 64f).apply { wellVisible = false }
         private val number = ctx.tvText("", 12f, ctx.tvColor(R.color.rd_fg_a3))
         private val badgeBox = FrameLayout(ctx)
         private val name = ctx.tvText("", 14f, ctx.tvColor(R.color.rd_fg_a1))
         private val nowTitle = ctx.tvText("", 12f, ctx.tvColor(R.color.rd_fg_a3))
-        private val progress = TvProgress(ctx, ctx.tvColor(R.color.rd_divider_dim), ctx.tvAccent)
+        private val progress = CardProgress(ctx, ctx.tvAccent)
         private var channel: TvChannel? = null
+        private var current = false
 
         init {
             card.orientation = LinearLayout.VERTICAL
             card.layoutParams = RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            card.setPadding(ctx.tvPx(6f), ctx.tvPx(6f), ctx.tvPx(6f), ctx.tvPx(10f))
+            // (half the 20 between two cards on each side, the 20 under a row)
+            card.setPadding(ctx.tvPx(10f), 0, ctx.tvPx(10f), ctx.tvPx(20f))
             card.isFocusable = true
             card.isClickable = true
-            card.background = rowBackground(ctx)
+            // (a touch shows on the card; nothing is drawn behind it otherwise, as on the desktop)
+            card.background = RippleDrawable(ColorStateList.valueOf(ctx.tvColor(R.color.rd_ripple_dark)), null, rounded(0xFFFFFFFF.toInt(), ctx.tvDp(12f)))
             picture.addView(logo, FrameLayout.LayoutParams(ctx.tvPx(64f), ctx.tvPx(64f), Gravity.CENTER))
             picture.addView(number, FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.TOP or Gravity.START).apply { setMargins(ctx.tvPx(10f), ctx.tvPx(10f), ctx.tvPx(10f), 0) })
             picture.addView(badgeBox, FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.TOP or Gravity.END).apply { setMargins(ctx.tvPx(8f), ctx.tvPx(8f), ctx.tvPx(8f), 0) })
-            picture.addView(progress, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ctx.tvPx(3f), Gravity.BOTTOM).apply { setMargins(ctx.tvPx(10f), 0, ctx.tvPx(10f), ctx.tvPx(8f)) })
-            card.addView(picture, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0).apply { height = 1 })
+            picture.addView(progress, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ctx.tvPx(4f), Gravity.BOTTOM))
+            card.addView(picture, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+            name.maxLines = 1
+            name.ellipsize = android.text.TextUtils.TruncateAt.END
+            nowTitle.maxLines = 1
+            nowTitle.ellipsize = android.text.TextUtils.TruncateAt.END
             card.addView(name, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { topMargin = ctx.tvPx(14f) })
             card.addView(nowTitle, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { topMargin = ctx.tvPx(4f) })
-            card.addOnLayoutChangeListener { _, l, _, r, _, _, _, _, _ ->
-                val w = r - l - card.paddingLeft - card.paddingRight
-                val h = w * 9 / 16
-                val lp = picture.layoutParams
-                if (w > 0 && lp.height != h) { lp.height = h; picture.layoutParams = lp }
-            }
             card.setOnClickListener { channel?.let(onPlay) }
             card.setOnLongClickListener { v -> channel?.let { onMenu(it, v) }; true }
+            card.setOnFocusChangeListener { _, _ -> look() }
         }
 
         fun bind(c: TvChannel) {
@@ -222,7 +242,7 @@ internal class TvChannelAdapter(
             channel = c
             logo.set(c.logo, c.name)
             number.text = if (c.number > 0) c.number.toString() else ""
-            name.text = c.name
+            name.text = TvTexts.own(c.name)
             badgeBox.removeAllViews()
             if (c.catchupDays > 0) badgeBox.addView(ctx.tvBadge(ctx.resources.getQuantityString(R.plurals.rd_tv_days_short, c.catchupDays, c.catchupDays), R.drawable.rd_ic_recent))
             bindNow(c)
@@ -232,13 +252,59 @@ internal class TvChannelAdapter(
             val ctx = itemView.context
             val t = System.currentTimeMillis() / 1000
             val now = c.now(t)
-            val current = TvPlayback.current.value == c.key
-            picture.background = rounded(if (current) ctx.tvAttr(R.attr.rd_accent_bright) else ctx.tvColor(R.color.rd_tv_logo_well), ctx.tvDp(12f))
-            name.setTextColor(if (current) ctx.tvAccent else ctx.tvColor(R.color.rd_fg_a1))
-            nowTitle.text = now?.title ?: if (c.hasGuide) "" else ctx.getString(R.string.rd_tv_no_guide)
-            progress.visibility = if (now != null && showProgress) View.VISIBLE else View.GONE
-            if (now != null) progress.fraction = (t - now.start).toFloat() / maxOf(1L, now.stop - now.start)
+            current = TvPlayback.current.value == c.key
+            look()
+            nowTitle.text = now?.title?.let { TvTexts.own(it) } ?: if (c.hasGuide) "" else ctx.getString(R.string.rd_tv_no_guide)
+            progress.fraction = if (now != null && showProgress) (t - now.start).toFloat() / maxOf(1L, now.stop - now.start) else 0f
             itemView.contentDescription = listOfNotNull(c.number.takeIf { it > 0 }?.toString(), c.name, now?.title).joinToString(", ")
+        }
+
+        /** the well and the name of the channel playing, of the one the remote is on, of the others */
+        private fun look() {
+            val ctx = itemView.context
+            val focused = card.isFocused
+            picture.setLook(if (current) ctx.tvAttr(R.attr.rd_accent_bright) else ctx.tvColor(R.color.rd_tv_logo_well),
+                if (focused) ctx.tvAccent else 0)
+            name.setTextColor(if (current || focused) ctx.tvAccent else ctx.tvColor(R.color.rd_fg_a1))
+        }
+    }
+
+    /** The card's well: as wide as its card, 16:9, its corners cut round (what is on runs along its foot into them). */
+    private class CardPicture(context: Context) : FrameLayout(context) {
+        private val radius = context.tvDp(12f)
+        private val line = context.tvDp(1.5f)
+        private var fill = 0
+        private var stroke = 0
+
+        init {
+            clipToOutline = true
+            outlineProvider = object : android.view.ViewOutlineProvider() {
+                override fun getOutline(view: View, outline: android.graphics.Outline) = outline.setRoundRect(0, 0, view.width, view.height, radius)
+            }
+        }
+
+        fun setLook(fill: Int, stroke: Int) {
+            if (fill == this.fill && stroke == this.stroke && background != null) return
+            this.fill = fill
+            this.stroke = stroke
+            background = rounded(fill, radius)
+            foreground = if (stroke != 0) rounded(0, radius, line.toInt().coerceAtLeast(1), stroke) else null
+        }
+
+        override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+            val w = MeasureSpec.getSize(widthMeasureSpec)
+            super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(w * 9 / 16, MeasureSpec.EXACTLY))
+        }
+    }
+
+    /** What is on, as a line along the well's foot: from the left in every language (a time axis). */
+    private class CardProgress(context: Context, color: Int) : View(context) {
+        var fraction = 0f
+            set(v) { val c = v.coerceIn(0f, 1f); if (c != field) { field = c; invalidate() } }
+        private val paint = android.graphics.Paint().apply { this.color = color }
+
+        override fun onDraw(canvas: android.graphics.Canvas) {
+            if (fraction > 0f) canvas.drawRect(0f, 0f, width * fraction, height.toFloat(), paint)
         }
     }
 

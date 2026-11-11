@@ -6,4 +6,7 @@
     <item name="rd_active_state" type="id" />
     <item name="rd_active_tint" type="id" />
     <item name="rd_active_anim" type="id" />
+    <!-- the feedback of a key in the player (#72, RdKeyFeedback): its pill and its progress line -->
+    <item name="rd_fs_pill" type="id" />
+    <item name="rd_fs_progress" type="id" />
 </resources>

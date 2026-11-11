@@ -31,4 +31,21 @@
     <string name="rd_unpin_from_home">Spiccicà da l\'Accolta</string>
     <string name="rd_pinned">Appiccicati</string>
     <string name="rd_pinned_missing">Stu cartulare o sta lista di lettura appiccicati ùn ci sò più.</string>
+    <string name="rd_subs_of_video">Sottutituli di stu video</string>
+    <string name="rd_subs_in_video">In u video</string>
+    <string name="rd_subs_next_to">Accantu à u video · %1$s</string>
+    <string name="rd_subs_next_to_plain">Accantu à u video</string>
+    <string name="rd_subs_opened">Apertu · %1$s</string>
+    <string name="rd_subs_opened_plain">Schedariu apertu</string>
+    <string name="rd_subs_none_yet">Ancu nisun sottutitulu</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Mustrà e preferenze</string>
+    <string name="rd_subs_position_size">Pusizione è dimensione</string>
+    <string name="rd_subs_position">Pusizione</string>
+    <string name="rd_subs_usual">Abituale</string>
+    <string name="rd_subs_move_down">Fà falà i sottutituli</string>
+    <string name="rd_subs_move_up">Fà cullà i sottutituli</string>
+    <string name="rd_subs_smaller">Sottutituli più chjuchi</string>
+    <string name="rd_subs_larger">Sottutituli più grandi</string>
+    <string name="rd_os_show_both">Mustrà e duie lingue à tempu (sottutituli duppii)</string>
 </resources>

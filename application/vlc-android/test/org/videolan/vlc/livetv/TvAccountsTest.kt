@@ -141,6 +141,9 @@ class TvAccountsTest {
         routes = listOf("/get.php" to { r -> if (r.auth?.user == "me") TvAnswer(200, m3u) else TvAnswer(401, "") })
         val a = TvAccount(url = "https://iptv.example/get.php", guide = "https://iptv.example/xmltv.php", username = "me", password = "pw")
         assertEquals(TvCheckState.SIGNED_IN, TvAccounts.check("m3ulogin", a).state)
+        // (a Test reads the list's start only: a 60 MB list read whole crashed the app with an OutOfMemoryError)
+        assertTrue(calls.last().truncate)
+        assertEquals(64 shl 10, calls.last().limit)
         val l = TvAccounts.load("m3ulogin", a)
         assertEquals("https://me:pw@iptv.example/live/1.ts", l.channels[0].url)
         assertEquals(listOf("https://iptv.example/xmltv.php"), l.guides)
@@ -199,13 +202,26 @@ class TvAccountsTest {
             "/QuickConnect/Connect" to { _ -> TvAnswer(200, JSONObject().put("Authenticated", ++polls >= 3).toString()) },
             "/Users/AuthenticateWithQuickConnect" to ok("jellyfin-auth.json"))
         val steps = ArrayList<TvCheck>()
-        val c = TvAccounts.check("jellyfin", TvAccount(address = "http://jf:8096")) { steps.add(it) }
+        val c = TvAccounts.check("jellyfin", TvAccount(address = "http://jf:8096"), progress = { steps.add(it) })
         assertEquals(TvCheckState.CODE, steps.single().state)
         assertEquals("123456", steps.single().code)
         assertEquals(TvCheckState.SIGNED_IN, c.state)
         assertEquals("jf-token-abc", c.token)
         assertEquals(3, polls)
         assertTrue(calls.any { it.url.endsWith("/QuickConnect/Connect?secret=s3cr3t") })
+    }
+
+    /** the dialog closed while Quick Connect waits for its code: it stops asking (it asked for 5 minutes, holding it) */
+    @Test
+    fun jellyfinQuickConnectStoppedWhenTheDialogCloses() {
+        var polls = 0
+        val closing = java.util.concurrent.atomic.AtomicBoolean(false)
+        routes = listOf(
+            "/QuickConnect/Initiate" to ok("jellyfin-quickconnect-initiate.json"),
+            "/QuickConnect/Connect" to { _ -> if (++polls == 2) closing.set(true); TvAnswer(200, JSONObject().put("Authenticated", false).toString()) })
+        val c = TvAccounts.check("jellyfin", TvAccount(address = "http://jf:8096"), cancel = closing)
+        assertEquals(TvCheckState.NO_ANSWER, c.state)
+        assertEquals(2, polls)
     }
 
     @Test

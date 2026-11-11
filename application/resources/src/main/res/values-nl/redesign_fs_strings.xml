@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Als je een toets of de afstandsbediening gebruikt</string>
+    <string name="rd_fs_show_controls">De bediening tonen</string>
+    <string name="rd_fs_show_progress">Alleen de voortgang tonen</string>
+    <string name="rd_fs_show_message">Alleen een melding tonen</string>
+    <string name="rd_fs_seconds">%1$s s</string>
+    <string name="rd_fs_paused">Gepauzeerd</string>
+    <string name="rd_fs_playing">Speelt af</string>
+    <string name="rd_fs_info_touch">Het scherm aanraken toont nog steeds de bediening.</string>
+    <string name="rd_fs_info_tv">Op OK, Omhoog, Omlaag of Menu drukken toont nog steeds de bediening.</string>
+</resources>

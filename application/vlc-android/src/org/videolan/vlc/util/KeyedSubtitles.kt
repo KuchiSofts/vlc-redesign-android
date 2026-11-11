@@ -152,7 +152,7 @@ internal object KeyedSubtitles {
         r.status == 429 -> Problem.Busy("SubSource")
         r.status == 404 -> null
         r.status != 200 -> Problem.Status("SubSource", r.status)
-        else -> null
+        else -> OnlineSubtitles.answerProblem("SubSource", r)
     }
 
     /** the title of /movies/search: a film's entry of its IMDb id (else the first), a series' entry of the season */
@@ -264,7 +264,7 @@ internal object KeyedSubtitles {
         if (r.status == 429) return Problem.Busy("SubDL")
         json(r.body)?.let { o -> subDlError(o)?.let { return it } }
         if (r.status == 404 || r.status == 400) return null
-        return if (r.status != 200) Problem.Status("SubDL", r.status) else null
+        return if (r.status != 200) Problem.Status("SubDL", r.status) else OnlineSubtitles.answerProblem("SubDL", r)
     }
 
     fun parseSubDl(json: String, q: Query): List<Result> {
@@ -420,6 +420,7 @@ internal object KeyedSubtitles {
             if (r.status == 401 || r.status == 403) return Pair(emptyList(), Problem.LoginRefused("Titlovi"))
             if (r.status == 429) return Pair(emptyList(), Problem.Busy("Titlovi"))
             if (!OnlineSubtitles.ok(r)) return Pair(emptyList(), OnlineSubtitles.failure("Titlovi", r))
+            OnlineSubtitles.answerProblem("Titlovi", r, login = true)?.let { return Pair(emptyList(), it) }
             return Pair(parseTitlovi(String(r.body, Charsets.UTF_8), q), null)
         }
         return Pair(emptyList(), null)
@@ -438,7 +439,7 @@ internal object KeyedSubtitles {
         val o = json(r.body)
         val status = o?.optInt("status", if (r.status == 200) 0 else -1) ?: if (r.status == 200) 0 else -1
         return when (status) {
-            0 -> if (r.status in 200..299) null else Problem.Status("Assrt", r.status)
+            0 -> if (r.status in 200..299) OnlineSubtitles.answerProblem("Assrt", r) else Problem.Status("Assrt", r.status)
             20000, 20001, 20002 -> Problem.KeyRefused("Assrt")
             30900 -> Problem.Busy("Assrt")
             // (a keyword too short, nothing found)
@@ -517,7 +518,7 @@ internal object KeyedSubtitles {
         r.status == 429 -> Problem.Busy("Jimaku")
         r.status == 404 -> null
         r.status != 200 -> Problem.Status("Jimaku", r.status)
-        else -> null
+        else -> OnlineSubtitles.answerProblem("Jimaku", r)
     }
 
     /** the entry of /entries/search named most like the title (its English or its own name) */
@@ -582,7 +583,7 @@ internal object KeyedSubtitles {
             code == 1001 || r.status == 401 || r.status == 403 -> Problem.KeyRefused("BetaSeries")
             code == 4001 || r.status == 404 -> null
             r.status != 200 -> Problem.Status("BetaSeries", r.status)
-            else -> null
+            else -> OnlineSubtitles.answerProblem("BetaSeries", r)
         }
     }
 
@@ -630,7 +631,7 @@ internal object KeyedSubtitles {
         r.status == 429 -> Problem.Busy("Subs.ro")
         r.status == 404 -> null
         r.status != 200 -> Problem.Status("Subs.ro", r.status)
-        else -> null
+        else -> OnlineSubtitles.answerProblem("Subs.ro", r)
     }
 
     private val sezonRe = Regex("""[Ss]ezon(?:ul)?\s*(\d{1,2})""")
@@ -771,6 +772,7 @@ internal object KeyedSubtitles {
             if (r.status == 429) return Pair(emptyList(), Problem.Busy("Legendas.net"))
             if (r.status == 404) return Pair(emptyList(), null)
             if (!OnlineSubtitles.ok(r)) return Pair(emptyList(), OnlineSubtitles.failure("Legendas.net", r))
+            OnlineSubtitles.answerProblem("Legendas.net", r, login = true)?.let { return Pair(emptyList(), it) }
             return Pair(parseLegendas(String(r.body, Charsets.UTF_8), q), null)
         }
         return Pair(emptyList(), null)

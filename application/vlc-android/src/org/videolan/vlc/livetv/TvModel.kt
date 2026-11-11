@@ -106,6 +106,57 @@ fun EntryList.indexAt(t: Long): Int {
     return if (i >= 0 && t < this[i].stop) i else -1
 }
 
+/**
+ * A channel's programmes (sorted by start) without overlaps, as every app of the redesign shows a guide: where a long
+ * programme holds shorter ones (a film night and its films, a sports block and its matches), the shorter win their
+ * slots and the long one shows around them; where two only overlap at their ends, the shorter keeps the overlap (of
+ * two as long, the one that starts later: the next programme cuts the one before); the same programme twice is shown
+ * once. A list without overlaps comes back as it is (most guides). The lookups (indexAt, firstEndingAfter, the grid)
+ * need one programme at a time.
+ */
+fun EntryList.withoutOverlaps(): EntryList {
+    var reach = Long.MIN_VALUE
+    var overlaps = false
+    for (e in this) {
+        if (e.start < reach) { overlaps = true; break }
+        if (e.stop > reach) reach = e.stop
+    }
+    if (!overlaps) return this
+    val bounds = java.util.TreeSet<Long>()
+    for (e in this) if (e.stop > e.start) { bounds.add(e.start); bounds.add(e.stop) }
+    val b = bounds.toLongArray()
+    // the programmes on at a moment, the one shown first: the shortest, then the latest start, then the first listed
+    val on = java.util.PriorityQueue<Int>(maxOf(1, size), compareBy<Int>({ this[it].stop - this[it].start }, { -this[it].start }, { it }))
+    val out = ArrayList<Entry>(size + 4)
+    var next = 0
+    var piece = -1
+    var pieceStart = 0L
+    var pieceStop = 0L
+    fun flush() {
+        if (piece < 0) return
+        val e = this[piece]
+        out.add(if (e.start == pieceStart && e.stop == pieceStop) e
+            else Entry(pieceStart, pieceStop, e.title, e.subtitle, e.category, e.episode, e.descOffset, e.descLength))
+        piece = -1
+    }
+    for (k in 0 until b.size - 1) {
+        val from = b[k]
+        val to = b[k + 1]
+        while (next < size && this[next].start <= from) {
+            if (this[next].stop > this[next].start) on.add(next)
+            next++
+        }
+        while (on.isNotEmpty() && this[on.peek()!!].stop <= from) on.poll()
+        val top = on.peek()
+        if (top == null) { flush(); continue }
+        if (top == piece && pieceStop == from) pieceStop = to
+        else { flush(); piece = top; pieceStart = from; pieceStop = to }
+    }
+    flush()
+    out.trimToSize()
+    return out
+}
+
 /** The first programme ending after t (what is on, or the next one), size when none. */
 fun EntryList.firstEndingAfter(t: Long): Int {
     var lo = 0
@@ -171,6 +222,8 @@ data class GuideStatus(
     val programmes: Int,
     val error: String,
     val updated: Long,
+    /** the device could not hold all of it: what was kept ("kept the next 3 days of your channels") */
+    val note: String = "",
 )
 
 /** What a source holds and what the add-on is doing with it, for the interface. */
@@ -205,6 +258,8 @@ data class SourceStatus(
     val guides: List<GuideStatus> = emptyList(),
     /** an account's server address (no secret in it): a server found on the network and added isn't offered again */
     val address: String = "",
+    /** the channels with programmes so far, while a guide is read (stage "reading") */
+    val matched: Int = 0,
 )
 
 /** A channel of the add-on: its key, its source, its guide when one has it. */

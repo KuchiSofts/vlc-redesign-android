@@ -47,7 +47,10 @@ class SeekPreview(private val activity: VideoPlayerActivity) {
     private var label: TextView? = null
     private var uri: Uri? = null
     private var retriever: MediaMetadataRetriever? = null
-    private val frames = LruCache<Long, Bitmap>(40)
+    // (by their size: 40 frames of a 4K video before Android 8.1 were over a gigabyte)
+    private val frames = object : LruCache<Long, Bitmap>(16 * 1024 * 1024) {
+        override fun sizeOf(key: Long, value: Bitmap) = value.byteCount
+    }
     @Volatile private var wanted = -1L
     private var worker: Job? = null
     // one thread for the retriever: it is not made for several at once
@@ -58,7 +61,9 @@ class SeekPreview(private val activity: VideoPlayerActivity) {
         if (media == null || !hasVideo || (media.scheme != "file" && media.scheme != "content")) return false
         if (media != uri) {
             frames.evictAll()
-            closeRetriever()
+            // (on the retriever's own thread: one frame may still be decoded with it there)
+            worker?.cancel()
+            kotlinx.coroutines.CoroutineScope(dispatcher).launch { closeRetriever() }
             uri = media
         }
         ensureCard()
@@ -126,9 +131,10 @@ class SeekPreview(private val activity: VideoPlayerActivity) {
         val us = time * 1000
         if (Build.VERSION.SDK_INT >= 27) r.getScaledFrameAtTime(us, MediaMetadataRetriever.OPTION_CLOSEST_SYNC, width, width)
         else r.getFrameAtTime(us, MediaMetadataRetriever.OPTION_CLOSEST_SYNC)?.let { b ->
-            if (b.width <= width) b else Bitmap.createScaledBitmap(b, width, b.height * width / b.width, true)
+            if (b.width <= width) b else Bitmap.createScaledBitmap(b, width, b.height * width / b.width, true).also { if (it !== b) b.recycle() }
         }
-    } catch (e: Exception) {
+    } catch (e: Throwable) {
+        // (an OutOfMemoryError too: a full 4K frame each step before Android 8.1; no preview then, not a crash)
         null
     }
 

@@ -294,4 +294,28 @@
     <string name="rd_tv_its_guide_id">Jeho ID v průvodci</string>
     <string name="rd_tv_forget_guide_id">Zapomenout jeho ID v průvodci</string>
     <string name="rd_tv_guide_id_of">ID kanálu %1$s v průvodci</string>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Načítání průvodce zdroje %1$s… %2$s MB · %3$d kanál</item>
+        <item quantity="few">Načítání průvodce zdroje %1$s… %2$s MB · %3$d kanály</item>
+        <item quantity="many">Načítání průvodce zdroje %1$s… %2$s MB · %3$d kanálů</item>
+        <item quantity="other">Načítání průvodce zdroje %1$s… %2$s MB · %3$d kanálů</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Načítání průvodce… %1$s MB · %2$d kanál</item>
+        <item quantity="few">Načítání průvodce… %1$s MB · %2$d kanály</item>
+        <item quantity="many">Načítání průvodce… %1$s MB · %2$d kanálů</item>
+        <item quantity="other">Načítání průvodce… %1$s MB · %2$d kanálů</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Průvodce je příliš velký: ponechán %1$d následující den vašich kanálů</item>
+        <item quantity="few">Průvodce je příliš velký: ponechány %1$d následující dny vašich kanálů</item>
+        <item quantity="many">Průvodce je příliš velký: ponecháno %1$d následujících dní vašich kanálů</item>
+        <item quantity="other">Průvodce je příliš velký: ponecháno %1$d následujících dní vašich kanálů</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Průvodce je příliš velký: ponechány pořady %1$d z vašich kanálů</item>
+        <item quantity="few">Průvodce je příliš velký: ponechány pořady %1$d z vašich kanálů</item>
+        <item quantity="many">Průvodce je příliš velký: ponechány pořady %1$d z vašich kanálů</item>
+        <item quantity="other">Průvodce je příliš velký: ponechány pořady %1$d z vašich kanálů</item>
+    </plurals>
 </resources>

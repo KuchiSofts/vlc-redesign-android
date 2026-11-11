@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Tekla bat edo urruneko agintea erabiltzean</string>
+    <string name="rd_fs_show_controls">Erakutsi kontrolak</string>
+    <string name="rd_fs_show_progress">Erakutsi progresioa soilik</string>
+    <string name="rd_fs_show_message">Erakutsi mezu bat soilik</string>
+    <string name="rd_fs_seconds">%1$s s</string>
+    <string name="rd_fs_paused">Pausatuta</string>
+    <string name="rd_fs_playing">Erreproduzitzen</string>
+    <string name="rd_fs_info_touch">Pantaila ukitzeak kontrolak erakusten jarraitzen du.</string>
+    <string name="rd_fs_info_tv">OK, Gora, Behera edo Menua sakatzeak kontrolak erakusten jarraitzen du.</string>
+</resources>

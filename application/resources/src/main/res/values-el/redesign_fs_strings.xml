@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Όταν χρησιμοποιείτε ένα πλήκτρο ή το τηλεχειριστήριο</string>
+    <string name="rd_fs_show_controls">Εμφάνιση στοιχείων ελέγχου</string>
+    <string name="rd_fs_show_progress">Εμφάνιση μόνο της προόδου</string>
+    <string name="rd_fs_show_message">Εμφάνιση μόνο ενός μηνύματος</string>
+    <string name="rd_fs_seconds">%1$s δευτ.</string>
+    <string name="rd_fs_paused">Σε παύση</string>
+    <string name="rd_fs_playing">Αναπαράγεται</string>
+    <string name="rd_fs_info_touch">Το άγγιγμα της οθόνης εξακολουθεί να εμφανίζει τα στοιχεία ελέγχου.</string>
+    <string name="rd_fs_info_tv">Το πάτημα του OK, των βελών Πάνω ή Κάτω ή του πλήκτρου Μενού εξακολουθεί να εμφανίζει τα στοιχεία ελέγχου.</string>
+</resources>

@@ -140,7 +140,12 @@ private fun Preference.helpOnly(summary: CharSequence?): CharSequence? =
 
 /** The dropdown of the design: the value in a well with its chevron; the choices open under it. */
 open class RdListPreference @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : ListPreference(context, attrs) {
-    private val help: CharSequence? = helpOnly(super.getSummary())
+    /** the line under the title (the XML's summary unless it is a "%s"); null: none */
+    var help: CharSequence? = helpOnly(super.getSummary())
+        set(value) {
+            field = value
+            notifyChanged()
+        }
     private var well: View? = null
 
     init {
@@ -153,34 +158,65 @@ open class RdListPreference @JvmOverloads constructor(context: Context, attrs: A
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
         well = holder.findViewById(R.id.rd_well)
-        (holder.findViewById(R.id.rd_well_text) as? TextView)?.text = entry?.takeIf { it.isNotEmpty() } ?: "—"
+        (holder.findViewById(R.id.rd_well_text) as? TextView)?.text = entries?.getOrNull(shownIndex())?.takeIf { it.isNotEmpty() } ?: "—"
         holder.findViewById(android.R.id.summary)?.visibility = if (help.isNullOrEmpty()) View.GONE else View.VISIBLE
+    }
+
+    /** the values the device is set to (a language list: its languages, listed first), marked "On this device" */
+    var detected: Set<String> = emptySet()
+
+    /** a list of languages: a value kept under the language's other code ("he" kept, "iw" listed) is that row */
+    var locales = false
+
+    /** The row of the value: its own, else in a list of languages the row of the same language. */
+    private fun shownIndex(): Int {
+        val own = findIndexOfValue(value)
+        val v = value
+        if (own >= 0 || !locales || v.isNullOrEmpty()) return own
+        val values = entryValues?.map { it.toString() } ?: return -1
+        return org.videolan.vlc.util.RdLocaleChoices.match(values, v)?.let { values.indexOf(it) } ?: -1
     }
 
     override fun onClick() {
         val anchor = well
         val values = entryValues
-        if (anchor == null || entries == null || values == null || !anchor.isAttachedToWindow) return super.onClick()
-        val popup = ListPopupWindow(context)
-        popup.anchorView = anchor
-        popup.setAdapter(object : ArrayAdapter<CharSequence>(context, R.layout.rd_pref_choice, android.R.id.text1, entries) {
-            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val v = super.getView(position, convertView, parent)
-                v.isActivated = values[position] == value
-                return v
-            }
-        })
-        popup.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.rd_menu_background))
-        popup.width = maxOf(anchor.width, context.rdDp(180f).toInt())
-        popup.isModal = true
-        val selected = findIndexOfValue(value)
-        popup.setOnItemClickListener { _, _, position, _ ->
+        val names = entries
+        if (anchor == null || names == null || values == null || !anchor.isAttachedToWindow) return super.onClick()
+        val selected = shownIndex()
+        val rows = names.indices.map { i -> org.videolan.vlc.gui.helpers.RdDropdown.Row(names[i], i == selected, values[i].toString() in detected) }
+        org.videolan.vlc.gui.helpers.RdDropdown.show(anchor, rows, if (selected >= 0) selected else rows.indexOfFirst { it.detected }.coerceAtLeast(0)) { position ->
             val v = values[position].toString()
             if (callChangeListener(v)) value = v
-            popup.dismiss()
         }
-        popup.show()
-        if (selected >= 0) popup.listView?.setSelection(selected)
+    }
+}
+
+/**
+ * A slider whose summary is its value in words ("4s", "2.0x"): the value is shown once, at the row's end, where the
+ * bare number stood (the row said "4s" under its name and "4" beside it).
+ */
+class RdValueSeekBarPreference @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : androidx.preference.SeekBarPreference(context, attrs) {
+    override fun onBindViewHolder(holder: PreferenceViewHolder) {
+        super.onBindViewHolder(holder)
+        val words = summary?.toString().orEmpty()
+        if (words.isEmpty() || words == "%s") return
+        (holder.findViewById(R.id.seekbar_value) as? TextView)?.let { it.visibility = View.VISIBLE; it.text = words }
+        holder.findViewById(android.R.id.summary)?.visibility = View.GONE
+    }
+}
+
+/** A note under a setting, its words alone (the Samsung TV app's settings.js nt()): never focused, never clicked. */
+class RdNotePreference @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : Preference(context, attrs) {
+    init {
+        layoutResource = R.layout.rd_pref_note
+        isSelectable = false
+        isPersistent = false
+    }
+
+    override fun onBindViewHolder(holder: PreferenceViewHolder) {
+        super.onBindViewHolder(holder)
+        holder.itemView.isFocusable = false
+        holder.itemView.isClickable = false
     }
 }
 
@@ -249,6 +285,9 @@ class RdSegmentedPreference @JvmOverloads constructor(context: Context, attrs: A
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
         holder.itemView.isClickable = false
+        // (the remote goes straight to the choices: the row itself took the focus, and OK on it did nothing)
+        holder.itemView.isFocusable = false
+        (holder.itemView as? ViewGroup)?.descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
         holder.itemView.background = null
         holder.findViewById(android.R.id.summary)?.visibility = View.GONE
         val box = holder.findViewById(R.id.rd_segments) as? LinearLayout ?: return
@@ -274,6 +313,7 @@ class RdSegmentedPreference @JvmOverloads constructor(context: Context, attrs: A
                 }
                 isSelected = chosen
                 contentDescription = label
+                isFocusable = true
                 setOnClickListener { if (!chosen && callChangeListener(v)) value = v }
             }
             if (org.videolan.vlc.gui.tablet.RdTvWindow.isOn(ctx)) {
@@ -305,6 +345,9 @@ class RdAccentPreference @JvmOverloads constructor(context: Context, attrs: Attr
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
         holder.itemView.isClickable = false
+        // (the remote goes straight to the choices: the row itself took the focus, and OK on it did nothing)
+        holder.itemView.isFocusable = false
+        (holder.itemView as? ViewGroup)?.descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
         holder.itemView.background = null
         val box = holder.findViewById(R.id.rd_swatches) as? ViewGroup ?: return
         box.removeAllViews()
@@ -324,6 +367,7 @@ class RdAccentPreference @JvmOverloads constructor(context: Context, attrs: Attr
                 }
                 contentDescription = ctx.getString(R.string.rd_accent_named, entries[i])
                 isSelected = chosen
+                isFocusable = true
                 setOnClickListener { if (!chosen && callChangeListener(v)) value = v }
             }
             if (org.videolan.vlc.gui.tablet.RdTvWindow.isOn(ctx) && box is LinearLayout) {

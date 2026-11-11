@@ -30,11 +30,14 @@
     <string name="rd_ob_history_help">Przechowywana tylko na tym urządzeniu, aby kontynuować od miejsca, w którym przerwano.</string>
     <string name="rd_ob_updates_help">Raz dziennie sprawdza, czy jest nowsza testowa wersja VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Napisy: SubSource (arabski), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 i Legendas.net z Twoim darmowym kluczem lub kontem. Każdy serwis w Ustawienia › Napisy, z własnym przełącznikiem.</item>
-        <item>Języki wyszukiwania: włącz lub wyłącz każdy język napisów, by wyszukiwanie było szybsze.</item>
-        <item>Konta telewizji na żywo: Twój Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR lub HDHomeRun oraz program TV Schedules Direct. Serwery w Twojej sieci znajdują się same.</item>
-        <item>Telewizja na żywo: program TV znajdowany automatycznie dla kanałów, które go nie mają, karta „Programy TV” z programami wszystkich źródeł i źródła z Twojego kraju na początku katalogu.</item>
-        <item>Poprawki: pobrane napisy zapisywane we własnej pamięci aplikacji (awaria w systemie Android 14), hasła ukryte podczas wpisywania, fokus przy sterowaniu pilotem, tłumaczenie słowa „Kraj” w wielu językach i słowo „hasło” po arabsku.</item>
+        <item>Szybciej i stabilniej: telewizja na żywo i napisy działają w tle, a awarie i zawieszający się odtwarzacz w systemie Android 5 i na przystawkach TV zostały naprawione.</item>
+        <item>Pełny ekran: klawisz, pilot lub gest mogą zamiast elementów sterujących pokazywać tylko postęp lub tylko komunikat, w Ustawienia › Interfejs. Dziękujemy @BarbodF.</item>
+        <item>Mądrzejsze automatyczne napisy: najpierw używany jest folder Subs dołączony do filmu, plik z reklamą lub tylko z wymuszonymi wierszami nie liczy się już jako napisy, wyszukiwanie działa też dla filmu, którego obraz zaczyna się później, a interpunkcja po hebrajsku i arabsku pojawia się na właściwym końcu.</item>
+        <item>Napisy z internetu teraz także dla filmów z udziału sieciowego, serwera multimediów lub linku, wyszukiwane ręcznie i automatycznie (dziękujemy @Elshepl). W systemie Android 5–7.0 OpenSubtitles znów odpowiada.</item>
+        <item>Panel napisów jak w wersji na komputer: otwiera się nad swoim przyciskiem, a języki z liczbą napisów, wyniki z internetu i synchronizacja są w jednym miejscu.</item>
+        <item>Instaluje się obok VLC for Android, a aplikacja na telewizor po hebrajsku i arabsku jest w całości odbita lustrzanie, z fokusem pilota tam, gdzie się go spodziewasz.</item>
+        <item>Dopasowane do Twojego ekranu: na telewizorze aplikacja jest teraz większa i dobrze czytelna z kanapy, rozmiar jest ustalany na podstawie ekranu i można go zmienić w Ustawienia › Interfejs › Rozmiar interfejsu. Rzędy pokazują całe karty, a każde okno mieści się na ekranie.</item>
+        <item>Bardzo duże programy TV wczytują się bez zapełniania pamięci, napisy w dwóch językach mogą być wyświetlane jednocześnie, a fokus pilota jest zawsze widoczny.</item>
     </string-array>
     <string name="rd_subtitle_size">Rozmiar napisów</string>
     <string name="rd_cast_this_phone">Ten telefon</string>
@@ -67,4 +70,21 @@
     <string name="rd_volume_left_side">Lewa strona</string>
     <string name="rd_volume_top_right">Prawy górny róg</string>
     <string name="rd_volume_top_left">Lewy górny róg</string>
+    <string name="rd_subs_of_video">Napisy do tego wideo</string>
+    <string name="rd_subs_in_video">W wideo</string>
+    <string name="rd_subs_next_to">Obok wideo · %1$s</string>
+    <string name="rd_subs_next_to_plain">Obok wideo</string>
+    <string name="rd_subs_opened">Otwarte · %1$s</string>
+    <string name="rd_subs_opened_plain">Otwarty plik</string>
+    <string name="rd_subs_none_yet">Brak napisów</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Pokaż preferencje</string>
+    <string name="rd_subs_position_size">Położenie i rozmiar</string>
+    <string name="rd_subs_position">Położenie</string>
+    <string name="rd_subs_usual">Zwykły</string>
+    <string name="rd_subs_move_down">Przesuń napisy w dół</string>
+    <string name="rd_subs_move_up">Przesuń napisy w górę</string>
+    <string name="rd_subs_smaller">Mniejsze napisy</string>
+    <string name="rd_subs_larger">Większe napisy</string>
+    <string name="rd_os_show_both">Pokazuj oba języki naraz (podwójne napisy)</string>
 </resources>

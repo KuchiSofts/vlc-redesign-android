@@ -47,6 +47,8 @@ import org.videolan.vlc.util.OnlineSubtitles.Problem
 import org.videolan.vlc.util.RdToast
 import org.videolan.vlc.util.SubtitleSecrets
 
+private const val MAX_ROWS = 150
+
 class RdOnlineSubtitlesSheet : VLCBottomSheetDialogFragment() {
 
     private lateinit var status: TextView
@@ -92,8 +94,10 @@ class RdOnlineSubtitlesSheet : VLCBottomSheetDialogFragment() {
         val find = { findTitles(titleField.text.toString()) }
         root.findViewById<View>(R.id.rd_os_title_go).setOnClickListener { find() }
         titleField.setOnEditorActionListener { _, action, event ->
-            if (action == EditorInfo.IME_ACTION_SEARCH || event?.keyCode == KeyEvent.KEYCODE_ENTER) {
-                find(); true
+            // (a keyboard's Enter comes down and up: one search, not two)
+            if (action == EditorInfo.IME_ACTION_SEARCH && event == null || event?.keyCode == KeyEvent.KEYCODE_ENTER) {
+                if (event == null || event.action == KeyEvent.ACTION_UP) find()
+                true
             } else false
         }
         // (shown once the services' keys are read, off the main thread)
@@ -142,7 +146,7 @@ class RdOnlineSubtitlesSheet : VLCBottomSheetDialogFragment() {
         rows.removeAllViews()
         setBusy(true, getString(R.string.rd_os_identifying))
         job = lifecycleScope.launch {
-            val m = media ?: withContext(Dispatchers.IO) { OnlineSubtitles.mediaOf(mw.uri, mw.title) }.also { media = it }
+            val m = media ?: withContext(Dispatchers.IO) { OnlineSubtitles.mediaOf(mw.uri, mw.title, context = ctx) }.also { media = it }
             val found = if (identify) withContext(Dispatchers.IO) { OnlineSubtitles.identify(ctx, m) } else match
             setBusy(true, getString(R.string.rd_os_looking))
             show(OnlineSubtitles.search(ctx, m, found))
@@ -175,7 +179,10 @@ class RdOnlineSubtitlesSheet : VLCBottomSheetDialogFragment() {
         status.text = getString(R.string.rd_os_found, title.ifEmpty { outcome.media.title }, outcome.results.size.toString())
         var language: String? = null
         var inLanguage = 0
+        var shown = 0
         for (ranked in outcome.results) {
+            // (every other language too: hundreds of rows built at once on the main thread; the best ones are first)
+            if (shown >= MAX_ROWS) break
             val r = ranked.result
             if (r.language != language) {
                 language = r.language
@@ -185,6 +192,7 @@ class RdOnlineSubtitlesSheet : VLCBottomSheetDialogFragment() {
             // (the best of each language: a long list of one helps no one)
             if (++inLanguage > 25) continue
             rows.addView(row(ctx, ranked))
+            shown++
         }
     }
 
@@ -308,6 +316,8 @@ class RdOnlineSubtitlesSheet : VLCBottomSheetDialogFragment() {
             Problem.Save -> ctx.getString(R.string.rd_os_err_save)
             Problem.Offline -> ctx.getString(R.string.rd_os_err_offline)
             is Problem.Download -> ctx.getString(R.string.rd_os_err_download, p.code.toString())
+            // (its own words when it said any: "SubDL: 502 Bad Gateway")
+            is Problem.BadAnswer -> if (p.error.isNotBlank()) p.service + ": " + p.error else ctx.getString(R.string.rd_os_err_no_answer, p.service)
         }
     }
 }

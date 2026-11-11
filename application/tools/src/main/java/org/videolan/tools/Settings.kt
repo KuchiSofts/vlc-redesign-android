@@ -215,6 +215,8 @@ const val PREF_RESTORE_VIDEO_TIPS_SHOWN = "pref_restore_video_tips_shown"
 const val PREF_SHOW_VIDEO_SETTINGS_DISCLAIMER = "pref_show_video_settings_disclaimer"
 
 const val PREF_TV_UI = "tv_ui"
+/** VLC Redesign: the interface size of the TV layout in percent of the design's, "0" the one found for the screen */
+const val KEY_RD_INTERFACE_SCALE = "rd_interface_scale"
 const val PLAYLIST_MODE_VIDEO = "playlist_mode_video"
 const val PLAYLIST_MODE_AUDIO = "playlist_mode_audio"
 

@@ -67,7 +67,7 @@ object RdTvNewPlaylistDialog {
             clipToOutline = true
         }
         fun at(v: View, x: Int, y: Int, w: Int = ViewGroup.LayoutParams.WRAP_CONTENT, h: Int = ViewGroup.LayoutParams.WRAP_CONTENT) =
-                card.addView(v, FrameLayout.LayoutParams(if (w > 0) w.dp else w, if (h > 0) h.dp else h).apply { leftMargin = x.dp; topMargin = y.dp })
+                card.addView(v, FrameLayout.LayoutParams(if (w > 0) w.dp else w, if (h > 0) h.dp else h).apply { marginStart = x.dp; topMargin = y.dp })
         fun text(size: Float, color: Int, x: Int, y: Int, value: CharSequence, w: Int = ViewGroup.LayoutParams.WRAP_CONTENT) = TextView(ctx).apply {
             typeface = inter
             setTextSize(TypedValue.COMPLEX_UNIT_DIP, size)
@@ -223,10 +223,10 @@ object RdTvNewPlaylistDialog {
             pick.launch(intent)
         }
         dialog.setOnDismissListener { pick.unregister() }
-        dialog.setContentView(card, ViewGroup.LayoutParams(713.dp, 589.dp))
+        // (the design's size, smaller as a whole on a screen that does not hold it: RdFit)
+        org.videolan.vlc.gui.helpers.RdFit.design(dialog, card, 713.dp, 589.dp)
         dialog.window?.apply {
             setBackgroundDrawable(ColorDrawable(0))
-            setLayout(713.dp, 589.dp)
             setDimAmount(0.4f)
             addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
         }

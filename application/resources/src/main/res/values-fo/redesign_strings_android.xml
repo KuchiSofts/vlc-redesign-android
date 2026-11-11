@@ -29,4 +29,21 @@
     <string name="rd_unpin_from_home">Loys frá heimasíðuni</string>
     <string name="rd_pinned">Fest</string>
     <string name="rd_pinned_missing">Henda festa mappan ella spælilistin er ikki longur til.</string>
+    <string name="rd_subs_of_video">Undirtekstir til hetta sjónbandið</string>
+    <string name="rd_subs_in_video">Í sjónbandinum</string>
+    <string name="rd_subs_next_to">Við síðuna av sjónbandinum · %1$s</string>
+    <string name="rd_subs_next_to_plain">Við síðuna av sjónbandinum</string>
+    <string name="rd_subs_opened">Opnað · %1$s</string>
+    <string name="rd_subs_opened_plain">Opnaður fílur</string>
+    <string name="rd_subs_none_yet">Ongir undirtekstir enn</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Vís stillingar</string>
+    <string name="rd_subs_position_size">Støða og stødd</string>
+    <string name="rd_subs_position">Støða</string>
+    <string name="rd_subs_usual">Vanligt</string>
+    <string name="rd_subs_move_down">Flyt undirtekstirnar niður</string>
+    <string name="rd_subs_move_up">Flyt undirtekstirnar upp</string>
+    <string name="rd_subs_smaller">Minni undirtekstir</string>
+    <string name="rd_subs_larger">Størri undirtekstir</string>
+    <string name="rd_os_show_both">Vís bæði málini samstundis (tvífaldir undirtekstir)</string>
 </resources>

@@ -30,11 +30,14 @@
     <string name="rd_ob_history_help">Hoitakse ainult selles seadmes, et saaksid jätkata sealt, kus pooleli jäid.</string>
     <string name="rd_ob_updates_help">Otsib kord päevas VLC for Androidi uuemat testversiooni.</string>
     <string-array name="rd_whats_new_items">
-        <item>Subtiitrid: SubSource (araabia), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 ja Legendas.net sinu tasuta võtme või kontoga. Iga teenus jaotises Sätted › Subtiitrid, oma lülitiga.</item>
-        <item>Otsingukeeled: lülita iga subtiitrikeel sisse või välja, et otsing oleks kiirem.</item>
-        <item>Otse-TV kontod: sinu Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR või HDHomeRun ning telekavateenus Schedules Direct. Sinu võrgus olevad serverid leitakse ise.</item>
-        <item>Otse-TV: ise leitud telekava kanalitele, millel seda pole, vahekaart Telekavad iga allika telekavadega ja kataloogis esmalt sinu riigi allikad.</item>
-        <item>Parandused: allalaaditud subtiitrid salvestatakse rakenduse enda salvestusruumi (parandab kokkujooksmise Android 14 puhul), parooliväljad ei näita enam parooli, teleri kaugjuhtimispuldi fookus, sõna \"Riik\" tõlge paljudes keeltes ja sõna parool araabia keeles.</item>
+        <item>Kiirem ja stabiilsem: otse-TV ja subtiitrid töötavad taustal ning kokkujooksmised ja hangunud mängija Android 5 ja TV-karpide puhul on parandatud.</item>
+        <item>Täisekraan: klahv, pult või žest saab juhtnuppude asemel näidata ainult edenemist või ainult teadet, jaotises Sätted › Kasutajaliides. Aitäh, @BarbodF!</item>
+        <item>Nutikamad automaatsed subtiitrid: esmalt kasutatakse video enda Subs-kausta, reklaamifail või ainult sunnitud ridadega fail ei lähe enam subtiitrina arvesse, subtiitreid otsitakse ka filmile, mille pilt algab hilja, ning heebrea ja araabia kirjavahemärgid on õiges otsas.</item>
+        <item>Veebisubtiitrid nüüd ka võrgujagamisel, meediaserveris või lingi taga olevatele videotele, nii käsitsi kui ka automaatselt otsides (aitäh, @Elshepl). Android 5 kuni 7.0 puhul vastab OpenSubtitles taas.</item>
+        <item>Subtiitrite paneel nagu arvutiversioonis: avaneb oma nupu kohal ning keeled koos arvudega, veebitulemused ja ajastus on ühes kohas.</item>
+        <item>Paigaldub rakenduse VLC for Android kõrvale ning teleri rakendus on heebrea ja araabia keeles täielikult peegeldatud, kaugjuhtimispuldi fookus on seal, kus seda ootad.</item>
+        <item>Sinu ekraanile sobivas suuruses: teleris on rakendus nüüd suurem ja diivanilt hästi loetav, suurus määratakse ekraani järgi ja seda saab muuta menüüs Seaded › Liides › Liidese suurus. Read näitavad terveid kaarte ja iga aken mahub ekraanile.</item>
+        <item>Väga suured telekavad laaditakse mälu täitmata, korraga saab näidata kahte subtiitrikeelt ning kaugjuhtimispuldi fookus on alati nähtav.</item>
     </string-array>
     <string name="rd_subtitle_size">Subtiitrite suurus</string>
     <string name="rd_cast_this_phone">See telefon</string>
@@ -62,4 +65,21 @@
     <string name="rd_unpin_from_home">Eemalda avavaatest</string>
     <string name="rd_pinned">Kinnitatud</string>
     <string name="rd_pinned_missing">Seda kinnitatud kausta või esitusloendit enam pole.</string>
+    <string name="rd_subs_of_video">Selle video subtiitrid</string>
+    <string name="rd_subs_in_video">Videos</string>
+    <string name="rd_subs_next_to">Video kõrval · %1$s</string>
+    <string name="rd_subs_next_to_plain">Video kõrval</string>
+    <string name="rd_subs_opened">Avatud · %1$s</string>
+    <string name="rd_subs_opened_plain">Avatud fail</string>
+    <string name="rd_subs_none_yet">Subtiitreid veel pole</string>
+    <string name="rd_subs_hi_short">VK</string>
+    <string name="rd_show_preferences">Kuva eelistused</string>
+    <string name="rd_subs_position_size">Asukoht ja suurus</string>
+    <string name="rd_subs_position">Asukoht</string>
+    <string name="rd_subs_usual">Tavaline</string>
+    <string name="rd_subs_move_down">Liiguta subtiitreid alla</string>
+    <string name="rd_subs_move_up">Liiguta subtiitreid üles</string>
+    <string name="rd_subs_smaller">Väiksemad subtiitrid</string>
+    <string name="rd_subs_larger">Suuremad subtiitrid</string>
+    <string name="rd_os_show_both">Kuva mõlemad keeled korraga (kahekordsed subtiitrid)</string>
 </resources>

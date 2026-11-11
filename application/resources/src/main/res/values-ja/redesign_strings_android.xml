@@ -30,11 +30,14 @@
     <string name="rd_ob_history_help">このデバイスにのみ保存され、前回の続きから再開するために使われます。</string>
     <string name="rd_ob_updates_help">1 日に 1 回、VLC for Android の新しいテスト版を確認します。</string>
     <string-array name="rd_whats_new_items">
-        <item>字幕：SubSource（アラビア語）、SubDL、Titlovi、Assrt、Jimaku、BetaSeries、Subs.ro、Napisy24、Legendas.net はご自身の無料キーまたはアカウントで使えます。どれも「設定 › 字幕」にあり、スイッチでオン／オフできます。</item>
-        <item>検索する言語：字幕の言語ごとにオン／オフを切り替えて、検索を速くできます。</item>
-        <item>ライブ TV のアカウント：ご自身の Jellyfin、Emby、Tvheadend、NextPVR、Channels DVR、HDHomeRun と、Schedules Direct のガイド。ネットワーク上のサーバーは自動で見つかります。</item>
-        <item>ライブ TV：ガイドのないチャンネル用にガイドを自動で検出、すべてのソースのガイドを表示する「ガイド」タブ、カタログではお住まいの国のソースを先頭に表示します。</item>
-        <item>修正：字幕をアプリ自身のストレージに保存（Android 14 でのクラッシュ）、パスワード欄の入力を非表示に、TV リモコンのフォーカス、多くの言語での「国」の訳語、アラビア語の「パスワード」の訳語。</item>
+        <item>より速く安定：ライブ TV と字幕がバックグラウンドで動作し、Android 5 と TV ボックスでのクラッシュやプレーヤーのフリーズを修正しました。</item>
+        <item>フルスクリーン：キー、リモコン、ジェスチャーで、操作ボタンの代わりに進行状況のみ、またはメッセージのみを表示できます（「設定 › インターフェース」）。@BarbodF さんに感謝します。</item>
+        <item>自動字幕がより賢く：動画に付属の Subs フォルダーを最優先で使用、広告だけのファイルや強制字幕の行だけのファイルは字幕として数えず、映像が遅れて始まる映画も検索、ヘブライ語とアラビア語の句読点は正しい側の端に表示。</item>
+        <item>ネットワーク共有、メディアサーバー、リンク先の動画でも、オンラインで字幕を手動でも自動でも見つけられるようになりました（@Elshepl さんに感謝します）。Android 5～7.0 では OpenSubtitles が再び応答します。</item>
+        <item>デスクトップ版と同じ字幕パネル：ボタンの上に開き、言語とその件数、オンラインの検索結果、タイミングを 1 か所にまとめて表示。</item>
+        <item>VLC for Android と並べてインストール可能。TV アプリはヘブライ語とアラビア語で画面全体が左右反転し、リモコンのフォーカスも思いどおりの位置に。</item>
+        <item>画面に合わせたサイズ：テレビではアプリが大きくなり、ソファからでも読みやすく。サイズは画面から自動で決まり、設定 › インターフェース › インターフェースのサイズで変更可能。行にはカード全体が表示され、どのウィンドウも画面に収まります。</item>
+        <item>非常に大きな番組表もメモリを使い切らずに読み込み、2 つの言語の字幕を同時に表示でき、リモコンのフォーカスは常に見える状態に。</item>
     </string-array>
     <string name="rd_subtitle_size">字幕のサイズ</string>
     <string name="rd_cast_this_phone">このスマートフォン</string>
@@ -67,4 +70,21 @@
     <string name="rd_volume_left_side">左側</string>
     <string name="rd_volume_top_right">右上隅</string>
     <string name="rd_volume_top_left">左上隅</string>
+    <string name="rd_subs_of_video">このビデオの字幕</string>
+    <string name="rd_subs_in_video">ビデオ内</string>
+    <string name="rd_subs_next_to">ビデオと同じ場所 · %1$s</string>
+    <string name="rd_subs_next_to_plain">ビデオと同じ場所</string>
+    <string name="rd_subs_opened">開いたファイル · %1$s</string>
+    <string name="rd_subs_opened_plain">開いたファイル</string>
+    <string name="rd_subs_none_yet">まだ字幕はありません</string>
+    <string name="rd_subs_hi_short">聴覚</string>
+    <string name="rd_show_preferences">設定を表示</string>
+    <string name="rd_subs_position_size">位置とサイズ</string>
+    <string name="rd_subs_position">位置</string>
+    <string name="rd_subs_usual">通常</string>
+    <string name="rd_subs_move_down">字幕を下へ移動</string>
+    <string name="rd_subs_move_up">字幕を上へ移動</string>
+    <string name="rd_subs_smaller">字幕を小さく</string>
+    <string name="rd_subs_larger">字幕を大きく</string>
+    <string name="rd_os_show_both">両方の言語を同時に表示 (二重字幕)</string>
 </resources>

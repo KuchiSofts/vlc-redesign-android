@@ -100,6 +100,9 @@
     <string name="rd_sec_diagnostics">Diagnostik</string>
     <string name="rd_sec_advanced">Avancerade alternativ</string>
     <string name="rd_sec_window">Fönster</string>
+    <string name="rd_interface_size">Gränssnittets storlek</string>
+    <string name="rd_interface_size_summary">Hur stort sidorna, texterna och reglagen ritas. Automatisk väljer den storlek som passar den här skärmen.</string>
+    <string name="rd_interface_size_auto">Automatisk (%1$s)</string>
     <string name="rd_sec_playback_controls">Uppspelningskontroller</string>
     <string name="rd_sec_playlist">Spellista</string>
     <string name="rd_sec_player_bar">Spelarfält</string>
@@ -461,4 +464,5 @@
     <string name="rd_os_find_language">Hitta ett språk</string>
     <string name="rd_os_picked_in_player">Valt i spelaren</string>
     <string name="rd_os_second_short">Andra språk</string>
+    <string name="rd_on_this_device">På den här enheten</string>
 </resources>

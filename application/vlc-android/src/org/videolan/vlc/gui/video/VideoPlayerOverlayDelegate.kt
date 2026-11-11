@@ -489,6 +489,8 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
         player.service?.let { service ->
             if (player.tipsDelegate.currentTip != null) return
             if (player.isInPictureInPictureMode) return
+            // (the controls shown: the feedback of a key gives way to them)
+            player.keyFeedback.onControlsShown()
             initOverlay()
             if (!::hudBinding.isInitialized) return
             overlayTimeout = when {
@@ -539,6 +541,98 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
             }
 
             resetSleepTimer(service)
+            hudBinding.rdBar.post { rdLiftSubtitles() }
+        }
+    }
+
+    /**
+     * VLC Redesign: the subtitles lifted above the control bar while it shows, back down when it hides (the desktop
+     * does the same): a subtitle's second line was drawn under the bar. Both languages of dual subtitles move.
+     *
+     * Where the subtitles are drawn decides what is lifted. A video that comes straight from the device's decoder
+     * has them on their own surface: that surface alone is lifted, the picture stays. When libvlc draws them into
+     * the picture itself (its OpenGL output: a video decoded in software, one with effects, an emulator) their
+     * surface is never drawn on and lifting it moved nothing, the bar covered the line: the picture is lifted with
+     * them then, what leaves the screen at the top and the gap left at the bottom being under the bars.
+     */
+    fun rdLiftSubtitles() {
+        val video = player.findViewById<View>(R.id.surface_video)
+        var lift = 0
+        // (locked too: the bar that says how to unlock stands over the same lines)
+        if (player.isShowing && ::hudBinding.isInitialized && video != null && video.height > 0) {
+            val bar = hudBinding.rdBar
+            if (bar.isShown && bar.height > 0) {
+                val at = IntArray(2)
+                bar.getLocationInWindow(at)
+                val barTop = at[1]
+                video.getLocationInWindow(at)
+                // (the picture's own place, without the lift it may have now)
+                lift = (at[1] - video.translationY.toInt() + video.height - barTop).coerceIn(0, video.height / 2)
+            }
+        }
+        if (rdLiftWanted == lift) return
+        rdLiftWanted = lift
+        rdApplyLift()
+        if (lift > 0) rdProbeSubtitleSurface()
+    }
+
+    /** A subtitle track was chosen or switched off: what is lifted follows (the picture never moves without one) */
+    fun rdSubtitleTrackChanged() {
+        if (rdLiftWanted <= 0) return
+        rdApplyLift()
+        rdProbeSubtitleSurface()
+    }
+
+    /** the lift asked for now, in pixels (-1: none computed yet) */
+    private var rdLiftWanted = -1
+
+    /** whether libvlc draws the subtitles on their own surface (null: not known yet) */
+    private var rdSubtitlesOwnSurface: Boolean? = null
+    private var rdSurfaceProbe = 0
+
+    private fun rdApplyLift() {
+        val lift = rdLiftWanted.coerceAtLeast(0)
+        val video = player.findViewById<View>(R.id.surface_video)
+        val subtitles = player.findViewById<View>(R.id.surface_subtitles)
+        val shown = try { player.service?.let { it.spuTracksCount > 0 && it.spuTrack != "-1" } == true } catch (e: Exception) { false }
+        val ownSurface = rdSubtitlesOwnSurface != false || !shown
+        // (the picture itself no further than an eighth of its height: a phone's bar is tall)
+        val moved = if (ownSurface) lift else lift.coerceAtMost((video?.height ?: 0) / 8)
+        player.rdSubtitleLift = moved
+        subtitles?.translationY = -moved.toFloat()
+        video?.translationY = if (ownSurface) 0f else -moved.toFloat()
+    }
+
+    /**
+     * Asks the system whether the subtitles' surface was ever drawn on (a copy of a surface nothing was drawn on
+     * says so: Android 7, as a surface that follows its view's place). The answer comes a moment later.
+     */
+    private fun rdProbeSubtitleSurface() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) return
+        val surface = player.findViewById<View>(R.id.surface_subtitles) as? android.view.SurfaceView ?: return
+        val probe = ++rdSurfaceProbe
+        val pixels = try {
+            android.graphics.Bitmap.createBitmap(16, 9, android.graphics.Bitmap.Config.ARGB_8888)
+        } catch (e: Throwable) {
+            return
+        }
+        try {
+            android.view.PixelCopy.request(surface, pixels, { result ->
+                pixels.recycle()
+                if (probe != rdSurfaceProbe) return@request
+                val own = when (result) {
+                    android.view.PixelCopy.SUCCESS -> true
+                    android.view.PixelCopy.ERROR_SOURCE_NO_DATA -> false
+                    else -> return@request
+                }
+                if (rdSubtitlesOwnSurface != own) {
+                    rdSubtitlesOwnSurface = own
+                    if (rdLiftWanted > 0) rdApplyLift()
+                }
+            }, player.handler)
+        } catch (e: Exception) {
+            // (no surface yet: asked again the next time the bar shows)
+            pixels.recycle()
         }
     }
 
@@ -685,7 +779,7 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
                 manageTitleConstraints()
                 updateTitleConstraints()
                 updateHudMargins()
-                hudBinding.rdBar.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> syncHudBackground() }
+                hudBinding.rdBar.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> syncHudBackground(); rdLiftSubtitles() }
                 if (RdTvWindow.isOn(player)) tvSeekBarKeys()
 
                 initSeekButton()
@@ -1426,6 +1520,7 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
 
             showControls(false)
             player.isShowing = false
+            rdLiftSubtitles()
             dimStatusBar(true)
             playlistSearchText.editText?.setText("")
         } else if (!fromUser) {

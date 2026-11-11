@@ -314,4 +314,36 @@
     <string name="rd_tv_its_guide_id">معرّفها في الدليل</string>
     <string name="rd_tv_forget_guide_id">نسيان معرّفها في الدليل</string>
     <string name="rd_tv_guide_id_of">معرّف %1$s في الدليل</string>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="zero">جارٍ قراءة دليل %1$s… %2$s MB · %3$d قناة</item>
+        <item quantity="one">جارٍ قراءة دليل %1$s… %2$s MB · %3$d قناة</item>
+        <item quantity="two">جارٍ قراءة دليل %1$s… %2$s MB · قناتان</item>
+        <item quantity="few">جارٍ قراءة دليل %1$s… %2$s MB · %3$d قنوات</item>
+        <item quantity="many">جارٍ قراءة دليل %1$s… %2$s MB · %3$d قناة</item>
+        <item quantity="other">جارٍ قراءة دليل %1$s… %2$s MB · %3$d قناة</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="zero">جارٍ قراءة الدليل… %1$s MB · %2$d قناة</item>
+        <item quantity="one">جارٍ قراءة الدليل… %1$s MB · %2$d قناة</item>
+        <item quantity="two">جارٍ قراءة الدليل… %1$s MB · قناتان</item>
+        <item quantity="few">جارٍ قراءة الدليل… %1$s MB · %2$d قنوات</item>
+        <item quantity="many">جارٍ قراءة الدليل… %1$s MB · %2$d قناة</item>
+        <item quantity="other">جارٍ قراءة الدليل… %1$s MB · %2$d قناة</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="zero">الدليل كبير جدًا: احتُفظ بالـ %1$d يوم القادمة لقنواتك</item>
+        <item quantity="one">الدليل كبير جدًا: احتُفظ باليوم القادم لقنواتك</item>
+        <item quantity="two">الدليل كبير جدًا: احتُفظ باليومين القادمين لقنواتك</item>
+        <item quantity="few">الدليل كبير جدًا: احتُفظ بالـ %1$d أيام القادمة لقنواتك</item>
+        <item quantity="many">الدليل كبير جدًا: احتُفظ بالـ %1$d يوم القادمة لقنواتك</item>
+        <item quantity="other">الدليل كبير جدًا: احتُفظ بالـ %1$d يوم القادمة لقنواتك</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="zero">الدليل كبير جدًا: احتُفظ ببرامج %1$d من قنواتك</item>
+        <item quantity="one">الدليل كبير جدًا: احتُفظ ببرامج %1$d من قنواتك</item>
+        <item quantity="two">الدليل كبير جدًا: احتُفظ ببرامج %1$d من قنواتك</item>
+        <item quantity="few">الدليل كبير جدًا: احتُفظ ببرامج %1$d من قنواتك</item>
+        <item quantity="many">الدليل كبير جدًا: احتُفظ ببرامج %1$d من قنواتك</item>
+        <item quantity="other">الدليل كبير جدًا: احتُفظ ببرامج %1$d من قنواتك</item>
+    </plurals>
 </resources>

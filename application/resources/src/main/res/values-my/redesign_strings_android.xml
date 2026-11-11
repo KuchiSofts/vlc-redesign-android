@@ -32,4 +32,21 @@
     <string name="rd_unpin_from_home">ပင်မမှ ပင်ဖြုတ်ရန်</string>
     <string name="rd_pinned">ပင်ထိုးထားသည်</string>
     <string name="rd_pinned_missing">ပင်ထိုးထားသော ဤဖိုင်တွဲ သို့မဟုတ် ဖွင့်စာရင်း မရှိတော့ပါ။</string>
+    <string name="rd_subs_of_video">ဤဗီဒီယို၏ စာတန်းထိုးများ</string>
+    <string name="rd_subs_in_video">ဗီဒီယိုထဲတွင်</string>
+    <string name="rd_subs_next_to">ဗီဒီယိုဘေးတွင် · %1$s</string>
+    <string name="rd_subs_next_to_plain">ဗီဒီယိုဘေးတွင်</string>
+    <string name="rd_subs_opened">ဖွင့်ထားသည် · %1$s</string>
+    <string name="rd_subs_opened_plain">ဖွင့်ထားသော ဖိုင်</string>
+    <string name="rd_subs_none_yet">စာတန်းထိုး မရှိသေးပါ</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">ဆက်တင်များ ပြရန်</string>
+    <string name="rd_subs_position_size">နေရာနှင့် အရွယ်အစား</string>
+    <string name="rd_subs_position">နေရာ</string>
+    <string name="rd_subs_usual">ပုံမှန်</string>
+    <string name="rd_subs_move_down">စာတန်းထိုးများကို အောက်သို့ ရွှေ့ရန်</string>
+    <string name="rd_subs_move_up">စာတန်းထိုးများကို အပေါ်သို့ ရွှေ့ရန်</string>
+    <string name="rd_subs_smaller">စာတန်းထိုး ပိုသေးရန်</string>
+    <string name="rd_subs_larger">စာတန်းထိုး ပိုကြီးရန်</string>
+    <string name="rd_os_show_both">ဘာသာစကား နှစ်ခုလုံးကို တစ်ပြိုင်နက် ပြရန် (စာတန်းထိုး နှစ်ထပ်)</string>
 </resources>

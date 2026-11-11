@@ -275,6 +275,8 @@ object TvNavigation {
                 activity.refreshPages()
             }
             .show()
+        // (a card of a readable width: its rows ran across four fifths of the screen, the arrows far from the names)
+        org.videolan.vlc.gui.helpers.RdFit.card(dialog, ctx.tvPx(620f))
         dialog.getButton(android.content.DialogInterface.BUTTON_NEUTRAL)?.setOnClickListener {
             // the design's pages, then the pins in the order they were pinned, all shown
             order = (pages.map { it.key }.filter { available(ctx, it) } + pins.keys).toMutableList()

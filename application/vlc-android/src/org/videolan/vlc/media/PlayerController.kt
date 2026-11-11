@@ -187,13 +187,23 @@ class PlayerController(val context: Context) : IVLCVout.Callback, MediaPlayer.Ev
 
     // VLC Redesign: a subtitle file that is not Unicode is read from a UTF-8 copy (libvlc 3 would read it as
     // Windows-1252)
-    fun addSubtitleTrack(uri: Uri, select: Boolean): Boolean {
+    fun addSubtitleTrack(uri: Uri, select: Boolean): Boolean = mediaplayer.addSlave(IMedia.Slave.Type.Subtitle, utf8Target(uri), select)
+
+    /** the file the player reads: the subtitle, or its UTF-8 copy (a read, a detection, maybe a write: not on the
+     *  main thread, see [addSubtitleTrackAsync]) */
+    private fun utf8Target(uri: Uri): Uri {
         val name = uri.lastPathSegment?.substringAfterLast('/') ?: ""
         val settings = org.videolan.tools.Settings.getInstance(context)
         val hints = org.videolan.vlc.util.SubtitleCharset.appHints(settings.getString(org.videolan.tools.KEY_SUBTITLE_PREFERRED_LANGUAGE, null),
                 settings.getString(org.videolan.tools.KEY_SET_LOCALE, null))
-        val target = org.videolan.vlc.util.SubtitleCharset.utf8Copy(context, uri, name, hints) ?: uri
-        return mediaplayer.addSlave(IMedia.Slave.Type.Subtitle, target, select)
+        return org.videolan.vlc.util.SubtitleCharset.utf8Copy(context, uri, name, hints) ?: uri
+    }
+
+    /** VLC Redesign: [addSubtitleTrack] with its file read on a background thread (on the main thread, a large
+     *  ASS file's direction pass took up to a second) */
+    suspend fun addSubtitleTrackAsync(uri: Uri, select: Boolean): Boolean {
+        val target = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { utf8Target(uri) }
+        return !mediaplayer.isReleased && mediaplayer.addSlave(IMedia.Slave.Type.Subtitle, target, select)
     }
 
     /** VLC Redesign: a subtitle known to be UTF-8 already (downloaded by OnlineSubtitles): added as it is, with no

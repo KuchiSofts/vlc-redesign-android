@@ -41,6 +41,7 @@ import org.videolan.vlc.gui.helpers.UiTools
 import org.videolan.vlc.gui.helpers.applyTheme
 import org.videolan.vlc.gui.helpers.RdTvFocusRing
 import org.videolan.vlc.gui.helpers.rdTvDesignScale
+import org.videolan.vlc.gui.helpers.rdTvKeepNight
 import org.videolan.vlc.gui.helpers.rdTvFullScreenIfTv
 import org.videolan.vlc.gui.helpers.hf.PinCodeDelegate
 import org.videolan.vlc.gui.helpers.hf.checkPIN
@@ -105,6 +106,17 @@ abstract class BaseActivity : AppCompatActivity() {
         /* Theme must be applied before super.onCreate */
         applyTheme()
         super.onCreate(savedInstanceState)
+        // VLC Redesign, the TV layout: every dialog of a fragment shows where the remote is too (the TV sources, the
+        // programme's window, the sheets... had no ring: the focus on a selected tab or a button could not be told)
+        // Every layout: a dialog given a size of its own stays inside the screen (RdFit)
+        supportFragmentManager.registerFragmentLifecycleCallbacks(object : androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks() {
+            override fun onFragmentStarted(fm: androidx.fragment.app.FragmentManager, f: androidx.fragment.app.Fragment) {
+                (f as? androidx.fragment.app.DialogFragment)?.dialog?.window?.let {
+                    if (Settings.showTvUi) RdTvFocusRing.attach(it)
+                    org.videolan.vlc.gui.helpers.RdFit.dialog(it)
+                }
+            }
+        }, true)
         if (UiTools.currentNightMode != resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
             UiTools.invalidateBitmaps()
             UiTools.currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
@@ -146,8 +158,14 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        rdTvKeepNight()
+    }
+
     override fun onResume() {
         super.onResume()
+        rdTvKeepNight()
         rdTvFullScreenIfTv()
         Permissions.emptyCache()
     }
@@ -216,6 +234,14 @@ abstract class BaseActivity : AppCompatActivity() {
 
     // VLC Redesign: in the TV layout, the pages at the design's size on the TV (RdTvDesignScale)
     override fun attachBaseContext(newBase: Context) {
+        // VLC Redesign, the TV layout: the design's dark pages, said before the activity gets its resources. Said
+        // only in onCreate (applyTheme), the first activity of the process was given the system's "day" (a TV has no
+        // dark mode) and came back to it after the player or Settings: a window opened then (the TV sources) drew the
+        // light theme's dark words and grey buttons on the design's dark card
+        if (Settings.showTvUi) {
+            androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES)
+            delegate.localNightMode = androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
+        }
         super.attachBaseContext(newBase.rdTvDesignScale())
     }
 
@@ -224,6 +250,9 @@ abstract class BaseActivity : AppCompatActivity() {
         if (hasFocus) {
             rdTvFullScreenIfTv()
             RdTvFocusRing.attach(this)
+        } else if (Settings.showTvUi) {
+            // (a dialog took it: one made with a builder gets its ring here, a fragment's when it starts)
+            window.decorView.post { RdTvFocusRing.attachToDialogs() }
         }
     }
 

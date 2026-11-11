@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">Pan fyddwch yn defnyddio bysell neu\'r rheolydd o bell</string>
+    <string name="rd_fs_show_controls">Dangos y rheolyddion</string>
+    <string name="rd_fs_show_progress">Dangos y cynnydd yn unig</string>
+    <string name="rd_fs_show_message">Dangos neges yn unig</string>
+    <string name="rd_fs_seconds">%1$s eil.</string>
+    <string name="rd_fs_paused">Wedi oedi</string>
+    <string name="rd_fs_playing">Yn chwarae</string>
+    <string name="rd_fs_info_touch">Mae cyffwrdd â\'r sgrin yn dal i ddangos y rheolyddion.</string>
+    <string name="rd_fs_info_tv">Mae pwyso OK, y saethau I Fyny neu I Lawr, neu\'r fysell Dewislen yn dal i ddangos y rheolyddion.</string>
+</resources>

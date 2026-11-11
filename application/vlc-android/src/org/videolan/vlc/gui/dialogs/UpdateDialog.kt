@@ -24,6 +24,7 @@
 
 package org.videolan.vlc.gui.dialogs
 
+import org.videolan.vlc.util.openLinkIfPossible
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -108,7 +109,8 @@ class UpdateDialog : VLCBottomSheetDialogFragment() {
             }
         }
         binding.openInBrowser.setOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW, updateURL.toUri()))
+            // (no browser, a TV: the address and its QR code; it threw where nothing takes links)
+            requireActivity().openLinkIfPossible(updateURL)
         }
         binding.neverAgain.isChecked = !Settings.getInstance(requireActivity()).getBoolean(KEY_SHOW_UPDATE, true)
         binding.neverAgain.setOnCheckedChangeListener { _, isChecked ->

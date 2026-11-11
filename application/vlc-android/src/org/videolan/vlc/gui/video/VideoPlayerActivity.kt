@@ -295,7 +295,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     private var wasPaused = false
     private var savedTime: Long = -1
 
-    lateinit var windowLayoutInfo: WindowLayoutInfo
+    // VLC Redesign: null until the window tracker answers (a key opening the options before it crashed the player)
+    var windowLayoutInfo: WindowLayoutInfo? = null
     private var currentConfirmationDialog: AlertDialog? = null
     val resumeDialogObserver: (t: WaitConfirmation?) -> Unit = {
         if (it != null)
@@ -336,6 +337,9 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     private val playerKeyListenerDelegate: PlayerKeyListenerDelegate by lazy(LazyThreadSafetyMode.NONE) { PlayerKeyListenerDelegate(this@VideoPlayerActivity) }
     val tipsDelegate: VideoTipsDelegate by lazy(LazyThreadSafetyMode.NONE) { VideoTipsDelegate(this@VideoPlayerActivity) }
     var isTv: Boolean = false
+
+    /** VLC Redesign (#72): what a key, the remote or a gesture shows instead of the controls (the setting) */
+    internal val keyFeedback by lazy { RdKeyFeedback(this) }
 
     private val dialogsDelegate = DialogDelegate()
     private var baseContextWrappingDelegate: AppCompatDelegate? = null
@@ -494,7 +498,12 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     private val downloadedSubtitleObserver = Observer<List<org.videolan.vlc.mediadb.models.ExternalSub>> { externalSubs ->
         for (externalSub in externalSubs) {
             if (!addedExternalSubs.contains(externalSub)) {
-                service?.addSubtitleTrack(externalSub.subtitlePath, currentSpuTrack == "-2")
+                val select = currentSpuTrack == "-2"
+                rdExpectSubtitle(rdDownloadedSource(externalSub.idSubtitle, externalSub.subtitlePath, externalSub.subLanguageID))
+                // (a subtitle downloaded by the app is UTF-8 already: added as it is; another one read on a
+                // background thread: on every play, its read and conversion ran on the main thread)
+                if (externalSub.subtitlePath.startsWith(filesDir.path + "/subtitles/")) service?.addUtf8SubtitleTrack(externalSub.subtitlePath, select)
+                else lifecycleScope.launch { service?.addSubtitleTrackAsync(Uri.fromFile(java.io.File(externalSub.subtitlePath)), select) }
                 addedExternalSubs.add(externalSub)
             }
         }
@@ -577,6 +586,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         supportFragmentManager.registerFragmentLifecycleCallbacks(object : androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks() {
             override fun onFragmentStarted(fm: androidx.fragment.app.FragmentManager, f: androidx.fragment.app.Fragment) {
                 surfaceKey(f)?.let { setSurfaceOpen(it, true) }
+                // (a dialog given a size of its own stays inside the screen)
+                (f as? androidx.fragment.app.DialogFragment)?.dialog?.window?.let { org.videolan.vlc.gui.helpers.RdFit.dialog(it) }
             }
             override fun onFragmentStopped(fm: androidx.fragment.app.FragmentManager, f: androidx.fragment.app.Fragment) {
                 surfaceKey(f)?.let { setSurfaceOpen(it, false) }
@@ -1017,6 +1028,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     override fun onStop() {
         super.onStop()
+        rdDualSubtitles.stop()
         if (visibleCount > 0) visibleCount--
         service?.playlistManager?.let {
             savedMediaList = ArrayList(it.getMediaList())
@@ -1151,9 +1163,20 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         val value = org.videolan.tools.SubtitleScale.clamp(scale)
         val old = org.videolan.tools.SubtitleScale.get(settings)
         Log.i(TAG, "subtitle size $old -> $value %")
-        if (osd) overlayDelegate.showInfo("${getString(R.string.rd_subtitle_size)} ⁦$value %⁩", 1500)
+        if (osd) overlayDelegate.showInfo("${getString(R.string.rd_subtitle_size)} \u2066$value %\u2069", 1500)
         if (value == old) return
         settings.putSingle(org.videolan.tools.KEY_SUBTITLES_TEXT_SCALE, value)
+        subtitleScalePending = true
+        handler.removeCallbacks(subtitleScaleReload)
+        handler.postDelayed(subtitleScaleReload, 600L)
+    }
+
+    /** VLC Redesign: the subtitles' position (Settings › Subtitles' vertical position, the panel's Position): libvlc 3
+     *  reads it when it starts, the video is opened again in place a moment after the last change, as for the size */
+    fun setSubtitleMargin(px: Int) {
+        val value = px.coerceIn(0, 400)
+        if (value == settings.getInt("rd_sub_margin", 0)) return
+        settings.putSingle("rd_sub_margin", value)
         subtitleScalePending = true
         handler.removeCallbacks(subtitleScaleReload)
         handler.postDelayed(subtitleScaleReload, 600L)
@@ -1170,6 +1193,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
 
     /** A subtitle track was chosen: the size changed while none was shown is taken now (#10) */
     fun onSubtitleTrackChosen(trackId: String) {
+        // (the lift above the bar follows: the picture never moves for subtitles switched off)
+        handler.post { overlayDelegate.rdSubtitleTrackChanged() }
         if (subtitleScalePending && trackId != "-1") handler.postDelayed(subtitleScaleReload, 300L)
         // VLC Redesign: the language of a subtitle the user chose joins Settings › Subtitles › Languages to search
         // (off until turned on there)
@@ -1372,7 +1397,12 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
 
         if (data.hasExtra(EXTRA_MRL)) {
             val subtitleUri = data.getStringExtra(EXTRA_MRL)!!.toUri()
-            service?.addSubtitleTrack(getUri(subtitleUri) ?: subtitleUri, false)
+            val picked = getUri(subtitleUri) ?: subtitleUri
+            // (the Subtitles panel says "Opened · its name" under it)
+            val pickedName = (subtitleUri.lastPathSegment ?: "").substringAfterLast('/')
+            rdExpectSubtitle(org.videolan.vlc.util.RdSubtitleChoices.Source(org.videolan.vlc.util.RdSubtitleChoices.Kind.OPENED, pickedName,
+                language = org.videolan.vlc.util.OnlineSubtitles.languageOfSubtitleFile(pickedName)))
+            lifecycleScope.launch { service?.addSubtitleTrackAsync(picked, false) }
             service?.currentMediaWrapper?.let {
                 SlaveRepository.getInstance(this).saveSlave(it.location, IMedia.Slave.Type.Subtitle, 2, data.getStringExtra(EXTRA_MRL)!!)
             }
@@ -1423,6 +1453,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        // (VLC Redesign: the remote in use, nothing made ahead for a moment)
+        org.videolan.vlc.gui.tablet.RdTvPrebuild.onKey()
         if (service == null || keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_BUTTON_B)
             return super.onKeyDown(keyCode, event)
         if (isOptionsListShowing) return false
@@ -1463,6 +1495,12 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
             KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE, KeyEvent.KEYCODE_MEDIA_PLAY, KeyEvent.KEYCODE_MEDIA_PAUSE, KeyEvent.KEYCODE_SPACE -> {
                 when {
                     isNavMenu -> return navigateDvdMenu(keyCode)
+                    // VLC Redesign (#72): no controls, the pill says it
+                    keyFeedback.active -> {
+                        val playing = service?.isPlaying == true
+                        if (keyCode == KeyEvent.KEYCODE_MEDIA_PLAY && playing || keyCode == KeyEvent.KEYCODE_MEDIA_PAUSE && !playing) keyFeedback.paused(!playing)
+                        else doPlayPause(quiet = true)
+                    }
                     keyCode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE -> return super.onKeyDown(keyCode, event)
                     else -> doPlayPause()
                 }
@@ -1565,7 +1603,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 else if (isLocked) {
                     overlayDelegate.showOverlayTimeout(Settings.videoHudDelay * 1000)
                 } else if (!isShowing && !resizeDelegate.isShowing()) {
-                    doPlayPause()
+                    // VLC Redesign (#72): the keys show their feedback; OK is how the controls are reached
+                    if (keyFeedback.active) overlayDelegate.showOverlay() else doPlayPause()
                     return true
                 }
             }
@@ -1649,6 +1688,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     override fun next() {
         if (service?.hasNext() == true) {
             service?.next()
+            if (keyFeedback.active) { keyFeedback.message(getString(R.string.next)); return }
             overlayDelegate.showInfo(getString(R.string.next), 1000)
             overlayDelegate.showOverlay()
         }
@@ -1657,6 +1697,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     override fun previous() {
         service?.let { service ->
             service.previous(false)
+            if (keyFeedback.active) { keyFeedback.message(getString(R.string.previous)); return }
             overlayDelegate.showInfo(getString(R.string.previous), 1000)
             overlayDelegate.showOverlay()
         }
@@ -1680,14 +1721,17 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
 
     override fun increaseRate() {
         service?.increaseRate()
+        if (keyFeedback.active) service?.let { keyFeedback.rate(it.rate) }
     }
 
     override fun decreaseRate() {
         service?.decreaseRate()
+        if (keyFeedback.active) service?.let { keyFeedback.rate(it.rate) }
     }
 
     override fun resetRate() {
         service?.resetRate()
+        if (keyFeedback.active) service?.let { keyFeedback.rate(it.rate) }
     }
 
     override fun bookmark() {
@@ -1814,7 +1858,9 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                     // nothing to show until the first picture: the cat (not for a song, nor on a TV it is cast to)
                     showIdleScene(service.currentMediaWrapper?.type != MediaWrapper.TYPE_AUDIO && !displayManager.isOnRenderer)
                     if (!subtitlesExtraPath.isNullOrEmpty()) {
-                        service.addSubtitleTrack(subtitlesExtraPath!!, true)
+                        // (read and converted off the main thread)
+                        val path = subtitlesExtraPath!!
+                        lifecycleScope.launch { service.addSubtitleTrackAsync(Uri.fromFile(java.io.File(path)), true) }
                         subtitlesExtraPath = null
                     }
                 }
@@ -1861,6 +1907,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                                     service.setAudioTrack(audioTrack.toString())
                             }
                         } else if (event.esChangedType == IMedia.Track.Type.Text) {
+                            // (where the new track comes from: the file added last of its language)
+                            rdSubtitleLocals()
                             lifecycleScope.launch(Dispatchers.IO) {
                                 val media = medialibrary.findMedia(mw)
                                 var preferredTrack = "0"
@@ -1990,50 +2038,307 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         val s = service ?: return
         val mediaPath = s.currentMediaWrapper?.uri?.path ?: return
         val path = file.absolutePath
+        rdExpectSubtitle(rdDownloadedSource(result.id, path, result.language))
+        rdSubtitleFinder.markLoaded(result.id)
         s.addUtf8SubtitleTrack(path, select)
         addedExternalSubs.add(org.videolan.vlc.mediadb.models.ExternalSub(result.id, path, mediaPath, result.language, result.release, result.hearingImpaired))
         ExternalSubRepository.getInstance(this).saveDownloadedSubtitle(result.id, path, mediaPath, result.language, result.release, result.hearingImpaired)
     }
 
+    /** VLC Redesign: the online subtitles of the video playing (the Subtitles panel's search, the automatic one's results) */
+    val rdSubtitleFinder by lazy { RdSubtitleFinder(this) }
+
+    // VLC Redesign: where each subtitle track comes from, said under it in the Subtitles panel as on the desktop ("In
+    // the video", "Next to the video · name", "Downloaded from Wizdom", "Opened · name"). libvlc 3 names a track only
+    // "Track 2 - [Hebrew]": the files added while the video plays become, in their order, its next new tracks.
+    private var rdSubSourcesUri: Uri? = null
+    private val rdSubSources = HashMap<String, org.videolan.vlc.util.RdSubtitleChoices.Source>()
+    private val rdPendingSubSources = ArrayList<Pair<Long, org.videolan.vlc.util.RdSubtitleChoices.Source>>()
+    private var rdSidecars: MutableList<Pair<String, String>>? = null
+
+    private fun rdFollowSubSources() {
+        val uri = service?.currentMediaWrapper?.uri
+        if (uri == rdSubSourcesUri) return
+        rdSubSourcesUri = uri
+        rdSubSources.clear()
+        rdPendingSubSources.clear()
+        rdSidecars = null
+    }
+
+    /** a subtitle file about to be added to the video (its track comes a moment later) */
+    fun rdExpectSubtitle(source: org.videolan.vlc.util.RdSubtitleChoices.Source) {
+        // (the tracks there before are not this one)
+        rdSubtitleLocals()
+        rdPendingSubSources.add(Pair(android.os.SystemClock.elapsedRealtime(), source))
+    }
+
+    /** a subtitle downloaded by the app: its service (the result's id starts with it: "wizdom:123") */
+    private fun rdDownloadedSource(id: String, path: String, language: String?) = org.videolan.vlc.util.RdSubtitleChoices.Source(
+        org.videolan.vlc.util.RdSubtitleChoices.Kind.ONLINE, java.io.File(path).name,
+        org.videolan.vlc.util.OnlineSubtitles.provider(id.substringBefore(':'))?.name.orEmpty(), org.videolan.vlc.util.OnlineSubtitles.normalize(language))
+
+    /** the files beside a local video, as libvlc finds them by themselves: (name, language) */
+    private fun rdSidecarFiles(): MutableList<Pair<String, String>> {
+        rdSidecars?.let { return it }
+        val uri = service?.currentMediaWrapper?.uri
+        val list = ArrayList<Pair<String, String>>()
+        if (uri?.scheme == "file") try {
+            val video = java.io.File(uri.path ?: "")
+            val base = video.nameWithoutExtension
+            video.parentFile?.listFiles()?.filter {
+                it.isFile && it.name.startsWith(base) && it.extension.lowercase(java.util.Locale.ROOT) in org.videolan.vlc.util.OnlineSubtitles.subtitleExtensions
+            }?.sortedBy { it.name }?.forEach { list.add(Pair(it.name, org.videolan.vlc.util.OnlineSubtitles.languageOfSubtitleFile(it.name))) }
+        } catch (e: Exception) {
+        }
+        rdSidecars = list
+        return list
+    }
+
+    /** the video's subtitle tracks for the Subtitles panel: language, shown or not, where each comes from */
+    fun rdSubtitleLocals(): List<org.videolan.vlc.util.RdSubtitleChoices.Local> {
+        val s = service ?: return emptyList()
+        rdFollowSubSources()
+        val tracks = s.spuTracks?.filter { it.getId() != "-1" }.orEmpty()
+        val media = getCurrentMediaTracks().filter { it.type == IMedia.Track.Type.Text }
+        // (a file that never became a track: forgotten after a while)
+        val now = android.os.SystemClock.elapsedRealtime()
+        rdPendingSubSources.removeAll { now - it.first > 20_000L }
+        val known = HashMap(rdSubSources)
+        val languages = tracks.associate { t ->
+            t.getId() to org.videolan.vlc.util.RdSubtitleChoices.languageOf(media.firstOrNull { it.id.toString() == t.getId() }?.language, t.getName(),
+                known[t.getId()]?.language.orEmpty())
+        }
+        val pending = rdPendingSubSources.map { it.second }.toMutableList()
+        val sources = org.videolan.vlc.util.RdSubtitleChoices.attribute(tracks.map { it.getId() }, languages, known, pending, rdSidecarFiles())
+        rdPendingSubSources.retainAll { p -> pending.any { it === p.second } }
+        rdSubSources.putAll(sources)
+        val shown = s.spuTrack
+        return tracks.map { t ->
+            val source = sources[t.getId()] ?: org.videolan.vlc.util.RdSubtitleChoices.Source(org.videolan.vlc.util.RdSubtitleChoices.Kind.VIDEO)
+            org.videolan.vlc.util.RdSubtitleChoices.Local(t.getId(), t.getName(), languages[t.getId()].orEmpty().ifEmpty { source.language },
+                t.getId() == shown, source)
+        }
+    }
+
+    /** the ids of the online results this video has as tracks already (downloaded before or now) */
+    fun rdLoadedSubtitleIds(): Set<String> = addedExternalSubs.map { it.idSubtitle }.toSet() + rdSubtitleFinder.loadedIds
+
+    /** VLC Redesign: the second language drawn above the first one (the desktop's dual subtitles) */
+    private val rdDualSubtitles by lazy { RdDualSubtitleOverlay(this) }
+
+    /** how far the subtitles are lifted now, in pixels (the control bar shows: VideoPlayerOverlayDelegate.rdLiftSubtitles) */
+    var rdSubtitleLift = 0
+
+    /** the subtitles downloaded for the video playing: (file, language) */
+    fun rdDownloadedSubtitleFiles(): List<Pair<String, String>> =
+        addedExternalSubs.map { Pair(it.subtitlePath, org.videolan.vlc.util.OnlineSubtitles.normalize(it.subLanguageID)) }
+
+    /** the subtitle files of a local video: beside it, then in its Subs folder: (file, language); blocking */
+    fun rdLocalSubtitleFiles(): List<Pair<String, String>> {
+        val uri = service?.currentMediaWrapper?.uri ?: return emptyList()
+        if (uri.scheme != "file") return emptyList()
+        return try {
+            val video = java.io.File(uri.path ?: return emptyList())
+            val dir = video.parentFile ?: return emptyList()
+            val base = video.nameWithoutExtension
+            val subtitle = { f: java.io.File -> f.isFile && f.extension.lowercase(java.util.Locale.ROOT) in org.videolan.vlc.util.OnlineSubtitles.subtitleExtensions }
+            val beside = dir.listFiles()?.filter { subtitle(it) && it.name.startsWith(base) }?.sortedBy { it.name }.orEmpty()
+            val folder = org.videolan.vlc.util.OnlineSubtitles.SUBS_FOLDERS.asSequence().map { java.io.File(dir, it) }.firstOrNull { it.isDirectory }
+                ?.listFiles()?.filter { subtitle(it) }?.sortedBy { it.name }.orEmpty()
+            (beside + folder).map { Pair(it.absolutePath, org.videolan.vlc.util.OnlineSubtitles.languageOfSubtitleFile(it.name)) }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
     // VLC Redesign: the desktop's automatic search (SubtitleFinder::autoPick), once per media: when a video starts
     // without subtitles in the user's language, the best one found online loads by itself (of that language, else
-    // of the second one), if the user said so (the welcome's privacy step, Settings › Subtitles). Files and shares
-    // only: a stream's or a channel's name is not a film's.
+    // of the second one), if the user said so (the welcome's privacy step, Settings › Subtitles). Files, shares and
+    // links to a video with a length (#73: a link was never searched by itself); not a Live TV channel nor a live
+    // stream: their names are no film's.
     private var rdOnlineAutoUri: Uri? = null
 
     private fun rdAutoOnlineSubtitles() {
         val ctx = applicationContext
-        if (!Settings.getInstance(ctx).getBoolean(org.videolan.vlc.util.OnlineSubtitles.KEY_AUTO, false)) return
+        // (the search by itself only when the user said so; a subtitles folder's file of the user's language is read
+        // whatever the switch: nothing goes online for it)
+        val auto = Settings.getInstance(ctx).getBoolean(org.videolan.vlc.util.OnlineSubtitles.KEY_AUTO, true)
         val mw = service?.currentMediaWrapper ?: return
         val uri = mw.uri ?: return
         if (uri == rdOnlineAutoUri) return
         rdOnlineAutoUri = uri
-        if (mw.type != MediaWrapper.TYPE_VIDEO || uri.scheme !in setOf("file", "content", "smb", "nfs", "ftp", "sftp", "upnp")) return
+        val scheme = uri.scheme?.lowercase(java.util.Locale.ROOT)
+        // (a link opened is a stream to the library, a video all the same: its video track tells, below)
+        if (mw.type == MediaWrapper.TYPE_AUDIO || scheme !in setOf("file", "content", "smb", "nfs", "ftp", "sftp", "upnp", "http", "https")) return
         lifecycleScope.launch {
             kotlinx.coroutines.delay(1500L)
             val s = service ?: return@launch
             if (s.currentMediaWrapper?.uri != uri || isFinishing) return@launch
-            val wanted = org.videolan.vlc.util.OnlineSubtitles.wantedLanguages(ctx)
-            if (wanted.isEmpty()) return@launch
-            val local = rdLocalSubtitleLanguages(wanted)
-            if (wanted[0] in local) return@launch
-            val (media, downloaded) = withContext(Dispatchers.IO) {
-                val m = org.videolan.vlc.util.OnlineSubtitles.mediaOf(uri, mw.title)
-                Pair(m, wanted.any { org.videolan.vlc.util.OnlineSubtitles.hasDownloaded(ctx, m, it) })
+            // (a video on a share or behind a link: its length comes once enough of it is read, slower than a file's)
+            var waited = 0L
+            while (s.length <= 0 && scheme != "file" && scheme != "content" && waited < 10_000L) {
+                kotlinx.coroutines.delay(500L)
+                waited += 500L
+                if (s.currentMediaWrapper?.uri != uri || isFinishing) return@launch
             }
-            if (downloaded) return@launch
+            // (a Live TV channel, a live stream: no length; their names are no film's)
+            if (org.videolan.vlc.util.OnlineSubtitles.isLive(scheme, s.length, org.videolan.vlc.livetv.TvPlayback.isCurrent(uri.toString()))) {
+                Log.i(TAG, "online subtitles: a channel or a live stream, no search")
+                return@launch
+            }
+            // (the picture can come late, a big film opened cold or a slow share: waited for, as the desktop's; music,
+            // a radio: no picture, no subtitles)
+            var pictureWaited = 0L
+            while (s.videoTracksCount == 0 && pictureWaited < 10_000L) {
+                if (pictureWaited == 0L) Log.i(TAG, "online subtitles: waiting for the picture")
+                kotlinx.coroutines.delay(500L)
+                pictureWaited += 500L
+                if (s.currentMediaWrapper?.uri != uri || isFinishing) return@launch
+            }
+            if (s.videoTracksCount == 0) {
+                Log.i(TAG, "online subtitles: no picture (music, a radio), no search")
+                return@launch
+            }
+            // the user's own Hebrew / Arabic file beside the video, its marks written for left-to-right players: a
+            // fixed copy shown in its place
+            if (scheme == "file") rdSidecarRtlFix(uri)
+            val wanted = org.videolan.vlc.util.OnlineSubtitles.wantedLanguages(ctx)
+            if (wanted.isEmpty()) {
+                Log.i(TAG, "online subtitles: no language to look for")
+                return@launch
+            }
+            val local = rdLocalSubtitleLanguages(wanted, uri)
+            if (wanted[0] in local) {
+                Log.i(TAG, "online subtitles: has ${wanted[0]} already, no search")
+                return@launch
+            }
+            // a release's subtitles folder beside the only video of its folder ("Subs/Hebrew.heb.srt"): the user's
+            // language from there, no search
+            if (scheme == "file" && rdSubsFolderSubtitle(uri, wanted.take(2).filter { it !in local })) return@launch
+            if (!auto) {
+                Log.i(TAG, "online subtitles: automatic search off")
+                return@launch
+            }
+            val second = wanted.getOrNull(1)
+            val (media, kept) = withContext(Dispatchers.IO) {
+                val m = org.videolan.vlc.util.OnlineSubtitles.mediaOf(uri, mw.title, context = ctx)
+                Pair(m, wanted.take(2).filter { org.videolan.vlc.util.OnlineSubtitles.hasDownloaded(ctx, m, it) })
+            }
+            // the one chosen for this video before, in the user's language: shown again from the app's storage (the
+            // downloaded subtitles of a media are added as it plays), no search; one in the second language only:
+            // the first one is looked for again, as on the desktop
+            if (wanted[0] in kept) {
+                Log.i(TAG, "online subtitles: the one kept for this video, no search (remembered)")
+                return@launch
+            }
+            Log.i(TAG, "online subtitles: searching by itself (${wanted.joinToString()})")
             val outcome = org.videolan.vlc.util.OnlineSubtitles.searchAll(ctx, media)
-            val pick = outcome.bestOf(wanted[0]) ?: wanted.getOrNull(1)?.takeIf { it !in local }?.let { outcome.bestOf(it) } ?: return@launch
+            // (the Subtitles panel shows them at once)
+            rdSubtitleFinder.adopt(uri, media, outcome)
+            val pick =outcome.bestOf(wanted[0]) ?: second?.takeIf { it !in local && it !in kept }?.let { outcome.bestOf(it) }
+            if (pick == null) {
+                // (a guess of the title, nothing made for this file: none loads by itself; the search shows them)
+                Log.i(TAG, "online subtitles: ${outcome.results.size} found, none sure enough to load by itself")
+                return@launch
+            }
             if (service?.currentMediaWrapper?.uri != uri || isFinishing) return@launch
             val (file, _) = org.videolan.vlc.util.OnlineSubtitles.download(ctx, pick.result, media)
             if (file == null || service?.currentMediaWrapper?.uri != uri || isFinishing) return@launch
+            Log.i(TAG, "online subtitles: ${pick.result.language} of ${pick.result.provider} loaded by itself")
             rdAddOnlineSubtitle(file, pick.result, select = true)
             overlayDelegate.showInfo(org.videolan.vlc.gui.dialogs.RdOnlineSubtitlesSheet.loadedText(ctx, pick.result), 3000)
         }
     }
 
-    /** the user's languages the video has subtitles of already: its tracks' languages, or their names */
-    private fun rdLocalSubtitleLanguages(wanted: List<String>): Set<String> {
+    /**
+     * The subtitle files beside a video (its name, .srt / .vtt) whose Hebrew or Arabic lines have their marks written
+     * for left-to-right players (".שלום", "?מה-"): a fixed copy in the app's cache, added and shown in place of the
+     * file (the user's file untouched; the copy is kept with the video's other subtitles, not added twice).
+     */
+    private suspend fun rdSidecarRtlFix(uri: Uri) {
+        val fixes = withContext(Dispatchers.IO) {
+            try {
+                val video = java.io.File(uri.path ?: return@withContext emptyList())
+                val base = video.nameWithoutExtension
+                video.parentFile?.listFiles()?.filter {
+                    it.isFile && it.name.startsWith(base) && it.extension.lowercase(java.util.Locale.ROOT) in setOf("srt", "vtt")
+                }.orEmpty().mapNotNull { f ->
+                    val copy = org.videolan.vlc.util.OnlineSubtitles.rtlFixedCopy(applicationContext, f)
+                    if (copy != f) f to copy else null
+                }
+            } catch (e: Exception) {
+                emptyList()
+            }
+        }
+        if (fixes.isEmpty()) return
+        val s = service ?: return
+        if (s.currentMediaWrapper?.uri != uri || isFinishing) return
+        val loaded = s.currentMediaWrapper?.slaves?.mapNotNull { it.uri }.orEmpty()
+        for ((original, copy) in fixes) {
+            val copyUri = Uri.fromFile(copy).toString()
+            if (loaded.any { it == copyUri || it == copy.absolutePath }) continue
+            // shown when the file's track is the one shown (the only file beside it, or its language's track)
+            val lang = org.videolan.vlc.util.OnlineSubtitles.languageOfSubtitleFile(original.name)
+            val english = if (lang.isEmpty()) "" else java.util.Locale(lang.substringBefore('-')).getDisplayLanguage(java.util.Locale.ENGLISH)
+            val shownName = s.spuTracks?.firstOrNull { it.getId() == s.spuTrack }?.getName().orEmpty()
+            val select = fixes.size == 1 || (english.isNotEmpty() && shownName.contains(english, ignoreCase = true))
+            rdExpectSubtitle(org.videolan.vlc.util.RdSubtitleChoices.Source(org.videolan.vlc.util.RdSubtitleChoices.Kind.FILE, original.name, language = lang))
+            s.addSubtitleTrack(Uri.fromFile(copy), select)
+            Log.i(TAG, "online subtitles: ${original.name} has its marks written left to right, a fixed copy shown")
+        }
+    }
+
+    /**
+     * A subtitles folder's file of the user's language beside the only video of its folder (a release's "Subs/
+     * Hebrew.heb.srt"), the first language before the second: added and shown. False when there is none (or the
+     * folder can't be read: no access to the storage).
+     */
+    private suspend fun rdSubsFolderSubtitle(uri: Uri, languages: List<String>): Boolean {
+        if (languages.isEmpty()) return false
+        val minutes = (service?.length ?: 0L) / 60_000.0
+        val found = withContext(Dispatchers.IO) {
+            try {
+                val video = java.io.File(uri.path ?: return@withContext null)
+                val dir = video.parentFile ?: return@withContext null
+                val videos = dir.listFiles()?.count { it.isFile && it.extension.lowercase(java.util.Locale.ROOT) in org.videolan.vlc.util.OnlineSubtitles.videoExtensions } ?: 0
+                if (videos != 1) return@withContext null
+                for (name in org.videolan.vlc.util.OnlineSubtitles.SUBS_FOLDERS) {
+                    val folder = java.io.File(dir, name)
+                    if (!folder.isDirectory) continue
+                    val files = folder.listFiles()?.filter { it.isFile && it.extension.lowercase(java.util.Locale.ROOT) in org.videolan.vlc.util.OnlineSubtitles.subtitleExtensions }
+                        ?.map { org.videolan.vlc.util.OnlineSubtitles.SubFile(it.name, rdCuesOf(it)) } ?: continue
+                    for (lang in languages) org.videolan.vlc.util.OnlineSubtitles.subsFolderPick(files, lang, minutes)?.let {
+                        // (its Hebrew / Arabic marks at the right end: a fixed copy when the file has them reversed)
+                        return@withContext Triple(lang, name, org.videolan.vlc.util.OnlineSubtitles.rtlFixedCopy(applicationContext, java.io.File(folder, it)))
+                    }
+                }
+                null
+            } catch (e: Exception) {
+                null
+            }
+        } ?: return false
+        val s = service ?: return false
+        if (s.currentMediaWrapper?.uri != uri || isFinishing) return false
+        rdExpectSubtitle(org.videolan.vlc.util.RdSubtitleChoices.Source(org.videolan.vlc.util.RdSubtitleChoices.Kind.OPENED, found.third.name, language = found.first))
+        s.addSubtitleTrack(Uri.fromFile(found.third), true)
+        Log.i(TAG, "online subtitles: ${found.first} from the folder ${found.second} (${found.third.name}), no search")
+        return true
+    }
+
+    /** a subtitle file's cues (the first 4 MB of it; -1 when unread or not counted) */
+    private fun rdCuesOf(file: java.io.File): Int = try {
+        val bytes = file.inputStream().use { input -> val b = ByteArray(minOf(file.length(), 4L shl 20).toInt()); var n = 0; while (n < b.size) { val r = input.read(b, n, b.size - n); if (r < 0) break; n += r }; b.copyOf(n) }
+        org.videolan.vlc.util.OnlineSubtitles.countCues(file.name, bytes)
+    } catch (e: Exception) {
+        -1
+    }
+
+    /**
+     * The user's languages the video has subtitles of already: its tracks' languages, or their names. A file beside
+     * a video that is only forced lines, or an advert's few lines (fewer cues than one per 5 minutes of a film of
+     * 20 minutes or more), doesn't count, as on the desktop: its language is still looked for.
+     */
+    private fun rdLocalSubtitleLanguages(wanted: List<String>, uri: Uri? = null): Set<String> {
         val found = HashSet<String>()
         for (track in getCurrentMediaTracks()) {
             if (track.type != IMedia.Track.Type.Text) continue
@@ -2049,6 +2354,27 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 if ((english.isNotEmpty() && english in name) || (native.isNotEmpty() && native in name)) found.add(code)
             }
         }
+        // (the partial files beside a file: a language they alone give is not had)
+        if (uri?.scheme == "file" && found.isNotEmpty()) try {
+            val video = java.io.File(uri.path ?: "")
+            val base = video.nameWithoutExtension
+            val beside = video.parentFile?.listFiles()?.filter {
+                it.isFile && it.name.startsWith(base) && it.extension.lowercase(java.util.Locale.ROOT) in org.videolan.vlc.util.OnlineSubtitles.subtitleExtensions
+            }.orEmpty()
+            if (beside.isNotEmpty()) {
+                val minutes = (service?.length ?: 0L) / 60_000.0
+                val tracks = getCurrentMediaTracks().filter { it.type == IMedia.Track.Type.Text }.map { org.videolan.vlc.util.OnlineSubtitles.normalize(it.language) }
+                for (lang in found.toList()) {
+                    val ofLang = beside.filter { org.videolan.vlc.util.OnlineSubtitles.languageOfSubtitleFile(it.name) == lang }
+                    val partial = ofLang.count { org.videolan.vlc.util.OnlineSubtitles.isPartialSubtitleFile(it.name, rdCuesOf(it), minutes) }
+                    if (partial > 0 && partial == ofLang.size && tracks.count { it == lang } <= partial) {
+                        found.remove(lang)
+                        Log.i(TAG, "online subtitles: the $lang file beside the video is partial (an advert, forced lines), not counted")
+                    }
+                }
+            }
+        } catch (e: Exception) {
+        }
         return found
     }
 
@@ -2061,8 +2387,13 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         overlayDelegate.hasPlaylist = service?.hasPlaylist() == true
         setPlaybackParameters()
         stopLoading()
+        // the second language above the first one, when the user shows both (Settings › Subtitles)
+        rdDualSubtitles.start()
         overlayDelegate.updateOverlayPausePlay()
         updateNavStatus()
+        // VLC Redesign, the TV layout: the controls' bars made ahead while the video plays (their first show
+        // inflated both in that frame; gui/tablet/RdTvPrebuild)
+        org.videolan.vlc.gui.tablet.RdTvPrebuild.stubsAhead(this, R.id.player_hud_right_stub, R.id.player_hud_stub)
         if (!mw.hasFlag(MediaWrapper.MEDIA_PAUSED) && Settings.videoHudDelay != -1)
             handler.sendEmptyMessageDelayed(FADE_OUT, Settings.videoHudDelay.toLong() * 1000)
         else {
@@ -2223,7 +2554,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
 
     private fun updateMute() {
         mute(!isMute)
-        overlayDelegate.showInfo(if (isMute) R.string.sound_off else R.string.sound_on, 1000)
+        if (keyFeedback.active) keyFeedback.message(getString(if (isMute) R.string.sound_off else R.string.sound_on))
+        else overlayDelegate.showInfo(if (isMute) R.string.sound_off else R.string.sound_on, 1000)
     }
 
     internal fun changeBrightness(delta: Float) {
@@ -2424,8 +2756,16 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         if (menuIdx >= 0) service?.titleIdx = menuIdx
     }
 
-    fun doPlayPause() {
+    /** [quiet]: a key or a gesture with the setting's feedback (#72): paused without the controls, the pill says it */
+    @JvmOverloads
+    fun doPlayPause(quiet: Boolean = false) {
         if (service?.isPausable != true) return
+        if (quiet && keyFeedback.active) {
+            val playing = service?.isPlaying == true
+            if (playing) pause() else play()
+            keyFeedback.paused(playing)
+            return
+        }
         if (service?.isPlaying == true) {
             overlayDelegate.showOverlayTimeout(OVERLAY_INFINITE)
             pause()
@@ -2563,7 +2903,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 positionInPlaylist = extras.getInt(PLAY_EXTRA_OPENED_POSITION, -1)
 
                 subtitlesExtraPath = extras.getString(PLAY_EXTRA_SUBTITLES_LOCATION)
-                if (!subtitlesExtraPath.isNullOrEmpty()) service.addSubtitleTrack(subtitlesExtraPath!!, true)
+                subtitlesExtraPath?.takeIf { it.isNotEmpty() }?.let { path -> lifecycleScope.launch { service.addSubtitleTrackAsync(Uri.fromFile(java.io.File(path)), true) } }
                 if (intent.hasExtra(PLAY_EXTRA_ITEM_TITLE))
                     itemTitle = extras.getString(PLAY_EXTRA_ITEM_TITLE)
             }

@@ -273,4 +273,20 @@
     <string name="rd_tv_its_guide_id">Dess guide-id</string>
     <string name="rd_tv_forget_guide_id">Glöm dess guide-id</string>
     <string name="rd_tv_guide_id_of">Id:t för %1$s i guiden</string>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Läser guiden för %1$s… %2$s MB · %3$d kanal</item>
+        <item quantity="other">Läser guiden för %1$s… %2$s MB · %3$d kanaler</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Läser guiden… %1$s MB · %2$d kanal</item>
+        <item quantity="other">Läser guiden… %1$s MB · %2$d kanaler</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Guiden är för stor: nästa %1$d dag av dina kanaler sparades</item>
+        <item quantity="other">Guiden är för stor: nästa %1$d dagar av dina kanaler sparades</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Guiden är för stor: programmen för %1$d av dina kanaler sparades</item>
+        <item quantity="other">Guiden är för stor: programmen för %1$d av dina kanaler sparades</item>
+    </plurals>
 </resources>

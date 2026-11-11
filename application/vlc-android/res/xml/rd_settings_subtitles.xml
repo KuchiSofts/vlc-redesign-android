@@ -24,15 +24,19 @@
          user's own free key, with where to get it -->
     <PreferenceCategory android:title="@string/rd_os_section">
         <org.videolan.vlc.gui.preferences.rd.RdListPreference
-            android:defaultValue=""
             android:key="rd_sub_second_language"
             android:persistent="true"
             android:title="@string/rd_os_second" />
         <CheckBoxPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="rd_sub_online_auto"
             android:summary="@string/rd_os_auto_help"
             android:title="@string/rd_os_auto_settings" />
+        <!-- the second language shown above the first one (RdDualSubtitles): with a second language only -->
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="rd_sub_show_both"
+            android:title="@string/rd_os_show_both" />
     </PreferenceCategory>
     <!-- the languages the services are asked for, each on or off, in the order of the results (RdSubtitleLanguages);
          "Every other language too" off: only those, a faster search -->
@@ -176,7 +180,7 @@
             android:key="subtitles_background_color"
             android:title="@string/rd_background_color" />
         <SeekBarPreference
-            android:defaultValue="255"
+            android:defaultValue="128"
             android:iconSpaceReserved="false"
             android:key="subtitles_background_color_opacity"
             android:max="255"

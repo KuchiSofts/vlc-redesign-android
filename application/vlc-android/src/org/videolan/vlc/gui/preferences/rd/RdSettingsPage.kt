@@ -11,6 +11,7 @@
  */
 package org.videolan.vlc.gui.preferences.rd
 
+import org.videolan.vlc.gui.helpers.rdAutoInterfaceScaleHere
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
@@ -169,19 +170,67 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
 
     private fun <T : Preference> pref(key: String): T? = findPreference(key)
 
+    /**
+     * A list of languages as every picker shows it (RdLocaleChoices): its first row as it is (Device default, No
+     * preference), then the languages this device is set to, marked "On this device", then the others from A to Z;
+     * a language once, whichever of its codes the lists gave ("iw" and "he").
+     */
+    private fun localeList(lp: ListPreference, pair: org.videolan.tools.LocalePair) {
+        val values = pair.localeEntryValues.map { it.toString() }
+        val names = pair.localeEntries.map { it.toString() }
+        if (values.isEmpty()) return
+        val head = listOf(org.videolan.vlc.util.RdLocaleChoices.Choice(values[0], names[0]))
+        val seen = HashSet<Pair<String, String>>()
+        val items = (1 until values.size).filter { seen.add(org.videolan.vlc.util.RdLocaleChoices.split(values[it])) }.map { values[it] to names[it] }
+        val detected = org.videolan.vlc.util.RdLocaleChoices.detectedLanguages(items.map { it.first }, org.videolan.vlc.util.RdDeviceLocale.languageTags())
+        val rows = org.videolan.vlc.util.RdLocaleChoices.order(head, items, detected)
+        lp.entries = rows.map { it.label }.toTypedArray()
+        lp.entryValues = rows.map { it.value }.toTypedArray()
+        (lp as? RdListPreference)?.let { it.detected = detected.toSet(); it.locales = true }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         settings = Settings.getInstance(requireActivity())
         // Interface / General
         pref<ListPreference>(KEY_SET_LOCALE)?.let { lp ->
-            val localePair = LocaleUtils.getLocalesUsedInProject(BuildConfig.TRANSLATION_ARRAY, getString(R.string.device_default))
-            lp.entries = localePair.localeEntries
-            lp.entryValues = localePair.localeEntryValues
+            localeList(lp, LocaleUtils.getLocalesUsedInProject(BuildConfig.TRANSLATION_ARRAY, getString(R.string.device_default)))
         }
         if (pref<Preference>(KEY_APP_THEME) != null) setupTheme()
+        // the TV layout is always dark (applyTheme): its Theme row showed Dark whatever was pressed, a choice that
+        // did nothing. Not shown there; a phone or a tablet keeps it.
+        if (Settings.showTvUi) pref<Preference>(KEY_APP_THEME)?.isVisible = false
+        // the TV layout's size: "Automatic (150 %)" with the size found for this screen, then the sizes
+        pref<ListPreference>(org.videolan.tools.KEY_RD_INTERFACE_SCALE)?.let { lp ->
+            lp.isVisible = Settings.showTvUi
+            val percent = java.text.NumberFormat.getPercentInstance()
+            val auto = requireActivity().rdAutoInterfaceScaleHere()
+            val sizes = org.videolan.vlc.gui.helpers.RD_INTERFACE_SCALES
+            lp.entries = sizes.map { if (it == 0) getString(R.string.rd_interface_size_auto, percent.format(auto / 100.0)) else percent.format(it / 100.0) }.toTypedArray()
+            lp.entryValues = sizes.map { it.toString() }.toTypedArray()
+            if (lp.value == null || lp.value !in lp.entryValues) lp.value = "0"
+        }
         pref<Preference>("default_sleep_timer")?.let { manageSleepTimerSummary() }
+        // the skip times of video and of audio had the same two names, nothing to tell them apart
+        for ((key, kind) in listOf("video_jump_delay" to R.string.video, "video_long_jump_delay" to R.string.video,
+                "audio_jump_delay" to R.string.audio, "audio_long_jump_delay" to R.string.audio))
+            pref<Preference>(key)?.let { p -> p.title = getString(kind) + ": " + p.title }
+        // (#72) what still shows the controls: touching the screen on a phone or a tablet (the row's help), the
+        // remote's keys on a TV (a note under the row: the TV's rows have no help, as the Samsung TV app's)
+        if (Settings.showTvUi) pref<RdListPreference>(org.videolan.vlc.gui.video.RdKeyFeedbackRules.KEY)?.help = null
+        // (set both ways: the base page shows every row it doesn't know, the XML's hidden note too: a phone showed
+        // the TV's words under the row as well)
+        pref<Preference>(org.videolan.vlc.gui.video.RdKeyFeedbackRules.KEY + "_note")?.isVisible = Settings.showTvUi
+        // an Android TV: no rows for what a TV does not have (a screen that turns, a window over other apps, a second
+        // display to clone to, a lock screen, a touch screen to lock by the sensor)
+        if (AndroidDevices.isAndroidTv) {
+            for (key in arrayOf("video_action_switch", "popup_force_legacy", "restore_background_video", "screen_orientation",
+                "enable_clone_mode", LOCK_USE_SENSOR, "lockscreen_cover", "show_seek_in_compact_notification", "save_brightness",
+                "enable_headset_detection", "enable_play_on_headset_insertion", "ignore_headset_media_button_presses", "android_auto_category"))
+                pref<Preference>(key)?.isVisible = false
+        }
         // Video
-        if (page == RdPage.VIDEO && settings.getBoolean(PREF_SHOW_VIDEO_SETTINGS_DISCLAIMER, false)) {
+        if (page == RdPage.VIDEO &&settings.getBoolean(PREF_SHOW_VIDEO_SETTINGS_DISCLAIMER, false)) {
             UiTools.snackerConfirm(requireActivity(), requireActivity().getString(R.string.video_settings_disclaimer), indefinite = true) {
                 Settings.getInstance(AppContextProvider.appContext).putSingle(PREF_SHOW_VIDEO_SETTINGS_DISCLAIMER, false)
             }
@@ -203,22 +252,19 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             }
         }
         pref<ListPreference>(KEY_AUDIO_PREFERRED_LANGUAGE)?.let {
-            val localePair = LocaleUtils.getLocalesUsedInProject(BuildConfig.TRANSLATION_ARRAY, getString(R.string.no_track_preference), requireActivity().getLocales())
-            it.entries = localePair.localeEntries
-            it.entryValues = localePair.localeEntryValues
+            localeList(it, LocaleUtils.getLocalesUsedInProject(BuildConfig.TRANSLATION_ARRAY, getString(R.string.no_track_preference), requireActivity().getLocales()))
         }
         // Subtitles
         pref<ListPreference>(KEY_SUBTITLE_PREFERRED_LANGUAGE)?.let {
-            val localePair = LocaleUtils.getLocalesUsedInProject(BuildConfig.TRANSLATION_ARRAY, getString(R.string.no_track_preference), requireActivity().getLocales())
-            it.entries = localePair.localeEntries
-            it.entryValues = localePair.localeEntryValues
+            localeList(it, LocaleUtils.getLocalesUsedInProject(BuildConfig.TRANSLATION_ARRAY, getString(R.string.no_track_preference), requireActivity().getLocales()))
         }
         // VLC Redesign: the second language and the online subtitles (OnlineSubtitles)
         pref<ListPreference>(org.videolan.vlc.util.OnlineSubtitles.KEY_SECOND)?.let {
-            val localePair = LocaleUtils.getLocalesUsedInProject(BuildConfig.TRANSLATION_ARRAY, getString(R.string.no_track_preference), requireActivity().getLocales())
-            it.entries = localePair.localeEntries
-            it.entryValues = localePair.localeEntryValues
+            localeList(it, LocaleUtils.getLocalesUsedInProject(BuildConfig.TRANSLATION_ARRAY, getString(R.string.no_track_preference), requireActivity().getLocales()))
+            // (never chosen: the desktop's default, English, unless English is the preferred one)
+            if (!it.sharedPreferences!!.contains(it.key)) it.value = org.videolan.vlc.util.OnlineSubtitles.secondLanguage(requireContext())
         }
+        updateShowBoth()
         // the subtitle services, each with its switch, its key or account and its checks (RdSubtitleServices)
         if (pref<Preference>(RdSubtitleServices.CATEGORY) != null) services = RdSubtitleServices(this).also { it.setup() }
         // the languages they are asked for (RdSubtitleLanguages)
@@ -303,8 +349,29 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
 
     override fun onStart() {
         super.onStart()
+        // a title too long for a phone's bar ("Network Connections & Securi…"): the page's short name, as in the list
+        (activity as? PreferencesActivity)?.let { act ->
+            val bar = act.findViewById<androidx.appcompat.widget.Toolbar>(R.id.main_toolbar) ?: return@let
+            bar.post {
+                if (!isAdded) return@post
+                val full = getString(page.title)
+                val title = (0 until bar.childCount).map { bar.getChildAt(it) }.filterIsInstance<android.widget.TextView>().firstOrNull { it.text?.toString() == full }
+                val cut = title?.layout?.let { l -> l.lineCount > 0 && l.getEllipsisCount(l.lineCount - 1) > 0 } == true
+                if (cut) act.supportActionBar?.title = getString(page.label)
+            }
+        }
         preferenceScreen.sharedPreferences?.registerOnSharedPreferenceChangeListener(this)
         (activity as? PreferencesActivity)?.onPageShown(page)
+        hideEmptySections()
+    }
+
+    /** A section whose rows are all hidden on this device shows no heading either ("Snapshots" over nothing on a TV). */
+    private fun hideEmptySections() {
+        val screen = preferenceScreen ?: return
+        for (i in 0 until screen.preferenceCount) {
+            val section = screen.getPreference(i) as? androidx.preference.PreferenceCategory ?: continue
+            if (section.preferenceCount > 0 && (0 until section.preferenceCount).none { section.getPreference(it).isVisible }) section.isVisible = false
+        }
     }
 
     override fun onStop() {
@@ -565,6 +632,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         // one language say whether it is on
         languages?.changed(key)
         if (key == org.videolan.vlc.util.OnlineSubtitles.KEY_LANGUAGES) services?.refresh()
+        if (key == org.videolan.vlc.util.OnlineSubtitles.KEY_SECOND) updateShowBoth()
         when (key) {
             // General / Interface
             // the desktop switches its language at once: this screen now, the others as they come back
@@ -578,6 +646,11 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
                 activity.setRestart()
                 sharedPreferences.getString(KEY_APP_THEME, "-1")?.toIntOrNull()?.let { AppCompatDelegate.setDefaultNightMode(it) }
                 // drawn again from its theme, with the accent overlay (an in-place day/night update drops it)
+                activity.recreate()
+            }
+            // the interface size changes at once: this screen now, the others when they come back
+            org.videolan.tools.KEY_RD_INTERFACE_SCALE -> {
+                activity.setRestart()
                 activity.recreate()
             }
             "rd_accent" -> {
@@ -696,7 +769,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             }
             KEY_VIDEO_JUMP_DELAY -> Settings.videoJumpDelay = sharedPreferences.getInt(KEY_VIDEO_JUMP_DELAY, 10)
             KEY_VIDEO_LONG_JUMP_DELAY -> Settings.videoLongJumpDelay = sharedPreferences.getInt(KEY_VIDEO_LONG_JUMP_DELAY, 20)
-            KEY_VIDEO_DOUBLE_TAP_JUMP_DELAY -> Settings.videoDoubleTapJumpDelay = sharedPreferences.getInt(KEY_VIDEO_DOUBLE_TAP_JUMP_DELAY, 20)
+            KEY_VIDEO_DOUBLE_TAP_JUMP_DELAY -> Settings.videoDoubleTapJumpDelay = sharedPreferences.getInt(KEY_VIDEO_DOUBLE_TAP_JUMP_DELAY, 10)
             FASTPLAY_SPEED -> {
                 Settings.fastplaySpeed = sharedPreferences.getInt(FASTPLAY_SPEED, 20) / 10f
                 updateFastplaySpeedSummary()
@@ -767,7 +840,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         pref<SeekBarPreference>(KEY_SUBTITLES_COLOR_OPACITY)?.value = 255
         background?.isChecked = false
         pref<ColorPreferenceCompat>(KEY_SUBTITLES_BACKGROUND_COLOR)?.saveValue(ContextCompat.getColor(requireActivity(), R.color.black))
-        backgroundOpacity?.value = 255
+        backgroundOpacity?.value = 128
         shadow?.isChecked = true
         pref<ColorPreferenceCompat>(KEY_SUBTITLES_SHADOW_COLOR)?.saveValue(ContextCompat.getColor(requireActivity(), R.color.black))
         pref<SeekBarPreference>(KEY_SUBTITLES_SHADOW_COLOR_OPACITY)?.value = 128
@@ -796,6 +869,14 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
                 shadow?.isChecked = false
             }
         }
+    }
+
+    /** "Show both languages at once": with a second language only (none: off, as on the desktop) */
+    private fun updateShowBoth() {
+        val row = pref<CheckBoxPreference>(org.videolan.vlc.util.RdDualSubtitles.KEY_SHOW_BOTH) ?: return
+        val second = org.videolan.vlc.util.OnlineSubtitles.normalize(preferenceManager.sharedPreferences?.getString(org.videolan.vlc.util.OnlineSubtitles.KEY_SECOND, null))
+        row.isEnabled = second.isNotEmpty()
+        if (second.isEmpty() && row.isChecked) row.isChecked = false
     }
 
     private fun manageSubtitleVisibilities() {

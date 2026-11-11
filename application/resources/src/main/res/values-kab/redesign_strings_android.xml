@@ -28,4 +28,21 @@
     <string name="rd_unpin_from_home">Kkes asenteḍ seg Ugejdan</string>
     <string name="rd_pinned">Yettwasenteḍ</string>
     <string name="rd_pinned_missing">Akaram-a neɣ tabdart-a n tɣuri yettwasentḍen ulac-it dagi.</string>
+    <string name="rd_subs_of_video">Iduzwilen n tvidyut-a</string>
+    <string name="rd_subs_in_video">Deg tvidyut</string>
+    <string name="rd_subs_next_to">Ɣer tama n tvidyut · %1$s</string>
+    <string name="rd_subs_next_to_plain">Ɣer tama n tvidyut</string>
+    <string name="rd_subs_opened">Yeldi · %1$s</string>
+    <string name="rd_subs_opened_plain">Afaylu yeldin</string>
+    <string name="rd_subs_none_yet">Ulac iduzwilen ar tura</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Sken-d ismenyifen</string>
+    <string name="rd_subs_position_size">Adeg d teɣzi</string>
+    <string name="rd_subs_position">Adeg</string>
+    <string name="rd_subs_usual">Amagnu</string>
+    <string name="rd_subs_move_down">Ssers iduzwilen ɣer wadda</string>
+    <string name="rd_subs_move_up">Ssali iduzwilen ɣer ufella</string>
+    <string name="rd_subs_smaller">Iduzwilen imecṭaḥ</string>
+    <string name="rd_subs_larger">Iduzwilen imeqqranen</string>
+    <string name="rd_os_show_both">Sken-d snat n tutlayin ɣef tikkelt (sin n iduzwilen)</string>
 </resources>

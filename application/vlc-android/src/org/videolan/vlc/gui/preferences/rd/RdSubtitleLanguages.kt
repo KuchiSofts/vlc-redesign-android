@@ -102,7 +102,7 @@ class RdSubtitleLanguages(private val page: PreferenceFragmentCompat) {
         val ctx = page.context ?: return
         val l = pref.language
         val preferred = OnlineSubtitles.preferredLanguage(app)
-        val second = OnlineSubtitles.normalize(org.videolan.tools.Settings.getInstance(app).getString(OnlineSubtitles.KEY_SECOND, null))
+        val second = OnlineSubtitles.secondLanguage(app)
         val role = when (l.code) {
             preferred -> ctx.getString(R.string.rd_preferred_language)
             second -> ctx.getString(R.string.rd_os_second_short)
@@ -118,6 +118,7 @@ class RdSubtitleLanguages(private val page: PreferenceFragmentCompat) {
         holder.findViewById(R.id.rd_svc_account)?.isVisible = false
         (holder.findViewById(R.id.rd_svc_switch) as? RdToggleView)?.isChecked = l.on
         holder.findViewById(R.id.rd_svc_main)?.setOnClickListener { set(l.code) { it.copy(on = !it.on) } }
+        holder.findViewById(R.id.rd_svc_switch)?.setOnClickListener { set(l.code) { it.copy(on = !it.on) } }
         holder.findViewById(R.id.rd_svc_more)?.let { more ->
             more.contentDescription = ctx.getString(R.string.more_actions) + ", " + native
             more.setOnClickListener { menu(l, preferred, it) }

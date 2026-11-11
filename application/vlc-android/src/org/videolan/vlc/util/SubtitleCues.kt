@@ -55,70 +55,8 @@ object SubtitleCues {
         return cues
     }
 
-    private val SRT_TIME = Regex("""(?:(\d{1,2}):)?(\d{1,2}):(\d{2})[,.](\d{1,3})\s*-->\s*(?:(\d{1,2}):)?(\d{1,2}):(\d{2})[,.](\d{1,3})""")
-    private val TAGS = Regex("""<[^>]*>|\{\\[^}]*\}""")
-
     /** The lines of a text subtitle file: SRT and WebVTT (a time line, then the text), ASS / SSA (Dialogue rows) */
-    fun parse(text: String): List<Cue> {
-        val out = ArrayList<Cue>()
-        if (text.contains("[Events]", ignoreCase = true) || text.contains("\nDialogue:")) {
-            // ASS / SSA: "Dialogue: layer,start,end,style,name,ml,mr,mv,effect,text"; the text field may have commas
-            var textField = 9
-            for (raw in text.lineSequence()) {
-                val line = raw.trim()
-                if (line.startsWith("Format:", ignoreCase = true)) {
-                    val fields = line.substringAfter(':').split(',').map { it.trim().lowercase(Locale.ROOT) }
-                    fields.indexOf("text").takeIf { it >= 0 }?.let { textField = it }
-                    continue
-                }
-                if (!line.startsWith("Dialogue:", ignoreCase = true)) continue
-                val fields = line.substringAfter(':').split(',', limit = textField + 1)
-                if (fields.size <= textField) continue
-                val start = assTime(fields[1]) ?: continue
-                val end = assTime(fields[2]) ?: continue
-                out.add(Cue(start, end, clean(fields[textField].replace("\\N", "\n").replace("\\n", "\n"))))
-            }
-        } else {
-            val lines = text.lines()
-            var i = 0
-            while (i < lines.size) {
-                val m = SRT_TIME.find(lines[i])
-                if (m == null) { i++; continue }
-                val g = m.groupValues
-                val start = ms(g[1], g[2], g[3], g[4])
-                val end = ms(g[5], g[6], g[7], g[8])
-                val body = StringBuilder()
-                i++
-                while (i < lines.size && lines[i].isNotBlank() && SRT_TIME.find(lines[i]) == null) {
-                    if (body.isNotEmpty()) body.append('\n')
-                    body.append(lines[i].trim())
-                    i++
-                }
-                out.add(Cue(start, end, clean(body.toString())))
-            }
-        }
-        out.sortBy { it.start }
-        return out
-    }
-
-    private fun ms(h: String, m: String, s: String, f: String): Long {
-        val frac = f.padEnd(3, '0').take(3).toLong()
-        return ((h.toLongOrNull() ?: 0L) * 3600 + m.toLong() * 60 + s.toLong()) * 1000 + frac
-    }
-
-    /** "0:00:01.50" (hundredths) */
-    private fun assTime(t: String): Long? {
-        val p = t.trim().split(':')
-        if (p.size != 3) return null
-        val sec = p[2].split('.')
-        return try {
-            (p[0].toLong() * 3600 + p[1].toLong() * 60 + sec[0].toLong()) * 1000 + (sec.getOrNull(1)?.padEnd(3, '0')?.take(3)?.toLong() ?: 0L)
-        } catch (e: NumberFormatException) {
-            null
-        }
-    }
-
-    private fun clean(s: String) = s.replace(TAGS, "").trim()
+    fun parse(text: String): List<Cue> = SubtitleCueParser.parse(text)
 
     private val TEXT_MIMES = setOf("application/x-subrip", "text/vtt", "text/3gpp-tt", "application/x-quicktime-tx3g", "text/x-ssa")
 
@@ -144,7 +82,7 @@ object SubtitleCues {
                 if (n < 0) break
                 val bytes = ByteArray(n)
                 buffer.get(bytes, 0, n)
-                starts.add(extractor.sampleTime / 1000 to clean(String(bytes, Charsets.UTF_8)))
+                starts.add(extractor.sampleTime / 1000 to SubtitleCueParser.clean(String(bytes, Charsets.UTF_8)))
                 if (!extractor.advance() || starts.size > 20000 || Thread.currentThread().isInterrupted) break
             }
             starts.forEachIndexed { i, (start, text) ->
@@ -180,4 +118,75 @@ object SubtitleCues {
             f.isFile && f.extension.lowercase(Locale.ROOT) in EXTENSIONS && f.name.startsWith(base)
         }?.sortedBy { it.name.lowercase(Locale.ROOT) } ?: emptyList()
     }
+}
+
+/**
+ * The text subtitle files' lines and times (SubtitleCues.parse), without anything of Android's: read by the unit tests
+ * and the dual subtitles alike.
+ */
+object SubtitleCueParser {
+    private val SRT_TIME = Regex("""(?:(\d{1,2}):)?(\d{1,2}):(\d{2})[,.](\d{1,3})\s*-->\s*(?:(\d{1,2}):)?(\d{1,2}):(\d{2})[,.](\d{1,3})""")
+    private val TAGS = Regex("""<[^>]*>|\{\\[^}]*\}""")
+
+    fun parse(text: String): List<SubtitleCues.Cue> {
+        val out = ArrayList<SubtitleCues.Cue>()
+        if (text.contains("[Events]", ignoreCase = true) || text.contains("\nDialogue:")) {
+            // ASS / SSA: "Dialogue: layer,start,end,style,name,ml,mr,mv,effect,text"; the text field may have commas
+            var textField = 9
+            for (raw in text.lineSequence()) {
+                val line = raw.trim()
+                if (line.startsWith("Format:", ignoreCase = true)) {
+                    val fields = line.substringAfter(':').split(',').map { it.trim().lowercase(Locale.ROOT) }
+                    fields.indexOf("text").takeIf { it >= 0 }?.let { textField = it }
+                    continue
+                }
+                if (!line.startsWith("Dialogue:", ignoreCase = true)) continue
+                val fields = line.substringAfter(':').split(',', limit = textField + 1)
+                if (fields.size <= textField) continue
+                val start = assTime(fields[1]) ?: continue
+                val end = assTime(fields[2]) ?: continue
+                out.add(SubtitleCues.Cue(start, end, clean(fields[textField].replace("\\N", "\n").replace("\\n", "\n"))))
+            }
+        } else {
+            val lines = text.lines()
+            var i = 0
+            while (i < lines.size) {
+                val m = SRT_TIME.find(lines[i])
+                if (m == null) { i++; continue }
+                val g = m.groupValues
+                val start = ms(g[1], g[2], g[3], g[4])
+                val end = ms(g[5], g[6], g[7], g[8])
+                val body = StringBuilder()
+                i++
+                while (i < lines.size && lines[i].isNotBlank() && SRT_TIME.find(lines[i]) == null) {
+                    if (body.isNotEmpty()) body.append('\n')
+                    body.append(lines[i].trim())
+                    i++
+                }
+                out.add(SubtitleCues.Cue(start, end, clean(body.toString())))
+            }
+        }
+        out.sortBy { it.start }
+        return out
+    }
+
+    private fun ms(h: String, m: String, s: String, f: String): Long {
+        val frac = f.padEnd(3, '0').take(3).toLong()
+        return ((h.toLongOrNull() ?: 0L) * 3600 + m.toLong() * 60 + s.toLong()) * 1000 + frac
+    }
+
+    /** "0:00:01.50" (hundredths) */
+    private fun assTime(t: String): Long? {
+        val p = t.trim().split(':')
+        if (p.size != 3) return null
+        val sec = p[2].split('.')
+        return try {
+            (p[0].toLong() * 3600 + p[1].toLong() * 60 + sec[0].toLong()) * 1000 + (sec.getOrNull(1)?.padEnd(3, '0')?.take(3)?.toLong() ?: 0L)
+        } catch (e: NumberFormatException) {
+            null
+        }
+    }
+
+    /** a line without its tags (<i>, {\an8}) */
+    internal fun clean(s: String) = s.replace(TAGS, "").trim()
 }

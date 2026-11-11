@@ -588,7 +588,8 @@ class AudioPlayer : Fragment(), PlaylistAdapter.IPlayer, TextWatcher, IAudioPlay
         apply(null)
         if (media.type == MediaWrapper.TYPE_VIDEO) return
         waveformJob = lifecycleScope.launch {
-            val bins = withContext(Dispatchers.IO) { Waveform.peaks(ctx, uri) }
+            // (interruptible: a cancel stops the decoder; withContext let every skipped track decode its whole file)
+            val bins = kotlinx.coroutines.runInterruptible(Dispatchers.IO) { Waveform.peaks(ctx, uri) }
             if (bins != null && waveformUri == uri && isAdded) apply(bins)
         }
     }

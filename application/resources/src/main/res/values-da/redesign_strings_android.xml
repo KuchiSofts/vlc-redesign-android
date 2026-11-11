@@ -30,11 +30,14 @@
     <string name="rd_ob_history_help">Gemmes kun på denne enhed, så du kan fortsætte, hvor du slap.</string>
     <string name="rd_ob_updates_help">Søger én gang om dagen efter en nyere testudgave af VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Undertekster: SubSource (arabisk), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 og Legendas.net med din gratis nøgle eller konto. Hver tjeneste under Indstillinger › Undertekster med sin egen kontakt.</item>
-        <item>Sprog at søge på: slå hvert undertekstsprog til eller fra for en hurtigere søgning.</item>
-        <item>Live-tv-konti: din Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR eller HDHomeRun og programguiden fra Schedules Direct. Servere på dit netværk findes af sig selv.</item>
-        <item>Live-tv: en programguide, der findes af sig selv, til kanaler, der mangler en, en fane Programguider med hver kildes programguider og katalogets kilder for dit land først.</item>
-        <item>Rettelser: downloadede undertekster gemmes i appens eget lager (retter et nedbrud på Android 14), adgangskodefelter viser ikke længere adgangskoden, tv-fjernbetjeningens fokus, ordet for \"Land\" på mange sprog og ordet for adgangskode på arabisk.</item>
+        <item>Hurtigere og mere stabil: Live-tv og undertekster arbejder i baggrunden, og nedbrud og en frossen afspiller på Android 5 og tv-bokse er rettet.</item>
+        <item>Fuld skærm: en tast, fjernbetjeningen eller en bevægelse kan vise kun forløbet eller kun en meddelelse i stedet for knapperne, under Indstillinger › Brugerflade. Tak til @BarbodF.</item>
+        <item>Smartere automatiske undertekster: videoens egen Subs-mappe bruges først, en reklamefil eller en fil med kun tvungne linjer tæller ikke længere som undertekster, der søges stadig undertekster til en film, hvis billede kommer sent, og hebraisk og arabisk tegnsætning vises i den rigtige ende.</item>
+        <item>Undertekster online nu også til videoer på en netværksdeling, en medieserver eller bag et link, både når du søger selv, og når de findes automatisk (tak til @Elshepl). På Android 5 til 7.0 svarer OpenSubtitles igen.</item>
+        <item>Undertekstpanelet som på computeren: det åbner over sin knap, med sprogene og deres antal, onlineresultaterne og timingen samlet ét sted.</item>
+        <item>Installeres ved siden af VLC for Android, og tv-appen på hebraisk og arabisk er helt spejlvendt, med fjernbetjeningens fokus, hvor du forventer det.</item>
+        <item>Tilpasset din skærm: på et tv er appen nu større og let at læse fra sofaen, størrelsen bestemmes ud fra skærmen og kan ændres i Indstillinger › Brugerflade › Brugerfladens størrelse. Rækker viser hele kort, og alle vinduer passer til skærmen.</item>
+        <item>Meget store tv-guider indlæses uden at fylde hukommelsen, to undertekstsprog kan vises samtidig, og fjernbetjeningens fokus er altid synligt.</item>
     </string-array>
     <string name="rd_subtitle_size">Undertekststørrelse</string>
     <string name="rd_cast_this_phone">Denne telefon</string>
@@ -62,4 +65,21 @@
     <string name="rd_unpin_from_home">Frigør fra Hjem</string>
     <string name="rd_pinned">Fastgjort</string>
     <string name="rd_pinned_missing">Denne fastgjorte mappe eller spilleliste findes ikke længere.</string>
+    <string name="rd_subs_of_video">Undertekster til denne video</string>
+    <string name="rd_subs_in_video">I videoen</string>
+    <string name="rd_subs_next_to">Ved siden af videoen · %1$s</string>
+    <string name="rd_subs_next_to_plain">Ved siden af videoen</string>
+    <string name="rd_subs_opened">Åbnet · %1$s</string>
+    <string name="rd_subs_opened_plain">Åbnet fil</string>
+    <string name="rd_subs_none_yet">Ingen undertekster endnu</string>
+    <string name="rd_subs_hi_short">HH</string>
+    <string name="rd_show_preferences">Vis indstillinger</string>
+    <string name="rd_subs_position_size">Placering og størrelse</string>
+    <string name="rd_subs_position">Placering</string>
+    <string name="rd_subs_usual">Normal</string>
+    <string name="rd_subs_move_down">Flyt underteksterne ned</string>
+    <string name="rd_subs_move_up">Flyt underteksterne op</string>
+    <string name="rd_subs_smaller">Mindre undertekster</string>
+    <string name="rd_subs_larger">Større undertekster</string>
+    <string name="rd_os_show_both">Vis begge sprog på én gang (dobbelte undertekster)</string>
 </resources>

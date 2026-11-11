@@ -297,7 +297,7 @@ class VideoTouchDelegate(private val player: VideoPlayerActivity,
                             when {
                                 (touchControls and TOUCH_FLAG_DOUBLE_TAP_SEEK != 0) && event.x < range / 4f -> seekDelta(-org.videolan.tools.Settings.videoDoubleTapJumpDelay * 1000)
                                 (touchControls and TOUCH_FLAG_DOUBLE_TAP_SEEK != 0) && event.x > range * 0.75 -> seekDelta(org.videolan.tools.Settings.videoDoubleTapJumpDelay * 1000)
-                                else -> if (touchControls and TOUCH_FLAG_PLAY != 0) player.doPlayPause()
+                                else -> if (touchControls and TOUCH_FLAG_PLAY != 0) player.doPlayPause(quiet = true)
                             }
                         }
 
@@ -414,7 +414,8 @@ class VideoTouchDelegate(private val player: VideoPlayerActivity,
             if (seek && length > 0) player.seek(time + jump, length)
 
             //Show the jump's size
-            if (length > 0) player.overlayDelegate.showInfo(
+            if (length > 0 && player.keyFeedback.active) player.keyFeedback.swipeSeek(jump.toLong(), time + jump)
+            else if (length > 0) player.overlayDelegate.showInfo(
                 String.format(
                     "%s%s (%s)%s",
                     if (jump >= 0) "+" else "",
@@ -534,10 +535,16 @@ class VideoTouchDelegate(private val player: VideoPlayerActivity,
             // unseekable stream
             if (service.length <= 0 || !service.isSeekable) return
 
-            var position = player.time + delta
+            val from = player.time
+            var position = from + delta
             if (position < 0) position = 0
             if (position > service.length) position = service.length
             player.seek(position, fast = false)
+            // VLC Redesign (#72): the setting's feedback (the line and its pill) rather than the seek's circles
+            if (player.keyFeedback.active) {
+                player.keyFeedback.seek(delta.toLong(), position, from)
+                return
+            }
             val sb = StringBuilder()
             val seekForward = delta >= 0
 

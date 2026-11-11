@@ -79,7 +79,8 @@ class TvHttpTest {
         Thread {
             while (!server.isClosed) {
                 val s = try { server.accept() } catch (e: Exception) { break }
-                s.use { sock ->
+                // (a client that hangs up mid-answer, as a read past its limit does: the next one is still served)
+                try { s.use { sock ->
                     val input = BufferedReader(InputStreamReader(sock.getInputStream(), Charsets.ISO_8859_1))
                     val first = input.readLine() ?: return@use
                     val headers = HashMap<String, String>()
@@ -94,7 +95,7 @@ class TvHttpTest {
                     val head = "HTTP/1.1 ${r.status} X\r\n" + (if (r.header.isNotEmpty()) r.header + "\r\n" else "") +
                         "Content-Length: ${body.size}\r\nConnection: close\r\n\r\n"
                     sock.getOutputStream().apply { write(head.toByteArray(Charsets.ISO_8859_1)); write(body); flush() }
-                }
+                } } catch (e: java.io.IOException) { }
             }
         }.apply { isDaemon = true; start() }
         return server
@@ -128,6 +129,18 @@ class TvHttpTest {
             assertEquals(401, TvHttp.request(TvRequest("$base/basic", auth = TvAuth("demo", "nope"))).status)
         } finally {
             server.close()
+        }
+        // an answer past its limit: a failure, or (truncate) its start
+        val big = serve { _, _, _ -> Reply(200, body = "#EXTM3U\n" + "x".repeat(300_000)) }
+        try {
+            val url = "http://127.0.0.1:" + big.localPort + "/list.m3u"
+            assertEquals(0, TvHttp.request(TvRequest(url, limit = 64 shl 10)).status)
+            val start = TvHttp.request(TvRequest(url, limit = 64 shl 10, truncate = true))
+            assertTrue(start.ok)
+            assertTrue(start.body.startsWith("#EXTM3U"))
+            assertTrue("${start.body.length}", start.body.length in (64 shl 10)..(64 shl 10) + 65536)
+        } finally {
+            big.close()
         }
         // no answer: status 0 and the kind of failure only (never the address)
         val none = TvHttp.request(TvRequest("http://127.0.0.1:1/x", timeoutMs = 2000))

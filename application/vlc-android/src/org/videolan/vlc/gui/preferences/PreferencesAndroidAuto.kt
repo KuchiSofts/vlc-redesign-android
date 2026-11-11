@@ -74,12 +74,12 @@ class PreferencesAndroidAuto : BasePreferenceFragment(), SharedPreferences.OnSha
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.findItem(R.id.menu_android_auto_info).isVisible = true
+        menu.findItem(R.id.menu_android_auto_info)?.isVisible = true
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
-        menu.findItem(R.id.menu_android_auto_info).isVisible = true
+        menu.findItem(R.id.menu_android_auto_info)?.isVisible = true
         super.onPrepareOptionsMenu(menu)
     }
 

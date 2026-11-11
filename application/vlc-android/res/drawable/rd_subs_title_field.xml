@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign: the title field of the Subtitles panel (the desktop's: B2, radius 6, a 1 px A4 line; focused, 2 px of the accent) -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/rd_dark_bg_b2" />
+            <stroke android:width="2dp" android:color="?attr/colorPrimary" />
+            <corners android:radius="6dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/rd_dark_bg_b2" />
+            <stroke android:width="1dp" android:color="@color/rd_dark_bg_a4" />
+            <corners android:radius="6dp" />
+        </shape>
+    </item>
+</selector>

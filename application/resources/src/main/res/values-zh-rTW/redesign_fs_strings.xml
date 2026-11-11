@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign (#72): what a key, the remote or a gesture shows in the player (RdKeyFeedback) -->
+<resources>
+    <string name="rd_fs_when_key">使用按鍵或遙控器時</string>
+    <string name="rd_fs_show_controls">顯示控制項</string>
+    <string name="rd_fs_show_progress">僅顯示進度</string>
+    <string name="rd_fs_show_message">僅顯示訊息</string>
+    <string name="rd_fs_seconds">%1$s 秒</string>
+    <string name="rd_fs_paused">已暫停</string>
+    <string name="rd_fs_playing">正在播放</string>
+    <string name="rd_fs_info_touch">觸控螢幕仍會顯示控制項。</string>
+    <string name="rd_fs_info_tv">按下 OK、上、下或選單鍵仍會顯示控制項。</string>
+</resources>

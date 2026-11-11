@@ -3,10 +3,13 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>Subtitles: SubSource (Arabic), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 and Legendas.net, with your own free key or account. Each one in Settings › Subtitles, with its switch.</item>
-        <item>Languages to search: turn each subtitle language on or off for a faster search.</item>
-        <item>Live TV accounts: your Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR or HDHomeRun, and the Schedules Direct guide. Servers on your network are found by themselves.</item>
-        <item>Live TV: a guide found by itself for channels without one, a Guides tab for every source\'s guides, and the catalog\'s sources for your country first.</item>
-        <item>Fixes: subtitles saved in the app\'s own storage (a crash on Android 14), password fields hidden, the TV remote\'s focus, the word for Country in many languages and the word for password in Arabic.</item>
+        <item>Faster and steadier: Live TV and subtitles work in the background, and crashes and a frozen player on Android 5 and TV boxes are fixed.</item>
+        <item>Full screen: a key, the remote or a gesture can show only the progress or only a message instead of the controls, in Settings › Interface. Thanks to @BarbodF.</item>
+        <item>Smarter automatic subtitles: a release\'s own Subs folder is used first, an advert or forced-lines file no longer counts as a subtitle, a film whose picture comes late is still searched, and Hebrew and Arabic punctuation shows at the right end.</item>
+        <item>Online subtitles also for videos on a share, a media server or behind a link, found by hand and by themselves (thanks to @Elshepl). On Android 5 to 7.0, OpenSubtitles answers again.</item>
+        <item>The Subtitles panel as on the desktop: it opens above its button, with the languages and their counts, the online results and the timing in one place.</item>
+        <item>Installs next to VLC for Android, and the TV app in Hebrew and Arabic is mirrored as a whole, with the remote\'s focus where you expect it.</item>
+        <item>Made for your screen: on a TV the app is now larger and easy to read from the sofa, the size is found for the screen and can be changed in Settings › Interface › Interface size. Rows show whole cards and every window fits the screen.</item>
+        <item>Very large TV guides load without filling the memory, two subtitle languages can show at the same time, and the remote\'s focus is always visible.</item>
     </string-array>
 </resources>

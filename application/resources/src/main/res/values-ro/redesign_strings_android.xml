@@ -30,11 +30,14 @@
     <string name="rd_ob_history_help">Păstrat doar pe acest dispozitiv, pentru a continua de unde ați rămas.</string>
     <string name="rd_ob_updates_help">Caută o dată pe zi o versiune de test mai nouă a VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Subtitluri: SubSource (arabă), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 și Legendas.net cu propria dumneavoastră cheie gratuită sau cu un cont gratuit. Fiecare în Setări › Subtitluri, cu comutatorul său.</item>
-        <item>Limbi de căutat: activați sau dezactivați fiecare limbă de subtitrare pentru o căutare mai rapidă.</item>
-        <item>Conturi TV în direct: propriul dumneavoastră Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR sau HDHomeRun și ghidul Schedules Direct. Serverele din rețeaua dumneavoastră sunt găsite automat.</item>
-        <item>TV în direct: un ghid găsit automat pentru canalele care nu au unul, o filă Ghiduri cu ghidurile fiecărei surse și sursele din țara dumneavoastră afișate primele în catalog.</item>
-        <item>Remedieri: subtitluri salvate în spațiul de stocare propriu al aplicației (o închidere neașteptată pe Android 14), câmpuri de parolă ascunse, focalizarea telecomenzii TV, traducerea pentru „Țară” în multe limbi și cea pentru „parolă” în arabă.</item>
+        <item>Mai rapid și mai stabil: TV-ul în direct și subtitlurile funcționează în fundal, iar închiderile neașteptate și playerul înghețat pe Android 5 și pe dispozitivele TV box au fost remediate.</item>
+        <item>Ecran complet: o tastă, telecomanda sau un gest pot afișa doar progresul sau doar un mesaj în locul comenzilor, în Setări › Interfață. Mulțumiri lui @BarbodF.</item>
+        <item>Subtitluri automate mai inteligente: întâi se folosește dosarul Subs care însoțește videoclipul, un fișier publicitar sau doar cu replici forțate nu mai contează drept subtitlu, căutarea se face și pentru un film a cărui imagine vine târziu, iar punctuația în ebraică și arabă apare la capătul corect.</item>
+        <item>Subtitluri online acum și pentru videoclipuri dintr-o partajare de rețea, de pe un server media sau din spatele unui link, găsite manual și automat (mulțumiri lui @Elshepl). Pe Android 5–7.0, OpenSubtitles răspunde din nou.</item>
+        <item>Panoul de subtitluri ca pe desktop: se deschide deasupra butonului său, cu limbile și numărul lor, rezultatele online și sincronizarea într-un singur loc.</item>
+        <item>Se instalează alături de VLC for Android, iar aplicația TV în ebraică și arabă este oglindită în întregime, cu focalizarea telecomenzii acolo unde vă așteptați.</item>
+        <item>Pe măsura ecranului dvs.: pe un televizor aplicația este acum mai mare și ușor de citit de pe canapea, dimensiunea este stabilită în funcție de ecran și poate fi schimbată din Setări › Interfață › Dimensiunea interfeței. Rândurile arată carduri întregi și fiecare fereastră încape pe ecran.</item>
+        <item>Ghidurile TV foarte mari se încarcă fără să umple memoria, două limbi de subtitrare pot fi afișate simultan, iar focalizarea telecomenzii este mereu vizibilă.</item>
     </string-array>
     <string name="rd_subtitle_size">Dimensiunea subtitrărilor</string>
     <string name="rd_cast_this_phone">Acest telefon</string>
@@ -62,4 +65,21 @@
     <string name="rd_unpin_from_home">Anulează fixarea din Acasă</string>
     <string name="rd_pinned">Fixate</string>
     <string name="rd_pinned_missing">Acest dosar sau această listă de redare fixată nu mai există.</string>
+    <string name="rd_subs_of_video">Subtitlurile acestui video</string>
+    <string name="rd_subs_in_video">În video</string>
+    <string name="rd_subs_next_to">Lângă video · %1$s</string>
+    <string name="rd_subs_next_to_plain">Lângă video</string>
+    <string name="rd_subs_opened">Deschis · %1$s</string>
+    <string name="rd_subs_opened_plain">Fișier deschis</string>
+    <string name="rd_subs_none_yet">Încă nu există subtitluri</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Afișează preferințele</string>
+    <string name="rd_subs_position_size">Poziție și dimensiune</string>
+    <string name="rd_subs_position">Poziție</string>
+    <string name="rd_subs_usual">Obișnuit</string>
+    <string name="rd_subs_move_down">Mută subtitlurile în jos</string>
+    <string name="rd_subs_move_up">Mută subtitlurile în sus</string>
+    <string name="rd_subs_smaller">Subtitluri mai mici</string>
+    <string name="rd_subs_larger">Subtitluri mai mari</string>
+    <string name="rd_os_show_both">Afișează ambele limbi simultan (subtitluri duble)</string>
 </resources>

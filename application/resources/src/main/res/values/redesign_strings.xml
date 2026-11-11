@@ -157,6 +157,9 @@
     <string name="rd_sec_diagnostics">Diagnostics</string>
     <string name="rd_sec_advanced">Advanced Options</string>
     <string name="rd_sec_window">Window</string>
+    <string name="rd_interface_size">Interface size</string>
+    <string name="rd_interface_size_summary">How large the pages, texts and controls are drawn. Automatic picks the size that suits this screen.</string>
+    <string name="rd_interface_size_auto">Automatic (%1$s)</string>
     <string name="rd_sec_playback_controls">Playback Controls</string>
     <string name="rd_sec_notifications">Notifications</string>
     <string name="rd_sec_playlist">Playlist</string>
@@ -585,4 +588,22 @@
     <string name="rd_os_find_language">Find a language</string>
     <string name="rd_os_picked_in_player">Chosen in the player</string>
     <string name="rd_os_second_short">Second language</string>
+    <string name="rd_subs_of_video">Subtitles of this video</string>
+    <string name="rd_subs_in_video">In the video</string>
+    <string name="rd_subs_next_to">Next to the video · %1$s</string>
+    <string name="rd_subs_next_to_plain">Next to the video</string>
+    <string name="rd_subs_opened">Opened · %1$s</string>
+    <string name="rd_subs_opened_plain">Opened file</string>
+    <string name="rd_subs_none_yet">No subtitles yet</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Show Preferences</string>
+    <string name="rd_subs_position_size">Position and size</string>
+    <string name="rd_subs_position">Position</string>
+    <string name="rd_subs_usual">Usual</string>
+    <string name="rd_subs_move_down">Move the subtitles down</string>
+    <string name="rd_subs_move_up">Move the subtitles up</string>
+    <string name="rd_subs_smaller">Smaller subtitles</string>
+    <string name="rd_subs_larger">Larger subtitles</string>
+    <string name="rd_os_show_both">Show both languages at once (dual subtitles)</string>
+    <string name="rd_on_this_device">On this device</string>
 </resources>

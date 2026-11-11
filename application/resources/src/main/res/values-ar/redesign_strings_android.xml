@@ -32,11 +32,14 @@
     <string name="rd_ob_history_help">يُحفظ على هذا الجهاز فقط، للمتابعة من حيث توقفت.</string>
     <string name="rd_ob_updates_help">يبحث مرة في اليوم عن إصدار تجريبي أحدث من VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>ترجمات: SubSource للعربية وSubDL وTitlovi وAssrt وJimaku وBetaSeries وSubs.ro وNapisy24 وLegendas.net بمفتاحك أو حسابك المجاني. لكلٍّ منها زر تفعيل في الإعدادات › الترجمة.</item>
-        <item>لغات البحث: فعّل كل لغة ترجمة أو أوقفها ليصبح البحث أسرع.</item>
-        <item>حسابات التلفزيون المباشر: خادم Jellyfin أو Emby أو Tvheadend أو NextPVR أو Channels DVR أو HDHomeRun الخاص بك، ودليل Schedules Direct. يُعثر تلقائيًا على الخوادم الموجودة في شبكتك.</item>
-        <item>التلفزيون المباشر: دليل يُعثر عليه تلقائيًا للقنوات التي لا دليل لها، وتبويب «الأدلة» لأدلة كل مصدر، ومصادر دولتك أولًا في الكتالوج.</item>
-        <item>إصلاحات: حفظ الترجمات المنزَّلة في مساحة تخزين التطبيق نفسه (تعطّل على Android 14)، وإخفاء ما يُكتب في حقول كلمة المرور، وتركيز جهاز التحكم عن بُعد في التلفزيون، وترجمة «دولة» في لغات كثيرة، و«كلمة المرور» بالعربية.</item>
+        <item>أسرع وأكثر ثباتًا: يعمل التلفزيون المباشر والترجمات في الخلفية، وأُصلحت الأعطال وتجمّد المشغّل على Android 5 وأجهزة TV Box.</item>
+        <item>ملء الشاشة: يمكن لزر أو لجهاز التحكم عن بُعد أو لإيماءة إظهار التقدم فقط أو رسالة فقط بدلًا من أزرار التحكم، في الإعدادات › الواجهة. شكرًا لـ @BarbodF.</item>
+        <item>ترجمات تلقائية أذكى: يُستخدم أولًا مجلد Subs المرفق بالفيديو نفسه، ولم يعد ملف الإعلان أو الملف الذي يقتصر على الأسطر الإجبارية يُحسب ترجمةً، ويُبحث عن ترجمة الفيلم حتى إن تأخرت صورته، وتظهر علامات الترقيم في العبرية والعربية في الطرف الصحيح.</item>
+        <item>الترجمات عبر الإنترنت متاحة الآن أيضًا لمقاطع الفيديو على مشاركة شبكية أو خادم وسائط أو خلف رابط، بالبحث اليدوي والتلقائي (شكرًا لـ @Elshepl). وعلى Android 5 حتى 7.0، يستجيب OpenSubtitles من جديد.</item>
+        <item>لوحة الترجمة كما في نسخة سطح المكتب: تُفتح فوق زرها، وتجمع في مكان واحد اللغات وعدد الترجمات في كل منها، ونتائج البحث عبر الإنترنت، والتوقيت.</item>
+        <item>يُثبَّت إلى جانب VLC for Android، وتنعكس واجهة تطبيق التلفزيون بالكامل بالعبرية والعربية، مع تركيز جهاز التحكم عن بُعد حيث تتوقعه.</item>
+        <item>بحجم يناسب شاشتك: أصبح التطبيق على التلفزيون أكبر وسهل القراءة من الأريكة، ويُحدَّد الحجم بحسب الشاشة ويمكن تغييره من الإعدادات › الواجهة › حجم الواجهة. تعرض الصفوف بطاقات كاملة وتتسع الشاشة لكل نافذة.</item>
+        <item>تُحمَّل أدلة البرامج التلفزيونية الكبيرة جدًا دون أن تملأ الذاكرة، ويمكن عرض لغتَي ترجمة في آن واحد، ويبقى تركيز جهاز التحكم عن بُعد ظاهرًا دائمًا.</item>
     </string-array>
     <string name="rd_subtitle_size">حجم الترجمة</string>
     <string name="rd_cast_this_phone">هذا الهاتف</string>
@@ -69,4 +72,21 @@
     <string name="rd_volume_left_side">الجانب الأيسر</string>
     <string name="rd_volume_top_right">الزاوية العلوية اليمنى</string>
     <string name="rd_volume_top_left">الزاوية العلوية اليسرى</string>
+    <string name="rd_subs_of_video">ترجمات هذا الفيديو</string>
+    <string name="rd_subs_in_video">داخل الفيديو</string>
+    <string name="rd_subs_next_to">بجانب الفيديو · %1$s</string>
+    <string name="rd_subs_next_to_plain">بجانب الفيديو</string>
+    <string name="rd_subs_opened">مفتوحة · %1$s</string>
+    <string name="rd_subs_opened_plain">ملف مفتوح</string>
+    <string name="rd_subs_none_yet">لا توجد ترجمات بعد</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">إظهار التفضيلات</string>
+    <string name="rd_subs_position_size">الموضع والحجم</string>
+    <string name="rd_subs_position">الموضع</string>
+    <string name="rd_subs_usual">المعتاد</string>
+    <string name="rd_subs_move_down">تحريك الترجمة لأسفل</string>
+    <string name="rd_subs_move_up">تحريك الترجمة لأعلى</string>
+    <string name="rd_subs_smaller">تصغير الترجمة</string>
+    <string name="rd_subs_larger">تكبير الترجمة</string>
+    <string name="rd_os_show_both">إظهار اللغتين معًا (ترجمة مزدوجة)</string>
 </resources>

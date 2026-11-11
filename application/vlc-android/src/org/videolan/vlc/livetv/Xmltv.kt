@@ -36,6 +36,18 @@ class GuideFilter {
     val languages = HashSet<String>()
     /** set from another thread to stop the reading */
     var cancel: AtomicBoolean? = null
+    /**
+     * the most programmes kept (0: no limit; a TV of 1 GB holds a few hundred thousand): past it the days ahead are
+     * shortened a day at a time down to [minUntil], the programmes past the new end dropped; at [minUntil] the reading
+     * stops, what was read kept
+     */
+    var maxProgrammes = 0
+    /** the nearest end the days ahead are shortened to (seconds since the epoch; 0: never shortened) */
+    var minUntil = 0L
+    /** when the reading stops, what was read kept (System.nanoTime(); 0: never) */
+    var deadline = 0L
+    /** told now and then while reading: the bytes of XML read, the channels with programmes */
+    var progress: ((Long, Int) -> Unit)? = null
 }
 
 /** A guide as read: the programmes by the channel's key, the ids by display name, the languages. */
@@ -45,11 +57,27 @@ class GuideRead {
     val languages = HashSet<String>()
     var error = ""
     var programmes = 0
+    /** the guide's root closed (</tv>, or <tv/>): it came whole */
+    var whole = false
+    /** it stops before its end (a download cut short): its programmes up to there only */
+    var cut = false
+    /** the reading stopped by the limits (the programmes, the time): what was read kept, the file itself is whole */
+    var limited = false
+    /** the end the days ahead were shortened to (the programmes allowed), 0 when they were not */
+    var shortenedUntil = 0L
 }
 
 class CancelledException : IOException("cancelled")
 
+/** the reading stopped by the limits of the filter (not an error: what was read is kept) */
+private class LimitReached : RuntimeException() {
+    override fun fillInStackTrace(): Throwable = this
+}
+
 object Xmltv {
+
+    /** the XML reader (Android's; another one in the unit tests, where Android's is a stub) */
+    internal var newParser: () -> XmlPullParser = { Xml.newPullParser() }
 
     private val SUFFIXES = arrayOf("uhd", "fhd", "hd", "sd", "4k", "hevc", "h265", "+1", "orig", "original")
 
@@ -149,12 +177,25 @@ object Xmltv {
     /** The file read inflated when it is gzip-compressed (several members one after the other too). */
     fun open(file: File, limit: Long = 4L * 1024 * 1024 * 1024): InputStream {
         val raw = BufferedInputStream(file.inputStream(), 256 * 1024)
-        raw.mark(4)
-        val b0 = raw.read()
-        val b1 = raw.read()
-        raw.reset()
-        return if (b0 == 0x1f && b1 == 0x8b) BufferedInputStream(LimitedStream(GZIPInputStream(raw, 256 * 1024), limit), 256 * 1024)
-        else raw
+        if (!isGzip(raw)) return raw
+        val inflated = BufferedInputStream(LimitedStream(GZIPInputStream(raw, 256 * 1024), limit), 256 * 1024)
+        // a .xml.gz a server sent compressed once more (asked for gzip): inflated twice
+        return if (isGzip(inflated)) BufferedInputStream(LimitedStream(GZIPInputStream(inflated, 256 * 1024), limit), 256 * 1024) else inflated
+    }
+
+    private fun isGzip(s: BufferedInputStream): Boolean {
+        s.mark(4)
+        val b0 = s.read()
+        val b1 = s.read()
+        s.reset()
+        return b0 == 0x1f && b1 == 0x8b
+    }
+
+    /** the bytes read through it (the XML read so far, for the progress) */
+    private class CountingStream(source: InputStream) : FilterInputStream(source) {
+        @Volatile var count = 0L
+        override fun read(): Int = super.read().also { if (it >= 0) ++count }
+        override fun read(b: ByteArray, off: Int, len: Int): Int = super.read(b, off, len).also { if (it > 0) count += it }
     }
 
     /**
@@ -164,14 +205,23 @@ object Xmltv {
     fun parse(file: File, filter: GuideFilter, desc: OutputStream?): GuideRead {
         val out = GuideRead()
         try {
-            open(file).use { parse(it, filter, desc, out) }
+            open(file).use { parse(CountingStream(it), filter, desc, out) }
+        } catch (e: LimitReached) {
+            out.limited = true
         } catch (e: CancelledException) {
             out.error = "cancelled"
         } catch (e: Exception) {
             if (out.programmes == 0) out.error = e.message ?: e.javaClass.simpleName
         }
-        // sorted, and the missing ends taken from the next start
-        for (list in out.lists.values) {
+        // one that stops before its end: cut short, its programmes up to there kept (an empty <tv/> is whole); stopped
+        // before any programme, or no XML at all: no guide (one the limits stopped came whole: what was read is kept)
+        if (out.error.isEmpty() && !out.whole && !out.limited) {
+            if (out.programmes > 0) out.cut = true else out.error = "not an XMLTV guide"
+        }
+        // sorted, the missing ends taken from the next start, and one programme at a time (a long one holding shorter
+        // ones shows around them: withoutOverlaps)
+        for (entry in out.lists.entries) {
+            val list = entry.value
             list.sortBy { it.start }
             for (i in list.indices) {
                 val e = list[i]
@@ -180,13 +230,15 @@ object Xmltv {
                     list[i] = Entry(e.start, stop, e.title, e.subtitle, e.category, e.episode, e.descOffset, e.descLength)
                 }
             }
-            list.trimToSize()
+            val single = list.withoutOverlaps()
+            if (single !== list) entry.setValue(ArrayList(single))
+            else list.trimToSize()
         }
         return out
     }
 
-    private fun parse(input: InputStream, filter: GuideFilter, desc: OutputStream?, out: GuideRead) {
-        val xml = Xml.newPullParser()
+    private fun parse(input: CountingStream, filter: GuideFilter, desc: OutputStream?, out: GuideRead) {
+        val xml = newParser()
         xml.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
         xml.setInput(input, null)
         // a guide id -> the key its programmes are kept under ("" dropped)
@@ -200,6 +252,7 @@ object Xmltv {
         }
         var descOffset = 0L
         var sinceCheck = 0
+        var lastProgress = System.nanoTime()
         fun keyFor(id: String): String = keyOfId.getOrPut(id) {
             // a programme of a channel the header did not list
             val k = guideKey(id)
@@ -208,9 +261,18 @@ object Xmltv {
         var event = xml.eventType
         while (event != XmlPullParser.END_DOCUMENT) {
             if (event == XmlPullParser.START_TAG) {
+                // (an error page given in place of the guide is no guide, not an empty one)
+                if (xml.depth == 1 && xml.name != "tv") throw IOException("not an XMLTV guide")
                 if (++sinceCheck >= 4096) {
                     sinceCheck = 0
                     if (filter.cancel?.get() == true) throw CancelledException()
+                    val now = System.nanoTime()
+                    // (a guide of gigabytes on a slow TV: what was read by then is kept)
+                    if (filter.deadline != 0L && now - filter.deadline > 0) throw LimitReached()
+                    if (filter.progress != null && now - lastProgress > 500_000_000L) {
+                        lastProgress = now
+                        filter.progress?.invoke(input.count, out.lists.size)
+                    }
                 }
                 when (xml.name) {
                     "channel" -> {
@@ -253,16 +315,43 @@ object Xmltv {
                                     length = bytes.size
                                     descOffset += bytes.size
                                 }
+                                // (the episodes' titles and numbers repeat too: shared, a guide of 500,000 programmes
+                                // held 40 MB of copies)
                                 out.lists.getOrPut(key) { ArrayList() }.add(
-                                    Entry(p.start, p.stop, shared(p.title), p.subtitle, shared(p.category), p.episode, offset, length))
+                                    Entry(p.start, p.stop, shared(p.title), shared(p.subtitle), shared(p.category), shared(p.episode), offset, length))
                                 ++out.programmes
+                                if (filter.maxProgrammes > 0 && out.programmes > filter.maxProgrammes && !shorten(out, filter)) throw LimitReached()
                             }
                         }
                     }
                 }
             }
+            // the root's end: the guide came whole
+            if (event == XmlPullParser.END_TAG && xml.depth == 1 && xml.name == "tv") out.whole = true
             event = xml.next()
         }
+    }
+
+    /**
+     * More programmes than allowed: the days ahead shortened a day at a time (never below filter.minUntil), the
+     * programmes past the new end dropped. False when they can't be shortened more: the reading stops there.
+     */
+    internal fun shorten(out: GuideRead, filter: GuideFilter): Boolean {
+        while (out.programmes > filter.maxProgrammes) {
+            if (filter.minUntil <= 0L || filter.until <= filter.minUntil) return false
+            filter.until = maxOf(filter.minUntil, filter.until - 86400L)
+            val until = filter.until
+            var n = 0
+            val lists = out.lists.values.iterator()
+            while (lists.hasNext()) {
+                val list = lists.next()
+                list.removeAll { it.start > until }
+                if (list.isEmpty()) lists.remove() else n += list.size
+            }
+            out.programmes = n
+            out.shortenedUntil = until
+        }
+        return true
     }
 
     private fun readProgramme(xml: XmlPullParser, p: Programme, filter: GuideFilter, out: GuideRead) {

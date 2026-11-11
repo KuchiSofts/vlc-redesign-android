@@ -32,84 +32,147 @@
     </data>
 
     <!--
-      VLC Redesign: the desktop's "Languages and tracks" panel (docs/wiki/Subtitles.md): a dark panel (BG/A3,
-      radius 14 on top) with the tabs Video, Audio and Subtitles, opening on Subtitles; under the subtitle tracks,
-      Subtitle timing (the delay slider from -10 s to +10 s by 50 ms, Mark voice heard, Mark text seen, Reset).
+      VLC Redesign: the desktop's "Languages and tracks" panel (TracksMenu, docs/wiki/Subtitles.md) at its sizes (1
+      design px = 1 dp; the TV draws it at half, 1 px of its 1080p screen: RdScaleFrame): the tabs Video, Audio and
+      Subtitles (58 high, the accent line under the one shown), opening on Subtitles; the Subtitles tab is the
+      desktop's SubtitleTracksPanel (rd_subtitles_panel), Subtitle timing, the series preset, Position and size; under
+      the scrolled part, the footer: Playback and Show Preferences.
     -->
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
+            android:id="@+id/rd_tracks_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rd_panel_top">
+            android:background="@drawable/rd_panel_top"
+            android:orientation="vertical">
 
         <LinearLayout
-                android:id="@+id/player_overlay_tracks"
+                android:id="@+id/rd_tracks_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal" />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/rd_dark_divider_dim" />
+
+        <androidx.core.widget.NestedScrollView
+                android:id="@+id/rd_tracks_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fadingEdgeLength="28dp"
+                android:requiresFadingEdge="vertical">
+
+            <LinearLayout
+                    android:id="@+id/player_overlay_tracks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="12dp">
+
+                <include
+                        android:id="@+id/audio_tracks"
+                        layout="@layout/player_overlay_track_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                <View
+                        android:id="@+id/tracks_separator_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:focusable="false"
+                        android:visibility="gone" />
+
+                <include
+                        android:id="@+id/rd_subs"
+                        layout="@layout/rd_subtitles_panel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp" />
+
+                <include
+                        android:id="@+id/rd_sub_timing"
+                        layout="@layout/rd_subtitle_timing"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                <include
+                        android:id="@+id/rd_series"
+                        layout="@layout/rd_series_preset"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                <include
+                        android:id="@+id/rd_sub_look"
+                        layout="@layout/rd_subtitle_look"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                <View
+                        android:id="@+id/tracks_separator_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:focusable="false"
+                        android:visibility="gone" />
+
+                <include
+                        android:id="@+id/video_tracks"
+                        layout="@layout/player_overlay_track_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/rd_dark_divider_dim" />
+
+        <!-- the footer: Playback (the playback speed) and the settings of what the tab is about -->
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
                 android:paddingBottom="8dp">
 
-            <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/rd_tracks_tabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@android:color/transparent"
-                    app:tabGravity="fill"
-                    app:tabIndicatorColor="?attr/colorPrimary"
-                    app:tabIndicatorFullWidth="true"
-                    app:tabMode="fixed"
-                    app:tabRippleColor="@color/rd_ripple_dark"
-                    app:tabSelectedTextColor="?attr/colorPrimary"
-                    app:tabTextAppearance="@style/TextAppearance.Redesign.Tab"
-                    app:tabTextColor="@color/rd_dark_fg_a1" />
+            <TextView
+                    android:id="@+id/rd_tracks_playback"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:background="@drawable/rd_footer_button"
+                    android:focusable="true"
+                    android:fontFamily="@font/inter"
+                    android:gravity="center_vertical"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/playback"
+                    android:textColor="@color/rd_dark_fg_a2"
+                    android:textSize="13sp" />
 
-            <View
-                    android:layout_width="match_parent"
+            <Space
+                    android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:background="@color/rd_dark_divider_dim" />
+                    android:layout_weight="1" />
 
-            <include
-                    android:id="@+id/audio_tracks"
-                    layout="@layout/player_overlay_track_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            <View
-                    android:id="@+id/tracks_separator_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:focusable="false"
-                    android:visibility="gone" />
-
-            <include
-                    android:id="@+id/subtitle_tracks"
-                    layout="@layout/player_overlay_track_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            <include
-                    android:id="@+id/rd_sub_timing"
-                    layout="@layout/rd_subtitle_timing"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            <include
-                    android:id="@+id/rd_series"
-                    layout="@layout/rd_series_preset"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            <View
-                    android:id="@+id/tracks_separator_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:focusable="false"
-                    android:visibility="gone" />
-
-            <include
-                    android:id="@+id/video_tracks"
-                    layout="@layout/player_overlay_track_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+            <TextView
+                    android:id="@+id/rd_tracks_preferences"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:background="@drawable/rd_footer_button"
+                    android:focusable="true"
+                    android:fontFamily="@font/inter"
+                    android:gravity="center_vertical"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/rd_show_preferences"
+                    android:textColor="@color/rd_dark_fg_a2"
+                    android:textSize="13sp" />
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 </layout>

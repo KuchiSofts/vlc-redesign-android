@@ -33,7 +33,8 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <uses-permission android:name="org.videolan.vlc.permission.READ_EXTENSION_DATA"/>
+    <!-- VLC Redesign: the app's own name (flavors/release: VLC's kept the app from installing next to VLC) -->
+    <uses-permission android:name="${applicationId}.permission.READ_EXTENSION_DATA"/>
     <uses-permission android:name="com.android.providers.tv.permission.READ_EPG_DATA"/>
     <uses-permission android:name="com.android.providers.tv.permission.WRITE_EPG_DATA"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
@@ -63,6 +64,13 @@
         <intent>
             <action android:name="android.intent.action.SENDTO" />
             <data android:scheme="mailto" />
+        </intent>
+        <!-- who opens a web link: a browser, or a TV's placeholder that only says nothing can (the address is shown
+             instead) -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" />
         </intent>
     </queries>
 

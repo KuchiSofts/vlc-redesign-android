@@ -5,6 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:title="@string/rd_title_interface">
     <PreferenceCategory android:title="@string/rd_sec_window">
+        <!-- the TV layout's size (RdTvDesignScale): found for the screen unless chosen; RdSettingsPage fills and shows it -->
+        <org.videolan.vlc.gui.preferences.rd.RdListPreference
+            android:key="rd_interface_scale"
+            android:defaultValue="0"
+            android:summary="@string/rd_interface_size_summary"
+            android:title="@string/rd_interface_size"
+            app:isPreferenceVisible="false" />
         <org.videolan.vlc.gui.preferences.rd.RdListPreference
             android:key="video_action_switch"
             android:defaultValue="0"
@@ -41,7 +48,7 @@
             android:title="@string/enable_clone_mode" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/rd_sec_playback_controls">
-        <SeekBarPreference
+        <org.videolan.vlc.gui.preferences.rd.RdValueSeekBarPreference
             android:defaultValue="4"
             android:key="video_hud_timeout_in_s"
             android:max="16"
@@ -50,6 +57,19 @@
             app:min="1"
             app:seekBarIncrement="1"
             app:updatesContinuously="true" />
+        <!-- #72: what a key, the remote or a gesture shows (RdKeyFeedback), the same choices as the desktop's -->
+        <org.videolan.vlc.gui.preferences.rd.RdListPreference
+            android:defaultValue="controls"
+            android:entries="@array/rd_fs_entries"
+            android:entryValues="@array/rd_fs_values"
+            android:key="rd_key_feedback"
+            android:summary="@string/rd_fs_info_touch"
+            android:title="@string/rd_fs_when_key" />
+        <!-- (#72, a TV) the remote's keys that still show the controls, under the row (RdSettingsPage shows it) -->
+        <org.videolan.vlc.gui.preferences.rd.RdNotePreference
+            android:key="rd_key_feedback_note"
+            android:title="@string/rd_fs_info_tv"
+            app:isPreferenceVisible="false" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="video_transition_show"

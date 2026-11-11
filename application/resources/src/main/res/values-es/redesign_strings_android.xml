@@ -30,11 +30,14 @@
     <string name="rd_ob_history_help">Se guarda solo en este dispositivo, para continuar donde lo dejaste.</string>
     <string name="rd_ob_updates_help">Busca una versión de prueba más reciente de VLC for Android una vez al día.</string>
     <string-array name="rd_whats_new_items">
-        <item>Subtítulos: SubSource (árabe), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 y Legendas.net con su clave o cuenta gratuita. Cada uno en Preferencias › Subtítulos, con su interruptor.</item>
-        <item>Idiomas de búsqueda: active o desactive cada idioma de subtítulos para una búsqueda más rápida.</item>
-        <item>Cuentas de TV en directo: su Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR o HDHomeRun, y la guía Schedules Direct. Los servidores de su red se encuentran automáticamente.</item>
-        <item>TV en directo: una guía encontrada automáticamente para los canales sin guía, una pestaña Guías con las guías de cada fuente y, primero, las fuentes de su país en el catálogo.</item>
-        <item>Correcciones: subtítulos guardados en el almacenamiento propio de la aplicación (un cierre inesperado en Android 14), campos de contraseña ocultos, el foco del mando de la TV, la traducción de «País» en muchos idiomas y la de «contraseña» en árabe.</item>
+        <item>Más rápido y más estable: la TV en directo y los subtítulos funcionan en segundo plano, y se han corregido los cierres inesperados y el reproductor congelado en Android 5 y en los TV box.</item>
+        <item>Pantalla completa: una tecla, el mando o un gesto pueden mostrar solo el progreso o solo un mensaje en lugar de los controles, en Preferencias › Interfaz. Gracias a @BarbodF.</item>
+        <item>Subtítulos automáticos más inteligentes: primero se usa la carpeta Subs que acompaña al vídeo, un archivo de publicidad o solo con líneas forzadas ya no cuenta como subtítulo, también se buscan para una película cuya imagen llega tarde, y la puntuación en hebreo y árabe aparece en el extremo correcto.</item>
+        <item>Subtítulos en línea también para vídeos en una carpeta compartida de red, un servidor multimedia o tras un enlace, al buscarlos a mano y de forma automática (gracias a @Elshepl). En Android 5 a 7.0, OpenSubtitles vuelve a responder.</item>
+        <item>El panel de subtítulos como en el escritorio: se abre encima de su botón, con los idiomas y cuántos hay de cada uno, los resultados en línea y la sincronización en un solo lugar.</item>
+        <item>Se instala junto a VLC for Android, y la aplicación de TV en hebreo y árabe aparece totalmente en espejo, con el foco del mando donde lo espera.</item>
+        <item>A la medida de su pantalla: en un televisor la aplicación ahora es más grande y fácil de leer desde el sofá, el tamaño se calcula a partir de la pantalla y se puede cambiar en Ajustes › Interfaz › Tamaño de la interfaz. Las filas muestran tarjetas enteras y cada ventana cabe en la pantalla.</item>
+        <item>Las guías de TV muy grandes se cargan sin llenar la memoria, se pueden mostrar dos idiomas de subtítulos a la vez, y el foco del mando siempre está visible.</item>
     </string-array>
     <string name="rd_subtitle_size">Tamaño de los subtítulos</string>
     <string name="rd_cast_this_phone">Este teléfono</string>
@@ -67,4 +70,21 @@
     <string name="rd_volume_left_side">Lado izquierdo</string>
     <string name="rd_volume_top_right">Esquina superior derecha</string>
     <string name="rd_volume_top_left">Esquina superior izquierda</string>
+    <string name="rd_subs_of_video">Subtítulos de este vídeo</string>
+    <string name="rd_subs_in_video">En el vídeo</string>
+    <string name="rd_subs_next_to">Junto al vídeo · %1$s</string>
+    <string name="rd_subs_next_to_plain">Junto al vídeo</string>
+    <string name="rd_subs_opened">Abierto · %1$s</string>
+    <string name="rd_subs_opened_plain">Archivo abierto</string>
+    <string name="rd_subs_none_yet">Aún no hay subtítulos</string>
+    <string name="rd_subs_hi_short">SDH</string>
+    <string name="rd_show_preferences">Mostrar preferencias</string>
+    <string name="rd_subs_position_size">Posición y tamaño</string>
+    <string name="rd_subs_position">Posición</string>
+    <string name="rd_subs_usual">Habitual</string>
+    <string name="rd_subs_move_down">Bajar los subtítulos</string>
+    <string name="rd_subs_move_up">Subir los subtítulos</string>
+    <string name="rd_subs_smaller">Subtítulos más pequeños</string>
+    <string name="rd_subs_larger">Subtítulos más grandes</string>
+    <string name="rd_os_show_both">Mostrar ambos idiomas a la vez (subtítulos dobles)</string>
 </resources>

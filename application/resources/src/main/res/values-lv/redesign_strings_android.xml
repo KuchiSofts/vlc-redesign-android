@@ -30,11 +30,14 @@
     <string name="rd_ob_history_help">Glabājas tikai šajā ierīcē, lai turpinātu tur, kur palikāt.</string>
     <string name="rd_ob_updates_help">Reizi dienā meklē jaunāku VLC for Android testa versiju.</string>
     <string-array name="rd_whats_new_items">
-        <item>Subtitri: SubSource (arābu), SubDL, Titlovi, Assrt, Jimaku, BetaSeries, Subs.ro, Napisy24 un Legendas.net – ar jūsu pašu bezmaksas atslēgu vai kontu. Katrs sadaļā Iestatījumi › Subtitri, ar savu slēdzi.</item>
-        <item>Meklēšanas valodas: ieslēdziet vai izslēdziet katru subtitru valodu ātrākai meklēšanai.</item>
-        <item>Tiešraides TV konti: jūsu Jellyfin, Emby, Tvheadend, NextPVR, Channels DVR vai HDHomeRun un Schedules Direct gids. Serveri jūsu tīklā tiek atrasti automātiski.</item>
-        <item>Tiešraides TV: automātiski atrasts gids kanāliem bez gida, cilne Gidi ar katra avota gidiem un katalogā vispirms jūsu valsts avoti.</item>
-        <item>Labojumi: subtitri tiek saglabāti pašas lietotnes krātuvē (avārija Android 14 ierīcēs), paroles lauki slēpj ievadīto paroli, TV tālvadības pults fokuss, vārds „Valsts“ daudzās valodās un vārds „parole“ arābu valodā.</item>
+        <item>Ātrāk un stabilāk: tiešraides TV un subtitri darbojas fonā, un ir novērstas avārijas un sastingis atskaņotājs Android 5 ierīcēs un TV priedēkļos.</item>
+        <item>Pilnekrāns: taustiņš, tālvadības pults vai žests vadīklu vietā var rādīt tikai progresu vai tikai ziņojumu, sadaļā Iestatījumi › Saskarne. Paldies @BarbodF.</item>
+        <item>Gudrāki automātiskie subtitri: vispirms tiek izmantota paša video Subs mape, reklāmas fails vai fails tikai ar piespiedu rindām vairs netiek uzskatīts par subtitriem, meklēšana notiek arī filmai, kuras attēls sākas vēlu, un ivrita un arābu pieturzīmes tiek rādītas pareizajā galā.</item>
+        <item>Tiešsaistes subtitri tagad arī videoklipiem tīkla koplietojumā, multivides serverī vai aiz saites, meklējot gan manuāli, gan automātiski (paldies @Elshepl). Android 5–7.0 ierīcēs OpenSubtitles atkal atbild.</item>
+        <item>Subtitru panelis kā datora versijā: tas atveras virs savas pogas, un valodas ar to skaitu, tiešsaistes rezultāti un laiks ir vienuviet.</item>
+        <item>Instalējama blakus VLC for Android, un TV lietotne ivritā un arābu valodā ir pilnībā spoguļota, ar tālvadības pults fokusu tur, kur to gaidāt.</item>
+        <item>Pielāgots jūsu ekrānam: televizorā lietotne tagad ir lielāka un viegli salasāma no dīvāna, izmērs tiek noteikts pēc ekrāna, un to var mainīt sadaļā Iestatījumi › Saskarne › Saskarnes izmērs. Rindās redzamas veselas kartītes, un katrs logs ietilpst ekrānā.</item>
+        <item>Ļoti lieli TV ceļveži tiek ielādēti, neaizpildot atmiņu, vienlaikus var rādīt divas subtitru valodas, un tālvadības pults fokuss vienmēr ir redzams.</item>
     </string-array>
     <string name="rd_subtitle_size">Subtitru izmērs</string>
     <string name="rd_cast_this_phone">Šis tālrunis</string>
@@ -62,4 +65,21 @@
     <string name="rd_unpin_from_home">Atspraust no sākumlapas</string>
     <string name="rd_pinned">Piesprausts</string>
     <string name="rd_pinned_missing">Šīs piespraustās mapes vai atskaņošanas saraksta vairs nav.</string>
+    <string name="rd_subs_of_video">Šī video subtitri</string>
+    <string name="rd_subs_in_video">Iegulti video</string>
+    <string name="rd_subs_next_to">Blakus video · %1$s</string>
+    <string name="rd_subs_next_to_plain">Blakus video</string>
+    <string name="rd_subs_opened">Atvērts · %1$s</string>
+    <string name="rd_subs_opened_plain">Atvērta datne</string>
+    <string name="rd_subs_none_yet">Vēl nav subtitru</string>
+    <string name="rd_subs_hi_short">HI</string>
+    <string name="rd_show_preferences">Rādīt iestatījumus</string>
+    <string name="rd_subs_position_size">Novietojums un izmērs</string>
+    <string name="rd_subs_position">Novietojums</string>
+    <string name="rd_subs_usual">Parasts</string>
+    <string name="rd_subs_move_down">Pārvietot subtitrus uz leju</string>
+    <string name="rd_subs_move_up">Pārvietot subtitrus uz augšu</string>
+    <string name="rd_subs_smaller">Mazāki subtitri</string>
+    <string name="rd_subs_larger">Lielāki subtitri</string>
+    <string name="rd_os_show_both">Rādīt abas valodas vienlaikus (divkārši subtitri)</string>
 </resources>

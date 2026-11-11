@@ -294,4 +294,28 @@
     <string name="rd_tv_its_guide_id">Jego ID w programie TV</string>
     <string name="rd_tv_forget_guide_id">Zapomnij jego ID w programie TV</string>
     <string name="rd_tv_guide_id_of">ID kanału %1$s w programie TV</string>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Wczytywanie programu TV źródła %1$s… %2$s MB · %3$d kanał</item>
+        <item quantity="few">Wczytywanie programu TV źródła %1$s… %2$s MB · %3$d kanały</item>
+        <item quantity="many">Wczytywanie programu TV źródła %1$s… %2$s MB · %3$d kanałów</item>
+        <item quantity="other">Wczytywanie programu TV źródła %1$s… %2$s MB · %3$d kanałów</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Wczytywanie programu TV… %1$s MB · %2$d kanał</item>
+        <item quantity="few">Wczytywanie programu TV… %1$s MB · %2$d kanały</item>
+        <item quantity="many">Wczytywanie programu TV… %1$s MB · %2$d kanałów</item>
+        <item quantity="other">Wczytywanie programu TV… %1$s MB · %2$d kanałów</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Program TV jest za duży: zachowano %1$d najbliższy dzień Twoich kanałów</item>
+        <item quantity="few">Program TV jest za duży: zachowano %1$d najbliższe dni Twoich kanałów</item>
+        <item quantity="many">Program TV jest za duży: zachowano %1$d najbliższych dni Twoich kanałów</item>
+        <item quantity="other">Program TV jest za duży: zachowano %1$d najbliższych dni Twoich kanałów</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Program TV jest za duży: zachowano audycje %1$d z Twoich kanałów</item>
+        <item quantity="few">Program TV jest za duży: zachowano audycje %1$d z Twoich kanałów</item>
+        <item quantity="many">Program TV jest za duży: zachowano audycje %1$d z Twoich kanałów</item>
+        <item quantity="other">Program TV jest za duży: zachowano audycje %1$d z Twoich kanałów</item>
+    </plurals>
 </resources>

@@ -264,4 +264,16 @@
     <string name="rd_tv_its_guide_id">편성표 ID</string>
     <string name="rd_tv_forget_guide_id">편성표 ID 지우기</string>
     <string name="rd_tv_guide_id_of">편성표에서 %1$s의 ID</string>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="other">%1$s의 편성표 읽는 중… %2$s MB · 채널 %3$d개</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="other">편성표 읽는 중… %1$s MB · 채널 %2$d개</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="other">편성표가 너무 큽니다: 채널의 앞으로 %1$d일치를 유지했습니다</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="other">편성표가 너무 큽니다: 채널 %1$d개의 프로그램을 유지했습니다</item>
+    </plurals>
 </resources>

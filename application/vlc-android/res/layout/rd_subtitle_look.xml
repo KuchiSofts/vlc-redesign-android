@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  VLC Redesign: Position and size of the Subtitles panel (the desktop's): each a title, − its value + and Reset (the
+  buttons repeat while held). The position moves the subtitles up from the bottom of the video, the size is the
+  percent of the size of the settings (25 to 500, the steps of the desktop's Ctrl + wheel); both stay for the next
+  videos (Settings › Subtitles has them too) and the playing video takes them a moment after.
+-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/rd_dark_divider_dim" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/inter"
+        android:text="@string/rd_subs_position_size"
+        android:textAlignment="viewStart"
+        android:textColor="@color/rd_dark_fg_1"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter"
+            android:singleLine="true"
+            android:text="@string/rd_subs_position"
+            android:textAlignment="viewStart"
+            android:textColor="@color/rd_dark_fg_a1"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/rd_sub_position_lower"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/rd_look_button"
+            android:contentDescription="@string/rd_subs_move_down"
+            android:focusable="true"
+            android:fontFamily="@font/inter"
+            android:gravity="center"
+            android:minWidth="32dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="−"
+            android:textColor="@color/rd_look_button_text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/rd_sub_position_value"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter"
+            android:fontFeatureSettings="tnum"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/rd_dark_fg_1"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/rd_sub_position_higher"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/rd_look_button"
+            android:contentDescription="@string/rd_subs_move_up"
+            android:focusable="true"
+            android:fontFamily="@font/inter"
+            android:gravity="center"
+            android:minWidth="32dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="+"
+            android:textColor="@color/rd_look_button_text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/rd_sub_position_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/rd_look_button"
+            android:focusable="true"
+            android:fontFamily="@font/inter"
+            android:gravity="center"
+            android:minWidth="32dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="@string/rd_reset"
+            android:textColor="@color/rd_look_button_text"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter"
+            android:singleLine="true"
+            android:text="@string/subtitles_size"
+            android:textAlignment="viewStart"
+            android:textColor="@color/rd_dark_fg_a1"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/rd_sub_size_lower"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/rd_look_button"
+            android:contentDescription="@string/rd_subs_smaller"
+            android:focusable="true"
+            android:fontFamily="@font/inter"
+            android:gravity="center"
+            android:minWidth="32dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="−"
+            android:textColor="@color/rd_look_button_text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/rd_sub_size_value"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter"
+            android:fontFeatureSettings="tnum"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/rd_dark_fg_1"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/rd_sub_size_higher"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/rd_look_button"
+            android:contentDescription="@string/rd_subs_larger"
+            android:focusable="true"
+            android:fontFamily="@font/inter"
+            android:gravity="center"
+            android:minWidth="32dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="+"
+            android:textColor="@color/rd_look_button_text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/rd_sub_size_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/rd_look_button"
+            android:focusable="true"
+            android:fontFamily="@font/inter"
+            android:gravity="center"
+            android:minWidth="32dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="@string/rd_reset"
+            android:textColor="@color/rd_look_button_text"
+            android:textSize="12sp" />
+    </LinearLayout>
+</LinearLayout>
+</layout>

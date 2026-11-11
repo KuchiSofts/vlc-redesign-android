@@ -95,7 +95,8 @@ class PlaylistFragment : BaseAudioBrowser<PlaylistsViewModel>(), SwipeRefreshLay
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = PlaylistsFragmentBinding.inflate(inflater, container, false)
+        // VLC Redesign, the TV layout: the page made ahead while the window was idle (gui/tablet/RdTvPrebuild)
+        binding = org.videolan.vlc.gui.tablet.RdTvPrebuild.bind(container, R.layout.playlists_fragment) { PlaylistsFragmentBinding.inflate(inflater, container, false) }
         playlists = binding.swipeLayout.findViewById(R.id.audio_list)
         return binding.root
     }
@@ -182,6 +183,10 @@ class PlaylistFragment : BaseAudioBrowser<PlaylistsViewModel>(), SwipeRefreshLay
         binding.root.post { if (isAdded && view != null) rdUpdatePane() }
         swipeRefreshLayout.visibility = if (Medialibrary.getInstance().isInitiated) View.VISIBLE else View.GONE
         binding.emptyLoading.emptyText = viewModel.filterQuery?.let {  getString(R.string.empty_search, it) } ?: if (viewModel.provider.onlyFavorites) getString(R.string.nofav) else getString(R.string.noplaylist)
+        // no playlist yet: New Playlist right there (the TV layout has its window)
+        val host = activity as? org.videolan.vlc.gui.AudioPlayerContainerActivity
+        binding.emptyLoading.emptyAction = if (host != null && viewModel.filterQuery == null && !viewModel.provider.onlyFavorites && org.videolan.vlc.gui.tablet.RdTvWindow.isOn(host))
+            getString(R.string.rd_new_playlist) to { org.videolan.vlc.gui.tablet.RdTvNewPlaylistDialog.show(host) } else null
         binding.emptyLoading.state =
                 when {
                     viewModel.provider.loading.value == true && empty -> EmptyLoadingState.LOADING

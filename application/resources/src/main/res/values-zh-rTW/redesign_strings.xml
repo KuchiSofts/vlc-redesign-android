@@ -100,6 +100,9 @@
     <string name="rd_sec_diagnostics">診斷</string>
     <string name="rd_sec_advanced">進階選項</string>
     <string name="rd_sec_window">視窗</string>
+    <string name="rd_interface_size">介面大小</string>
+    <string name="rd_interface_size_summary">頁面、文字和控制項的顯示大小。「自動」會選擇適合此螢幕的大小。</string>
+    <string name="rd_interface_size_auto">自動 (%1$s)</string>
     <string name="rd_sec_playback_controls">播放控制項</string>
     <string name="rd_sec_playlist">播放清單</string>
     <string name="rd_sec_player_bar">播放列</string>
@@ -461,4 +464,5 @@
     <string name="rd_os_find_language">尋找語言</string>
     <string name="rd_os_picked_in_player">在播放器中選取</string>
     <string name="rd_os_second_short">第二語言</string>
+    <string name="rd_on_this_device">此裝置</string>
 </resources>
