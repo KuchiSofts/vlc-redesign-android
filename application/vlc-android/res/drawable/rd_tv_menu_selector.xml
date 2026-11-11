@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign: the row the remote is on in a popup's list on a TV (the page's options menu), as RdTvMenu draws
+     its own: the row lighter (#2A2A2A, radius 6) inside the 2 dp line every focus of the TV layout has. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <inset android:insetLeft="4dp" android:insetRight="4dp" android:insetTop="2dp" android:insetBottom="2dp">
+            <shape android:shape="rectangle">
+                <solid android:color="#FF2A2A2A" />
+                <corners android:radius="6dp" />
+            </shape>
+        </inset>
+    </item>
+    <item android:state_focused="true">
+        <inset android:insetLeft="4dp" android:insetRight="4dp" android:insetTop="2dp" android:insetBottom="2dp">
+            <shape android:shape="rectangle">
+                <solid android:color="#FF2A2A2A" />
+                <corners android:radius="6dp" />
+                <stroke android:width="2dp" android:color="@color/rd_dark_fg_1" />
+            </shape>
+        </inset>
+    </item>
+    <item android:state_selected="true">
+        <inset android:insetLeft="4dp" android:insetRight="4dp" android:insetTop="2dp" android:insetBottom="2dp">
+            <shape android:shape="rectangle">
+                <solid android:color="#FF2A2A2A" />
+                <corners android:radius="6dp" />
+                <stroke android:width="2dp" android:color="@color/rd_dark_fg_1" />
+            </shape>
+        </inset>
+    </item>
+    <item android:drawable="@android:color/transparent" />
+</selector>

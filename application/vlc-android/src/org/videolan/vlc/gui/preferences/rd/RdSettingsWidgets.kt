@@ -67,6 +67,8 @@ class RdToggleView @JvmOverloads constructor(context: Context, attrs: AttributeS
     // The row (the preference's item, which TalkBack reads and clicks) said nothing of the state: it is a
     // switch with the state of this one, ON or OFF
     private var row: View? = null
+    // the row named by spokenBy()
+    private var named: View? = null
 
     init {
         isClickable = false
@@ -74,10 +76,24 @@ class RdToggleView @JvmOverloads constructor(context: Context, attrs: AttributeS
         importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO
     }
 
+    /**
+     * The view that speaks for this toggle when it is not an ancestor of it: a row whose words are beside the
+     * toggle, both clicked (a subtitle service, a search language). TalkBack and a keyboard stop on that view,
+     * which said its name and never whether it was on.
+     */
+    fun spokenBy(view: View?) {
+        named = view
+        speakFor(view)
+    }
+
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        row = generateSequence(parent as? View) { it.parent as? View }.firstOrNull { it.isClickable }
-        row?.let { r ->
+        speakFor(named ?: generateSequence(parent as? View) { it.parent as? View }.firstOrNull { it.isClickable })
+    }
+
+    private fun speakFor(view: View?) {
+        row = view
+        view?.let { r ->
             ViewCompat.setAccessibilityDelegate(r, object : AccessibilityDelegateCompat() {
                 override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfoCompat) {
                     super.onInitializeAccessibilityNodeInfo(host, info)

@@ -116,7 +116,11 @@ class RdSubtitleLanguages(private val page: PreferenceFragmentCompat) {
         }
         holder.findViewById(R.id.rd_svc_note)?.isVisible = false
         holder.findViewById(R.id.rd_svc_account)?.isVisible = false
-        (holder.findViewById(R.id.rd_svc_switch) as? RdToggleView)?.isChecked = l.on
+        (holder.findViewById(R.id.rd_svc_switch) as? RdToggleView)?.let {
+            it.isChecked = l.on
+            // (the words beside it are what a screen reader and a keyboard stop on: they say the state)
+            it.spokenBy(holder.findViewById(R.id.rd_svc_main))
+        }
         holder.findViewById(R.id.rd_svc_main)?.setOnClickListener { set(l.code) { it.copy(on = !it.on) } }
         holder.findViewById(R.id.rd_svc_switch)?.setOnClickListener { set(l.code) { it.copy(on = !it.on) } }
         holder.findViewById(R.id.rd_svc_more)?.let { more ->

@@ -57,6 +57,9 @@ object RdTvFocusRing {
 
     fun attach(decor: View?) {
         if (!Settings.showTvUi || decor == null) return
+        // (every dialog of the TV layout comes through here, the ones made with a builder too: such an alert also gets
+        // the design's width, the system's being most of the screen wide on a TV)
+        RdFit.alert(decor)
         if (decor.getTag(R.id.rd_tv_focus_listener) != null) return
         val ring = Ring(decor)
         decor.setTag(R.id.rd_tv_focus_listener, ring)
