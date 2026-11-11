@@ -669,7 +669,7 @@ class VideoGridFragment : MediaBrowserFragment<VideosViewModel>(), SwipeRefreshL
                 else -> {}
             }
             is Folder -> if (!org.videolan.vlc.util.Pins.handle(requireContext(), option, media)) when (option) {
-                CTX_PLAY -> viewModel.play(position)
+                CTX_PLAY_ALL, CTX_PLAY -> viewModel.play(position)
                 CTX_APPEND -> viewModel.append(position)
                 CTX_ADD_TO_PLAYLIST -> viewModel.addItemToPlaylist(requireActivity(), position)
                 CTX_MARK_ALL_AS_PLAYED -> lifecycleScope.launch { viewModel.markAsPlayed(media) }
