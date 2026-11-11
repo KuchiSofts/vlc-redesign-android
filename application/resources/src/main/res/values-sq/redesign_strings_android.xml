@@ -32,14 +32,9 @@
     <string name="rd_ob_history_help">Ruhet vetëm në këtë pajisje, për të vazhduar aty ku e latë.</string>
     <string name="rd_ob_updates_help">Kërkon një herë në ditë për një version prove më të ri të VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Më i shpejtë dhe më i qëndrueshëm: TV drejtpërdrejt dhe titrat punojnë në sfond, dhe u ndreqën vithisjet dhe luajtësi i ngrirë në Android 5 dhe në kutitë TV.</item>
-        <item>Ekran i plotë: një tast, telekomanda ose një gjest mund të shfaqë vetëm ecurinë ose vetëm një mesazh në vend të kontrolleve, te Cilësimet › Ndërfaqja. Faleminderit @BarbodF.</item>
-        <item>Titra automatike më të zgjuara: së pari përdoret dosja Subs që vjen me videon, një skedar reklame ose vetëm me rreshta të detyruar nuk llogaritet më si titër, kërkimi bëhet edhe për një film, figura e të cilit vjen vonë, dhe shenjat e pikësimit në hebraisht dhe arabisht shfaqen në skajin e duhur.</item>
-        <item>Titrat nga interneti tani edhe për video në një ndarje rrjeti, në një shërbyes media ose pas një lidhjeje, të gjetura dorazi dhe automatikisht (faleminderit @Elshepl). Në Android 5 deri në 7.0, OpenSubtitles përgjigjet sërish.</item>
-        <item>Paneli i titrave si në desktop: hapet mbi butonin e vet, me gjuhët dhe numrin e tyre, rezultatet në internet dhe kohën në një vend.</item>
-        <item>Instalohet pranë VLC for Android, dhe aplikacioni i TV-së në hebraisht dhe arabisht është tërësisht i pasqyruar, me fokusin e telekomandës aty ku e prisni.</item>
-        <item>Në përmasat e ekranit tuaj: në televizor aplikacioni tani është më i madh dhe lexohet lehtë nga divani, madhësia përcaktohet nga ekrani dhe mund të ndryshohet te Cilësimet › Ndërfaqja › Madhësia e ndërfaqes. Rreshtat shfaqin karta të plota dhe çdo dritare nxihet në ekran.</item>
-        <item>Guidat shumë të mëdha të TV-së ngarkohen pa mbushur kujtesën, dy gjuhë titrash mund të shfaqen njëkohësisht, dhe fokusi i telekomandës është gjithmonë i dukshëm.</item>
+        <item>Në TV, telekomanda arrin te mini-luajtësi dhe radha e tij; radha hapet si një panel i vogël.</item>
+        <item>Kreu nuk është kurrë bosh: kur aplikacioni nuk i sheh dot skedarët tuaj, tregon pse dhe kërkon leje.</item>
+        <item>Lexuesi i ekranit tregon nëse një shërbim ose gjuhë titrash është e aktivizuar. Problemet raportohen në faqen e projektit në GitHub.</item>
     </string-array>
     <string name="rd_subtitle_size">Madhësia e titrave</string>
     <string name="rd_cast_this_phone">Ky telefon</string>

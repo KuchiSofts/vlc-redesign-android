@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">Hanya disimpan di perangkat ini, untuk melanjutkan dari tempat terakhir Anda berhenti.</string>
     <string name="rd_ob_updates_help">Mencari build uji VLC for Android yang lebih baru sekali sehari.</string>
     <string-array name="rd_whats_new_items">
-        <item>Lebih cepat dan stabil: TV Langsung dan subtitle berjalan di latar belakang, dan aplikasi yang berhenti mendadak serta pemutar yang macet di Android 5 dan TV box sudah diperbaiki.</item>
-        <item>Layar penuh: tombol, remote, atau gestur bisa menampilkan hanya progres atau hanya pesan sebagai pengganti kontrol, di Pengaturan › Antarmuka. Terima kasih kepada @BarbodF.</item>
-        <item>Subtitle otomatis yang lebih cerdas: folder Subs bawaan video dipakai lebih dulu, file iklan atau file yang hanya berisi baris paksa tidak lagi dianggap subtitle, film yang gambarnya datang terlambat tetap dicarikan, dan tanda baca bahasa Ibrani dan Arab tampil di ujung yang benar.</item>
-        <item>Subtitle online kini juga untuk video di folder berbagi jaringan, server media, atau di balik tautan, baik dicari manual maupun otomatis (terima kasih kepada @Elshepl). Di Android 5 hingga 7.0, OpenSubtitles kembali merespons.</item>
-        <item>Panel Subtitle seperti di desktop: terbuka di atas tombolnya, dengan bahasa dan jumlahnya, hasil online, dan pengaturan waktu di satu tempat.</item>
-        <item>Dapat dipasang berdampingan dengan VLC for Android, dan aplikasi TV dalam bahasa Ibrani dan Arab dicerminkan sepenuhnya, dengan fokus remote di tempat yang Anda harapkan.</item>
-        <item>Disesuaikan dengan layar Anda: di TV aplikasi kini lebih besar dan mudah dibaca dari sofa, ukurannya ditentukan dari layar dan dapat diubah di Setelan › Antarmuka › Ukuran antarmuka. Baris menampilkan kartu secara utuh dan setiap jendela muat di layar.</item>
-        <item>Panduan TV yang sangat besar dimuat tanpa memenuhi memori, dua bahasa subtitle dapat tampil sekaligus, dan fokus remote selalu terlihat.</item>
+        <item>Di TV, remote kini menjangkau pemutar mini dan antreannya; antrean terbuka sebagai panel kecil.</item>
+        <item>Beranda tidak pernah kosong: saat aplikasi tidak dapat melihat berkas Anda, aplikasi menjelaskan alasannya dan meminta akses.</item>
+        <item>Pembaca layar menyebutkan apakah layanan atau bahasa subtitle aktif. Masalah dilaporkan di halaman GitHub proyek.</item>
     </string-array>
     <string name="rd_subtitle_size">Ukuran subtitel</string>
     <string name="rd_cast_this_phone">Ponsel ini</string>

@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">Glabājas tikai šajā ierīcē, lai turpinātu tur, kur palikāt.</string>
     <string name="rd_ob_updates_help">Reizi dienā meklē jaunāku VLC for Android testa versiju.</string>
     <string-array name="rd_whats_new_items">
-        <item>Ātrāk un stabilāk: tiešraides TV un subtitri darbojas fonā, un ir novērstas avārijas un sastingis atskaņotājs Android 5 ierīcēs un TV priedēkļos.</item>
-        <item>Pilnekrāns: taustiņš, tālvadības pults vai žests vadīklu vietā var rādīt tikai progresu vai tikai ziņojumu, sadaļā Iestatījumi › Saskarne. Paldies @BarbodF.</item>
-        <item>Gudrāki automātiskie subtitri: vispirms tiek izmantota paša video Subs mape, reklāmas fails vai fails tikai ar piespiedu rindām vairs netiek uzskatīts par subtitriem, meklēšana notiek arī filmai, kuras attēls sākas vēlu, un ivrita un arābu pieturzīmes tiek rādītas pareizajā galā.</item>
-        <item>Tiešsaistes subtitri tagad arī videoklipiem tīkla koplietojumā, multivides serverī vai aiz saites, meklējot gan manuāli, gan automātiski (paldies @Elshepl). Android 5–7.0 ierīcēs OpenSubtitles atkal atbild.</item>
-        <item>Subtitru panelis kā datora versijā: tas atveras virs savas pogas, un valodas ar to skaitu, tiešsaistes rezultāti un laiks ir vienuviet.</item>
-        <item>Instalējama blakus VLC for Android, un TV lietotne ivritā un arābu valodā ir pilnībā spoguļota, ar tālvadības pults fokusu tur, kur to gaidāt.</item>
-        <item>Pielāgots jūsu ekrānam: televizorā lietotne tagad ir lielāka un viegli salasāma no dīvāna, izmērs tiek noteikts pēc ekrāna, un to var mainīt sadaļā Iestatījumi › Saskarne › Saskarnes izmērs. Rindās redzamas veselas kartītes, un katrs logs ietilpst ekrānā.</item>
-        <item>Ļoti lieli TV ceļveži tiek ielādēti, neaizpildot atmiņu, vienlaikus var rādīt divas subtitru valodas, un tālvadības pults fokuss vienmēr ir redzams.</item>
+        <item>Televizorā ar tālvadības pulti var sasniegt mini atskaņotāju un tā rindu; rinda atveras kā mazs panelis.</item>
+        <item>Sākums nekad nav tukšs: ja lietotne neredz jūsu failus, tā pasaka, kāpēc, un lūdz piekļuvi.</item>
+        <item>Ekrāna lasītājs pasaka, vai subtitru pakalpojums vai valoda ir ieslēgta. Par problēmām ziņo projekta GitHub lapā.</item>
     </string-array>
     <string name="rd_subtitle_size">Subtitru izmērs</string>
     <string name="rd_cast_this_phone">Šis tālrunis</string>

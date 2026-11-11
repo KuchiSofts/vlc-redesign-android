@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">Guárdase namás nesti preséu, pa siguir onde lo dexasti.</string>
     <string name="rd_ob_updates_help">Busca una versión de prueba más nueva de VLC for Android una vegada al día.</string>
     <string-array name="rd_whats_new_items">
-        <item>Más rápidu y más estable: la TV en direutu y los sotítulos funcionen en segundu planu, y correxéronse los casques y el reproductor conxeláu n\'Android 5 y nes caxes de TV.</item>
-        <item>Pantalla completa: una tecla, el mandu o un xestu puen amosar namás el progresu o namás un mensaxe en cuenta de los controles, n\'Axustes › Interfaz. Gracies a @BarbodF.</item>
-        <item>Sotítulos automáticos más intelixentes: úsase primero la carpeta Subs que vien col vídeu, un ficheru de publicidá o namás con llinies forzaes yá nun cuenta como sotítulu, tamién se busquen pa una película que la so imaxe llega tarde, y la puntuación n\'hebréu y árabe apaez nel estremu correctu.</item>
-        <item>Sotítulos en llinia tamién pa vídeos nuna compartición de rede, un sirvidor multimedia o tres d\'un enllaz, alcontraos a mano y automáticamente (gracies a @Elshepl). N\'Android 5 a 7.0, OpenSubtitles vuelve a responder.</item>
-        <item>El panel de sotítulos como nel escritoriu: ábrese enriba del so botón, coles llingües y la cantidá de cada una, los resultaos en llinia y la sincronización nun solu sitiu.</item>
-        <item>Instálase xunto a VLC for Android, y l\'aplicación de TV n\'hebréu y árabe apaez espeyada dafechu, col focu del mandu onde lu esperes.</item>
-        <item>A la midida de la to pantalla: nuna TV l\'aplicación agora ye más grande y fácil de lleer dende\'l sofá, el tamañu calcúlase a partir de la pantalla y pue camudase n\'Axustes › Interfaz › Tamañu de la interfaz. Les fileres amuesen tarxetes enteres y cada ventana cabe na pantalla.</item>
-        <item>Les guíes de TV mui grandes carguen ensin enllenar la memoria, puen amosase dos llingües de sotítulos al empar, y el focu del mandu siempre ta visible.</item>
+        <item>Nuna TV, el mandu algama\'l mini reproductor y la so cola; la cola ábrese como un panel pequeñu.</item>
+        <item>L\'aniciu nunca ta baleru: cuando l\'aplicación nun pue ver los tos ficheros, diz por qué y pide l\'accesu.</item>
+        <item>Un llector de pantalla diz si un serviciu o una llingua de sotítulos ta activáu. Los problemes infórmense na páxina de GitHub del proyeutu.</item>
     </string-array>
     <string name="rd_subtitle_size">Tamañu de los subtítulos</string>
     <string name="rd_cast_this_phone">Esti teléfonu</string>

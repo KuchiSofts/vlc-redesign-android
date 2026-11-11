@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">Hoitakse ainult selles seadmes, et saaksid jätkata sealt, kus pooleli jäid.</string>
     <string name="rd_ob_updates_help">Otsib kord päevas VLC for Androidi uuemat testversiooni.</string>
     <string-array name="rd_whats_new_items">
-        <item>Kiirem ja stabiilsem: otse-TV ja subtiitrid töötavad taustal ning kokkujooksmised ja hangunud mängija Android 5 ja TV-karpide puhul on parandatud.</item>
-        <item>Täisekraan: klahv, pult või žest saab juhtnuppude asemel näidata ainult edenemist või ainult teadet, jaotises Sätted › Kasutajaliides. Aitäh, @BarbodF!</item>
-        <item>Nutikamad automaatsed subtiitrid: esmalt kasutatakse video enda Subs-kausta, reklaamifail või ainult sunnitud ridadega fail ei lähe enam subtiitrina arvesse, subtiitreid otsitakse ka filmile, mille pilt algab hilja, ning heebrea ja araabia kirjavahemärgid on õiges otsas.</item>
-        <item>Veebisubtiitrid nüüd ka võrgujagamisel, meediaserveris või lingi taga olevatele videotele, nii käsitsi kui ka automaatselt otsides (aitäh, @Elshepl). Android 5 kuni 7.0 puhul vastab OpenSubtitles taas.</item>
-        <item>Subtiitrite paneel nagu arvutiversioonis: avaneb oma nupu kohal ning keeled koos arvudega, veebitulemused ja ajastus on ühes kohas.</item>
-        <item>Paigaldub rakenduse VLC for Android kõrvale ning teleri rakendus on heebrea ja araabia keeles täielikult peegeldatud, kaugjuhtimispuldi fookus on seal, kus seda ootad.</item>
-        <item>Sinu ekraanile sobivas suuruses: teleris on rakendus nüüd suurem ja diivanilt hästi loetav, suurus määratakse ekraani järgi ja seda saab muuta menüüs Seaded › Liides › Liidese suurus. Read näitavad terveid kaarte ja iga aken mahub ekraanile.</item>
-        <item>Väga suured telekavad laaditakse mälu täitmata, korraga saab näidata kahte subtiitrikeelt ning kaugjuhtimispuldi fookus on alati nähtav.</item>
+        <item>Teleris jõuab pult minipleieri ja selle järjekorrani; järjekord avaneb väikese paneelina.</item>
+        <item>Avaleht pole kunagi tühi: kui rakendus ei näe teie faile, ütleb see miks ja küsib juurdepääsu.</item>
+        <item>Ekraanilugeja ütleb, kas subtiitriteenus või -keel on sisse lülitatud. Probleemidest teatatakse projekti GitHubi lehel.</item>
     </string-array>
     <string name="rd_subtitle_size">Subtiitrite suurus</string>
     <string name="rd_cast_this_phone">See telefon</string>

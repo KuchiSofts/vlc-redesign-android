@@ -32,14 +32,9 @@
     <string name="rd_ob_history_help">Geymt eingöngu á þessu tæki, til að halda áfram þar sem frá var horfið.</string>
     <string name="rd_ob_updates_help">Leitar einu sinni á dag að nýrri prófunarútgáfu af VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Hraðara og stöðugra: beint sjónvarp og skjátextar virka í bakgrunni, og lagað hefur verið hrun og frosinn spilari í Android 5 og á sjónvarpsboxum.</item>
-        <item>Allur skjárinn: hnappur, fjarstýringin eða bending getur sýnt aðeins framvinduna eða aðeins skilaboð í stað stjórnhnappanna, í Stillingar › Viðmót. Þakkir til @BarbodF.</item>
-        <item>Snjallari sjálfvirkir skjátextar: Subs-mappan sem fylgir myndskeiðinu er notuð fyrst, auglýsingaskrá eða skrá með aðeins þvinguðum línum telst ekki lengur skjátexti, líka er leitað fyrir kvikmynd þar sem myndin byrjar seint, og greinarmerki á hebresku og arabísku birtast á réttum enda.</item>
-        <item>Skjátextar af netinu nú líka fyrir myndskeið á netsameign, margmiðlunarþjóni eða bak við tengil, bæði þegar leitað er handvirkt og sjálfkrafa (þakkir til @Elshepl). Í Android 5 til 7.0 svarar OpenSubtitles aftur.</item>
-        <item>Skjátextaspjaldið eins og í tölvuútgáfunni: það opnast fyrir ofan hnappinn sinn, með tungumálunum og fjölda þeirra, niðurstöðum af netinu og tímasetningunni á einum stað.</item>
-        <item>Setst upp við hlið VLC for Android, og sjónvarpsforritið á hebresku og arabísku er speglað í heild, með fókus fjarstýringarinnar þar sem þú átt von á honum.</item>
-        <item>Stærð sem hentar skjánum þínum: í sjónvarpi er forritið nú stærra og auðlesið úr sófanum, stærðin er fundin út frá skjánum og henni má breyta í Stillingar › Viðmót › Stærð viðmóts. Raðir sýna heil spjöld og hver gluggi passar á skjáinn.</item>
-        <item>Mjög stórar sjónvarpsdagskrár hlaðast án þess að fylla minnið, tvö skjátextatungumál geta birst samtímis, og fókus fjarstýringarinnar er alltaf sýnilegur.</item>
+        <item>Í sjónvarpi nær fjarstýringin til smáspilarans og biðraðar hans; biðröðin opnast sem lítið spjald.</item>
+        <item>Heim er aldrei autt: þegar forritið sér ekki skrárnar þínar segir það hvers vegna og biður um aðgang.</item>
+        <item>Skjálesari segir hvort kveikt er á textaþjónustu eða tungumáli. Vandamál eru tilkynnt á GitHub-síðu verkefnisins.</item>
     </string-array>
     <string name="rd_subtitle_size">Stærð skjátexta</string>
     <string name="rd_cast_this_phone">Þessi sími</string>

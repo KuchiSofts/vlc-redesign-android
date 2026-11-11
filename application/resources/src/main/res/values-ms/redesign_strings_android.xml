@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">Disimpan pada peranti ini sahaja, untuk menyambung dari tempat anda berhenti.</string>
     <string name="rd_ob_updates_help">Mencari binaan ujian VLC for Android yang lebih baharu sekali sehari.</string>
     <string-array name="rd_whats_new_items">
-        <item>Lebih pantas dan stabil: TV Langsung dan sarikata berfungsi di latar belakang, dan ranap serta pemain yang beku pada Android 5 dan kotak TV telah dibaiki.</item>
-        <item>Skrin penuh: kekunci, alat kawalan jauh atau gerak isyarat boleh menunjukkan hanya kemajuan atau hanya mesej sebagai ganti kawalan, dalam Tetapan › Antaramuka. Terima kasih kepada @BarbodF.</item>
-        <item>Sarikata automatik yang lebih bijak: folder Subs yang disertakan dengan video digunakan dahulu, fail iklan atau fail yang hanya mengandungi baris paksa tidak lagi dikira sebagai sarikata, filem yang gambarnya lambat muncul tetap dicari, dan tanda baca bahasa Ibrani dan Arab dipaparkan di hujung yang betul.</item>
-        <item>Sarikata dalam talian kini juga untuk video pada perkongsian rangkaian, pelayan media atau di sebalik pautan, dicari secara manual dan automatik (terima kasih kepada @Elshepl). Pada Android 5 hingga 7.0, OpenSubtitles bertindak balas semula.</item>
-        <item>Panel Sarikata seperti di desktop: dibuka di atas butangnya, dengan bahasa dan bilangannya, hasil dalam talian dan pemasaan di satu tempat.</item>
-        <item>Boleh dipasang bersebelahan dengan VLC for Android, dan aplikasi TV dalam bahasa Ibrani dan Arab dicerminkan sepenuhnya, dengan fokus alat kawalan jauh di tempat yang anda jangkakan.</item>
-        <item>Disesuaikan dengan skrin anda: pada TV aplikasi kini lebih besar dan mudah dibaca dari sofa, saiznya ditentukan daripada skrin dan boleh diubah dalam Tetapan › Antara muka › Saiz antara muka. Baris memaparkan kad penuh dan setiap tetingkap muat pada skrin.</item>
-        <item>Panduan TV yang sangat besar dimuatkan tanpa memenuhkan memori, dua bahasa sarikata boleh dipaparkan serentak, dan fokus alat kawalan jauh sentiasa kelihatan.</item>
+        <item>Pada TV, alat kawalan jauh kini sampai ke pemain mini dan baris gilirnya; baris gilir dibuka sebagai panel kecil.</item>
+        <item>Laman Utama tidak pernah kosong: apabila aplikasi tidak dapat melihat fail anda, ia memberitahu sebabnya dan meminta akses.</item>
+        <item>Pembaca skrin memberitahu sama ada perkhidmatan atau bahasa sarikata dihidupkan. Masalah dilaporkan di halaman GitHub projek.</item>
     </string-array>
     <string name="rd_subtitle_size">Saiz sari kata</string>
     <string name="rd_cast_this_phone">Telefon ini</string>

@@ -31,14 +31,9 @@
     <string name="rd_ob_history_help">Čuva se samo na ovom uređaju, da nastavite gdje ste stali.</string>
     <string name="rd_ob_updates_help">Jednom dnevno traži noviju probnu verziju VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Brže i stabilnije: TV uživo i podtitlovi rade u pozadini, a ispravljena su rušenja i zamrznut plejer na sistemu Android 5 i TV boksovima.</item>
-        <item>Cijeli ekran: tipka, daljinski upravljač ili pokret mogu umjesto kontrola prikazati samo napredak ili samo poruku, u Postavke › Okruženje. Hvala @BarbodF.</item>
-        <item>Pametniji automatski podtitlovi: prvo se koristi vlastita mapa Subs koja dolazi uz video, datoteka s reklamom ili samo s prisilnim redovima više se ne računa kao podtitl, podtitlovi se traže i za film čija slika kasni, a interpunkcija na hebrejskom i arapskom prikazuje se na pravom kraju.</item>
-        <item>Podtitlovi s interneta sada i za videozapise na mrežnom dijeljenju, medijskom serveru ili iza linka, pri ručnoj i automatskoj pretrazi (hvala @Elshepl). Na sistemu Android 5 do 7.0 OpenSubtitles ponovo odgovara.</item>
-        <item>Panel podtitlova kao u verziji za računar: otvara se iznad svog dugmeta, a jezici s brojem podtitlova, rezultati s interneta i vremensko usklađivanje su na jednom mjestu.</item>
-        <item>Instalira se pored VLC for Android, a TV aplikacija na hebrejskom i arapskom je u potpunosti zrcaljena, s fokusom daljinskog upravljača tamo gdje ga očekujete.</item>
-        <item>Veličina prilagođena vašem ekranu: na TV-u je aplikacija sada veća i lako čitljiva s kauča, veličina se određuje prema ekranu i može se promijeniti u Postavke › Interfejs › Veličina interfejsa. Redovi prikazuju cijele kartice i svaki prozor stane na ekran.</item>
-        <item>Vrlo veliki TV vodiči učitavaju se bez punjenja memorije, dva jezika podtitlova mogu se prikazati istovremeno, a fokus daljinskog upravljača uvijek je vidljiv.</item>
+        <item>Na TV-u daljinski upravljač dolazi do mini plejera i njegovog reda; red se otvara kao mali panel.</item>
+        <item>Početna nikad nije prazna: kada aplikacija ne vidi vaše datoteke, kaže zašto i traži pristup.</item>
+        <item>Čitač ekrana kaže da li je servis ili jezik titlova uključen. Problemi se prijavljuju na GitHub stranici projekta.</item>
     </string-array>
     <string name="rd_subtitle_size">Veličina titlova</string>
     <string name="rd_cast_this_phone">Ovaj telefon</string>

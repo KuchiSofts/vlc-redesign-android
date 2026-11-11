@@ -31,14 +31,9 @@
     <string name="rd_ob_history_help">Vert berre lagra på denne eininga, så du kan halda fram der du slapp.</string>
     <string name="rd_ob_updates_help">Ser etter ein nyare testversjon av VLC for Android éin gong om dagen.</string>
     <string-array name="rd_whats_new_items">
-        <item>Raskare og stødigare: direkte-TV og undertekstar fungerer i bakgrunnen, og krasj og ein frosen avspelar på Android 5 og TV-boksar er retta.</item>
-        <item>Fullskjerm: ein tast, fjernkontrollen eller ei rørsle kan vise berre framdrifta eller berre ei melding i staden for kontrollane, under Innstillingar › Grensesnitt. Takk til @BarbodF.</item>
-        <item>Smartare automatiske undertekstar: videoen si eiga Subs-mappe vert brukt først, ei reklamefil eller ei fil med berre tvungne linjer tel ikkje lenger som undertekst, det vert framleis søkt etter undertekstar til ein film der biletet kjem seint, og hebraisk og arabisk teiknsetjing vert vist i rett ende.</item>
-        <item>Undertekstar frå nettet no òg for videoar på ei nettverksdeling, ein medietenar eller bak ei lenkje, både når du søkjer sjølv og automatisk (takk til @Elshepl). På Android 5 til 7.0 svarar OpenSubtitles igjen.</item>
-        <item>Undertekstpanelet som på datamaskina: det opnar seg over knappen sin, med språka og talet deira, resultata frå nettet og tidsjusteringa på éin stad.</item>
-        <item>Vert installert ved sida av VLC for Android, og TV-appen på hebraisk og arabisk er spegelvend i heilskap, med fokuset til fjernkontrollen der du ventar det.</item>
-        <item>Tilpassa skjermen din: på ein TV er appen no større og lett å lese frå sofaen, storleiken vert fastsett ut frå skjermen og kan endrast i Innstillingar › Grensesnitt › Grensesnittstorleik. Rader viser heile kort, og alle vindauge får plass på skjermen.</item>
-        <item>Svært store TV-guidar vert lasta inn utan å fylle minnet, to undertekstspråk kan visast samstundes, og fokuset til fjernkontrollen er alltid synleg.</item>
+        <item>På ein TV når fjernkontrollen miniavspelaren og køen hans; køen opnar seg som eit lite panel.</item>
+        <item>Heim er aldri tom: når appen ikkje kan sjå filene dine, seier han kvifor og ber om tilgang.</item>
+        <item>Ein skjermlesar seier om ei undertekstteneste eller eit språk er slått på. Problem vert rapporterte på GitHub-sida til prosjektet.</item>
     </string-array>
     <string name="rd_subtitle_size">Storleik på tekstinga</string>
     <string name="rd_cast_this_phone">Denne telefonen</string>

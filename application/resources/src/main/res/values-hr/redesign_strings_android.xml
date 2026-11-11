@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">Čuva se samo na ovom uređaju, da biste nastavili gdje ste stali.</string>
     <string name="rd_ob_updates_help">Jednom dnevno traži noviju probnu verziju VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Brže i stabilnije: TV uživo i podnaslovi rade u pozadini, a ispravljena su rušenja i zamrznuti reproduktor na sustavu Android 5 i TV boxovima.</item>
-        <item>Cijeli zaslon: tipka, daljinski upravljač ili pokret mogu umjesto kontrola prikazati samo napredak ili samo poruku, u Postavke › Sučelje. Hvala @BarbodF.</item>
-        <item>Pametniji automatski podnaslovi: najprije se koristi vlastita mapa Subs koja dolazi uz videozapis, datoteka s reklamom ili samo s prisilnim recima više se ne računa kao podnaslov, podnaslovi se traže i za film čija slika kasni, a interpunkcija na hebrejskom i arapskom prikazuje se na pravom kraju.</item>
-        <item>Podnaslovi s interneta sada i za videozapise na mrežnom dijeljenju, medijskom poslužitelju ili iza poveznice, pri ručnom i automatskom traženju (hvala @Elshepl). Na sustavu Android 5 do 7.0 OpenSubtitles ponovno odgovara.</item>
-        <item>Ploča podnaslova kao u verziji za računalo: otvara se iznad svojeg gumba, a jezici s brojem podnaslova, rezultati s mreže i usklađivanje vremena nalaze se na jednom mjestu.</item>
-        <item>Instalira se uz VLC for Android, a TV aplikacija na hebrejskom i arapskom potpuno je zrcaljena, s fokusom daljinskog upravljača ondje gdje ga očekujete.</item>
-        <item>Veličina prilagođena vašem zaslonu: na televizoru je aplikacija sada veća i lako čitljiva s kauča, veličina se određuje prema zaslonu i može se promijeniti u Postavke › Sučelje › Veličina sučelja. Redovi prikazuju cijele kartice i svaki prozor stane na zaslon.</item>
-        <item>Vrlo veliki TV vodiči učitavaju se bez punjenja memorije, dva jezika podnaslova mogu se prikazati istodobno, a fokus daljinskog upravljača uvijek je vidljiv.</item>
+        <item>Na TV-u daljinski upravljač dolazi do mini playera i njegovog reda; red se otvara kao mala ploča.</item>
+        <item>Početna nikad nije prazna: kad aplikacija ne vidi vaše datoteke, kaže zašto i traži pristup.</item>
+        <item>Čitač zaslona kaže je li usluga ili jezik titlova uključen. Problemi se prijavljuju na GitHub stranici projekta.</item>
     </string-array>
     <string name="rd_subtitle_size">Veličina titlova</string>
     <string name="rd_cast_this_phone">Ovaj telefon</string>

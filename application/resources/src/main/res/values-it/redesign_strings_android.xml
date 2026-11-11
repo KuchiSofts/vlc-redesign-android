@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">Conservata solo su questo dispositivo, per riprendere da dove avevi lasciato.</string>
     <string name="rd_ob_updates_help">Cerca una versione di prova più recente di VLC for Android una volta al giorno.</string>
     <string-array name="rd_whats_new_items">
-        <item>Più veloce e più stabile: la TV in diretta e i sottotitoli funzionano in background, e sono state corrette le chiusure inattese e il lettore bloccato su Android 5 e sui TV box.</item>
-        <item>Schermo intero: un tasto, il telecomando o un gesto possono mostrare solo l\'avanzamento o solo un messaggio al posto dei comandi, in Impostazioni › Interfaccia. Grazie a @BarbodF.</item>
-        <item>Sottotitoli automatici più intelligenti: prima si usa la cartella Subs che accompagna il video, un file pubblicitario o con sole righe forzate non conta più come sottotitolo, la ricerca parte anche per un film la cui immagine arriva in ritardo, e la punteggiatura in ebraico e arabo appare all\'estremità giusta.</item>
-        <item>Sottotitoli online anche per i video su una condivisione di rete, un server multimediale o dietro un link, cercati a mano e automaticamente (grazie a @Elshepl). Da Android 5 a 7.0, OpenSubtitles risponde di nuovo.</item>
-        <item>Il pannello Sottotitoli come nella versione desktop: si apre sopra il suo pulsante, con le lingue e il loro numero, i risultati online e la sincronizzazione in un unico posto.</item>
-        <item>Si installa accanto a VLC for Android, e l\'app TV in ebraico e arabo è interamente speculare, con il focus del telecomando dove te lo aspetti.</item>
-        <item>A misura del tuo schermo: su un televisore l\'app ora è più grande e facile da leggere dal divano, la dimensione viene ricavata dallo schermo e si può cambiare in Impostazioni › Interfaccia › Dimensione dell\'interfaccia. Le righe mostrano schede intere e ogni finestra sta nello schermo.</item>
-        <item>Le guide TV molto grandi si caricano senza riempire la memoria, si possono mostrare due lingue dei sottotitoli insieme, e il focus del telecomando è sempre visibile.</item>
+        <item>Su una TV, il telecomando raggiunge il mini player e la sua coda; la coda si apre come un piccolo pannello.</item>
+        <item>La Home non è mai vuota: quando l\'app non può vedere i tuoi file, dice perché e chiede l\'accesso.</item>
+        <item>Uno screen reader dice se un servizio o una lingua dei sottotitoli è attivo. I problemi si segnalano sulla pagina GitHub del progetto.</item>
     </string-array>
     <string name="rd_subtitle_size">Dimensione dei sottotitoli</string>
     <string name="rd_cast_this_phone">Questo telefono</string>

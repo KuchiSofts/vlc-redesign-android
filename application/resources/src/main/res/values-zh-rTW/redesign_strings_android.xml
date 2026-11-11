@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">只儲存在這部裝置上，用來從上次停止的地方繼續。</string>
     <string name="rd_ob_updates_help">每天檢查一次是否有較新的 VLC for Android 測試版。</string>
     <string-array name="rd_whats_new_items">
-        <item>更快更穩定：電視直播和字幕可在背景執行，並修正了在 Android 5 和電視盒上的當機及播放器卡住問題。</item>
-        <item>全螢幕：按鍵、遙控器或手勢可以只顯示進度或只顯示訊息，而不顯示控制按鈕，位於「設定 › 介面」中。感謝 @BarbodF。</item>
-        <item>更聰明的自動字幕：優先使用影片隨附的 Subs 資料夾，廣告檔或只有強制字幕行的檔案不再算作字幕，畫面較晚出現的影片也照樣搜尋，希伯來文與阿拉伯文的標點顯示在正確的一端。</item>
-        <item>網路分享、媒體伺服器或連結中的影片現在也能線上尋找字幕，手動和自動皆可（感謝 @Elshepl）。在 Android 5 至 7.0 上，OpenSubtitles 恢復回應。</item>
-        <item>與桌面版一樣的字幕面板：在其按鈕上方開啟，語言及各自的數量、線上結果與時間同步都集中在一處。</item>
-        <item>可與 VLC for Android 並存安裝；希伯來文與阿拉伯文的電視應用程式整體鏡像顯示，遙控器焦點也在您預期的位置。</item>
-        <item>大小配合您的螢幕：在電視上應用程式現在更大，坐在沙發上也能輕鬆閱讀，大小依螢幕自動決定，可在「設定 › 介面 › 介面大小」中變更。每列顯示完整的卡片，每個視窗都能完整顯示在螢幕內。</item>
-        <item>超大型的電視節目表載入時不會佔滿記憶體，可同時顯示兩種語言的字幕，遙控器焦點始終可見。</item>
+        <item>在電視上，遙控器現在可以移到迷你播放器及其佇列；佇列會以小面板的形式開啟。</item>
+        <item>首頁不再空白：當應用程式無法看到您的檔案時，會說明原因並要求存取權限。</item>
+        <item>螢幕閱讀器會讀出字幕服務或語言是否已開啟。問題可在專案的 GitHub 頁面上回報。</item>
     </string-array>
     <string name="rd_subtitle_size">字幕大小</string>
     <string name="rd_cast_this_phone">這支手機</string>

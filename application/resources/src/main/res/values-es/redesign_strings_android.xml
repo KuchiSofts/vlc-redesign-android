@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">Se guarda solo en este dispositivo, para continuar donde lo dejaste.</string>
     <string name="rd_ob_updates_help">Busca una versión de prueba más reciente de VLC for Android una vez al día.</string>
     <string-array name="rd_whats_new_items">
-        <item>Más rápido y más estable: la TV en directo y los subtítulos funcionan en segundo plano, y se han corregido los cierres inesperados y el reproductor congelado en Android 5 y en los TV box.</item>
-        <item>Pantalla completa: una tecla, el mando o un gesto pueden mostrar solo el progreso o solo un mensaje en lugar de los controles, en Preferencias › Interfaz. Gracias a @BarbodF.</item>
-        <item>Subtítulos automáticos más inteligentes: primero se usa la carpeta Subs que acompaña al vídeo, un archivo de publicidad o solo con líneas forzadas ya no cuenta como subtítulo, también se buscan para una película cuya imagen llega tarde, y la puntuación en hebreo y árabe aparece en el extremo correcto.</item>
-        <item>Subtítulos en línea también para vídeos en una carpeta compartida de red, un servidor multimedia o tras un enlace, al buscarlos a mano y de forma automática (gracias a @Elshepl). En Android 5 a 7.0, OpenSubtitles vuelve a responder.</item>
-        <item>El panel de subtítulos como en el escritorio: se abre encima de su botón, con los idiomas y cuántos hay de cada uno, los resultados en línea y la sincronización en un solo lugar.</item>
-        <item>Se instala junto a VLC for Android, y la aplicación de TV en hebreo y árabe aparece totalmente en espejo, con el foco del mando donde lo espera.</item>
-        <item>A la medida de su pantalla: en un televisor la aplicación ahora es más grande y fácil de leer desde el sofá, el tamaño se calcula a partir de la pantalla y se puede cambiar en Ajustes › Interfaz › Tamaño de la interfaz. Las filas muestran tarjetas enteras y cada ventana cabe en la pantalla.</item>
-        <item>Las guías de TV muy grandes se cargan sin llenar la memoria, se pueden mostrar dos idiomas de subtítulos a la vez, y el foco del mando siempre está visible.</item>
+        <item>En un televisor, el mando llega al minirreproductor y a su cola; la cola se abre como un panel pequeño.</item>
+        <item>Inicio nunca está vacío: cuando la aplicación no puede ver tus archivos, dice por qué y pide acceso.</item>
+        <item>Un lector de pantalla dice si un servicio o un idioma de subtítulos está activado. Los problemas se informan en la página de GitHub del proyecto.</item>
     </string-array>
     <string name="rd_subtitle_size">Tamaño de los subtítulos</string>
     <string name="rd_cast_this_phone">Este teléfono</string>

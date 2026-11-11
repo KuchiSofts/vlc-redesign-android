@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">Lagres bare på denne enheten, så du kan fortsette der du slapp.</string>
     <string name="rd_ob_updates_help">Ser etter en nyere testversjon av VLC for Android én gang om dagen.</string>
     <string-array name="rd_whats_new_items">
-        <item>Raskere og stødigere: direkte-TV og undertekster fungerer i bakgrunnen, og krasj og en frossen avspiller på Android 5 og TV-bokser er rettet.</item>
-        <item>Fullskjerm: en tast, fjernkontrollen eller en bevegelse kan vise bare fremgangen eller bare en melding i stedet for kontrollene, under Innstillinger › Grensesnitt. Takk til @BarbodF.</item>
-        <item>Smartere automatiske undertekster: videoens egen Subs-mappe brukes først, en reklamefil eller en fil med bare tvungne linjer teller ikke lenger som undertekst, det søkes fortsatt etter undertekster til en film der bildet kommer sent, og hebraisk og arabisk tegnsetting vises i riktig ende.</item>
-        <item>Undertekster fra nettet nå også for videoer på en nettverksdeling, en medieserver eller bak en lenke, både når du søker selv og automatisk (takk til @Elshepl). På Android 5 til 7.0 svarer OpenSubtitles igjen.</item>
-        <item>Undertekstpanelet som på datamaskinen: det åpnes over knappen sin, med språkene og antallet deres, resultatene fra nettet og tidsjusteringen på ett sted.</item>
-        <item>Installeres ved siden av VLC for Android, og TV-appen på hebraisk og arabisk er speilvendt i sin helhet, med fokuset til fjernkontrollen der du forventer det.</item>
-        <item>Tilpasset skjermen din: på en TV er appen nå større og lett å lese fra sofaen, størrelsen bestemmes ut fra skjermen og kan endres i Innstillinger › Grensesnitt › Grensesnittstørrelse. Rader viser hele kort, og alle vinduer får plass på skjermen.</item>
-        <item>Svært store TV-guider lastes inn uten å fylle minnet, to undertekstspråk kan vises samtidig, og fokuset til fjernkontrollen er alltid synlig.</item>
+        <item>På en TV når fjernkontrollen miniavspilleren og køen dens; køen åpnes som et lite panel.</item>
+        <item>Hjem er aldri tom: når appen ikke kan se filene dine, sier den hvorfor og ber om tilgang.</item>
+        <item>En skjermleser sier om en underteksttjeneste eller et språk er slått på. Problemer rapporteres på prosjektets GitHub-side.</item>
     </string-array>
     <string name="rd_subtitle_size">Undertekststørrelse</string>
     <string name="rd_cast_this_phone">Denne telefonen</string>

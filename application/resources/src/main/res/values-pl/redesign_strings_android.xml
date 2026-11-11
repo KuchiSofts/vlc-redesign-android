@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">Przechowywana tylko na tym urządzeniu, aby kontynuować od miejsca, w którym przerwano.</string>
     <string name="rd_ob_updates_help">Raz dziennie sprawdza, czy jest nowsza testowa wersja VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Szybciej i stabilniej: telewizja na żywo i napisy działają w tle, a awarie i zawieszający się odtwarzacz w systemie Android 5 i na przystawkach TV zostały naprawione.</item>
-        <item>Pełny ekran: klawisz, pilot lub gest mogą zamiast elementów sterujących pokazywać tylko postęp lub tylko komunikat, w Ustawienia › Interfejs. Dziękujemy @BarbodF.</item>
-        <item>Mądrzejsze automatyczne napisy: najpierw używany jest folder Subs dołączony do filmu, plik z reklamą lub tylko z wymuszonymi wierszami nie liczy się już jako napisy, wyszukiwanie działa też dla filmu, którego obraz zaczyna się później, a interpunkcja po hebrajsku i arabsku pojawia się na właściwym końcu.</item>
-        <item>Napisy z internetu teraz także dla filmów z udziału sieciowego, serwera multimediów lub linku, wyszukiwane ręcznie i automatycznie (dziękujemy @Elshepl). W systemie Android 5–7.0 OpenSubtitles znów odpowiada.</item>
-        <item>Panel napisów jak w wersji na komputer: otwiera się nad swoim przyciskiem, a języki z liczbą napisów, wyniki z internetu i synchronizacja są w jednym miejscu.</item>
-        <item>Instaluje się obok VLC for Android, a aplikacja na telewizor po hebrajsku i arabsku jest w całości odbita lustrzanie, z fokusem pilota tam, gdzie się go spodziewasz.</item>
-        <item>Dopasowane do Twojego ekranu: na telewizorze aplikacja jest teraz większa i dobrze czytelna z kanapy, rozmiar jest ustalany na podstawie ekranu i można go zmienić w Ustawienia › Interfejs › Rozmiar interfejsu. Rzędy pokazują całe karty, a każde okno mieści się na ekranie.</item>
-        <item>Bardzo duże programy TV wczytują się bez zapełniania pamięci, napisy w dwóch językach mogą być wyświetlane jednocześnie, a fokus pilota jest zawsze widoczny.</item>
+        <item>Na telewizorze pilot sięga teraz do miniodtwarzacza i jego kolejki; kolejka otwiera się jako mały panel.</item>
+        <item>Strona główna nigdy nie jest pusta: gdy aplikacja nie widzi Twoich plików, mówi dlaczego i prosi o dostęp.</item>
+        <item>Czytnik ekranu informuje, czy usługa lub język napisów jest włączony. Problemy zgłasza się na stronie projektu w GitHubie.</item>
     </string-array>
     <string name="rd_subtitle_size">Rozmiar napisów</string>
     <string name="rd_cast_this_phone">Ten telefon</string>

@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">Păstrat doar pe acest dispozitiv, pentru a continua de unde ați rămas.</string>
     <string name="rd_ob_updates_help">Caută o dată pe zi o versiune de test mai nouă a VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Mai rapid și mai stabil: TV-ul în direct și subtitlurile funcționează în fundal, iar închiderile neașteptate și playerul înghețat pe Android 5 și pe dispozitivele TV box au fost remediate.</item>
-        <item>Ecran complet: o tastă, telecomanda sau un gest pot afișa doar progresul sau doar un mesaj în locul comenzilor, în Setări › Interfață. Mulțumiri lui @BarbodF.</item>
-        <item>Subtitluri automate mai inteligente: întâi se folosește dosarul Subs care însoțește videoclipul, un fișier publicitar sau doar cu replici forțate nu mai contează drept subtitlu, căutarea se face și pentru un film a cărui imagine vine târziu, iar punctuația în ebraică și arabă apare la capătul corect.</item>
-        <item>Subtitluri online acum și pentru videoclipuri dintr-o partajare de rețea, de pe un server media sau din spatele unui link, găsite manual și automat (mulțumiri lui @Elshepl). Pe Android 5–7.0, OpenSubtitles răspunde din nou.</item>
-        <item>Panoul de subtitluri ca pe desktop: se deschide deasupra butonului său, cu limbile și numărul lor, rezultatele online și sincronizarea într-un singur loc.</item>
-        <item>Se instalează alături de VLC for Android, iar aplicația TV în ebraică și arabă este oglindită în întregime, cu focalizarea telecomenzii acolo unde vă așteptați.</item>
-        <item>Pe măsura ecranului dvs.: pe un televizor aplicația este acum mai mare și ușor de citit de pe canapea, dimensiunea este stabilită în funcție de ecran și poate fi schimbată din Setări › Interfață › Dimensiunea interfeței. Rândurile arată carduri întregi și fiecare fereastră încape pe ecran.</item>
-        <item>Ghidurile TV foarte mari se încarcă fără să umple memoria, două limbi de subtitrare pot fi afișate simultan, iar focalizarea telecomenzii este mereu vizibilă.</item>
+        <item>Pe televizor, telecomanda ajunge la mini-player și la coada lui; coada se deschide ca un panou mic.</item>
+        <item>Pagina de pornire nu este niciodată goală: când aplicația nu vă poate vedea fișierele, spune de ce și cere acces.</item>
+        <item>Un cititor de ecran spune dacă un serviciu sau o limbă de subtitrare este activată. Problemele se raportează pe pagina GitHub a proiectului.</item>
     </string-array>
     <string name="rd_subtitle_size">Dimensiunea subtitrărilor</string>
     <string name="rd_cast_this_phone">Acest telefon</string>

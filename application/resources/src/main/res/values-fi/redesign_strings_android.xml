@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">Säilytetään vain tällä laitteella, jotta voit jatkaa siitä, mihin jäit.</string>
     <string name="rd_ob_updates_help">Etsii kerran päivässä uudempaa VLC for Androidin testiversiota.</string>
     <string-array name="rd_whats_new_items">
-        <item>Nopeampi ja vakaampi: suora TV ja tekstitykset toimivat taustalla, ja kaatumiset sekä jumittuva soitin Android 5:ssä ja TV-bokseissa on korjattu.</item>
-        <item>Koko näyttö: näppäin, kaukosäädin tai ele voi näyttää säätimien sijaan vain edistymisen tai vain viestin, kohdassa Asetukset › Käyttöliittymä. Kiitos @BarbodF:lle.</item>
-        <item>Fiksummat automaattiset tekstitykset: ensin käytetään videon omaa Subs-kansiota, mainostiedosto tai pelkät pakotetut rivit sisältävä tiedosto ei enää kelpaa tekstitykseksi, tekstityksiä haetaan myös elokuvalle, jonka kuva alkaa myöhässä, ja heprean ja arabian välimerkit näkyvät oikeassa päässä.</item>
-        <item>Tekstitykset verkosta nyt myös videoille, jotka ovat verkkojaossa, mediapalvelimella tai linkin takana, sekä käsin että automaattisesti haettuina (kiitos @Elshepl:lle). Android 5–7.0:ssa OpenSubtitles vastaa taas.</item>
-        <item>Tekstityspaneeli kuten työpöytäversiossa: avautuu painikkeensa yläpuolelle, ja kielet määrineen, verkon hakutulokset ja ajoitus ovat yhdessä paikassa.</item>
-        <item>Asentuu VLC for Android -sovelluksen rinnalle, ja TV-sovellus on hepreaksi ja arabiaksi kokonaan peilattu, ja kaukosäätimen kohdistus on siellä, missä sitä odotat.</item>
-        <item>Näytöllesi sopiva koko: televisiossa sovellus on nyt suurempi ja helppo lukea sohvalta, koko määritetään näytön perusteella ja sitä voi muuttaa kohdassa Asetukset › Käyttöliittymä › Käyttöliittymän koko. Rivit näyttävät kokonaisia kortteja, ja jokainen ikkuna mahtuu näytölle.</item>
-        <item>Hyvin suuret TV-oppaat latautuvat täyttämättä muistia, kaksi tekstityskieltä voi näkyä yhtä aikaa, ja kaukosäätimen kohdistus on aina näkyvissä.</item>
+        <item>Televisiossa kaukosäädin ulottuu minisoittimeen ja sen jonoon; jono avautuu pienenä paneelina.</item>
+        <item>Koti ei ole koskaan tyhjä: kun sovellus ei näe tiedostojasi, se kertoo syyn ja pyytää käyttöoikeutta.</item>
+        <item>Ruudunlukija kertoo, onko tekstityspalvelu tai -kieli päällä. Ongelmista ilmoitetaan projektin GitHub-sivulla.</item>
     </string-array>
     <string name="rd_subtitle_size">Tekstityksen koko</string>
     <string name="rd_cast_this_phone">Tämä puhelin</string>

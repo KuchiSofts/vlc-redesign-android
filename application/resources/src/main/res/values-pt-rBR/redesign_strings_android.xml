@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">Mantido somente neste dispositivo, para continuar de onde você parou.</string>
     <string name="rd_ob_updates_help">Procura uma versão de teste mais nova do VLC for Android uma vez por dia.</string>
     <string-array name="rd_whats_new_items">
-        <item>Mais rápido e estável: a TV ao vivo e as legendas funcionam em segundo plano, e os travamentos e o player congelado no Android 5 e em TV boxes foram corrigidos.</item>
-        <item>Tela cheia: uma tecla, o controle remoto ou um gesto pode mostrar só o progresso ou só uma mensagem no lugar dos controles, em Configurações › Interface. Agradecimentos a @BarbodF.</item>
-        <item>Legendas automáticas mais inteligentes: a pasta Subs que acompanha o vídeo é usada primeiro, um arquivo de propaganda ou só com legendas forçadas não conta mais como legenda, a busca acontece mesmo para um filme cuja imagem chega atrasada, e a pontuação em hebraico e árabe aparece na ponta certa.</item>
-        <item>Legendas online agora também para vídeos em um compartilhamento de rede, um servidor de mídia ou atrás de um link, buscadas manual ou automaticamente (agradecimentos a @Elshepl). No Android 5 a 7.0, o OpenSubtitles volta a responder.</item>
-        <item>O painel de legendas como na versão para computador: abre acima do seu botão, com os idiomas e quantas há em cada um, os resultados online e o ajuste de tempo em um só lugar.</item>
-        <item>Pode ser instalado ao lado do VLC for Android, e o app de TV em hebraico e árabe fica totalmente espelhado, com o foco do controle remoto onde você espera.</item>
-        <item>Do tamanho da sua tela: em uma TV o app agora fica maior e fácil de ler do sofá, o tamanho é definido a partir da tela e pode ser alterado em Configurações › Interface › Tamanho da interface. As fileiras mostram cartões inteiros e toda janela cabe na tela.</item>
-        <item>Guias de TV muito grandes carregam sem encher a memória, dois idiomas de legenda podem aparecer ao mesmo tempo, e o foco do controle remoto fica sempre visível.</item>
+        <item>Na TV, o controle remoto alcança o mini player e sua fila; a fila abre como um pequeno painel.</item>
+        <item>O Início nunca fica vazio: quando o app não consegue ver seus arquivos, ele diz o motivo e pede acesso.</item>
+        <item>Um leitor de tela diz se um serviço ou idioma de legenda está ativado. Os problemas são relatados na página do projeto no GitHub.</item>
     </string-array>
     <string name="rd_subtitle_size">Tamanho das legendas</string>
     <string name="rd_cast_this_phone">Este celular</string>
