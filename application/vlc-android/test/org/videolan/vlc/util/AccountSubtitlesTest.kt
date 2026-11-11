@@ -23,9 +23,9 @@ class AccountSubtitlesTest {
 
     private fun response(status: Int, body: String = "") = Response(status, body.toByteArray(Charsets.UTF_8), null)
     private val noAnswer = Response(0, ByteArray(0), "UnknownHostException")
-    private val film = Query(imdb = "tt0133093", title = "The Matrix", year = 1999, languages = listOf("hr", "sr", "en"))
-    private val episode = Query(imdb = "tt0903747", title = "Breaking Bad", series = true, season = 1, episode = 2,
-        fileName = "Breaking.Bad.S01E02.720p.mkv", languages = listOf("fr", "en"))
+    private val film = Query(imdb = "tt0133093", title = "The Voyage", year = 1999, languages = listOf("hr", "sr", "en"))
+    private val episode = Query(imdb = "tt0903747", title = "Northern Bay", series = true, season = 1, episode = 2,
+        fileName = "Northern.Bay.S01E02.720p.mkv", languages = listOf("fr", "en"))
 
     @Test
     fun theirDeclarations() {
@@ -74,11 +74,11 @@ class AccountSubtitlesTest {
         val list = KeyedSubtitles.parseTitlovi(SubtitleFixtures2.TITLOVI_FILM, film)
         assertEquals(listOf("titlovi:1", "titlovi:2", "titlovi:3"), list.map { it.id })
         assertEquals(listOf("hr", "sr", "sr"), list.map { it.language })
-        assertEquals("The.Matrix.1999.1080p.BluRay", list[0].release)
+        assertEquals("The.Voyage.1999.1080p.BluRay", list[0].release)
         assertEquals("https://titlovi.com/download/?type=1&mediaid=1", list[0].url)
         assertEquals(1200, list[0].downloads)
         // no release: its title; an address in http: https
-        assertEquals("The Matrix", list[2].release)
+        assertEquals("The Voyage", list[2].release)
         assertTrue(list[2].url.startsWith("https://"))
         val eps = KeyedSubtitles.parseTitlovi(SubtitleFixtures2.TITLOVI_EPISODES, episode.copy(languages = listOf("hr")))
         assertEquals(listOf("titlovi:11", "titlovi:13"), eps.map { it.id })
@@ -96,11 +96,11 @@ class AccountSubtitlesTest {
         assertTrue(KeyedSubtitles.assrtProblem(noAnswer) is Problem.NoAnswer)
         assertNull(KeyedSubtitles.assrtProblem(response(200, SubtitleFixtures2.ASSRT_SEARCH)))
         assertNull(KeyedSubtitles.assrtProblem(response(200, SubtitleFixtures2.ASSRT_QUOTA)))
-        val q = Query(title = "The Matrix", year = 1999, languages = listOf("zh"))
+        val q = Query(title = "The Voyage", year = 1999, languages = listOf("zh"))
         val list = KeyedSubtitles.parseAssrt(SubtitleFixtures2.ASSRT_SEARCH, q)
         assertEquals(listOf("assrt:602333", "assrt:602334"), list.map { it.id })
         assertEquals("zh", list[0].language)
-        assertEquals("The.Matrix.1999.1080p.BluRay", list[0].release)
+        assertEquals("The.Voyage.1999.1080p.BluRay", list[0].release)
         assertEquals("assrt:602333", list[0].url)
         // "不知道" (unknown): its own name; only traditional: zh-TW
         assertEquals("黑客帝國", list[1].release)
@@ -121,7 +121,7 @@ class AccountSubtitlesTest {
         val q = Query(title = "Frieren: Beyond Journey's End", series = true, season = 1, episode = 2, languages = listOf("ja"))
         assertEquals(1L, KeyedSubtitles.jimakuEntry(SubtitleFixtures2.JIMAKU_ENTRIES, q))
         assertEquals(2L, KeyedSubtitles.jimakuEntry(SubtitleFixtures2.JIMAKU_ENTRIES, Query(title = "Frieren the movie", languages = listOf("ja"))))
-        assertNull(KeyedSubtitles.jimakuEntry(SubtitleFixtures2.JIMAKU_ENTRIES, Query(title = "Breaking Bad", languages = listOf("ja"))))
+        assertNull(KeyedSubtitles.jimakuEntry(SubtitleFixtures2.JIMAKU_ENTRIES, Query(title = "Northern Bay", languages = listOf("ja"))))
         val files = KeyedSubtitles.parseJimaku(SubtitleFixtures2.JIMAKU_FILES, 1L)
         // not the 7z, the broken one, the machine's
         assertEquals(1, files.size)
@@ -142,7 +142,7 @@ class AccountSubtitlesTest {
         // VF and VO, not seriessub's
         assertEquals(listOf("betaseries:11", "betaseries:12"), list.map { it.id })
         assertEquals(listOf("fr", "en"), list.map { it.language })
-        assertEquals("Breaking.Bad.S01E02.fr", list[0].release)
+        assertEquals("Northern.Bay.S01E02.fr", list[0].release)
     }
 
     // Subs.ro
@@ -151,10 +151,10 @@ class AccountSubtitlesTest {
     fun subsRo() {
         assertTrue(KeyedSubtitles.subsRoProblem(response(403, SubtitleFixtures2.SUBSRO_WRONG_KEY)) is Problem.KeyRefused)
         assertTrue(KeyedSubtitles.subsRoProblem(response(429)) is Problem.Busy)
-        val films = KeyedSubtitles.parseSubsRo(SubtitleFixtures2.SUBSRO_FILM, Query(imdb = "tt0133093", title = "The Matrix", languages = listOf("ro")))
+        val films = KeyedSubtitles.parseSubsRo(SubtitleFixtures2.SUBSRO_FILM, Query(imdb = "tt0133093", title = "The Voyage", languages = listOf("ro")))
         assertEquals(listOf("subsro:abc1"), films.map { it.id })
         assertEquals("ro", films[0].language)
-        assertEquals("The.Matrix.1999.1080p.BluRay", films[0].release)
+        assertEquals("The.Voyage.1999.1080p.BluRay", films[0].release)
         val eps = KeyedSubtitles.parseSubsRo(SubtitleFixtures2.SUBSRO_SERIES, episode.copy(languages = listOf("ro")))
         assertEquals(listOf("subsro:s1", "subsro:s4"), eps.map { it.id })
         assertTrue(KeyedSubtitles.parseSubsRo("""{"status":404,"items":[]}""", episode).isEmpty())
@@ -168,7 +168,7 @@ class AccountSubtitlesTest {
         if (withZip) {
             out.write("||".toByteArray())
             ZipOutputStream(out).use { z ->
-                z.putNextEntry(ZipEntry("The.Matrix.1999.txt"))
+                z.putNextEntry(ZipEntry("The.Voyage.1999.txt"))
                 z.write("1\n00:00:01,000 --> 00:00:02,000\nCześć\n".toByteArray(Charsets.UTF_8))
                 z.closeEntry()
             }
@@ -183,15 +183,15 @@ class AccountSubtitlesTest {
         assertNull(none.problem)
         assertNull(none.zip)
         assertTrue(KeyedSubtitles.napisy24Of(noAnswer).problem is Problem.NoAnswer)
-        val found = KeyedSubtitles.napisy24Of(napisy24Answer("OK-2|imdb:133093|napisId:12345|ftitle:The Matrix|fps:23.976", true))
+        val found = KeyedSubtitles.napisy24Of(napisy24Answer("OK-2|imdb:133093|napisId:12345|ftitle:The Voyage|fps:23.976", true))
         assertNull(found.problem)
         assertEquals("OK-2", found.status)
         assertEquals("12345", found.info["napisId"])
-        assertEquals("The Matrix", found.info["ftitle"])
+        assertEquals("The Voyage", found.info["ftitle"])
         assertNotNull(found.zip)
         // the zip is the subtitle the download unpacks
-        val r = OnlineSubtitles.Result("napisy24:x", "napisy24", "pl", "The Matrix", url = "napisy24:x:1:The.Matrix.mkv", exact = true)
-        val (unpacked, problem) = OnlineSubtitles.subtitleOf(found.zip!!, r, "The.Matrix.1999.mkv")
+        val r = OnlineSubtitles.Result("napisy24:x", "napisy24", "pl", "The Voyage", url = "napisy24:x:1:The.Voyage.mkv", exact = true)
+        val (unpacked, problem) = OnlineSubtitles.subtitleOf(found.zip!!, r, "The.Voyage.1999.mkv")
         assertNull(problem)
         assertTrue(unpacked!!.text.contains("Cześć"))
     }
@@ -203,9 +203,9 @@ class AccountSubtitlesTest {
         assertTrue(KeyedSubtitles.legendasLoginOf(response(401, SubtitleFixtures2.LEGENDAS_WRONG_LOGIN)).second is Problem.LoginRefused)
         assertEquals("eyJ0eXAi.x.y", KeyedSubtitles.legendasLoginOf(response(200, """{"access_token":"eyJ0eXAi.x.y","token_type":"bearer"}""")).first)
         assertTrue(KeyedSubtitles.legendasLoginOf(response(200, "{}")).second is Problem.LoginRefused)
-        val films = KeyedSubtitles.parseLegendas(SubtitleFixtures2.LEGENDAS_MOVIES, Query(imdb = "tt0133093", title = "The Matrix", languages = listOf("pt-BR")))
+        val films = KeyedSubtitles.parseLegendas(SubtitleFixtures2.LEGENDAS_MOVIES, Query(imdb = "tt0133093", title = "The Voyage", languages = listOf("pt-BR")))
         assertEquals(listOf("legendasnet:5", "legendasnet:6"), films.map { it.id })
-        assertEquals("https://legendas.net/storage/legendas/the-matrix.zip", films[0].url)
+        assertEquals("https://legendas.net/storage/legendas/the-voyage.zip", films[0].url)
         assertEquals("pt-BR", films[0].language)
         assertTrue(films[1].foreignOnly)
         val eps = KeyedSubtitles.parseLegendas(SubtitleFixtures2.LEGENDAS_TV, episode.copy(languages = listOf("pt-BR")))

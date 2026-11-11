@@ -18,8 +18,8 @@ class OnlineSubtitlesTest {
 
     @Test
     fun namesOfFilms() {
-        OnlineSubtitles.parseName("Home.Sweet.Home.Alone.2021.2160p.4K.WEB.x265-[GROUP].mkv").let {
-            assertEquals("Home Sweet Home Alone", it.title)
+        OnlineSubtitles.parseName("Some.Long.Film.Title.2021.2160p.4K.WEB.x265-[GROUP].mkv").let {
+            assertEquals("Some Long Film Title", it.title)
             assertEquals(2021, it.year)
             assertEquals(-1, it.season)
         }
@@ -34,8 +34,8 @@ class OnlineSubtitlesTest {
 
     @Test
     fun namesOfEpisodes() {
-        OnlineSubtitles.parseName("Breaking.Bad.S01E02.720p.WEB-DL.mkv").let {
-            assertEquals("Breaking Bad", it.title)
+        OnlineSubtitles.parseName("Northern.Bay.S01E02.720p.WEB-DL.mkv").let {
+            assertEquals("Northern Bay", it.title)
             assertEquals(1, it.season)
             assertEquals(2, it.episode)
         }
@@ -205,23 +205,23 @@ class OnlineSubtitlesTest {
     fun identityOfTheFileHash() {
         // most of the subtitles made for the file name one title: that one, sure; the others' are a guess
         val film = """[
-            {"MatchedBy":"moviehash","MovieKind":"movie","IDMovieImdb":"133093","MovieName":"The Matrix","MovieYear":"1999"},
-            {"MatchedBy":"moviehash","MovieKind":"movie","IDMovieImdb":"133093","MovieName":"The Matrix","MovieYear":"1999"},
-            {"MatchedBy":"moviehash","MovieKind":"movie","IDMovieImdb":"234215","MovieName":"The Matrix Reloaded","MovieYear":"2003"},
+            {"MatchedBy":"moviehash","MovieKind":"movie","IDMovieImdb":"133093","MovieName":"The Voyage","MovieYear":"1999"},
+            {"MatchedBy":"moviehash","MovieKind":"movie","IDMovieImdb":"133093","MovieName":"The Voyage","MovieYear":"1999"},
+            {"MatchedBy":"moviehash","MovieKind":"movie","IDMovieImdb":"234215","MovieName":"The Voyage Reloaded","MovieYear":"2003"},
             {"MatchedBy":"imdbid","MovieKind":"movie","IDMovieImdb":"999","MovieName":"Other","MovieYear":"2000"}]"""
         val f = OnlineSubtitles.identityOfHash(film)
         assertNotNull(f)
         assertEquals("tt0133093", f!!.match.imdb)
-        assertEquals("The Matrix", f.match.title)
+        assertEquals("The Voyage", f.match.title)
         assertEquals(1999, f.match.year)
         assertTrue(f.match.strong)
         // an episode: its series (in quotes in the name) with its season and episode
         val episode = """[{"MatchedBy":"moviehash","MovieKind":"episode","IDMovieImdb":"959621","SeriesIMDBParent":"903747",
-            "MovieName":"\"Breaking Bad\" Pilot","MovieYear":"2008","SeriesSeason":"1","SeriesEpisode":"1"}]"""
+            "MovieName":"\"Northern Bay\" Pilot","MovieYear":"2008","SeriesSeason":"1","SeriesEpisode":"1"}]"""
         val e = OnlineSubtitles.identityOfHash(episode)
         assertNotNull(e)
         assertEquals("tt0903747", e!!.match.imdb)
-        assertEquals("Breaking Bad", e.match.title)
+        assertEquals("Northern Bay", e.match.title)
         assertTrue(e.match.series)
         assertEquals(1, e.season)
         assertEquals(1, e.episode)

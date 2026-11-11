@@ -16,9 +16,9 @@ import org.videolan.vlc.util.OnlineSubtitles.Response
 class KeyedSubtitlesTest {
 
     private fun response(status: Int, body: String = "") = Response(status, body.toByteArray(Charsets.UTF_8), null)
-    private val film = Query(imdb = "tt0133093", title = "The Matrix", year = 1999, languages = listOf("ar", "en"))
-    private val episode = Query(imdb = "tt0903747", title = "Breaking Bad", series = true, season = 1, episode = 2,
-        fileName = "Breaking.Bad.S01E02.720p.mkv", languages = listOf("ar", "en"))
+    private val film = Query(imdb = "tt0133093", title = "The Voyage", year = 1999, languages = listOf("ar", "en"))
+    private val episode = Query(imdb = "tt0903747", title = "Northern Bay", series = true, season = 1, episode = 2,
+        fileName = "Northern.Bay.S01E02.720p.mkv", languages = listOf("ar", "en"))
 
     @Test
     fun theServicesAndTheirDefaults() {
@@ -58,9 +58,9 @@ class KeyedSubtitlesTest {
 
     @Test
     fun episodesOfReleases() {
-        assertEquals(Pair(1, 2), KeyedSubtitles.episodeOf("Breaking.Bad.S01E02.720p.WEB-DL"))
-        assertEquals(Pair(1, 2), KeyedSubtitles.episodeOf("breaking bad 1x02 hdtv"))
-        assertNull(KeyedSubtitles.episodeOf("Breaking.Bad.Season.1.Complete"))
+        assertEquals(Pair(1, 2), KeyedSubtitles.episodeOf("Northern.Bay.S01E02.720p.WEB-DL"))
+        assertEquals(Pair(1, 2), KeyedSubtitles.episodeOf("northern bay 1x02 hdtv"))
+        assertNull(KeyedSubtitles.episodeOf("Northern.Bay.Season.1.Complete"))
         assertTrue(KeyedSubtitles.forEpisode(listOf("Show.S01E03.x264", "Show.S01E02.x264"), 1, 2))
         assertFalse(KeyedSubtitles.forEpisode(listOf("Show.S01E03.x264"), 1, 2))
         // a whole season: kept
@@ -111,7 +111,7 @@ class KeyedSubtitlesTest {
         assertEquals("subsource:9", ar.id)
         assertEquals("subsource", ar.provider)
         assertEquals("ar", ar.language)
-        assertEquals("The.Matrix.1999.1080p.BluRay.x264-YIFY", ar.release)
+        assertEquals("The.Voyage.1999.1080p.BluRay.x264-GRPX", ar.release)
         assertEquals("https://api.subsource.net/api/v1/subtitles/9/download", ar.url)
         assertFalse(ar.hearingImpaired)
         assertTrue(ar.rank > 0)
@@ -158,12 +158,12 @@ class KeyedSubtitlesTest {
         assertEquals(3, list.size)
         assertEquals("subdl:3197651-3213944", list[0].id)
         assertEquals("ar", list[0].language)
-        assertEquals("The.Matrix.1999.REMASTERED.1080p.BluRay", list[0].release)
+        assertEquals("The.Voyage.1999.REMASTERED.1080p.BluRay", list[0].release)
         assertEquals("https://dl.subdl.com/subtitle/3197651-3213944.zip", list[0].url)
         assertEquals("en", list[1].language)
         assertTrue(list[1].hearingImpaired)
         // no release name: its name
-        assertEquals("The Matrix", list[2].release)
+        assertEquals("The Voyage", list[2].release)
         assertEquals("pt-BR", list[2].language)
         // an episode: S01E02 and the whole season; not S01E03, not season 2
         val eps = KeyedSubtitles.parseSubDl(SubtitleFixtures.SUBDL_EPISODES, episode)

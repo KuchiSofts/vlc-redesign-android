@@ -22,14 +22,14 @@ class SubtitleParsersFuzzTest {
     init {
         OnlineSubtitles.warn = { }
     }
-    private val q = Query(imdb = "tt0133093", title = "The Matrix", year = 1999, languages = listOf("en", "he"))
-    private val ep = Query(imdb = "tt0903747", title = "Breaking Bad", series = true, season = 1, episode = 2, languages = listOf("en"))
+    private val q = Query(imdb = "tt0133093", title = "The Voyage", year = 1999, languages = listOf("en", "he"))
+    private val ep = Query(imdb = "tt0903747", title = "Northern Bay", series = true, season = 1, episode = 2, languages = listOf("en"))
     private val noise = "{}[]\":,\\0123456789-+.eEnulltruefalse<>/=&;\n\r\t ÿ€\u0000�".toCharArray()
 
     private val samples = listOf(
-        """{"data":[{"id":1,"attributes":{"language":"en","release":"The.Matrix.1999.1080p","files":[{"file_id":5,"file_name":"a.srt"}],"download_count":9}}]}""",
+        """{"data":[{"id":1,"attributes":{"language":"en","release":"The.Voyage.1999.1080p","files":[{"file_id":5,"file_name":"a.srt"}],"download_count":9}}]}""",
         """{"subtitles":[{"id":"1","lang":"English","release_name":"x","url":"/s/1.zip","season":1,"episode":2,"releases":["a","b"]}],"status":true}""",
-        """{"results":[{"subtitleId":7,"language":"arabic","releaseInfo":["The.Matrix"],"hearingImpaired":0,"files":3}],"movie":{"id":3}}""",
+        """{"results":[{"subtitleId":7,"language":"arabic","releaseInfo":["The.Voyage"],"hearingImpaired":0,"files":3}],"movie":{"id":3}}""",
         """{"status":0,"sub":{"subs":[{"id":11,"videoname":"x","native_name":"y","lang":{"langlist":{"langchs":true}},"filelist":[{"f":"a.ass","url":"u"}]}]}}""",
         """[{"id":1,"name":"Show","entries":[{"id":2,"name":"x.srt","url":"u","last_modified":"2026-11-08T10:00:00Z"}]}]""",
         """{"show":{"id":5},"subtitles":[{"id":1,"language":"VF","source":"addic7ed","file":"x.srt","url":"u","episode":{"season":1,"episode":2}}]}""",
@@ -69,7 +69,7 @@ class SubtitleParsersFuzzTest {
             KeyedSubtitles.assrtFile(s, 1, 2); KeyedSubtitles.parseJimaku(s, 1); KeyedSubtitles.betaSeriesShow(s)
             KeyedSubtitles.parseBetaSeries(s); KeyedSubtitles.isoTime(s)
             OnlineSubtitles.parseName(s, s); OnlineSubtitles.simplified(s); OnlineSubtitles.normalize(s)
-            OnlineSubtitles.titleSimilarity(s, "The Matrix")
+            OnlineSubtitles.titleSimilarity(s, "The Voyage")
         }
     }
 
@@ -87,7 +87,7 @@ class SubtitleParsersFuzzTest {
 
     @Test
     fun downloadsThatAreBrokenOrHostile() {
-        val result = OnlineSubtitles.Result(id = "1", provider = "opensubtitles", language = "en", release = "The.Matrix", fileName = "x.srt", url = "u")
+        val result = OnlineSubtitles.Result(id = "1", provider = "opensubtitles", language = "en", release = "The.Voyage", fileName = "x.srt", url = "u")
         val srt = "1\n00:00:01,000 --> 00:00:02,000\nHello\n".toByteArray()
         val cases = ArrayList<ByteArray>()
         cases += ByteArray(0)
@@ -104,13 +104,13 @@ class SubtitleParsersFuzzTest {
         val z = zip("x.srt" to srt)
         repeat(200) { cases += z.copyOf().also { b -> repeat(4) { b[r.nextInt(b.size)] = r.nextInt(256).toByte() } } }
         for (c in cases) quick("download of ${c.size} bytes") {
-            val (u, p) = OnlineSubtitles.subtitleOf(c, result, "The.Matrix.1999.mkv")
+            val (u, p) = OnlineSubtitles.subtitleOf(c, result, "The.Voyage.1999.mkv")
             assertTrue(u != null || p != null)
             // never more text than the limit
             if (u != null) assertTrue("${u.text.length}", u.text.length <= 32 shl 20)
         }
         // a good one still unpacks
-        assertNotNull(OnlineSubtitles.subtitleOf(zip("x.srt" to srt), result, "The.Matrix.1999.mkv").first)
+        assertNotNull(OnlineSubtitles.subtitleOf(zip("x.srt" to srt), result, "The.Voyage.1999.mkv").first)
     }
 
     /** a release name cut to fit a file name: by its UTF-8 bytes (80 Chinese characters were 240 bytes: ENAMETOOLONG) */
@@ -120,7 +120,7 @@ class SubtitleParsersFuzzTest {
         val cut = OnlineSubtitles.utf8Prefix(chinese, 150)
         assertTrue(cut.toByteArray(Charsets.UTF_8).size <= 150)
         org.junit.Assert.assertEquals(50, cut.length)
-        org.junit.Assert.assertEquals("The.Matrix", OnlineSubtitles.utf8Prefix("The.Matrix", 150))
+        org.junit.Assert.assertEquals("The.Voyage", OnlineSubtitles.utf8Prefix("The.Voyage", 150))
         // (a character of four bytes is never cut in two)
         val emoji = "a😀b"
         org.junit.Assert.assertEquals("a", OnlineSubtitles.utf8Prefix(emoji, 4))

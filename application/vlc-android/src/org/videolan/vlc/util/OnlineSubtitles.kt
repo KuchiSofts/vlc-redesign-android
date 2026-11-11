@@ -160,7 +160,7 @@ object OnlineSubtitles {
 
     class Outcome(val media: Media, val match: Match?, val results: List<Ranked>, val error: Problem?, val anyAnswered: Boolean,
                   val asked: List<Asked> = emptyList()) {
-        /** "Sintel (2010)", "Breaking Bad · S01E02" */
+        /** "Sintel (2010)", "Northern Bay · S01E02" */
         val matchTitle: String
             get() {
                 val m = match ?: return ""
@@ -673,7 +673,7 @@ object OnlineSubtitles {
     private val bracketsRe = Regex("""\[[^\]]*\]|\{[^}]*\}|\([^)]*\)""")
     private val tokenRe = Regex("""[^\p{L}\p{N}]+""")
 
-    /** "Home.Sweet.Home.Alone.2021.2160p.WEB.x265-[GROUP].mkv": the title, its year, a season and episode */
+    /** "Some.Long.Film.Title.2021.2160p.WEB.x265-[GROUP].mkv": the title, its year, a season and episode */
     fun parseName(name: String, folder: String = ""): ParsedName {
         var base = name.substringBeforeLast('.', name)
         if (base.isEmpty()) base = name
@@ -1524,7 +1524,7 @@ object OnlineSubtitles {
             var season = -1
             var episode = -1
             if (series) {
-                // (the series in quotes, the episode after it: "\"Breaking Bad\" Pilot")
+                // (the series in quotes, the episode after it: "\"Northern Bay\" Pilot")
                 quotedRe.find(title)?.let { title = it.groupValues[1] }
                 season = text("SeriesSeason").toIntOrNull() ?: 0
                 episode = text("SeriesEpisode").toIntOrNull() ?: 0

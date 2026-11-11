@@ -21,7 +21,7 @@ class NetworkMediaTest {
     @Test
     fun theNameInTheAddress() {
         assertEquals("Sintel (2010).mp4", OnlineSubtitles.nameInAddress("http://10.0.2.2:8767/films/Sintel%20(2010).mp4"))
-        assertEquals("Breaking.Bad.S01E02.720p.mkv", OnlineSubtitles.nameInAddress("https://cdn.example.com/tv/Breaking.Bad.S01E02.720p.mkv?token=a%2Fb&exp=1#t=10"))
+        assertEquals("Northern.Bay.S01E02.720p.mkv", OnlineSubtitles.nameInAddress("https://cdn.example.com/tv/Northern.Bay.S01E02.720p.mkv?token=a%2Fb&exp=1#t=10"))
         assertEquals("Sintel.2010.1080p.mp4", OnlineSubtitles.nameInAddress("smb://192.168.1.5/media/Films/Sintel.2010.1080p.mp4"))
         assertEquals("Sintel.mkv", OnlineSubtitles.nameInAddress("nfs://nas/export/Sintel.mkv"))
         assertEquals("23.mp4", OnlineSubtitles.nameInAddress("http://192.168.1.2:8200/MediaItems/23.mp4"))
@@ -40,15 +40,15 @@ class NetworkMediaTest {
         assertEquals("Sintel.2010.1080p.mp4", OnlineSubtitles.mediaName("smb://nas/share/Sintel.2010.1080p.mp4", null))
         // a media server's number, a stream's word: the title the source gives
         assertEquals("Sintel (2010)", OnlineSubtitles.mediaName("http://192.168.1.2:8200/MediaItems/23.mp4", "Sintel (2010)"))
-        assertEquals("Breaking Bad S01E02", OnlineSubtitles.mediaName("https://h/watch?v=12", "Breaking Bad S01E02"))
+        assertEquals("Northern Bay S01E02", OnlineSubtitles.mediaName("https://h/watch?v=12", "Northern Bay S01E02"))
         // a title that is only the address: the address's last part
         assertEquals("23.mp4", OnlineSubtitles.mediaName("http://192.168.1.2:8200/MediaItems/23.mp4", "http://192.168.1.2:8200/MediaItems/23.mp4"))
         assertEquals("watch", OnlineSubtitles.mediaName("https://h/watch", ""))
         // read as a file name then
         assertEquals("Sintel", OnlineSubtitles.parseName(OnlineSubtitles.mediaName("http://h/Sintel%20(2010).mp4", null)).title)
         assertEquals(2010, OnlineSubtitles.parseName(OnlineSubtitles.mediaName("http://h/Sintel%20(2010).mp4", null)).year)
-        val episode = OnlineSubtitles.parseName(OnlineSubtitles.mediaName("smb://nas/tv/Breaking.Bad.S01E02.720p.mkv", null))
-        assertEquals("Breaking Bad", episode.title)
+        val episode = OnlineSubtitles.parseName(OnlineSubtitles.mediaName("smb://nas/tv/Northern.Bay.S01E02.720p.mkv", null))
+        assertEquals("Northern Bay", episode.title)
         assertEquals(1, episode.season)
         assertEquals(2, episode.episode)
     }
