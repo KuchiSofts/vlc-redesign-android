@@ -198,18 +198,14 @@ class FeedbackActivity : BaseActivity(), DebugLogService.Client.Callback {
                     PreferencesActivity.launchWithPref(this@FeedbackActivity, "enable_remote_access")
             }
         }
-        binding.emailSupportCard.setOnClickListener {
-            if (!isMailClientPresent()) {
-                switchNoEmailVisibility()
-            } else {
-                switchFormVisibility()
-                updateFormIncludesVisibility()
-            }
-
-        }
-        binding.feedbackForumCard.setOnClickListener {
-            openLinkIfPossible(getString(R.string.forum_url))
-        }
+        // VLC Redesign: this is not VideoLAN's app, so nothing of it goes to VideoLAN's support mail or forum (the
+        // mail took the logs, a file of the settings and, when asked, the library). A problem is reported where
+        // About sends it, here and on the desktop: the project's GitHub issues. The card opens that page; nothing
+        // is sent by itself.
+        binding.textView16.setText(R.string.report_a_bug)
+        binding.emailSupportSummary.text = RD_ISSUES_URL.removePrefix("https://")
+        binding.emailSupportCard.setOnClickListener { openLinkIfPossible(RD_ISSUES_URL) }
+        binding.feedbackForumCard.setGone()
         binding.readDocCard.setOnClickListener {
             openLinkIfPossible(getString(R.string.doc_url))
         }
@@ -241,7 +237,7 @@ class FeedbackActivity : BaseActivity(), DebugLogService.Client.Callback {
             binding.feedbackForumCard.setGone()
             binding.readDocCard.setGone()
             binding.rateCard.setGone()
-            binding.emailSupportCard.performClick()
+            // (VLC Redesign: the card is left for the user to open: it leads to a web page now, not to a form here)
             binding.feedbackTypeEntry.setText(feedbackTypeEntries[3])
             binding.messageTextInputLayout.setHint(R.string.describe_crash)
             if (isCrashFromML) UiTools.snackerMessageInfinite(this, getString(R.string.ml_crash_send))?.show()
@@ -368,6 +364,9 @@ class FeedbackActivity : BaseActivity(), DebugLogService.Client.Callback {
 
     companion object {
         var job: CompletableJob? = null
+
+        /** VLC Redesign: where a problem of this app is reported (About's "Report a bug" opens the same page). */
+        const val RD_ISSUES_URL = "https://github.com/KuchiSofts/vlc-redesign/issues"
     }
 
 }
