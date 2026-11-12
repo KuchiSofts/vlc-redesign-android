@@ -29,11 +29,7 @@
     <string name="rd_ob_online_text">בלי טלמטריה, בלי פרסומות, בלי חשבון. כל מה שמתחבר לאינטרנט מעצמו מציין זאת מתחתיו, ושולח רק את מה שכתוב שם. הבחירות האלה נשארות בהגדרות.</string>
     <string name="rd_ob_history_help">נשמר במכשיר הזה בלבד, כדי להמשיך מהמקום שבו הפסקת.</string>
     <string name="rd_ob_updates_help">מחפש גרסת בדיקה חדשה יותר של VLC for Android פעם ביום.</string>
-    <string-array name="rd_whats_new_items">
-        <item>בטלוויזיה, השלט מגיע לנגן הקטן ולתור שלו; התור נפתח כחלונית קטנה.</item>
-        <item>דף הבית אף פעם לא ריק: כשהאפליקציה לא רואה את הקבצים שלך, היא מסבירה למה ומבקשת גישה.</item>
-        <item>קורא מסך אומר אם שירות כתוביות או שפה מופעלים. על בעיות מדווחים בדף GitHub של הפרויקט.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_fx_luma_spat">עוצמת בהירות מרחבית (0-254)</string>
     <string name="rd_fx_luma_temp">עוצמת בהירות זמנית (0-254)</string>
     <string name="rd_fx_anaglyph_rg">אדום טהור (שמאל)  ירוק טהור (ימין)</string>

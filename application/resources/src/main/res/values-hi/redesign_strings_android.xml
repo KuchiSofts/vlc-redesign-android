@@ -31,11 +31,7 @@
     <string name="rd_ob_online_text">कोई टेलीमेट्री नहीं, कोई विज्ञापन नहीं, कोई खाता नहीं। जो कुछ भी अपने आप ऑनलाइन जाता है, वह अपने नीचे यह बताता है और केवल वही भेजता है जो वहाँ लिखा है। ये विकल्प सेटिंग्स में बने रहते हैं।</string>
     <string name="rd_ob_history_help">केवल इसी डिवाइस पर रखा जाता है, ताकि आप वहीं से जारी रख सकें जहाँ आपने छोड़ा था।</string>
     <string name="rd_ob_updates_help">दिन में एक बार VLC for Android का नया परीक्षण बिल्ड खोजता है।</string>
-    <string-array name="rd_whats_new_items">
-        <item>टीवी पर, रिमोट अब मिनी प्लेयर और उसकी कतार तक पहुँचता है; कतार एक छोटे पैनल के रूप में खुलती है।</item>
-        <item>होम कभी खाली नहीं रहता: जब ऐप आपकी फ़ाइलें नहीं देख पाता, तो वह कारण बताता है और अनुमति माँगता है।</item>
-        <item>स्क्रीन रीडर बताता है कि कोई सबटाइटल सेवा या भाषा चालू है या नहीं। समस्याओं की रिपोर्ट प्रोजेक्ट के GitHub पेज पर की जाती है।</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">उपशीर्षक का आकार</string>
     <string name="rd_cast_this_phone">यह फ़ोन</string>
     <string name="rd_cast_this_tablet">यह टैबलेट</string>

@@ -31,11 +31,7 @@
     <string name="rd_ob_online_text">ไม่มีการเก็บข้อมูลการใช้งาน ไม่มีโฆษณา ไม่ต้องมีบัญชี สิ่งใดที่เชื่อมต่อออนไลน์เองจะบอกไว้ด้านล่าง และส่งเฉพาะสิ่งที่เขียนไว้ตรงนั้นเท่านั้น ตัวเลือกเหล่านี้ยังคงอยู่ในค่าตั้ง</string>
     <string name="rd_ob_history_help">เก็บไว้บนอุปกรณ์นี้เท่านั้น เพื่อเล่นต่อจากจุดที่หยุดไว้</string>
     <string name="rd_ob_updates_help">ตรวจหารุ่นทดสอบที่ใหม่กว่าของ VLC for Android วันละครั้ง</string>
-    <string-array name="rd_whats_new_items">
-        <item>บนทีวี รีโมตเลื่อนไปถึงมินิเพลเยอร์และคิวได้แล้ว และคิวจะเปิดเป็นแผงขนาดเล็ก</item>
-        <item>หน้าแรกไม่เคยว่างเปล่า: เมื่อแอปมองไม่เห็นไฟล์ของคุณ แอปจะบอกเหตุผลและขอสิทธิ์เข้าถึง</item>
-        <item>โปรแกรมอ่านหน้าจอจะบอกว่าบริการหรือภาษาของบทบรรยายเปิดอยู่หรือไม่ รายงานปัญหาได้ที่หน้า GitHub ของโครงการ</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">ขนาดคำบรรยาย</string>
     <string name="rd_cast_this_phone">โทรศัพท์เครื่องนี้</string>
     <string name="rd_cast_this_tablet">แท็บเล็ตเครื่องนี้</string>

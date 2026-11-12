@@ -29,11 +29,7 @@
     <string name="rd_ob_online_text">Nincs telemetria, nincsenek hirdetések, nincs fiók. Ami magától az internetre csatlakozik, az alatta jelzi ezt, és csak azt küldi el, ami ott le van írva. Ezek a választások a Beállításokban maradnak.</string>
     <string name="rd_ob_history_help">Csak ezen az eszközön tárolódik, hogy ott folytathassa, ahol abbahagyta.</string>
     <string name="rd_ob_updates_help">Naponta egyszer keres újabb tesztkiadást a VLC for Androidból.</string>
-    <string-array name="rd_whats_new_items">
-        <item>Tévén a távirányítóval elérhető a minilejátszó és a várólistája; a várólista kis panelként nyílik meg.</item>
-        <item>A Kezdőlap soha nem üres: ha az alkalmazás nem látja a fájljait, megmondja, miért, és hozzáférést kér.</item>
-        <item>A képernyőolvasó megmondja, hogy egy feliratszolgáltatás vagy nyelv be van-e kapcsolva. A hibákat a projekt GitHub-oldalán lehet jelenteni.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Feliratméret</string>
     <string name="rd_cast_this_phone">Ez a telefon</string>
     <string name="rd_cast_this_tablet">Ez a táblagép</string>

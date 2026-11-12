@@ -29,11 +29,7 @@
     <string name="rd_ob_online_text">Niente telemetria, niente pubblicità, nessun account. Ciò che va online da solo lo indica sotto di sé e invia solo quello che vi è scritto. Queste scelte restano nelle Impostazioni.</string>
     <string name="rd_ob_history_help">Conservata solo su questo dispositivo, per riprendere da dove avevi lasciato.</string>
     <string name="rd_ob_updates_help">Cerca una versione di prova più recente di VLC for Android una volta al giorno.</string>
-    <string-array name="rd_whats_new_items">
-        <item>Su una TV, il telecomando raggiunge il mini player e la sua coda; la coda si apre come un piccolo pannello.</item>
-        <item>La Home non è mai vuota: quando l\'app non può vedere i tuoi file, dice perché e chiede l\'accesso.</item>
-        <item>Uno screen reader dice se un servizio o una lingua dei sottotitoli è attivo. I problemi si segnalano sulla pagina GitHub del progetto.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Dimensione dei sottotitoli</string>
     <string name="rd_cast_this_phone">Questo telefono</string>
     <string name="rd_cast_this_tablet">Questo tablet</string>

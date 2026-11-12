@@ -29,11 +29,7 @@
     <string name="rd_ob_online_text">Sin telemetría, sin anuncios, sin cuenta. Lo que se conecta a internet por sí solo lo indica debajo y solo envía lo que ahí está escrito. Estas opciones quedan en Configuración.</string>
     <string name="rd_ob_history_help">Se guarda solo en este dispositivo, para continuar donde lo dejaste.</string>
     <string name="rd_ob_updates_help">Busca una versión de prueba más reciente de VLC for Android una vez al día.</string>
-    <string-array name="rd_whats_new_items">
-        <item>En un televisor, el control remoto llega al minirreproductor y a su cola; la cola se abre como un panel pequeño.</item>
-        <item>Inicio nunca está vacío: cuando la aplicación no puede ver tus archivos, dice por qué y pide acceso.</item>
-        <item>Un lector de pantalla dice si un servicio o un idioma de subtítulos está activado. Los problemas se informan en la página de GitHub del proyecto.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Tamaño de los subtítulos</string>
     <string name="rd_cast_this_phone">Este teléfono</string>
     <string name="rd_cast_this_tablet">Esta tableta</string>

@@ -29,11 +29,7 @@
     <string name="rd_ob_online_text">Bez telemetrii, bez reklam, bez konta. To, co samo łączy się z internetem, informuje o tym pod spodem i wysyła tylko to, co tam napisano. Te wybory pozostają w Ustawieniach.</string>
     <string name="rd_ob_history_help">Przechowywana tylko na tym urządzeniu, aby kontynuować od miejsca, w którym przerwano.</string>
     <string name="rd_ob_updates_help">Raz dziennie sprawdza, czy jest nowsza testowa wersja VLC for Android.</string>
-    <string-array name="rd_whats_new_items">
-        <item>Na telewizorze pilot sięga teraz do miniodtwarzacza i jego kolejki; kolejka otwiera się jako mały panel.</item>
-        <item>Strona główna nigdy nie jest pusta: gdy aplikacja nie widzi Twoich plików, mówi dlaczego i prosi o dostęp.</item>
-        <item>Czytnik ekranu informuje, czy usługa lub język napisów jest włączony. Problemy zgłasza się na stronie projektu w GitHubie.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Rozmiar napisów</string>
     <string name="rd_cast_this_phone">Ten telefon</string>
     <string name="rd_cast_this_tablet">Ten tablet</string>

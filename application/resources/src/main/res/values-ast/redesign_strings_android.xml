@@ -29,11 +29,7 @@
     <string name="rd_ob_online_text">Ensin telemetría, ensin anuncios, ensin cuenta: VLC for Android nun unvia nada pela so cuenta. Estes opciones queden n\'Axustes, Privacidá.</string>
     <string name="rd_ob_history_help">Guárdase namás nesti preséu, pa siguir onde lo dexasti.</string>
     <string name="rd_ob_updates_help">Busca una versión de prueba más nueva de VLC for Android una vegada al día.</string>
-    <string-array name="rd_whats_new_items">
-        <item>Nuna TV, el mandu algama\'l mini reproductor y la so cola; la cola ábrese como un panel pequeñu.</item>
-        <item>L\'aniciu nunca ta baleru: cuando l\'aplicación nun pue ver los tos ficheros, diz por qué y pide l\'accesu.</item>
-        <item>Un llector de pantalla diz si un serviciu o una llingua de sotítulos ta activáu. Los problemes infórmense na páxina de GitHub del proyeutu.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Tamañu de los subtítulos</string>
     <string name="rd_cast_this_phone">Esti teléfonu</string>
     <string name="rd_cast_this_tablet">Esta tableta</string>

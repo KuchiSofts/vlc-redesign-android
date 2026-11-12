@@ -29,11 +29,7 @@
     <string name="rd_ob_online_text">Ingen telemetri, ingen reklame, ingen konto. Det som går på nettet av seg selv, sier det under seg og sender bare det som står der. Disse valgene finnes også i Innstillinger.</string>
     <string name="rd_ob_history_help">Lagres bare på denne enheten, så du kan fortsette der du slapp.</string>
     <string name="rd_ob_updates_help">Ser etter en nyere testversjon av VLC for Android én gang om dagen.</string>
-    <string-array name="rd_whats_new_items">
-        <item>På en TV når fjernkontrollen miniavspilleren og køen dens; køen åpnes som et lite panel.</item>
-        <item>Hjem er aldri tom: når appen ikke kan se filene dine, sier den hvorfor og ber om tilgang.</item>
-        <item>En skjermleser sier om en underteksttjeneste eller et språk er slått på. Problemer rapporteres på prosjektets GitHub-side.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Undertekststørrelse</string>
     <string name="rd_cast_this_phone">Denne telefonen</string>
     <string name="rd_cast_this_tablet">Dette nettbrettet</string>

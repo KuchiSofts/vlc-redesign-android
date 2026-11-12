@@ -29,11 +29,7 @@
     <string name="rd_ob_online_text">Geen telemetrie, geen advertenties, geen account. Wat uit zichzelf online gaat, staat eronder vermeld en verstuurt alleen wat daar staat. Deze keuzes blijven beschikbaar in Instellingen.</string>
     <string name="rd_ob_history_help">Alleen op dit apparaat bewaard, om verder te gaan waar je gebleven was.</string>
     <string name="rd_ob_updates_help">Zoekt eenmaal per dag naar een nieuwere testversie van VLC for Android.</string>
-    <string-array name="rd_whats_new_items">
-        <item>Op een tv bereikt de afstandsbediening de minispeler en zijn wachtrij; de wachtrij opent als een klein paneel.</item>
-        <item>Start is nooit leeg: als de app je bestanden niet kan zien, zegt hij waarom en vraagt hij om toegang.</item>
-        <item>Een schermlezer zegt of een ondertiteldienst of -taal aan staat. Problemen worden gemeld op de GitHub-pagina van het project.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Ondertitelgrootte</string>
     <string name="rd_cast_this_phone">Deze telefoon</string>
     <string name="rd_cast_this_tablet">Deze tablet</string>

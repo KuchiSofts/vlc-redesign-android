@@ -29,11 +29,7 @@
     <string name="rd_ob_online_text">没有遥测，没有广告，无需账号。会自行联网的功能都会在其下方注明，并且只发送那里写明的内容。这些选择会保留在设置中。</string>
     <string name="rd_ob_history_help">仅保存在本设备上，用于从上次停下的地方继续。</string>
     <string name="rd_ob_updates_help">每天检查一次是否有更新的 VLC for Android 测试版。</string>
-    <string-array name="rd_whats_new_items">
-        <item>在电视上，遥控器现在可以移到迷你播放器及其队列；队列以小面板的形式打开。</item>
-        <item>主页不再空白：当应用无法看到您的文件时，会说明原因并请求访问权限。</item>
-        <item>屏幕阅读器会读出字幕服务或语言是否已开启。问题可在项目的 GitHub 页面上报告。</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">字幕大小</string>
     <string name="rd_cast_this_phone">此手机</string>
     <string name="rd_cast_this_tablet">此平板电脑</string>

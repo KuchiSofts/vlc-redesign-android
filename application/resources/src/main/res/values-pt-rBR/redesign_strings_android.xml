@@ -29,11 +29,7 @@
     <string name="rd_ob_online_text">Sem telemetria, sem anúncios, sem conta. O que se conecta à internet sozinho avisa isso logo abaixo e envia só o que está escrito ali. Essas escolhas ficam nas Configurações.</string>
     <string name="rd_ob_history_help">Mantido somente neste dispositivo, para continuar de onde você parou.</string>
     <string name="rd_ob_updates_help">Procura uma versão de teste mais nova do VLC for Android uma vez por dia.</string>
-    <string-array name="rd_whats_new_items">
-        <item>Na TV, o controle remoto alcança o mini player e sua fila; a fila abre como um pequeno painel.</item>
-        <item>O Início nunca fica vazio: quando o app não consegue ver seus arquivos, ele diz o motivo e pede acesso.</item>
-        <item>Um leitor de tela diz se um serviço ou idioma de legenda está ativado. Os problemas são relatados na página do projeto no GitHub.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Tamanho das legendas</string>
     <string name="rd_cast_this_phone">Este celular</string>
     <string name="rd_cast_this_tablet">Este tablet</string>

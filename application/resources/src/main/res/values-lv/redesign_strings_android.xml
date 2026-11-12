@@ -29,11 +29,7 @@
     <string name="rd_ob_online_text">Nekādas telemetrijas, nekādu reklāmu, nekāda konta. Tas, kas pats pieslēdzas tiešsaistei, to norāda zem sevis un sūta tikai to, kas tur rakstīts. Šīs izvēles paliek Iestatījumos.</string>
     <string name="rd_ob_history_help">Glabājas tikai šajā ierīcē, lai turpinātu tur, kur palikāt.</string>
     <string name="rd_ob_updates_help">Reizi dienā meklē jaunāku VLC for Android testa versiju.</string>
-    <string-array name="rd_whats_new_items">
-        <item>Televizorā ar tālvadības pulti var sasniegt mini atskaņotāju un tā rindu; rinda atveras kā mazs panelis.</item>
-        <item>Sākums nekad nav tukšs: ja lietotne neredz jūsu failus, tā pasaka, kāpēc, un lūdz piekļuvi.</item>
-        <item>Ekrāna lasītājs pasaka, vai subtitru pakalpojums vai valoda ir ieslēgta. Par problēmām ziņo projekta GitHub lapā.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Subtitru izmērs</string>
     <string name="rd_cast_this_phone">Šis tālrunis</string>
     <string name="rd_cast_this_tablet">Šī planšete</string>

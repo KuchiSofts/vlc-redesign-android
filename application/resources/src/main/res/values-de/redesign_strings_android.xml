@@ -29,11 +29,7 @@
     <string name="rd_ob_online_text">Keine Telemetrie, keine Werbung, kein Konto. Was von sich aus online geht, sagt es darunter und sendet nur, was dort steht. Diese Auswahl bleibt in den Einstellungen.</string>
     <string name="rd_ob_history_help">Nur auf diesem Gerät gespeichert, um dort weiterzumachen, wo Sie aufgehört haben.</string>
     <string name="rd_ob_updates_help">Sucht einmal täglich nach einer neueren Testversion von VLC for Android.</string>
-    <string-array name="rd_whats_new_items">
-        <item>Am Fernseher erreicht die Fernbedienung den Mini-Player und seine Warteschlange; die Warteschlange öffnet sich als kleines Panel.</item>
-        <item>Die Startseite ist nie leer: Wenn die App Ihre Dateien nicht sehen kann, sagt sie warum und bittet um Zugriff.</item>
-        <item>Ein Screenreader sagt, ob ein Untertiteldienst oder eine Sprache eingeschaltet ist. Probleme werden auf der GitHub-Seite des Projekts gemeldet.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Untertitelgröße</string>
     <string name="rd_cast_this_phone">Dieses Telefon</string>
     <string name="rd_cast_this_tablet">Dieses Tablet</string>

@@ -30,11 +30,7 @@
     <string name="rd_ob_online_text">Ingen telemetri, ingen reklame, ingen konto. Det som går på nettet av seg sjølv, seier det under seg og sender berre det som står der. Desse vala finst òg i Innstillingar.</string>
     <string name="rd_ob_history_help">Vert berre lagra på denne eininga, så du kan halda fram der du slapp.</string>
     <string name="rd_ob_updates_help">Ser etter ein nyare testversjon av VLC for Android éin gong om dagen.</string>
-    <string-array name="rd_whats_new_items">
-        <item>På ein TV når fjernkontrollen miniavspelaren og køen hans; køen opnar seg som eit lite panel.</item>
-        <item>Heim er aldri tom: når appen ikkje kan sjå filene dine, seier han kvifor og ber om tilgang.</item>
-        <item>Ein skjermlesar seier om ei undertekstteneste eller eit språk er slått på. Problem vert rapporterte på GitHub-sida til prosjektet.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Storleik på tekstinga</string>
     <string name="rd_cast_this_phone">Denne telefonen</string>
     <string name="rd_cast_this_tablet">Dette nettbrettet</string>

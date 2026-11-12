@@ -29,11 +29,7 @@
     <string name="rd_ob_online_text">Telemeetriat pole, reklaame pole, kontot pole. Mis iseenesest veebi läheb, ütleb seda enda all ja saadab ainult seda, mis seal kirjas on. Need valikud jäävad alles Sätetes.</string>
     <string name="rd_ob_history_help">Hoitakse ainult selles seadmes, et saaksid jätkata sealt, kus pooleli jäid.</string>
     <string name="rd_ob_updates_help">Otsib kord päevas VLC for Androidi uuemat testversiooni.</string>
-    <string-array name="rd_whats_new_items">
-        <item>Teleris jõuab pult minipleieri ja selle järjekorrani; järjekord avaneb väikese paneelina.</item>
-        <item>Avaleht pole kunagi tühi: kui rakendus ei näe teie faile, ütleb see miks ja küsib juurdepääsu.</item>
-        <item>Ekraanilugeja ütleb, kas subtiitriteenus või -keel on sisse lülitatud. Probleemidest teatatakse projekti GitHubi lehel.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Subtiitrite suurus</string>
     <string name="rd_cast_this_phone">See telefon</string>
     <string name="rd_cast_this_tablet">See tahvelarvuti</string>

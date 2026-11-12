@@ -29,11 +29,7 @@
     <string name="rd_ob_online_text">원격 분석 없음, 광고 없음, 계정 없음. 스스로 온라인에 연결되는 기능은 그 아래에 그렇게 표시되며, 거기에 적힌 내용만 보냅니다. 이 선택은 설정에 그대로 남아 있습니다.</string>
     <string name="rd_ob_history_help">이 기기에만 저장되며, 멈춘 곳부터 이어서 보는 데 쓰입니다.</string>
     <string name="rd_ob_updates_help">하루에 한 번 VLC for Android의 새 테스트 빌드를 확인합니다.</string>
-    <string-array name="rd_whats_new_items">
-        <item>TV에서 리모컨으로 미니 플레이어와 대기열에 이동할 수 있으며, 대기열은 작은 패널로 열립니다.</item>
-        <item>홈은 절대 비어 있지 않습니다. 앱이 파일을 볼 수 없으면 이유를 알려 주고 접근 권한을 요청합니다.</item>
-        <item>화면 읽기 프로그램이 자막 서비스나 언어가 켜져 있는지 알려 줍니다. 문제는 프로젝트의 GitHub 페이지에서 신고할 수 있습니다.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">자막 크기</string>
     <string name="rd_cast_this_phone">이 휴대전화</string>
     <string name="rd_cast_this_tablet">이 태블릿</string>

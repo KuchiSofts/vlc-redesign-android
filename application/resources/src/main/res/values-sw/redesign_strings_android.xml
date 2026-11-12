@@ -29,11 +29,7 @@
     <string name="rd_ob_online_text">Hakuna telemetria, hakuna matangazo, hakuna akaunti: VLC for Android haitumi chochote yenyewe. Chaguo hizi zinabaki katika Mipangilio, Faragha.</string>
     <string name="rd_ob_history_help">Huhifadhiwa kwenye kifaa hiki pekee, ili kuendelea ulipoishia.</string>
     <string name="rd_ob_updates_help">Hutafuta toleo jipya la majaribio la VLC for Android mara moja kwa siku.</string>
-    <string-array name="rd_whats_new_items">
-        <item>Kwenye TV, rimoti sasa hufika kwenye kichezaji kidogo na foleni yake; foleni hufunguka kama paneli ndogo.</item>
-        <item>Mwanzo hauwi tupu kamwe: programu isipoweza kuona faili zako, husema sababu na kuomba ruhusa.</item>
-        <item>Kisoma skrini husema kama huduma au lugha ya manukuu imewashwa. Matatizo huripotiwa kwenye ukurasa wa GitHub wa mradi.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Ukubwa wa manukuu</string>
     <string name="rd_cast_this_phone">Simu hii</string>
     <string name="rd_cast_this_tablet">Kompyuta kibao hii</string>

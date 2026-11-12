@@ -29,11 +29,7 @@
     <string name="rd_ob_online_text">テレメトリーなし、広告なし、アカウント不要。自動的にオンラインに接続する機能には、その下にそのことが書かれており、そこに書かれた内容だけを送信します。これらの選択は設定に残り、いつでも変更できます。</string>
     <string name="rd_ob_history_help">このデバイスにのみ保存され、前回の続きから再開するために使われます。</string>
     <string name="rd_ob_updates_help">1 日に 1 回、VLC for Android の新しいテスト版を確認します。</string>
-    <string-array name="rd_whats_new_items">
-        <item>テレビでは、リモコンでミニプレーヤーとそのキューに移動できるようになり、キューは小さなパネルとして開きます。</item>
-        <item>ホームが空になることはありません。アプリがファイルを表示できないときは、理由を示してアクセスを求めます。</item>
-        <item>スクリーンリーダーが、字幕サービスや言語がオンかどうかを読み上げます。問題はプロジェクトのGitHubページで報告できます。</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">字幕のサイズ</string>
     <string name="rd_cast_this_phone">このスマートフォン</string>
     <string name="rd_cast_this_tablet">このタブレット</string>

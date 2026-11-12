@@ -29,11 +29,7 @@
     <string name="rd_ob_online_text">Brez telemetrije, brez oglasov, brez računa. Kar gre samo na splet, to navaja pod seboj in pošlje le tisto, kar je tam napisano. Te izbire ostanejo v Nastavitvah.</string>
     <string name="rd_ob_history_help">Shranjeno samo v tej napravi, da lahko nadaljujete tam, kjer ste končali.</string>
     <string name="rd_ob_updates_help">Enkrat na dan poišče novejšo preizkusno izdajo VLC for Android.</string>
-    <string-array name="rd_whats_new_items">
-        <item>Na televizorju daljinski upravljalnik doseže mini predvajalnik in njegovo čakalno vrsto; vrsta se odpre kot majhna plošča.</item>
-        <item>Domača stran ni nikoli prazna: ko aplikacija ne vidi vaših datotek, pove zakaj in prosi za dostop.</item>
-        <item>Bralnik zaslona pove, ali je storitev ali jezik podnapisov vklopljen. Težave se prijavijo na strani projekta v GitHubu.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Velikost podnapisov</string>
     <string name="rd_cast_this_phone">Ta telefon</string>
     <string name="rd_cast_this_tablet">Ta tablica</string>
