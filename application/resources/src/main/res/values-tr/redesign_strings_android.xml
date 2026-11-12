@@ -30,9 +30,7 @@
     <string name="rd_ob_history_help">Kaldığınız yerden devam edebilmeniz için yalnızca bu aygıtta saklanır.</string>
     <string name="rd_ob_updates_help">Günde bir kez VLC for Android\'in daha yeni bir test derlemesini arar.</string>
     <string-array name="rd_whats_new_items">
-        <item>TV\'de kumanda artık mini oynatıcıya ve kuyruğuna ulaşıyor; kuyruk küçük bir panel olarak açılıyor.</item>
-        <item>Ana sayfa asla boş değil: uygulama dosyalarınızı göremediğinde nedenini söylüyor ve erişim istiyor.</item>
-        <item>Ekran okuyucu, bir altyazı hizmetinin veya dilinin açık olup olmadığını söylüyor. Sorunlar projenin GitHub sayfasında bildiriliyor.</item>
+        <item>Resmi video parçası olarak saklanan şarkılar artık video olarak değil, müzik olarak listeleniyor.</item>
     </string-array>
     <string name="rd_subtitle_size">Altyazı boyutu</string>
     <string name="rd_cast_this_phone">Bu telefon</string>

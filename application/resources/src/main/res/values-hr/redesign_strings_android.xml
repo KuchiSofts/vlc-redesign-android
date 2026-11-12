@@ -30,9 +30,7 @@
     <string name="rd_ob_history_help">Čuva se samo na ovom uređaju, da biste nastavili gdje ste stali.</string>
     <string name="rd_ob_updates_help">Jednom dnevno traži noviju probnu verziju VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Na TV-u daljinski upravljač dolazi do mini playera i njegovog reda; red se otvara kao mala ploča.</item>
-        <item>Početna nikad nije prazna: kad aplikacija ne vidi vaše datoteke, kaže zašto i traži pristup.</item>
-        <item>Čitač zaslona kaže je li usluga ili jezik titlova uključen. Problemi se prijavljuju na GitHub stranici projekta.</item>
+        <item>Pjesme čija je slika spremljena kao video zapis sada su prikazane kao glazba, a ne kao videozapisi.</item>
     </string-array>
     <string name="rd_subtitle_size">Veličina titlova</string>
     <string name="rd_cast_this_phone">Ovaj telefon</string>

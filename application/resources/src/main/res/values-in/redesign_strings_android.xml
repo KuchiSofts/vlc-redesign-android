@@ -30,9 +30,7 @@
     <string name="rd_ob_history_help">Hanya disimpan di perangkat ini, untuk melanjutkan dari tempat terakhir Anda berhenti.</string>
     <string name="rd_ob_updates_help">Mencari build uji VLC for Android yang lebih baru sekali sehari.</string>
     <string-array name="rd_whats_new_items">
-        <item>Di TV, remote kini menjangkau pemutar mini dan antreannya; antrean terbuka sebagai panel kecil.</item>
-        <item>Beranda tidak pernah kosong: saat aplikasi tidak dapat melihat berkas Anda, aplikasi menjelaskan alasannya dan meminta akses.</item>
-        <item>Pembaca layar menyebutkan apakah layanan atau bahasa subtitle aktif. Masalah dilaporkan di halaman GitHub proyek.</item>
+        <item>Lagu yang gambarnya disimpan sebagai trek video kini ditampilkan sebagai musik, bukan video.</item>
     </string-array>
     <string name="rd_subtitle_size">Ukuran subtitel</string>
     <string name="rd_cast_this_phone">Ponsel ini</string>

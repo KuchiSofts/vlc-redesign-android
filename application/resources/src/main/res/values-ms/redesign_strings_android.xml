@@ -30,9 +30,7 @@
     <string name="rd_ob_history_help">Disimpan pada peranti ini sahaja, untuk menyambung dari tempat anda berhenti.</string>
     <string name="rd_ob_updates_help">Mencari binaan ujian VLC for Android yang lebih baharu sekali sehari.</string>
     <string-array name="rd_whats_new_items">
-        <item>Pada TV, alat kawalan jauh kini sampai ke pemain mini dan baris gilirnya; baris gilir dibuka sebagai panel kecil.</item>
-        <item>Laman Utama tidak pernah kosong: apabila aplikasi tidak dapat melihat fail anda, ia memberitahu sebabnya dan meminta akses.</item>
-        <item>Pembaca skrin memberitahu sama ada perkhidmatan atau bahasa sarikata dihidupkan. Masalah dilaporkan di halaman GitHub projek.</item>
+        <item>Lagu yang gambarnya disimpan sebagai trek video kini disenaraikan sebagai muzik, bukan video.</item>
     </string-array>
     <string name="rd_subtitle_size">Saiz sari kata</string>
     <string name="rd_cast_this_phone">Telefon ini</string>

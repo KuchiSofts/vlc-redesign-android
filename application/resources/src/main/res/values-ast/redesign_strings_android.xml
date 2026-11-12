@@ -30,9 +30,7 @@
     <string name="rd_ob_history_help">Guárdase namás nesti preséu, pa siguir onde lo dexasti.</string>
     <string name="rd_ob_updates_help">Busca una versión de prueba más nueva de VLC for Android una vegada al día.</string>
     <string-array name="rd_whats_new_items">
-        <item>Nuna TV, el mandu algama\'l mini reproductor y la so cola; la cola ábrese como un panel pequeñu.</item>
-        <item>L\'aniciu nunca ta baleru: cuando l\'aplicación nun pue ver los tos ficheros, diz por qué y pide l\'accesu.</item>
-        <item>Un llector de pantalla diz si un serviciu o una llingua de sotítulos ta activáu. Los problemes infórmense na páxina de GitHub del proyeutu.</item>
+        <item>Les cantares que guarden la so imaxe como pista de videu apaecen agora como música, non como vídeos.</item>
     </string-array>
     <string name="rd_subtitle_size">Tamañu de los subtítulos</string>
     <string name="rd_cast_this_phone">Esti teléfonu</string>

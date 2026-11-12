@@ -32,9 +32,7 @@
     <string name="rd_ob_history_help">Net op hierdie toestel gehou, om voort te gaan waar jy opgehou het.</string>
     <string name="rd_ob_updates_help">Soek een keer per dag na ’n nuwer toetsweergawe van VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Op \'n TV bereik die afstandbeheer die minispeler en sy tou; die tou open as \'n klein paneel.</item>
-        <item>Tuis is nooit leeg nie: wanneer die app nie jou lêers kan sien nie, sê dit hoekom en vra vir toegang.</item>
-        <item>\'n Skermleser sê of \'n onderskrifdiens of -taal aan is. Probleme word op die projek se GitHub-bladsy aangemeld.</item>
+        <item>Liedjies wie se prent as \'n videospoor gestoor is, word nou as musiek gelys, nie as video\'s nie.</item>
     </string-array>
     <string name="rd_subtitle_size">Onderskrifgrootte</string>
     <string name="rd_cast_this_phone">Hierdie foon</string>

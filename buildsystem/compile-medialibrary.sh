@@ -115,6 +115,9 @@ if [ ! -d "${MEDIALIBRARY_MODULE_DIR}/medialibrary" ]; then
   cd ${MEDIALIBRARY_MODULE_DIR}/medialibrary
   git reset --hard ${MEDIALIBRARY_HASH}
   avlc_checkfail "medialibrary source: Failed to switch to expected commit hash"
+  # VLC Redesign: our fixes of the media library (buildsystem/patches/medialibrary)
+  git -c user.name=KuchiSofts -c user.email=32385966+KuchiSofts@users.noreply.github.com am ${SRC_DIR}/buildsystem/patches/medialibrary/*
+  avlc_checkfail "medialibrary source: our patches did not apply"
   git submodule update --init libvlcpp
   # TODO: remove when switching to VLC 4.0
   cd libvlcpp
@@ -124,6 +127,8 @@ elif [ "$RESET" = "1" ]; then
     git fetch --all --tags
     git reset --hard ${MEDIALIBRARY_HASH}
     avlc_checkfail "medialibrary source: Failed to switch to expected commit hash"
+    git -c user.name=KuchiSofts -c user.email=32385966+KuchiSofts@users.noreply.github.com am ${SRC_DIR}/buildsystem/patches/medialibrary/*
+    avlc_checkfail "medialibrary source: our patches did not apply"
     git submodule update --init libvlcpp
     # TODO: remove when switching to VLC 4.0
     cd libvlcpp
@@ -153,7 +158,8 @@ fi
 cd ${MEDIALIBRARY_BUILD_DIR}
 
 if [ "$RELEASE" = "1" ]; then
-    git describe --exact-match HEAD > /dev/null || \
+    # (VLC Redesign: our patches sit on the tagged commit: the tag is checked there)
+    git describe --exact-match ${MEDIALIBRARY_HASH} > /dev/null || \
         avlc_checkfail "Release builds must use tags"
 fi
 

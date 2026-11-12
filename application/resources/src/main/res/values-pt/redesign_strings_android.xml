@@ -30,9 +30,7 @@
     <string name="rd_ob_history_help">Guardado apenas neste dispositivo, para continuar onde parou.</string>
     <string name="rd_ob_updates_help">Procura uma versão de teste mais recente do VLC for Android uma vez por dia.</string>
     <string-array name="rd_whats_new_items">
-        <item>Numa TV, o comando chega ao minirreprodutor e à sua fila; a fila abre-se como um pequeno painel.</item>
-        <item>O Início nunca está vazio: quando a aplicação não consegue ver os seus ficheiros, diz porquê e pede acesso.</item>
-        <item>Um leitor de ecrã diz se um serviço ou idioma de legendas está ativado. Os problemas são comunicados na página do projeto no GitHub.</item>
+        <item>As músicas cuja imagem está guardada como faixa de vídeo aparecem agora como música e não como vídeos.</item>
     </string-array>
     <string name="rd_subtitle_size">Tamanho das legendas</string>
     <string name="rd_cast_this_phone">Este telemóvel</string>

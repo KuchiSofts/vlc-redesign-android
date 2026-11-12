@@ -32,9 +32,7 @@
     <string name="rd_ob_history_help">Ruhet vetëm në këtë pajisje, për të vazhduar aty ku e latë.</string>
     <string name="rd_ob_updates_help">Kërkon një herë në ditë për një version prove më të ri të VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Në TV, telekomanda arrin te mini-luajtësi dhe radha e tij; radha hapet si një panel i vogël.</item>
-        <item>Kreu nuk është kurrë bosh: kur aplikacioni nuk i sheh dot skedarët tuaj, tregon pse dhe kërkon leje.</item>
-        <item>Lexuesi i ekranit tregon nëse një shërbim ose gjuhë titrash është e aktivizuar. Problemet raportohen në faqen e projektit në GitHub.</item>
+        <item>Këngët, fotografia e të cilave është ruajtur si pjesë video, tani shfaqen si muzikë, jo si video.</item>
     </string-array>
     <string name="rd_subtitle_size">Madhësia e titrave</string>
     <string name="rd_cast_this_phone">Ky telefon</string>

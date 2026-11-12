@@ -30,9 +30,7 @@
     <string name="rd_ob_history_help">Säilytetään vain tällä laitteella, jotta voit jatkaa siitä, mihin jäit.</string>
     <string name="rd_ob_updates_help">Etsii kerran päivässä uudempaa VLC for Androidin testiversiota.</string>
     <string-array name="rd_whats_new_items">
-        <item>Televisiossa kaukosäädin ulottuu minisoittimeen ja sen jonoon; jono avautuu pienenä paneelina.</item>
-        <item>Koti ei ole koskaan tyhjä: kun sovellus ei näe tiedostojasi, se kertoo syyn ja pyytää käyttöoikeutta.</item>
-        <item>Ruudunlukija kertoo, onko tekstityspalvelu tai -kieli päällä. Ongelmista ilmoitetaan projektin GitHub-sivulla.</item>
+        <item>Kappaleet, joiden kuva on tallennettu videoraitana, näkyvät nyt musiikkina eivätkä videoina.</item>
     </string-array>
     <string name="rd_subtitle_size">Tekstityksen koko</string>
     <string name="rd_cast_this_phone">Tämä puhelin</string>

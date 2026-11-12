@@ -30,9 +30,7 @@
     <string name="rd_ob_history_help">Chỉ lưu trên thiết bị này, để tiếp tục từ chỗ bạn đã dừng.</string>
     <string name="rd_ob_updates_help">Mỗi ngày kiểm tra một lần xem có bản thử nghiệm mới hơn của VLC for Android không.</string>
     <string-array name="rd_whats_new_items">
-        <item>Trên TV, điều khiển từ xa nay tới được trình phát thu nhỏ và hàng đợi của nó; hàng đợi mở ra dưới dạng một bảng nhỏ.</item>
-        <item>Trang chủ không bao giờ trống: khi ứng dụng không thể thấy tệp của bạn, ứng dụng cho biết lý do và xin quyền truy cập.</item>
-        <item>Trình đọc màn hình cho biết một dịch vụ hoặc ngôn ngữ phụ đề có đang bật hay không. Sự cố được báo cáo trên trang GitHub của dự án.</item>
+        <item>Những bài hát có ảnh được lưu dưới dạng một luồng video giờ được liệt kê là nhạc, không phải video.</item>
     </string-array>
     <string name="rd_subtitle_size">Cỡ phụ đề</string>
     <string name="rd_cast_this_phone">Điện thoại này</string>

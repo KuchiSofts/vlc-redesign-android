@@ -32,9 +32,7 @@
     <string name="rd_ob_history_help">Geymt eingöngu á þessu tæki, til að halda áfram þar sem frá var horfið.</string>
     <string name="rd_ob_updates_help">Leitar einu sinni á dag að nýrri prófunarútgáfu af VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Í sjónvarpi nær fjarstýringin til smáspilarans og biðraðar hans; biðröðin opnast sem lítið spjald.</item>
-        <item>Heim er aldrei autt: þegar forritið sér ekki skrárnar þínar segir það hvers vegna og biður um aðgang.</item>
-        <item>Skjálesari segir hvort kveikt er á textaþjónustu eða tungumáli. Vandamál eru tilkynnt á GitHub-síðu verkefnisins.</item>
+        <item>Lög sem geyma mynd sína sem myndskeiðsrás birtast nú sem tónlist, ekki sem myndskeið.</item>
     </string-array>
     <string name="rd_subtitle_size">Stærð skjátexta</string>
     <string name="rd_cast_this_phone">Þessi sími</string>

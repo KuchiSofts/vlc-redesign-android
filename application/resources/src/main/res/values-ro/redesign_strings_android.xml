@@ -30,9 +30,7 @@
     <string name="rd_ob_history_help">Păstrat doar pe acest dispozitiv, pentru a continua de unde ați rămas.</string>
     <string name="rd_ob_updates_help">Caută o dată pe zi o versiune de test mai nouă a VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Pe televizor, telecomanda ajunge la mini-player și la coada lui; coada se deschide ca un panou mic.</item>
-        <item>Pagina de pornire nu este niciodată goală: când aplicația nu vă poate vedea fișierele, spune de ce și cere acces.</item>
-        <item>Un cititor de ecran spune dacă un serviciu sau o limbă de subtitrare este activată. Problemele se raportează pe pagina GitHub a proiectului.</item>
+        <item>Melodiile a căror imagine este salvată ca pistă video apar acum la muzică, nu la videoclipuri.</item>
     </string-array>
     <string name="rd_subtitle_size">Dimensiunea subtitrărilor</string>
     <string name="rd_cast_this_phone">Acest telefon</string>

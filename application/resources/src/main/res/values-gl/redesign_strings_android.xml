@@ -30,9 +30,7 @@
     <string name="rd_ob_history_help">Gárdase só neste dispositivo, para continuar onde o deixaches.</string>
     <string name="rd_ob_updates_help">Busca unha versión de proba máis recente de VLC for Android unha vez ao día.</string>
     <string-array name="rd_whats_new_items">
-        <item>Nun televisor, o mando chega ao minirreprodutor e á súa cola; a cola ábrese como un panel pequeno.</item>
-        <item>O inicio nunca está baleiro: cando a aplicación non pode ver os teus ficheiros, di por que e pide acceso.</item>
-        <item>Un lector de pantalla di se un servizo ou un idioma de subtítulos está activado. Os problemas infórmanse na páxina de GitHub do proxecto.</item>
+        <item>As cancións coa imaxe gardada como pista de vídeo aparecen agora como música, non como vídeos.</item>
     </string-array>
     <string name="rd_subtitle_size">Tamaño dos subtítulos</string>
     <string name="rd_cast_this_phone">Este teléfono</string>

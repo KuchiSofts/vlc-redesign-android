@@ -3,8 +3,6 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>On a TV, the remote reaches the mini player and its queue; the queue opens as a small panel.</item>
-        <item>Home is never empty: when the app cannot see your files, it says why and asks for access.</item>
-        <item>A screen reader says whether a subtitle service or language is on. Problems are reported on the project\'s GitHub page.</item>
+        <item>Songs whose picture is stored as a video track are now listed as music, not as videos.</item>
     </string-array>
 </resources>

@@ -30,9 +30,7 @@
     <string name="rd_ob_history_help">Uchováva sa iba v tomto zariadení, aby ste mohli pokračovať tam, kde ste skončili.</string>
     <string name="rd_ob_updates_help">Raz denne hľadá novšiu testovaciu zostavu VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Na televízore sa diaľkovým ovládačom dostanete k miniprehrávaču a jeho fronte; fronta sa otvorí ako malý panel.</item>
-        <item>Domov nie je nikdy prázdny: keď aplikácia nevidí vaše súbory, povie prečo a požiada o prístup.</item>
-        <item>Čítačka obrazovky oznámi, či je služba alebo jazyk titulkov zapnutý. Problémy sa hlásia na stránke projektu na GitHube.</item>
+        <item>Skladby, ktorých obrázok je uložený ako video stopa, sa teraz zobrazujú ako hudba, nie ako videá.</item>
     </string-array>
     <string name="rd_subtitle_size">Veľkosť titulkov</string>
     <string name="rd_cast_this_phone">Tento telefón</string>

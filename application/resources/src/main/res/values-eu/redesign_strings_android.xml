@@ -30,9 +30,7 @@
     <string name="rd_ob_history_help">Gailu honetan soilik gordetzen da, utzi zenuen tokitik jarraitzeko.</string>
     <string name="rd_ob_updates_help">VLC for Android-en proba-bertsio berriago bat bilatzen du egunean behin.</string>
     <string-array name="rd_whats_new_items">
-        <item>Telebistan, urruneko agintea erreproduzigailu txikira eta haren ilarara iristen da; ilara panel txiki gisa irekitzen da.</item>
-        <item>Hasiera ez da inoiz hutsik egoten: aplikazioak zure fitxategiak ikusi ezin dituenean, zergatia esaten du eta sarbidea eskatzen du.</item>
-        <item>Pantaila-irakurgailuak azpititulu-zerbitzu edo hizkuntza bat aktibatuta dagoen esaten du. Arazoen berri proiektuaren GitHub orrian ematen da.</item>
+        <item>Irudia bideo-pista gisa gordeta duten abestiak musika gisa agertzen dira orain, ez bideo gisa.</item>
     </string-array>
     <string name="rd_subtitle_size">Azpitituluen tamaina</string>
     <string name="rd_cast_this_phone">Telefono hau</string>

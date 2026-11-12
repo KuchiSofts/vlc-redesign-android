@@ -30,9 +30,7 @@
     <string name="rd_ob_history_help">Alleen op dit apparaat bewaard, om verder te gaan waar je gebleven was.</string>
     <string name="rd_ob_updates_help">Zoekt eenmaal per dag naar een nieuwere testversie van VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Op een tv bereikt de afstandsbediening de minispeler en zijn wachtrij; de wachtrij opent als een klein paneel.</item>
-        <item>Start is nooit leeg: als de app je bestanden niet kan zien, zegt hij waarom en vraagt hij om toegang.</item>
-        <item>Een schermlezer zegt of een ondertiteldienst of -taal aan staat. Problemen worden gemeld op de GitHub-pagina van het project.</item>
+        <item>Nummers waarvan de afbeelding als videospoor is opgeslagen, staan nu bij muziek en niet bij video\'s.</item>
     </string-array>
     <string name="rd_subtitle_size">Ondertitelgrootte</string>
     <string name="rd_cast_this_phone">Deze telefoon</string>

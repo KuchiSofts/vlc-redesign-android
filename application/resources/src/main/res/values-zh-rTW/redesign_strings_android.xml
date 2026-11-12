@@ -30,9 +30,7 @@
     <string name="rd_ob_history_help">只儲存在這部裝置上，用來從上次停止的地方繼續。</string>
     <string name="rd_ob_updates_help">每天檢查一次是否有較新的 VLC for Android 測試版。</string>
     <string-array name="rd_whats_new_items">
-        <item>在電視上，遙控器現在可以移到迷你播放器及其佇列；佇列會以小面板的形式開啟。</item>
-        <item>首頁不再空白：當應用程式無法看到您的檔案時，會說明原因並要求存取權限。</item>
-        <item>螢幕閱讀器會讀出字幕服務或語言是否已開啟。問題可在專案的 GitHub 頁面上回報。</item>
+        <item>圖片以影片軌道形式儲存的歌曲，現在會顯示在音樂中，而不是影片中。</item>
     </string-array>
     <string name="rd_subtitle_size">字幕大小</string>
     <string name="rd_cast_this_phone">這支手機</string>

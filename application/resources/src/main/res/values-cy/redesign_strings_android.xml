@@ -31,9 +31,7 @@
     <string name="rd_ob_history_help">Yn cael ei gadw ar y ddyfais hon yn unig, i barhau o\'r man lle gadawoch chi.</string>
     <string name="rd_ob_updates_help">Yn chwilio am fersiwn prawf mwy newydd o VLC for Android unwaith y dydd.</string>
     <string-array name="rd_whats_new_items">
-        <item>Ar deledu, mae\'r teclyn rheoli\'n cyrraedd y chwaraewr bach a\'i giw; mae\'r ciw\'n agor fel panel bach.</item>
-        <item>Nid yw\'r dudalen Cartref byth yn wag: pan na all yr ap weld eich ffeiliau, mae\'n dweud pam ac yn gofyn am fynediad.</item>
-        <item>Mae darllenydd sgrin yn dweud a yw gwasanaeth neu iaith isdeitlau ymlaen. Adroddir am broblemau ar dudalen GitHub y prosiect.</item>
+        <item>Mae caneuon y mae eu llun wedi\'i gadw fel trac fideo bellach wedi\'u rhestru fel cerddoriaeth, nid fel fideos.</item>
     </string-array>
     <string name="rd_subtitle_size">Maint isdeitlau</string>
     <string name="rd_cast_this_phone">Y ffôn hwn</string>

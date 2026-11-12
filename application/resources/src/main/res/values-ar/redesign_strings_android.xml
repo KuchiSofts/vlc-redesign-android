@@ -32,9 +32,7 @@
     <string name="rd_ob_history_help">يُحفظ على هذا الجهاز فقط، للمتابعة من حيث توقفت.</string>
     <string name="rd_ob_updates_help">يبحث مرة في اليوم عن إصدار تجريبي أحدث من VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>على التلفاز، يصل جهاز التحكم إلى المشغّل المصغّر وقائمة الانتظار؛ وتُفتح القائمة كلوحة صغيرة.</item>
-        <item>الصفحة الرئيسية لا تكون فارغة أبدًا: عندما لا يستطيع التطبيق رؤية ملفاتك، يوضّح السبب ويطلب الإذن.</item>
-        <item>قارئ الشاشة يذكر ما إذا كانت خدمة الترجمة أو لغتها مفعّلة. يتم الإبلاغ عن المشكلات في صفحة المشروع على GitHub.</item>
+        <item>الأغاني التي تُحفظ صورتها كمسار فيديو تُعرض الآن كموسيقى، لا كمقاطع فيديو.</item>
     </string-array>
     <string name="rd_subtitle_size">حجم الترجمة</string>
     <string name="rd_cast_this_phone">هذا الهاتف</string>

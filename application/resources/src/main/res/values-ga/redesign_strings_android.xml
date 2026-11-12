@@ -32,9 +32,7 @@
     <string name="rd_ob_history_help">Coinnítear ar an ngléas seo amháin é, chun leanúint ar aghaidh ón áit ar stop tú.</string>
     <string name="rd_ob_updates_help">Lorgaíonn sé leagan tástála níos nuaí de VLC for Android uair sa lá.</string>
     <string-array name="rd_whats_new_items">
-        <item>Ar theilifís, sroicheann an cianrialtán an mionseinnteoir agus a scuaine; osclaítear an scuaine mar phainéal beag.</item>
-        <item>Ní bhíonn an Baile folamh riamh: nuair nach féidir leis an aip do chomhaid a fheiceáil, deir sé cén fáth agus iarrann sé rochtain.</item>
-        <item>Deir léitheoir scáileáin an bhfuil seirbhís nó teanga fotheideal ar siúl. Tuairiscítear fadhbanna ar leathanach GitHub an tionscadail.</item>
+        <item>Taispeántar amhráin a bhfuil a bpictiúr stóráilte mar rian físe anois mar cheol, ní mar fhíseáin.</item>
     </string-array>
     <string name="rd_subtitle_size">Méid na bhfotheideal</string>
     <string name="rd_cast_this_phone">An fón seo</string>

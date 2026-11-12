@@ -39,7 +39,10 @@ object WhatsNewManager {
     /** @return whether the card is shown */
     fun launchIfNeeded(context: AppCompatActivity): Boolean {
         val preferences = Settings.getInstance(context)
-        val needed = preferences.getBoolean(KEY_SHOW_WHATS_NEW, true) && preferences.getString(KEY_LAST_WHATS_NEW, "") != CURRENT
+        // (a version with nothing new to tell, the card of a version of other apps' fixes: no card)
+        val lines = context.resources.getStringArray(org.videolan.vlc.R.array.rd_whats_new_items)
+        val needed = lines.isNotEmpty() && preferences.getBoolean(KEY_SHOW_WHATS_NEW, true) &&
+                preferences.getString(KEY_LAST_WHATS_NEW, "") != CURRENT
         if (needed) {
             markAsShown(preferences)
             // VLC Redesign: the What's new card of the redesign's release

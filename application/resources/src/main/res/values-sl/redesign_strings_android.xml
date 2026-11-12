@@ -30,9 +30,7 @@
     <string name="rd_ob_history_help">Shranjeno samo v tej napravi, da lahko nadaljujete tam, kjer ste končali.</string>
     <string name="rd_ob_updates_help">Enkrat na dan poišče novejšo preizkusno izdajo VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Na televizorju daljinski upravljalnik doseže mini predvajalnik in njegovo čakalno vrsto; vrsta se odpre kot majhna plošča.</item>
-        <item>Domača stran ni nikoli prazna: ko aplikacija ne vidi vaših datotek, pove zakaj in prosi za dostop.</item>
-        <item>Bralnik zaslona pove, ali je storitev ali jezik podnapisov vklopljen. Težave se prijavijo na strani projekta v GitHubu.</item>
+        <item>Pesmi, katerih slika je shranjena kot video posnetek, so zdaj prikazane kot glasba in ne kot videoposnetki.</item>
     </string-array>
     <string name="rd_subtitle_size">Velikost podnapisov</string>
     <string name="rd_cast_this_phone">Ta telefon</string>

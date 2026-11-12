@@ -30,9 +30,7 @@
     <string name="rd_ob_history_help">Lagres bare på denne enheten, så du kan fortsette der du slapp.</string>
     <string name="rd_ob_updates_help">Ser etter en nyere testversjon av VLC for Android én gang om dagen.</string>
     <string-array name="rd_whats_new_items">
-        <item>På en TV når fjernkontrollen miniavspilleren og køen dens; køen åpnes som et lite panel.</item>
-        <item>Hjem er aldri tom: når appen ikke kan se filene dine, sier den hvorfor og ber om tilgang.</item>
-        <item>En skjermleser sier om en underteksttjeneste eller et språk er slått på. Problemer rapporteres på prosjektets GitHub-side.</item>
+        <item>Sanger der bildet er lagret som et videospor, vises nå som musikk og ikke som videoer.</item>
     </string-array>
     <string name="rd_subtitle_size">Undertekststørrelse</string>
     <string name="rd_cast_this_phone">Denne telefonen</string>

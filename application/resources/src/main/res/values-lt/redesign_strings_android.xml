@@ -30,9 +30,7 @@
     <string name="rd_ob_history_help">Laikoma tik šiame įrenginyje, kad galėtumėte tęsti nuo ten, kur baigėte.</string>
     <string name="rd_ob_updates_help">Kartą per dieną ieško naujesnės VLC for Android bandomosios versijos.</string>
     <string-array name="rd_whats_new_items">
-        <item>Televizoriuje pultu pasiekiamas mini grotuvas ir jo eilė; eilė atsidaro kaip mažas skydelis.</item>
-        <item>Pradžia niekada nebūna tuščia: kai programa nemato jūsų failų, ji pasako kodėl ir paprašo prieigos.</item>
-        <item>Ekrano skaitytuvas pasako, ar subtitrų paslauga arba kalba įjungta. Apie problemas pranešama projekto GitHub puslapyje.</item>
+        <item>Dainos, kurių paveikslėlis įrašytas kaip vaizdo takelis, dabar rodomos kaip muzika, o ne kaip vaizdo įrašai.</item>
     </string-array>
     <string name="rd_subtitle_size">Subtitrų dydis</string>
     <string name="rd_cast_this_phone">Šis telefonas</string>
