@@ -167,7 +167,7 @@
     <string name="import_all">לייבא הכול</string>
     <string name="all_albums">כל האלבומים</string>
     <string name="genres">סגנונות</string>
-    <string name="playlists">רשימות השמעה</string>
+    <string name="playlists">רשימות נגינה</string>
     <string name="title">כותרת</string>
     <string name="directories">תיקיות</string>
     <string name="loading">בטעינה…</string>
@@ -402,7 +402,7 @@
     <string name="force_play_all_summary">לנגן את כל הסרטונים, החל מזה שעליו לחצת</string>
     <string name="force_play_all_audio_summary">לנגן את כל קטעי השמע, החל מזה שלחצת עליו</string>
     <string name="force_play_all_title">מצב רשימת סרטונים</string>
-    <string name="force_play_all_audio_title">מצב רשימת השמעה</string>
+    <string name="force_play_all_audio_title">מצב רשימת נגינה</string>
     <string name="save_brightness_summary">לשמור על רמת הבהירות בין ניגונים</string>
     <string name="save_brightness_title">שמירת רמת הבהירות</string>
     <string name="save_audiodelay_summary">שמירת השהיית שמע נקודתית לכל סרטון</string>

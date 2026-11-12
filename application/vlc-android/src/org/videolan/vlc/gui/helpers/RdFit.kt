@@ -43,6 +43,28 @@ object RdFit {
     /** [wanted] px high, never taller than the window of [activity] less the margin on both sides. */
     fun height(activity: Activity?, wanted: Int, margin: Int = MARGIN.dp) = RdFitRules.size(wanted, frame(activity).height(), margin)
 
+    /** The width of a confirmation or a small form on a TV, in dp (the size of the TV layout's other small dialogs). */
+    const val ALERT = 640
+
+    /**
+     * A dialog made with a builder (a confirmation, a text to fill in, a short list) in the TV layout: the system
+     * gives an alert most of the screen's width there (1512 of 1920 for a title, a field and two buttons). It gets
+     * the design's width, inside the screen. [decor]: the dialog's window (nothing is done for another window).
+     */
+    fun alert(decor: View) {
+        val system = android.content.res.Resources.getSystem().getIdentifier("parentPanel", "id", "android")
+        if (decor.findViewById<View>(androidx.appcompat.R.id.parentPanel) == null && (system == 0 || decor.findViewById<View>(system) == null)) return
+        val lp = decor.layoutParams as? android.view.WindowManager.LayoutParams ?: return
+        // (one given a size of its own keeps it: a form made wider on purpose, or this width set before)
+        if (lp.width >= 0) return
+        lp.width = RdFitRules.size(ALERT.dp, decor.resources.displayMetrics.widthPixels, MARGIN.dp)
+        try {
+            (decor.context.getSystemService(android.content.Context.WINDOW_SERVICE) as? android.view.WindowManager)?.updateViewLayout(decor, lp)
+        } catch (e: IllegalArgumentException) {
+            // (the dialog went meanwhile)
+        }
+    }
+
     /**
      * A dialog's window kept inside the screen: a size it was given in px (a design's 1048 x 631 at a large
      * interface size, a tall form on a small screen) is cut to the screen less the margin, now and whenever it is

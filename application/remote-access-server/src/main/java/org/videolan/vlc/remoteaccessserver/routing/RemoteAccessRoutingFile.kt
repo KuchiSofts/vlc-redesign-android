@@ -251,9 +251,12 @@ fun Route.authenticatedFileRouting(appContext: Context, scope: CoroutineScope, s
             filesToZip.forEach { FileUtils.deleteFile(it) }
         }
 
-        val completeMessage = "$message\r\n\r\n${FeedbackUtil.generateUsefulInfo(appContext)}"
+        // VLC Redesign: this is not VideoLAN's app, so its reports (with the logs and, when asked, the library) do not
+        // go to VideoLAN's support mail: the page gets no address (its mail opens without one) and the message
+        // starts with where a problem of this app is reported.
+        val completeMessage = "Report a problem of VLC Media Player Redesign at https://github.com/KuchiSofts/vlc-redesign/issues\r\n\r\n$message\r\n\r\n${FeedbackUtil.generateUsefulInfo(appContext)}"
 
-        val mail = if (feedbackType == 3 && BuildConfig.BETA) FeedbackUtil.SupportType.CRASH_REPORT_EMAIL.email else FeedbackUtil.SupportType.SUPPORT_EMAIL.email
+        val mail = ""
         val result = RemoteAccessServer.FeedbackResult(mail, FeedbackUtil.generateSubject(subject, feedbackType), completeMessage, zipFile)
 
         call.respondJson(convertToJson(result))

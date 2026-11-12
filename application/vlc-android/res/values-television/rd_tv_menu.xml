@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign, on a TV: the list of a popup (the page's options menu, a dropdown) shows the remote's focus as the
+     rest of the TV layout does, a lighter row in the focus line (rd_tv_menu_selector), not the phone's flat bar of
+     the accent. -->
+<resources>
+    <style name="Theme.VLC.List" parent="android:style/Widget.AbsListView">
+        <item name="android:listSelector">@drawable/rd_tv_menu_selector</item>
+        <item name="android:divider">@color/transparent</item>
+        <item name="android:dividerHeight">0dp</item>
+    </style>
+</resources>

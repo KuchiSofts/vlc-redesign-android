@@ -31,14 +31,9 @@
     <string name="rd_ob_history_help">Yn cael ei gadw ar y ddyfais hon yn unig, i barhau o\'r man lle gadawoch chi.</string>
     <string name="rd_ob_updates_help">Yn chwilio am fersiwn prawf mwy newydd o VLC for Android unwaith y dydd.</string>
     <string-array name="rd_whats_new_items">
-        <item>Cyflymach a mwy sefydlog: mae Teledu Byw ac isdeitlau\'n gweithio yn y cefndir, ac mae chwalfeydd a chwaraewr wedi rhewi ar Android 5 a blychau teledu wedi\'u trwsio.</item>
-        <item>Sgrin lawn: gall botwm, y teclyn rheoli o bell neu ystum ddangos y cynnydd yn unig neu neges yn unig yn lle\'r rheolyddion, yn Gosodiadau › Rhyngwyneb. Diolch i @BarbodF.</item>
-        <item>Isdeitlau awtomatig callach: defnyddir ffolder Subs y fideo ei hun yn gyntaf, nid yw ffeil hysbyseb neu ffeil â llinellau gorfodol yn unig yn cyfrif fel isdeitl mwyach, chwilir o hyd ar gyfer ffilm y daw ei llun yn hwyr, ac mae atalnodi Hebraeg ac Arabeg yn dangos ar y pen cywir.</item>
-        <item>Isdeitlau ar-lein hefyd ar gyfer fideos ar ffolder wedi\'i rannu ar y rhwydwaith, gweinydd cyfryngau neu y tu ôl i ddolen, wedi\'u canfod â llaw ac yn awtomatig (diolch i @Elshepl). Ar Android 5 i 7.0, mae OpenSubtitles yn ateb eto.</item>
-        <item>Y panel Isdeitlau fel ar y bwrdd gwaith: mae\'n agor uwchben ei fotwm, gyda\'r ieithoedd a\'u niferoedd, y canlyniadau ar-lein a\'r amseru mewn un lle.</item>
-        <item>Gellir ei osod ochr yn ochr â VLC for Android, ac mae\'r ap teledu yn Hebraeg ac Arabeg wedi\'i adlewyrchu\'n llwyr, gyda ffocws y teclyn rheoli o bell lle rydych chi\'n ei ddisgwyl.</item>
-        <item>Maint sy\'n addas i\'ch sgrin: ar deledu mae\'r ap bellach yn fwy ac yn hawdd ei ddarllen o\'r soffa, pennir y maint o\'r sgrin a gellir ei newid yn Gosodiadau › Rhyngwyneb › Maint y rhyngwyneb. Mae rhesi\'n dangos cardiau cyfan ac mae pob ffenestr yn ffitio\'r sgrin.</item>
-        <item>Mae amserlenni teledu mawr iawn yn llwytho heb lenwi\'r cof, gellir dangos dwy iaith isdeitlau ar yr un pryd, ac mae ffocws y teclyn rheoli o bell bob amser yn weladwy.</item>
+        <item>Ar deledu, mae\'r teclyn rheoli\'n cyrraedd y chwaraewr bach a\'i giw; mae\'r ciw\'n agor fel panel bach.</item>
+        <item>Nid yw\'r dudalen Cartref byth yn wag: pan na all yr ap weld eich ffeiliau, mae\'n dweud pam ac yn gofyn am fynediad.</item>
+        <item>Mae darllenydd sgrin yn dweud a yw gwasanaeth neu iaith isdeitlau ymlaen. Adroddir am broblemau ar dudalen GitHub y prosiect.</item>
     </string-array>
     <string name="rd_subtitle_size">Maint isdeitlau</string>
     <string name="rd_cast_this_phone">Y ffôn hwn</string>

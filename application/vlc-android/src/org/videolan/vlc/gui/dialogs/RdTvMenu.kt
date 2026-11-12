@@ -145,7 +145,14 @@ object RdTvMenu {
                 contentDescription = e.title
                 background = StateListDrawable().apply {
                     val on = GradientDrawable().apply { cornerRadius = 6.dp.toFloat(); setColor(FOCUS) }
-                    addState(intArrayOf(android.R.attr.state_focused), on)
+                    // the remote's focus: the row with the line every other focus of the TV layout has (RdTvFocusRing
+                    // draws none in a popup's window, and the darker row alone was hard to find from the sofa)
+                    val focused = GradientDrawable().apply {
+                        cornerRadius = 6.dp.toFloat()
+                        setColor(FOCUS)
+                        setStroke(2.dp, androidx.core.content.ContextCompat.getColor(ctx, R.color.rd_dark_fg_1))
+                    }
+                    addState(intArrayOf(android.R.attr.state_focused), focused)
                     addState(intArrayOf(android.R.attr.state_pressed), on)
                     addState(intArrayOf(), ColorDrawable(0))
                 }

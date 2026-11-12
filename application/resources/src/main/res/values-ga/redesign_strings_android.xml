@@ -32,14 +32,9 @@
     <string name="rd_ob_history_help">Coinnítear ar an ngléas seo amháin é, chun leanúint ar aghaidh ón áit ar stop tú.</string>
     <string name="rd_ob_updates_help">Lorgaíonn sé leagan tástála níos nuaí de VLC for Android uair sa lá.</string>
     <string-array name="rd_whats_new_items">
-        <item>Níos tapúla agus níos seasmhaí: oibríonn an teilifís bheo agus na fotheidil sa chúlra, agus réitíodh tuairteanna agus seinnteoir reoite ar Android 5 agus ar bhoscaí teilifíse.</item>
-        <item>Lánscáileán: is féidir le heochair, leis an gcianrialtán nó le gotha an dul chun cinn amháin nó teachtaireacht amháin a thaispeáint in ionad na rialtán, in Socruithe › Comhéadan. Buíochas le @BarbodF.</item>
-        <item>Fotheidil uathoibríocha níos cliste: úsáidtear fillteán Subs an fhíseáin féin ar dtús, ní áirítear comhad fógraíochta ná comhad nach bhfuil ann ach línte éigeantacha mar fhotheideal a thuilleadh, déantar cuardach fós do scannán a dtagann a phictiúr go déanach, agus taispeántar poncaíocht na hEabhraise agus na hAraibise ag an gceann ceart.</item>
-        <item>Fotheidil ar líne anois freisin d\'fhíseáin ar chomhroinnt líonra, ar fhreastalaí meán nó taobh thiar de nasc, aimsithe de láimh agus go huathoibríoch (buíochas le @Elshepl). Ar Android 5 go 7.0, freagraíonn OpenSubtitles arís.</item>
-        <item>An painéal Fotheideal mar atá ar an deasc: osclaíonn sé os cionn a chnaipe, leis na teangacha agus a líon, na torthaí ar líne agus an t-uainiú in aon áit amháin.</item>
-        <item>Suiteáiltear é taobh le VLC for Android, agus tá an aip teilifíse scáthánaithe go hiomlán in Eabhrais agus in Araibis, le fócas an chianrialtáin san áit a mbeifeá ag súil leis.</item>
-        <item>Méid a oireann do do scáileán: ar theilifís tá an aip níos mó anois agus éasca le léamh ón tolg, faightear an méid ón scáileán agus is féidir é a athrú i Socruithe › Comhéadan › Méid an chomhéadain. Taispeánann sraitheanna cártaí iomlána agus oireann gach fuinneog don scáileán.</item>
-        <item>Lódáiltear treoracha teilifíse an-mhóra gan an chuimhne a líonadh, is féidir dhá theanga fotheideal a thaispeáint ag an am céanna, agus bíonn fócas an chianrialtáin le feiceáil i gcónaí.</item>
+        <item>Ar theilifís, sroicheann an cianrialtán an mionseinnteoir agus a scuaine; osclaítear an scuaine mar phainéal beag.</item>
+        <item>Ní bhíonn an Baile folamh riamh: nuair nach féidir leis an aip do chomhaid a fheiceáil, deir sé cén fáth agus iarrann sé rochtain.</item>
+        <item>Deir léitheoir scáileáin an bhfuil seirbhís nó teanga fotheideal ar siúl. Tuairiscítear fadhbanna ar leathanach GitHub an tionscadail.</item>
     </string-array>
     <string name="rd_subtitle_size">Méid na bhfotheideal</string>
     <string name="rd_cast_this_phone">An fón seo</string>

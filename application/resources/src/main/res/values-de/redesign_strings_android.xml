@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">Nur auf diesem Gerät gespeichert, um dort weiterzumachen, wo Sie aufgehört haben.</string>
     <string name="rd_ob_updates_help">Sucht einmal täglich nach einer neueren Testversion von VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Schneller und stabiler: Live-TV und Untertitel arbeiten im Hintergrund, und Abstürze sowie ein eingefrorener Player unter Android 5 und auf TV-Boxen sind behoben.</item>
-        <item>Vollbild: Eine Taste, die Fernbedienung oder eine Geste kann statt der Bedienelemente nur den Fortschritt oder nur eine Meldung anzeigen, unter Einstellungen › Oberfläche. Danke an @BarbodF.</item>
-        <item>Klügere automatische Untertitel: Der eigene Subs-Ordner des Releases wird zuerst genutzt, eine Werbedatei oder eine Datei nur mit erzwungenen Zeilen zählt nicht mehr als Untertitel, auch für einen Film, dessen Bild spät einsetzt, wird gesucht, und hebräische und arabische Satzzeichen stehen am richtigen Ende.</item>
-        <item>Online-Untertitel jetzt auch für Videos auf einer Netzwerkfreigabe, einem Medienserver oder hinter einem Link, ob von Hand oder automatisch gesucht (danke an @Elshepl). Unter Android 5 bis 7.0 antwortet OpenSubtitles wieder.</item>
-        <item>Das Untertitel-Panel wie in der Desktop-Version: Es öffnet sich über seiner Schaltfläche, mit den Sprachen und ihrer Anzahl, den Online-Ergebnissen und dem Timing an einem Ort.</item>
-        <item>Lässt sich neben VLC for Android installieren, und die TV-App ist auf Hebräisch und Arabisch vollständig gespiegelt, mit dem Fokus der Fernbedienung dort, wo Sie ihn erwarten.</item>
-        <item>Passend für Ihren Bildschirm: Auf einem Fernseher ist die App jetzt größer und vom Sofa aus gut lesbar, die Größe wird anhand des Bildschirms ermittelt und lässt sich unter Einstellungen › Oberfläche › Größe der Oberfläche ändern. Reihen zeigen ganze Karten, und jedes Fenster passt auf den Bildschirm.</item>
-        <item>Sehr große TV-Programmführer werden geladen, ohne den Speicher zu füllen, zwei Untertitelsprachen können gleichzeitig angezeigt werden, und der Fokus der Fernbedienung ist immer sichtbar.</item>
+        <item>Am Fernseher erreicht die Fernbedienung den Mini-Player und seine Warteschlange; die Warteschlange öffnet sich als kleines Panel.</item>
+        <item>Die Startseite ist nie leer: Wenn die App Ihre Dateien nicht sehen kann, sagt sie warum und bittet um Zugriff.</item>
+        <item>Ein Screenreader sagt, ob ein Untertiteldienst oder eine Sprache eingeschaltet ist. Probleme werden auf der GitHub-Seite des Projekts gemeldet.</item>
     </string-array>
     <string name="rd_subtitle_size">Untertitelgröße</string>
     <string name="rd_cast_this_phone">Dieses Telefon</string>

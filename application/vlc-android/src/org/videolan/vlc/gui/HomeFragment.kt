@@ -52,6 +52,8 @@ import org.videolan.vlc.gui.dialogs.showContext
 import org.videolan.vlc.gui.helpers.UiTools
 import org.videolan.vlc.gui.helpers.UiTools.addToPlaylist
 import org.videolan.vlc.gui.helpers.getAudioIconDrawable
+import org.videolan.vlc.gui.helpers.hf.StoragePermissionsDelegate.Companion.askStoragePermission
+import org.videolan.vlc.gui.helpers.rdAccent
 import org.videolan.vlc.gui.helpers.loadImage
 import org.videolan.vlc.media.MediaUtils
 import org.videolan.vlc.util.ContextOption
@@ -392,8 +394,14 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
                         // newest first (the library's getRecentAudio() can come back empty: sort by insertion date)
                         ml.getPagedVideos(Medialibrary.SORT_INSERTIONDATE, true, false, false, MAX_CARDS, 0).map { Card(it) },
                         ml.getPagedAudio(Medialibrary.SORT_INSERTIONDATE, true, false, false, MAX_CARDS, 0).map { Card(it) })
-            } ?: return@launch
+            }
             if (!isAdded) return@launch
+            if (data == null) {
+                // The library has not started: without access to the device's files it never does, and the page
+                // stayed blank. It says why and asks; one still starting comes back by onMedialibraryReady.
+                showEmpty(context, libraryStarted = false)
+                return@launch
+            }
             pinned.update(pinnedCards(context))
             continueWatching.update(data.continueWatching)
             listenAgain.update(data.listenAgain)
@@ -401,8 +409,46 @@ class HomeFragment : BaseFragment(), CtxActionReceiver, Medialibrary.HistoryCb, 
             favorites.update(data.favorites)
             newVideos.update(data.newVideos)
             newMusic.update(data.newMusic)
-            emptyView.visibility = if (sections.all { it.cards.isEmpty() }) View.VISIBLE else View.GONE
+            showEmpty(context, libraryStarted = true)
         }
+    }
+
+    /**
+     * The words of a Home without a card. No access to the device's files: why, and "Grant permission" (the whole
+     * text asks for it, with a tap or OK on the remote). A library that has started and holds nothing: "No media
+     * files found". One that is still starting says nothing yet.
+     */
+    private fun showEmpty(context: android.content.Context, libraryStarted: Boolean) {
+        val text = emptyView as? TextView ?: return
+        val allowed = org.videolan.vlc.util.Permissions.canReadStorage(context)
+        val empty = sections.all { it.cards.isEmpty() }
+        if (!empty || (!libraryStarted && allowed)) {
+            text.visibility = View.GONE
+            return
+        }
+        if (allowed) {
+            text.setText(R.string.nomedia)
+            text.setOnClickListener(null)
+            text.isClickable = false
+            text.isFocusable = false
+            text.background = null
+        } else {
+            val ask = getString(R.string.permission_ask_again)
+            val words = getString(R.string.permission_media) + "\n\n" + ask
+            text.text = android.text.SpannableString(words).apply {
+                val start = words.length - ask.length
+                setSpan(android.text.style.ForegroundColorSpan(context.rdAccent()), start, words.length, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                setSpan(android.text.style.StyleSpan(android.graphics.Typeface.BOLD), start, words.length, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+            text.isFocusable = true
+            if (Settings.showTvUi) text.setBackgroundResource(R.drawable.rd_tv_focus_selector)
+            else android.util.TypedValue().let { v ->
+                context.theme.resolveAttribute(android.R.attr.selectableItemBackground, v, true)
+                text.setBackgroundResource(v.resourceId)
+            }
+            text.setOnClickListener { activity?.askStoragePermission(false, null) }
+        }
+        text.visibility = View.VISIBLE
     }
 
     /** The folders of the media played, the most played first (local files only). */

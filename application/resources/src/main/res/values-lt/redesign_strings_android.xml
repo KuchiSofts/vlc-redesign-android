@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">Laikoma tik šiame įrenginyje, kad galėtumėte tęsti nuo ten, kur baigėte.</string>
     <string name="rd_ob_updates_help">Kartą per dieną ieško naujesnės VLC for Android bandomosios versijos.</string>
     <string-array name="rd_whats_new_items">
-        <item>Greičiau ir stabiliau: tiesioginė TV ir subtitrai veikia fone, o strigtys ir sustingęs grotuvas Android 5 sistemoje ir TV priedėliuose ištaisyti.</item>
-        <item>Visas ekranas: klavišas, pultas ar gestas vietoj valdiklių gali rodyti tik eigą arba tik pranešimą, skiltyje Nuostatos › Sąsaja. Ačiū @BarbodF.</item>
-        <item>Protingesni automatiniai subtitrai: pirmiausia naudojamas paties vaizdo įrašo Subs aplankas, reklamos failas ar failas tik su priverstinėmis eilutėmis nebelaikomas subtitrais, ieškoma ir filmui, kurio vaizdas prasideda vėliau, o hebrajų ir arabų skyrybos ženklai rodomi tinkamame gale.</item>
-        <item>Subtitrai iš interneto dabar ir vaizdo įrašams bendrinamame tinklo aplanke, medijos serveryje ar už nuorodos, ieškant rankiniu būdu ir automatiškai (ačiū @Elshepl). Android 5–7.0 sistemoje OpenSubtitles vėl atsako.</item>
-        <item>Subtitrų skydelis kaip kompiuterio versijoje: atsidaro virš savo mygtuko, o kalbos su jų skaičiumi, internetiniai rezultatai ir sinchronizavimas yra vienoje vietoje.</item>
-        <item>Įdiegiama šalia VLC for Android, o TV programėlė hebrajų ir arabų kalbomis visiškai atspindėta veidrodiškai, pulto fokusas ten, kur jo tikitės.</item>
-        <item>Pritaikyta jūsų ekranui: televizoriuje programėlė dabar didesnė ir lengvai skaitoma nuo sofos, dydis nustatomas pagal ekraną ir jį galima pakeisti Nustatymai › Sąsaja › Sąsajos dydis. Eilėse rodomos visos kortelės, o kiekvienas langas telpa ekrane.</item>
-        <item>Labai didelės TV programos įkeliamos neužpildant atminties, vienu metu galima rodyti dvi subtitrų kalbas, o pulto fokusas visada matomas.</item>
+        <item>Televizoriuje pultu pasiekiamas mini grotuvas ir jo eilė; eilė atsidaro kaip mažas skydelis.</item>
+        <item>Pradžia niekada nebūna tuščia: kai programa nemato jūsų failų, ji pasako kodėl ir paprašo prieigos.</item>
+        <item>Ekrano skaitytuvas pasako, ar subtitrų paslauga arba kalba įjungta. Apie problemas pranešama projekto GitHub puslapyje.</item>
     </string-array>
     <string name="rd_subtitle_size">Subtitrų dydis</string>
     <string name="rd_cast_this_phone">Šis telefonas</string>

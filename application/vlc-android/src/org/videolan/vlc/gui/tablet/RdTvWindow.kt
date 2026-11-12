@@ -560,6 +560,7 @@ object RdTvWindow {
         val rtl = root.layoutDirection == View.LAYOUT_DIRECTION_RTL
         val toSidebar = if (rtl) android.view.KeyEvent.KEYCODE_DPAD_RIGHT else android.view.KeyEvent.KEYCODE_DPAD_LEFT
         val intoPage = if (rtl) android.view.KeyEvent.KEYCODE_DPAD_LEFT else android.view.KeyEvent.KEYCODE_DPAD_RIGHT
+        val mini = root.findViewById<View>(R.id.rd_tv_mini)?.takeIf { it.isShown }
         when (event.keyCode) {
             toSidebar -> {
                 // from the page's start back to the current page's row of the sidebar
@@ -580,6 +581,13 @@ object RdTvWindow {
                 return true
             }
             android.view.KeyEvent.KEYCODE_DPAD_UP -> {
+                // the mini player: from its queue button to the card, from the card back to where the focus came from
+                if (mini != null && inside(focused, mini)) {
+                    if (focused !== mini) return mini.requestFocus()
+                    val back = miniFrom?.get()?.takeIf { it.isShown && it.isAttachedToWindow && inside(it, page) }
+                            ?: page.getFocusables(View.FOCUS_UP).lastOrNull { it.isShown }
+                    return back?.requestFocus() == true
+                }
                 // (an album's / a playlist's page: its Play and Shuffle are between the rows and the header)
                 val band = root.findViewById<View>(R.id.rd_tv_band)?.takeIf { it.isShown }
                 val inBand = band != null && inside(focused, band)
@@ -600,9 +608,19 @@ object RdTvWindow {
                 return true
             }
             android.view.KeyEvent.KEYCODE_DPAD_DOWN -> {
-                // the page's last row: Down stays there (it went to the sidebar's row below, Recent, out of the page)
+                // the mini player (over the page's bottom end): Down on the card goes to its queue button, the last stop
+                if (mini != null && inside(focused, mini)) {
+                    if (focused === mini) mini.findViewById<View>(R.id.rd_tv_mini_queue)?.requestFocus()
+                    return true
+                }
+                // the page's last row: Down goes to the mini player while something plays, else it stays there (it
+                // went to the sidebar's row below, Recent, out of the page)
                 if (side != null && inside(focused, page)) {
                     val next = focused.focusSearch(View.FOCUS_DOWN)
+                    if (mini != null && (next == null || !inside(next, page))) {
+                        miniFrom = java.lang.ref.WeakReference(focused)
+                        return mini.requestFocus()
+                    }
                     return next != null && inside(next, side)
                 }
                 val band = root.findViewById<View>(R.id.rd_tv_band)?.takeIf { it.isShown }
@@ -620,6 +638,9 @@ object RdTvWindow {
         }
         return false
     }
+
+    /** the page's item the focus left for the mini player: Up on the mini player goes back to it */
+    private var miniFrom: java.lang.ref.WeakReference<View>? = null
 
     private var okTarget: java.lang.ref.WeakReference<View>? = null
     private var okLong = false

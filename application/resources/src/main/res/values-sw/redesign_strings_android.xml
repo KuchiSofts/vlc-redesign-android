@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">Huhifadhiwa kwenye kifaa hiki pekee, ili kuendelea ulipoishia.</string>
     <string name="rd_ob_updates_help">Hutafuta toleo jipya la majaribio la VLC for Android mara moja kwa siku.</string>
     <string-array name="rd_whats_new_items">
-        <item>Haraka zaidi na thabiti zaidi: TV ya moja kwa moja na manukuu hufanya kazi chinichini, na programu kuacha kufanya kazi pamoja na kicheza video kukwama kwenye Android 5 na visanduku vya TV kumerekebishwa.</item>
-        <item>Skrini nzima: kitufe, rimoti au ishara inaweza kuonyesha maendeleo pekee au ujumbe pekee badala ya vidhibiti, katika Mipangilio › Kiolesura. Shukrani kwa @BarbodF.</item>
-        <item>Manukuu ya kiotomatiki yenye akili zaidi: folda ya Subs inayokuja na video hutumika kwanza, faili ya tangazo au yenye mistari ya lazima pekee haihesabiwi tena kama manukuu, filamu ambayo picha yake huchelewa bado hutafutiwa, na alama za uakifishaji za Kiebrania na Kiarabu huonekana upande sahihi.</item>
-        <item>Manukuu ya mtandaoni sasa pia kwa video zilizo kwenye folda iliyoshirikiwa kwenye mtandao, seva ya media au nyuma ya kiungo, yakitafutwa kwa mkono na kiotomatiki (shukrani kwa @Elshepl). Kwenye Android 5 hadi 7.0, OpenSubtitles hujibu tena.</item>
-        <item>Paneli ya Manukuu kama kwenye kompyuta: hufunguka juu ya kitufe chake, ikiwa na lugha na idadi yake, matokeo ya mtandaoni na muda mahali pamoja.</item>
-        <item>Husakinishwa kando ya VLC for Android, na programu ya TV kwa Kiebrania na Kiarabu imegeuzwa kama kioo kikamilifu, huku ulengaji wa rimoti ukiwa pale unapotarajia.</item>
-        <item>Ukubwa unaolingana na skrini yako: kwenye TV programu sasa ni kubwa zaidi na inasomeka kwa urahisi ukiwa kwenye sofa, ukubwa hupatikana kutokana na skrini na unaweza kubadilishwa katika Mipangilio › Kiolesura › Ukubwa wa kiolesura. Safu huonyesha kadi nzima na kila dirisha hutoshea kwenye skrini.</item>
-        <item>Miongozo mikubwa sana ya TV hupakiwa bila kujaza kumbukumbu, lugha mbili za manukuu zinaweza kuonekana kwa wakati mmoja, na ulengaji wa rimoti huonekana kila wakati.</item>
+        <item>Kwenye TV, rimoti sasa hufika kwenye kichezaji kidogo na foleni yake; foleni hufunguka kama paneli ndogo.</item>
+        <item>Mwanzo hauwi tupu kamwe: programu isipoweza kuona faili zako, husema sababu na kuomba ruhusa.</item>
+        <item>Kisoma skrini husema kama huduma au lugha ya manukuu imewashwa. Matatizo huripotiwa kwenye ukurasa wa GitHub wa mradi.</item>
     </string-array>
     <string name="rd_subtitle_size">Ukubwa wa manukuu</string>
     <string name="rd_cast_this_phone">Simu hii</string>

@@ -169,7 +169,11 @@ class RdSubtitleServices(private val page: PreferenceFragmentCompat) {
         val p = pref.provider
         val has = OnlineSubtitles.hasCredentials(app, p)
         val on = OnlineSubtitles.switchOn(app, p.id) && has
-        (holder.findViewById(R.id.rd_svc_switch) as? RdToggleView)?.isChecked = on
+        (holder.findViewById(R.id.rd_svc_switch) as? RdToggleView)?.let {
+            it.isChecked = on
+            // (the words beside it are what a screen reader and a keyboard stop on: they say the state)
+            it.spokenBy(holder.findViewById(R.id.rd_svc_main))
+        }
         holder.findViewById(R.id.rd_svc_main)?.setOnClickListener { switchClicked(p) }
         holder.findViewById(R.id.rd_svc_switch)?.setOnClickListener { switchClicked(p) }
         (holder.findViewById(android.R.id.summary) as? TextView)?.text = detail(ctx, p)

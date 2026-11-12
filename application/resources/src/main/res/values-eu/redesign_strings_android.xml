@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">Gailu honetan soilik gordetzen da, utzi zenuen tokitik jarraitzeko.</string>
     <string name="rd_ob_updates_help">VLC for Android-en proba-bertsio berriago bat bilatzen du egunean behin.</string>
     <string-array name="rd_whats_new_items">
-        <item>Azkarrago eta egonkorrago: zuzeneko telebista eta azpitituluak atzeko planoan dabiltza, eta Android 5-eko eta telebista-kaxetako kraskatzeak eta erreproduzigailu izoztua konpondu dira.</item>
-        <item>Pantaila osoa: tekla batek, urruneko aginteak edo keinu batek kontrolen ordez progresioa soilik edo mezu bat soilik erakuts dezake, Ezarpenak › Interfazea atalean. Eskerrik asko, @BarbodF.</item>
-        <item>Azpititulu automatiko adimentsuagoak: bideoarekin datorren Subs karpeta erabiltzen da lehenik, iragarki-fitxategi bat edo lerro behartuak soilik dituena ez da jada azpititulutzat hartzen, irudia berandu iristen zaion film baterako ere bilatzen da, eta hebreerazko eta arabierazko puntuazioa dagokion muturrean agertzen da.</item>
-        <item>Lineako azpitituluak orain sareko partekatze batean, multimedia-zerbitzari batean edo esteka baten atzean dauden bideoetarako ere, eskuz zein automatikoki bilatuta (eskerrik asko, @Elshepl). Android 5-etik 7.0-ra, OpenSubtitles-ek berriro erantzuten du.</item>
-        <item>Azpitituluen panela mahaigainean bezala: bere botoiaren gainean irekitzen da, eta hizkuntzak eta horien kopurua, lineako emaitzak eta sinkronizazioa leku bakarrean daude.</item>
-        <item>VLC for Android-en ondoan instalatzen da, eta telebistako aplikazioa osorik dago ispiluan hebreeraz eta arabieraz, urruneko agintearen fokua espero duzun lekuan dagoela.</item>
-        <item>Zure pantailaren neurrira: telebistan aplikazioa handiagoa da orain eta sofatik erraz irakurtzen da, tamaina pantailaren arabera kalkulatzen da eta Ezarpenak › Interfazea › Interfazearen tamaina atalean alda daiteke. Errenkadek txartel osoak erakusten dituzte eta leiho guztiak pantailan sartzen dira.</item>
-        <item>Telebista-gida oso handiak memoria bete gabe kargatzen dira, bi azpititulu-hizkuntza batera erakuts daitezke, eta urruneko agintearen fokua beti dago ikusgai.</item>
+        <item>Telebistan, urruneko agintea erreproduzigailu txikira eta haren ilarara iristen da; ilara panel txiki gisa irekitzen da.</item>
+        <item>Hasiera ez da inoiz hutsik egoten: aplikazioak zure fitxategiak ikusi ezin dituenean, zergatia esaten du eta sarbidea eskatzen du.</item>
+        <item>Pantaila-irakurgailuak azpititulu-zerbitzu edo hizkuntza bat aktibatuta dagoen esaten du. Arazoen berri proiektuaren GitHub orrian ematen da.</item>
     </string-array>
     <string name="rd_subtitle_size">Azpitituluen tamaina</string>
     <string name="rd_cast_this_phone">Telefono hau</string>

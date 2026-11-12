@@ -30,14 +30,9 @@
     <string name="rd_ob_history_help">Uchovává se jen v tomto zařízení, abyste mohli pokračovat tam, kde jste skončili.</string>
     <string name="rd_ob_updates_help">Jednou denně hledá novější testovací sestavení VLC for Android.</string>
     <string-array name="rd_whats_new_items">
-        <item>Rychlejší a stabilnější: živá TV a titulky fungují na pozadí a pády a zamrzlý přehrávač v systému Android 5 a na TV boxech jsou opraveny.</item>
-        <item>Celá obrazovka: klávesa, dálkový ovladač nebo gesto mohou místo ovládacích prvků zobrazit jen průběh nebo jen zprávu, v Nastavení › Rozhraní. Díky @BarbodF.</item>
-        <item>Chytřejší automatické titulky: nejprve se použije vlastní složka Subs, která patří k videu, soubor s reklamou nebo jen s vynucenými řádky se už nepočítá jako titulky, hledá se i pro film, jehož obraz začíná pozdě, a interpunkce v hebrejštině a arabštině se zobrazuje na správném konci.</item>
-        <item>Online titulky nyní i pro videa ze sdílené složky v síti, z mediálního serveru nebo z odkazu, hledané ručně i automaticky (díky @Elshepl). V systému Android 5 až 7.0 OpenSubtitles opět odpovídá.</item>
-        <item>Panel titulků jako v počítačové verzi: otevírá se nad svým tlačítkem a jazyky s počty titulků, online výsledky i časování jsou na jednom místě.</item>
-        <item>Instaluje se vedle VLC for Android a aplikace pro TV v hebrejštině a arabštině je celá zrcadlově převrácená, s fokusem dálkového ovladače tam, kde ho čekáte.</item>
-        <item>Velikost podle vaší obrazovky: na televizi je aplikace nyní větší a dobře čitelná z gauče, velikost se určí podle obrazovky a lze ji změnit v Nastavení › Rozhraní › Velikost rozhraní. Řady zobrazují celé karty a každé okno se vejde na obrazovku.</item>
-        <item>Velmi rozsáhlé TV programy se načtou, aniž by zaplnily paměť, lze zobrazit titulky ve dvou jazycích najednou a fokus dálkového ovladače je vždy viditelný.</item>
+        <item>Na televizi se ovladačem dostanete k minipřehrávači i jeho frontě; fronta se otevře jako malý panel.</item>
+        <item>Domovská stránka není nikdy prázdná: když aplikace nevidí vaše soubory, řekne proč a požádá o přístup.</item>
+        <item>Čtečka obrazovky oznámí, zda je služba nebo jazyk titulků zapnutý. Problémy se hlásí na stránce projektu na GitHubu.</item>
     </string-array>
     <string name="rd_subtitle_size">Velikost titulků</string>
     <string name="rd_cast_this_phone">Tento telefon</string>
