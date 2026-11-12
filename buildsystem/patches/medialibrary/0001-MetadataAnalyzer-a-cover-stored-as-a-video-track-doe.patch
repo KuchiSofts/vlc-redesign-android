@@ -1,0 +1,116 @@
+From 80f34091f5afa6afc28fd42ff7364c896e944934 Mon Sep 17 00:00:00 2001
+From: KuchiSofts <32385966+KuchiSofts@users.noreply.github.com>
+Date: Thu, 12 Nov 2026 07:41:09 +0200
+Subject: [PATCH] MetadataAnalyzer: a cover stored as a video track doesn't
+ make a song a video
+
+Some tools store a song's artwork as a video track (an .m4a with its
+thumbnail as a still-image stream) instead of as cover art. The analyzer
+took any file with a video track for a video, so these songs were listed
+with the videos and never with albums or artists.
+
+A still-image track (MJPEG, JPEG, PNG, BMP, GIF, TIFF, WebP...) in a file
+named as audio, next to an audio track, is the song's cover now. A Motion
+JPEG camera clip (.avi, .mov) keeps its video type.
+---
+ src/metadata_services/MetadataParser.cpp | 63 +++++++++++++++++++++---
+ 1 file changed, 57 insertions(+), 6 deletions(-)
+
+diff --git a/src/metadata_services/MetadataParser.cpp b/src/metadata_services/MetadataParser.cpp
+index 5e11b72f..539f39a9 100644
+--- a/src/metadata_services/MetadataParser.cpp
++++ b/src/metadata_services/MetadataParser.cpp
+@@ -60,6 +60,7 @@
+ 
+ #include <cstdlib>
+ #include <algorithm>
++#include <cctype>
+ #include <cstring>
+ #include <stack>
+ 
+@@ -68,6 +69,60 @@ namespace medialibrary
+ namespace parser
+ {
+ 
++namespace
++{
++
++/*
++ * Some tools store a song's artwork as a video track (an .m4a with its
++ * thumbnail as a still-image stream) instead of as cover art. Such a track,
++ * a still-image codec in a file named as audio next to an audio track, is
++ * the song's cover: it doesn't make the file a video. A Motion JPEG camera
++ * clip (.avi, .mov) keeps its video type, as does a Theora film in .ogg.
++ */
++bool isCoverTrack( const std::string& mrl, const IItem::Track& t,
++                   const std::vector<IItem::Track>& tracks )
++{
++    if ( t.type != IItem::Track::Type::Video )
++        return false;
++    static const char* const images[] = {
++        "MJPG", "mjpb", "jpeg", "MJLS", "JP2K", "png ", "bmp ", "gif ", "tiff",
++        "tga ", "WEBP", "svg "
++    };
++    if ( std::none_of( std::begin( images ), std::end( images ),
++            [&t]( const char* c ) { return t.codec.compare( 0, 4, c ) == 0; } ) )
++        return false;
++    static const char* const audioExtensions[] = {
++        "3ga", "669", "a52", "aac", "ac3", "adt", "adts", "aif", "aifc", "aiff",
++        "alac", "amb", "amr", "aob", "ape", "au", "awb", "caf", "dts", "dsf", "dff",
++        "flac", "it", "kar", "m4a", "m4b", "m4p", "m5p", "mka", "mlp", "mod", "mpa",
++        "mp1", "mp2", "mp3", "mpc", "mpga", "mus", "oga", "ogg", "oma", "opus",
++        "qcp", "ra", "rmi", "s3m", "sid", "spx", "tak", "thd", "tta", "voc", "vqf",
++        "w64", "wav", "wma", "wv", "xa", "xm"
++    };
++    auto ext = utils::file::extension( mrl );
++    std::transform( begin( ext ), end( ext ), begin( ext ), []( unsigned char c ) {
++        return static_cast<char>( std::tolower( c ) );
++    });
++    if ( std::none_of( std::begin( audioExtensions ), std::end( audioExtensions ),
++            [&ext]( const char* e ) { return ext == e; } ) )
++        return false;
++    return std::any_of( begin( tracks ), end( tracks ), []( const IItem::Track& a ) {
++        return a.type == IItem::Track::Type::Audio;
++    });
++}
++
++/* A file is a video when one of its video tracks is not a cover */
++bool hasVideo( const std::string& mrl, const std::vector<IItem::Track>& tracks )
++{
++    return std::any_of( begin( tracks ), end( tracks ),
++        [&mrl, &tracks]( const IItem::Track& t ) {
++            return t.type == IItem::Track::Type::Video &&
++                    isCoverTrack( mrl, t, tracks ) == false;
++        });
++}
++
++}
++
+ MetadataAnalyzer::MetadataAnalyzer()
+     : m_ml( nullptr )
+     , m_previousFolderId( 0 )
+@@ -707,9 +762,7 @@ Status MetadataAnalyzer::createFileAndMedia( IItem& item ) const
+     IMedia::Type mediaType;
+     if ( tracks.empty() == false )
+     {
+-        if ( std::find_if( begin( tracks ), end( tracks ), [](const IItem::Track& t) {
+-            return t.type == IItem::Track::Type::Video;
+-        }) == end( tracks ) )
++        if ( hasVideo( mrl, tracks ) == false )
+         {
+             mediaType = IMedia::Type::Audio;
+         }
+@@ -912,9 +965,7 @@ std::tuple<bool, bool> MetadataAnalyzer::refreshMedia( IItem& item ) const
+         media->setDuration( item.duration() );
+ 
+     auto tracks = item.tracks();
+-    auto isAudio = std::find_if( begin( tracks ), end( tracks ), [](const IItem::Track& t) {
+-        return t.type == IItem::Track::Type::Video;
+-    }) == end( tracks );
++    auto isAudio = hasVideo( item.mrl(), tracks ) == false;
+ 
+     if ( isAudio == false )
+     {
+-- 
+2.51.1.windows.1
+
