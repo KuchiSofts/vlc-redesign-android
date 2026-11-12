@@ -31,7 +31,9 @@
     <string name="rd_ob_online_text">Engin fjarmæling, engar auglýsingar, enginn aðgangur. Það sem fer sjálft á netið segir frá því fyrir neðan sig og sendir aðeins það sem þar stendur. Þessir valkostir haldast í Stillingum.</string>
     <string name="rd_ob_history_help">Geymt eingöngu á þessu tæki, til að halda áfram þar sem frá var horfið.</string>
     <string name="rd_ob_updates_help">Leitar einu sinni á dag að nýrri prófunarútgáfu af VLC for Android.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>Lög sem geyma mynd sína sem myndskeiðsrás birtast nú sem tónlist, ekki sem myndskeið.</item>
+    </string-array>
     <string name="rd_subtitle_size">Stærð skjátexta</string>
     <string name="rd_cast_this_phone">Þessi sími</string>
     <string name="rd_cast_this_tablet">Þessi spjaldtölva</string>

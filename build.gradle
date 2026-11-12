@@ -23,6 +23,12 @@ plugins {
 
 allprojects {
     repositories {
+        // VLC Redesign: VideoLAN's media library built here with our fixes (buildsystem/patches/medialibrary,
+        // buildsystem/redesign/MEDIALIBRARY.md); only its "-rdN" versions come from there
+        maven {
+            url = uri(System.getenv('RD_MAVEN') ?: "${System.getProperty('user.home')}/source/vlc-redesign-android-maven")
+            content { includeVersionByRegex('org\\.videolan\\.android', 'medialibrary-all', '.*-rd[0-9]+') }
+        }
         google()
         mavenCentral()
         mavenLocal()
@@ -73,7 +79,8 @@ ext {
     versionName = vlcMajorVersion == 3 ? redesignVersionName : '4.0.0-preview - ' + versionCode
     remoteAccessVersion = '0.27.0'
     libvlcVersion = vlcMajorVersion == 3 ? '3.7.7' :'4.0.0-eap29'
-    medialibraryVersion = (vlcMajorVersion == 3 ? '0.13.24' : '0.13.22-vlc4')
+    // (0.13.24 with our fix of #81, a cover stored as a video track: built from VideoLAN's tagged source)
+    medialibraryVersion = (vlcMajorVersion == 3 ? '0.13.24-rd1' : '0.13.22-vlc4')
 
     targetJVM = JavaVersion.VERSION_1_8
     targetJVMKotlin = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8

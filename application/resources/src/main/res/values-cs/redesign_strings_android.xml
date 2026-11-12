@@ -29,7 +29,9 @@
     <string name="rd_ob_online_text">Žádná telemetrie, žádné reklamy, žádný účet. Co se samo připojuje k internetu, uvádí to pod sebou a odesílá jen to, co je tam napsáno. Tyto volby zůstanou v Nastavení.</string>
     <string name="rd_ob_history_help">Uchovává se jen v tomto zařízení, abyste mohli pokračovat tam, kde jste skončili.</string>
     <string name="rd_ob_updates_help">Jednou denně hledá novější testovací sestavení VLC for Android.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>Skladby, jejichž obrázek je uložen jako video stopa, jsou nyní uvedeny jako hudba, ne jako videa.</item>
+    </string-array>
     <string name="rd_subtitle_size">Velikost titulků</string>
     <string name="rd_cast_this_phone">Tento telefon</string>
     <string name="rd_cast_this_tablet">Tento tablet</string>

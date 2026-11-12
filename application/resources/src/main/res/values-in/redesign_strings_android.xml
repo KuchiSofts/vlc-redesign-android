@@ -29,7 +29,9 @@
     <string name="rd_ob_online_text">Tanpa telemetri, tanpa iklan, tanpa akun. Apa pun yang online dengan sendirinya menyebutkannya di bawahnya, dan hanya mengirim apa yang tertulis di sana. Pilihan ini tetap ada di Pengaturan.</string>
     <string name="rd_ob_history_help">Hanya disimpan di perangkat ini, untuk melanjutkan dari tempat terakhir Anda berhenti.</string>
     <string name="rd_ob_updates_help">Mencari build uji VLC for Android yang lebih baru sekali sehari.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>Lagu yang gambarnya disimpan sebagai trek video kini ditampilkan sebagai musik, bukan video.</item>
+    </string-array>
     <string name="rd_subtitle_size">Ukuran subtitel</string>
     <string name="rd_cast_this_phone">Ponsel ini</string>
     <string name="rd_cast_this_tablet">Tablet ini</string>

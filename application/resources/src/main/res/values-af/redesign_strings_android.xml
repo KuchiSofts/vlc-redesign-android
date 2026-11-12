@@ -31,7 +31,9 @@
     <string name="rd_ob_online_text">Geen telemetrie, geen advertensies, geen rekening nie. Wat self aanlyn gaan, sê so daaronder en stuur net wat daar geskryf staan. Hierdie keuses bly in Instellings.</string>
     <string name="rd_ob_history_help">Net op hierdie toestel gehou, om voort te gaan waar jy opgehou het.</string>
     <string name="rd_ob_updates_help">Soek een keer per dag na ’n nuwer toetsweergawe van VLC for Android.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>Liedjies wie se prent as \'n videospoor gestoor is, word nou as musiek gelys, nie as video\'s nie.</item>
+    </string-array>
     <string name="rd_subtitle_size">Onderskrifgrootte</string>
     <string name="rd_cast_this_phone">Hierdie foon</string>
     <string name="rd_cast_this_tablet">Hierdie tablet</string>

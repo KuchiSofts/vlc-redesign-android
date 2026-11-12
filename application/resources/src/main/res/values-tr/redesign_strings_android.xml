@@ -29,7 +29,9 @@
     <string name="rd_ob_online_text">Telemetri yok, reklam yok, hesap yok. Kendiliğinden çevrim içi olan her şey bunu altında belirtir ve yalnızca orada yazanı gönderir. Bu seçimler Ayarlar\'da kalır.</string>
     <string name="rd_ob_history_help">Kaldığınız yerden devam edebilmeniz için yalnızca bu aygıtta saklanır.</string>
     <string name="rd_ob_updates_help">Günde bir kez VLC for Android\'in daha yeni bir test derlemesini arar.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>Resmi video parçası olarak saklanan şarkılar artık video olarak değil, müzik olarak listeleniyor.</item>
+    </string-array>
     <string name="rd_subtitle_size">Altyazı boyutu</string>
     <string name="rd_cast_this_phone">Bu telefon</string>
     <string name="rd_cast_this_tablet">Bu tablet</string>

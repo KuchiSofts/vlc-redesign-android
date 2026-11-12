@@ -2,5 +2,7 @@
 <!-- VLC Redesign: the What's new card of this release (English only: listed in coverage.md, "Android strings to
      translate"). -->
 <resources>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>Songs whose picture is stored as a video track are now listed as music, not as videos.</item>
+    </string-array>
 </resources>

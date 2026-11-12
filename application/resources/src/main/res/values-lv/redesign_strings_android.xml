@@ -29,7 +29,9 @@
     <string name="rd_ob_online_text">Nekādas telemetrijas, nekādu reklāmu, nekāda konta. Tas, kas pats pieslēdzas tiešsaistei, to norāda zem sevis un sūta tikai to, kas tur rakstīts. Šīs izvēles paliek Iestatījumos.</string>
     <string name="rd_ob_history_help">Glabājas tikai šajā ierīcē, lai turpinātu tur, kur palikāt.</string>
     <string name="rd_ob_updates_help">Reizi dienā meklē jaunāku VLC for Android testa versiju.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>Dziesmas, kuru attēls saglabāts kā video celiņš, tagad tiek rādītas kā mūzika, nevis kā video.</item>
+    </string-array>
     <string name="rd_subtitle_size">Subtitru izmērs</string>
     <string name="rd_cast_this_phone">Šis tālrunis</string>
     <string name="rd_cast_this_tablet">Šī planšete</string>

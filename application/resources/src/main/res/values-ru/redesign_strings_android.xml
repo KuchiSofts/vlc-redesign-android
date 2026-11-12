@@ -29,7 +29,9 @@
     <string name="rd_ob_online_text">Никакой телеметрии, никакой рекламы, никакой учётной записи. То, что само выходит в Интернет, сообщает об этом под собой и отправляет только то, что там написано. Этот выбор остаётся в Настройках.</string>
     <string name="rd_ob_history_help">Хранится только на этом устройстве, чтобы продолжить с того места, где вы остановились.</string>
     <string name="rd_ob_updates_help">Раз в день проверяет, нет ли более новой тестовой сборки VLC for Android.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>Песни, картинка которых сохранена как видеодорожка, теперь показываются как музыка, а не как видео.</item>
+    </string-array>
     <string name="rd_subtitle_size">Размер субтитров</string>
     <string name="rd_cast_this_phone">Этот телефон</string>
     <string name="rd_cast_this_tablet">Этот планшет</string>

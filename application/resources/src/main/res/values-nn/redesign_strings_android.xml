@@ -30,7 +30,9 @@
     <string name="rd_ob_online_text">Ingen telemetri, ingen reklame, ingen konto. Det som går på nettet av seg sjølv, seier det under seg og sender berre det som står der. Desse vala finst òg i Innstillingar.</string>
     <string name="rd_ob_history_help">Vert berre lagra på denne eininga, så du kan halda fram der du slapp.</string>
     <string name="rd_ob_updates_help">Ser etter ein nyare testversjon av VLC for Android éin gong om dagen.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>Songar der biletet er lagra som eit videospor, vert no viste som musikk og ikkje som videoar.</item>
+    </string-array>
     <string name="rd_subtitle_size">Storleik på tekstinga</string>
     <string name="rd_cast_this_phone">Denne telefonen</string>
     <string name="rd_cast_this_tablet">Dette nettbrettet</string>
