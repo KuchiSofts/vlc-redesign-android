@@ -29,9 +29,7 @@
     <string name="rd_ob_online_text">没有遥测，没有广告，无需账号。会自行联网的功能都会在其下方注明，并且只发送那里写明的内容。这些选择会保留在设置中。</string>
     <string name="rd_ob_history_help">仅保存在本设备上，用于从上次停下的地方继续。</string>
     <string name="rd_ob_updates_help">每天检查一次是否有更新的 VLC for Android 测试版。</string>
-    <string-array name="rd_whats_new_items">
-        <item>图片以视频轨道形式保存的歌曲，现在会显示在音乐中，而不是视频中。</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">字幕大小</string>
     <string name="rd_cast_this_phone">此手机</string>
     <string name="rd_cast_this_tablet">此平板电脑</string>

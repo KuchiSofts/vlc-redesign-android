@@ -29,9 +29,7 @@
     <string name="rd_ob_online_text">Ingen telemetri, inga annonser, inget konto. Det som går ut på nätet av sig självt säger det under sig och skickar bara det som står där. De här valen finns kvar i Inställningar.</string>
     <string name="rd_ob_history_help">Sparas bara på den här enheten, så att du kan fortsätta där du slutade.</string>
     <string name="rd_ob_updates_help">Letar en gång om dagen efter en nyare testversion av VLC for Android.</string>
-    <string-array name="rd_whats_new_items">
-        <item>Låtar vars bild är sparad som ett videospår visas nu som musik och inte som videor.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Undertextstorlek</string>
     <string name="rd_cast_this_phone">Den här telefonen</string>
     <string name="rd_cast_this_tablet">Den här surfplattan</string>

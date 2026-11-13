@@ -29,9 +29,7 @@
     <string name="rd_ob_online_text">Pas de télémétrie, pas de publicité, pas de compte. Ce qui se connecte à Internet de lui-même l\'indique en dessous et n\'envoie que ce qui y est écrit. Ces choix restent dans les Paramètres.</string>
     <string name="rd_ob_history_help">Conservé sur cet appareil uniquement, pour reprendre là où vous vous êtes arrêté.</string>
     <string name="rd_ob_updates_help">Recherche une version de test plus récente de VLC for Android une fois par jour.</string>
-    <string-array name="rd_whats_new_items">
-        <item>Les morceaux dont l\'image est enregistrée comme piste vidéo apparaissent désormais dans la musique, et non dans les vidéos.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Taille des sous-titres</string>
     <string name="rd_cast_this_phone">Ce téléphone</string>
     <string name="rd_cast_this_tablet">Cette tablette</string>

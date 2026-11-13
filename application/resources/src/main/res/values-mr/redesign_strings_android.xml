@@ -29,9 +29,7 @@
     <string name="rd_ob_online_text">टेलिमेट्री नाही, जाहिराती नाहीत, खाते नाही. जे आपोआप ऑनलाइन जाते ते त्याखाली तसे सांगते आणि तिथे लिहिलेलेच पाठवते. हे पर्याय रचनामध्ये राहतात.</string>
     <string name="rd_ob_history_help">फक्त याच उपकरणावर ठेवले जाते, तुम्ही जिथे थांबला होता तिथून पुढे चालू करण्यासाठी.</string>
     <string name="rd_ob_updates_help">दिवसातून एकदा VLC for Android ची नवी चाचणी आवृत्ती शोधते.</string>
-    <string-array name="rd_whats_new_items">
-        <item>ज्या गाण्यांचे चित्र व्हिडिओ ट्रॅक म्हणून साठवलेले आहे, ती आता व्हिडिओ नव्हे तर संगीत म्हणून दिसतात.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">उपशीर्षकाचा आकार</string>
     <string name="rd_cast_this_phone">हा फोन</string>
     <string name="rd_cast_this_tablet">हा टॅबलेट</string>

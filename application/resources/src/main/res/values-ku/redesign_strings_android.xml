@@ -31,9 +31,7 @@
     <string name="rd_ob_online_text">بێ تێلێمەتری، بێ ڕیکلام، بێ هەژمار. ئەوەی خۆی دەچێتە سەرهێڵ، لە ژێرییەوە ئەمە دەڵێت و تەنها ئەوە دەنێرێت کە لەوێ نووسراوە. ئەم هەڵبژاردنانە لە ڕێکخستنەکاندا دەمێننەوە.</string>
     <string name="rd_ob_history_help">تەنها لەسەر ئەم ئامێرە هەڵدەگیرێت، بۆ ئەوەی لەو شوێنەوە بەردەوام بیت کە لێی وەستایت.</string>
     <string name="rd_ob_updates_help">ڕۆژی جارێک بۆ وەشانێکی تاقیکاریی نوێتری VLC for Android دەگەڕێت.</string>
-    <string-array name="rd_whats_new_items">
-        <item>ئەو گۆرانیانەی وێنەکەیان وەک تراکی ڤیدیۆ پاشەکەوت کراوە، ئێستا وەک مۆسیقا پیشان دەدرێن، نەک ڤیدیۆ.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">قەبارەی ژێرنووس</string>
     <string name="rd_cast_this_phone">ئەم مۆبایلە</string>
     <string name="rd_cast_this_tablet">ئەم تابلێتە</string>

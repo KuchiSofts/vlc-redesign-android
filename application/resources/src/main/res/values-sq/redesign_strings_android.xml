@@ -31,9 +31,7 @@
     <string name="rd_ob_online_text">Pa telemetri, pa reklama, pa llogari. Çdo gjë që lidhet vetë në internet e thotë këtë poshtë saj dhe dërgon vetëm atë që shkruhet aty. Këto zgjedhje mbeten te Cilësimet.</string>
     <string name="rd_ob_history_help">Ruhet vetëm në këtë pajisje, për të vazhduar aty ku e latë.</string>
     <string name="rd_ob_updates_help">Kërkon një herë në ditë për një version prove më të ri të VLC for Android.</string>
-    <string-array name="rd_whats_new_items">
-        <item>Këngët, fotografia e të cilave është ruajtur si pjesë video, tani shfaqen si muzikë, jo si video.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Madhësia e titrave</string>
     <string name="rd_cast_this_phone">Ky telefon</string>
     <string name="rd_cast_this_tablet">Ky tablet</string>
