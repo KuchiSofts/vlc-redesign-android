@@ -635,7 +635,7 @@
     </plurals>
     <plurals name="duplicate_three_options_secondary">
         <item quantity="one">चुनें हुए \"%s\" में से 1 पहले से ही प्लेलिस्ट में हैं।</item>
-        <item quantity="other">चुनें हुए \"%s\" में से %d पहले से ही प्लेलिस्ट में हैं।</item>
+        <item quantity="other">चुनें हुए \"%2$s\" में से %1$d पहले से ही प्लेलिस्ट में हैं।</item>
     </plurals>
     <string name="no_web_browser">कोई इंटरनेट ब्राउजर नहीं मिला</string>
     <string name="widget_type_pill">बिन्दी</string>
