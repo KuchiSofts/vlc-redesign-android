@@ -140,6 +140,7 @@ import org.videolan.resources.TV_AUDIOPLAYER_ACTIVITY
 import org.videolan.resources.buildPkgString
 import org.videolan.resources.util.parcelable
 import org.videolan.resources.util.parcelableList
+import org.videolan.resources.util.getFromMl
 import org.videolan.tools.BRIGHTNESS_VALUE
 import org.videolan.tools.DISPLAY_UNDER_NOTCH
 import org.videolan.tools.ENABLE_BRIGHTNESS_GESTURE
@@ -1862,12 +1863,27 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         if (keyFeedback.active) service?.let { keyFeedback.rate(it.rate) }
     }
 
-    /** VLC Redesign: the player bar's Stop, Snapshot and Add bookmark (Customize Player, PlayerBarLayout) */
+    /** VLC Redesign: the player bar's Stop, Snapshot, Add bookmark, long jumps and Favorite (Customize Player,
+     *  PlayerBarLayout) */
     fun rdBarAction(action: String) {
         when (action) {
             "stop" -> exitOK()
             "snapshot" -> takeScreenshot()
             "add_bookmark" -> bookmark()
+            "backward_long" -> touchDelegate.seekDelta(-Settings.videoLongJumpDelay * 1000)
+            "forward_long" -> touchDelegate.seekDelta(Settings.videoLongJumpDelay * 1000)
+            "favorite" -> lifecycleScope.launch {
+                // the media of the library playing: in the favorites, or out of them (as the library's menus)
+                val mw = service?.currentMediaWrapper ?: return@launch
+                // (a file or a stream the library does not have yet: added to it, as its history does; the library
+                // started first when the player was opened by itself)
+                val media = getFromMl { findMedia(mw)?.takeIf { it.id != 0L } ?: addMedia(mw.uri.toString(), mw.length) }
+                if (media == null || media.id == 0L) return@launch
+                val favorite = !media.isFavorite
+                withContext(Dispatchers.IO) { media.isFavorite = favorite }
+                if (BuildConfig.DEBUG) Log.d(TAG, "favorite: ${media.id} -> $favorite")
+                overlayDelegate.showInfo(getString(if (favorite) R.string.favorite_added else R.string.favorite_removed), 1500)
+            }
         }
     }
 

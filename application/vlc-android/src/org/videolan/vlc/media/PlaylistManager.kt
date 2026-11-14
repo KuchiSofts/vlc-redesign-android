@@ -1453,6 +1453,8 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
      * @param mw: The [MediaWrapper] to be updated
      */
     private fun refreshTrackMeta(mw: MediaWrapper) {
+        // VLC Redesign: a video with a sound file of its own keeps its name (PlayerController.rdAudioSlave)
+        if (player.rdAudioSlave && mw.type == MediaWrapper.TYPE_VIDEO) return
         mw.updateMeta(player.mediaplayer)
         service.onMediaListChanged()
         service.showNotification()

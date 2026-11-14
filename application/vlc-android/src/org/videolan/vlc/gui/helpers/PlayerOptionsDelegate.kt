@@ -300,7 +300,7 @@ class PlayerOptionsDelegate(val activity: FragmentActivity, val service: Playbac
                 return
             }
             // the player's own: the desktop's Stop, Snapshot and the bookmark at this moment (the B key)
-            "stop", "snapshot", "add_bookmark" -> {
+            "stop", "snapshot", "add_bookmark", "backward_long", "forward_long", "favorite" -> {
                 (activity as? VideoPlayerActivity)?.rdBarAction(action)
                 return
             }

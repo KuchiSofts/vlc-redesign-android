@@ -58,6 +58,10 @@ object PlayerBarLayout {
             Control("info", R.string.video_information, R.drawable.ic_video_stats, action = "info"),
             Control("add_bookmark", R.string.add_bookmark, R.drawable.ic_bookmark_add, action = "add_bookmark"),
             Control("save_playlist", R.string.playlist_save, R.drawable.ic_addtoplaylist, action = "save_playlist"),
+            // the desktop's second pair of jumps (Settings › Controls' long jump) and its Favorite
+            Control("backward_long", R.string.rd_key_long_back, R.drawable.ic_auto_rewind, action = "backward_long"),
+            Control("forward_long", R.string.rd_key_long_forward, R.drawable.ic_auto_forward, action = "forward_long"),
+            Control("favorite", R.string.favorite, R.drawable.ic_favorite, action = "favorite"),
     )
 
     fun control(key: String) = CATALOGUE.firstOrNull { it.key == key }
