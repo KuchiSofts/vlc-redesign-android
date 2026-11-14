@@ -561,4 +561,9 @@
     <string name="rd_sort_url">Webbadress</string>
     <string name="rd_sort_file_modified">Ändringsdatum</string>
     <string name="rd_no_file_picker">Den här enheten har ingen filväljare: lägg till filer från appens mappar i stället.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_export_playlist">Exportera spellista</string>
+    <string name="rd_playlist_exported">Spellistan har sparats.</string>
+    <string name="rd_playlist_export_failed">Spellistan kunde inte sparas.</string>
+    <string name="rd_no_file_picker_save">På den här enheten går det inte att välja var en fil sparas.</string>
 </resources>

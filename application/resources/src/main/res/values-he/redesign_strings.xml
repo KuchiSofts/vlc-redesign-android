@@ -546,4 +546,9 @@
     <string name="rd_sort_url">כתובת</string>
     <string name="rd_sort_file_modified">תאריך שינוי</string>
     <string name="rd_no_file_picker">אין במכשיר הזה בוחר קבצים: אפשר להוסיף קבצים מהתיקיות של האפליקציה.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_export_playlist">ייצא רשימת נגינה</string>
+    <string name="rd_playlist_exported">רשימת ההשמעה נשמרה.</string>
+    <string name="rd_playlist_export_failed">לא ניתן היה לשמור את רשימת ההשמעה.</string>
+    <string name="rd_no_file_picker_save">אין במכשיר הזה דרך לבחור איפה לשמור קובץ.</string>
 </resources>

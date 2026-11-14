@@ -564,4 +564,9 @@
     <string name="rd_sort_url">URL</string>
     <string name="rd_sort_file_modified">Data modyfikacji</string>
     <string name="rd_no_file_picker">To urządzenie nie ma selektora plików: dodaj pliki z folderów aplikacji.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_export_playlist">Eksportuj listę odtwarzania</string>
+    <string name="rd_playlist_exported">Playlista została zapisana.</string>
+    <string name="rd_playlist_export_failed">Nie udało się zapisać playlisty.</string>
+    <string name="rd_no_file_picker_save">Na tym urządzeniu nie można wybrać, gdzie zapisać plik.</string>
 </resources>

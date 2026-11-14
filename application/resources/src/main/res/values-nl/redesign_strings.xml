@@ -561,4 +561,9 @@
     <string name="rd_sort_url">URL</string>
     <string name="rd_sort_file_modified">Gewijzigd</string>
     <string name="rd_no_file_picker">Dit apparaat heeft geen bestandskiezer: voeg bestanden toe via de mappen van de app.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_export_playlist">Afspeellijst exporteren</string>
+    <string name="rd_playlist_exported">De afspeellijst is opgeslagen.</string>
+    <string name="rd_playlist_export_failed">De afspeellijst kon niet worden opgeslagen.</string>
+    <string name="rd_no_file_picker_save">Op dit apparaat kun je niet kiezen waar een bestand wordt opgeslagen.</string>
 </resources>

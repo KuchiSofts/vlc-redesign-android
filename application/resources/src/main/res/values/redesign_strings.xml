@@ -551,6 +551,11 @@
         <item quantity="other">%1$d files added to the queue</item>
     </plurals>
     <string name="rd_no_file_picker">This device has no file picker: add files from the app\'s folders instead.</string>
+    <!-- Playlists: the desktop's Export Playlist (an M3U8 file) -->
+    <string name="rd_export_playlist">Export Playlist</string>
+    <string name="rd_playlist_exported">The playlist is saved.</string>
+    <string name="rd_playlist_export_failed">The playlist could not be saved.</string>
+    <string name="rd_no_file_picker_save">This device has no way to choose where to save a file.</string>
     <!-- Settings › General and Privacy: the desktop's rows -->
     <string name="rd_layout_direction">Layout direction</string>
     <string name="rd_follow_system_accent">Follow the system accent color</string>

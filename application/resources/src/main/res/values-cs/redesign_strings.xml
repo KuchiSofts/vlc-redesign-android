@@ -564,4 +564,9 @@
     <string name="rd_sort_url">URL</string>
     <string name="rd_sort_file_modified">Datum změny</string>
     <string name="rd_no_file_picker">Toto zařízení nemá výběr souborů: přidejte soubory ze složek aplikace.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_export_playlist">Exportovat seznam skladeb</string>
+    <string name="rd_playlist_exported">Seznam skladeb byl uložen.</string>
+    <string name="rd_playlist_export_failed">Seznam skladeb se nepodařilo uložit.</string>
+    <string name="rd_no_file_picker_save">Na tomto zařízení nelze vybrat, kam soubor uložit.</string>
 </resources>

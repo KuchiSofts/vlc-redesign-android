@@ -564,4 +564,9 @@
     <string name="rd_sort_url">URL</string>
     <string name="rd_sort_file_modified">Змінено</string>
     <string name="rd_no_file_picker">На цьому пристрої немає вибору файлів: додайте файли з тек застосунку.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_export_playlist">Експортувати список відтворення</string>
+    <string name="rd_playlist_exported">Список відтворення збережено.</string>
+    <string name="rd_playlist_export_failed">Не вдалося зберегти список відтворення.</string>
+    <string name="rd_no_file_picker_save">На цьому пристрої не можна вибрати, куди зберегти файл.</string>
 </resources>

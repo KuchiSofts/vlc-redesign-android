@@ -560,4 +560,9 @@
     <string name="rd_sort_url">URL</string>
     <string name="rd_sort_file_modified">更新日時</string>
     <string name="rd_no_file_picker">この端末にはファイル選択機能がありません。アプリのフォルダーからファイルを追加してください。</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_export_playlist">プレイリストをエクスポート</string>
+    <string name="rd_playlist_exported">プレイリストを保存しました。</string>
+    <string name="rd_playlist_export_failed">プレイリストを保存できませんでした。</string>
+    <string name="rd_no_file_picker_save">この端末ではファイルの保存先を選べません。</string>
 </resources>

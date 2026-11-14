@@ -561,4 +561,9 @@
     <string name="rd_sort_url">İnternet Adresi</string>
     <string name="rd_sort_file_modified">Değiştirilme tarihi</string>
     <string name="rd_no_file_picker">Bu cihazda dosya seçici yok: dosyaları uygulamanın klasörlerinden ekleyin.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_export_playlist">Oynatma Listesini Dışa Aktar</string>
+    <string name="rd_playlist_exported">Oynatma listesi kaydedildi.</string>
+    <string name="rd_playlist_export_failed">Oynatma listesi kaydedilemedi.</string>
+    <string name="rd_no_file_picker_save">Bu cihazda bir dosyanın nereye kaydedileceği seçilemiyor.</string>
 </resources>

@@ -561,4 +561,9 @@
     <string name="rd_sort_url">URL</string>
     <string name="rd_sort_file_modified">Modifié le</string>
     <string name="rd_no_file_picker">Cet appareil n\'a pas de sélecteur de fichiers : ajoutez plutôt des fichiers depuis les dossiers de l\'application.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_export_playlist">Exporter la liste de lecture</string>
+    <string name="rd_playlist_exported">La liste de lecture est enregistrée.</string>
+    <string name="rd_playlist_export_failed">La liste de lecture n\'a pas pu être enregistrée.</string>
+    <string name="rd_no_file_picker_save">Cet appareil ne permet pas de choisir où enregistrer un fichier.</string>
 </resources>

@@ -514,6 +514,7 @@ abstract class BaseAudioBrowser<T : MedialibraryViewModel> : MediaBrowserFragmen
                     if (item.tracksCount > 2) add(CTX_PLAY_SHUFFLE)
                     if (item.isFavorite) add(CTX_FAV_REMOVE) else add(CTX_FAV_ADD)
                     org.videolan.vlc.util.Pins.option(requireContext(), item)?.let { add(it) }
+                    if (item.tracksCount > 0) add(org.videolan.vlc.util.ContextOption.CTX_EXPORT_PLAYLIST)
                 }
             }
             else -> createCtxAudioFlags()
@@ -545,6 +546,10 @@ abstract class BaseAudioBrowser<T : MedialibraryViewModel> : MediaBrowserFragmen
         if (position >= getCurrentAdapter()?.itemCount ?: 0) return
         val media = getCurrentAdapter()?.getItem(position) ?: return
         if (org.videolan.vlc.util.Pins.handle(requireContext(), option, media)) return
+        if (option == org.videolan.vlc.util.ContextOption.CTX_EXPORT_PLAYLIST) {
+            (media as? org.videolan.medialibrary.interfaces.media.Playlist)?.let { org.videolan.vlc.gui.helpers.RdPlaylistExport.export(requireActivity(), it) }
+            return
+        }
         when (option) {
             CTX_PLAY -> MediaUtils.playTracks(requireActivity(), media, 0)
             CTX_PLAY_SHUFFLE -> MediaUtils.playTracks(requireActivity(), media, SecureRandom().nextInt(min(media.tracksCount, MEDIALIBRARY_PAGE_SIZE)), true)

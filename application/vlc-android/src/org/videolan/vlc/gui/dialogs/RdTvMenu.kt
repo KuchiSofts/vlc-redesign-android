@@ -71,7 +71,7 @@ object RdTvMenu {
         CTX_REMOVE_FROM_PLAYLIST, CTX_DELETE, CTX_CUSTOM_REMOVE, CTX_REMOVE_GROUP, CTX_UNGROUP -> "remove"
         CTX_BAN_FOLDER -> "close"
         CTX_COPY -> "file"
-        CTX_SHARE -> "export"
+        CTX_SHARE, org.videolan.vlc.util.ContextOption.CTX_EXPORT_PLAYLIST -> "export"
         CTX_ADD_SHORTCUT -> "add"
         CTX_GROUP_SIMILAR -> "lists"
         CTX_MARK_AS_PLAYED, CTX_MARK_AS_UNPLAYED, CTX_MARK_ALL_AS_PLAYED, CTX_MARK_ALL_AS_UNPLAYED -> "mark_watched"

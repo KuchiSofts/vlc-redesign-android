@@ -561,4 +561,9 @@
     <string name="rd_sort_url">URL</string>
     <string name="rd_sort_file_modified">Geändert am</string>
     <string name="rd_no_file_picker">Dieses Gerät hat keine Dateiauswahl: Füge Dateien stattdessen über die Ordner der App hinzu.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_export_playlist">Wiedergabeliste exportieren</string>
+    <string name="rd_playlist_exported">Die Wiedergabeliste ist gespeichert.</string>
+    <string name="rd_playlist_export_failed">Die Wiedergabeliste konnte nicht gespeichert werden.</string>
+    <string name="rd_no_file_picker_save">Auf diesem Gerät lässt sich nicht wählen, wo eine Datei gespeichert wird.</string>
 </resources>

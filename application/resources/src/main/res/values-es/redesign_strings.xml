@@ -561,4 +561,9 @@
     <string name="rd_sort_url">URL</string>
     <string name="rd_sort_file_modified">Modificado</string>
     <string name="rd_no_file_picker">Este dispositivo no tiene selector de archivos: añade archivos desde las carpetas de la aplicación.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_export_playlist">Exportar lista de reproducción</string>
+    <string name="rd_playlist_exported">La lista de reproducción se ha guardado.</string>
+    <string name="rd_playlist_export_failed">No se pudo guardar la lista de reproducción.</string>
+    <string name="rd_no_file_picker_save">Este dispositivo no permite elegir dónde guardar un archivo.</string>
 </resources>

@@ -560,4 +560,9 @@
     <string name="rd_sort_file_modified">檔案修改時間</string>
     <string name="rd_no_file_picker">此裝置沒有檔案選擇器：請從應用程式的資料夾新增檔案。</string>
     <string name="rd_sort_track_number">曲目編號</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_export_playlist">匯出播放清單</string>
+    <string name="rd_playlist_exported">播放清單已儲存。</string>
+    <string name="rd_playlist_export_failed">無法儲存播放清單。</string>
+    <string name="rd_no_file_picker_save">此裝置無法選擇檔案的儲存位置。</string>
 </resources>

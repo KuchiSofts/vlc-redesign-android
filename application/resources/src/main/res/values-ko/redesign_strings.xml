@@ -560,4 +560,9 @@
     <string name="rd_sort_url">URL</string>
     <string name="rd_sort_file_modified">수정한 날짜</string>
     <string name="rd_no_file_picker">이 기기에는 파일 선택기가 없습니다. 앱의 폴더에서 파일을 추가하세요.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_export_playlist">재생목록 내보내기</string>
+    <string name="rd_playlist_exported">재생 목록을 저장했습니다.</string>
+    <string name="rd_playlist_export_failed">재생 목록을 저장하지 못했습니다.</string>
+    <string name="rd_no_file_picker_save">이 기기에서는 파일을 저장할 위치를 선택할 수 없습니다.</string>
 </resources>

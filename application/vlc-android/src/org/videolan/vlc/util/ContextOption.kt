@@ -65,7 +65,9 @@ enum class ContextOption : Flag {
     CTX_QUICK_PLAY,
     // VLC Redesign: Pin to Sidebar / Unpin from Sidebar (util/Pins)
     CTX_PIN,
-    CTX_UNPIN;
+    CTX_UNPIN,
+    // VLC Redesign: the desktop's Export Playlist (gui/helpers/RdPlaylistExport)
+    CTX_EXPORT_PLAYLIST;
 
     override fun toLong() = 1L shl this.ordinal
 

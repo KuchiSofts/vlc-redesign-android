@@ -564,4 +564,9 @@
     <string name="rd_sort_url">URL</string>
     <string name="rd_sort_file_modified">Дата изменения</string>
     <string name="rd_no_file_picker">На этом устройстве нет выбора файлов: добавьте файлы из папок приложения.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_export_playlist">Экспортировать плейлист</string>
+    <string name="rd_playlist_exported">Плейлист сохранён.</string>
+    <string name="rd_playlist_export_failed">Не удалось сохранить плейлист.</string>
+    <string name="rd_no_file_picker_save">На этом устройстве нельзя выбрать, куда сохранить файл.</string>
 </resources>
