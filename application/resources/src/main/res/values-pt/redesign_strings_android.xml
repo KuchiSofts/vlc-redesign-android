@@ -29,9 +29,7 @@
     <string name="rd_ob_online_text">Sem telemetria, sem anúncios, sem conta. O que se liga à Internet por si próprio indica-o por baixo e só envia o que lá está escrito. Estas escolhas ficam nas Definições.</string>
     <string name="rd_ob_history_help">Guardado apenas neste dispositivo, para continuar onde parou.</string>
     <string name="rd_ob_updates_help">Procura uma versão de teste mais recente do VLC for Android uma vez por dia.</string>
-    <string-array name="rd_whats_new_items">
-        <item>As músicas cuja imagem está guardada como faixa de vídeo aparecem agora como música e não como vídeos.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Tamanho das legendas</string>
     <string name="rd_cast_this_phone">Este telemóvel</string>
     <string name="rd_cast_this_tablet">Este tablet</string>

@@ -29,9 +29,7 @@
     <string name="rd_ob_online_text">Ingen telemetri, ingen reklamer, ingen konto. Det, der selv går online, fortæller det nedenunder og sender kun det, der står dér. Disse valg findes fortsat i Indstillinger.</string>
     <string name="rd_ob_history_help">Gemmes kun på denne enhed, så du kan fortsætte, hvor du slap.</string>
     <string name="rd_ob_updates_help">Søger én gang om dagen efter en nyere testudgave af VLC for Android.</string>
-    <string-array name="rd_whats_new_items">
-        <item>Sange, hvis billede er gemt som et videospor, vises nu som musik og ikke som videoer.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Undertekststørrelse</string>
     <string name="rd_cast_this_phone">Denne telefon</string>
     <string name="rd_cast_this_tablet">Denne tablet</string>

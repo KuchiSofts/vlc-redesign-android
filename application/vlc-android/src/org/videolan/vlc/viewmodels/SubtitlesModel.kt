@@ -7,6 +7,7 @@ import android.net.Uri
 import android.text.Spanned
 import android.util.Log
 import androidx.core.text.HtmlCompat
+import androidx.core.text.htmlEncode
 import androidx.core.text.toSpanned
 import androidx.databinding.Observable
 import androidx.databinding.ObservableBoolean
@@ -173,10 +174,11 @@ class SubtitlesModel(context: Context, private val mediaUri: Uri, private val na
 
     private suspend fun getSubtitleByName(name: String, episode: Int?, season: Int?, languageIds: List<String>?, hearingImpaired: Boolean): OpenSubV1 {
         if (BuildConfig.DEBUG) Log.d(this::class.java.simpleName, "Getting subs by name with $name")
-        val builder = StringBuilder(getContext().getString(R.string.sub_result_by_name, "<i>$name</i>"))
+        // (the name is the user's or the file's: as text, not HTML)
+        val builder = StringBuilder(getContext().getString(R.string.sub_result_by_name, "<i>${name.htmlEncode()}</i>"))
         season?.let { builder.append(" ${TextUtils.SEPARATOR} ").append(getContext().getString(R.string.sub_result_by_name_season, "<i>$it</i>")) }
         episode?.let { builder.append(" ${TextUtils.SEPARATOR} ").append(getContext().getString(R.string.sub_result_by_name_episode, "<i>$it</i>")) }
-        languageIds?.let { languages -> if (languageIds.isNotEmpty()) builder.append(" ${TextUtils.SEPARATOR} ").append("<i>${languages.joinToString(", "){ it.uppercase()} }</i>") }
+        languageIds?.let { languages -> if (languageIds.isNotEmpty()) builder.append(" ${TextUtils.SEPARATOR} ").append("<i>${languages.joinToString(", "){ it.uppercase()}.htmlEncode() }</i>") }
         if (hearingImpaired) builder.append(" ${TextUtils.SEPARATOR} ").append(getContext().getString(R.string.sub_result_by_name_hearing_impaired))
         observableResultDescription.set(HtmlCompat.fromHtml(builder.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY))
         val talkbackBuilder = StringBuilder(getContext().getString(R.string.sub_result_by_name, name))

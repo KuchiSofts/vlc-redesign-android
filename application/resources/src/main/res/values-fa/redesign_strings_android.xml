@@ -31,9 +31,7 @@
     <string name="rd_ob_online_text">بدون تله‌متری، بدون تبلیغات، بدون حساب کاربری. هر چیزی که خودبه‌خود به اینترنت وصل می‌شود، این را زیر خود می‌گوید و فقط همان چیزی را می‌فرستد که آنجا نوشته شده است. این انتخاب‌ها در تنظیمات باقی می‌مانند.</string>
     <string name="rd_ob_history_help">فقط روی همین دستگاه نگه داشته می‌شود، تا از جایی که رها کرده‌اید ادامه دهید.</string>
     <string name="rd_ob_updates_help">روزی یک بار به دنبال نسخهٔ آزمایشی تازه‌تری از VLC for Android می‌گردد.</string>
-    <string-array name="rd_whats_new_items">
-        <item>آهنگ‌هایی که تصویرشان به‌صورت یک ترک ویدیو ذخیره شده، اکنون در موسیقی نمایش داده می‌شوند، نه در ویدیوها.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">اندازهٔ زیرنویس</string>
     <string name="rd_cast_this_phone">این تلفن</string>
     <string name="rd_cast_this_tablet">این تبلت</string>

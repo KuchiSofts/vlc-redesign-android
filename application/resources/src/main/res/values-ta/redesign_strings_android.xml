@@ -31,9 +31,7 @@
     <string name="rd_ob_online_text">டெலிமெட்ரி இல்லை, விளம்பரங்கள் இல்லை, கணக்கு இல்லை. தானாக இணையத்துக்குச் செல்வது அதன் கீழே அதைக் குறிப்பிடுகிறது, அங்கே எழுதியிருப்பதை மட்டுமே அனுப்புகிறது. இந்தத் தேர்வுகள் அமைப்புகளில் இருக்கும்.</string>
     <string name="rd_ob_history_help">இந்தச் சாதனத்தில் மட்டுமே வைக்கப்படும், நீங்கள் விட்ட இடத்திலிருந்து தொடர.</string>
     <string name="rd_ob_updates_help">நாளுக்கு ஒருமுறை VLC for Android-இன் புதிய சோதனைப் பதிப்பைத் தேடுகிறது.</string>
-    <string-array name="rd_whats_new_items">
-        <item>படம் வீடியோ டிராக்காகச் சேமிக்கப்பட்ட பாடல்கள் இப்போது வீடியோக்களாக அல்ல, இசையாகக் காட்டப்படுகின்றன.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">வசன அளவு</string>
     <string name="rd_cast_this_phone">இந்தத் தொலைபேசி</string>
     <string name="rd_cast_this_tablet">இந்த டேப்லெட்</string>

@@ -30,9 +30,7 @@
     <string name="rd_ob_online_text">Dim telemetreg, dim hysbysebion, dim cyfrif. Mae\'r hyn sy\'n mynd ar-lein ohono\'i hun yn dweud hynny oddi tano, ac yn anfon dim ond yr hyn sydd wedi\'i ysgrifennu yno. Mae\'r dewisiadau hyn yn aros yn y Gosodiadau.</string>
     <string name="rd_ob_history_help">Yn cael ei gadw ar y ddyfais hon yn unig, i barhau o\'r man lle gadawoch chi.</string>
     <string name="rd_ob_updates_help">Yn chwilio am fersiwn prawf mwy newydd o VLC for Android unwaith y dydd.</string>
-    <string-array name="rd_whats_new_items">
-        <item>Mae caneuon y mae eu llun wedi\'i gadw fel trac fideo bellach wedi\'u rhestru fel cerddoriaeth, nid fel fideos.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Maint isdeitlau</string>
     <string name="rd_cast_this_phone">Y ffôn hwn</string>
     <string name="rd_cast_this_tablet">Y llechen hon</string>

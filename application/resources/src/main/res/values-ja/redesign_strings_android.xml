@@ -29,9 +29,7 @@
     <string name="rd_ob_online_text">テレメトリーなし、広告なし、アカウント不要。自動的にオンラインに接続する機能には、その下にそのことが書かれており、そこに書かれた内容だけを送信します。これらの選択は設定に残り、いつでも変更できます。</string>
     <string name="rd_ob_history_help">このデバイスにのみ保存され、前回の続きから再開するために使われます。</string>
     <string name="rd_ob_updates_help">1 日に 1 回、VLC for Android の新しいテスト版を確認します。</string>
-    <string-array name="rd_whats_new_items">
-        <item>画像が動画トラックとして保存されている曲は、動画ではなく音楽として表示されるようになりました。</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">字幕のサイズ</string>
     <string name="rd_cast_this_phone">このスマートフォン</string>
     <string name="rd_cast_this_tablet">このタブレット</string>

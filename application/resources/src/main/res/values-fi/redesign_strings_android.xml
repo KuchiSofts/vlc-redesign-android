@@ -29,9 +29,7 @@
     <string name="rd_ob_online_text">Ei telemetriaa, ei mainoksia, ei tiliä. Se, mikä menee verkkoon itsestään, kertoo sen alapuolellaan ja lähettää vain sen, mitä siinä lukee. Nämä valinnat pysyvät Asetuksissa.</string>
     <string name="rd_ob_history_help">Säilytetään vain tällä laitteella, jotta voit jatkaa siitä, mihin jäit.</string>
     <string name="rd_ob_updates_help">Etsii kerran päivässä uudempaa VLC for Androidin testiversiota.</string>
-    <string-array name="rd_whats_new_items">
-        <item>Kappaleet, joiden kuva on tallennettu videoraitana, näkyvät nyt musiikkina eivätkä videoina.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Tekstityksen koko</string>
     <string name="rd_cast_this_phone">Tämä puhelin</string>
     <string name="rd_cast_this_tablet">Tämä tabletti</string>

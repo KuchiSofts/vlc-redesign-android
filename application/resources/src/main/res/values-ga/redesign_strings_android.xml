@@ -31,9 +31,7 @@
     <string name="rd_ob_online_text">Gan teiliméadracht, gan fógraí, gan chuntas. Aon rud a théann ar líne as a stuaim féin, deir sé sin faoina bhun agus ní sheolann sé ach a bhfuil scríofa ansin. Fanann na roghanna seo sna Socruithe.</string>
     <string name="rd_ob_history_help">Coinnítear ar an ngléas seo amháin é, chun leanúint ar aghaidh ón áit ar stop tú.</string>
     <string name="rd_ob_updates_help">Lorgaíonn sé leagan tástála níos nuaí de VLC for Android uair sa lá.</string>
-    <string-array name="rd_whats_new_items">
-        <item>Taispeántar amhráin a bhfuil a bpictiúr stóráilte mar rian físe anois mar cheol, ní mar fhíseáin.</item>
-    </string-array>
+    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Méid na bhfotheideal</string>
     <string name="rd_cast_this_phone">An fón seo</string>
     <string name="rd_cast_this_tablet">An táibléad seo</string>
