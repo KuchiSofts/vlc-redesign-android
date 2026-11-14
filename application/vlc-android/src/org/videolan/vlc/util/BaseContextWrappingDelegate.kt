@@ -36,6 +36,7 @@ import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.Toolbar
 import org.videolan.resources.AppContextProvider
 import org.videolan.tools.getContextWithLocale
+import org.videolan.tools.withRdLayoutDirection
 
 /**
  * Context wrapping used to force the locale in all activities
@@ -116,5 +117,6 @@ class BaseContextWrappingDelegate(private val superDelegate: AppCompatDelegate) 
 
     override fun getLocalNightMode() = superDelegate.localNightMode
 
-    private fun wrap(context: Context) = context.getContextWithLocale(AppContextProvider.locale)
+    // (VLC Redesign: with the layout direction chosen in Settings, if one was: LocaleUtils.withRdLayoutDirection)
+    private fun wrap(context: Context) = context.getContextWithLocale(AppContextProvider.locale).withRdLayoutDirection()
 }

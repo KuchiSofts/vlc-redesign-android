@@ -532,6 +532,11 @@
     <string name="rd_balanced">Balanced</string>
     <string name="rd_high">High</string>
     <string name="rd_best">Best</string>
+    <!-- Settings › General and Privacy: the desktop's rows -->
+    <string name="rd_layout_direction">Layout direction</string>
+    <string name="rd_follow_system_accent">Follow the system accent color</string>
+    <string name="rd_never_remember">Never remember items matching</string>
+    <string name="rd_help_history_filter">A regular expression: the items whose address or name matches it are not saved in the history, nor their playback position.</string>
     <!-- Settings › Controls › Skip Amounts: the desktop's rows -->
     <string name="rd_very_short_skip">Very short skip</string>
     <string name="rd_medium_skip">Medium skip</string>

@@ -638,6 +638,8 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             // General / Interface
             // the desktop switches its language at once: this screen now, the others as they come back
             KEY_SET_LOCALE -> {
+                // (the desktop's rule: a language brings its own layout direction, which can then be changed again)
+                sharedPreferences.edit { remove(org.videolan.tools.KEY_RD_LAYOUT_DIRECTION) }
                 activity.setRestart()
                 AppContextProvider.setLocale(sharedPreferences.getString(KEY_SET_LOCALE, ""))
                 activity.recreate()
@@ -651,6 +653,10 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             }
             // the interface size changes at once: this screen now, the others when they come back
             org.videolan.tools.KEY_RD_INTERFACE_SCALE -> {
+                activity.setRestart()
+                activity.recreate()
+            }
+            org.videolan.tools.KEY_RD_LAYOUT_DIRECTION, org.videolan.vlc.gui.helpers.KEY_RD_ACCENT_SYSTEM -> {
                 activity.setRestart()
                 activity.recreate()
             }
@@ -916,6 +922,16 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         pref<Preference>(ENABLE_FASTPLAY)?.isVisible = !tv
         pref<Preference>(FASTPLAY_SPEED)?.isVisible = !tv
         pref<Preference>(SCREENSHOT_MODE)?.isVisible = !tv
+        // the system's accent: Android 12 and later (Material You), not in the TV layout
+        pref<Preference>(org.videolan.vlc.gui.helpers.KEY_RD_ACCENT_SYSTEM)?.isVisible = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S && !tv
+        // the layout direction: the one in use while none was chosen (shown, not saved)
+        pref<ListPreference>(org.videolan.tools.KEY_RD_LAYOUT_DIRECTION)?.let { p ->
+            if (p.sharedPreferences?.contains(p.key) != true) {
+                p.isPersistent = false
+                p.value = if (resources.configuration.layoutDirection == android.view.View.LAYOUT_DIRECTION_RTL) "rtl" else "ltr"
+                p.isPersistent = true
+            }
+        }
         // (the snapshot's settings with the snapshot: not on a TV, which has no snapshot)
         for (key in arrayOf("rd_snapshot_dir", "rd_snapshot_prefix", "rd_snapshot_format", "rd_snapshot_width", "rd_snapshot_height",
                 "rd_snapshot_sequential", "rd_snapshot_preview")) pref<Preference>(key)?.isVisible = !tv

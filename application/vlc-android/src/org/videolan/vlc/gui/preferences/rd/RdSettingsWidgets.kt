@@ -367,6 +367,9 @@ class RdAccentPreference @JvmOverloads constructor(context: Context, attrs: Attr
         holder.itemView.background = null
         val box = holder.findViewById(R.id.rd_swatches) as? ViewGroup ?: return
         box.removeAllViews()
+        // (switched off while the system's accent is followed: dimmed, not reached)
+        val on = isEnabled
+        box.alpha = if (on) 1f else 0.4f
         val ctx = context
         entryValues.forEachIndexed { i, raw ->
             val v = raw.toString()
@@ -383,8 +386,9 @@ class RdAccentPreference @JvmOverloads constructor(context: Context, attrs: Attr
                 }
                 contentDescription = ctx.getString(R.string.rd_accent_named, entries[i])
                 isSelected = chosen
-                isFocusable = true
-                setOnClickListener { if (!chosen && callChangeListener(v)) value = v }
+                isFocusable = on
+                isEnabled = on
+                setOnClickListener { if (on && !chosen && callChangeListener(v)) value = v }
             }
             if (org.videolan.vlc.gui.tablet.RdTvWindow.isOn(ctx) && box is LinearLayout) {
                 // the TV layout at the design's size (.d-sw): the nine share the 320 well, 4 apart, 32 high; the

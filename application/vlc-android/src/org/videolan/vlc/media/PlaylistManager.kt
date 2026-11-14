@@ -786,6 +786,8 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
         if (currentMedia.uri.scheme.isSchemeFD()) return@outerLaunch
         if (org.videolan.vlc.livetv.TvPlayback.isTvUrl(currentMedia.uri.toString())) return@outerLaunch
         if (Settings.getInstance(AppContextProvider.appContext).getBoolean(KEY_INCOGNITO, false)) return@outerLaunch
+        // VLC Redesign: Settings › Privacy › Never remember items matching: no playback position either
+        if (org.videolan.vlc.util.RdHistoryFilter.excluded(settings, currentMedia.uri?.toString(), currentMedia.title)) return@outerLaunch
         //Save progress
         val time = player.mediaplayer.time
         val length = player.getLength()
@@ -1103,7 +1105,7 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
                             type = MediaWrapper.TYPE_STREAM
                             entryUrl = mrl
                             medialibrary.getMedia(mrl)?.run { if (id > 0) medialibrary.removeExternalMedia(id) }
-                        } else if (!uri.scheme.isSchemeFD()) {
+                        } else if (!uri.scheme.isSchemeFD() && !org.videolan.vlc.util.RdHistoryFilter.excluded(this@PlaylistManager.settings, mrl, title)) {
                             medialibrary.addToHistory(mrl, title)
                         }
                     }
@@ -1442,6 +1444,8 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
         if (Settings.getInstance(AppContextProvider.appContext).getBoolean(KEY_INCOGNITO, false)) return
         // VLC Redesign, Live TV: a channel is kept neither in the history nor in the library (as the desktop's)
         if (org.videolan.vlc.livetv.TvPlayback.isTvUrl(mw.uri.toString())) return
+        // VLC Redesign: Settings › Privacy › Never remember items matching (the desktop's)
+        if (org.videolan.vlc.util.RdHistoryFilter.excluded(settings, mw.uri?.toString(), mw.title)) return
         var currentMedia = mw
         if (settings.getBoolean(PLAYBACK_HISTORY, true) && !mw.uri.scheme.isSchemeFD()) withContext(Dispatchers.IO) {
             var id = mw.id

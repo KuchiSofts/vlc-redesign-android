@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign: the system accent (Android 12 and later) in the dark theme: the palette's lighter tones -->
+<resources>
+    <style name="ThemeOverlay.Redesign.Accent.System" parent="">
+        <item name="colorPrimary">@android:color/system_accent1_400</item>
+        <item name="colorSecondary">@android:color/system_accent1_400</item>
+        <item name="colorAccent">@android:color/system_accent1_400</item>
+        <item name="colorControlActivated">@android:color/system_accent1_400</item>
+        <item name="rd_accent_bright">@android:color/system_accent1_300</item>
+        <item name="rd_accent_dim">@android:color/system_accent1_700</item>
+    </style>
+    <style name="ThemeOverlay.Redesign.AccentDark.System" parent="ThemeOverlay.Redesign.Accent.System">
+        <item name="rd_accent_bright">@android:color/system_accent1_300</item>
+    </style>
+</resources>

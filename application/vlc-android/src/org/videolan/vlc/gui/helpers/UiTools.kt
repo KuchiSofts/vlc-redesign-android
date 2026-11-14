@@ -1198,7 +1198,9 @@ fun Context.rdAccent(alpha: Float = 1f): Int {
 }
 
 fun android.app.Activity.applyAccent(alwaysDark: Boolean = false) {
-    val name = Settings.getInstance(this).getString("rd_accent", "orange") ?: "orange"
+    // (Follow the system accent color, Android 12 and later: the wallpaper's palette, ThemeOverlay...System)
+    val name = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && Settings.getInstance(this).getBoolean(KEY_RD_ACCENT_SYSTEM, false)) "system"
+    else Settings.getInstance(this).getString("rd_accent", "orange") ?: "orange"
     if (name == "orange") return
     val overlay = if (alwaysDark) "ThemeOverlay.Redesign.AccentDark." else "ThemeOverlay.Redesign.Accent."
     val res = resources.getIdentifier(overlay + name.replaceFirstChar { it.uppercase() }, "style", packageName)
@@ -1310,3 +1312,5 @@ suspend fun fillActionMode(context: Context, mode: ActionMode, multiSelectHelper
         mode.subtitle = Tools.millisToString(length)
     }
 }
+/** VLC Redesign, Settings > General > Follow the system accent color (Android 12 and later) */
+const val KEY_RD_ACCENT_SYSTEM = "rd_accent_system"

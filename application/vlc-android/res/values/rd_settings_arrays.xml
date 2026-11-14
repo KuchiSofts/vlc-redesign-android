@@ -268,4 +268,13 @@
         <item>jpg</item>
         <item>png</item>
     </string-array>
+    <!-- General › Appearance: Layout direction (LocaleUtils.withRdLayoutDirection) -->
+    <string-array name="rd_layout_direction_entries" translatable="false">
+        <item>@string/rd_ltr</item>
+        <item>@string/rd_rtl</item>
+    </string-array>
+    <string-array name="rd_layout_direction_values" translatable="false">
+        <item>ltr</item>
+        <item>rtl</item>
+    </string-array>
 </resources>
