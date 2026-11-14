@@ -3,13 +3,13 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>More of the computer\'s settings: playback, subtitles, audio, network, snapshots and recordings.</item>
-        <item>Sort the play queue and add files to it.</item>
-        <item>Export a playlist as an M3U8 file.</item>
-        <item>About: check for updates, suggest an idea, report a problem.</item>
-        <item>Sleep timer: pause instead of stopping.</item>
-        <item>A second subtitle language has a delay of its own.</item>
-        <item>The computer\'s keys: four skip lengths, snapshot, record and sync by ear.</item>
-        <item>Fixed: subtitle files beside a video open in your preferred language.</item>
+        <item>Subtitle lines on the seek bar, subtitles from a link and added audio tracks.</item>
+        <item>Lyrics in the music player and saved effect presets.</item>
+        <item>More player bar buttons, and Clone in Customize Player.</item>
+        <item>Keyboard Shortcuts, Increase text contrast and an always visible player bar.</item>
+        <item>Shortcut feedback, a default subtitle delay and subtitle size in pixels.</item>
+        <item>The welcome asks for your subtitle languages; a cast device can be hidden.</item>
+        <item>Ignored file extensions and Repeat in Settings.</item>
+        <item>Fixed: Live TV errors in your language; Bookmarks and Lyrics in the TV music player.</item>
     </string-array>
 </resources>
