@@ -633,14 +633,10 @@ object UiTools {
         v.findViewById<View>(R.id.about_website_container).setOnClickListener {
             activity.openLinkIfPossible("https://www.videolan.org/vlc/")
         }
-        // VLC Redesign: a problem of this app is reported where the desktop's About sends it (its GitHub issues), not
-        // to VideoLAN's Android support mail
-        v.findViewById<View>(R.id.about_report_container).setOnClickListener {
-            activity.openLinkIfPossible("https://github.com/KuchiSofts/vlc-redesign/issues")
-        }
-        v.findViewById<View>(R.id.about_sources_container).setOnClickListener {
-            activity.openLinkIfPossible("https://code.videolan.org/videolan/vlc-android")
-        }
+        // VLC Redesign: a problem of this app is reported where the desktop's About sends it (the repository's bug
+        // form, filled in), not to VideoLAN's Android support mail; Sources is this app's own source (GPL), the
+        // check for updates, "Also on" and "Suggest an idea" as on the desktop
+        RdAbout.fill(activity, v)
 
         v.findViewById<View>(R.id.about_authors_container).setOnClickListener {
             activity.startActivity(Intent(activity, AuthorsActivity::class.java))

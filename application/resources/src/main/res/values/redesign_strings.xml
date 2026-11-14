@@ -483,6 +483,16 @@
     <string name="rd_update_you_have">You have %1$s.</string>
     <string name="rd_update_whats_new">What\'s new</string>
     <string name="rd_update_check_daily">Check for updates once a day</string>
+    <!-- About: the check asked for now, and its result (the desktop's texts) -->
+    <string name="rd_check_for_updates">Check for updates</string>
+    <string name="rd_update_checking">Checking for updates…</string>
+    <string name="rd_update_latest">You have the latest version</string>
+    <string name="rd_update_offline">Couldn\'t reach GitHub. Check your connection and try again.</string>
+    <string name="rd_update_unexpected">GitHub sent an unexpected answer (%1$s).</string>
+    <!-- About: the other platforms (a list such as "Windows 0.6.4 · Linux 0.6.4") -->
+    <string name="rd_also_on">Also on: %1$s</string>
+    <string name="rd_suggest_idea">Suggest an idea</string>
+    <string name="rd_report_problem">Report a problem</string>
     <!-- the place of the player's volume meter (the desktop's Volume indicator) -->
     <string name="rd_volume_indicator">Volume indicator</string>
     <string name="rd_volume_right_side">Right side</string>
