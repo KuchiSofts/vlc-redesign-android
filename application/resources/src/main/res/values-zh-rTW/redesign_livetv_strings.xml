@@ -268,4 +268,13 @@
     <plurals name="rd_tv_guide_too_large_channels">
         <item quantity="other">節目表過大：已保留你的 %1$d 個頻道的節目</item>
     </plurals>
+    <!-- 0.6.7: the texts this language still had in English -->
+    <string name="rd_idle_screen">螢幕保護</string>
+    <string name="rd_idle_after_1">1 分鐘後</string>
+    <string name="rd_idle_after_3">3 分鐘後</string>
+    <string name="rd_idle_after_5">5 分鐘後</string>
+    <string name="rd_idle_after_10">10 分鐘後</string>
+    <string name="rd_tv_live_mark">直播</string>
+    <string name="rd_tv_next_mark">下一個</string>
+    <string name="rd_tv_programmes">節目</string>
 </resources>
