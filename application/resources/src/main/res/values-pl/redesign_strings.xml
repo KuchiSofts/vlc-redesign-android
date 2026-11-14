@@ -656,4 +656,23 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_update_rate_limited_at">GitHub otrzymał zbyt wiele zapytań z tej sieci. Spróbuj ponownie po %1$s.</string>
     <string name="rd_update_rate_limited">GitHub otrzymał zbyt wiele zapytań z tej sieci. Spróbuj ponownie później.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">Zestawy efektów</string>
+    <string name="rd_fx_preset_default">Zestaw domyślny</string>
+    <string name="rd_fx_preset_new">Nowy zestaw</string>
+    <string name="rd_fx_preset_custom">Własny zestaw %1$s</string>
+    <string name="rd_fx_preset_update">Zaktualizuj bieżącymi efektami</string>
+    <string name="rd_fx_preset_rename">Zmień nazwę</string>
+    <string name="rd_fx_preset_delete">Usuń</string>
+    <string name="rd_fx_preset_rename_title">Zmień nazwę zestawu</string>
+    <string name="rd_fx_preset_create">Utwórz</string>
+    <string name="rd_fx_preset_name_hint">np. Nocne seanse</string>
+    <string name="rd_fx_preset_keeps">Zestaw zapamiętuje używane efekty dźwięku i obrazu.</string>
+    <string name="rd_fx_preset_keeps_own">Zestaw zachowuje swoje efekty.</string>
+    <string name="rd_fx_preset_delete_title">Usuń zestaw</string>
+    <string name="rd_fx_preset_delete_question">Usunąć %1$s?</string>
+    <string name="rd_fx_preset_delete_note">Używane efekty pozostaną bez zmian.</string>
+    <string name="rd_fx_preset_err_empty">Wpisz nazwę zestawu.</string>
+    <string name="rd_fx_preset_err_default">„%1$s” to zestaw efektów domyślnych.</string>
+    <string name="rd_fx_preset_err_taken">Zestaw o nazwie „%1$s” już istnieje.</string>
 </resources>

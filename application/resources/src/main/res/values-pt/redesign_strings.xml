@@ -624,4 +624,23 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_update_rate_limited_at">O GitHub recebeu demasiados pedidos desta rede. Tente novamente depois das %1$s.</string>
     <string name="rd_update_rate_limited">O GitHub recebeu demasiados pedidos desta rede. Tente novamente mais tarde.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">Pré-ajustes de efeitos</string>
+    <string name="rd_fx_preset_default">Pré-ajuste predefinido</string>
+    <string name="rd_fx_preset_new">Novo pré-ajuste</string>
+    <string name="rd_fx_preset_custom">Pré-ajuste personalizado %1$s</string>
+    <string name="rd_fx_preset_update">Atualizar com os efeitos atuais</string>
+    <string name="rd_fx_preset_rename">Mudar o nome</string>
+    <string name="rd_fx_preset_delete">Apagar</string>
+    <string name="rd_fx_preset_rename_title">Mudar o nome do pré-ajuste</string>
+    <string name="rd_fx_preset_create">Criar</string>
+    <string name="rd_fx_preset_name_hint">p. ex., Filmes à noite</string>
+    <string name="rd_fx_preset_keeps">O pré-ajuste guarda os efeitos de áudio e vídeo em uso.</string>
+    <string name="rd_fx_preset_keeps_own">O pré-ajuste mantém os seus efeitos.</string>
+    <string name="rd_fx_preset_delete_title">Apagar pré-ajuste</string>
+    <string name="rd_fx_preset_delete_question">Apagar %1$s?</string>
+    <string name="rd_fx_preset_delete_note">Os efeitos em uso mantêm-se como estão.</string>
+    <string name="rd_fx_preset_err_empty">Introduza um nome para o pré-ajuste.</string>
+    <string name="rd_fx_preset_err_default">\"%1$s\" é o pré-ajuste dos efeitos predefinidos.</string>
+    <string name="rd_fx_preset_err_taken">Já existe um pré-ajuste com o nome \"%1$s\".</string>
 </resources>

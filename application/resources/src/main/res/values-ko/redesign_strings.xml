@@ -649,4 +649,23 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_update_rate_limited_at">이 네트워크에서 GitHub에 너무 많이 요청했습니다. %1$s 이후에 다시 시도하세요.</string>
     <string name="rd_update_rate_limited">이 네트워크에서 GitHub에 너무 많이 요청했습니다. 나중에 다시 시도하세요.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">효과 프리셋</string>
+    <string name="rd_fx_preset_default">기본 프리셋</string>
+    <string name="rd_fx_preset_new">새 프리셋</string>
+    <string name="rd_fx_preset_custom">사용자 지정 프리셋 %1$s</string>
+    <string name="rd_fx_preset_update">현재 효과로 업데이트</string>
+    <string name="rd_fx_preset_rename">이름 바꾸기</string>
+    <string name="rd_fx_preset_delete">삭제</string>
+    <string name="rd_fx_preset_rename_title">프리셋 이름 바꾸기</string>
+    <string name="rd_fx_preset_create">만들기</string>
+    <string name="rd_fx_preset_name_hint">예: 심야 영화</string>
+    <string name="rd_fx_preset_keeps">현재 사용 중인 오디오 및 비디오 효과가 프리셋에 저장됩니다.</string>
+    <string name="rd_fx_preset_keeps_own">프리셋의 효과는 그대로 유지됩니다.</string>
+    <string name="rd_fx_preset_delete_title">프리셋 삭제</string>
+    <string name="rd_fx_preset_delete_question">%1$s을(를) 삭제할까요?</string>
+    <string name="rd_fx_preset_delete_note">사용 중인 효과는 그대로 유지됩니다.</string>
+    <string name="rd_fx_preset_err_empty">프리셋 이름을 입력하세요.</string>
+    <string name="rd_fx_preset_err_default">\"%1$s\"은(는) 기본 효과의 프리셋입니다.</string>
+    <string name="rd_fx_preset_err_taken">\"%1$s\" 프리셋이 이미 있습니다.</string>
 </resources>

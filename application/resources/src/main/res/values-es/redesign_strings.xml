@@ -651,4 +651,23 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_update_rate_limited_at">GitHub ha recibido demasiadas peticiones desde esta red. Inténtalo de nuevo después de las %1$s.</string>
     <string name="rd_update_rate_limited">GitHub ha recibido demasiadas peticiones desde esta red. Inténtalo de nuevo más tarde.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">Preajustes de efectos</string>
+    <string name="rd_fx_preset_default">Preajuste predeterminado</string>
+    <string name="rd_fx_preset_new">Nuevo preajuste</string>
+    <string name="rd_fx_preset_custom">Preajuste personalizado %1$s</string>
+    <string name="rd_fx_preset_update">Actualizar con los efectos actuales</string>
+    <string name="rd_fx_preset_rename">Cambiar nombre</string>
+    <string name="rd_fx_preset_delete">Borrar</string>
+    <string name="rd_fx_preset_rename_title">Cambiar nombre del preajuste</string>
+    <string name="rd_fx_preset_create">Crear</string>
+    <string name="rd_fx_preset_name_hint">p. ej., Películas de madrugada</string>
+    <string name="rd_fx_preset_keeps">El preajuste conserva los efectos de audio y vídeo en uso.</string>
+    <string name="rd_fx_preset_keeps_own">El preajuste conserva sus efectos.</string>
+    <string name="rd_fx_preset_delete_title">Eliminar preajuste</string>
+    <string name="rd_fx_preset_delete_question">¿Eliminar %1$s?</string>
+    <string name="rd_fx_preset_delete_note">Los efectos en uso se quedan como están.</string>
+    <string name="rd_fx_preset_err_empty">Introduzca un nombre para el preajuste.</string>
+    <string name="rd_fx_preset_err_default">«%1$s» es el preajuste de los efectos predeterminados.</string>
+    <string name="rd_fx_preset_err_taken">Ya existe un preajuste llamado «%1$s».</string>
 </resources>

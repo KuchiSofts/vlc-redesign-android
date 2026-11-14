@@ -802,6 +802,25 @@
     <!-- About's update check: GitHub's rate limit, as the desktop's (RdUpdateCheck.Result.RateLimited) -->
     <string name="rd_update_rate_limited_at">GitHub was asked too often from this network. Try again after %1$s.</string>
     <string name="rd_update_rate_limited">GitHub was asked too often from this network. Try again later.</string>
+    <!-- The Effects window's presets, the desktop's (RdEffectPresets, RdEffectsDialog) -->
+    <string name="rd_fx_presets">Effect presets</string>
+    <string name="rd_fx_preset_default">Default Preset</string>
+    <string name="rd_fx_preset_new">New Preset</string>
+    <string name="rd_fx_preset_custom">Custom Preset %1$s</string>
+    <string name="rd_fx_preset_update">Update with current effects</string>
+    <string name="rd_fx_preset_rename">Rename</string>
+    <string name="rd_fx_preset_delete">Delete</string>
+    <string name="rd_fx_preset_rename_title">Rename Preset</string>
+    <string name="rd_fx_preset_create">Create</string>
+    <string name="rd_fx_preset_name_hint">e.g., Late Night Movies</string>
+    <string name="rd_fx_preset_keeps">The preset keeps the audio and video effects in use.</string>
+    <string name="rd_fx_preset_keeps_own">The preset keeps its effects.</string>
+    <string name="rd_fx_preset_delete_title">Delete Preset</string>
+    <string name="rd_fx_preset_delete_question">Delete %1$s?</string>
+    <string name="rd_fx_preset_delete_note">The effects in use stay as they are.</string>
+    <string name="rd_fx_preset_err_empty">Enter a name for the preset.</string>
+    <string name="rd_fx_preset_err_default">\"%1$s\" is the preset of the default effects.</string>
+    <string name="rd_fx_preset_err_taken">A preset named \"%1$s\" already exists.</string>
     <!-- Settings › Subtitles › Timing: the desktop's Subtitle delay (sub-delay), the default of every video -->
     <string name="rd_subtitle_delay">Subtitle delay</string>
     <!-- Settings › Library › Advanced: the desktop's Ignored file extensions (libvlc's ignore-filetypes) -->

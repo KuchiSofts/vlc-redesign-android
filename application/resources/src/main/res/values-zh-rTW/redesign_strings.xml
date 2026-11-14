@@ -649,4 +649,23 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_update_rate_limited_at">此網路向 GitHub 發出的要求過多。請在 %1$s 之後重試。</string>
     <string name="rd_update_rate_limited">此網路向 GitHub 發出的要求過多。請稍後重試。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">效果預置</string>
+    <string name="rd_fx_preset_default">預設預置</string>
+    <string name="rd_fx_preset_new">新增預置</string>
+    <string name="rd_fx_preset_custom">自訂預置 %1$s</string>
+    <string name="rd_fx_preset_update">以目前的效果更新</string>
+    <string name="rd_fx_preset_rename">重新命名</string>
+    <string name="rd_fx_preset_delete">刪除</string>
+    <string name="rd_fx_preset_rename_title">重新命名預置</string>
+    <string name="rd_fx_preset_create">建立</string>
+    <string name="rd_fx_preset_name_hint">例如：深夜電影</string>
+    <string name="rd_fx_preset_keeps">預置會保留使用中的音訊與視訊特效。</string>
+    <string name="rd_fx_preset_keeps_own">預置會保留其效果。</string>
+    <string name="rd_fx_preset_delete_title">刪除預置</string>
+    <string name="rd_fx_preset_delete_question">要刪除 %1$s 嗎？</string>
+    <string name="rd_fx_preset_delete_note">使用中的效果會維持不變。</string>
+    <string name="rd_fx_preset_err_empty">請輸入預置的名稱。</string>
+    <string name="rd_fx_preset_err_default">「%1$s」是預設效果的預置。</string>
+    <string name="rd_fx_preset_err_taken">已有名為「%1$s」的預置。</string>
 </resources>

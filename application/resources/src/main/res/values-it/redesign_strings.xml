@@ -651,4 +651,23 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_update_rate_limited_at">GitHub ha ricevuto troppe richieste da questa rete. Riprova dopo le %1$s.</string>
     <string name="rd_update_rate_limited">GitHub ha ricevuto troppe richieste da questa rete. Riprova più tardi.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">Preimpostazioni effetti</string>
+    <string name="rd_fx_preset_default">Preimpostazione predefinita</string>
+    <string name="rd_fx_preset_new">Nuova preimpostazione</string>
+    <string name="rd_fx_preset_custom">Preimpostazione personalizzata %1$s</string>
+    <string name="rd_fx_preset_update">Aggiorna con gli effetti attuali</string>
+    <string name="rd_fx_preset_rename">Rinomina</string>
+    <string name="rd_fx_preset_delete">Elimina</string>
+    <string name="rd_fx_preset_rename_title">Rinomina preimpostazione</string>
+    <string name="rd_fx_preset_create">Crea</string>
+    <string name="rd_fx_preset_name_hint">es. Film a notte fonda</string>
+    <string name="rd_fx_preset_keeps">La preimpostazione conserva gli effetti audio e video in uso.</string>
+    <string name="rd_fx_preset_keeps_own">La preimpostazione mantiene i suoi effetti.</string>
+    <string name="rd_fx_preset_delete_title">Elimina preimpostazione</string>
+    <string name="rd_fx_preset_delete_question">Eliminare %1$s?</string>
+    <string name="rd_fx_preset_delete_note">Gli effetti in uso restano invariati.</string>
+    <string name="rd_fx_preset_err_empty">Inserisci un nome per la preimpostazione.</string>
+    <string name="rd_fx_preset_err_default">\"%1$s\" è la preimpostazione degli effetti predefiniti.</string>
+    <string name="rd_fx_preset_err_taken">Esiste già una preimpostazione chiamata \"%1$s\".</string>
 </resources>

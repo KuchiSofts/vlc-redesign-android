@@ -656,4 +656,23 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_update_rate_limited_at">GitHub получил слишком много запросов из этой сети. Повторите после %1$s.</string>
     <string name="rd_update_rate_limited">GitHub получил слишком много запросов из этой сети. Повторите позже.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">Предустановки эффектов</string>
+    <string name="rd_fx_preset_default">Предустановка по умолчанию</string>
+    <string name="rd_fx_preset_new">Новая предустановка</string>
+    <string name="rd_fx_preset_custom">Своя предустановка %1$s</string>
+    <string name="rd_fx_preset_update">Обновить текущими эффектами</string>
+    <string name="rd_fx_preset_rename">Переименовать</string>
+    <string name="rd_fx_preset_delete">Удалить</string>
+    <string name="rd_fx_preset_rename_title">Переименовать предустановку</string>
+    <string name="rd_fx_preset_create">Создать</string>
+    <string name="rd_fx_preset_name_hint">например, Кино на ночь</string>
+    <string name="rd_fx_preset_keeps">Предустановка сохранит используемые аудио- и видеоэффекты.</string>
+    <string name="rd_fx_preset_keeps_own">Эффекты предустановки сохранятся.</string>
+    <string name="rd_fx_preset_delete_title">Удалить предустановку</string>
+    <string name="rd_fx_preset_delete_question">Удалить %1$s?</string>
+    <string name="rd_fx_preset_delete_note">Используемые эффекты останутся без изменений.</string>
+    <string name="rd_fx_preset_err_empty">Введите имя предустановки.</string>
+    <string name="rd_fx_preset_err_default">«%1$s» — предустановка эффектов по умолчанию.</string>
+    <string name="rd_fx_preset_err_taken">Предустановка с именем «%1$s» уже существует.</string>
 </resources>

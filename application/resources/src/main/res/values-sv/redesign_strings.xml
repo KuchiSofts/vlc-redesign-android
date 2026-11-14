@@ -651,4 +651,23 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_update_rate_limited_at">GitHub har fått för många förfrågningar från det här nätverket. Försök igen efter %1$s.</string>
     <string name="rd_update_rate_limited">GitHub har fått för många förfrågningar från det här nätverket. Försök igen senare.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">Effektförval</string>
+    <string name="rd_fx_preset_default">Standardförval</string>
+    <string name="rd_fx_preset_new">Nytt förval</string>
+    <string name="rd_fx_preset_custom">Anpassat förval %1$s</string>
+    <string name="rd_fx_preset_update">Uppdatera med aktuella effekter</string>
+    <string name="rd_fx_preset_rename">Byt namn</string>
+    <string name="rd_fx_preset_delete">Ta bort</string>
+    <string name="rd_fx_preset_rename_title">Byt namn på förval</string>
+    <string name="rd_fx_preset_create">Skapa</string>
+    <string name="rd_fx_preset_name_hint">t.ex. Sena filmkvällar</string>
+    <string name="rd_fx_preset_keeps">Förvalet behåller ljud- och videoeffekterna som används.</string>
+    <string name="rd_fx_preset_keeps_own">Förvalet behåller sina effekter.</string>
+    <string name="rd_fx_preset_delete_title">Ta bort förval</string>
+    <string name="rd_fx_preset_delete_question">Ta bort %1$s?</string>
+    <string name="rd_fx_preset_delete_note">Effekterna som används förblir som de är.</string>
+    <string name="rd_fx_preset_err_empty">Ange ett namn för förvalet.</string>
+    <string name="rd_fx_preset_err_default">”%1$s” är förvalet för standardeffekterna.</string>
+    <string name="rd_fx_preset_err_taken">Det finns redan ett förval med namnet ”%1$s”.</string>
 </resources>

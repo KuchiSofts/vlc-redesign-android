@@ -651,4 +651,23 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_update_rate_limited_at">GitHub kreeg te veel verzoeken van dit netwerk. Probeer het na %1$s opnieuw.</string>
     <string name="rd_update_rate_limited">GitHub kreeg te veel verzoeken van dit netwerk. Probeer het later opnieuw.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">Effectpresets</string>
+    <string name="rd_fx_preset_default">Standaardpreset</string>
+    <string name="rd_fx_preset_new">Nieuwe preset</string>
+    <string name="rd_fx_preset_custom">Aangepaste preset %1$s</string>
+    <string name="rd_fx_preset_update">Bijwerken met huidige effecten</string>
+    <string name="rd_fx_preset_rename">Naam wijzigen</string>
+    <string name="rd_fx_preset_delete">Verwijderen</string>
+    <string name="rd_fx_preset_rename_title">Naam van preset wijzigen</string>
+    <string name="rd_fx_preset_create">Maken</string>
+    <string name="rd_fx_preset_name_hint">bijv. Nachtfilms</string>
+    <string name="rd_fx_preset_keeps">De preset bewaart de audio- en video-effecten die in gebruik zijn.</string>
+    <string name="rd_fx_preset_keeps_own">De preset behoudt zijn effecten.</string>
+    <string name="rd_fx_preset_delete_title">Preset verwijderen</string>
+    <string name="rd_fx_preset_delete_question">%1$s verwijderen?</string>
+    <string name="rd_fx_preset_delete_note">De effecten die in gebruik zijn, blijven zoals ze zijn.</string>
+    <string name="rd_fx_preset_err_empty">Voer een naam in voor de preset.</string>
+    <string name="rd_fx_preset_err_default">\"%1$s\" is de preset van de standaardeffecten.</string>
+    <string name="rd_fx_preset_err_taken">Er bestaat al een preset met de naam \"%1$s\".</string>
 </resources>

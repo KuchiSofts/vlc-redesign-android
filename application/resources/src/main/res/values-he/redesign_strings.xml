@@ -637,4 +637,23 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_update_rate_limited_at">GitHub קיבל יותר מדי בקשות מהרשת הזו. נסה שוב אחרי %1$s.</string>
     <string name="rd_update_rate_limited">GitHub קיבל יותר מדי בקשות מהרשת הזו. נסה שוב מאוחר יותר.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">ערכות אפקטים</string>
+    <string name="rd_fx_preset_default">ערכת ברירת המחדל</string>
+    <string name="rd_fx_preset_new">ערכה חדשה</string>
+    <string name="rd_fx_preset_custom">ערכה מותאמת %1$s</string>
+    <string name="rd_fx_preset_update">עדכן לפי האפקטים הנוכחיים</string>
+    <string name="rd_fx_preset_rename">שנה שם</string>
+    <string name="rd_fx_preset_delete">מחק</string>
+    <string name="rd_fx_preset_rename_title">שנה שם ערכה</string>
+    <string name="rd_fx_preset_create">יצירה</string>
+    <string name="rd_fx_preset_name_hint">לדוגמה, סרטים בשעות הלילה</string>
+    <string name="rd_fx_preset_keeps">הערכה שומרת את אפקטי השמע והווידאו שבשימוש.</string>
+    <string name="rd_fx_preset_keeps_own">הערכה שומרת על האפקטים שלה.</string>
+    <string name="rd_fx_preset_delete_title">מחק ערכה</string>
+    <string name="rd_fx_preset_delete_question">למחוק את %1$s?</string>
+    <string name="rd_fx_preset_delete_note">האפקטים שבשימוש יישארו כפי שהם.</string>
+    <string name="rd_fx_preset_err_empty">הזן שם לערכה.</string>
+    <string name="rd_fx_preset_err_default">„%1$s“ היא הערכה של אפקטי ברירת המחדל.</string>
+    <string name="rd_fx_preset_err_taken">כבר קיימת ערכה בשם „%1$s“.</string>
 </resources>

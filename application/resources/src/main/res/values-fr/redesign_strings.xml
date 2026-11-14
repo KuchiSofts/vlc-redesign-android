@@ -651,4 +651,23 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_update_rate_limited_at">GitHub a reçu trop de demandes de ce réseau. Réessayez après %1$s.</string>
     <string name="rd_update_rate_limited">GitHub a reçu trop de demandes de ce réseau. Réessayez plus tard.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">Préréglages d\'effets</string>
+    <string name="rd_fx_preset_default">Préréglage par défaut</string>
+    <string name="rd_fx_preset_new">Nouveau préréglage</string>
+    <string name="rd_fx_preset_custom">Préréglage personnalisé %1$s</string>
+    <string name="rd_fx_preset_update">Mettre à jour avec les effets actuels</string>
+    <string name="rd_fx_preset_rename">Renommer</string>
+    <string name="rd_fx_preset_delete">Supprimer</string>
+    <string name="rd_fx_preset_rename_title">Renommer le préréglage</string>
+    <string name="rd_fx_preset_create">Créer</string>
+    <string name="rd_fx_preset_name_hint">ex. : Films du soir</string>
+    <string name="rd_fx_preset_keeps">Le préréglage conserve les effets audio et vidéo en cours.</string>
+    <string name="rd_fx_preset_keeps_own">Le préréglage conserve ses effets.</string>
+    <string name="rd_fx_preset_delete_title">Supprimer le préréglage</string>
+    <string name="rd_fx_preset_delete_question">Supprimer %1$s ?</string>
+    <string name="rd_fx_preset_delete_note">Les effets en cours restent inchangés.</string>
+    <string name="rd_fx_preset_err_empty">Saisissez un nom pour le préréglage.</string>
+    <string name="rd_fx_preset_err_default">« %1$s » est le préréglage des effets par défaut.</string>
+    <string name="rd_fx_preset_err_taken">Un préréglage nommé « %1$s » existe déjà.</string>
 </resources>

@@ -656,4 +656,23 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_update_rate_limited_at">GitHub отримав забагато запитів із цієї мережі. Спробуйте після %1$s.</string>
     <string name="rd_update_rate_limited">GitHub отримав забагато запитів із цієї мережі. Спробуйте пізніше.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">Набори ефектів</string>
+    <string name="rd_fx_preset_default">Типовий набір</string>
+    <string name="rd_fx_preset_new">Новий набір</string>
+    <string name="rd_fx_preset_custom">Власний набір %1$s</string>
+    <string name="rd_fx_preset_update">Оновити поточними ефектами</string>
+    <string name="rd_fx_preset_rename">Перейменувати</string>
+    <string name="rd_fx_preset_delete">Видалити</string>
+    <string name="rd_fx_preset_rename_title">Перейменувати набір</string>
+    <string name="rd_fx_preset_create">Створити</string>
+    <string name="rd_fx_preset_name_hint">напр., Нічні фільми</string>
+    <string name="rd_fx_preset_keeps">Набір зберігає поточні звукові та відеоефекти.</string>
+    <string name="rd_fx_preset_keeps_own">Набір зберігає свої ефекти.</string>
+    <string name="rd_fx_preset_delete_title">Видалити набір</string>
+    <string name="rd_fx_preset_delete_question">Видалити %1$s?</string>
+    <string name="rd_fx_preset_delete_note">Поточні ефекти залишаться без змін.</string>
+    <string name="rd_fx_preset_err_empty">Введіть назву набору.</string>
+    <string name="rd_fx_preset_err_default">«%1$s» — це набір типових ефектів.</string>
+    <string name="rd_fx_preset_err_taken">Набір із назвою «%1$s» вже існує.</string>
 </resources>

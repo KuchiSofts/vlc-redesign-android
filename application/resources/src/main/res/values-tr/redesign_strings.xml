@@ -651,4 +651,23 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_update_rate_limited_at">GitHub bu ağdan çok fazla istek aldı. %1$s sonra yeniden deneyin.</string>
     <string name="rd_update_rate_limited">GitHub bu ağdan çok fazla istek aldı. Daha sonra yeniden deneyin.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">Etki önayarları</string>
+    <string name="rd_fx_preset_default">Varsayılan Önayar</string>
+    <string name="rd_fx_preset_new">Yeni Önayar</string>
+    <string name="rd_fx_preset_custom">Özel Önayar %1$s</string>
+    <string name="rd_fx_preset_update">Geçerli etkilerle güncelle</string>
+    <string name="rd_fx_preset_rename">Yeniden adlandır</string>
+    <string name="rd_fx_preset_delete">Sil</string>
+    <string name="rd_fx_preset_rename_title">Önayarı Yeniden Adlandır</string>
+    <string name="rd_fx_preset_create">Oluştur</string>
+    <string name="rd_fx_preset_name_hint">ör. Gece Filmleri</string>
+    <string name="rd_fx_preset_keeps">Önayar, kullanılmakta olan ses ve görüntü etkilerini saklar.</string>
+    <string name="rd_fx_preset_keeps_own">Önayarın etkileri korunur.</string>
+    <string name="rd_fx_preset_delete_title">Önayarı Sil</string>
+    <string name="rd_fx_preset_delete_question">%1$s silinsin mi?</string>
+    <string name="rd_fx_preset_delete_note">Kullanılmakta olan etkiler olduğu gibi kalır.</string>
+    <string name="rd_fx_preset_err_empty">Önayar için bir ad yazın.</string>
+    <string name="rd_fx_preset_err_default">\"%1$s\", varsayılan etkilerin önayarıdır.</string>
+    <string name="rd_fx_preset_err_taken">\"%1$s\" adında bir önayar zaten var.</string>
 </resources>

@@ -651,4 +651,23 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_update_rate_limited_at">O GitHub recebeu pedidos demais desta rede. Tente novamente depois das %1$s.</string>
     <string name="rd_update_rate_limited">O GitHub recebeu pedidos demais desta rede. Tente novamente mais tarde.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">Predefinições de efeitos</string>
+    <string name="rd_fx_preset_default">Predefinição padrão</string>
+    <string name="rd_fx_preset_new">Nova predefinição</string>
+    <string name="rd_fx_preset_custom">Predefinição personalizada %1$s</string>
+    <string name="rd_fx_preset_update">Atualizar com os efeitos atuais</string>
+    <string name="rd_fx_preset_rename">Renomear</string>
+    <string name="rd_fx_preset_delete">Excluir</string>
+    <string name="rd_fx_preset_rename_title">Renomear predefinição</string>
+    <string name="rd_fx_preset_create">Criar</string>
+    <string name="rd_fx_preset_name_hint">ex.: Filmes de madrugada</string>
+    <string name="rd_fx_preset_keeps">A predefinição guarda os efeitos de áudio e vídeo em uso.</string>
+    <string name="rd_fx_preset_keeps_own">A predefinição mantém os efeitos dela.</string>
+    <string name="rd_fx_preset_delete_title">Excluir predefinição</string>
+    <string name="rd_fx_preset_delete_question">Excluir %1$s?</string>
+    <string name="rd_fx_preset_delete_note">Os efeitos em uso continuam como estão.</string>
+    <string name="rd_fx_preset_err_empty">Digite um nome para a predefinição.</string>
+    <string name="rd_fx_preset_err_default">\"%1$s\" é a predefinição dos efeitos padrão.</string>
+    <string name="rd_fx_preset_err_taken">Já existe uma predefinição chamada \"%1$s\".</string>
 </resources>

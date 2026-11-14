@@ -658,4 +658,23 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_update_rate_limited_at">تلقّى GitHub طلبات كثيرة جدًا من هذه الشبكة. حاول مجددًا بعد %1$s.</string>
     <string name="rd_update_rate_limited">تلقّى GitHub طلبات كثيرة جدًا من هذه الشبكة. حاول مجددًا لاحقًا.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">إعدادات المؤثرات المسبقة</string>
+    <string name="rd_fx_preset_default">الإعداد المسبق الافتراضي</string>
+    <string name="rd_fx_preset_new">إعداد مسبق جديد</string>
+    <string name="rd_fx_preset_custom">إعداد مسبق مخصص %1$s</string>
+    <string name="rd_fx_preset_update">تحديث بالمؤثرات الحالية</string>
+    <string name="rd_fx_preset_rename">إعادة تسمية</string>
+    <string name="rd_fx_preset_delete">حذف</string>
+    <string name="rd_fx_preset_rename_title">إعادة تسمية الإعداد المسبق</string>
+    <string name="rd_fx_preset_create">أنشئ</string>
+    <string name="rd_fx_preset_name_hint">مثال: أفلام آخر الليل</string>
+    <string name="rd_fx_preset_keeps">يحتفظ الإعداد المسبق بمؤثرات الصوت والفيديو المستخدمة حاليًا.</string>
+    <string name="rd_fx_preset_keeps_own">يحتفظ الإعداد المسبق بمؤثراته.</string>
+    <string name="rd_fx_preset_delete_title">حذف الإعداد المسبق</string>
+    <string name="rd_fx_preset_delete_question">هل تريد حذف %1$s؟</string>
+    <string name="rd_fx_preset_delete_note">تبقى المؤثرات المستخدمة كما هي.</string>
+    <string name="rd_fx_preset_err_empty">أدخل اسمًا للإعداد المسبق.</string>
+    <string name="rd_fx_preset_err_default">الاسم \"%1$s\" مخصص للإعداد المسبق للمؤثرات الافتراضية.</string>
+    <string name="rd_fx_preset_err_taken">يوجد بالفعل إعداد مسبق باسم \"%1$s\".</string>
 </resources>

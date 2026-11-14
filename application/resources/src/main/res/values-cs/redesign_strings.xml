@@ -656,4 +656,23 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_update_rate_limited_at">GitHub dostal z této sítě příliš mnoho požadavků. Zkuste to znovu po %1$s.</string>
     <string name="rd_update_rate_limited">GitHub dostal z této sítě příliš mnoho požadavků. Zkuste to znovu později.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">Předvolby efektů</string>
+    <string name="rd_fx_preset_default">Výchozí předvolba</string>
+    <string name="rd_fx_preset_new">Nová předvolba</string>
+    <string name="rd_fx_preset_custom">Vlastní předvolba %1$s</string>
+    <string name="rd_fx_preset_update">Aktualizovat podle aktuálních efektů</string>
+    <string name="rd_fx_preset_rename">Přejmenovat</string>
+    <string name="rd_fx_preset_delete">Smazat</string>
+    <string name="rd_fx_preset_rename_title">Přejmenovat předvolbu</string>
+    <string name="rd_fx_preset_create">Vytvořit</string>
+    <string name="rd_fx_preset_name_hint">např. Noční filmy</string>
+    <string name="rd_fx_preset_keeps">Předvolba uchová právě používané zvukové a obrazové efekty.</string>
+    <string name="rd_fx_preset_keeps_own">Předvolba si ponechá své efekty.</string>
+    <string name="rd_fx_preset_delete_title">Smazat předvolbu</string>
+    <string name="rd_fx_preset_delete_question">Smazat %1$s?</string>
+    <string name="rd_fx_preset_delete_note">Používané efekty zůstanou beze změny.</string>
+    <string name="rd_fx_preset_err_empty">Zadejte název předvolby.</string>
+    <string name="rd_fx_preset_err_default">„%1$s“ je předvolba výchozích efektů.</string>
+    <string name="rd_fx_preset_err_taken">Předvolba s názvem „%1$s“ již existuje.</string>
 </resources>

@@ -649,4 +649,23 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_update_rate_limited_at">このネットワークから GitHub への問い合わせが多すぎます。%1$s 以降にもう一度お試しください。</string>
     <string name="rd_update_rate_limited">このネットワークから GitHub への問い合わせが多すぎます。しばらくしてからもう一度お試しください。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">エフェクトのプリセット</string>
+    <string name="rd_fx_preset_default">デフォルトのプリセット</string>
+    <string name="rd_fx_preset_new">新しいプリセット</string>
+    <string name="rd_fx_preset_custom">カスタムプリセット %1$s</string>
+    <string name="rd_fx_preset_update">現在のエフェクトで更新</string>
+    <string name="rd_fx_preset_rename">名前を変更</string>
+    <string name="rd_fx_preset_delete">削除</string>
+    <string name="rd_fx_preset_rename_title">プリセット名を変更</string>
+    <string name="rd_fx_preset_create">作成</string>
+    <string name="rd_fx_preset_name_hint">例: 深夜の映画</string>
+    <string name="rd_fx_preset_keeps">使用中のオーディオとビデオのエフェクトがプリセットに保存されます。</string>
+    <string name="rd_fx_preset_keeps_own">プリセットのエフェクトはそのまま保持されます。</string>
+    <string name="rd_fx_preset_delete_title">プリセットを削除</string>
+    <string name="rd_fx_preset_delete_question">%1$sを削除しますか?</string>
+    <string name="rd_fx_preset_delete_note">使用中のエフェクトはそのまま残ります。</string>
+    <string name="rd_fx_preset_err_empty">プリセットの名前を入力してください。</string>
+    <string name="rd_fx_preset_err_default">「%1$s」はデフォルトのエフェクトのプリセットです。</string>
+    <string name="rd_fx_preset_err_taken">「%1$s」という名前のプリセットは既に存在します。</string>
 </resources>
