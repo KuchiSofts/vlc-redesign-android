@@ -573,4 +573,16 @@
     <string name="rd_sleep_pause">Pozastavit přehrávání</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">Zpoždění sekundárních titulků</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">Přidat titulky</string>
+    <string name="rd_from_a_file">Ze souboru</string>
+    <string name="rd_from_link">Z odkazu</string>
+    <string name="rd_link_hint">Přímý odkaz HTTPS na soubor titulků</string>
+    <string name="rd_link_not_subtitle">Zadejte přímý odkaz HTTPS na soubor titulků (.srt, .ass, .ssa, .sub, .vtt, .ttml nebo .smi).</string>
+    <string name="rd_link_too_big">Titulky překračují limit stahování 20 MB.</string>
+    <string name="rd_link_failed">Titulky se nepodařilo stáhnout: %1$s</string>
+    <string name="rd_link_downloading">Stahování titulků…</string>
+    <string name="rd_link_added">Titulky přidány: %1$s</string>
+    <string name="rd_seek_sub_cues">Zobrazovat řádky titulků na posuvníku</string>
+    <string name="rd_help_seek_sub_cues">Značky na posuvníku v místech, kde zobrazené titulky ještě mají řádky.</string>
 </resources>

@@ -39,6 +39,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import org.videolan.tools.Settings
 import org.videolan.vlc.R
 import org.videolan.vlc.gui.helpers.rdAccent
@@ -127,7 +129,8 @@ class RdSubtitlesPanel(
         }
         refreshButton.setOnClickListener { if (!finder.busy()) finder.search() }
         settingsButton.setOnClickListener { openServices() }
-        addButton.setOnClickListener { pickFile() }
+        // the desktop's Add Subtitles: From Computer (here a file of the device) or From Link
+        addButton.setOnClickListener { chooseAdd() }
         titleField.setOnEditorActionListener { _, action, event ->
             // (a keyboard's Enter comes down and up: one search, not two)
             if (action == EditorInfo.IME_ACTION_SEARCH && event == null || event?.keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -141,6 +144,73 @@ class RdSubtitlesPanel(
                 searchButton.requestFocus()
                 true
             } else false
+        }
+    }
+
+    private fun chooseAdd() {
+        val dialog = com.google.android.material.dialog.MaterialAlertDialogBuilder(activity)
+            .setTitle(R.string.rd_add_subtitles)
+            .setItems(arrayOf(ctx.getString(R.string.rd_from_a_file), ctx.getString(R.string.rd_from_link))) { _, which ->
+                if (which == 0) pickFile() else askLink()
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
+        org.videolan.vlc.gui.helpers.RdTvFocusRing.attach(dialog.window)
+    }
+
+    /** A direct HTTPS link to a subtitle file: downloaded and added to the video playing (RdSubtitleLink) */
+    private fun askLink() {
+        val field = EditText(activity).apply {
+            hint = ctx.getString(R.string.rd_link_hint)
+            inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_URI
+            isSingleLine = true
+            imeOptions = EditorInfo.IME_ACTION_GO
+        }
+        val box = FrameLayout(activity).apply {
+            val pad = (20 * ctx.resources.displayMetrics.density).toInt()
+            setPadding(pad, pad / 2, pad, 0)
+            addView(field)
+        }
+        val dialog = com.google.android.material.dialog.MaterialAlertDialogBuilder(activity)
+            .setTitle(R.string.rd_from_link)
+            .setView(box)
+            .setPositiveButton(R.string.ok) { _, _ -> addLink(field.text.toString()) }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
+        org.videolan.vlc.gui.helpers.RdTvFocusRing.attach(dialog.window)
+        // (the keyboard's own Go key adds it as OK does)
+        field.setOnEditorActionListener { _, action, event ->
+            if (action == EditorInfo.IME_ACTION_GO || event?.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                dialog.dismiss()
+                addLink(field.text.toString())
+                true
+            } else action == EditorInfo.IME_NULL && event?.keyCode == KeyEvent.KEYCODE_ENTER
+        }
+        field.requestFocus()
+    }
+
+    private fun addLink(text: String) {
+        val link = org.videolan.vlc.util.RdSubtitleLink.check(text)
+        if (link !is org.videolan.vlc.util.RdSubtitleLink.Check.Ok) {
+            android.widget.Toast.makeText(activity, R.string.rd_link_not_subtitle, android.widget.Toast.LENGTH_LONG).show()
+            return
+        }
+        android.widget.Toast.makeText(activity, R.string.rd_link_downloading, android.widget.Toast.LENGTH_SHORT).show()
+        activity.lifecycleScope.launch {
+            when (val result = org.videolan.vlc.util.RdSubtitleLink.download(activity, link)) {
+                is org.videolan.vlc.util.RdSubtitleLink.Result.Saved -> {
+                    // (as a file opened: chosen when it comes, kept for this video)
+                    activity.rdAddOpenedSubtitle(android.net.Uri.fromFile(result.file), link.name)
+                    android.widget.Toast.makeText(activity, ctx.getString(R.string.rd_link_added, link.name), android.widget.Toast.LENGTH_LONG).show()
+                    // (the track comes, then is chosen, a moment later)
+                    root.postDelayed({ refresh() }, 400L)
+                    root.postDelayed({ refresh() }, 1200L)
+                }
+                org.videolan.vlc.util.RdSubtitleLink.Result.TooBig ->
+                    android.widget.Toast.makeText(activity, R.string.rd_link_too_big, android.widget.Toast.LENGTH_LONG).show()
+                is org.videolan.vlc.util.RdSubtitleLink.Result.Failed ->
+                    android.widget.Toast.makeText(activity, ctx.getString(R.string.rd_link_failed, result.reason), android.widget.Toast.LENGTH_LONG).show()
+            }
         }
     }
 

@@ -570,4 +570,16 @@
     <string name="rd_sleep_pause">Afspelen pauzeren</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">Vertraging secundaire ondertitel</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">Ondertitels toevoegen</string>
+    <string name="rd_from_a_file">Uit een bestand</string>
+    <string name="rd_from_link">Via link</string>
+    <string name="rd_link_hint">Directe HTTPS-link naar een ondertitelbestand</string>
+    <string name="rd_link_not_subtitle">Voer een directe HTTPS-link naar een ondertitelbestand in (.srt, .ass, .ssa, .sub, .vtt, .ttml of .smi).</string>
+    <string name="rd_link_too_big">De ondertitel overschrijdt de downloadlimiet van 20 MB.</string>
+    <string name="rd_link_failed">Kan de ondertitel niet downloaden: %1$s</string>
+    <string name="rd_link_downloading">Ondertitel downloaden…</string>
+    <string name="rd_link_added">Ondertitel toegevoegd: %1$s</string>
+    <string name="rd_seek_sub_cues">Ondertitelregels op de voortgangsbalk weergeven</string>
+    <string name="rd_help_seek_sub_cues">Markeringen op de voortgangsbalk waar de getoonde ondertitel nog regels heeft.</string>
 </resources>

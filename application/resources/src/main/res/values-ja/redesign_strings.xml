@@ -569,4 +569,16 @@
     <string name="rd_sleep_pause">再生を一時停止</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">第2字幕の遅延</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">字幕を追加</string>
+    <string name="rd_from_a_file">ファイルから</string>
+    <string name="rd_from_link">リンクから</string>
+    <string name="rd_link_hint">字幕ファイルへの直接のHTTPSリンク</string>
+    <string name="rd_link_not_subtitle">字幕ファイル (.srt、.ass、.ssa、.sub、.vtt、.ttml、.smi) への直接のHTTPSリンクを入力してください。</string>
+    <string name="rd_link_too_big">字幕がダウンロードの上限 (20 MB) を超えています。</string>
+    <string name="rd_link_failed">字幕をダウンロードできませんでした: %1$s</string>
+    <string name="rd_link_downloading">字幕をダウンロードしています…</string>
+    <string name="rd_link_added">字幕を追加しました: %1$s</string>
+    <string name="rd_seek_sub_cues">シークバーに字幕の行を表示</string>
+    <string name="rd_help_seek_sub_cues">表示中の字幕にこの先セリフがある位置をシークバーに印で示します。</string>
 </resources>

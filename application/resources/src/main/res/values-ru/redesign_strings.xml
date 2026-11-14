@@ -573,4 +573,16 @@
     <string name="rd_sleep_pause">Приостановить воспроизведение</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">Задержка дополнительных субтитров</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">Добавить субтитры</string>
+    <string name="rd_from_a_file">Из файла</string>
+    <string name="rd_from_link">По ссылке</string>
+    <string name="rd_link_hint">Прямая HTTPS-ссылка на файл субтитров</string>
+    <string name="rd_link_not_subtitle">Введите прямую HTTPS-ссылку на файл субтитров (.srt, .ass, .ssa, .sub, .vtt, .ttml или .smi).</string>
+    <string name="rd_link_too_big">Субтитры превышают ограничение на скачивание в 20 МБ.</string>
+    <string name="rd_link_failed">Не удалось скачать субтитры: %1$s</string>
+    <string name="rd_link_downloading">Загрузка субтитров…</string>
+    <string name="rd_link_added">Субтитры добавлены: %1$s</string>
+    <string name="rd_seek_sub_cues">Показывать строки субтитров на полосе перемотки</string>
+    <string name="rd_help_seek_sub_cues">Отметки на полосе перемотки там, где у показанных субтитров ещё есть строки.</string>
 </resources>

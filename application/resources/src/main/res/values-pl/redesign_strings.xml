@@ -573,4 +573,16 @@
     <string name="rd_sleep_pause">Wstrzymaj odtwarzanie</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">Opóźnienie dodatkowych napisów</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">Dodaj napisy</string>
+    <string name="rd_from_a_file">Z pliku</string>
+    <string name="rd_from_link">Z linku</string>
+    <string name="rd_link_hint">Bezpośredni link HTTPS do pliku napisów</string>
+    <string name="rd_link_not_subtitle">Wpisz bezpośredni link HTTPS do pliku napisów (.srt, .ass, .ssa, .sub, .vtt, .ttml lub .smi).</string>
+    <string name="rd_link_too_big">Plik napisów przekracza limit pobierania 20 MB.</string>
+    <string name="rd_link_failed">Nie można pobrać napisów: %1$s</string>
+    <string name="rd_link_downloading">Pobieranie napisów…</string>
+    <string name="rd_link_added">Dodano napisy: %1$s</string>
+    <string name="rd_seek_sub_cues">Pokazuj wiersze napisów na pasku przewijania</string>
+    <string name="rd_help_seek_sub_cues">Znaczniki na pasku przewijania tam, gdzie wyświetlane napisy mają jeszcze wiersze.</string>
 </resources>

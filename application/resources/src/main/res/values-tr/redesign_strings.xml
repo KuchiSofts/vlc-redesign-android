@@ -570,4 +570,16 @@
     <string name="rd_sleep_pause">Oynatmayı duraklat</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">İkincil altyazı gecikmesi</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">Altyazı Ekle</string>
+    <string name="rd_from_a_file">Dosyadan</string>
+    <string name="rd_from_link">Bağlantıdan</string>
+    <string name="rd_link_hint">Bir altyazı dosyasının doğrudan HTTPS bağlantısı</string>
+    <string name="rd_link_not_subtitle">Bir altyazı dosyasının doğrudan HTTPS bağlantısını yazın (.srt, .ass, .ssa, .sub, .vtt, .ttml ya da .smi).</string>
+    <string name="rd_link_too_big">Altyazı, 20 MB indirme sınırını aşıyor.</string>
+    <string name="rd_link_failed">Altyazı indirilemedi: %1$s</string>
+    <string name="rd_link_downloading">Altyazı indiriliyor…</string>
+    <string name="rd_link_added">Altyazı eklendi: %1$s</string>
+    <string name="rd_seek_sub_cues">Sarma çubuğunda altyazı satırları görüntülensin</string>
+    <string name="rd_help_seek_sub_cues">Gösterilen altyazının sonraki satırlarının yeri sarma çubuğunda işaretlenir.</string>
 </resources>

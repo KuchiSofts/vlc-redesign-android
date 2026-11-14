@@ -1406,16 +1406,20 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         if (data.hasExtra(EXTRA_MRL)) {
             val subtitleUri = data.getStringExtra(EXTRA_MRL)!!.toUri()
             val picked = getUri(subtitleUri) ?: subtitleUri
-            // (the Subtitles panel says "Opened · its name" under it)
-            val pickedName = (subtitleUri.lastPathSegment ?: "").substringAfterLast('/')
-            rdExpectSubtitle(org.videolan.vlc.util.RdSubtitleChoices.Source(org.videolan.vlc.util.RdSubtitleChoices.Kind.OPENED, pickedName,
-                language = org.videolan.vlc.util.OnlineSubtitles.languageOfSubtitleFile(pickedName)))
-            lifecycleScope.launch { service?.addSubtitleTrackAsync(picked, false) }
-            service?.currentMediaWrapper?.let {
-                SlaveRepository.getInstance(this).saveSlave(it.location, IMedia.Slave.Type.Subtitle, 2, data.getStringExtra(EXTRA_MRL)!!)
-            }
-            addNextTrack = true
+            rdAddOpenedSubtitle(picked, (subtitleUri.lastPathSegment ?: "").substringAfterLast('/'), data.getStringExtra(EXTRA_MRL)!!)
         } else if (BuildConfig.DEBUG) Log.d(TAG, "Subtitle selection dialog was cancelled")
+    }
+
+    /** VLC Redesign: a subtitle file the user opened (a file of the device, a link downloaded): added, chosen when it
+     *  comes (whatever track was on), kept for this media (its slave), and "Opened · its name" in the Subtitles panel */
+    fun rdAddOpenedSubtitle(uri: Uri, name: String, slaveMrl: String = uri.toString()) {
+        rdExpectSubtitle(org.videolan.vlc.util.RdSubtitleChoices.Source(org.videolan.vlc.util.RdSubtitleChoices.Kind.OPENED, name,
+            language = org.videolan.vlc.util.OnlineSubtitles.languageOfSubtitleFile(name)))
+        addNextTrack = true
+        lifecycleScope.launch { if (service?.addSubtitleTrackAsync(uri, false) != true) addNextTrack = false }
+        service?.currentMediaWrapper?.let {
+            SlaveRepository.getInstance(this).saveSlave(it.location, IMedia.Slave.Type.Subtitle, 2, slaveMrl)
+        }
     }
 
     open fun exit(resultCode: Int) {

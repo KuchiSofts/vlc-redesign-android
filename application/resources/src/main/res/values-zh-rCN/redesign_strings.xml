@@ -569,4 +569,16 @@
     <string name="rd_sleep_pause">暂停播放</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">次字幕延迟</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">添加字幕</string>
+    <string name="rd_from_a_file">从文件</string>
+    <string name="rd_from_link">从链接</string>
+    <string name="rd_link_hint">字幕文件的 HTTPS 直链</string>
+    <string name="rd_link_not_subtitle">请输入字幕文件 (.srt、.ass、.ssa、.sub、.vtt、.ttml 或 .smi) 的 HTTPS 直链。</string>
+    <string name="rd_link_too_big">字幕超过 20 MB 的下载限制。</string>
+    <string name="rd_link_failed">无法下载字幕：%1$s</string>
+    <string name="rd_link_downloading">正在下载字幕…</string>
+    <string name="rd_link_added">已添加字幕：%1$s</string>
+    <string name="rd_seek_sub_cues">在进度条上显示字幕行</string>
+    <string name="rd_help_seek_sub_cues">在进度条上标出当前字幕之后还有台词的位置。</string>
 </resources>

@@ -569,4 +569,16 @@
     <string name="rd_sleep_pause">재생 일시중지</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">보조 자막 지연</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">자막 추가</string>
+    <string name="rd_from_a_file">파일에서</string>
+    <string name="rd_from_link">링크에서</string>
+    <string name="rd_link_hint">자막 파일의 HTTPS 직접 링크</string>
+    <string name="rd_link_not_subtitle">자막 파일(.srt, .ass, .ssa, .sub, .vtt, .ttml 또는 .smi)의 HTTPS 직접 링크를 입력하세요.</string>
+    <string name="rd_link_too_big">자막이 다운로드 한도인 20 MB를 초과합니다.</string>
+    <string name="rd_link_failed">자막을 다운로드할 수 없습니다: %1$s</string>
+    <string name="rd_link_downloading">자막 다운로드 중…</string>
+    <string name="rd_link_added">자막 추가됨: %1$s</string>
+    <string name="rd_seek_sub_cues">탐색 막대에 자막 줄 표시</string>
+    <string name="rd_help_seek_sub_cues">표시 중인 자막에 이후 대사가 있는 위치를 탐색 막대에 표시합니다.</string>
 </resources>

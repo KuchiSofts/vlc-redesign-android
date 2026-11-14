@@ -570,4 +570,16 @@
     <string name="rd_sleep_pause">Pausar la reproducción</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">Retraso de subtítulos secundarios</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">Añadir subtítulos</string>
+    <string name="rd_from_a_file">Desde un archivo</string>
+    <string name="rd_from_link">Desde un enlace</string>
+    <string name="rd_link_hint">Enlace HTTPS directo a un archivo de subtítulos</string>
+    <string name="rd_link_not_subtitle">Introduzca un enlace HTTPS directo a un archivo de subtítulos (.srt, .ass, .ssa, .sub, .vtt, .ttml o .smi).</string>
+    <string name="rd_link_too_big">El subtítulo supera el límite de descarga de 20 MB.</string>
+    <string name="rd_link_failed">No se pudo descargar el subtítulo: %1$s</string>
+    <string name="rd_link_downloading">Descargando el subtítulo…</string>
+    <string name="rd_link_added">Subtítulo añadido: %1$s</string>
+    <string name="rd_seek_sub_cues">Mostrar las líneas de subtítulos en la barra de progreso</string>
+    <string name="rd_help_seek_sub_cues">Marcas en la barra de progreso donde el subtítulo mostrado aún tiene líneas.</string>
 </resources>

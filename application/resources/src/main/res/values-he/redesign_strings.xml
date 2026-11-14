@@ -515,7 +515,7 @@
     <string name="rd_format">מבנה</string>
     <string name="rd_snapshot_size">רוחב</string>
     <string name="rd_help_snapshot_width">בפיקסלים; ריק שומר על הגודל המקורי של הסרטון.</string>
-    <string name="rd_snapshot_height">גוה</string>
+    <string name="rd_snapshot_height">גובה</string>
     <string name="rd_help_snapshot_height">בפיקסלים; ריק מתאים את עצמו לרוחב, ‎-1 שומר על הגובה המקורי של הסרטון.</string>
     <string name="rd_number_sequentially">מספר את הקבצים ברצף</string>
     <string name="rd_snapshot_preview">הצג תצוגה מקדימה אחרי הצילום</string>
@@ -555,4 +555,16 @@
     <string name="rd_sleep_pause">השהה את הנגינה</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">השהיית כתוביות משניות</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">הוספת כתוביות</string>
+    <string name="rd_from_a_file">מקובץ</string>
+    <string name="rd_from_link">מקישור</string>
+    <string name="rd_link_hint">קישור HTTPS ישיר לקובץ כתוביות</string>
+    <string name="rd_link_not_subtitle">הזן קישור HTTPS ישיר לקובץ כתוביות מסוג srt, ass, ssa, sub, vtt, ttml או smi.</string>
+    <string name="rd_link_too_big">הכתוביות חורגות ממגבלת ההורדה של 20 MB.</string>
+    <string name="rd_link_failed">לא ניתן היה להוריד את הכתוביות: %1$s</string>
+    <string name="rd_link_downloading">מוריד את הכתוביות…</string>
+    <string name="rd_link_added">הכתוביות נוספו: %1$s</string>
+    <string name="rd_seek_sub_cues">הצגת שורות הכתוביות על פס ההתקדמות</string>
+    <string name="rd_help_seek_sub_cues">סימונים על פס ההתקדמות במקומות שבהם יש לכתוביות המוצגות שורות בהמשך.</string>
 </resources>

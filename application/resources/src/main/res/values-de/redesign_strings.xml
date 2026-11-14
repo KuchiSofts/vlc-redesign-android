@@ -570,4 +570,16 @@
     <string name="rd_sleep_pause">Wiedergabe pausieren</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">Verzögerung sekundäre Untertitel</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">Untertitel hinzufügen</string>
+    <string name="rd_from_a_file">Aus einer Datei</string>
+    <string name="rd_from_link">Von Link</string>
+    <string name="rd_link_hint">Direkter HTTPS-Link zu einer Untertiteldatei</string>
+    <string name="rd_link_not_subtitle">Geben Sie einen direkten HTTPS-Link zu einer Untertiteldatei ein (.srt, .ass, .ssa, .sub, .vtt, .ttml oder .smi).</string>
+    <string name="rd_link_too_big">Der Untertitel überschreitet das Download-Limit von 20 MB.</string>
+    <string name="rd_link_failed">Der Untertitel konnte nicht heruntergeladen werden: %1$s</string>
+    <string name="rd_link_downloading">Untertitel wird heruntergeladen…</string>
+    <string name="rd_link_added">Untertitel hinzugefügt: %1$s</string>
+    <string name="rd_seek_sub_cues">Untertitelzeilen auf der Zeitleiste anzeigen</string>
+    <string name="rd_help_seek_sub_cues">Markierungen auf der Zeitleiste, wo der angezeigte Untertitel noch Zeilen hat.</string>
 </resources>

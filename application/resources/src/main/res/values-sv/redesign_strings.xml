@@ -570,4 +570,16 @@
     <string name="rd_sleep_pause">Pausa uppspelningen</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">Fördröjning av sekundär undertext</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">Lägg till undertexter</string>
+    <string name="rd_from_a_file">Från en fil</string>
+    <string name="rd_from_link">Från länk</string>
+    <string name="rd_link_hint">Direkt HTTPS-länk till en undertextfil</string>
+    <string name="rd_link_not_subtitle">Ange en direkt HTTPS-länk till en undertextfil (.srt, .ass, .ssa, .sub, .vtt, .ttml eller .smi).</string>
+    <string name="rd_link_too_big">Undertexten överskrider hämtningsgränsen på 20 MB.</string>
+    <string name="rd_link_failed">Det gick inte att hämta undertexten: %1$s</string>
+    <string name="rd_link_downloading">Hämtar undertexten…</string>
+    <string name="rd_link_added">Undertext tillagd: %1$s</string>
+    <string name="rd_seek_sub_cues">Visa undertextrader på tidslinjen</string>
+    <string name="rd_help_seek_sub_cues">Markeringar på tidslinjen där den visade undertexten har fler rader.</string>
 </resources>

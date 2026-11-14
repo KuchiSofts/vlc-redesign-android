@@ -551,6 +551,16 @@
         <item quantity="other">%1$d files added to the queue</item>
     </plurals>
     <string name="rd_no_file_picker">This device has no file picker: add files from the app\'s folders instead.</string>
+    <!-- The subtitles panel's +: the desktop's Add Subtitles, from a file or From Link -->
+    <string name="rd_add_subtitles">Add Subtitles</string>
+    <string name="rd_from_a_file">From a file</string>
+    <string name="rd_from_link">From Link</string>
+    <string name="rd_link_hint">Direct HTTPS link to a subtitle file</string>
+    <string name="rd_link_not_subtitle">Enter a direct HTTPS link to a subtitle file (.srt, .ass, .ssa, .sub, .vtt, .ttml or .smi).</string>
+    <string name="rd_link_too_big">The subtitle exceeds the 20 MB download limit.</string>
+    <string name="rd_link_failed">Could not download the subtitle: %1$s</string>
+    <string name="rd_link_downloading">Downloading the subtitle…</string>
+    <string name="rd_link_added">Subtitle added: %1$s</string>
     <!-- Settings › Subtitles › Timing: the desktop's row -->
     <string name="rd_seek_sub_cues">Show subtitle lines on the seek bar</string>
     <string name="rd_help_seek_sub_cues">Marks on the seek bar where the subtitle shown has lines still to come.</string>

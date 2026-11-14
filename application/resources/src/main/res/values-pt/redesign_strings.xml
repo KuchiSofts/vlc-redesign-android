@@ -543,4 +543,16 @@
     <string name="rd_sleep_pause">Pausar a reprodução</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">Atraso das legendas secundárias</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">Adicionar legendas</string>
+    <string name="rd_from_a_file">De um ficheiro</string>
+    <string name="rd_from_link">De uma ligação</string>
+    <string name="rd_link_hint">Ligação HTTPS direta para um ficheiro de legendas</string>
+    <string name="rd_link_not_subtitle">Introduza uma ligação HTTPS direta para um ficheiro de legendas (.srt, .ass, .ssa, .sub, .vtt, .ttml ou .smi).</string>
+    <string name="rd_link_too_big">A legenda excede o limite de transferência de 20 MB.</string>
+    <string name="rd_link_failed">Não foi possível descarregar a legenda: %1$s</string>
+    <string name="rd_link_downloading">A transferir a legenda…</string>
+    <string name="rd_link_added">Legenda adicionada: %1$s</string>
+    <string name="rd_seek_sub_cues">Mostrar as linhas das legendas na barra de progresso</string>
+    <string name="rd_help_seek_sub_cues">Marcas na barra de progresso onde a legenda apresentada ainda tem linhas.</string>
 </resources>
