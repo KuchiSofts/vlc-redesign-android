@@ -1520,8 +1520,14 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 updateMute()
                 return true
             }
+            // VLC Redesign: the desktop's Shift+S snapshot and Shift+R record
             KeyEvent.KEYCODE_S, KeyEvent.KEYCODE_MEDIA_STOP -> {
-                exitOK()
+                if (keyCode == KeyEvent.KEYCODE_S && event.isShiftPressed) takeScreenshot() else exitOK()
+                return true
+            }
+            KeyEvent.KEYCODE_R -> if (event.isShiftPressed) {
+                ensureOptionsDelegate()
+                optionsDelegate?.performAction("record")
                 return true
             }
             KeyEvent.KEYCODE_DPAD_LEFT -> {
@@ -1530,14 +1536,18 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 else if (isLocked) {
                     overlayDelegate.showOverlayTimeout(Settings.videoHudDelay * 1000)
                 } else if (!isShowing && !overlayDelegate.playlistContainer.isVisible() && !resizeDelegate.isShowing()) {
+                    // VLC Redesign: the desktop's skips and keys (Settings › Controls › Skip Amounts): Shift very short,
+                    // Alt short, Ctrl medium, Ctrl+Alt long
                     if (event.isAltPressed && event.isCtrlPressed) {
-                        touchDelegate.seekDelta(-300000)
+                        touchDelegate.seekDelta(-Settings.videoLongJumpDelay * 1000)
                     } else if (event.isShiftPressed && event.isCtrlPressed) {
                         touchDelegate.seekDelta(-30000)
                     } else if (event.isShiftPressed) {
-                        touchDelegate.seekDelta(-5000)
+                        touchDelegate.seekDelta(-rdJump(KEY_RD_EXTRASHORT_JUMP, 3))
                     } else if (event.isCtrlPressed) {
-                        touchDelegate.seekDelta(-60000)
+                        touchDelegate.seekDelta(-rdJump(KEY_RD_MEDIUM_JUMP, 60))
+                    } else if (event.isAltPressed) {
+                        touchDelegate.seekDelta(-Settings.videoJumpDelay * 1000)
                     } else if (fov == 0f)
                         touchDelegate.seekDelta(-Settings.videoDoubleTapJumpDelay * 1000)
                     else
@@ -1551,14 +1561,18 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 else if (isLocked) {
                     overlayDelegate.showOverlayTimeout(Settings.videoHudDelay * 1000)
                 } else if (!isShowing && !overlayDelegate.playlistContainer.isVisible() && !resizeDelegate.isShowing()) {
+                    // VLC Redesign: the desktop's skips and keys (Settings › Controls › Skip Amounts): Shift very short,
+                    // Alt short, Ctrl medium, Ctrl+Alt long
                     if (event.isAltPressed && event.isCtrlPressed) {
-                        touchDelegate.seekDelta(300000)
+                        touchDelegate.seekDelta(Settings.videoLongJumpDelay * 1000)
                     } else if (event.isShiftPressed && event.isCtrlPressed) {
                         touchDelegate.seekDelta(30000)
                     } else if (event.isShiftPressed) {
-                        touchDelegate.seekDelta(5000)
+                        touchDelegate.seekDelta(rdJump(KEY_RD_EXTRASHORT_JUMP, 3))
                     } else if (event.isCtrlPressed) {
-                        touchDelegate.seekDelta(60000)
+                        touchDelegate.seekDelta(rdJump(KEY_RD_MEDIUM_JUMP, 60))
+                    } else if (event.isAltPressed) {
+                        touchDelegate.seekDelta(Settings.videoJumpDelay * 1000)
                     } else if (fov == 0f)
                         touchDelegate.seekDelta(Settings.videoDoubleTapJumpDelay * 1000)
                     else
@@ -1615,12 +1629,15 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
             else
                 super.onKeyDown(keyCode, event)
             KeyEvent.KEYCODE_J -> {
+                // VLC Redesign: the desktop's sync by ear, Shift+H voice heard, Shift+J text seen, Shift+K apply
+                if (event.isShiftPressed) return rdSyncByEar(keyCode, event)
                 delayDelegate.delayAudioOrSpu(delta = -50000L, delayState = IPlaybackSettingsController.DelayState.AUDIO)
                 handler.removeMessages(HIDE_SETTINGS)
                 handler.sendEmptyMessageDelayed(HIDE_SETTINGS, 4000L)
                 return true
             }
             KeyEvent.KEYCODE_K -> {
+                if (event.isShiftPressed) return rdSyncByEar(keyCode, event)
                 delayDelegate.showDelayControls()
                 delayDelegate.delayAudioOrSpu(delta = 50000L, delayState = IPlaybackSettingsController.DelayState.AUDIO)
                 handler.removeMessages(HIDE_SETTINGS)
@@ -1637,6 +1654,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 overlayDelegate.showOverlay()
             }
             KeyEvent.KEYCODE_H -> {
+                if (event.isShiftPressed) return rdSyncByEar(keyCode, event)
                 if (event.isCtrlPressed) {
                     overlayDelegate.showOverlay()
                 } else {
@@ -1679,6 +1697,45 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         }
         if (playerKeyListenerDelegate.onKeyDown(keyCode, event)) return true
         return super.onKeyDown(keyCode, event)
+    }
+
+    /** A skip of Settings › Controls › Skip Amounts, in ms */
+    private fun rdJump(key: String, default: Int) = settings.getInt(key, default).coerceIn(1, 3600) * 1000
+
+    private var rdVoiceMark = -1L
+    private var rdTextMark = -1L
+
+    /**
+     * The desktop's subtitle sync by ear (VLC's subsync keys): Shift+H when the voice is heard, Shift+J when the text
+     * shows, Shift+K moves the subtitles by the difference, Ctrl+Shift+K puts them back
+     */
+    private fun rdSyncByEar(keyCode: Int, event: KeyEvent): Boolean {
+        val s = service ?: return true
+        when {
+            keyCode == KeyEvent.KEYCODE_H -> {
+                rdVoiceMark = s.getTime()
+                overlayDelegate.showInfo(getString(R.string.rd_voice_marked), 1500)
+            }
+            keyCode == KeyEvent.KEYCODE_J -> {
+                rdTextMark = s.getTime()
+                overlayDelegate.showInfo(getString(R.string.rd_text_marked), 1500)
+            }
+            event.isCtrlPressed -> {
+                rdVoiceMark = -1L
+                rdTextMark = -1L
+                s.setSpuDelay(0L)
+                overlayDelegate.showInfo("${getString(R.string.spu_delay)}: 0 ms", 1500)
+            }
+            rdVoiceMark >= 0 && rdTextMark >= 0 -> {
+                val delay = (s.spuDelay / 1000L + (rdVoiceMark - rdTextMark)).coerceIn(-600000L, 600000L)
+                s.setSpuDelay(delay * 1000L)
+                rdVoiceMark = -1L
+                rdTextMark = -1L
+                overlayDelegate.showInfo("${getString(R.string.spu_delay)}: $delay ms", 1500)
+            }
+            else -> overlayDelegate.showInfo(getString(R.string.rd_mark_voice_heard), 1500)
+        }
+        return true
     }
 
     override fun showEqualizer() {
@@ -3453,3 +3510,7 @@ fun setProgressMax(view: SeekBar, length: Long) {
 
 /** VLC Redesign, Settings > Subtitles > Enable subtitles (the desktop's spu): off, a video starts without subtitles */
 const val KEY_RD_SPU = "rd_spu"
+
+/** VLC Redesign, Settings > Controls > Skip Amounts: the desktop's very short and medium skips, in seconds */
+const val KEY_RD_EXTRASHORT_JUMP = "rd_extrashort_jump"
+const val KEY_RD_MEDIUM_JUMP = "rd_medium_jump"

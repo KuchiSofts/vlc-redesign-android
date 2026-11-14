@@ -532,6 +532,9 @@
     <string name="rd_balanced">Balanced</string>
     <string name="rd_high">High</string>
     <string name="rd_best">Best</string>
+    <!-- Settings › Controls › Skip Amounts: the desktop's rows -->
+    <string name="rd_very_short_skip">Very short skip</string>
+    <string name="rd_medium_skip">Medium skip</string>
     <!-- Settings › Network: the desktop's rows -->
     <string name="rd_sec_security">Security</string>
     <string name="rd_cipher_preference">Cipher preference</string>
