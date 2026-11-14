@@ -675,4 +675,9 @@
     <string name="rd_clone_profile">Dupliquer le profil</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_repeat">Répétition</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">Valeurs de taille</string>
+    <string name="rd_sub_size_relative">Relative</string>
+    <string name="rd_sub_size_pixels">Pixels</string>
+    <string name="rd_help_sub_fontsize_px">La hauteur des lettres en pixels de la vidéo.</string>
 </resources>

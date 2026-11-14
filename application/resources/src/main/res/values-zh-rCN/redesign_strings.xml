@@ -673,4 +673,9 @@
     <string name="rd_clone_profile">克隆配置文件</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_repeat">重复</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">大小数值</string>
+    <string name="rd_sub_size_relative">相对</string>
+    <string name="rd_sub_size_pixels">像素</string>
+    <string name="rd_help_sub_fontsize_px">以视频像素计的字母高度。</string>
 </resources>

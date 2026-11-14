@@ -190,7 +190,10 @@ object VLCOptions {
             val subtitleScale = org.videolan.tools.SubtitleScale.get(pref)
             if (isVLC4()) options.add("--sub-text-scale=" + (1600 / freetypeRelFontsize!!.toFloat() * subtitleScale / 100f).toInt().toString())
             else {
-                options.add("--freetype-rel-fontsize=" + freetypeRelFontsize!!)
+                // the desktop's Size values: Pixels gives the size itself (freetype-fontsize), else by name
+                val px = if (pref.getString("rd_sub_size_mode", "0") == "1") pref.getString("rd_sub_fontsize_px", "")?.trim()?.toIntOrNull()?.takeIf { it in 6..300 } else null
+                if (px != null) options.add("--freetype-fontsize=$px")
+                else options.add("--freetype-rel-fontsize=" + freetypeRelFontsize!!)
                 options.add("--sub-text-scale=$subtitleScale")
             }
             if (freetypeBold) options.add("--freetype-bold")

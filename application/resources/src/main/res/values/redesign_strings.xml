@@ -836,6 +836,19 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <!-- Settings › Subtitles › Appearance: the desktop's Size values (Relative, Pixels) -->
+    <string name="rd_sub_size_values">Size values</string>
+    <string name="rd_sub_size_relative">Relative</string>
+    <string name="rd_sub_size_pixels">Pixels</string>
+    <string name="rd_help_sub_fontsize_px">The height of the letters in pixels of the video.</string>
+    <string-array name="rd_sub_size_mode_entries" translatable="false">
+        <item>@string/rd_sub_size_relative</item>
+        <item>@string/rd_sub_size_pixels</item>
+    </string-array>
+    <string-array name="rd_sub_size_mode_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
     <!-- Settings › Subtitles › Timing: the desktop's Subtitle delay (sub-delay), the default of every video -->
     <string name="rd_subtitle_delay">Subtitle delay</string>
     <!-- Settings › Library › Advanced: the desktop's Ignored file extensions (libvlc's ignore-filetypes) -->

@@ -661,4 +661,9 @@
     <string name="rd_clone_profile">שכפול פרופיל</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_repeat">חזרה</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">ערכי גודל</string>
+    <string name="rd_sub_size_relative">יחסי</string>
+    <string name="rd_sub_size_pixels">פיקסלים</string>
+    <string name="rd_help_sub_fontsize_px">גובה האותיות בפיקסלים של הסרטון.</string>
 </resources>

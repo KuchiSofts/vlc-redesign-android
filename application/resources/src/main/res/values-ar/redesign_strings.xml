@@ -682,4 +682,9 @@
     <string name="rd_clone_profile">استنساخ ملف التعريف</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_repeat">التكرار</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">قيم الحجم</string>
+    <string name="rd_sub_size_relative">نسبي</string>
+    <string name="rd_sub_size_pixels">بالبكسل</string>
+    <string name="rd_help_sub_fontsize_px">ارتفاع الحروف ببكسلات الفيديو.</string>
 </resources>

@@ -675,4 +675,9 @@
     <string name="rd_clone_profile">Klona profil</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_repeat">Upprepa</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">Storleksvärden</string>
+    <string name="rd_sub_size_relative">Relativ</string>
+    <string name="rd_sub_size_pixels">Bildpunkter</string>
+    <string name="rd_help_sub_fontsize_px">Bokstävernas höjd i videons bildpunkter.</string>
 </resources>

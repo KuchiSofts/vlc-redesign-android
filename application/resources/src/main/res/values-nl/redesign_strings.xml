@@ -675,4 +675,9 @@
     <string name="rd_clone_profile">Profiel klonen</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_repeat">Herhalen</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">Groottewaarden</string>
+    <string name="rd_sub_size_relative">Relatief</string>
+    <string name="rd_sub_size_pixels">Pixels</string>
+    <string name="rd_help_sub_fontsize_px">De hoogte van de letters in pixels van de video.</string>
 </resources>

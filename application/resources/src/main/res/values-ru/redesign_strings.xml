@@ -680,4 +680,9 @@
     <string name="rd_clone_profile">Дублировать профиль</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_repeat">Повтор</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">Значения размера</string>
+    <string name="rd_sub_size_relative">Относительно</string>
+    <string name="rd_sub_size_pixels">В пикселах</string>
+    <string name="rd_help_sub_fontsize_px">Высота букв в пикселях видео.</string>
 </resources>

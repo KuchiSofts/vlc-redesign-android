@@ -680,4 +680,9 @@
     <string name="rd_clone_profile">Klonuj profil</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_repeat">Powtórz</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">Wartości rozmiaru</string>
+    <string name="rd_sub_size_relative">Względny</string>
+    <string name="rd_sub_size_pixels">Piksele</string>
+    <string name="rd_help_sub_fontsize_px">Wysokość liter w pikselach obrazu.</string>
 </resources>

@@ -723,7 +723,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             KEY_SUBTITLES_BACKGROUND_COLOR, KEY_SUBTITLES_BACKGROUND_COLOR_OPACITY, KEY_SUBTITLES_BACKGROUND,
             KEY_SUBTITLES_OUTLINE, KEY_SUBTITLES_OUTLINE_SIZE, KEY_SUBTITLES_OUTLINE_COLOR, KEY_SUBTITLES_OUTLINE_COLOR_OPACITY,
             KEY_SUBTITLES_SHADOW, KEY_SUBTITLES_SHADOW_COLOR, KEY_SUBTITLES_SHADOW_COLOR_OPACITY, "rd_shadow_distance", "rd_sub_margin",
-            "rd_spu", "rd_sub_paths", "rd_shadow_angle", "rd_text_direction", "rd_sub_align" -> {
+            "rd_spu", "rd_sub_paths", "rd_shadow_angle", "rd_text_direction", "rd_sub_align", "rd_sub_size_mode", "rd_sub_fontsize_px" -> {
                 subtitlesChanged = true
                 manageSubtitleVisibilities()
             }
@@ -906,6 +906,10 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         // the desktop's Outline thickness (thin, normal, thick), with the outline
         pref<Preference>(KEY_SUBTITLES_OUTLINE_SIZE)?.isVisible = outline
         pref<Preference>("rd_shadow_angle")?.isVisible = shadow
+        // Size values: the row of the way chosen
+        val pixels = settings.getString("rd_sub_size_mode", "0") == "1"
+        pref<Preference>(KEY_SUBTITLES_SIZE)?.isVisible = !pixels
+        pref<Preference>("rd_sub_fontsize_px")?.isVisible = pixels
         updateTitleTimeoutSummary()
         updateOsdDurationSummary()
         updateSubDelaySummary()

@@ -673,4 +673,9 @@
     <string name="rd_clone_profile">プロファイルを複製</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_repeat">リピート</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">サイズの指定方法</string>
+    <string name="rd_sub_size_relative">相対</string>
+    <string name="rd_sub_size_pixels">ピクセル</string>
+    <string name="rd_help_sub_fontsize_px">映像のピクセル単位での文字の高さ。</string>
 </resources>

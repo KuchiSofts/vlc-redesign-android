@@ -673,4 +673,9 @@
     <string name="rd_clone_profile">프로필 복제</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_repeat">반복</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">크기 값</string>
+    <string name="rd_sub_size_relative">상대 크기</string>
+    <string name="rd_sub_size_pixels">픽셀</string>
+    <string name="rd_help_sub_fontsize_px">영상 픽셀 단위의 글자 높이.</string>
 </resources>
