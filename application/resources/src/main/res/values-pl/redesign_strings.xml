@@ -653,4 +653,7 @@
     <string name="rd_add_audio_track">Dodaj ścieżki dźwiękowe</string>
     <string name="rd_audio_track_added">Dodano ścieżkę dźwiękową: %1$s</string>
     <string name="rd_audio_track_failed">Nie udało się dodać ścieżki dźwiękowej.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">GitHub otrzymał zbyt wiele zapytań z tej sieci. Spróbuj ponownie po %1$s.</string>
+    <string name="rd_update_rate_limited">GitHub otrzymał zbyt wiele zapytań z tej sieci. Spróbuj ponownie później.</string>
 </resources>

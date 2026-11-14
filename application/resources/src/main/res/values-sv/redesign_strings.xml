@@ -648,4 +648,7 @@
     <string name="rd_add_audio_track">Lägg till ljudspår</string>
     <string name="rd_audio_track_added">Ljudspår tillagt: %1$s</string>
     <string name="rd_audio_track_failed">Ljudspåret kunde inte läggas till.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">GitHub har fått för många förfrågningar från det här nätverket. Försök igen efter %1$s.</string>
+    <string name="rd_update_rate_limited">GitHub har fått för många förfrågningar från det här nätverket. Försök igen senare.</string>
 </resources>

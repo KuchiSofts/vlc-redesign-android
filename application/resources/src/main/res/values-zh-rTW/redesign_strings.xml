@@ -646,4 +646,7 @@
     <string name="rd_add_audio_track">加入音訊軌</string>
     <string name="rd_audio_track_added">已加入音軌：%1$s</string>
     <string name="rd_audio_track_failed">無法加入音軌。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">此網路向 GitHub 發出的要求過多。請在 %1$s 之後重試。</string>
+    <string name="rd_update_rate_limited">此網路向 GitHub 發出的要求過多。請稍後重試。</string>
 </resources>

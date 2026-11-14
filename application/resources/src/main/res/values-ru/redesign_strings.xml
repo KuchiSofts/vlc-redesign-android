@@ -653,4 +653,7 @@
     <string name="rd_add_audio_track">Добавить аудиодорожки</string>
     <string name="rd_audio_track_added">Звуковая дорожка добавлена: %1$s</string>
     <string name="rd_audio_track_failed">Не удалось добавить звуковую дорожку.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">GitHub получил слишком много запросов из этой сети. Повторите после %1$s.</string>
+    <string name="rd_update_rate_limited">GitHub получил слишком много запросов из этой сети. Повторите позже.</string>
 </resources>

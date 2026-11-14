@@ -648,4 +648,7 @@
     <string name="rd_add_audio_track">Ses Kaydı Ekle</string>
     <string name="rd_audio_track_added">Ses parçası eklendi: %1$s</string>
     <string name="rd_audio_track_failed">Ses parçası eklenemedi.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">GitHub bu ağdan çok fazla istek aldı. %1$s sonra yeniden deneyin.</string>
+    <string name="rd_update_rate_limited">GitHub bu ağdan çok fazla istek aldı. Daha sonra yeniden deneyin.</string>
 </resources>

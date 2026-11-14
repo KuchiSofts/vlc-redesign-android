@@ -634,4 +634,7 @@
     <string name="rd_add_audio_track">הוסף רצועות שמע</string>
     <string name="rd_audio_track_added">רצועת השמע נוספה: %1$s</string>
     <string name="rd_audio_track_failed">לא ניתן היה להוסיף את רצועת השמע.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">GitHub קיבל יותר מדי בקשות מהרשת הזו. נסה שוב אחרי %1$s.</string>
+    <string name="rd_update_rate_limited">GitHub קיבל יותר מדי בקשות מהרשת הזו. נסה שוב מאוחר יותר.</string>
 </resources>

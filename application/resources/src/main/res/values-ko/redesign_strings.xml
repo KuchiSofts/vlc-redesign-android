@@ -646,4 +646,7 @@
     <string name="rd_add_audio_track">오디오 트랙 추가</string>
     <string name="rd_audio_track_added">오디오 트랙 추가됨: %1$s</string>
     <string name="rd_audio_track_failed">오디오 트랙을 추가할 수 없습니다.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">이 네트워크에서 GitHub에 너무 많이 요청했습니다. %1$s 이후에 다시 시도하세요.</string>
+    <string name="rd_update_rate_limited">이 네트워크에서 GitHub에 너무 많이 요청했습니다. 나중에 다시 시도하세요.</string>
 </resources>

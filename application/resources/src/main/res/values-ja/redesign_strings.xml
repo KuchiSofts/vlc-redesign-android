@@ -646,4 +646,7 @@
     <string name="rd_add_audio_track">オーディオトラックを追加</string>
     <string name="rd_audio_track_added">音声トラックを追加しました: %1$s</string>
     <string name="rd_audio_track_failed">音声トラックを追加できませんでした。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">このネットワークから GitHub への問い合わせが多すぎます。%1$s 以降にもう一度お試しください。</string>
+    <string name="rd_update_rate_limited">このネットワークから GitHub への問い合わせが多すぎます。しばらくしてからもう一度お試しください。</string>
 </resources>

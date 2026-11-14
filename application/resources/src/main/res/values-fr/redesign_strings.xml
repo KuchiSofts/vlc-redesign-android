@@ -648,4 +648,7 @@
     <string name="rd_add_audio_track">Ajouter des pistes audio</string>
     <string name="rd_audio_track_added">Piste audio ajoutée : %1$s</string>
     <string name="rd_audio_track_failed">Impossible d\'ajouter la piste audio.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">GitHub a reçu trop de demandes de ce réseau. Réessayez après %1$s.</string>
+    <string name="rd_update_rate_limited">GitHub a reçu trop de demandes de ce réseau. Réessayez plus tard.</string>
 </resources>

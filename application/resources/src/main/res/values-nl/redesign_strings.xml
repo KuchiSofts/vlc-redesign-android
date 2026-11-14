@@ -648,4 +648,7 @@
     <string name="rd_add_audio_track">Audiosporen toevoegen</string>
     <string name="rd_audio_track_added">Audiospoor toegevoegd: %1$s</string>
     <string name="rd_audio_track_failed">Het audiospoor kon niet worden toegevoegd.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">GitHub kreeg te veel verzoeken van dit netwerk. Probeer het na %1$s opnieuw.</string>
+    <string name="rd_update_rate_limited">GitHub kreeg te veel verzoeken van dit netwerk. Probeer het later opnieuw.</string>
 </resources>

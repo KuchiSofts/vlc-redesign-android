@@ -799,6 +799,9 @@
     <string name="rd_add_audio_track">Add Audio Tracks</string>
     <string name="rd_audio_track_added">Audio track added: %1$s</string>
     <string name="rd_audio_track_failed">The audio track could not be added.</string>
+    <!-- About's update check: GitHub's rate limit, as the desktop's (RdUpdateCheck.Result.RateLimited) -->
+    <string name="rd_update_rate_limited_at">GitHub was asked too often from this network. Try again after %1$s.</string>
+    <string name="rd_update_rate_limited">GitHub was asked too often from this network. Try again later.</string>
     <!-- Settings › Subtitles › Timing: the desktop's Subtitle delay (sub-delay), the default of every video -->
     <string name="rd_subtitle_delay">Subtitle delay</string>
     <!-- Settings › Library › Advanced: the desktop's Ignored file extensions (libvlc's ignore-filetypes) -->

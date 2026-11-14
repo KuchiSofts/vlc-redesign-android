@@ -653,4 +653,7 @@
     <string name="rd_add_audio_track">Přidat zvukové stopy</string>
     <string name="rd_audio_track_added">Zvuková stopa přidána: %1$s</string>
     <string name="rd_audio_track_failed">Zvukovou stopu se nepodařilo přidat.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">GitHub dostal z této sítě příliš mnoho požadavků. Zkuste to znovu po %1$s.</string>
+    <string name="rd_update_rate_limited">GitHub dostal z této sítě příliš mnoho požadavků. Zkuste to znovu později.</string>
 </resources>

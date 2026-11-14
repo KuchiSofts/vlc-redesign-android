@@ -655,4 +655,7 @@
     <string name="rd_add_audio_track">إضافة مسارات صوت</string>
     <string name="rd_audio_track_added">أُضيف مسار الصوت: %1$s</string>
     <string name="rd_audio_track_failed">تعذّرت إضافة مسار الصوت.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">تلقّى GitHub طلبات كثيرة جدًا من هذه الشبكة. حاول مجددًا بعد %1$s.</string>
+    <string name="rd_update_rate_limited">تلقّى GitHub طلبات كثيرة جدًا من هذه الشبكة. حاول مجددًا لاحقًا.</string>
 </resources>
