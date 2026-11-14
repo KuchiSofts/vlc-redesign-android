@@ -569,4 +569,6 @@
     <string name="rd_playlist_exported">Плейлист сохранён.</string>
     <string name="rd_playlist_export_failed">Не удалось сохранить плейлист.</string>
     <string name="rd_no_file_picker_save">На этом устройстве нельзя выбрать, куда сохранить файл.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sleep_pause">Приостановить воспроизведение</string>
 </resources>

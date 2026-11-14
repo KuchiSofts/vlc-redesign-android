@@ -298,6 +298,8 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
         if (settings.getLong(SLEEP_TIMER_DEFAULT_INTERVAL, -1L) != -1L) {
             service.waitForMediaEnd = settings.getBoolean(SLEEP_TIMER_DEFAULT_WAIT, false)
             service.resetOnInteraction = settings.getBoolean(SLEEP_TIMER_DEFAULT_RESET_INTERACTION, false)
+            // VLC Redesign: pause or stop at the end, as the default timer says
+            settings.putSingle(org.videolan.vlc.gui.dialogs.KEY_RD_SLEEP_PAUSE, settings.getBoolean(org.videolan.vlc.gui.dialogs.KEY_RD_SLEEP_PAUSE_DEFAULT, false))
             val sleepTime = Calendar.getInstance()
             sleepTime.timeInMillis += settings.getLong(SLEEP_TIMER_DEFAULT_INTERVAL, -1L)
             sleepTime.set(Calendar.SECOND, 0)

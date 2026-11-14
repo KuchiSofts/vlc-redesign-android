@@ -569,4 +569,6 @@
     <string name="rd_playlist_exported">حُفظت قائمة التشغيل.</string>
     <string name="rd_playlist_export_failed">تعذّر حفظ قائمة التشغيل.</string>
     <string name="rd_no_file_picker_save">لا يتيح هذا الجهاز اختيار مكان حفظ الملف.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sleep_pause">إيقاف التشغيل مؤقتًا</string>
 </resources>

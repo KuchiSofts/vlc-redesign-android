@@ -569,4 +569,6 @@
     <string name="rd_playlist_exported">Playlista została zapisana.</string>
     <string name="rd_playlist_export_failed">Nie udało się zapisać playlisty.</string>
     <string name="rd_no_file_picker_save">Na tym urządzeniu nie można wybrać, gdzie zapisać plik.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sleep_pause">Wstrzymaj odtwarzanie</string>
 </resources>

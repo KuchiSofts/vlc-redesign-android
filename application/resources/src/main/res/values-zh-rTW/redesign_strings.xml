@@ -565,4 +565,6 @@
     <string name="rd_playlist_exported">播放清單已儲存。</string>
     <string name="rd_playlist_export_failed">無法儲存播放清單。</string>
     <string name="rd_no_file_picker_save">此裝置無法選擇檔案的儲存位置。</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sleep_pause">暫停播放</string>
 </resources>

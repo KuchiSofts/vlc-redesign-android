@@ -566,4 +566,6 @@
     <string name="rd_playlist_exported">La liste de lecture est enregistrée.</string>
     <string name="rd_playlist_export_failed">La liste de lecture n\'a pas pu être enregistrée.</string>
     <string name="rd_no_file_picker_save">Cet appareil ne permet pas de choisir où enregistrer un fichier.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sleep_pause">Mettre en pause</string>
 </resources>

@@ -551,6 +551,8 @@
         <item quantity="other">%1$d files added to the queue</item>
     </plurals>
     <string name="rd_no_file_picker">This device has no file picker: add files from the app\'s folders instead.</string>
+    <!-- The sleep timer: when it ends, pause instead of stopping (the desktop's choice "Pause playback") -->
+    <string name="rd_sleep_pause">Pause playback</string>
     <!-- Playlists: the desktop's Export Playlist (an M3U8 file) -->
     <string name="rd_export_playlist">Export Playlist</string>
     <string name="rd_playlist_exported">The playlist is saved.</string>

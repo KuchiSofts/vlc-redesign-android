@@ -566,4 +566,6 @@
     <string name="rd_playlist_exported">Die Wiedergabeliste ist gespeichert.</string>
     <string name="rd_playlist_export_failed">Die Wiedergabeliste konnte nicht gespeichert werden.</string>
     <string name="rd_no_file_picker_save">Auf diesem Gerät lässt sich nicht wählen, wo eine Datei gespeichert wird.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sleep_pause">Wiedergabe pausieren</string>
 </resources>

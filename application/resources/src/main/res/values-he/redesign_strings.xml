@@ -551,4 +551,6 @@
     <string name="rd_playlist_exported">רשימת ההשמעה נשמרה.</string>
     <string name="rd_playlist_export_failed">לא ניתן היה לשמור את רשימת ההשמעה.</string>
     <string name="rd_no_file_picker_save">אין במכשיר הזה דרך לבחור איפה לשמור קובץ.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sleep_pause">השהה את הנגינה</string>
 </resources>

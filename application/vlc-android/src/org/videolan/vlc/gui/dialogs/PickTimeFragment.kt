@@ -81,6 +81,7 @@ abstract class PickTimeFragment : PlaybackBottomSheetDialogFragment(), View.OnCl
         if (showTimeOnly()) {
             binding.timPicWaitCheckbox.setGone()
             binding.timPicResetCheckbox.setGone()
+            binding.rdTimPicPauseCheckbox.setGone()
         }
 
         return binding.root

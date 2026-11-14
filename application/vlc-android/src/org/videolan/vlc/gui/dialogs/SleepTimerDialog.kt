@@ -78,6 +78,8 @@ class SleepTimerDialog : PickTimeFragment() {
         }
         binding.timPicWaitCheckbox.isChecked = playlistModel.service?.waitForMediaEnd == true
         binding.timPicResetCheckbox.isChecked = playlistModel.service?.resetOnInteraction == true
+        // VLC Redesign: pause instead of stop when the timer ends (the desktop's Pause playback)
+        binding.rdTimPicPauseCheckbox.isChecked = settings.getBoolean(if (defaultSleepTimer) KEY_RD_SLEEP_PAUSE_DEFAULT else KEY_RD_SLEEP_PAUSE, false)
 
     }
 
@@ -92,6 +94,7 @@ class SleepTimerDialog : PickTimeFragment() {
                   putLong(SLEEP_TIMER_DEFAULT_INTERVAL, interval)
                   putBoolean(SLEEP_TIMER_DEFAULT_WAIT, binding.timPicWaitCheckbox.isChecked)
                   putBoolean(SLEEP_TIMER_DEFAULT_RESET_INTERACTION, binding.timPicResetCheckbox.isChecked)
+                  putBoolean(KEY_RD_SLEEP_PAUSE_DEFAULT, binding.rdTimPicPauseCheckbox.isChecked)
               }
             dismiss()
             return
@@ -103,6 +106,7 @@ class SleepTimerDialog : PickTimeFragment() {
 
         settings.putSingle(SLEEP_TIMER_RESET_INTERACTION, binding.timPicResetCheckbox.isChecked)
         settings.putSingle(SLEEP_TIMER_WAIT, binding.timPicWaitCheckbox.isChecked)
+        settings.putSingle(KEY_RD_SLEEP_PAUSE, binding.rdTimPicPauseCheckbox.isChecked)
 
 
         playlistModel.service?.sleepTimerInterval = interval
@@ -151,3 +155,6 @@ class SleepTimerDialog : PickTimeFragment() {
         }
     }
 }
+/** VLC Redesign: the sleep timer pauses instead of stopping (the desktop's Pause playback), now and by default */
+const val KEY_RD_SLEEP_PAUSE = "rd_sleep_pause"
+const val KEY_RD_SLEEP_PAUSE_DEFAULT = "rd_sleep_pause_default"

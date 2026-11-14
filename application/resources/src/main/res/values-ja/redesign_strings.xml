@@ -565,4 +565,6 @@
     <string name="rd_playlist_exported">プレイリストを保存しました。</string>
     <string name="rd_playlist_export_failed">プレイリストを保存できませんでした。</string>
     <string name="rd_no_file_picker_save">この端末ではファイルの保存先を選べません。</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sleep_pause">再生を一時停止</string>
 </resources>

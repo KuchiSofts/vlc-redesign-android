@@ -566,4 +566,6 @@
     <string name="rd_playlist_exported">La lista de reproducción se ha guardado.</string>
     <string name="rd_playlist_export_failed">No se pudo guardar la lista de reproducción.</string>
     <string name="rd_no_file_picker_save">Este dispositivo no permite elegir dónde guardar un archivo.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sleep_pause">Pausar la reproducción</string>
 </resources>

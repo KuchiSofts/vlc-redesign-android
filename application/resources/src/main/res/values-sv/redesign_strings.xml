@@ -566,4 +566,6 @@
     <string name="rd_playlist_exported">Spellistan har sparats.</string>
     <string name="rd_playlist_export_failed">Spellistan kunde inte sparas.</string>
     <string name="rd_no_file_picker_save">På den här enheten går det inte att välja var en fil sparas.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sleep_pause">Pausa uppspelningen</string>
 </resources>

@@ -566,4 +566,6 @@
     <string name="rd_playlist_exported">La playlist è stata salvata.</string>
     <string name="rd_playlist_export_failed">Impossibile salvare la playlist.</string>
     <string name="rd_no_file_picker_save">Questo dispositivo non permette di scegliere dove salvare un file.</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sleep_pause">Metti in pausa</string>
 </resources>
