@@ -29,7 +29,16 @@
     <string name="rd_ob_online_text">Keine Telemetrie, keine Werbung, kein Konto. Was von sich aus online geht, sagt es darunter und sendet nur, was dort steht. Diese Auswahl bleibt in den Einstellungen.</string>
     <string name="rd_ob_history_help">Nur auf diesem Gerät gespeichert, um dort weiterzumachen, wo Sie aufgehört haben.</string>
     <string name="rd_ob_updates_help">Sucht einmal täglich nach einer neueren Testversion von VLC for Android.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>Mehr Einstellungen vom Computer: Wiedergabe, Untertitel, Audio, Netzwerk, Bildschirmfotos und Aufnahmen.</item>
+        <item>Die Wiedergabeliste sortieren und Dateien hinzufügen.</item>
+        <item>Eine Wiedergabeliste als M3U8-Datei exportieren.</item>
+        <item>Über: nach Updates suchen, eine Idee vorschlagen, ein Problem melden.</item>
+        <item>Schlaf-Timer: pausieren statt stoppen.</item>
+        <item>Eine zweite Untertitelsprache hat ihre eigene Verzögerung.</item>
+        <item>Die Tasten vom Computer: vier Sprungweiten, Bildschirmfoto, Aufnahme und Abgleich nach Gehör.</item>
+        <item>Behoben: Untertiteldateien neben einem Video öffnen sich in deiner bevorzugten Sprache.</item>
+    </string-array>
     <string name="rd_subtitle_size">Untertitelgröße</string>
     <string name="rd_cast_this_phone">Dieses Telefon</string>
     <string name="rd_cast_this_tablet">Dieses Tablet</string>

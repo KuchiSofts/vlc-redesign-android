@@ -58,6 +58,8 @@ object RdAbout {
         val button = v.findViewById<MaterialButton>(R.id.rd_update_button) ?: return
         val state = v.findViewById<TextView>(R.id.rd_update_state) ?: return
         var found: RdUpdateCheck.Release? = null
+        // (the button keeps the focus while it checks: switched off, a TV's remote lost its place)
+        var checking = false
         fun show(text: String, failed: Boolean) {
             state.text = text
             state.visibility = if (text.isEmpty()) View.GONE else View.VISIBLE
@@ -68,12 +70,13 @@ object RdAbout {
                 activity.openLinkIfPossible(it.apkUrl)
                 return@setOnClickListener
             }
-            button.isEnabled = false
+            if (checking) return@setOnClickListener
+            checking = true
             show(activity.getString(R.string.rd_update_checking), false)
             activity.lifecycleScope.launch {
                 val result = RdUpdateCheck.checkNow(activity)
+                checking = false
                 if (!v.isAttachedToWindow) return@launch
-                button.isEnabled = true
                 when (result) {
                     is RdUpdateCheck.Result.Available -> {
                         found = result.release

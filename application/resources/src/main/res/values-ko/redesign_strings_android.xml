@@ -29,7 +29,16 @@
     <string name="rd_ob_online_text">원격 분석 없음, 광고 없음, 계정 없음. 스스로 온라인에 연결되는 기능은 그 아래에 그렇게 표시되며, 거기에 적힌 내용만 보냅니다. 이 선택은 설정에 그대로 남아 있습니다.</string>
     <string name="rd_ob_history_help">이 기기에만 저장되며, 멈춘 곳부터 이어서 보는 데 쓰입니다.</string>
     <string name="rd_ob_updates_help">하루에 한 번 VLC for Android의 새 테스트 빌드를 확인합니다.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>컴퓨터 버전의 설정 추가: 재생, 자막, 오디오, 네트워크, 스냅샷, 녹화.</item>
+        <item>재생 대기열 정렬 및 파일 추가.</item>
+        <item>재생 목록을 M3U8 파일로 내보내기.</item>
+        <item>정보: 업데이트 확인, 아이디어 제안, 문제 신고.</item>
+        <item>취침 타이머: 정지 대신 일시 정지.</item>
+        <item>두 번째 자막 언어에 별도의 지연.</item>
+        <item>컴퓨터 버전의 키: 네 가지 건너뛰기, 스냅샷, 녹화, 귀로 맞추기.</item>
+        <item>수정: 동영상 옆의 자막 파일이 선호 언어로 열립니다.</item>
+    </string-array>
     <string name="rd_subtitle_size">자막 크기</string>
     <string name="rd_cast_this_phone">이 휴대전화</string>
     <string name="rd_cast_this_tablet">이 태블릿</string>

@@ -29,7 +29,6 @@
     <string name="rd_ob_online_text">Không thu thập dữ liệu từ xa, không quảng cáo, không tài khoản. Những gì tự kết nối trực tuyến đều ghi rõ điều đó bên dưới và chỉ gửi những gì được viết ở đó. Các lựa chọn này vẫn có trong Thiết lập.</string>
     <string name="rd_ob_history_help">Chỉ lưu trên thiết bị này, để tiếp tục từ chỗ bạn đã dừng.</string>
     <string name="rd_ob_updates_help">Mỗi ngày kiểm tra một lần xem có bản thử nghiệm mới hơn của VLC for Android không.</string>
-    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Cỡ phụ đề</string>
     <string name="rd_cast_this_phone">Điện thoại này</string>
     <string name="rd_cast_this_tablet">Máy tính bảng này</string>

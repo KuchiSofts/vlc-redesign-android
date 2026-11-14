@@ -29,7 +29,16 @@
     <string name="rd_ob_online_text">Sem telemetria, sem anúncios, sem conta. O que se liga à Internet por si próprio indica-o por baixo e só envia o que lá está escrito. Estas escolhas ficam nas Definições.</string>
     <string name="rd_ob_history_help">Guardado apenas neste dispositivo, para continuar onde parou.</string>
     <string name="rd_ob_updates_help">Procura uma versão de teste mais recente do VLC for Android uma vez por dia.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>Mais definições do computador: reprodução, legendas, áudio, rede, capturas e gravações.</item>
+        <item>Ordene a fila de reprodução e adicione ficheiros.</item>
+        <item>Exporte uma lista de reprodução como ficheiro M3U8.</item>
+        <item>Acerca de: procurar atualizações, sugerir uma ideia, comunicar um problema.</item>
+        <item>Temporizador: pausar em vez de parar.</item>
+        <item>Um segundo idioma de legendas tem o seu próprio atraso.</item>
+        <item>As teclas do computador: quatro saltos, captura, gravação e sincronização de ouvido.</item>
+        <item>Corrigido: as legendas junto a um vídeo abrem no seu idioma preferido.</item>
+    </string-array>
     <string name="rd_subtitle_size">Tamanho das legendas</string>
     <string name="rd_cast_this_phone">Este telemóvel</string>
     <string name="rd_cast_this_tablet">Este tablet</string>

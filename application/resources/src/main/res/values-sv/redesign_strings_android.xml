@@ -29,7 +29,16 @@
     <string name="rd_ob_online_text">Ingen telemetri, inga annonser, inget konto. Det som går ut på nätet av sig självt säger det under sig och skickar bara det som står där. De här valen finns kvar i Inställningar.</string>
     <string name="rd_ob_history_help">Sparas bara på den här enheten, så att du kan fortsätta där du slutade.</string>
     <string name="rd_ob_updates_help">Letar en gång om dagen efter en nyare testversion av VLC for Android.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>Fler inställningar från datorn: uppspelning, undertexter, ljud, nätverk, skärmbilder och inspelningar.</item>
+        <item>Sortera uppspelningskön och lägg till filer i den.</item>
+        <item>Exportera en spellista som M3U8-fil.</item>
+        <item>Om: sök efter uppdateringar, föreslå en idé, rapportera ett problem.</item>
+        <item>Insomningstimer: pausa i stället för att stoppa.</item>
+        <item>Ett andra undertextspråk har en egen fördröjning.</item>
+        <item>Datorns tangenter: fyra hopplängder, skärmbild, inspelning och synk efter gehör.</item>
+        <item>Åtgärdat: undertexter bredvid en video öppnas på ditt föredragna språk.</item>
+    </string-array>
     <string name="rd_subtitle_size">Undertextstorlek</string>
     <string name="rd_cast_this_phone">Den här telefonen</string>
     <string name="rd_cast_this_tablet">Den här surfplattan</string>

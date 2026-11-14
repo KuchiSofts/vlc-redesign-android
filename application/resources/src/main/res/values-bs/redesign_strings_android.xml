@@ -30,7 +30,6 @@
     <string name="rd_ob_online_text">Bez telemetrije, bez reklama, bez računa. Ono što samo ide na internet to navodi ispod sebe i šalje samo ono što tamo piše. Ovi izbori ostaju u Postavkama.</string>
     <string name="rd_ob_history_help">Čuva se samo na ovom uređaju, da nastavite gdje ste stali.</string>
     <string name="rd_ob_updates_help">Jednom dnevno traži noviju probnu verziju VLC for Android.</string>
-    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Veličina titlova</string>
     <string name="rd_cast_this_phone">Ovaj telefon</string>
     <string name="rd_cast_this_tablet">Ovaj tablet</string>

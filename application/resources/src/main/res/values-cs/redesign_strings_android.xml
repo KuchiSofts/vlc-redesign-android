@@ -29,7 +29,16 @@
     <string name="rd_ob_online_text">Žádná telemetrie, žádné reklamy, žádný účet. Co se samo připojuje k internetu, uvádí to pod sebou a odesílá jen to, co je tam napsáno. Tyto volby zůstanou v Nastavení.</string>
     <string name="rd_ob_history_help">Uchovává se jen v tomto zařízení, abyste mohli pokračovat tam, kde jste skončili.</string>
     <string name="rd_ob_updates_help">Jednou denně hledá novější testovací sestavení VLC for Android.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>Další nastavení z počítače: přehrávání, titulky, zvuk, síť, snímky a nahrávky.</item>
+        <item>Řazení fronty přehrávání a přidávání souborů.</item>
+        <item>Export seznamu skladeb do souboru M3U8.</item>
+        <item>O aplikaci: kontrola aktualizací, návrh nápadu, nahlášení problému.</item>
+        <item>Časovač spánku: pozastavit místo zastavení.</item>
+        <item>Druhý jazyk titulků má vlastní zpoždění.</item>
+        <item>Klávesy z počítače: čtyři délky skoku, snímek, nahrávání a synchronizace podle sluchu.</item>
+        <item>Opraveno: titulky vedle videa se otevřou v preferovaném jazyce.</item>
+    </string-array>
     <string name="rd_subtitle_size">Velikost titulků</string>
     <string name="rd_cast_this_phone">Tento telefon</string>
     <string name="rd_cast_this_tablet">Tento tablet</string>

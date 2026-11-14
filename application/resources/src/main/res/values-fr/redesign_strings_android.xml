@@ -29,7 +29,16 @@
     <string name="rd_ob_online_text">Pas de télémétrie, pas de publicité, pas de compte. Ce qui se connecte à Internet de lui-même l\'indique en dessous et n\'envoie que ce qui y est écrit. Ces choix restent dans les Paramètres.</string>
     <string name="rd_ob_history_help">Conservé sur cet appareil uniquement, pour reprendre là où vous vous êtes arrêté.</string>
     <string name="rd_ob_updates_help">Recherche une version de test plus récente de VLC for Android une fois par jour.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>Plus de réglages de l\'ordinateur : lecture, sous-titres, audio, réseau, captures et enregistrements.</item>
+        <item>Trier la file d\'attente et y ajouter des fichiers.</item>
+        <item>Exporter une liste de lecture en fichier M3U8.</item>
+        <item>À propos : rechercher des mises à jour, suggérer une idée, signaler un problème.</item>
+        <item>Minuteur de mise en veille : pause au lieu d\'arrêt.</item>
+        <item>Une deuxième langue de sous-titres a son propre décalage.</item>
+        <item>Les touches de l\'ordinateur : quatre sauts, capture, enregistrement et synchro à l\'oreille.</item>
+        <item>Corrigé : les sous-titres à côté d\'une vidéo s\'ouvrent dans votre langue préférée.</item>
+    </string-array>
     <string name="rd_subtitle_size">Taille des sous-titres</string>
     <string name="rd_cast_this_phone">Ce téléphone</string>
     <string name="rd_cast_this_tablet">Cette tablette</string>

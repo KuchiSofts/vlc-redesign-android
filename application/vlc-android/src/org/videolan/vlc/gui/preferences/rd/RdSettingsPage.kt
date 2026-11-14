@@ -924,6 +924,8 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         pref<Preference>(ENABLE_FASTPLAY)?.isVisible = !tv
         pref<Preference>(FASTPLAY_SPEED)?.isVisible = !tv
         pref<Preference>(SCREENSHOT_MODE)?.isVisible = !tv
+        // (the picture over the seek bar while it is dragged: a TV's remote drags nothing)
+        pref<Preference>(org.videolan.vlc.gui.video.SeekPreview.KEY_SEEK_THUMBNAIL)?.isVisible = !tv
         // the system's accent: Android 12 and later (Material You), not in the TV layout
         pref<Preference>(org.videolan.vlc.gui.helpers.KEY_RD_ACCENT_SYSTEM)?.isVisible = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S && !tv
         // the layout direction: the one in use while none was chosen (shown, not saved)

@@ -29,7 +29,16 @@
     <string name="rd_ob_online_text">בלי טלמטריה, בלי פרסומות, בלי חשבון. כל מה שמתחבר לאינטרנט מעצמו מציין זאת מתחתיו, ושולח רק את מה שכתוב שם. הבחירות האלה נשארות בהגדרות.</string>
     <string name="rd_ob_history_help">נשמר במכשיר הזה בלבד, כדי להמשיך מהמקום שבו הפסקת.</string>
     <string name="rd_ob_updates_help">מחפש גרסת בדיקה חדשה יותר של VLC for Android פעם ביום.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>עוד הגדרות מהמחשב: ניגון, כתוביות, שמע, רשת, צילומי מסך והקלטות.</item>
+        <item>מיון תור הניגון והוספת קבצים אליו.</item>
+        <item>ייצוא רשימת השמעה כקובץ M3U8.</item>
+        <item>אודות: בדיקת עדכונים, הצעת רעיון, דיווח על בעיה.</item>
+        <item>טיימר שינה: השהיה במקום עצירה.</item>
+        <item>לשפת כתוביות שנייה יש השהיה משלה.</item>
+        <item>המקשים של המחשב: ארבעה אורכי דילוג, צילום מסך, הקלטה וסנכרון לפי שמיעה.</item>
+        <item>תוקן: קובצי כתוביות שליד סרטון נפתחים בשפה המועדפת עליך.</item>
+    </string-array>
     <string name="rd_fx_luma_spat">עוצמת בהירות מרחבית (0-254)</string>
     <string name="rd_fx_luma_temp">עוצמת בהירות זמנית (0-254)</string>
     <string name="rd_fx_anaglyph_rg">אדום טהור (שמאל)  ירוק טהור (ימין)</string>
