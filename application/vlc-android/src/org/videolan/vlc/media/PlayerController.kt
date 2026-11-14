@@ -187,6 +187,9 @@ class PlayerController(val context: Context) : IVLCVout.Callback, MediaPlayer.Ev
 
     fun addSubtitleTrack(path: String, select: Boolean) = addSubtitleTrack(Uri.fromFile(java.io.File(path)), select)
 
+    /** VLC Redesign: the desktop's Add Audio Track */
+    fun addAudioTrack(uri: Uri, select: Boolean): Boolean = !mediaplayer.isReleased && mediaplayer.addSlave(IMedia.Slave.Type.Audio, uri, select)
+
     // VLC Redesign: a subtitle file that is not Unicode is read from a UTF-8 copy (libvlc 3 would read it as
     // Windows-1252)
     fun addSubtitleTrack(uri: Uri, select: Boolean): Boolean = mediaplayer.addSlave(IMedia.Slave.Type.Subtitle, utf8Target(uri), select)

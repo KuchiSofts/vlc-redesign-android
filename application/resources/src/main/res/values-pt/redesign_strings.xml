@@ -617,4 +617,8 @@
     <string name="rd_key_sub_scale_reset">Repor escala do texto das legendas</string>
     <string name="rd_key_show_controls">Mostrar controlador no ecrã inteiro</string>
     <string name="rd_key_options">Menu de contexto</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">Adicionar faixas de áudio</string>
+    <string name="rd_audio_track_added">Faixa de áudio adicionada: %1$s</string>
+    <string name="rd_audio_track_failed">Não foi possível adicionar a faixa de áudio.</string>
 </resources>

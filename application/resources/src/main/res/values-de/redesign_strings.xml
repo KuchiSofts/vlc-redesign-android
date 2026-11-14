@@ -644,4 +644,8 @@
     <string name="rd_key_sub_scale_reset">Untertitel-Textgröße zurücksetzen</string>
     <string name="rd_key_show_controls">Steuerung im Vollbildmodus anzeigen</string>
     <string name="rd_key_options">Kontextmenü</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">Audiospuren hinzufügen</string>
+    <string name="rd_audio_track_added">Tonspur hinzugefügt: %1$s</string>
+    <string name="rd_audio_track_failed">Die Tonspur konnte nicht hinzugefügt werden.</string>
 </resources>

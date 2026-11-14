@@ -180,6 +180,8 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
 
         generateSeparator(binding.audioTracks.options)
         generateOptionItem(binding.audioTracks.options, getString(R.string.audio_delay), R.drawable.ic_delay, VideoTrackOption.AUDIO_DELAY)
+        // VLC Redesign: the desktop's Add Audio Track
+        generateOptionItem(binding.audioTracks.options, getString(R.string.rd_add_audio_track), R.drawable.ic_add, VideoTrackOption.AUDIO_ADD)
         generateSeparator(binding.audioTracks.options, true)
         binding.audioTracks.options.setAnimationUpdateListener {
             binding.audioTracks.trackMore.rotation = if (binding.audioTracks.options.isCollapsed) 180F - (180F * it) else 180F * it
@@ -603,6 +605,8 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
     }
 
     enum class VideoTrackOption {
-        SUB_DELAY, SUB_PICK, SUB_DOWNLOAD, AUDIO_DELAY
+        SUB_DELAY, SUB_PICK, SUB_DOWNLOAD, AUDIO_DELAY,
+        /** VLC Redesign: the desktop's Add Audio Track (a sound file played with the video) */
+        AUDIO_ADD
     }
 }

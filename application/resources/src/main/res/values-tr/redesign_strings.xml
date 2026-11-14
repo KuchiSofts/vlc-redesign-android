@@ -644,4 +644,8 @@
     <string name="rd_key_sub_scale_reset">Altyazı metni ölçeğini sıfırla</string>
     <string name="rd_key_show_controls">Tam Ekranda Denetimleri Görüntüleme</string>
     <string name="rd_key_options">İçerik Menüsü</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">Ses Kaydı Ekle</string>
+    <string name="rd_audio_track_added">Ses parçası eklendi: %1$s</string>
+    <string name="rd_audio_track_failed">Ses parçası eklenemedi.</string>
 </resources>

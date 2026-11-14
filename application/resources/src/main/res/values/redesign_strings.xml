@@ -795,6 +795,10 @@
     <string name="rd_key_sub_scale_reset">Reset subtitles text scale</string>
     <string name="rd_key_show_controls">Show controller in fullscreen</string>
     <string name="rd_key_options">Context menu</string>
+    <!-- The tracks panel's Audio: the desktop's Add Audio Track (VideoPlayerActivity.rdAddAudioTrack) -->
+    <string name="rd_add_audio_track">Add Audio Tracks</string>
+    <string name="rd_audio_track_added">Audio track added: %1$s</string>
+    <string name="rd_audio_track_failed">The audio track could not be added.</string>
     <!-- Settings › Subtitles › Timing: the desktop's Subtitle delay (sub-delay), the default of every video -->
     <string name="rd_subtitle_delay">Subtitle delay</string>
     <!-- Settings › Library › Advanced: the desktop's Ignored file extensions (libvlc's ignore-filetypes) -->

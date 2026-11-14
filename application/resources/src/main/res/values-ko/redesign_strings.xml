@@ -642,4 +642,8 @@
     <string name="rd_key_sub_scale_reset">자막 텍스트 배율 초기화</string>
     <string name="rd_key_show_controls">전체화면에서 컨트롤러 보이기</string>
     <string name="rd_key_options">컨텍스트 메뉴</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">오디오 트랙 추가</string>
+    <string name="rd_audio_track_added">오디오 트랙 추가됨: %1$s</string>
+    <string name="rd_audio_track_failed">오디오 트랙을 추가할 수 없습니다.</string>
 </resources>

@@ -644,4 +644,8 @@
     <string name="rd_key_sub_scale_reset">Återställ undertexternas textskala</string>
     <string name="rd_key_show_controls">Visa kontroller i helskärm</string>
     <string name="rd_key_options">Innehållsmeny</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">Lägg till ljudspår</string>
+    <string name="rd_audio_track_added">Ljudspår tillagt: %1$s</string>
+    <string name="rd_audio_track_failed">Ljudspåret kunde inte läggas till.</string>
 </resources>

@@ -644,4 +644,8 @@
     <string name="rd_key_sub_scale_reset">Reimposta la dimensione del testo dei sottotitoli</string>
     <string name="rd_key_show_controls">Mostra controllo a schermo intero</string>
     <string name="rd_key_options">Menu contestuale</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">Aggiungi tracce audio</string>
+    <string name="rd_audio_track_added">Traccia audio aggiunta: %1$s</string>
+    <string name="rd_audio_track_failed">Impossibile aggiungere la traccia audio.</string>
 </resources>

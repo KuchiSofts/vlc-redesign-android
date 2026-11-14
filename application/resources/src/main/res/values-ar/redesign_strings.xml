@@ -651,4 +651,8 @@
     <string name="rd_key_sub_scale_reset">إعادة ضبط حجم نص الترجمة</string>
     <string name="rd_key_show_controls">إظهار عناصر التحكم في ملء الشاشة</string>
     <string name="rd_key_options">قائمة السياق</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">إضافة مسارات صوت</string>
+    <string name="rd_audio_track_added">أُضيف مسار الصوت: %1$s</string>
+    <string name="rd_audio_track_failed">تعذّرت إضافة مسار الصوت.</string>
 </resources>

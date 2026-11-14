@@ -1403,11 +1403,38 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         super.onActivityResult(requestCode, resultCode, data)
         if (data == null) return
 
+        // VLC Redesign: Add Audio Track (VideoPlayerOverlayDelegate.pickAudioTrack)
+        if (requestCode == RD_PICK_AUDIO && data.hasExtra(EXTRA_MRL)) {
+            rdAddAudioTrack(data.getStringExtra(EXTRA_MRL)!!)
+            return
+        }
         if (data.hasExtra(EXTRA_MRL)) {
             val subtitleUri = data.getStringExtra(EXTRA_MRL)!!.toUri()
             val picked = getUri(subtitleUri) ?: subtitleUri
             rdAddOpenedSubtitle(picked, (subtitleUri.lastPathSegment ?: "").substringAfterLast('/'), data.getStringExtra(EXTRA_MRL)!!)
         } else if (BuildConfig.DEBUG) Log.d(TAG, "Subtitle selection dialog was cancelled")
+    }
+
+    /** VLC Redesign: the desktop's Add Audio Track: the sound file played with the video, chosen at once and kept for
+     *  it (its slave). The player stopped while the picker covered it: added once its queue is back. */
+    private fun rdAddAudioTrack(mrl: String) {
+        lifecycleScope.launch {
+            var waited = 0L
+            while ((!lifecycle.currentState.isAtLeast(androidx.lifecycle.Lifecycle.State.RESUMED)
+                            || service?.playlistManager?.hasCurrentMedia() != true) && waited < 8000L) {
+                kotlinx.coroutines.delay(100L)
+                waited += 100L
+            }
+            kotlinx.coroutines.delay(300L)
+            val s = service ?: return@launch
+            val uri = getUri(mrl.toUri()) ?: mrl.toUri()
+            val added = s.playlistManager.player.addAudioTrack(uri, true)
+            if (added) s.currentMediaWrapper?.let {
+                SlaveRepository.getInstance(this@VideoPlayerActivity).saveSlave(it.location, IMedia.Slave.Type.Audio, 2, mrl)
+            }
+            overlayDelegate.showInfo(if (added) getString(R.string.rd_audio_track_added, (mrl.toUri().lastPathSegment ?: "").substringAfterLast('/'))
+                    else getString(R.string.rd_audio_track_failed), 3000, notice = true)
+        }
     }
 
     /** VLC Redesign: a subtitle file the user opened (a file of the device, a link downloaded): added, chosen when it
@@ -3432,6 +3459,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
 
 
         private const val TAG = "VLC/VideoPlayerActivity"
+        /** VLC Redesign: the request of Add Audio Track's file picker (the subtitles' is 0) */
+        const val RD_PICK_AUDIO = 4723
 
         private val ACTION_RESULT = "player.result".buildPkgString()
         private const val EXTRA_POSITION = "extra_position"

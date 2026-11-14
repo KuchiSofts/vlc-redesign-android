@@ -649,4 +649,8 @@
     <string name="rd_key_sub_scale_reset">Скинути масштаб тексту субтитрів</string>
     <string name="rd_key_show_controls">Показати елемент керування в повноекранному режимі</string>
     <string name="rd_key_options">Контекстне меню</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">Додати звукові доріжки</string>
+    <string name="rd_audio_track_added">Звукову доріжку додано: %1$s</string>
+    <string name="rd_audio_track_failed">Не вдалося додати звукову доріжку.</string>
 </resources>

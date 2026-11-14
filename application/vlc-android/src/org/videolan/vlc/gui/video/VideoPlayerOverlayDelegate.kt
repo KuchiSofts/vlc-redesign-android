@@ -272,6 +272,7 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
                         VideoTracksDialog.VideoTrackOption.SUB_DELAY -> player.delayDelegate.showSubsDelaySetting()
                         VideoTracksDialog.VideoTrackOption.SUB_DOWNLOAD -> downloadSubtitles()
                         VideoTracksDialog.VideoTrackOption.SUB_PICK -> pickSubtitles()
+                        VideoTracksDialog.VideoTrackOption.AUDIO_ADD -> pickAudioTrack()
                     }
                 }, { trackID: String, trackType: VideoTracksDialog.TrackType ->
             when (trackType) {
@@ -1607,6 +1608,17 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
         updateOrientationIcon()
         updateScreenshotButton()
         player.lockBackButton = false
+    }
+
+    /** VLC Redesign: the desktop's Add Audio Track: a sound file of the device, from the video's folder */
+    private fun pickAudioTrack() {
+        val uri = player.videoUri ?: return
+        val media = if (uri.scheme.isSchemeFile() || uri.scheme.isSchemeNetwork()) MediaWrapperImpl(FileUtils.getParent(uri.toString())!!.toUri()) else null
+        player.isShowingDialog = true
+        val filePickerIntent = Intent(player, FilePickerActivity::class.java)
+        filePickerIntent.putExtra(KEY_MEDIA, media)
+        filePickerIntent.putExtra(org.videolan.vlc.gui.browser.KEY_PICKER_TYPE, org.videolan.vlc.providers.PickerType.AUDIO.ordinal)
+        player.startActivityForResult(filePickerIntent, VideoPlayerActivity.RD_PICK_AUDIO)
     }
 
     private fun pickSubtitles() {

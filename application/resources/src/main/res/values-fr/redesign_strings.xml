@@ -644,4 +644,8 @@
     <string name="rd_key_sub_scale_reset">Réinitialiser la taille du texte des sous-titres</string>
     <string name="rd_key_show_controls">Afficher le contrôleur en plein écran</string>
     <string name="rd_key_options">Menu contextuel</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">Ajouter des pistes audio</string>
+    <string name="rd_audio_track_added">Piste audio ajoutée : %1$s</string>
+    <string name="rd_audio_track_failed">Impossible d\'ajouter la piste audio.</string>
 </resources>

@@ -91,6 +91,13 @@ class CollapsibleLinearLayout : LinearLayout {
 
     fun toggle() {
         if (locked) return
+        // VLC Redesign: laid out first inside a hidden section (the tracks panel opens on Subtitles, Audio hidden),
+        // its height was taken as 0 and it never opened: measured again when it opens
+        if (isCollapsed && maxHeight <= 0) {
+            val w = (parent as? android.view.View)?.width?.takeIf { it > 0 } ?: width
+            measure(MeasureSpec.makeMeasureSpec(w, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
+            maxHeight = measuredHeight
+        }
         val fromHeight = if (!isCollapsed) maxHeight else 0
         val toHeight = if (!isCollapsed) 0 else maxHeight
         isCollapsed = !isCollapsed

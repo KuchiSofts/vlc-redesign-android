@@ -642,4 +642,8 @@
     <string name="rd_key_sub_scale_reset">字幕テキストの拡大率をリセット</string>
     <string name="rd_key_show_controls">全画面表示モードでコントローラーを表示</string>
     <string name="rd_key_options">コンテキストメニュー</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">オーディオトラックを追加</string>
+    <string name="rd_audio_track_added">音声トラックを追加しました: %1$s</string>
+    <string name="rd_audio_track_failed">音声トラックを追加できませんでした。</string>
 </resources>

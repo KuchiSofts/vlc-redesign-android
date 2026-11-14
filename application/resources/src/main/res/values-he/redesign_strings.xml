@@ -630,4 +630,8 @@
     <string name="rd_key_sub_scale_reset">איפוס יחס גודל כתוביות</string>
     <string name="rd_key_show_controls">הצגת הפקדים במסך מלא</string>
     <string name="rd_key_options">תפריט הקשר</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">הוסף רצועות שמע</string>
+    <string name="rd_audio_track_added">רצועת השמע נוספה: %1$s</string>
+    <string name="rd_audio_track_failed">לא ניתן היה להוסיף את רצועת השמע.</string>
 </resources>
