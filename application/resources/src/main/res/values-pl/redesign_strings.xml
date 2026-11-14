@@ -675,4 +675,7 @@
     <string name="rd_fx_preset_err_empty">Wpisz nazwę zestawu.</string>
     <string name="rd_fx_preset_err_default">„%1$s” to zestaw efektów domyślnych.</string>
     <string name="rd_fx_preset_err_taken">Zestaw o nazwie „%1$s” już istnieje.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">Klonowanie</string>
+    <string name="rd_clone_profile">Klonuj profil</string>
 </resources>

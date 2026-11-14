@@ -677,4 +677,7 @@
     <string name="rd_fx_preset_err_empty">أدخل اسمًا للإعداد المسبق.</string>
     <string name="rd_fx_preset_err_default">الاسم \"%1$s\" مخصص للإعداد المسبق للمؤثرات الافتراضية.</string>
     <string name="rd_fx_preset_err_taken">يوجد بالفعل إعداد مسبق باسم \"%1$s\".</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">نسخه</string>
+    <string name="rd_clone_profile">استنساخ ملف التعريف</string>
 </resources>

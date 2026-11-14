@@ -643,4 +643,7 @@
     <string name="rd_fx_preset_err_empty">Introduza um nome para o pré-ajuste.</string>
     <string name="rd_fx_preset_err_default">\"%1$s\" é o pré-ajuste dos efeitos predefinidos.</string>
     <string name="rd_fx_preset_err_taken">Já existe um pré-ajuste com o nome \"%1$s\".</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">Clone</string>
+    <string name="rd_clone_profile">Clonar perfil</string>
 </resources>

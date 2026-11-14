@@ -670,4 +670,7 @@
     <string name="rd_fx_preset_err_empty">Inserisci un nome per la preimpostazione.</string>
     <string name="rd_fx_preset_err_default">\"%1$s\" è la preimpostazione degli effetti predefiniti.</string>
     <string name="rd_fx_preset_err_taken">Esiste già una preimpostazione chiamata \"%1$s\".</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">Clonazione</string>
+    <string name="rd_clone_profile">Duplica profilo</string>
 </resources>

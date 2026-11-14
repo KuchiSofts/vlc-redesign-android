@@ -675,4 +675,7 @@
     <string name="rd_fx_preset_err_empty">Введіть назву набору.</string>
     <string name="rd_fx_preset_err_default">«%1$s» — це набір типових ефектів.</string>
     <string name="rd_fx_preset_err_taken">Набір із назвою «%1$s» вже існує.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">Клонування</string>
+    <string name="rd_clone_profile">Клонувати профіль</string>
 </resources>

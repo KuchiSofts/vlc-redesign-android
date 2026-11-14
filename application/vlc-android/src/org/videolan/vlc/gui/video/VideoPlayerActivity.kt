@@ -1862,6 +1862,15 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         if (keyFeedback.active) service?.let { keyFeedback.rate(it.rate) }
     }
 
+    /** VLC Redesign: the player bar's Stop, Snapshot and Add bookmark (Customize Player, PlayerBarLayout) */
+    fun rdBarAction(action: String) {
+        when (action) {
+            "stop" -> exitOK()
+            "snapshot" -> takeScreenshot()
+            "add_bookmark" -> bookmark()
+        }
+    }
+
     override fun bookmark() {
         bookmarkModel.addBookmark(this)
         UiTools.snackerConfirm(this, getString(R.string.bookmark_added), confirmMessage = R.string.show) {

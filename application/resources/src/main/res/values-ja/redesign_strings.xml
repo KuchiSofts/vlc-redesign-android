@@ -668,4 +668,7 @@
     <string name="rd_fx_preset_err_empty">プリセットの名前を入力してください。</string>
     <string name="rd_fx_preset_err_default">「%1$s」はデフォルトのエフェクトのプリセットです。</string>
     <string name="rd_fx_preset_err_taken">「%1$s」という名前のプリセットは既に存在します。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">複製</string>
+    <string name="rd_clone_profile">プロファイルを複製</string>
 </resources>

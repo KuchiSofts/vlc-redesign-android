@@ -821,6 +821,9 @@
     <string name="rd_fx_preset_err_empty">Enter a name for the preset.</string>
     <string name="rd_fx_preset_err_default">\"%1$s\" is the preset of the default effects.</string>
     <string name="rd_fx_preset_err_taken">A preset named \"%1$s\" already exists.</string>
+    <!-- Customize Player: the desktop's Clone of a profile -->
+    <string name="rd_clone">Clone</string>
+    <string name="rd_clone_profile">Clone Profile</string>
     <!-- Settings › Subtitles › Timing: the desktop's Subtitle delay (sub-delay), the default of every video -->
     <string name="rd_subtitle_delay">Subtitle delay</string>
     <!-- Settings › Library › Advanced: the desktop's Ignored file extensions (libvlc's ignore-filetypes) -->

@@ -675,4 +675,7 @@
     <string name="rd_fx_preset_err_empty">Введите имя предустановки.</string>
     <string name="rd_fx_preset_err_default">«%1$s» — предустановка эффектов по умолчанию.</string>
     <string name="rd_fx_preset_err_taken">Предустановка с именем «%1$s» уже существует.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">Клонирование</string>
+    <string name="rd_clone_profile">Дублировать профиль</string>
 </resources>

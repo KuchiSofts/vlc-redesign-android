@@ -668,4 +668,7 @@
     <string name="rd_fx_preset_err_empty">프리셋 이름을 입력하세요.</string>
     <string name="rd_fx_preset_err_default">\"%1$s\"은(는) 기본 효과의 프리셋입니다.</string>
     <string name="rd_fx_preset_err_taken">\"%1$s\" 프리셋이 이미 있습니다.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">복제 (Clone)</string>
+    <string name="rd_clone_profile">프로필 복제</string>
 </resources>

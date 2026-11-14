@@ -289,6 +289,21 @@ class PlayerOptionsDelegate(val activity: FragmentActivity, val service: Playbac
             "equalizer" -> ID_EQUALIZER
             "effects" -> ID_EFFECTS
             "record" -> ID_RECORD
+            "abrepeat" -> ID_ABREPEAT
+            "chapters" -> ID_CHAPTER_TITLE
+            "info" -> ID_VIDEO_STATS
+            "save_playlist" -> ID_SAVE_PLAYLIST
+            "shuffle" -> {
+                // (as Repeat: no menu row to show the state, so it is said)
+                service.shuffle()
+                (activity as? VideoPlayerActivity)?.overlayDelegate?.showInfo(activity.getString(if (service.isShuffling) R.string.shuffle_on else R.string.shuffle), 1000)
+                return
+            }
+            // the player's own: the desktop's Stop, Snapshot and the bookmark at this moment (the B key)
+            "stop", "snapshot", "add_bookmark" -> {
+                (activity as? VideoPlayerActivity)?.rdBarAction(action)
+                return
+            }
             else -> return
         }
         onClick(PlayerOption(id, 0, ""))

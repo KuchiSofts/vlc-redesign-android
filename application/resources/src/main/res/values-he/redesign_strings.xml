@@ -656,4 +656,7 @@
     <string name="rd_fx_preset_err_empty">הזן שם לערכה.</string>
     <string name="rd_fx_preset_err_default">„%1$s“ היא הערכה של אפקטי ברירת המחדל.</string>
     <string name="rd_fx_preset_err_taken">כבר קיימת ערכה בשם „%1$s“.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">שכפול</string>
+    <string name="rd_clone_profile">שכפול פרופיל</string>
 </resources>

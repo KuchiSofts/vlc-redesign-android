@@ -668,4 +668,7 @@
     <string name="rd_fx_preset_err_empty">請輸入預置的名稱。</string>
     <string name="rd_fx_preset_err_default">「%1$s」是預設效果的預置。</string>
     <string name="rd_fx_preset_err_taken">已有名為「%1$s」的預置。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">複製</string>
+    <string name="rd_clone_profile">複製設定檔</string>
 </resources>

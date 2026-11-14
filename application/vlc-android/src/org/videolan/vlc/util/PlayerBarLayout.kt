@@ -47,6 +47,17 @@ object PlayerBarLayout {
             Control("queue", R.string.rd_bar_queue, R.drawable.rd_ic_queue, action = "queue"),
             Control("volume", R.string.volume, R.drawable.rd_ic_volume, action = "volume"),
             Control("record", R.string.rd_record, R.drawable.rd_ic_duo_record, action = "record"),
+            // the desktop's other buttons that the Android player can do (Stop, Snapshot, Effects, A-B loop,
+            // chapters, shuffle, information, bookmark, add to a playlist)
+            Control("stop", R.string.stop, R.drawable.rd_ic_duo_stop, action = "stop"),
+            Control("snapshot", R.string.rd_key_snapshot, R.drawable.rd_ic_snapshot, action = "snapshot"),
+            Control("effects", R.string.rd_fx_effects, R.drawable.rd_ic_effects, action = "effects"),
+            Control("abrepeat", R.string.ab_repeat, R.drawable.ic_abrepeat, action = "abrepeat"),
+            Control("chapters", R.string.go_to_chapter, R.drawable.ic_chapter, action = "chapters"),
+            Control("shuffle", R.string.shuffle_title, R.drawable.ic_player_shuffle, action = "shuffle"),
+            Control("info", R.string.video_information, R.drawable.ic_video_stats, action = "info"),
+            Control("add_bookmark", R.string.add_bookmark, R.drawable.ic_bookmark_add, action = "add_bookmark"),
+            Control("save_playlist", R.string.playlist_save, R.drawable.ic_addtoplaylist, action = "save_playlist"),
     )
 
     fun control(key: String) = CATALOGUE.firstOrNull { it.key == key }

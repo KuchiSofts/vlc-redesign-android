@@ -675,4 +675,7 @@
     <string name="rd_fx_preset_err_empty">Zadejte název předvolby.</string>
     <string name="rd_fx_preset_err_default">„%1$s“ je předvolba výchozích efektů.</string>
     <string name="rd_fx_preset_err_taken">Předvolba s názvem „%1$s“ již existuje.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">Klonovat</string>
+    <string name="rd_clone_profile">Duplikovat profil</string>
 </resources>

@@ -668,4 +668,7 @@
     <string name="rd_fx_preset_err_empty">请输入预设名称。</string>
     <string name="rd_fx_preset_err_default">“%1$s”是默认效果的预设。</string>
     <string name="rd_fx_preset_err_taken">已存在名为“%1$s”的预设。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">克隆</string>
+    <string name="rd_clone_profile">克隆配置文件</string>
 </resources>

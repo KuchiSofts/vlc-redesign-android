@@ -670,4 +670,7 @@
     <string name="rd_fx_preset_err_empty">Önayar için bir ad yazın.</string>
     <string name="rd_fx_preset_err_default">\"%1$s\", varsayılan etkilerin önayarıdır.</string>
     <string name="rd_fx_preset_err_taken">\"%1$s\" adında bir önayar zaten var.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">Klonlama</string>
+    <string name="rd_clone_profile">Profili Kopyala</string>
 </resources>

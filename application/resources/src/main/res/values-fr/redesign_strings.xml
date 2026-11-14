@@ -670,4 +670,7 @@
     <string name="rd_fx_preset_err_empty">Saisissez un nom pour le préréglage.</string>
     <string name="rd_fx_preset_err_default">« %1$s » est le préréglage des effets par défaut.</string>
     <string name="rd_fx_preset_err_taken">Un préréglage nommé « %1$s » existe déjà.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">Clone</string>
+    <string name="rd_clone_profile">Dupliquer le profil</string>
 </resources>

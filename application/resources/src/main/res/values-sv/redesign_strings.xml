@@ -670,4 +670,7 @@
     <string name="rd_fx_preset_err_empty">Ange ett namn för förvalet.</string>
     <string name="rd_fx_preset_err_default">”%1$s” är förvalet för standardeffekterna.</string>
     <string name="rd_fx_preset_err_taken">Det finns redan ett förval med namnet ”%1$s”.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">Klona</string>
+    <string name="rd_clone_profile">Klona profil</string>
 </resources>
