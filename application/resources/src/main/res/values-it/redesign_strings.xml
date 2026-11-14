@@ -594,4 +594,7 @@
     <string name="rd_always_show_player_bar">Mostra sempre la barra del lettore</string>
     <string name="rd_help_always_show_player_bar">Mantiene la barra del lettore in fondo alla raccolta quando non si riproduce nulla: Riproduci avvia la coda di riproduzione, oppure apre dei file se è vuota.</string>
     <string name="rd_nothing_playing">Nessuna riproduzione in corso</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">Estensioni di file ignorate</string>
+    <string name="rd_help_ignore_filetypes">I file con queste estensioni vengono esclusi quando si apre o si elenca una cartella, separate da virgole.</string>
 </resources>

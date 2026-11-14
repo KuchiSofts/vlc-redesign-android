@@ -597,4 +597,7 @@
     <string name="rd_always_show_player_bar">إظهار شريط المشغل دائمًا</string>
     <string name="rd_help_always_show_player_bar">يُبقي شريط المشغل أسفل المكتبة عندما لا يُشغَّل شيء: يبدأ زر التشغيل قائمة الانتظار، أو يفتح الملفات إذا كانت فارغة.</string>
     <string name="rd_nothing_playing">لا شيء قيد التشغيل</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">امتدادات الملفات المتجاهلة</string>
+    <string name="rd_help_ignore_filetypes">تُستبعد الملفات ذات هذه الامتدادات عند فتح مجلد أو عرضه، مفصولة بفواصل.</string>
 </resources>

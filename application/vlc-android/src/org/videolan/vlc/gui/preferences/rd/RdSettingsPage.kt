@@ -696,7 +696,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             KEY_AUDIO_REPLAY_GAIN_ENABLE, KEY_AUDIO_REPLAY_GAIN_MODE, KEY_AUDIO_REPLAY_GAIN_PEAK_PROTECTION, "rd_stereo_mode", "rd_audio_desync",
             "rd_deinterlace", "rd_deinterlace_mode", "rd_avi_index", "rd_sub_fuzzy",
             "rd_menu_language", "rd_audio_track", "rd_sub_track", "rd_mkv_preload", "rd_play_and_pause",
-            "rd_gain", "rd_force_dolby", "rd_soxr_quality", "rd_mix_mode", "rd_gnutls_priorities", "rd_ipv4_timeout", "rd_cast_http_port", "rd_sub_font", "rd_file_caching", "rd_live_caching", "rd_http_proxy",
+            "rd_gain", "rd_ignore_filetypes", "rd_force_dolby", "rd_soxr_quality", "rd_mix_mode", "rd_gnutls_priorities", "rd_ipv4_timeout", "rd_cast_http_port", "rd_sub_font", "rd_file_caching", "rd_live_caching", "rd_http_proxy",
             "rd_postproc", "rd_avcodec_threads", KEY_OPENGL, KEY_DEBLOCKING, KEY_ENABLE_FRAME_SKIP, KEY_ENABLE_TIME_STRETCHING_AUDIO,
             KEY_ENABLE_VERBOSE_MODE, KEY_CASTING_PASSTHROUGH, KEY_CASTING_QUALITY, KEY_CASTING_AUDIO_ONLY -> lifecycleScope.launch { restartLibVLC() }
             "rd_normalize", "rd_norm_level", "rd_night_mode" -> LoudnessEffects.apply(activity)

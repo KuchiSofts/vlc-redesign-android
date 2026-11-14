@@ -750,5 +750,8 @@
     <string name="rd_always_show_player_bar">Always show the player bar</string>
     <string name="rd_help_always_show_player_bar">Keeps the player bar at the bottom of the library while nothing plays: Play starts the play queue, or opens files when it is empty.</string>
     <string name="rd_nothing_playing">Nothing is playing</string>
+    <!-- Settings › Library › Advanced: the desktop's Ignored file extensions (libvlc's ignore-filetypes) -->
+    <string name="rd_ignored_extensions">Ignored file extensions</string>
+    <string name="rd_help_ignore_filetypes">Files with these extensions are left out when a folder is opened or listed, separated by commas.</string>
     <string name="rd_help_increase_contrast">Draws the dim texts of the design (hints, descriptions, watched items) brighter, to the contrast the WCAG accessibility guidelines ask for (AA).</string>
 </resources>

@@ -579,4 +579,7 @@
     <string name="rd_always_show_player_bar">הצג תמיד את סרגל הנגן</string>
     <string name="rd_help_always_show_player_bar">משאיר את סרגל הנגן בתחתית הספרייה כשדבר אינו מתנגן: נגינה מתחילה את תור הנגינה, או פותחת קבצים כשהתור ריק.</string>
     <string name="rd_nothing_playing">שום דבר לא מתנגן</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">סיומות קבצים מוחרגות</string>
+    <string name="rd_help_ignore_filetypes">קבצים עם הסיומות האלה לא נכללים כשתיקייה נפתחת או מוצגת, מופרדות בפסיקים.</string>
 </resources>

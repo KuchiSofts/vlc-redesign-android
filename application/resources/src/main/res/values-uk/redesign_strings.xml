@@ -597,4 +597,7 @@
     <string name="rd_always_show_player_bar">Завжди показувати панель програвача</string>
     <string name="rd_help_always_show_player_bar">Залишає панель програвача внизу бібліотеки, навіть коли нічого не відтворюється: кнопка «Відтворити» запускає чергу відтворення або, якщо вона порожня, відкриває файли.</string>
     <string name="rd_nothing_playing">Нічого не відтворюється</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">Ігноровані розширення файлів</string>
+    <string name="rd_help_ignore_filetypes">Файли з цими розширеннями пропускаються під час відкриття або перегляду теки; через кому.</string>
 </resources>

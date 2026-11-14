@@ -593,4 +593,7 @@
     <string name="rd_always_show_player_bar">プレイヤーバーを常に表示</string>
     <string name="rd_help_always_show_player_bar">何も再生していないときも、ライブラリの下部にプレイヤーバーを表示します: 再生ボタンで再生キューを開始し、キューが空の場合はファイルを開きます。</string>
     <string name="rd_nothing_playing">何も再生されていません</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">無視するファイル拡張子</string>
+    <string name="rd_help_ignore_filetypes">フォルダーを開くときや一覧表示するときに、これらの拡張子のファイルを除外します (カンマ区切り)。</string>
 </resources>

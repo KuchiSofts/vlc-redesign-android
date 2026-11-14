@@ -594,4 +594,7 @@
     <string name="rd_always_show_player_bar">Visa alltid spelarfältet</string>
     <string name="rd_help_always_show_player_bar">Behåller spelarfältet längst ned i biblioteket när inget spelas: Spela upp startar spelkön, eller öppnar filer när den är tom.</string>
     <string name="rd_nothing_playing">Inget spelas upp</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">Ignorerade filtillägg</string>
+    <string name="rd_help_ignore_filetypes">Filer med dessa filändelser utelämnas när en mapp öppnas eller listas, åtskilda med kommatecken.</string>
 </resources>

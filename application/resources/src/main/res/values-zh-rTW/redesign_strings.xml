@@ -593,4 +593,7 @@
     <string name="rd_always_show_player_bar">一律顯示播放列</string>
     <string name="rd_help_always_show_player_bar">未播放任何內容時，將播放列保留在媒體櫃底部：按「播放」會開始播放佇列，佇列為空時則開啟檔案。</string>
     <string name="rd_nothing_playing">目前沒有播放任何內容</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">忽略的副檔名</string>
+    <string name="rd_help_ignore_filetypes">開啟或列出資料夾時，略過這些副檔名的檔案，以逗號分隔。</string>
 </resources>

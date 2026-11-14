@@ -594,4 +594,7 @@
     <string name="rd_always_show_player_bar">Wiedergabeleiste immer anzeigen</string>
     <string name="rd_help_always_show_player_bar">Behält die Wiedergabeleiste unten in der Bibliothek, auch wenn nichts läuft: „Wiedergabe“ startet die Warteschlange oder öffnet Dateien, wenn sie leer ist.</string>
     <string name="rd_nothing_playing">Es wird nichts wiedergegeben</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">Ignorierte Dateiendungen</string>
+    <string name="rd_help_ignore_filetypes">Dateien mit diesen Endungen werden beim Öffnen oder Auflisten eines Ordners ausgelassen, durch Kommas getrennt.</string>
 </resources>

@@ -597,4 +597,7 @@
     <string name="rd_always_show_player_bar">Всегда показывать панель воспроизведения</string>
     <string name="rd_help_always_show_player_bar">Оставляет панель воспроизведения внизу медиатеки, когда ничего не играет: «Воспроизвести» запускает очередь воспроизведения или открывает файлы, если она пуста.</string>
     <string name="rd_nothing_playing">Ничего не воспроизводится</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">Игнорируемые расширения файлов</string>
+    <string name="rd_help_ignore_filetypes">Файлы с этими расширениями пропускаются при открытии или просмотре папки; через запятую.</string>
 </resources>

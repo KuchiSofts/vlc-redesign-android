@@ -164,7 +164,12 @@ abstract class BrowserProvider(val context: Context, val dataset: LiveDataset<Me
         if (mediabrowser == null) {
             registerCreator { MediaBrowser(VLCInstance.getInstance(context), null, browserHandler) }
             mediabrowser = get(this)
-            if (!showOnlyMultimedia) mediabrowser?.setIgnoreFileTypes(".")
+            // VLC Redesign: Settings › Library › Ignored file extensions, left out on top of the browser's own (all
+            // files shown, ".", or libvlcjni's list)
+            val ignored = org.videolan.tools.rdIgnoredExtensions(Settings.getInstance(context).getString(org.videolan.tools.KEY_RD_IGNORE_FILETYPES, null))
+            val own = if (showOnlyMultimedia) org.videolan.tools.RD_BROWSER_IGNORED else "."
+            if (ignored.isNotEmpty()) mediabrowser?.setIgnoreFileTypes("$own,$ignored")
+            else if (!showOnlyMultimedia) mediabrowser?.setIgnoreFileTypes(".")
         }
     }
 

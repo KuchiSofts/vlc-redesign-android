@@ -594,4 +594,7 @@
     <string name="rd_always_show_player_bar">Mostrar siempre la barra del reproductor</string>
     <string name="rd_help_always_show_player_bar">Mantiene la barra del reproductor en la parte inferior de la biblioteca mientras no se reproduce nada: Reproducir inicia la cola de reproducción, o abre archivos si está vacía.</string>
     <string name="rd_nothing_playing">No se está reproduciendo nada</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">Extensiones de archivo ignoradas</string>
+    <string name="rd_help_ignore_filetypes">Los archivos con estas extensiones se omiten al abrir o listar una carpeta, separadas por comas.</string>
 </resources>

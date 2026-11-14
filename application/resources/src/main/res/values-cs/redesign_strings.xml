@@ -597,4 +597,7 @@
     <string name="rd_always_show_player_bar">Vždy zobrazovat panel přehrávače</string>
     <string name="rd_help_always_show_player_bar">Ponechá panel přehrávače dole v knihovně, i když se nic nepřehrává: Přehrát spustí frontu přehrávání, nebo otevře soubory, když je prázdná.</string>
     <string name="rd_nothing_playing">Nic se nepřehrává</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">Ignorované přípony souborů</string>
+    <string name="rd_help_ignore_filetypes">Soubory s těmito příponami se při otevření nebo výpisu složky vynechají; oddělené čárkami.</string>
 </resources>

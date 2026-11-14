@@ -597,4 +597,7 @@
     <string name="rd_always_show_player_bar">Zawsze pokazuj pasek odtwarzacza</string>
     <string name="rd_help_always_show_player_bar">Utrzymuje pasek odtwarzacza na dole biblioteki, gdy nic nie jest odtwarzane: Odtwarzaj uruchamia kolejkę odtwarzania lub otwiera pliki, gdy jest pusta.</string>
     <string name="rd_nothing_playing">Nic nie jest odtwarzane</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">Ignorowane rozszerzenia plików</string>
+    <string name="rd_help_ignore_filetypes">Pliki z tymi rozszerzeniami są pomijane przy otwieraniu lub wyświetlaniu folderu; oddzielone przecinkami.</string>
 </resources>
