@@ -84,4 +84,17 @@ class RdUpdateCheckTest {
         // broken entries are passed over
         assertNull(RdUpdateCheck.pick(JSONArray().put("text").put(JSONObject().put("tag_name", ""))))
     }
+
+    @Test
+    fun githubsRateLimit() {
+        assertTrue(RdUpdateCheck.isRateLimited(429, null))
+        assertTrue(RdUpdateCheck.isRateLimited(403, " 0 "))
+        // (a 403 with requests left is something else: an unexpected answer)
+        assertFalse(RdUpdateCheck.isRateLimited(403, "12"))
+        assertFalse(RdUpdateCheck.isRateLimited(403, null))
+        assertFalse(RdUpdateCheck.isRateLimited(500, "0"))
+        assertEquals(2_000_000_000_000L, RdUpdateCheck.resetAt("2000000000", now = 1_000L))
+        assertNull(RdUpdateCheck.resetAt("1000", now = 5_000_000L))
+        assertNull(RdUpdateCheck.resetAt("soon", now = 0L))
+    }
 }

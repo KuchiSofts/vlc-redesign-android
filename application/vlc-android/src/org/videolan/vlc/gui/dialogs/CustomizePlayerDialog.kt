@@ -313,6 +313,8 @@ class CustomizePlayerDialog : VLCBottomSheetDialogFragment() {
                 menu.add(0, 100 + i, i, label).apply { isCheckable = true; isChecked = p.name == selected }
             }
             menu.add(1, 1, 100, R.string.rd_new_profile)
+            // the desktop's Clone: a copy of the profile shown, built-in ones too
+            menu.add(1, 5, 101, R.string.rd_clone)
             if (!profile().builtIn) {
                 menu.add(1, 2, 101, R.string.rd_rename_profile)
                 menu.add(1, 3, 102, R.string.rd_delete_profile)
@@ -320,7 +322,15 @@ class CustomizePlayerDialog : VLCBottomSheetDialogFragment() {
             menu.add(1, 4, 103, R.string.rd_reset)
             setOnMenuItemClickListener { item ->
                 when (item.itemId) {
+                    // (New starts from the default bar, as the desktop's; Clone copies the one shown)
                     1 -> askName(getString(R.string.rd_new_profile), "") { name ->
+                        val p = PlayerBarLayout.BUILT_IN.first()
+                        profiles.add(Profile(name, p.portrait, p.landscape, false))
+                        selected = name
+                        changed = true
+                        refresh()
+                    }
+                    5 -> askName(getString(R.string.rd_clone_profile), "") { name ->
                         val p = profile()
                         profiles.add(Profile(name, p.portrait, p.landscape, false))
                         selected = name

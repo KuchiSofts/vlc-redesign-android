@@ -569,4 +569,138 @@
     <string name="rd_sleep_pause">暫停播放</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">次要字幕延遲</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">加入字幕</string>
+    <string name="rd_from_a_file">從檔案</string>
+    <string name="rd_from_link">從連結</string>
+    <string name="rd_link_hint">字幕檔案的直接 HTTPS 連結</string>
+    <string name="rd_link_not_subtitle">請輸入字幕檔案的直接 HTTPS 連結 (.srt、.ass、.ssa、.sub、.vtt、.ttml 或 .smi)。</string>
+    <string name="rd_link_too_big">字幕超過 20 MB 的下載上限。</string>
+    <string name="rd_link_failed">無法下載字幕：%1$s</string>
+    <string name="rd_link_downloading">正在下載字幕…</string>
+    <string name="rd_link_added">已加入字幕：%1$s</string>
+    <string name="rd_seek_sub_cues">在跳轉列上顯示字幕行</string>
+    <string name="rd_help_seek_sub_cues">在跳轉列上標出目前字幕之後還有台詞的位置。</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">顯示快速鍵的回饋訊息</string>
+    <string name="rd_show_feedback_for">回饋訊息顯示時間</string>
+    <string name="rd_help_osd">有變化時顯示在影片上的訊息：速度、延遲、縮放、軌道。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">協助工具</string>
+    <string name="rd_increase_contrast">提高文字對比</string>
+    <string name="rd_help_increase_contrast">讓設計中較暗淡的文字 (提示、說明、已觀看的項目) 更明亮，達到 WCAG 無障礙指引要求的對比度 (AA)。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">一律顯示播放列</string>
+    <string name="rd_help_always_show_player_bar">未播放任何內容時，將播放列保留在媒體櫃底部：按「播放」會開始播放佇列，佇列為空時則開啟檔案。</string>
+    <string name="rd_nothing_playing">目前沒有播放任何內容</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">忽略的副檔名</string>
+    <string name="rd_help_ignore_filetypes">開啟或列出資料夾時，略過這些副檔名的檔案，以逗號分隔。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">字幕延遲</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">選擇字幕的語言。</string>
+    <string name="rd_ob_subtitles_text">您語言的字幕會自動顯示：來自影片本身、影片旁的檔案，或在線上找到。若該語言完全沒有字幕 (線上也沒有)，則改用第二語言。</string>
+    <string name="rd_ob_default_language">預設語言</string>
+    <string name="rd_ob_second_language">第二語言 (沒有字幕時)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="other">顯示 %1$d 個隱藏的裝置</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">隱藏此裝置</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">鍵盤快速鍵</string>
+    <string name="rd_help_keyboard_shortcuts">鍵盤、遊戲控制器或電視遙控器的按鍵在播放器中的作用。</string>
+    <string name="rd_key_play_pause">播放/暫停</string>
+    <string name="rd_key_stop">停止</string>
+    <string name="rd_key_next">下一個</string>
+    <string name="rd_key_previous">上一個</string>
+    <string name="rd_key_very_short_back">極短程向前跳轉</string>
+    <string name="rd_key_very_short_forward">極短程向後跳轉</string>
+    <string name="rd_key_short_back">短程向前跳轉</string>
+    <string name="rd_key_short_forward">短程向後跳轉</string>
+    <string name="rd_key_medium_back">中程向前跳轉</string>
+    <string name="rd_key_medium_forward">中程向後跳轉</string>
+    <string name="rd_key_long_back">長程向前跳轉</string>
+    <string name="rd_key_long_forward">長程向後跳轉</string>
+    <string name="rd_key_faster">加快</string>
+    <string name="rd_key_slower">放慢</string>
+    <string name="rd_key_normal_rate">正常速率</string>
+    <string name="rd_key_volume_up">音量上升</string>
+    <string name="rd_key_volume_down">音量下降</string>
+    <string name="rd_key_mute">靜音</string>
+    <string name="rd_key_audio_delay_down">減少音訊延遲</string>
+    <string name="rd_key_audio_delay_up">增加音訊延遲</string>
+    <string name="rd_key_aspect">循環切換來源長寬比例</string>
+    <string name="rd_key_snapshot">視訊抓圖</string>
+    <string name="rd_key_record">錄製</string>
+    <string name="rd_key_sub_delay_down">減少字幕延遲</string>
+    <string name="rd_key_sub_delay_up">增加字幕延遲</string>
+    <string name="rd_key_sync_audio">字幕同步 / 將音訊時間戳記加入書籤</string>
+    <string name="rd_key_sync_subtitle">字幕同步 / 將字幕時間戳記加入書籤</string>
+    <string name="rd_key_sync_apply">字幕同步 / 同步音訊與字幕時間戳記</string>
+    <string name="rd_key_sub_scale_reset">重設字幕文字縮放</string>
+    <string name="rd_key_show_controls">全螢幕中顯示控制介面</string>
+    <string name="rd_key_options">右鍵選單</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">加入音訊軌</string>
+    <string name="rd_audio_track_added">已加入音軌：%1$s</string>
+    <string name="rd_audio_track_failed">無法加入音軌。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">此網路向 GitHub 發出的要求過多。請在 %1$s 之後重試。</string>
+    <string name="rd_update_rate_limited">此網路向 GitHub 發出的要求過多。請稍後重試。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">效果預置</string>
+    <string name="rd_fx_preset_default">預設預置</string>
+    <string name="rd_fx_preset_new">新增預置</string>
+    <string name="rd_fx_preset_custom">自訂預置 %1$s</string>
+    <string name="rd_fx_preset_update">以目前的效果更新</string>
+    <string name="rd_fx_preset_rename">重新命名</string>
+    <string name="rd_fx_preset_delete">刪除</string>
+    <string name="rd_fx_preset_rename_title">重新命名預置</string>
+    <string name="rd_fx_preset_create">建立</string>
+    <string name="rd_fx_preset_name_hint">例如：深夜電影</string>
+    <string name="rd_fx_preset_keeps">預置會保留使用中的音訊與視訊特效。</string>
+    <string name="rd_fx_preset_keeps_own">預置會保留其效果。</string>
+    <string name="rd_fx_preset_delete_title">刪除預置</string>
+    <string name="rd_fx_preset_delete_question">要刪除 %1$s 嗎？</string>
+    <string name="rd_fx_preset_delete_note">使用中的效果會維持不變。</string>
+    <string name="rd_fx_preset_err_empty">請輸入預置的名稱。</string>
+    <string name="rd_fx_preset_err_default">「%1$s」是預設效果的預置。</string>
+    <string name="rd_fx_preset_err_taken">已有名為「%1$s」的預置。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">複製</string>
+    <string name="rd_clone_profile">複製設定檔</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_repeat">重複</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">大小數值</string>
+    <string name="rd_sub_size_relative">相對</string>
+    <string name="rd_sub_size_pixels">像素</string>
+    <string name="rd_help_sub_fontsize_px">以影片像素計的字母高度。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_lyrics">歌詞</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">伺服器沒有回應</string>
+    <string name="rd_tv_err_not_found">找不到伺服器位址</string>
+    <string name="rd_tv_err_unreachable">無法連線到伺服器</string>
+    <string name="rd_tv_err_secure">安全連線失敗</string>
+    <string name="rd_tv_err_failed">無法下載</string>
+    <string name="rd_tv_err_busy">伺服器忙碌中，請稍後再試</string>
+    <string name="rd_tv_err_wrong">無法讀取伺服器的回應</string>
+    <string name="rd_tv_err_cancelled">已取消</string>
+    <string name="rd_tv_err_unreadable">無法讀取檔案</string>
+    <string name="rd_tv_err_unsaved">無法儲存到此裝置</string>
+    <string name="rd_tv_err_redirections">伺服器重新導向次數過多</string>
+    <string name="rd_tv_err_too_large">檔案過大</string>
+    <string name="rd_tv_err_not_m3u">不是 M3U 播放清單</string>
+    <string name="rd_tv_err_no_channels">沒有頻道</string>
+    <string name="rd_tv_err_not_xmltv">不是 XMLTV 節目表</string>
+    <string name="rd_tv_err_guide_unreadable">無法讀取節目表</string>
+    <string name="rd_tv_err_cut">節目表不完整</string>
+    <string name="rd_tv_err_account">無法讀取帳戶</string>
+    <string name="rd_tv_err_sign_in">請先登入</string>
+    <string name="rd_tv_err_refused">伺服器拒絕存取 (%1$d)</string>
+    <string name="rd_tv_err_missing">此位址下找不到任何內容 (%1$d)</string>
+    <string name="rd_tv_err_http">伺服器回傳錯誤 (%1$d)</string>
 </resources>

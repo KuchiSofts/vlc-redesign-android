@@ -47,6 +47,7 @@ object RdTvMiniPlayer {
     private class Views(val card: View, val picture: ImageView, val fill: View, val well: View, val title: TextView,
                         val folder: TextView, val artist: TextView) {
         var media: String? = null
+        var art: String? = null
     }
 
     fun attach(activity: AudioPlayerContainerActivity, coordinator: CoordinatorLayout) {
@@ -194,12 +195,17 @@ object RdTvMiniPlayer {
         val full = v.well.width - 4.dp
         val w = if (length > 0 && full > 0) (full * time / length).toInt().coerceIn(0, full) else 0
         (v.fill.layoutParams as FrameLayout.LayoutParams).let { if (it.width != w) { it.width = w; v.fill.layoutParams = it } }
-        val key = media.uri.toString()
+        // (the song's tags and cover come after it starts, as the music player reads them: drawn again when they do)
+        val key = "${media.uri}|${media.title}|${media.artistName}|${media.albumName}|${media.artworkMrl}"
         if (v.media == key) return
         v.media = key
         v.title.text = media.title
         v.folder.text = media.uri.path?.let { java.io.File(it).parentFile?.name }.orEmpty()
         v.artist.text = media.artistName?.takeIf { it.isNotBlank() } ?: media.albumName?.takeIf { it.isNotBlank() } ?: v.folder.text
+        // (the picture only when the media or its cover changes: not again for a tag)
+        val art = "${media.uri}|${media.artworkMrl}"
+        if (v.art == art) return
+        v.art = art
         v.picture.setImageDrawable(null)
         activity.lifecycleScope.launch {
             val bitmap: Bitmap? = withContext(Dispatchers.IO) {
@@ -208,7 +214,7 @@ object RdTvMiniPlayer {
                     else AudioUtil.readCoverBitmap(Uri.decode(media.artworkMrl), 375.dp)
                 }.getOrNull()
             }
-            if (v.media == key) v.picture.setImageBitmap(bitmap)
+            if (v.art == art) v.picture.setImageBitmap(bitmap)
         }
     }
 }

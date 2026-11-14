@@ -569,4 +569,138 @@
     <string name="rd_sleep_pause">재생 일시중지</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">보조 자막 지연</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">자막 추가</string>
+    <string name="rd_from_a_file">파일에서</string>
+    <string name="rd_from_link">링크에서</string>
+    <string name="rd_link_hint">자막 파일의 HTTPS 직접 링크</string>
+    <string name="rd_link_not_subtitle">자막 파일(.srt, .ass, .ssa, .sub, .vtt, .ttml 또는 .smi)의 HTTPS 직접 링크를 입력하세요.</string>
+    <string name="rd_link_too_big">자막이 다운로드 한도인 20 MB를 초과합니다.</string>
+    <string name="rd_link_failed">자막을 다운로드할 수 없습니다: %1$s</string>
+    <string name="rd_link_downloading">자막 다운로드 중…</string>
+    <string name="rd_link_added">자막 추가됨: %1$s</string>
+    <string name="rd_seek_sub_cues">탐색 막대에 자막 줄 표시</string>
+    <string name="rd_help_seek_sub_cues">표시 중인 자막에 이후 대사가 있는 위치를 탐색 막대에 표시합니다.</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">단축키 사용 시 화면에 표시</string>
+    <string name="rd_show_feedback_for">화면 표시 시간</string>
+    <string name="rd_help_osd">무언가 바뀔 때 영상 위에 나오는 메시지: 속도, 지연, 확대, 트랙.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">접근성</string>
+    <string name="rd_increase_contrast">텍스트 대비 높이기</string>
+    <string name="rd_help_increase_contrast">디자인의 흐린 텍스트(힌트, 설명, 시청한 항목)를 WCAG 접근성 지침(AA)이 요구하는 대비가 되도록 더 밝게 표시합니다.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">항상 플레이어 막대 표시</string>
+    <string name="rd_help_always_show_player_bar">아무것도 재생하지 않을 때도 라이브러리 아래쪽에 플레이어 막대를 표시합니다. 재생을 누르면 재생 대기열을 시작하고, 대기열이 비어 있으면 파일을 엽니다.</string>
+    <string name="rd_nothing_playing">재생 중인 항목 없음</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">무시할 파일 확장자</string>
+    <string name="rd_help_ignore_filetypes">폴더를 열거나 목록을 볼 때 이 확장자의 파일은 제외됩니다(쉼표로 구분).</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">자막 싱크</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">자막 언어를 선택하세요.</string>
+    <string name="rd_ob_subtitles_text">사용자 언어의 자막이 자동으로 표시됩니다. 비디오에 포함된 자막, 옆에 있는 파일 또는 온라인에서 찾은 자막을 사용합니다. 온라인에도 해당 언어 자막이 없으면 두 번째 언어를 사용합니다.</string>
+    <string name="rd_ob_default_language">기본 언어</string>
+    <string name="rd_ob_second_language">두 번째 언어(해당 자막이 없을 때)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="other">숨긴 장치 %1$d개 표시</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">이 장치 숨기기</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">단축키</string>
+    <string name="rd_help_keyboard_shortcuts">키보드, 게임 컨트롤러, TV 리모컨의 키가 플레이어에서 하는 일.</string>
+    <string name="rd_key_play_pause">재생/일시중지</string>
+    <string name="rd_key_stop">정지</string>
+    <string name="rd_key_next">다음</string>
+    <string name="rd_key_previous">이전</string>
+    <string name="rd_key_very_short_back">매우 짧게 뒤로 이동</string>
+    <string name="rd_key_very_short_forward">매우 짧게 앞으로 이동</string>
+    <string name="rd_key_short_back">짧게 뒤로 이동</string>
+    <string name="rd_key_short_forward">짧게 앞으로 이동</string>
+    <string name="rd_key_medium_back">중간 뒤로 이동</string>
+    <string name="rd_key_medium_forward">중간 앞으로 이동</string>
+    <string name="rd_key_long_back">길게 뒤로 이동</string>
+    <string name="rd_key_long_forward">길게 앞으로 이동</string>
+    <string name="rd_key_faster">더 빠르게</string>
+    <string name="rd_key_slower">더 느리게</string>
+    <string name="rd_key_normal_rate">기본 속도 (1x)</string>
+    <string name="rd_key_volume_up">볼륨 높임</string>
+    <string name="rd_key_volume_down">볼륨 낮춤</string>
+    <string name="rd_key_mute">음소거</string>
+    <string name="rd_key_audio_delay_down">오디오 싱크 빠르게</string>
+    <string name="rd_key_audio_delay_up">오디오 싱크 느리게</string>
+    <string name="rd_key_aspect">소스 화면 비율 순차 선택</string>
+    <string name="rd_key_snapshot">비디오 스냅샷 찍기</string>
+    <string name="rd_key_record">녹음/녹화</string>
+    <string name="rd_key_sub_delay_down">자막 싱크 빠르게</string>
+    <string name="rd_key_sub_delay_up">자막 싱크 느리게</string>
+    <string name="rd_key_sync_audio">자막 싱크: 오디오 타임스탬프 책갈피</string>
+    <string name="rd_key_sync_subtitle">자막 싱크: 자막 타임스탬프 책갈피</string>
+    <string name="rd_key_sync_apply">자막 싱크: 오디오 &amp; 자막 타임스탬프 동기화</string>
+    <string name="rd_key_sub_scale_reset">자막 텍스트 배율 초기화</string>
+    <string name="rd_key_show_controls">전체화면에서 컨트롤러 보이기</string>
+    <string name="rd_key_options">컨텍스트 메뉴</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">오디오 트랙 추가</string>
+    <string name="rd_audio_track_added">오디오 트랙 추가됨: %1$s</string>
+    <string name="rd_audio_track_failed">오디오 트랙을 추가할 수 없습니다.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">이 네트워크에서 GitHub에 너무 많이 요청했습니다. %1$s 이후에 다시 시도하세요.</string>
+    <string name="rd_update_rate_limited">이 네트워크에서 GitHub에 너무 많이 요청했습니다. 나중에 다시 시도하세요.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">효과 프리셋</string>
+    <string name="rd_fx_preset_default">기본 프리셋</string>
+    <string name="rd_fx_preset_new">새 프리셋</string>
+    <string name="rd_fx_preset_custom">사용자 지정 프리셋 %1$s</string>
+    <string name="rd_fx_preset_update">현재 효과로 업데이트</string>
+    <string name="rd_fx_preset_rename">이름 바꾸기</string>
+    <string name="rd_fx_preset_delete">삭제</string>
+    <string name="rd_fx_preset_rename_title">프리셋 이름 바꾸기</string>
+    <string name="rd_fx_preset_create">만들기</string>
+    <string name="rd_fx_preset_name_hint">예: 심야 영화</string>
+    <string name="rd_fx_preset_keeps">현재 사용 중인 오디오 및 비디오 효과가 프리셋에 저장됩니다.</string>
+    <string name="rd_fx_preset_keeps_own">프리셋의 효과는 그대로 유지됩니다.</string>
+    <string name="rd_fx_preset_delete_title">프리셋 삭제</string>
+    <string name="rd_fx_preset_delete_question">%1$s을(를) 삭제할까요?</string>
+    <string name="rd_fx_preset_delete_note">사용 중인 효과는 그대로 유지됩니다.</string>
+    <string name="rd_fx_preset_err_empty">프리셋 이름을 입력하세요.</string>
+    <string name="rd_fx_preset_err_default">\"%1$s\"은(는) 기본 효과의 프리셋입니다.</string>
+    <string name="rd_fx_preset_err_taken">\"%1$s\" 프리셋이 이미 있습니다.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">복제 (Clone)</string>
+    <string name="rd_clone_profile">프로필 복제</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_repeat">반복</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">크기 값</string>
+    <string name="rd_sub_size_relative">상대 크기</string>
+    <string name="rd_sub_size_pixels">픽셀</string>
+    <string name="rd_help_sub_fontsize_px">영상 픽셀 단위의 글자 높이.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_lyrics">가사</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">서버가 응답하지 않았습니다</string>
+    <string name="rd_tv_err_not_found">서버 주소를 찾을 수 없습니다</string>
+    <string name="rd_tv_err_unreachable">서버에 연결할 수 없습니다</string>
+    <string name="rd_tv_err_secure">보안 연결에 실패했습니다</string>
+    <string name="rd_tv_err_failed">다운로드할 수 없습니다</string>
+    <string name="rd_tv_err_busy">서버가 사용 중입니다. 나중에 다시 시도하세요</string>
+    <string name="rd_tv_err_wrong">서버의 응답을 읽을 수 없습니다</string>
+    <string name="rd_tv_err_cancelled">취소됨</string>
+    <string name="rd_tv_err_unreadable">파일을 읽을 수 없습니다</string>
+    <string name="rd_tv_err_unsaved">이 기기에 저장할 수 없습니다</string>
+    <string name="rd_tv_err_redirections">서버가 너무 여러 번 리디렉션했습니다</string>
+    <string name="rd_tv_err_too_large">크기가 너무 큽니다</string>
+    <string name="rd_tv_err_not_m3u">M3U 재생 목록이 아닙니다</string>
+    <string name="rd_tv_err_no_channels">채널이 없습니다</string>
+    <string name="rd_tv_err_not_xmltv">XMLTV 편성표가 아닙니다</string>
+    <string name="rd_tv_err_guide_unreadable">편성표를 읽을 수 없습니다</string>
+    <string name="rd_tv_err_cut">편성표가 일부만 받아졌습니다</string>
+    <string name="rd_tv_err_account">계정을 읽을 수 없습니다</string>
+    <string name="rd_tv_err_sign_in">먼저 로그인하세요</string>
+    <string name="rd_tv_err_refused">서버가 접근을 거부했습니다 (%1$d)</string>
+    <string name="rd_tv_err_missing">이 주소에서 아무것도 찾을 수 없습니다 (%1$d)</string>
+    <string name="rd_tv_err_http">서버가 오류로 응답했습니다 (%1$d)</string>
 </resources>

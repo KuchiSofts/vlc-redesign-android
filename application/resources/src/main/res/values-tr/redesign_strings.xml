@@ -570,4 +570,139 @@
     <string name="rd_sleep_pause">Oynatmayı duraklat</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">İkincil altyazı gecikmesi</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">Altyazı Ekle</string>
+    <string name="rd_from_a_file">Dosyadan</string>
+    <string name="rd_from_link">Bağlantıdan</string>
+    <string name="rd_link_hint">Bir altyazı dosyasının doğrudan HTTPS bağlantısı</string>
+    <string name="rd_link_not_subtitle">Bir altyazı dosyasının doğrudan HTTPS bağlantısını yazın (.srt, .ass, .ssa, .sub, .vtt, .ttml ya da .smi).</string>
+    <string name="rd_link_too_big">Altyazı, 20 MB indirme sınırını aşıyor.</string>
+    <string name="rd_link_failed">Altyazı indirilemedi: %1$s</string>
+    <string name="rd_link_downloading">Altyazı indiriliyor…</string>
+    <string name="rd_link_added">Altyazı eklendi: %1$s</string>
+    <string name="rd_seek_sub_cues">Sarma çubuğunda altyazı satırları görüntülensin</string>
+    <string name="rd_help_seek_sub_cues">Gösterilen altyazının sonraki satırlarının yeri sarma çubuğunda işaretlenir.</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">Kısayollar için geri bildirim görüntülensin</string>
+    <string name="rd_show_feedback_for">Geri bildirim süresi</string>
+    <string name="rd_help_osd">Bir şey değiştiğinde videonun üzerinde gösterilen iletiler: hız, gecikme, yakınlaştırma, parça.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">Erişilebilirlik</string>
+    <string name="rd_increase_contrast">Metin karşıtlığı artırılsın</string>
+    <string name="rd_help_increase_contrast">Tasarımdaki soluk metinleri (ipuçları, açıklamalar, izlenmiş ögeler), WCAG erişilebilirlik yönergelerinin istediği karşıtlığa (AA) ulaşacak kadar parlak çizer.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">Oynatıcı çubuğu her zaman görüntülensin</string>
+    <string name="rd_help_always_show_player_bar">Hiçbir şey oynatılmazken oynatıcı çubuğunu kitaplığın altında tutar: Oynat, oynatma kuyruğunu başlatır ya da kuyruk boşsa dosya açar.</string>
+    <string name="rd_nothing_playing">Hiçbir şey oynatılmıyor</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">Yok sayılan dosya uzantıları</string>
+    <string name="rd_help_ignore_filetypes">Bu uzantılara sahip dosyalar bir klasör açıldığında veya listelendiğinde dışarıda bırakılır; virgülle ayrılır.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">Altyazı gecikmesi</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">Altyazılarınızın dillerini seçin.</string>
+    <string name="rd_ob_subtitles_text">Dilinizdeki altyazılar kendiliğinden görüntülenir: videonun içinden, yanındaki bir dosyadan ya da çevrim içi bulunarak. Bu dilde hiç yoksa, çevrim içi de bulunamazsa ikinci dil kullanılır.</string>
+    <string name="rd_ob_default_language">Varsayılan dil</string>
+    <string name="rd_ob_second_language">İkinci dil (hiç yoksa)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="one">%1$d gizli aygıtı göster</item>
+        <item quantity="other">%1$d gizli aygıtı göster</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">Bu aygıtı gizle</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">Klavye Kısayolları</string>
+    <string name="rd_help_keyboard_shortcuts">Klavye, oyun kumandası veya TV kumandası tuşlarının oynatıcıda ne yaptığı.</string>
+    <string name="rd_key_play_pause">Duraklatma/Oynatma</string>
+    <string name="rd_key_stop">Durdur</string>
+    <string name="rd_key_next">Sonraki</string>
+    <string name="rd_key_previous">Önceki</string>
+    <string name="rd_key_very_short_back">Çok Kısa Geri Atlama</string>
+    <string name="rd_key_very_short_forward">Çok Kısa İleri Atlama</string>
+    <string name="rd_key_short_back">Kısa Geri Atlama</string>
+    <string name="rd_key_short_forward">Kısa İleri Atlama</string>
+    <string name="rd_key_medium_back">Orta Geri Atlama</string>
+    <string name="rd_key_medium_forward">Orta İleri Atlama</string>
+    <string name="rd_key_long_back">Uzun Geri Atlama</string>
+    <string name="rd_key_long_forward">Uzun İleri Atlama</string>
+    <string name="rd_key_faster">Daha Hızlı</string>
+    <string name="rd_key_slower">Daha Yavaş</string>
+    <string name="rd_key_normal_rate">Normal Hız</string>
+    <string name="rd_key_volume_up">Ses Açma</string>
+    <string name="rd_key_volume_down">Sesi Kısma</string>
+    <string name="rd_key_mute">Sesi Kapat</string>
+    <string name="rd_key_audio_delay_down">Ses Gecikmesini Azaltma</string>
+    <string name="rd_key_audio_delay_up">Ses Gecikmesini Arttırma</string>
+    <string name="rd_key_aspect">Kaynak en boy oranları arasında dolaş</string>
+    <string name="rd_key_snapshot">Görüntüden Fotoğraf Çekme</string>
+    <string name="rd_key_record">Kayıt</string>
+    <string name="rd_key_sub_delay_down">Altyazı Gecikmesini Azaltma</string>
+    <string name="rd_key_sub_delay_up">Altyazı Gecikmesini Arttırma</string>
+    <string name="rd_key_sync_audio">Altyazı Eşleme / Ses Zaman Damgası İmleme</string>
+    <string name="rd_key_sync_subtitle">Altyazı Eşleme / Altyazı Zaman Damgası İmleme</string>
+    <string name="rd_key_sync_apply">Altyazı Eşleme / Ses ve Altyazı Zaman Damgası İmleme</string>
+    <string name="rd_key_sub_scale_reset">Altyazı metni ölçeğini sıfırla</string>
+    <string name="rd_key_show_controls">Tam Ekranda Denetimleri Görüntüleme</string>
+    <string name="rd_key_options">İçerik Menüsü</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">Ses Kaydı Ekle</string>
+    <string name="rd_audio_track_added">Ses parçası eklendi: %1$s</string>
+    <string name="rd_audio_track_failed">Ses parçası eklenemedi.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">GitHub bu ağdan çok fazla istek aldı. %1$s sonra yeniden deneyin.</string>
+    <string name="rd_update_rate_limited">GitHub bu ağdan çok fazla istek aldı. Daha sonra yeniden deneyin.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">Etki önayarları</string>
+    <string name="rd_fx_preset_default">Varsayılan Önayar</string>
+    <string name="rd_fx_preset_new">Yeni Önayar</string>
+    <string name="rd_fx_preset_custom">Özel Önayar %1$s</string>
+    <string name="rd_fx_preset_update">Geçerli etkilerle güncelle</string>
+    <string name="rd_fx_preset_rename">Yeniden adlandır</string>
+    <string name="rd_fx_preset_delete">Sil</string>
+    <string name="rd_fx_preset_rename_title">Önayarı Yeniden Adlandır</string>
+    <string name="rd_fx_preset_create">Oluştur</string>
+    <string name="rd_fx_preset_name_hint">ör. Gece Filmleri</string>
+    <string name="rd_fx_preset_keeps">Önayar, kullanılmakta olan ses ve görüntü etkilerini saklar.</string>
+    <string name="rd_fx_preset_keeps_own">Önayarın etkileri korunur.</string>
+    <string name="rd_fx_preset_delete_title">Önayarı Sil</string>
+    <string name="rd_fx_preset_delete_question">%1$s silinsin mi?</string>
+    <string name="rd_fx_preset_delete_note">Kullanılmakta olan etkiler olduğu gibi kalır.</string>
+    <string name="rd_fx_preset_err_empty">Önayar için bir ad yazın.</string>
+    <string name="rd_fx_preset_err_default">\"%1$s\", varsayılan etkilerin önayarıdır.</string>
+    <string name="rd_fx_preset_err_taken">\"%1$s\" adında bir önayar zaten var.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">Klonlama</string>
+    <string name="rd_clone_profile">Profili Kopyala</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_repeat">Yineleme</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">Boyut değerleri</string>
+    <string name="rd_sub_size_relative">Göreli</string>
+    <string name="rd_sub_size_pixels">Piksel</string>
+    <string name="rd_help_sub_fontsize_px">Harflerin videonun piksellerindeki yüksekliği.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_lyrics">Sözler</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">sunucu yanıt vermedi</string>
+    <string name="rd_tv_err_not_found">sunucunun adresi bulunamadı</string>
+    <string name="rd_tv_err_unreachable">sunucuya ulaşılamadı</string>
+    <string name="rd_tv_err_secure">güvenli bağlantı başarısız oldu</string>
+    <string name="rd_tv_err_failed">indirilemedi</string>
+    <string name="rd_tv_err_busy">sunucu meşgul, daha sonra yeniden deneyin</string>
+    <string name="rd_tv_err_wrong">sunucunun yanıtı okunamadı</string>
+    <string name="rd_tv_err_cancelled">iptal edildi</string>
+    <string name="rd_tv_err_unreadable">dosya okunamıyor</string>
+    <string name="rd_tv_err_unsaved">bu cihaza kaydedilemiyor</string>
+    <string name="rd_tv_err_redirections">sunucu çok fazla kez yönlendirdi</string>
+    <string name="rd_tv_err_too_large">boyutu çok büyük</string>
+    <string name="rd_tv_err_not_m3u">bir M3U oynatma listesi değil</string>
+    <string name="rd_tv_err_no_channels">hiç kanal yok</string>
+    <string name="rd_tv_err_not_xmltv">bir XMLTV kılavuzu değil</string>
+    <string name="rd_tv_err_guide_unreadable">kılavuz okunamadı</string>
+    <string name="rd_tv_err_cut">kılavuz eksik geldi</string>
+    <string name="rd_tv_err_account">hesap okunamadı</string>
+    <string name="rd_tv_err_sign_in">önce oturum açın</string>
+    <string name="rd_tv_err_refused">sunucu erişimi reddetti (%1$d)</string>
+    <string name="rd_tv_err_missing">bu adreste hiçbir şey bulunamadı (%1$d)</string>
+    <string name="rd_tv_err_http">sunucu bir hatayla yanıt verdi (%1$d)</string>
 </resources>

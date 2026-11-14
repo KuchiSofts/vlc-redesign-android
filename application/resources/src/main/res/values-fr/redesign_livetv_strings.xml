@@ -5,7 +5,7 @@
     <string name="rd_tv_live_tv">TV en direct</string>
     <string name="rd_tv_addon">Extension TV en direct (IPTV)</string>
     <string name="rd_tv_addon_help">Affiche la TV dans la médiathèque : les chaînes de vos listes de lecture et comptes IPTV, avec leur guide des programmes. Désactivé, rien n\'en est chargé.</string>
-    <string name="rd_tv_channels">Canaux</string>
+    <string name="rd_tv_channels">Chaînes</string>
     <string name="rd_tv_guide">Guide</string>
     <string name="rd_tv_films">Films</string>
     <string name="rd_tv_series">Séries</string>

@@ -208,3 +208,32 @@ fun Context.withRdLayoutDirection(): Context {
     config.setLayoutDirection(if (dir == "rtl") Locale("ar") else Locale.ENGLISH)
     return createConfigurationContext(config)
 }
+
+/** VLC Redesign: Settings › Interface › Accessibility › Increase text contrast (the desktop's redesign/increase-contrast) */
+const val KEY_RD_INCREASE_CONTRAST = "rd_increase_contrast"
+
+/**
+ * VLC Redesign: this context with the design's dim texts brighter (dark theme) or darker (light theme), to the
+ * 4.5:1 of WCAG AA on every panel, when "Increase text contrast" is on, as the desktop's (VLCStyle.color):
+ * the colours of values-highdr/redesign_contrast.xml. Android picks them itself as those of a screen in HDR mode,
+ * a resource qualifier nothing else of the app uses, so every text, hint and icon drawn with them follows, from the
+ * layouts and from the code alike. A screen that is HDR (most flagship phones) is told it is not while the setting
+ * is off, so the design's own colours stay. Android 8 and later (the qualifier's).
+ */
+fun Context.withRdContrast(): Context {
+    if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O) return this
+    val on = try {
+        Settings.getInstance(this).getBoolean(KEY_RD_INCREASE_CONTRAST, false)
+    } catch (e: Exception) {
+        false
+    }
+    val mask = android.content.res.Configuration.COLOR_MODE_HDR_MASK
+    val wanted = if (on) android.content.res.Configuration.COLOR_MODE_HDR_YES else android.content.res.Configuration.COLOR_MODE_HDR_NO
+    if (resources.configuration.colorMode and mask == wanted) return this
+    val config = android.content.res.Configuration(resources.configuration)
+    config.colorMode = (config.colorMode and mask.inv()) or wanted
+    return createConfigurationContext(config)
+}
+
+/** VLC Redesign: the settings that change how every screen is drawn: the layout direction and the text contrast */
+fun Context.withRdOverrides(): Context = withRdLayoutDirection().withRdContrast()

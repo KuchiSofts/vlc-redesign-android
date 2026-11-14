@@ -530,16 +530,28 @@
         <item name="ic_tips_tap">@drawable/tips_tap</item>
         <item name="ic_passthrough">@drawable/ic_passthrough</item>
         <item name="colorControlNormal">@color/rd_dark_fg_a3</item>
-        <item name="bookmark_background">@color/black_transparent_80</item>
+        <item name="bookmark_background">@color/rd_dark_bg_a4</item>
         <item name="background_default">@color/tv_bg</item>
         <item name="actionBarItemBackground">@drawable/ic_circle_audio_player</item>
         <item name="primary_focus">@color/rd_tv_focus</item>
         <item name="empty_title">@color/rd_dark_fg_a1</item>
         <item name="selectableItemBackground">?android:attr/selectableItemBackground</item>
         <item name="selectableItemBackgroundBorderless">?android:attr/selectableItemBackgroundBorderless</item>
+        <!-- VLC Redesign: the design's colours the shared layouts read (the dark theme's): without them a layout of
+             the phone opened in a TV activity could not be drawn (the music player's Bookmarks: rd_topbar) -->
+        <item name="rd_well">@color/rd_dark_bg_b2</item>
+        <item name="rd_border">@color/rd_dark_divider_bright</item>
+        <item name="rd_panel">@color/rd_dark_bg_a4</item>
+        <item name="rd_icon">@color/rd_dark_fg_a2</item>
+        <item name="rd_icon_dim">@color/rd_dark_fg_a3</item>
+        <item name="rd_hover">@color/rd_dark_bg_a1</item>
+        <item name="rd_topbar">@color/rd_dark_bg_a3</item>
+        <item name="rd_text_section">@color/rd_dark_fg_2</item>
+        <item name="rd_accent_bright">@color/rd_accent_orange_bright</item>
+        <item name="rd_accent_dim">@color/rd_accent_orange_dim</item>
     </style>
-    
-    
+
+
     <style name="Theme.VLC.TV.Onboarding" parent="Theme.Leanback.Onboarding">
         <item name="android:windowBackground">@color/rd_dark_bg_b1</item>
         <item name="android:fontFamily">@font/inter</item>

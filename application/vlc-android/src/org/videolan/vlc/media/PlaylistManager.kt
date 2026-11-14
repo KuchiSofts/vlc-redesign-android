@@ -876,7 +876,10 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
             // VLC Redesign: the track is kept as a string (setSpuTrack); read as a number, nothing saved gave "0", a
             // track that does not exist, and turned the subtitles off (a stream or a file opened from Streams)
             media.getMetaString(MediaWrapper.META_SUBTITLE_TRACK)?.takeIf { it.isNotEmpty() && it != "0" && it != "-2" }?.let { player.setSpuTrack(it) }
-            player.setSpuDelay(media.getMetaLong(MediaWrapper.META_SUBTITLE_DELAY))
+            // VLC Redesign: Settings › Subtitles › Timing › Subtitle delay (the desktop's sub-delay, in tenths of a
+            // second): a video without a delay of its own starts with it, as the audio's global delay above
+            val savedSpuDelay = media.getMetaLong(MediaWrapper.META_SUBTITLE_DELAY)
+            player.setSpuDelay(if (savedSpuDelay != 0L) savedSpuDelay else RdSubDelay.micros(settings))
         }
         restoreSpeed(media)
     }
@@ -1450,6 +1453,8 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
      * @param mw: The [MediaWrapper] to be updated
      */
     private fun refreshTrackMeta(mw: MediaWrapper) {
+        // VLC Redesign: a video with a sound file of its own keeps its name (PlayerController.rdAudioSlave)
+        if (player.rdAudioSlave && mw.type == MediaWrapper.TYPE_VIDEO) return
         mw.updateMeta(player.mediaplayer)
         service.onMediaListChanged()
         service.showNotification()

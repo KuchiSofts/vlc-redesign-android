@@ -573,4 +573,143 @@
     <string name="rd_sleep_pause">إيقاف التشغيل مؤقتًا</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">تأخير الترجمة الثانوية</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">إضافة ترجمات</string>
+    <string name="rd_from_a_file">من ملف</string>
+    <string name="rd_from_link">من رابط</string>
+    <string name="rd_link_hint">رابط HTTPS مباشر إلى ملف ترجمة</string>
+    <string name="rd_link_not_subtitle">أدخل رابط HTTPS مباشرًا إلى ملف ترجمة بصيغة srt أو ass أو ssa أو sub أو vtt أو ttml أو smi.</string>
+    <string name="rd_link_too_big">تتجاوز الترجمة حد التنزيل البالغ 20 MB.</string>
+    <string name="rd_link_failed">تعذّر تنزيل الترجمة: %1$s</string>
+    <string name="rd_link_downloading">جارٍ تنزيل الترجمة…</string>
+    <string name="rd_link_added">أُضيفت الترجمة: %1$s</string>
+    <string name="rd_seek_sub_cues">إظهار أسطر الترجمة على شريط التنقل</string>
+    <string name="rd_help_seek_sub_cues">علامات على شريط التنقل حيث للترجمة المعروضة أسطر قادمة.</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">إظهار إشعار للاختصارات</string>
+    <string name="rd_show_feedback_for">إظهار الإشعار لمدة</string>
+    <string name="rd_help_osd">رسائل فوق الفيديو عند تغيّر شيء: السرعة، أو تأخير، أو التكبير، أو مسار.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">إمكانية الوصول</string>
+    <string name="rd_increase_contrast">زيادة تباين النص</string>
+    <string name="rd_help_increase_contrast">يرسم النصوص الباهتة في التصميم (التلميحات والأوصاف والعناصر التي شوهدت) بسطوع أكبر، بالتباين الذي تطلبه إرشادات إمكانية الوصول WCAG (المستوى AA).</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">إظهار شريط المشغل دائمًا</string>
+    <string name="rd_help_always_show_player_bar">يُبقي شريط المشغل أسفل المكتبة عندما لا يُشغَّل شيء: يبدأ زر التشغيل قائمة الانتظار، أو يفتح الملفات إذا كانت فارغة.</string>
+    <string name="rd_nothing_playing">لا شيء قيد التشغيل</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">امتدادات الملفات المتجاهلة</string>
+    <string name="rd_help_ignore_filetypes">تُستبعد الملفات ذات هذه الامتدادات عند فتح مجلد أو عرضه، مفصولة بفواصل.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">تأخير الترجمة</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">اختر لغات الترجمة.</string>
+    <string name="rd_ob_subtitles_text">تظهر الترجمة بلغتك تلقائيًا: من الفيديو، أو من ملف بجانبه، أو من الإنترنت. وإذا لم تتوفر بها ولا حتى عبر الإنترنت، تُستخدم اللغة الثانية.</string>
+    <string name="rd_ob_default_language">اللغة الافتراضية</string>
+    <string name="rd_ob_second_language">اللغة الثانية (إن لم تتوفر الأولى)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="zero">إظهار %1$d جهاز مخفي</item>
+        <item quantity="one">إظهار %1$d جهاز مخفي</item>
+        <item quantity="two">إظهار %1$d جهازين مخفيين</item>
+        <item quantity="few">إظهار %1$d أجهزة مخفية</item>
+        <item quantity="many">إظهار %1$d جهازًا مخفيًا</item>
+        <item quantity="other">إظهار %1$d جهاز مخفي</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">إخفاء هذا الجهاز</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">اختصارات لوحة المفاتيح</string>
+    <string name="rd_help_keyboard_shortcuts">ما تفعله في المشغل مفاتيح لوحة المفاتيح أو ذراع الألعاب أو جهاز التحكم بالتلفاز.</string>
+    <string name="rd_key_play_pause">شغّل/ألبث</string>
+    <string name="rd_key_stop">أوقف</string>
+    <string name="rd_key_next">التالي</string>
+    <string name="rd_key_previous">السابق</string>
+    <string name="rd_key_very_short_back">قفزة قصيرة جدًا إلى الخلف</string>
+    <string name="rd_key_very_short_forward">قفزة قصيرة جدًا إلى الأمام</string>
+    <string name="rd_key_short_back">قفزة قصيرة إلى الخلف</string>
+    <string name="rd_key_short_forward">قفزة قصيرة إلى الأمام</string>
+    <string name="rd_key_medium_back">قفزة متوسطة إلى الخلف</string>
+    <string name="rd_key_medium_forward">قفزة متوسطة إلى الأمام</string>
+    <string name="rd_key_long_back">قفزة طويلة إلى الخلف</string>
+    <string name="rd_key_long_forward">قفزة طويلة إلى الأمام</string>
+    <string name="rd_key_faster">أسرع</string>
+    <string name="rd_key_slower">أبطأ</string>
+    <string name="rd_key_normal_rate">نسبة عادية</string>
+    <string name="rd_key_volume_up">ارفع الصوت</string>
+    <string name="rd_key_volume_down">أخفض الصوت</string>
+    <string name="rd_key_mute">كتم</string>
+    <string name="rd_key_audio_delay_down">تأخير الصوت</string>
+    <string name="rd_key_audio_delay_up">تقديم الصوت</string>
+    <string name="rd_key_aspect">دورة بين الجوانب</string>
+    <string name="rd_key_snapshot">التقاط صورة</string>
+    <string name="rd_key_record">تسجيل</string>
+    <string name="rd_key_sub_delay_down">تأخير الترجمة</string>
+    <string name="rd_key_sub_delay_up">تقديم الترجمة</string>
+    <string name="rd_key_sync_audio">مزامنة الترجمة / وضع إشارة على توقيت الصوت</string>
+    <string name="rd_key_sync_subtitle">مزامنة الترجمة / وضع إشارة على توقيت الترجمة</string>
+    <string name="rd_key_sync_apply">مزامنة الترجمة / مزامنة توقيتَي الصوت والترجمة</string>
+    <string name="rd_key_sub_scale_reset">إعادة ضبط حجم نص الترجمة</string>
+    <string name="rd_key_show_controls">إظهار عناصر التحكم في ملء الشاشة</string>
+    <string name="rd_key_options">قائمة السياق</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">إضافة مسارات صوت</string>
+    <string name="rd_audio_track_added">أُضيف مسار الصوت: %1$s</string>
+    <string name="rd_audio_track_failed">تعذّرت إضافة مسار الصوت.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">تلقّى GitHub طلبات كثيرة جدًا من هذه الشبكة. حاول مجددًا بعد %1$s.</string>
+    <string name="rd_update_rate_limited">تلقّى GitHub طلبات كثيرة جدًا من هذه الشبكة. حاول مجددًا لاحقًا.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">إعدادات المؤثرات المسبقة</string>
+    <string name="rd_fx_preset_default">الإعداد المسبق الافتراضي</string>
+    <string name="rd_fx_preset_new">إعداد مسبق جديد</string>
+    <string name="rd_fx_preset_custom">إعداد مسبق مخصص %1$s</string>
+    <string name="rd_fx_preset_update">تحديث بالمؤثرات الحالية</string>
+    <string name="rd_fx_preset_rename">إعادة تسمية</string>
+    <string name="rd_fx_preset_delete">حذف</string>
+    <string name="rd_fx_preset_rename_title">إعادة تسمية الإعداد المسبق</string>
+    <string name="rd_fx_preset_create">أنشئ</string>
+    <string name="rd_fx_preset_name_hint">مثال: أفلام آخر الليل</string>
+    <string name="rd_fx_preset_keeps">يحتفظ الإعداد المسبق بمؤثرات الصوت والفيديو المستخدمة حاليًا.</string>
+    <string name="rd_fx_preset_keeps_own">يحتفظ الإعداد المسبق بمؤثراته.</string>
+    <string name="rd_fx_preset_delete_title">حذف الإعداد المسبق</string>
+    <string name="rd_fx_preset_delete_question">هل تريد حذف %1$s؟</string>
+    <string name="rd_fx_preset_delete_note">تبقى المؤثرات المستخدمة كما هي.</string>
+    <string name="rd_fx_preset_err_empty">أدخل اسمًا للإعداد المسبق.</string>
+    <string name="rd_fx_preset_err_default">الاسم \"%1$s\" مخصص للإعداد المسبق للمؤثرات الافتراضية.</string>
+    <string name="rd_fx_preset_err_taken">يوجد بالفعل إعداد مسبق باسم \"%1$s\".</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">نسخه</string>
+    <string name="rd_clone_profile">استنساخ ملف التعريف</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_repeat">التكرار</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">قيم الحجم</string>
+    <string name="rd_sub_size_relative">نسبي</string>
+    <string name="rd_sub_size_pixels">بالبكسل</string>
+    <string name="rd_help_sub_fontsize_px">ارتفاع الحروف ببكسلات الفيديو.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_lyrics">كلمات الأغنية</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">لم يستجب الخادم</string>
+    <string name="rd_tv_err_not_found">لم يُعثر على عنوان الخادم</string>
+    <string name="rd_tv_err_unreachable">تعذّر الوصول إلى الخادم</string>
+    <string name="rd_tv_err_secure">فشل الاتصال الآمن</string>
+    <string name="rd_tv_err_failed">تعذّر تنزيله</string>
+    <string name="rd_tv_err_busy">الخادم مشغول، حاول مرة أخرى لاحقًا</string>
+    <string name="rd_tv_err_wrong">تعذّرت قراءة رد الخادم</string>
+    <string name="rd_tv_err_cancelled">أُلغي</string>
+    <string name="rd_tv_err_unreadable">لا يمكن قراءة الملف</string>
+    <string name="rd_tv_err_unsaved">لا يمكن حفظه على هذا الجهاز</string>
+    <string name="rd_tv_err_redirections">أعاد الخادم توجيهه مرات كثيرة جدًا</string>
+    <string name="rd_tv_err_too_large">حجمه كبير جدًا</string>
+    <string name="rd_tv_err_not_m3u">هذه ليست قائمة تشغيل M3U</string>
+    <string name="rd_tv_err_no_channels">لا يحتوي على قنوات</string>
+    <string name="rd_tv_err_not_xmltv">هذا ليس دليل XMLTV</string>
+    <string name="rd_tv_err_guide_unreadable">تعذّرت قراءة الدليل</string>
+    <string name="rd_tv_err_cut">وصل الدليل ناقصًا</string>
+    <string name="rd_tv_err_account">تعذّرت قراءة الحساب</string>
+    <string name="rd_tv_err_sign_in">سجّل الدخول أولًا</string>
+    <string name="rd_tv_err_refused">رفض الخادم الوصول (%1$d)</string>
+    <string name="rd_tv_err_missing">لم يُعثر على شيء في هذا العنوان (%1$d)</string>
+    <string name="rd_tv_err_http">ردّ الخادم بخطأ (%1$d)</string>
 </resources>

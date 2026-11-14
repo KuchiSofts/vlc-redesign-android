@@ -23,6 +23,13 @@
     </PreferenceCategory>
     <org.videolan.vlc.gui.preferences.rd.RdAdvancedPreference android:key="library_advanced_bar" android:title="@string/rd_sec_advanced" />
     <PreferenceCategory android:key="library_advanced" android:layout="@layout/rd_pref_category_empty" app:isPreferenceVisible="false">
+        <!-- VLC Redesign: the desktop's Opening Files › Ignored file extensions (libvlc's ignore-filetypes): the user's
+             extensions, left out on top of the browser's and libvlc's own (Settings.KEY_RD_IGNORE_FILETYPES) -->
+        <org.videolan.vlc.gui.preferences.rd.RdEditTextPreference
+            android:defaultValue=""
+            android:key="rd_ignore_filetypes"
+            android:summary="@string/rd_help_ignore_filetypes"
+            android:title="@string/rd_ignored_extensions" />
         <org.videolan.vlc.gui.preferences.rd.RdLinkPreference
             android:enabled="true"
             android:key="dump_media_db"

@@ -211,7 +211,7 @@ object Xmltv {
         } catch (e: CancelledException) {
             out.error = "cancelled"
         } catch (e: Exception) {
-            if (out.programmes == 0) out.error = e.message ?: e.javaClass.simpleName
+            if (out.programmes == 0) out.error = TvErrors.reason(e, TvErrors.GUIDE_UNREADABLE)
         }
         // one that stops before its end: cut short, its programmes up to there kept (an empty <tv/> is whole); stopped
         // before any programme, or no XML at all: no guide (one the limits stopped came whole: what was read is kept)

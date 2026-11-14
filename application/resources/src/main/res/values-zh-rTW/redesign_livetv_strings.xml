@@ -5,7 +5,7 @@
     <string name="rd_tv_live_tv">電視直播</string>
     <string name="rd_tv_addon">電視直播 (IPTV) 附加元件</string>
     <string name="rd_tv_addon_help">在媒體櫃中顯示電視：您 IPTV 播放清單與帳戶中的頻道及其節目表。關閉時不會載入任何相關內容。</string>
-    <string name="rd_tv_channels">聲道數</string>
+    <string name="rd_tv_channels">頻道</string>
     <string name="rd_tv_guide">節目表</string>
     <string name="rd_tv_films">電影</string>
     <string name="rd_tv_series">影集</string>

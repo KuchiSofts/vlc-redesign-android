@@ -454,7 +454,7 @@
     <string name="rd_update_checking">מחפש עדכונים…</string>
     <string name="rd_update_latest">הגרסה העדכנית ביותר מותקנת</string>
     <string name="rd_update_offline">לא ניתן היה להתחבר ל־GitHub. בדוק את החיבור ונסה שוב.</string>
-    <string name="rd_update_unexpected">GitHub החזיר תשובה לא צפויה (%1$s).</string>
+    <string name="rd_update_unexpected">השירות GitHub החזיר תשובה לא צפויה (%1$s).</string>
     <string name="rd_default_speed">מהירות נגינה התחלתית</string>
     <string name="rd_menu_language">שפת התפריטים המועדפת</string>
     <string name="rd_help_menu_language">שפת התפריטים של DVD ו־Blu-ray: קודים של שתיים או שלוש אותיות, כמו en או fr, מופרדים בפסיקים.</string>
@@ -515,7 +515,7 @@
     <string name="rd_format">מבנה</string>
     <string name="rd_snapshot_size">רוחב</string>
     <string name="rd_help_snapshot_width">בפיקסלים; ריק שומר על הגודל המקורי של הסרטון.</string>
-    <string name="rd_snapshot_height">גוה</string>
+    <string name="rd_snapshot_height">גובה</string>
     <string name="rd_help_snapshot_height">בפיקסלים; ריק מתאים את עצמו לרוחב, ‎-1 שומר על הגובה המקורי של הסרטון.</string>
     <string name="rd_number_sequentially">מספר את הקבצים ברצף</string>
     <string name="rd_snapshot_preview">הצג תצוגה מקדימה אחרי הצילום</string>
@@ -555,4 +555,140 @@
     <string name="rd_sleep_pause">השהה את הנגינה</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">השהיית כתוביות משניות</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">הוספת כתוביות</string>
+    <string name="rd_from_a_file">מקובץ</string>
+    <string name="rd_from_link">מקישור</string>
+    <string name="rd_link_hint">קישור HTTPS ישיר לקובץ כתוביות</string>
+    <string name="rd_link_not_subtitle">הזן קישור HTTPS ישיר לקובץ כתוביות מסוג srt, ass, ssa, sub, vtt, ttml או smi.</string>
+    <string name="rd_link_too_big">הכתוביות חורגות ממגבלת ההורדה של 20 MB.</string>
+    <string name="rd_link_failed">לא ניתן היה להוריד את הכתוביות: %1$s</string>
+    <string name="rd_link_downloading">מוריד את הכתוביות…</string>
+    <string name="rd_link_added">הכתוביות נוספו: %1$s</string>
+    <string name="rd_seek_sub_cues">הצגת שורות הכתוביות על פס ההתקדמות</string>
+    <string name="rd_help_seek_sub_cues">סימונים על פס ההתקדמות במקומות שבהם יש לכתוביות המוצגות שורות בהמשך.</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">הצג משוב לקיצורים</string>
+    <string name="rd_show_feedback_for">הצג משוב למשך</string>
+    <string name="rd_help_osd">הודעות מעל הסרטון כשמשהו משתנה: המהירות, השהיה, הזום, רצועה.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">נגישות</string>
+    <string name="rd_increase_contrast">הגבר את ניגודיות הטקסט</string>
+    <string name="rd_help_increase_contrast">מציג את הטקסטים העמומים של העיצוב (רמזים, תיאורים, פריטים שנצפו) בהירים יותר, עד לניגודיות שדורשות הנחיות הנגישות WCAG ברמה AA.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">הצג תמיד את סרגל הנגן</string>
+    <string name="rd_help_always_show_player_bar">משאיר את סרגל הנגן בתחתית הספרייה כשדבר אינו מתנגן: נגינה מתחילה את תור הנגינה, או פותחת קבצים כשהתור ריק.</string>
+    <string name="rd_nothing_playing">שום דבר לא מתנגן</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">סיומות קבצים מוחרגות</string>
+    <string name="rd_help_ignore_filetypes">קבצים עם הסיומות האלה לא נכללים כשתיקייה נפתחת או מוצגת, מופרדות בפסיקים.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">השהיית כתוביות</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">בחר את שפות הכתוביות שלך.</string>
+    <string name="rd_ob_subtitles_text">כתוביות בשפה שלך מוצגות מעצמן: מתוך הווידאו, מקובץ שלידו או מהאינטרנט. כשאין כתוביות בשפה זו, אפילו לא באינטרנט, נעשה שימוש בשפה השנייה.</string>
+    <string name="rd_ob_default_language">שפת ברירת המחדל</string>
+    <string name="rd_ob_second_language">שפה שנייה (כשאין כתוביות)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="one">הצגת %1$d התקן מוסתר</item>
+        <item quantity="two">הצגת %1$d התקנים מוסתרים</item>
+        <item quantity="other">הצגת %1$d התקנים מוסתרים</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">הסתרת התקן זה</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">קיצורי מקלדת</string>
+    <string name="rd_help_keyboard_shortcuts">מה עושים בנגן המקשים של מקלדת, בקר משחק או שלט טלוויזיה.</string>
+    <string name="rd_key_play_pause">ניגון/השהיה</string>
+    <string name="rd_key_stop">עצור</string>
+    <string name="rd_key_next">הבא</string>
+    <string name="rd_key_previous">הקודם</string>
+    <string name="rd_key_very_short_back">קפיצה קצרה מאוד אחורה</string>
+    <string name="rd_key_very_short_forward">קפיצה קצרה מאוד קדימה</string>
+    <string name="rd_key_short_back">קפיצה קצרה אחורה</string>
+    <string name="rd_key_short_forward">קפיצה קצרה קדימה</string>
+    <string name="rd_key_medium_back">קפיצה בינונית אחורה</string>
+    <string name="rd_key_medium_forward">קפיצה בינונית קדימה</string>
+    <string name="rd_key_long_back">קפיצה ארוכה קדימה</string>
+    <string name="rd_key_long_forward">קפיצה ארוכה קדימה</string>
+    <string name="rd_key_faster">נגינה מהירה</string>
+    <string name="rd_key_slower">נגינה איטית</string>
+    <string name="rd_key_normal_rate">קצב רגיל</string>
+    <string name="rd_key_volume_up">הגברת העוצמה</string>
+    <string name="rd_key_volume_down">הנמכת העוצמה</string>
+    <string name="rd_key_mute">השתקה</string>
+    <string name="rd_key_audio_delay_down">הקטנת השהיית השמע</string>
+    <string name="rd_key_audio_delay_up">הגדלת השהיית השמע</string>
+    <string name="rd_key_aspect">החלפה בין יחסי התצוגה של המקור</string>
+    <string name="rd_key_snapshot">צילום תמונה מהווידאו</string>
+    <string name="rd_key_record">הקלטה</string>
+    <string name="rd_key_sub_delay_down">הקטנת השהיית הכתוביות</string>
+    <string name="rd_key_sub_delay_up">הגדלת השהיית הכתוביות</string>
+    <string name="rd_key_sync_audio">סנכרון כתוביות / שמירת חותמת הזמן של השמע בסימנייה</string>
+    <string name="rd_key_sync_subtitle">סנכרון כתוביות / שמירת חותמת הזמן של הכתובית בסימנייה</string>
+    <string name="rd_key_sync_apply">סנכרון כתוביות / סנכרון חותמות הזמן בין השמע והכתוביות</string>
+    <string name="rd_key_sub_scale_reset">איפוס יחס גודל כתוביות</string>
+    <string name="rd_key_show_controls">הצגת הפקדים במסך מלא</string>
+    <string name="rd_key_options">תפריט הקשר</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">הוסף רצועות שמע</string>
+    <string name="rd_audio_track_added">רצועת השמע נוספה: %1$s</string>
+    <string name="rd_audio_track_failed">לא ניתן היה להוסיף את רצועת השמע.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">השירות GitHub קיבל יותר מדי בקשות מהרשת הזו. נסה שוב אחרי %1$s.</string>
+    <string name="rd_update_rate_limited">השירות GitHub קיבל יותר מדי בקשות מהרשת הזו. נסה שוב מאוחר יותר.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">ערכות אפקטים</string>
+    <string name="rd_fx_preset_default">ערכת ברירת המחדל</string>
+    <string name="rd_fx_preset_new">ערכה חדשה</string>
+    <string name="rd_fx_preset_custom">ערכה מותאמת %1$s</string>
+    <string name="rd_fx_preset_update">עדכן לפי האפקטים הנוכחיים</string>
+    <string name="rd_fx_preset_rename">שנה שם</string>
+    <string name="rd_fx_preset_delete">מחק</string>
+    <string name="rd_fx_preset_rename_title">שנה שם ערכה</string>
+    <string name="rd_fx_preset_create">יצירה</string>
+    <string name="rd_fx_preset_name_hint">לדוגמה, סרטים בשעות הלילה</string>
+    <string name="rd_fx_preset_keeps">הערכה שומרת את אפקטי השמע והווידאו שבשימוש.</string>
+    <string name="rd_fx_preset_keeps_own">הערכה שומרת על האפקטים שלה.</string>
+    <string name="rd_fx_preset_delete_title">מחק ערכה</string>
+    <string name="rd_fx_preset_delete_question">למחוק את %1$s?</string>
+    <string name="rd_fx_preset_delete_note">האפקטים שבשימוש יישארו כפי שהם.</string>
+    <string name="rd_fx_preset_err_empty">הזן שם לערכה.</string>
+    <string name="rd_fx_preset_err_default">„%1$s“ היא הערכה של אפקטי ברירת המחדל.</string>
+    <string name="rd_fx_preset_err_taken">כבר קיימת ערכה בשם „%1$s“.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">שכפול</string>
+    <string name="rd_clone_profile">שכפול פרופיל</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_repeat">חזרה</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">ערכי גודל</string>
+    <string name="rd_sub_size_relative">יחסי</string>
+    <string name="rd_sub_size_pixels">פיקסלים</string>
+    <string name="rd_help_sub_fontsize_px">גובה האותיות בפיקסלים של הסרטון.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_lyrics">מילות השיר</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">השרת לא ענה</string>
+    <string name="rd_tv_err_not_found">כתובת השרת לא נמצאה</string>
+    <string name="rd_tv_err_unreachable">לא ניתן היה להגיע לשרת</string>
+    <string name="rd_tv_err_secure">החיבור המאובטח נכשל</string>
+    <string name="rd_tv_err_failed">לא ניתן היה להוריד אותו</string>
+    <string name="rd_tv_err_busy">השרת עמוס, נסה שוב מאוחר יותר</string>
+    <string name="rd_tv_err_wrong">לא ניתן היה לקרוא את תשובת השרת</string>
+    <string name="rd_tv_err_cancelled">בוטל</string>
+    <string name="rd_tv_err_unreadable">לא ניתן לקרוא את הקובץ</string>
+    <string name="rd_tv_err_unsaved">לא ניתן לשמור אותו במכשיר הזה</string>
+    <string name="rd_tv_err_redirections">השרת העביר אותו הלאה יותר מדי פעמים</string>
+    <string name="rd_tv_err_too_large">הוא גדול מדי</string>
+    <string name="rd_tv_err_not_m3u">זו אינה רשימת השמעה מסוג M3U</string>
+    <string name="rd_tv_err_no_channels">אין בו ערוצים</string>
+    <string name="rd_tv_err_not_xmltv">זה אינו מדריך מסוג XMLTV</string>
+    <string name="rd_tv_err_guide_unreadable">לא ניתן היה לקרוא את המדריך</string>
+    <string name="rd_tv_err_cut">המדריך הגיע קטוע</string>
+    <string name="rd_tv_err_account">לא ניתן היה לקרוא את החשבון</string>
+    <string name="rd_tv_err_sign_in">התחבר קודם</string>
+    <string name="rd_tv_err_refused">השרת סירב לתת גישה (%1$d)</string>
+    <string name="rd_tv_err_missing">לא נמצא דבר בכתובת הזו (%1$d)</string>
+    <string name="rd_tv_err_http">השרת ענה בשגיאה (%1$d)</string>
 </resources>

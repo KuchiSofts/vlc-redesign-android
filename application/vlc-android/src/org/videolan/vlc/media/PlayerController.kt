@@ -187,6 +187,15 @@ class PlayerController(val context: Context) : IVLCVout.Callback, MediaPlayer.Ev
 
     fun addSubtitleTrack(path: String, select: Boolean) = addSubtitleTrack(Uri.fromFile(java.io.File(path)), select)
 
+    /** VLC Redesign: the desktop's Add Audio Track */
+    fun addAudioTrack(uri: Uri, select: Boolean): Boolean = (!mediaplayer.isReleased && mediaplayer.addSlave(IMedia.Slave.Type.Audio, uri, select))
+            .also { if (it) rdAudioSlave = true }
+
+    /** VLC Redesign: the media playing has a sound file of its own added (Add Audio Tracks): VLC gives the media the
+     *  title and artist of that file, so they are not taken (the video keeps its own name) */
+    @Volatile
+    var rdAudioSlave = false
+
     // VLC Redesign: a subtitle file that is not Unicode is read from a UTF-8 copy (libvlc 3 would read it as
     // Windows-1252)
     fun addSubtitleTrack(uri: Uri, select: Boolean): Boolean = mediaplayer.addSlave(IMedia.Slave.Type.Subtitle, utf8Target(uri), select)
@@ -271,11 +280,15 @@ class PlayerController(val context: Context) : IVLCVout.Callback, MediaPlayer.Ev
 
     fun setSlaves(media: IMedia, mw: MediaWrapper) = launch {
         if (mediaplayer.isReleased) return@launch
+        rdAudioSlave = false
         val slaves = mw.slaves
         slaves?.let { it.forEach { slave -> media.addSlave(slave) } }
         media.release()
         slaveRepository.getSlaves(mw.location).forEach { slave ->
-            if (!slaves.contains(slave)) mediaplayer.addSlave(slave.type, slave.uri.toUri(), false)
+            if (!slaves.contains(slave)) {
+                mediaplayer.addSlave(slave.type, slave.uri.toUri(), false)
+                if (slave.type == IMedia.Slave.Type.Audio) rdAudioSlave = true
+            }
         }
         slaves?.let { slaveRepository.saveSlaves(mw) }
     }
@@ -313,6 +326,7 @@ class PlayerController(val context: Context) : IVLCVout.Callback, MediaPlayer.Ev
      */
     internal fun updateCurrentMeta(id: Int, mw: MediaWrapper?): Boolean {
         if (id == IMedia.Meta.Publisher) return false
+        if (rdAudioSlave && mw?.type == MediaWrapper.TYPE_VIDEO) return false
         mw?.updateMeta(mediaplayer)
         return id != IMedia.Meta.NowPlaying || mw?.nowPlaying !== null
     }

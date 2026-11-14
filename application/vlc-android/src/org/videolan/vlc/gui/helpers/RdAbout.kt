@@ -87,6 +87,9 @@ object RdAbout {
                     RdUpdateCheck.Result.UpToDate -> show(activity.getString(R.string.rd_update_latest), false)
                     RdUpdateCheck.Result.Offline -> show(activity.getString(R.string.rd_update_offline), true)
                     is RdUpdateCheck.Result.Unexpected -> show(activity.getString(R.string.rd_update_unexpected, result.status.toString()), true)
+                    is RdUpdateCheck.Result.RateLimited -> show(result.resetAt?.let {
+                        activity.getString(R.string.rd_update_rate_limited_at, android.text.format.DateFormat.getTimeFormat(activity).format(java.util.Date(it)))
+                    } ?: activity.getString(R.string.rd_update_rate_limited), true)
                 }
             }
         }

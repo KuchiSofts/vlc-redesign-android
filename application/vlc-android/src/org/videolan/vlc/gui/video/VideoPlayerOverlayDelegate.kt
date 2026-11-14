@@ -272,6 +272,7 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
                         VideoTracksDialog.VideoTrackOption.SUB_DELAY -> player.delayDelegate.showSubsDelaySetting()
                         VideoTracksDialog.VideoTrackOption.SUB_DOWNLOAD -> downloadSubtitles()
                         VideoTracksDialog.VideoTrackOption.SUB_PICK -> pickSubtitles()
+                        VideoTracksDialog.VideoTrackOption.AUDIO_ADD -> pickAudioTrack()
                     }
                 }, { trackID: String, trackType: VideoTracksDialog.TrackType ->
             when (trackType) {
@@ -326,8 +327,14 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
      * @param text
      * @param duration
      */
-    fun showInfo(text: String, duration: Int, subText:String = "") {
+    fun showInfo(text: String, duration: Int, subText:String = "", notice: Boolean = false) {
         if (player.isInPictureInPictureMode) return
+        // VLC Redesign: On-Screen Messages (RdOsd, the desktop's osd and osd-duration): the feedback of what the user
+        // does follows them; a [notice] (a recording or a snapshot saved, the casting's news, a preset applied) is
+        // always shown, for its own time
+        val settings = Settings.getInstance(player)
+        if (!notice && !RdOsd.shown(settings)) return
+        val shownMs = if (notice) duration.toLong() else RdOsd.duration(duration, settings)
         initInfoOverlay()
         overlayInfo.setVisible()
         info.setVisible()
@@ -337,7 +344,7 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
             subinfo.setVisible()
         } else subinfo.setGone()
         player.handler.removeMessages(VideoPlayerActivity.FADE_OUT_INFO)
-        player.handler.sendEmptyMessageDelayed(VideoPlayerActivity.FADE_OUT_INFO, duration.toLong())
+        player.handler.sendEmptyMessageDelayed(VideoPlayerActivity.FADE_OUT_INFO, shownMs)
         player.rootView?.announceForAccessibility("$text.$subText")
     }
 
@@ -493,6 +500,8 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
             player.keyFeedback.onControlsShown()
             initOverlay()
             if (!::hudBinding.isInitialized) return
+            // (the subtitle lines on the seek bar: the bar exists from the first time the controls show)
+            player.rdUpdateCueMarks()
             overlayTimeout = when {
                 service.playlistManager.videoStatsOn.value == true -> VideoPlayerActivity.OVERLAY_INFINITE
                 player.isTalkbackIsEnabled() -> VideoPlayerActivity.OVERLAY_INFINITE
@@ -1196,6 +1205,22 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
             else connect(tail[i], ConstraintSet.RIGHT, tail[i + 1], ConstraintSet.LEFT, gapAfter(tail[i], tail[i + 1], false))
         }
         if (!oneRow) {
+            // VLC Redesign: more controls than a phone held upright has room for (Customize Player has 29): every
+            // button but the play pill gets the same smaller width, its icon kept at 24 dp down to 32 dp buttons,
+            // instead of buttons drawn over each other and pushed out of the bar
+            val all = left + center + right
+            val others = all.filter { it != R.id.player_overlay_play }
+            if (others.isNotEmpty()) {
+                val avail = res.displayMetrics.widthPixels - 2 * edge - (if (R.id.player_overlay_play in all) 62.dp else 0)
+                val w = (avail / others.size).coerceIn(32.dp, 48.dp)
+                others.forEach { id ->
+                    constrainWidth(id, w)
+                    (player.findViewById<View>(id) as? ImageView)?.let { v ->
+                        val pad = ((w - 24.dp) / 2).coerceAtLeast(4.dp)
+                        v.setPadding(pad, v.paddingTop, pad, v.paddingBottom)
+                    }
+                }
+            }
             // the center zone in the middle of the room the side zones leave (the middle of the bar when they are
             // as wide)
             val (fromId, fromSide) = if (left.isEmpty()) ConstraintSet.PARENT_ID to ConstraintSet.LEFT else left.last() to ConstraintSet.RIGHT
@@ -1206,6 +1231,10 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
                 else -> createHorizontalChain(fromId, fromSide, toId, toSide, center.toIntArray(), null, ConstraintSet.CHAIN_PACKED)
             }
             return@with
+        }
+        // (one row has the room: the buttons' own padding back, after a narrower bar held upright)
+        if (!tv) (left + center + right).filter { it != R.id.player_overlay_play }.forEach { id ->
+            (player.findViewById<View>(id) as? ImageView)?.let { v -> v.setPadding(12.dp, v.paddingTop, 12.dp, v.paddingBottom) }
         }
         constrainHeight(R.id.rd_bar, res.getDimensionPixelSize(R.dimen.rd_player_bar_row))
         intArrayOf(R.id.player_overlay_time, R.id.player_overlay_seekbar, R.id.player_overlay_length).forEach { id ->
@@ -1599,6 +1628,17 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
         updateOrientationIcon()
         updateScreenshotButton()
         player.lockBackButton = false
+    }
+
+    /** VLC Redesign: the desktop's Add Audio Track: a sound file of the device, from the video's folder */
+    private fun pickAudioTrack() {
+        val uri = player.videoUri ?: return
+        val media = if (uri.scheme.isSchemeFile() || uri.scheme.isSchemeNetwork()) MediaWrapperImpl(FileUtils.getParent(uri.toString())!!.toUri()) else null
+        player.isShowingDialog = true
+        val filePickerIntent = Intent(player, FilePickerActivity::class.java)
+        filePickerIntent.putExtra(KEY_MEDIA, media)
+        filePickerIntent.putExtra(org.videolan.vlc.gui.browser.KEY_PICKER_TYPE, org.videolan.vlc.providers.PickerType.AUDIO.ordinal)
+        player.startActivityForResult(filePickerIntent, VideoPlayerActivity.RD_PICK_AUDIO)
     }
 
     private fun pickSubtitles() {

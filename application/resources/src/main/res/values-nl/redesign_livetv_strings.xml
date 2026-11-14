@@ -5,7 +5,7 @@
     <string name="rd_tv_live_tv">Live-tv</string>
     <string name="rd_tv_addon">Add-on voor live-tv (IPTV)</string>
     <string name="rd_tv_addon_help">Toont tv in de bibliotheek: de zenders van uw IPTV-afspeellijsten en -accounts, met hun programmagids. Uit: er wordt niets van geladen.</string>
-    <string name="rd_tv_channels">Kanalen</string>
+    <string name="rd_tv_channels">Zenders</string>
     <string name="rd_tv_guide">Gids</string>
     <string name="rd_tv_films">Films</string>
     <string name="rd_tv_series">Series</string>

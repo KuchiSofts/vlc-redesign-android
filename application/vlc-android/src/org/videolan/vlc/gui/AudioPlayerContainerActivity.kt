@@ -75,6 +75,7 @@ import org.videolan.resources.util.startMedialibrary
 import org.videolan.tools.AUDIO_RESUME_PLAYBACK
 import org.videolan.tools.KEY_AUDIO_PLAYER_SHOW_COVER
 import org.videolan.tools.KEY_CURRENT_AUDIO
+import org.videolan.tools.KEY_CURRENT_MEDIA
 import org.videolan.tools.PREF_AUDIOPLAYER_TIPS_SHOWN
 import org.videolan.tools.Settings
 import org.videolan.tools.dp
@@ -109,6 +110,9 @@ import kotlin.math.min
 
 
 private const val TAG = "VLC/APCActivity"
+
+/** VLC Redesign: Settings › Interface › Player Bar › Always show the player bar (the desktop's) */
+const val KEY_RD_ALWAYS_SHOW_PLAYER_BAR = "rd_always_show_player_bar"
 
 private const val ACTION_DISPLAY_PROGRESSBAR = "action_display_progressbar"
 private const val ACTION_SHOW_PLAYER = "action_show_player"
@@ -596,6 +600,7 @@ open class AudioPlayerContainerActivity : BaseActivity(), KeycodeListener, Sched
             applyMarginToProgressBar(playerBehavior.peekHeight)
         else
             applyMarginToProgressBar(0)
+        rdUpdateIdleBar()
         setContentBottomPadding()
         if (showAudioPlayerWhenResumed)
             showAudioPlayerImpl()
@@ -768,7 +773,45 @@ open class AudioPlayerContainerActivity : BaseActivity(), KeycodeListener, Sched
     }
 
     fun closeMiniPlayer() {
+        if (rdAlwaysShowBar()) {
+            rdShowIdleBar()
+            return
+        }
         hideAudioPlayerImpl()
+    }
+
+    /** VLC Redesign: Settings › Interface › Player Bar › Always show the player bar (the desktop's), not in the TV
+     *  layout (its own mini player) */
+    private fun rdAlwaysShowBar() = settings.getBoolean(KEY_RD_ALWAYS_SHOW_PLAYER_BAR, false)
+            && !org.videolan.vlc.gui.tablet.RdTvWindow.isOn(this)
+
+    /** the bar while nothing plays: collapsed, never opened into the player (AudioPlayer.showIdle) */
+    private fun rdShowIdleBar() {
+        if (isFinishing) return
+        scheduler.cancelAction(ACTION_HIDE_PLAYER)
+        showAudioPlayerImpl()
+        if (playerBehavior.state == STATE_EXPANDED) playerBehavior.state = STATE_COLLAPSED
+        playerBehavior.lock(true)
+        audioPlayer.showIdle(true)
+        applyMarginToProgressBar(playerBehavior.peekHeight)
+    }
+
+    /** the setting as it is now, when the screen comes back (from Settings, from the players) */
+    private fun rdUpdateIdleBar() {
+        if (PlaylistManager.showAudioPlayer.value == true) return
+        if (rdAlwaysShowBar()) rdShowIdleBar()
+        else if (isAudioPlayerReady && audioPlayer.rdIdle) {
+            audioPlayer.showIdle(false)
+            hideAudioPlayerImpl()
+            applyMarginToProgressBar(0)
+        }
+    }
+
+    /** Play on the idle bar: the queue played last, as the resume card's Play, or files to open when there is none */
+    fun rdIdlePlay() {
+        if (settings.getString(KEY_CURRENT_AUDIO, null) != null || settings.getString(KEY_CURRENT_MEDIA, null) != null)
+            PlaybackService.loadLastAudio(this)
+        else org.videolan.vlc.gui.helpers.RdQueueActions.openFiles(this)
     }
 
     private fun applyMarginToProgressBar(marginValue: Int) {
@@ -783,7 +826,10 @@ open class AudioPlayerContainerActivity : BaseActivity(), KeycodeListener, Sched
 
     private fun registerLiveData() {
         PlaylistManager.showAudioPlayer.observe(this) { showPlayer ->
-            if (showPlayer == true) showAudioPlayer()
+            if (showPlayer == true) {
+                if (isAudioPlayerReady) audioPlayer.showIdle(false)
+                showAudioPlayer()
+            } else if (rdAlwaysShowBar()) rdShowIdleBar()
             else {
                 hideAudioPlayer()
                 if (isAudioPlayerReady) playerBehavior.lock(true)

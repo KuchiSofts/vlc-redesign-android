@@ -190,7 +190,10 @@ object VLCOptions {
             val subtitleScale = org.videolan.tools.SubtitleScale.get(pref)
             if (isVLC4()) options.add("--sub-text-scale=" + (1600 / freetypeRelFontsize!!.toFloat() * subtitleScale / 100f).toInt().toString())
             else {
-                options.add("--freetype-rel-fontsize=" + freetypeRelFontsize!!)
+                // the desktop's Size values: Pixels gives the size itself (freetype-fontsize), else by name
+                val px = if (pref.getString("rd_sub_size_mode", "0") == "1") pref.getString("rd_sub_fontsize_px", "")?.trim()?.toIntOrNull()?.takeIf { it in 6..300 } else null
+                if (px != null) options.add("--freetype-fontsize=$px")
+                else options.add("--freetype-rel-fontsize=" + freetypeRelFontsize!!)
                 options.add("--sub-text-scale=$subtitleScale")
             }
             if (freetypeBold) options.add("--freetype-bold")
@@ -299,6 +302,8 @@ object VLCOptions {
             // libvlc 3 on Android has no --http-proxy (it is the Windows build's only): its vlc_getProxyUrl() reads
             // the Java properties http.proxyHost / http.proxyPort, so the desktop's HTTP proxy is set there
             applyHttpProxy(text("rd_http_proxy"))
+            // the desktop's Ignored file extensions: the user's, left out of the folders libvlc opens on top of its own
+            org.videolan.tools.rdIgnoredExtensions(text(org.videolan.tools.KEY_RD_IGNORE_FILETYPES)).takeIf { it.isNotEmpty() }?.let { options.add("--ignore-filetypes=" + org.videolan.tools.RD_LIBVLC_IGNORED + "," + it) }
             // the quality alone does nothing: as on the desktop, the "postproc" video filter has to run as well
             val postproc = text("rd_postproc").toIntOrNull()?.takeIf { it in 1..6 }
             postproc?.let { options.add("--postproc-q=$it") }

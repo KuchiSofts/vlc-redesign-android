@@ -169,37 +169,18 @@ class SubtitleSyncDialog : VLCBottomSheetDialogFragment() {
 
     /** The lines of the subtitle track shown: read again when another track is chosen */
     private fun loadCues(service: PlaybackService, media: MediaWrapper, uri: Uri) {
-        val tracks = service.spuTracks?.filter { it.getId() != "-1" } ?: emptyList()
-        val selected = service.spuTrack
-        val key = "$uri|$selected|${tracks.size}"
+        val key = org.videolan.vlc.util.RdCueLoader.key(service, uri)
         if (key == cuesKey) return
         cuesKey = key
-        val index = tracks.indexOfFirst { it.getId() == selected }
-        if (index < 0) {
-            binding.rdSyncView.cues = emptyList()
-            cuesStatus = R.string.rd_sync_no_track
-            showStatus()
-            return
-        }
-        val name = tracks[index].getName()
-        val ctx = requireContext().applicationContext
         lifecycleScope.launch {
-            val cues = withContext(Dispatchers.IO) {
-                if (uri.scheme != "file") return@withContext emptyList()
-                val video = File(uri.path ?: return@withContext emptyList())
-                // the files the player opened beside the tracks of the video: those next to it, those added
-                val added = SlaveRepository.getInstance(ctx).getSlaves(media.location)
-                        .mapNotNull { Uri.parse(it.uri).path?.let { p -> File(p) } }
-                val files = (SubtitleCues.siblings(video) + added).distinctBy { it.absolutePath }
-                val embedded = (tracks.size - files.size).coerceAtLeast(0)
-                if (BuildConfig.DEBUG) Log.d(TAG, "track $index/${tracks.size} \"$name\", files ${files.map { it.name }}")
-                if (index < embedded) SubtitleCues.readEmbedded(ctx, uri, index)
-                else {
-                    // the file whose name the track's carries, else in the order the player added them
-                    val file = files.firstOrNull { name.contains(it.name) || name.contains(it.nameWithoutExtension) }
-                            ?: files.getOrNull(index - embedded) ?: files.firstOrNull()
-                    file?.let { SubtitleCues.readFile(it) } ?: emptyList()
-                }
+            // (the reading is shared with the seek bar's marks: RdCueLoader)
+            val cues = org.videolan.vlc.util.RdCueLoader.load(requireContext(), service, media, uri)
+            if (cues == null) {
+                if (!isAdded || cuesKey != key) return@launch
+                binding.rdSyncView.cues = emptyList()
+                cuesStatus = R.string.rd_sync_no_track
+                showStatus()
+                return@launch
             }
             if (!isAdded || cuesKey != key) return@launch
             binding.rdSyncView.cues = cues

@@ -470,3 +470,17 @@ fun deleteSharedPreferences(context: Context, name: String): Boolean {
         return File(dir, "$name.xml").delete()
     }
 }
+
+/** VLC Redesign: Settings › Library › Ignored file extensions (the desktop's ignore-filetypes): the extensions the user
+ *  leaves out, on top of what is left out already: in the folders the browser lists (BrowserProvider: nothing in its
+ *  "all files" mode, else libvlcjni's list) and in those libvlc opens (VLCOptions: libvlc's own list) */
+const val KEY_RD_IGNORE_FILETYPES = "rd_ignore_filetypes"
+/** libvlcjni's MediaBrowser list (its "media files only" mode) and libvlc 3's ignore-filetypes default */
+const val RD_BROWSER_IGNORED = "db,nfo,ini,jpg,jpeg,ljpg,gif,png,pgm,pgmyuv,pbm,pam,tga,bmp,pnm,xpm,xcf,pcx,tif,tiff,lbm,sfv,txt,sub,idx,srt,ssa,ass,smi,utf,utf-8,rt,aqt,usf,jss,cdg,psb,mpsub,mpl2,pjs,dks,stl,vtt,ttml"
+const val RD_LIBVLC_IGNORED = "m3u,db,nfo,ini,jpg,jpeg,ljpg,gif,png,pgm,pgmyuv,pbm,pam,tga,bmp,pnm,xpm,xcf,pcx,tif,tiff,lbm,sfv,txt,sub,idx,srt,cue,ssa"
+
+/** "mp4, .MKV" -> "mp4,mkv": the extensions of the row, cleaned, or "" */
+fun rdIgnoredExtensions(value: String?): String = value.orEmpty().split(',', ';', ' ')
+    .map { it.trim().removePrefix(".").lowercase() }
+    .filter { it.isNotEmpty() && it.first().isLetterOrDigit() && it.all { c -> c.isLetterOrDigit() || c == '-' || c == '_' } }
+    .distinct().joinToString(",")

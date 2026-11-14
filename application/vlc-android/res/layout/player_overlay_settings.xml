@@ -126,9 +126,14 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    <!-- VLC Redesign: the buttons in the desktop's sentence case, on two lines when the words need them: in capitals
+         on one line, "SOUND HEARD" was cut to "SOU…" on a phone held upright -->
     <com.google.android.material.button.MaterialButton
             android:id="@+id/delay_first_button"
             style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
+            android:letterSpacing="0"
+            android:maxLines="2"
+            android:textAllCaps="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -147,6 +152,9 @@
     <com.google.android.material.button.MaterialButton
             android:id="@+id/delay_second_button"
             style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
+            android:letterSpacing="0"
+            android:maxLines="2"
+            android:textAllCaps="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -165,6 +173,9 @@
     <com.google.android.material.button.MaterialButton
             android:id="@+id/delay_reset_button"
             style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
+            android:letterSpacing="0"
+            android:maxLines="2"
+            android:textAllCaps="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -182,6 +193,9 @@
     <com.google.android.material.button.MaterialButton
             android:id="@+id/delay_apply_all"
             style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
+            android:letterSpacing="0"
+            android:maxLines="2"
+            android:textAllCaps="false"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -198,6 +212,9 @@
     <com.google.android.material.button.MaterialButton
             android:id="@+id/delay_apply_bt"
             style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
+            android:letterSpacing="0"
+            android:maxLines="2"
+            android:textAllCaps="false"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

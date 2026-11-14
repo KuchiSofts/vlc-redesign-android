@@ -570,4 +570,139 @@
     <string name="rd_sleep_pause">Metti in pausa</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">Ritardo dei sottotitoli secondari</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">Aggiungi sottotitoli</string>
+    <string name="rd_from_a_file">Da file</string>
+    <string name="rd_from_link">Da link</string>
+    <string name="rd_link_hint">Link HTTPS diretto a un file di sottotitoli</string>
+    <string name="rd_link_not_subtitle">Inserisci un link HTTPS diretto a un file di sottotitoli (.srt, .ass, .ssa, .sub, .vtt, .ttml o .smi).</string>
+    <string name="rd_link_too_big">Il sottotitolo supera il limite di download di 20 MB.</string>
+    <string name="rd_link_failed">Impossibile scaricare il sottotitolo: %1$s</string>
+    <string name="rd_link_downloading">Download del sottotitolo…</string>
+    <string name="rd_link_added">Sottotitolo aggiunto: %1$s</string>
+    <string name="rd_seek_sub_cues">Mostra le righe dei sottotitoli sulla barra di avanzamento</string>
+    <string name="rd_help_seek_sub_cues">Segni sulla barra di avanzamento dove il sottotitolo mostrato ha ancora delle righe.</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">Mostra un riscontro per le scorciatoie</string>
+    <string name="rd_show_feedback_for">Mostra il riscontro per</string>
+    <string name="rd_help_osd">Messaggi sul video quando qualcosa cambia: la velocità, un ritardo, lo zoom, una traccia.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">Accessibilità</string>
+    <string name="rd_increase_contrast">Aumenta il contrasto del testo</string>
+    <string name="rd_help_increase_contrast">Rende più luminosi i testi tenui del design (suggerimenti, descrizioni, elementi già visti) fino al contrasto richiesto dalle linee guida di accessibilità WCAG (AA).</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">Mostra sempre la barra del lettore</string>
+    <string name="rd_help_always_show_player_bar">Mantiene la barra del lettore in fondo alla raccolta quando non si riproduce nulla: Riproduci avvia la coda di riproduzione, oppure apre dei file se è vuota.</string>
+    <string name="rd_nothing_playing">Nessuna riproduzione in corso</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">Estensioni di file ignorate</string>
+    <string name="rd_help_ignore_filetypes">I file con queste estensioni vengono esclusi quando si apre o si elenca una cartella, separate da virgole.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">Ritardo dei sottotitoli</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">Scegli le lingue dei sottotitoli.</string>
+    <string name="rd_ob_subtitles_text">I sottotitoli nella tua lingua compaiono da soli: dal video, da un file accanto a esso o trovati online. Quando non ce ne sono, nemmeno online, viene usata la seconda lingua.</string>
+    <string name="rd_ob_default_language">Lingua predefinita</string>
+    <string name="rd_ob_second_language">Seconda lingua (quando non ce ne sono)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="one">Mostra %1$d dispositivo nascosto</item>
+        <item quantity="other">Mostra %1$d dispositivi nascosti</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">Nascondi questo dispositivo</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">Scorciatoie da tastiera</string>
+    <string name="rd_help_keyboard_shortcuts">Cosa fanno nel lettore i tasti di una tastiera, di un controller o di un telecomando TV.</string>
+    <string name="rd_key_play_pause">Riproduci/Pausa</string>
+    <string name="rd_key_stop">Interrompi</string>
+    <string name="rd_key_next">Successivo</string>
+    <string name="rd_key_previous">Precedente</string>
+    <string name="rd_key_very_short_back">Salto molto corto all\'indietro</string>
+    <string name="rd_key_very_short_forward">Salto molto corto in avanti</string>
+    <string name="rd_key_short_back">Salto corto all\'indietro</string>
+    <string name="rd_key_short_forward">Salto corto in avanti</string>
+    <string name="rd_key_medium_back">Salto medio all\'indietro</string>
+    <string name="rd_key_medium_forward">Salto medio in avanti</string>
+    <string name="rd_key_long_back">Salto lungo all\'indietro</string>
+    <string name="rd_key_long_forward">Salto lungo in avanti</string>
+    <string name="rd_key_faster">Più veloce</string>
+    <string name="rd_key_slower">Più lento</string>
+    <string name="rd_key_normal_rate">Velocità normale</string>
+    <string name="rd_key_volume_up">Aumenta il volume</string>
+    <string name="rd_key_volume_down">Riduci il volume</string>
+    <string name="rd_key_mute">Silenzio</string>
+    <string name="rd_key_audio_delay_down">Riduci ritardo audio</string>
+    <string name="rd_key_audio_delay_up">Aumenta ritardo audio</string>
+    <string name="rd_key_aspect">Rotazione delle proporzioni della sorgente</string>
+    <string name="rd_key_snapshot">Cattura schermata video</string>
+    <string name="rd_key_record">Registra</string>
+    <string name="rd_key_sub_delay_down">Riduci ritardo sottotitoli</string>
+    <string name="rd_key_sub_delay_up">Aumenta ritardo sottotitoli</string>
+    <string name="rd_key_sync_audio">Sincronizzazione dei sottotitoli / data e ora dei segnalibri audio</string>
+    <string name="rd_key_sync_subtitle">Sincronizzazione dei sottotitoli / data e ora dei segnalibri dei sottotitoli</string>
+    <string name="rd_key_sync_apply">Sincronizzazione dei sottotitoli / sincronizza data e ora di sottotitoli e audio</string>
+    <string name="rd_key_sub_scale_reset">Reimposta la dimensione del testo dei sottotitoli</string>
+    <string name="rd_key_show_controls">Mostra controllo a schermo intero</string>
+    <string name="rd_key_options">Menu contestuale</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">Aggiungi tracce audio</string>
+    <string name="rd_audio_track_added">Traccia audio aggiunta: %1$s</string>
+    <string name="rd_audio_track_failed">Impossibile aggiungere la traccia audio.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">GitHub ha ricevuto troppe richieste da questa rete. Riprova dopo le %1$s.</string>
+    <string name="rd_update_rate_limited">GitHub ha ricevuto troppe richieste da questa rete. Riprova più tardi.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">Preimpostazioni effetti</string>
+    <string name="rd_fx_preset_default">Preimpostazione predefinita</string>
+    <string name="rd_fx_preset_new">Nuova preimpostazione</string>
+    <string name="rd_fx_preset_custom">Preimpostazione personalizzata %1$s</string>
+    <string name="rd_fx_preset_update">Aggiorna con gli effetti attuali</string>
+    <string name="rd_fx_preset_rename">Rinomina</string>
+    <string name="rd_fx_preset_delete">Elimina</string>
+    <string name="rd_fx_preset_rename_title">Rinomina preimpostazione</string>
+    <string name="rd_fx_preset_create">Crea</string>
+    <string name="rd_fx_preset_name_hint">es. Film a notte fonda</string>
+    <string name="rd_fx_preset_keeps">La preimpostazione conserva gli effetti audio e video in uso.</string>
+    <string name="rd_fx_preset_keeps_own">La preimpostazione mantiene i suoi effetti.</string>
+    <string name="rd_fx_preset_delete_title">Elimina preimpostazione</string>
+    <string name="rd_fx_preset_delete_question">Eliminare %1$s?</string>
+    <string name="rd_fx_preset_delete_note">Gli effetti in uso restano invariati.</string>
+    <string name="rd_fx_preset_err_empty">Inserisci un nome per la preimpostazione.</string>
+    <string name="rd_fx_preset_err_default">\"%1$s\" è la preimpostazione degli effetti predefiniti.</string>
+    <string name="rd_fx_preset_err_taken">Esiste già una preimpostazione chiamata \"%1$s\".</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">Clonazione</string>
+    <string name="rd_clone_profile">Duplica profilo</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_repeat">Ripeti</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">Valori delle dimensioni</string>
+    <string name="rd_sub_size_relative">Relativa</string>
+    <string name="rd_sub_size_pixels">Pixel</string>
+    <string name="rd_help_sub_fontsize_px">L\'altezza delle lettere in pixel del video.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_lyrics">Testi</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">il server non ha risposto</string>
+    <string name="rd_tv_err_not_found">l\'indirizzo del server non è stato trovato</string>
+    <string name="rd_tv_err_unreachable">impossibile raggiungere il server</string>
+    <string name="rd_tv_err_secure">la connessione sicura non è riuscita</string>
+    <string name="rd_tv_err_failed">impossibile scaricarlo</string>
+    <string name="rd_tv_err_busy">il server è occupato, riprova più tardi</string>
+    <string name="rd_tv_err_wrong">impossibile leggere la risposta del server</string>
+    <string name="rd_tv_err_cancelled">annullato</string>
+    <string name="rd_tv_err_unreadable">il file non può essere letto</string>
+    <string name="rd_tv_err_unsaved">non può essere salvato su questo dispositivo</string>
+    <string name="rd_tv_err_redirections">il server lo ha reindirizzato troppe volte</string>
+    <string name="rd_tv_err_too_large">è troppo grande</string>
+    <string name="rd_tv_err_not_m3u">non è una playlist M3U</string>
+    <string name="rd_tv_err_no_channels">non contiene canali</string>
+    <string name="rd_tv_err_not_xmltv">non è una guida XMLTV</string>
+    <string name="rd_tv_err_guide_unreadable">impossibile leggere la guida</string>
+    <string name="rd_tv_err_cut">la guida è arrivata incompleta</string>
+    <string name="rd_tv_err_account">impossibile leggere l\'account</string>
+    <string name="rd_tv_err_sign_in">accedi prima</string>
+    <string name="rd_tv_err_refused">il server ha negato l\'accesso (%1$d)</string>
+    <string name="rd_tv_err_missing">non è stato trovato nulla a questo indirizzo (%1$d)</string>
+    <string name="rd_tv_err_http">il server ha risposto con un errore (%1$d)</string>
 </resources>

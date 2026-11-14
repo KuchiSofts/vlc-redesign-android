@@ -132,6 +132,16 @@ abstract class AudioMediaSwitcher(context: Context, attrs: AttributeSet) : Fling
             scrollTo(0)
     }
 
+    /** VLC Redesign: Always show the player bar (the desktop's): the bar while nothing plays, [title] over the name of
+     *  the item played last ([subtitle]) */
+    fun showIdle(title: String, subtitle: String?) {
+        removeAllViews()
+        hasPrevious = false
+        previousPosition = 0
+        addMediaView(LayoutInflater.from(context), title, subtitle, null, null, null, false)
+        scrollTo(0)
+    }
+
     protected abstract fun addMediaView(
         inflater: LayoutInflater,
         title: String?,

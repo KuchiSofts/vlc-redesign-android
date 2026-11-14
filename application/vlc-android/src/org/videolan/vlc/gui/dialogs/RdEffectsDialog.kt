@@ -135,6 +135,8 @@ class RdEffectsDialog : VLCBottomSheetDialogFragment() {
             t.background = if (i == tab) underline() else null
         }
         body.removeAllViews()
+        // the desktop's presets of the effects, over both tabs
+        body.addView(presetRow(ctx))
         if (tab == 0) {
             val service = PlaybackService.serviceFlow.value
             if (service == null || !service.hasMedia()) body.addView(note(getString(R.string.rd_fx_play_audio)))
@@ -203,6 +205,145 @@ class RdEffectsDialog : VLCBottomSheetDialogFragment() {
         setBackgroundResource(R.drawable.rd_pref_well_bg)
         setPadding(dp(14f), dp(6f), dp(14f), dp(6f))
         layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { bottomMargin = dp(12f) }
+    }
+
+    // ---- The presets (the desktop's EffectPresetField: RdEffectPresets) ----
+
+    private fun presets() = org.videolan.vlc.util.RdEffectPresets.parse(prefs.getString(org.videolan.vlc.util.RdEffectPresets.KEY, null))
+
+    private fun savePresets(list: List<org.videolan.vlc.util.RdEffectPresets.Preset>) = prefs.edit().putString(org.videolan.vlc.util.RdEffectPresets.KEY, org.videolan.vlc.util.RdEffectPresets.serialize(list)).apply()
+
+    private fun chosenPreset() = prefs.getString(org.videolan.vlc.util.RdEffectPresets.KEY_CHOSEN, "").orEmpty().takeIf { name -> presets().any { it.name == name } }.orEmpty()
+
+    /** The preset in use ("Default Preset" when none); a tap lists them, New Preset, and for a preset of the user's
+     *  Update with current effects, Rename and Delete */
+    private fun presetRow(ctx: Context) = card(ctx).apply {
+        val chosen = chosenPreset()
+        val row = LinearLayout(ctx).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+            minimumHeight = dp(44f)
+            isFocusable = true
+            contentDescription = getString(R.string.rd_fx_presets) + ": " + chosen.ifEmpty { getString(R.string.rd_fx_preset_default) }
+            setOnClickListener { presetMenu() }
+        }
+        row.addView(text(ctx, getString(R.string.rd_fx_presets), 15f, color(R.color.rd_fg_a1), true), LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
+        row.addView(text(ctx, chosen.ifEmpty { getString(R.string.rd_fx_preset_default) }, 13f, color(R.color.rd_fg_a3)).apply {
+            maxLines = 1
+            ellipsize = android.text.TextUtils.TruncateAt.END
+        }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginStart = dp(12f) })
+        row.addView(android.widget.ImageView(ctx).apply {
+            setImageResource(R.drawable.rd_ic_chevron_down)
+            imageTintList = ColorStateList.valueOf(color(R.color.rd_fg_a3))
+        }, LinearLayout.LayoutParams(dp(24f), dp(24f)).apply { marginStart = dp(8f) })
+        addView(row)
+    }
+
+    private fun presetMenu() {
+        val ctx = requireContext()
+        val list = presets()
+        val chosen = chosenPreset()
+        // Default Preset, the user's in the order they were made, New Preset; then the chosen one's actions
+        val labels = ArrayList<String>()
+        val actions = ArrayList<() -> Unit>()
+        labels.add((if (chosen.isEmpty()) "\u2713 " else "") + getString(R.string.rd_fx_preset_default)); actions.add { applyPreset(null) }
+        for (p in list) { labels.add((if (p.name == chosen) "\u2713 " else "") + p.name); actions.add { applyPreset(p) } }
+        labels.add("+ " + getString(R.string.rd_fx_preset_new)); actions.add { askName(null) }
+        if (chosen.isNotEmpty()) {
+            labels.add(getString(R.string.rd_fx_preset_update)); actions.add { updatePreset(chosen) }
+            labels.add(getString(R.string.rd_fx_preset_rename)); actions.add { askName(chosen) }
+            labels.add(getString(R.string.rd_fx_preset_delete)); actions.add { confirmDelete(chosen) }
+        }
+        val dialog = com.google.android.material.dialog.MaterialAlertDialogBuilder(ctx)
+            .setTitle(R.string.rd_fx_presets)
+            .setItems(labels.toTypedArray()) { _, which -> actions[which]() }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
+        org.videolan.vlc.gui.helpers.RdTvFocusRing.attach(dialog.window)
+    }
+
+    /** The effects of [preset] in use (the defaults for none): the audio ones at once, the video reopened if they changed */
+    private fun applyPreset(preset: org.videolan.vlc.util.RdEffectPresets.Preset?) {
+        val before = org.videolan.vlc.util.RdEffectPresets.snapshot(prefs.all)
+        val edit = prefs.edit()
+        before.keys.forEach { edit.remove(it) }
+        preset?.values?.forEach { (k, v) ->
+            when (v) {
+                is Boolean -> edit.putBoolean(k, v)
+                is Float -> edit.putFloat(k, v)
+                is String -> edit.putString(k, v)
+            }
+        }
+        edit.putString(org.videolan.vlc.util.RdEffectPresets.KEY_CHOSEN, preset?.name.orEmpty()).apply()
+        val after = org.videolan.vlc.util.RdEffectPresets.snapshot(prefs.all)
+        val changed = (before.keys + after.keys).filter { before[it] != after[it] }.toSet()
+        val videoKeys = RdEffects.video.flatMap { f -> listOf(f.key) + f.params.map { it.key } }.toSet()
+        LoudnessEffects.apply(requireContext().applicationContext)
+        if (changed.any { it in videoKeys } && PlaybackService.serviceFlow.value?.isVideoPlaying == true) scheduleVideoReload()
+        fill()
+    }
+
+    private fun updatePreset(name: String) {
+        val values = org.videolan.vlc.util.RdEffectPresets.snapshot(prefs.all)
+        savePresets(presets().map { if (it.name == name) org.videolan.vlc.util.RdEffectPresets.Preset(name, values) else it })
+        fill()
+    }
+
+    /** New Preset ([renamed] null: the effects in use under a new name) or Rename Preset */
+    private fun askName(renamed: String?) {
+        val ctx = requireContext()
+        val list = presets()
+        val field = android.widget.EditText(ctx).apply {
+            hint = getString(R.string.rd_fx_preset_name_hint)
+            isSingleLine = true
+            setText(renamed ?: org.videolan.vlc.util.RdEffectPresets.freeName(list) { getString(R.string.rd_fx_preset_custom, it) })
+            selectAll()
+        }
+        val box = LinearLayout(ctx).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(dp(24f), dp(4f), dp(24f), 0)
+            addView(text(ctx, getString(if (renamed != null) R.string.rd_fx_preset_keeps_own else R.string.rd_fx_preset_keeps), 13f, color(R.color.rd_fg_a3)))
+            addView(field)
+        }
+        val dialog = com.google.android.material.dialog.MaterialAlertDialogBuilder(ctx)
+            .setTitle(if (renamed != null) R.string.rd_fx_preset_rename_title else R.string.rd_fx_preset_new)
+            .setView(box)
+            .setPositiveButton(if (renamed != null) R.string.rd_fx_preset_rename else R.string.rd_fx_preset_create, null)
+            .setNegativeButton(R.string.cancel, null)
+            .show()
+        org.videolan.vlc.gui.helpers.RdTvFocusRing.attach(dialog.window)
+        // (the dialog stays open on a name that cannot be given, the reason on the field)
+        dialog.getButton(android.content.DialogInterface.BUTTON_POSITIVE).setOnClickListener {
+            val name = org.videolan.vlc.util.RdEffectPresets.normalName(field.text.toString())
+            val error = org.videolan.vlc.util.RdEffectPresets.nameError(list, name, getString(R.string.rd_fx_preset_default), renamed)
+            if (error != null) {
+                field.error = when (error) {
+                    org.videolan.vlc.util.RdEffectPresets.NameError.EMPTY -> getString(R.string.rd_fx_preset_err_empty)
+                    org.videolan.vlc.util.RdEffectPresets.NameError.DEFAULT -> getString(R.string.rd_fx_preset_err_default, name)
+                    org.videolan.vlc.util.RdEffectPresets.NameError.TAKEN -> getString(R.string.rd_fx_preset_err_taken, name)
+                }
+                return@setOnClickListener
+            }
+            if (renamed != null) savePresets(list.map { if (it.name == renamed) org.videolan.vlc.util.RdEffectPresets.Preset(name, it.values) else it })
+            else savePresets(list + org.videolan.vlc.util.RdEffectPresets.Preset(name, org.videolan.vlc.util.RdEffectPresets.snapshot(prefs.all)))
+            prefs.edit().putString(org.videolan.vlc.util.RdEffectPresets.KEY_CHOSEN, name).apply()
+            dialog.dismiss()
+            fill()
+        }
+    }
+
+    private fun confirmDelete(name: String) {
+        val dialog = com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.rd_fx_preset_delete_title)
+            .setMessage(getString(R.string.rd_fx_preset_delete_question, name) + "\n" + getString(R.string.rd_fx_preset_delete_note))
+            .setPositiveButton(R.string.rd_fx_preset_delete) { _, _ ->
+                savePresets(presets().filter { it.name != name })
+                prefs.edit().putString(org.videolan.vlc.util.RdEffectPresets.KEY_CHOSEN, "").apply()
+                fill()
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
+        org.videolan.vlc.gui.helpers.RdTvFocusRing.attach(dialog.window)
     }
 
     /** The Equalizer: its own panel (presets, bands, two-pass), opened from here */

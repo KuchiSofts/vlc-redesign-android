@@ -5,7 +5,7 @@
     <string name="rd_tv_live_tv">电视直播</string>
     <string name="rd_tv_addon">电视直播 (IPTV) 插件</string>
     <string name="rd_tv_addon_help">在媒体库中显示电视：您的 IPTV 播放列表和账户中的频道及其节目指南。关闭时不会加载任何相关内容。</string>
-    <string name="rd_tv_channels">声道</string>
+    <string name="rd_tv_channels">频道</string>
     <string name="rd_tv_guide">节目指南</string>
     <string name="rd_tv_films">电影</string>
     <string name="rd_tv_series">剧集</string>

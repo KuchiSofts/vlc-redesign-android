@@ -570,4 +570,139 @@
     <string name="rd_sleep_pause">Pausa uppspelningen</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">Fördröjning av sekundär undertext</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">Lägg till undertexter</string>
+    <string name="rd_from_a_file">Från en fil</string>
+    <string name="rd_from_link">Från länk</string>
+    <string name="rd_link_hint">Direkt HTTPS-länk till en undertextfil</string>
+    <string name="rd_link_not_subtitle">Ange en direkt HTTPS-länk till en undertextfil (.srt, .ass, .ssa, .sub, .vtt, .ttml eller .smi).</string>
+    <string name="rd_link_too_big">Undertexten överskrider hämtningsgränsen på 20 MB.</string>
+    <string name="rd_link_failed">Det gick inte att hämta undertexten: %1$s</string>
+    <string name="rd_link_downloading">Hämtar undertexten…</string>
+    <string name="rd_link_added">Undertext tillagd: %1$s</string>
+    <string name="rd_seek_sub_cues">Visa undertextrader på tidslinjen</string>
+    <string name="rd_help_seek_sub_cues">Markeringar på tidslinjen där den visade undertexten har fler rader.</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">Visa återkoppling för kortkommandon</string>
+    <string name="rd_show_feedback_for">Visa återkoppling i</string>
+    <string name="rd_help_osd">Meddelanden över videon när något ändras: hastigheten, en fördröjning, zoomen, ett spår.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">Hjälpmedel</string>
+    <string name="rd_increase_contrast">Öka textkontrasten</string>
+    <string name="rd_help_increase_contrast">Ritar designens nedtonade texter (tips, beskrivningar, sedda objekt) ljusare, med den kontrast som WCAG:s tillgänglighetsriktlinjer kräver (AA).</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">Visa alltid spelarfältet</string>
+    <string name="rd_help_always_show_player_bar">Behåller spelarfältet längst ned i biblioteket när inget spelas: Spela upp startar spelkön, eller öppnar filer när den är tom.</string>
+    <string name="rd_nothing_playing">Inget spelas upp</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">Ignorerade filtillägg</string>
+    <string name="rd_help_ignore_filetypes">Filer med dessa filändelser utelämnas när en mapp öppnas eller listas, åtskilda med kommatecken.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">Undertextfördröjning</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">Välj språk för dina undertexter.</string>
+    <string name="rd_ob_subtitles_text">Undertexter på ditt språk visas av sig själva: från videon, från en fil bredvid den eller hittade online. När det inte finns några på det, inte ens online, används det andra språket.</string>
+    <string name="rd_ob_default_language">Standardspråk</string>
+    <string name="rd_ob_second_language">Andra språk (när det inte finns några)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="one">Visa %1$d dold enhet</item>
+        <item quantity="other">Visa %1$d dolda enheter</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">Dölj den här enheten</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">Kortkommandon</string>
+    <string name="rd_help_keyboard_shortcuts">Vad tangenterna på ett tangentbord, en spelkontroll eller en tv-fjärrkontroll gör i spelaren.</string>
+    <string name="rd_key_play_pause">Spela upp/Pausa</string>
+    <string name="rd_key_stop">Stoppa</string>
+    <string name="rd_key_next">Nästa</string>
+    <string name="rd_key_previous">Föregående</string>
+    <string name="rd_key_very_short_back">Mycket kort hopp bakåt</string>
+    <string name="rd_key_very_short_forward">Mycket kort hopp framåt</string>
+    <string name="rd_key_short_back">Kort hopp bakåt</string>
+    <string name="rd_key_short_forward">Kort hopp framåt</string>
+    <string name="rd_key_medium_back">Medellångt hopp bakåt</string>
+    <string name="rd_key_medium_forward">Medellångt hopp framåt</string>
+    <string name="rd_key_long_back">Långt hopp bakåt</string>
+    <string name="rd_key_long_forward">Långt hopp framåt</string>
+    <string name="rd_key_faster">Snabbare</string>
+    <string name="rd_key_slower">Långsammare</string>
+    <string name="rd_key_normal_rate">Normal hastighet</string>
+    <string name="rd_key_volume_up">Volym upp</string>
+    <string name="rd_key_volume_down">Volym ned</string>
+    <string name="rd_key_mute">Tyst</string>
+    <string name="rd_key_audio_delay_down">Ljudfördröjning mindre</string>
+    <string name="rd_key_audio_delay_up">Ljudfördröjning mer</string>
+    <string name="rd_key_aspect">Växla källbildförhållande</string>
+    <string name="rd_key_snapshot">Ta videoskärmbild</string>
+    <string name="rd_key_record">Spela in</string>
+    <string name="rd_key_sub_delay_down">Sänk undertextens fördröjning</string>
+    <string name="rd_key_sub_delay_up">Öka undertextens fördröjning</string>
+    <string name="rd_key_sync_audio">Undertextsynkr. / skapa bokmärke för ljudtidstämpel</string>
+    <string name="rd_key_sync_subtitle">Undertextsynkr. / skapa bokmärke för undertexttidstämpel</string>
+    <string name="rd_key_sync_apply">Undertextsynkr. / synkronisera ljud- &amp; undertexttidsstämplar</string>
+    <string name="rd_key_sub_scale_reset">Återställ undertexternas textskala</string>
+    <string name="rd_key_show_controls">Visa kontroller i helskärm</string>
+    <string name="rd_key_options">Innehållsmeny</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">Lägg till ljudspår</string>
+    <string name="rd_audio_track_added">Ljudspår tillagt: %1$s</string>
+    <string name="rd_audio_track_failed">Ljudspåret kunde inte läggas till.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">GitHub har fått för många förfrågningar från det här nätverket. Försök igen efter %1$s.</string>
+    <string name="rd_update_rate_limited">GitHub har fått för många förfrågningar från det här nätverket. Försök igen senare.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">Effektförval</string>
+    <string name="rd_fx_preset_default">Standardförval</string>
+    <string name="rd_fx_preset_new">Nytt förval</string>
+    <string name="rd_fx_preset_custom">Anpassat förval %1$s</string>
+    <string name="rd_fx_preset_update">Uppdatera med aktuella effekter</string>
+    <string name="rd_fx_preset_rename">Byt namn</string>
+    <string name="rd_fx_preset_delete">Ta bort</string>
+    <string name="rd_fx_preset_rename_title">Byt namn på förval</string>
+    <string name="rd_fx_preset_create">Skapa</string>
+    <string name="rd_fx_preset_name_hint">t.ex. Sena filmkvällar</string>
+    <string name="rd_fx_preset_keeps">Förvalet behåller ljud- och videoeffekterna som används.</string>
+    <string name="rd_fx_preset_keeps_own">Förvalet behåller sina effekter.</string>
+    <string name="rd_fx_preset_delete_title">Ta bort förval</string>
+    <string name="rd_fx_preset_delete_question">Ta bort %1$s?</string>
+    <string name="rd_fx_preset_delete_note">Effekterna som används förblir som de är.</string>
+    <string name="rd_fx_preset_err_empty">Ange ett namn för förvalet.</string>
+    <string name="rd_fx_preset_err_default">”%1$s” är förvalet för standardeffekterna.</string>
+    <string name="rd_fx_preset_err_taken">Det finns redan ett förval med namnet ”%1$s”.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">Klona</string>
+    <string name="rd_clone_profile">Klona profil</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_repeat">Upprepa</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">Storleksvärden</string>
+    <string name="rd_sub_size_relative">Relativ</string>
+    <string name="rd_sub_size_pixels">Bildpunkter</string>
+    <string name="rd_help_sub_fontsize_px">Bokstävernas höjd i videons bildpunkter.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_lyrics">Låttexter</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">servern svarade inte</string>
+    <string name="rd_tv_err_not_found">serverns adress hittades inte</string>
+    <string name="rd_tv_err_unreachable">servern kunde inte nås</string>
+    <string name="rd_tv_err_secure">den säkra anslutningen misslyckades</string>
+    <string name="rd_tv_err_failed">den kunde inte laddas ner</string>
+    <string name="rd_tv_err_busy">servern är upptagen, försök igen senare</string>
+    <string name="rd_tv_err_wrong">serverns svar kunde inte läsas</string>
+    <string name="rd_tv_err_cancelled">avbrutet</string>
+    <string name="rd_tv_err_unreadable">filen kan inte läsas</string>
+    <string name="rd_tv_err_unsaved">den kan inte sparas på den här enheten</string>
+    <string name="rd_tv_err_redirections">servern omdirigerade för många gånger</string>
+    <string name="rd_tv_err_too_large">den är för stor</string>
+    <string name="rd_tv_err_not_m3u">det är inte en M3U-spellista</string>
+    <string name="rd_tv_err_no_channels">den har inga kanaler</string>
+    <string name="rd_tv_err_not_xmltv">det är inte en XMLTV-guide</string>
+    <string name="rd_tv_err_guide_unreadable">guiden kunde inte läsas</string>
+    <string name="rd_tv_err_cut">guiden kom ofullständig</string>
+    <string name="rd_tv_err_account">kontot kunde inte läsas</string>
+    <string name="rd_tv_err_sign_in">logga in först</string>
+    <string name="rd_tv_err_refused">servern nekade åtkomst (%1$d)</string>
+    <string name="rd_tv_err_missing">inget hittades på den här adressen (%1$d)</string>
+    <string name="rd_tv_err_http">servern svarade med ett fel (%1$d)</string>
 </resources>

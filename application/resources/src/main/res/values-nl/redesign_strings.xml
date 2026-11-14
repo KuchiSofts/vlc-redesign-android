@@ -570,4 +570,139 @@
     <string name="rd_sleep_pause">Afspelen pauzeren</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">Vertraging secundaire ondertitel</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">Ondertitels toevoegen</string>
+    <string name="rd_from_a_file">Uit een bestand</string>
+    <string name="rd_from_link">Via link</string>
+    <string name="rd_link_hint">Directe HTTPS-link naar een ondertitelbestand</string>
+    <string name="rd_link_not_subtitle">Voer een directe HTTPS-link naar een ondertitelbestand in (.srt, .ass, .ssa, .sub, .vtt, .ttml of .smi).</string>
+    <string name="rd_link_too_big">De ondertitel overschrijdt de downloadlimiet van 20 MB.</string>
+    <string name="rd_link_failed">Kan de ondertitel niet downloaden: %1$s</string>
+    <string name="rd_link_downloading">Ondertitel downloaden…</string>
+    <string name="rd_link_added">Ondertitel toegevoegd: %1$s</string>
+    <string name="rd_seek_sub_cues">Ondertitelregels op de voortgangsbalk weergeven</string>
+    <string name="rd_help_seek_sub_cues">Markeringen op de voortgangsbalk waar de getoonde ondertitel nog regels heeft.</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">Feedback weergeven voor sneltoetsen</string>
+    <string name="rd_show_feedback_for">Feedback weergeven gedurende</string>
+    <string name="rd_help_osd">Meldingen over de video als er iets verandert: de snelheid, een vertraging, de zoom, een spoor.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">Toegankelijkheid</string>
+    <string name="rd_increase_contrast">Tekstcontrast verhogen</string>
+    <string name="rd_help_increase_contrast">Toont de gedimde teksten van het ontwerp (hints, beschrijvingen, bekeken items) helderder, met het contrast dat de WCAG-toegankelijkheidsrichtlijnen vereisen (AA).</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">Spelerbalk altijd weergeven</string>
+    <string name="rd_help_always_show_player_bar">Houdt de spelerbalk onderaan de bibliotheek als er niets speelt: Afspelen start de wachtrij, of opent bestanden als die leeg is.</string>
+    <string name="rd_nothing_playing">Er wordt niets afgespeeld</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">Genegeerde bestandsextensies</string>
+    <string name="rd_help_ignore_filetypes">Bestanden met deze extensies worden overgeslagen als een map wordt geopend of getoond, gescheiden door komma\'s.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">Ondertitelvertraging</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">Kies de talen van uw ondertitels.</string>
+    <string name="rd_ob_subtitles_text">Ondertitels in uw taal verschijnen vanzelf: uit de video, uit een bestand ernaast of online gevonden. Zijn er geen, ook niet online, dan wordt de tweede taal gebruikt.</string>
+    <string name="rd_ob_default_language">Standaardtaal</string>
+    <string name="rd_ob_second_language">Tweede taal (als er geen zijn)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="one">%1$d verborgen apparaat weergeven</item>
+        <item quantity="other">%1$d verborgen apparaten weergeven</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">Dit apparaat verbergen</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">Sneltoetsen</string>
+    <string name="rd_help_keyboard_shortcuts">Wat de toetsen van een toetsenbord, een gamecontroller of een tv-afstandsbediening in de speler doen.</string>
+    <string name="rd_key_play_pause">Afspelen/pauzeren</string>
+    <string name="rd_key_stop">Stoppen</string>
+    <string name="rd_key_next">Volgende</string>
+    <string name="rd_key_previous">Vorige</string>
+    <string name="rd_key_very_short_back">Heel kleine sprong achteruit</string>
+    <string name="rd_key_very_short_forward">Heel kleine sprong vooruit</string>
+    <string name="rd_key_short_back">Kleine sprong achteruit</string>
+    <string name="rd_key_short_forward">Kleine sprong vooruit</string>
+    <string name="rd_key_medium_back">Normale sprong achteruit</string>
+    <string name="rd_key_medium_forward">Normale sprong vooruit</string>
+    <string name="rd_key_long_back">Grote sprong achteruit</string>
+    <string name="rd_key_long_forward">Grote sprong vooruit</string>
+    <string name="rd_key_faster">Sneller</string>
+    <string name="rd_key_slower">Langzamer</string>
+    <string name="rd_key_normal_rate">Normale snelheid</string>
+    <string name="rd_key_volume_up">Geluid harder</string>
+    <string name="rd_key_volume_down">Geluid zachter</string>
+    <string name="rd_key_mute">Dempen</string>
+    <string name="rd_key_audio_delay_down">Audiovertraging verkleinen</string>
+    <string name="rd_key_audio_delay_up">Audiovertraging vergroten</string>
+    <string name="rd_key_aspect">Beeldverhouding veranderen</string>
+    <string name="rd_key_snapshot">Videomomentopname maken</string>
+    <string name="rd_key_record">Opnemen</string>
+    <string name="rd_key_sub_delay_down">Ondertitelvertraging verlagen</string>
+    <string name="rd_key_sub_delay_up">Ondertitelvertraging verhogen</string>
+    <string name="rd_key_sync_audio">Ondertitelsync / audio-timestamp bladwijzer aanmaken</string>
+    <string name="rd_key_sync_subtitle">Ondertitelsync / ondertitel-timestamp bladwijzer aanmaken</string>
+    <string name="rd_key_sync_apply">Ondertitelsync / audio- en ondertitel-timestamps synchroniseren</string>
+    <string name="rd_key_sub_scale_reset">Tekstschaal ondertitels herstellen</string>
+    <string name="rd_key_show_controls">Bediening in schermvullende modus weergeven</string>
+    <string name="rd_key_options">Contextmenu</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">Audiosporen toevoegen</string>
+    <string name="rd_audio_track_added">Audiospoor toegevoegd: %1$s</string>
+    <string name="rd_audio_track_failed">Het audiospoor kon niet worden toegevoegd.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">GitHub kreeg te veel verzoeken van dit netwerk. Probeer het na %1$s opnieuw.</string>
+    <string name="rd_update_rate_limited">GitHub kreeg te veel verzoeken van dit netwerk. Probeer het later opnieuw.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">Effectpresets</string>
+    <string name="rd_fx_preset_default">Standaardpreset</string>
+    <string name="rd_fx_preset_new">Nieuwe preset</string>
+    <string name="rd_fx_preset_custom">Aangepaste preset %1$s</string>
+    <string name="rd_fx_preset_update">Bijwerken met huidige effecten</string>
+    <string name="rd_fx_preset_rename">Naam wijzigen</string>
+    <string name="rd_fx_preset_delete">Verwijderen</string>
+    <string name="rd_fx_preset_rename_title">Naam van preset wijzigen</string>
+    <string name="rd_fx_preset_create">Maken</string>
+    <string name="rd_fx_preset_name_hint">bijv. Nachtfilms</string>
+    <string name="rd_fx_preset_keeps">De preset bewaart de audio- en video-effecten die in gebruik zijn.</string>
+    <string name="rd_fx_preset_keeps_own">De preset behoudt zijn effecten.</string>
+    <string name="rd_fx_preset_delete_title">Preset verwijderen</string>
+    <string name="rd_fx_preset_delete_question">%1$s verwijderen?</string>
+    <string name="rd_fx_preset_delete_note">De effecten die in gebruik zijn, blijven zoals ze zijn.</string>
+    <string name="rd_fx_preset_err_empty">Voer een naam in voor de preset.</string>
+    <string name="rd_fx_preset_err_default">\"%1$s\" is de preset van de standaardeffecten.</string>
+    <string name="rd_fx_preset_err_taken">Er bestaat al een preset met de naam \"%1$s\".</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">Kloon</string>
+    <string name="rd_clone_profile">Profiel klonen</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_repeat">Herhalen</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">Groottewaarden</string>
+    <string name="rd_sub_size_relative">Relatief</string>
+    <string name="rd_sub_size_pixels">Pixels</string>
+    <string name="rd_help_sub_fontsize_px">De hoogte van de letters in pixels van de video.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_lyrics">Songteksten</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">de server antwoordde niet</string>
+    <string name="rd_tv_err_not_found">het adres van de server is niet gevonden</string>
+    <string name="rd_tv_err_unreachable">de server is niet bereikbaar</string>
+    <string name="rd_tv_err_secure">de beveiligde verbinding is mislukt</string>
+    <string name="rd_tv_err_failed">het kon niet worden gedownload</string>
+    <string name="rd_tv_err_busy">de server is bezet, probeer het later opnieuw</string>
+    <string name="rd_tv_err_wrong">het antwoord van de server kon niet worden gelezen</string>
+    <string name="rd_tv_err_cancelled">geannuleerd</string>
+    <string name="rd_tv_err_unreadable">het bestand kan niet worden gelezen</string>
+    <string name="rd_tv_err_unsaved">het kan niet op dit apparaat worden opgeslagen</string>
+    <string name="rd_tv_err_redirections">de server stuurde het te vaak door</string>
+    <string name="rd_tv_err_too_large">het is te groot</string>
+    <string name="rd_tv_err_not_m3u">het is geen M3U-afspeellijst</string>
+    <string name="rd_tv_err_no_channels">het bevat geen zenders</string>
+    <string name="rd_tv_err_not_xmltv">het is geen XMLTV-gids</string>
+    <string name="rd_tv_err_guide_unreadable">de gids kon niet worden gelezen</string>
+    <string name="rd_tv_err_cut">de gids kwam onvolledig aan</string>
+    <string name="rd_tv_err_account">het account kon niet worden gelezen</string>
+    <string name="rd_tv_err_sign_in">meld je eerst aan</string>
+    <string name="rd_tv_err_refused">de server weigerde de toegang (%1$d)</string>
+    <string name="rd_tv_err_missing">op dit adres is niets gevonden (%1$d)</string>
+    <string name="rd_tv_err_http">de server antwoordde met een fout (%1$d)</string>
 </resources>
