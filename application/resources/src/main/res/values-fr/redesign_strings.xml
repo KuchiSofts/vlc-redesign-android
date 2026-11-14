@@ -682,4 +682,27 @@
     <string name="rd_help_sub_fontsize_px">La hauteur des lettres en pixels de la vidéo.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_lyrics">Paroles</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">le serveur n\'a pas répondu</string>
+    <string name="rd_tv_err_not_found">l\'adresse du serveur est introuvable</string>
+    <string name="rd_tv_err_unreachable">le serveur est injoignable</string>
+    <string name="rd_tv_err_secure">la connexion sécurisée a échoué</string>
+    <string name="rd_tv_err_failed">il n\'a pas pu être téléchargé</string>
+    <string name="rd_tv_err_busy">le serveur est occupé, réessayez plus tard</string>
+    <string name="rd_tv_err_wrong">la réponse du serveur n\'a pas pu être lue</string>
+    <string name="rd_tv_err_cancelled">annulé</string>
+    <string name="rd_tv_err_unreadable">le fichier ne peut pas être lu</string>
+    <string name="rd_tv_err_unsaved">il ne peut pas être enregistré sur cet appareil</string>
+    <string name="rd_tv_err_redirections">le serveur l\'a redirigé trop de fois</string>
+    <string name="rd_tv_err_too_large">il est trop volumineux</string>
+    <string name="rd_tv_err_not_m3u">ce n\'est pas une liste de lecture M3U</string>
+    <string name="rd_tv_err_no_channels">il ne contient aucune chaîne</string>
+    <string name="rd_tv_err_not_xmltv">ce n\'est pas un guide XMLTV</string>
+    <string name="rd_tv_err_guide_unreadable">le guide n\'a pas pu être lu</string>
+    <string name="rd_tv_err_cut">le guide est arrivé incomplet</string>
+    <string name="rd_tv_err_account">le compte n\'a pas pu être lu</string>
+    <string name="rd_tv_err_sign_in">connectez-vous d\'abord</string>
+    <string name="rd_tv_err_refused">le serveur a refusé l\'accès (%1$d)</string>
+    <string name="rd_tv_err_missing">rien n\'a été trouvé à cette adresse (%1$d)</string>
+    <string name="rd_tv_err_http">le serveur a répondu par une erreur (%1$d)</string>
 </resources>

@@ -85,7 +85,7 @@ object TvSettings {
     private fun summary(ctx: Context, s: SourceStatus): String {
         val r = ctx.resources
         if (s.busy) return ctx.getString(R.string.rd_tv_updating)
-        if (s.error.isNotEmpty() && s.channels == 0) return ctx.getString(R.string.rd_tv_could_not_load, s.name, s.error)
+        if (s.error.isNotEmpty() && s.channels == 0) return ctx.getString(R.string.rd_tv_could_not_load, s.name, org.videolan.vlc.livetv.TvErrors.text(ctx, s.error))
         var t = r.getQuantityString(R.plurals.rd_tv_n_channels, s.channels, s.channels)
         if (s.withGuide > 0) t += ", " + r.getQuantityString(R.plurals.rd_tv_n_with_guide, s.withGuide, s.withGuide)
         if (s.catchupDays > 0) t += ", " + r.getQuantityString(R.plurals.rd_tv_catchup_days_short, s.catchupDays, s.catchupDays)

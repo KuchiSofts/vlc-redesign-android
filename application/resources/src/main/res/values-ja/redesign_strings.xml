@@ -680,4 +680,27 @@
     <string name="rd_help_sub_fontsize_px">映像のピクセル単位での文字の高さ。</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_lyrics">歌詞</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">サーバーが応答しませんでした</string>
+    <string name="rd_tv_err_not_found">サーバーのアドレスが見つかりませんでした</string>
+    <string name="rd_tv_err_unreachable">サーバーに接続できませんでした</string>
+    <string name="rd_tv_err_secure">安全な接続に失敗しました</string>
+    <string name="rd_tv_err_failed">ダウンロードできませんでした</string>
+    <string name="rd_tv_err_busy">サーバーが混み合っています。しばらくしてからもう一度お試しください</string>
+    <string name="rd_tv_err_wrong">サーバーの応答を読み取れませんでした</string>
+    <string name="rd_tv_err_cancelled">キャンセルされました</string>
+    <string name="rd_tv_err_unreadable">ファイルを読み取れません</string>
+    <string name="rd_tv_err_unsaved">このデバイスに保存できません</string>
+    <string name="rd_tv_err_redirections">サーバーのリダイレクトが多すぎます</string>
+    <string name="rd_tv_err_too_large">サイズが大きすぎます</string>
+    <string name="rd_tv_err_not_m3u">M3U プレイリストではありません</string>
+    <string name="rd_tv_err_no_channels">チャンネルがありません</string>
+    <string name="rd_tv_err_not_xmltv">XMLTV ガイドではありません</string>
+    <string name="rd_tv_err_guide_unreadable">ガイドを読み取れませんでした</string>
+    <string name="rd_tv_err_cut">ガイドが途中で切れていました</string>
+    <string name="rd_tv_err_account">アカウントを読み取れませんでした</string>
+    <string name="rd_tv_err_sign_in">先にサインインしてください</string>
+    <string name="rd_tv_err_refused">サーバーがアクセスを拒否しました (%1$d)</string>
+    <string name="rd_tv_err_missing">このアドレスには何も見つかりませんでした (%1$d)</string>
+    <string name="rd_tv_err_http">サーバーがエラーを返しました (%1$d)</string>
 </resources>

@@ -464,7 +464,7 @@ class TvFragment : BaseFragment(), Filterable {
                 "reading" -> resources.getQuantityString(R.plurals.rd_tv_reading_guide_of, busy.matched, busy.name, "%.0f".format(busy.received / 1048576.0), busy.matched)
                 else -> getString(R.string.rd_tv_updating_channels_of, busy.name)
             }
-            failed != null -> getString(R.string.rd_tv_could_not_load, failed.name, failed.error)
+            failed != null -> getString(R.string.rd_tv_could_not_load, failed.name, org.videolan.vlc.livetv.TvErrors.text(requireContext(), failed.error))
             else -> ""
         }
         status.setTextColor(ctx.tvColor(if (busy != null) R.color.rd_fg_a3 else R.color.rd_warning))

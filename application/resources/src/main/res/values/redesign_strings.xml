@@ -857,4 +857,27 @@
     <string name="rd_ignored_extensions">Ignored file extensions</string>
     <string name="rd_help_ignore_filetypes">Files with these extensions are left out when a folder is opened or listed, separated by commas.</string>
     <string name="rd_help_increase_contrast">Draws the dim texts of the design (hints, descriptions, watched items) brighter, to the contrast the WCAG accessibility guidelines ask for (AA).</string>
+    <!-- Live TV: why a source or a guide could not be loaded (TvErrors: the reasons the desktop keeps) -->
+    <string name="rd_tv_err_no_answer">the server did not answer</string>
+    <string name="rd_tv_err_not_found">the server\'s address was not found</string>
+    <string name="rd_tv_err_unreachable">the server could not be reached</string>
+    <string name="rd_tv_err_secure">the secure connection failed</string>
+    <string name="rd_tv_err_failed">it could not be downloaded</string>
+    <string name="rd_tv_err_busy">the server is busy, try again later</string>
+    <string name="rd_tv_err_wrong">the server\'s answer could not be read</string>
+    <string name="rd_tv_err_cancelled">cancelled</string>
+    <string name="rd_tv_err_unreadable">the file cannot be read</string>
+    <string name="rd_tv_err_unsaved">it cannot be saved on this device</string>
+    <string name="rd_tv_err_redirections">the server sent it on too many times</string>
+    <string name="rd_tv_err_too_large">it is too large</string>
+    <string name="rd_tv_err_not_m3u">it is not an M3U playlist</string>
+    <string name="rd_tv_err_no_channels">it has no channels</string>
+    <string name="rd_tv_err_not_xmltv">it is not an XMLTV guide</string>
+    <string name="rd_tv_err_guide_unreadable">the guide could not be read</string>
+    <string name="rd_tv_err_cut">the guide came cut short</string>
+    <string name="rd_tv_err_account">the account could not be read</string>
+    <string name="rd_tv_err_sign_in">sign in first</string>
+    <string name="rd_tv_err_refused">the server refused access (%1$d)</string>
+    <string name="rd_tv_err_missing">nothing was found at this address (%1$d)</string>
+    <string name="rd_tv_err_http">the server answered with an error (%1$d)</string>
 </resources>

@@ -687,4 +687,27 @@
     <string name="rd_help_sub_fontsize_px">Výška písmen v pixelech videa.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_lyrics">Text písně</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">server neodpověděl</string>
+    <string name="rd_tv_err_not_found">adresa serveru nebyla nalezena</string>
+    <string name="rd_tv_err_unreachable">server je nedostupný</string>
+    <string name="rd_tv_err_secure">zabezpečené připojení selhalo</string>
+    <string name="rd_tv_err_failed">nepodařilo se stáhnout</string>
+    <string name="rd_tv_err_busy">server je zaneprázdněn, zkuste to později</string>
+    <string name="rd_tv_err_wrong">odpověď serveru nelze přečíst</string>
+    <string name="rd_tv_err_cancelled">zrušeno</string>
+    <string name="rd_tv_err_unreadable">soubor nelze přečíst</string>
+    <string name="rd_tv_err_unsaved">nelze uložit do tohoto zařízení</string>
+    <string name="rd_tv_err_redirections">server přesměroval příliš mnohokrát</string>
+    <string name="rd_tv_err_too_large">velikost je příliš velká</string>
+    <string name="rd_tv_err_not_m3u">nejde o seznam skladeb M3U</string>
+    <string name="rd_tv_err_no_channels">neobsahuje žádné kanály</string>
+    <string name="rd_tv_err_not_xmltv">nejde o průvodce XMLTV</string>
+    <string name="rd_tv_err_guide_unreadable">průvodce nelze přečíst</string>
+    <string name="rd_tv_err_cut">průvodce dorazil neúplný</string>
+    <string name="rd_tv_err_account">účet nelze přečíst</string>
+    <string name="rd_tv_err_sign_in">nejprve se přihlaste</string>
+    <string name="rd_tv_err_refused">server odepřel přístup (%1$d)</string>
+    <string name="rd_tv_err_missing">na této adrese nebylo nic nalezeno (%1$d)</string>
+    <string name="rd_tv_err_http">server odpověděl chybou (%1$d)</string>
 </resources>

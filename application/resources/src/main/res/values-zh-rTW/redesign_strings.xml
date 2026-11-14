@@ -680,4 +680,27 @@
     <string name="rd_help_sub_fontsize_px">以影片像素計的字母高度。</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_lyrics">歌詞</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">伺服器沒有回應</string>
+    <string name="rd_tv_err_not_found">找不到伺服器位址</string>
+    <string name="rd_tv_err_unreachable">無法連線到伺服器</string>
+    <string name="rd_tv_err_secure">安全連線失敗</string>
+    <string name="rd_tv_err_failed">無法下載</string>
+    <string name="rd_tv_err_busy">伺服器忙碌中，請稍後再試</string>
+    <string name="rd_tv_err_wrong">無法讀取伺服器的回應</string>
+    <string name="rd_tv_err_cancelled">已取消</string>
+    <string name="rd_tv_err_unreadable">無法讀取檔案</string>
+    <string name="rd_tv_err_unsaved">無法儲存到此裝置</string>
+    <string name="rd_tv_err_redirections">伺服器重新導向次數過多</string>
+    <string name="rd_tv_err_too_large">檔案過大</string>
+    <string name="rd_tv_err_not_m3u">不是 M3U 播放清單</string>
+    <string name="rd_tv_err_no_channels">沒有頻道</string>
+    <string name="rd_tv_err_not_xmltv">不是 XMLTV 節目表</string>
+    <string name="rd_tv_err_guide_unreadable">無法讀取節目表</string>
+    <string name="rd_tv_err_cut">節目表不完整</string>
+    <string name="rd_tv_err_account">無法讀取帳戶</string>
+    <string name="rd_tv_err_sign_in">請先登入</string>
+    <string name="rd_tv_err_refused">伺服器拒絕存取 (%1$d)</string>
+    <string name="rd_tv_err_missing">此位址下找不到任何內容 (%1$d)</string>
+    <string name="rd_tv_err_http">伺服器回傳錯誤 (%1$d)</string>
 </resources>

@@ -668,4 +668,27 @@
     <string name="rd_help_sub_fontsize_px">גובה האותיות בפיקסלים של הסרטון.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_lyrics">מילות השיר</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">השרת לא ענה</string>
+    <string name="rd_tv_err_not_found">כתובת השרת לא נמצאה</string>
+    <string name="rd_tv_err_unreachable">לא ניתן היה להגיע לשרת</string>
+    <string name="rd_tv_err_secure">החיבור המאובטח נכשל</string>
+    <string name="rd_tv_err_failed">לא ניתן היה להוריד אותו</string>
+    <string name="rd_tv_err_busy">השרת עמוס, נסה שוב מאוחר יותר</string>
+    <string name="rd_tv_err_wrong">לא ניתן היה לקרוא את תשובת השרת</string>
+    <string name="rd_tv_err_cancelled">בוטל</string>
+    <string name="rd_tv_err_unreadable">לא ניתן לקרוא את הקובץ</string>
+    <string name="rd_tv_err_unsaved">לא ניתן לשמור אותו במכשיר הזה</string>
+    <string name="rd_tv_err_redirections">השרת העביר אותו הלאה יותר מדי פעמים</string>
+    <string name="rd_tv_err_too_large">הוא גדול מדי</string>
+    <string name="rd_tv_err_not_m3u">זו אינה רשימת השמעה מסוג M3U</string>
+    <string name="rd_tv_err_no_channels">אין בו ערוצים</string>
+    <string name="rd_tv_err_not_xmltv">זה אינו מדריך מסוג XMLTV</string>
+    <string name="rd_tv_err_guide_unreadable">לא ניתן היה לקרוא את המדריך</string>
+    <string name="rd_tv_err_cut">המדריך הגיע קטוע</string>
+    <string name="rd_tv_err_account">לא ניתן היה לקרוא את החשבון</string>
+    <string name="rd_tv_err_sign_in">התחבר קודם</string>
+    <string name="rd_tv_err_refused">השרת סירב לתת גישה (%1$d)</string>
+    <string name="rd_tv_err_missing">לא נמצא דבר בכתובת הזו (%1$d)</string>
+    <string name="rd_tv_err_http">השרת ענה בשגיאה (%1$d)</string>
 </resources>

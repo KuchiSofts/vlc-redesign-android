@@ -655,4 +655,27 @@
     <string name="rd_help_sub_fontsize_px">A altura das letras em píxeis do vídeo.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_lyrics">Letra</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">o servidor não respondeu</string>
+    <string name="rd_tv_err_not_found">o endereço do servidor não foi encontrado</string>
+    <string name="rd_tv_err_unreachable">não foi possível contactar o servidor</string>
+    <string name="rd_tv_err_secure">a ligação segura falhou</string>
+    <string name="rd_tv_err_failed">não foi possível transferi-lo</string>
+    <string name="rd_tv_err_busy">o servidor está ocupado, tente novamente mais tarde</string>
+    <string name="rd_tv_err_wrong">não foi possível ler a resposta do servidor</string>
+    <string name="rd_tv_err_cancelled">cancelado</string>
+    <string name="rd_tv_err_unreadable">o ficheiro não pode ser lido</string>
+    <string name="rd_tv_err_unsaved">não pode ser guardado neste dispositivo</string>
+    <string name="rd_tv_err_redirections">o servidor reencaminhou-o vezes demais</string>
+    <string name="rd_tv_err_too_large">é demasiado grande</string>
+    <string name="rd_tv_err_not_m3u">não é uma lista de reprodução M3U</string>
+    <string name="rd_tv_err_no_channels">não tem canais</string>
+    <string name="rd_tv_err_not_xmltv">não é um guia XMLTV</string>
+    <string name="rd_tv_err_guide_unreadable">não foi possível ler o guia</string>
+    <string name="rd_tv_err_cut">o guia chegou incompleto</string>
+    <string name="rd_tv_err_account">não foi possível ler a conta</string>
+    <string name="rd_tv_err_sign_in">inicie sessão primeiro</string>
+    <string name="rd_tv_err_refused">o servidor recusou o acesso (%1$d)</string>
+    <string name="rd_tv_err_missing">nada foi encontrado neste endereço (%1$d)</string>
+    <string name="rd_tv_err_http">o servidor respondeu com um erro (%1$d)</string>
 </resources>

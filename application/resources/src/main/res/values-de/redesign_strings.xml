@@ -682,4 +682,27 @@
     <string name="rd_help_sub_fontsize_px">Die Höhe der Buchstaben in Pixeln des Videos.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_lyrics">Liedtexte</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">der Server hat nicht geantwortet</string>
+    <string name="rd_tv_err_not_found">die Adresse des Servers wurde nicht gefunden</string>
+    <string name="rd_tv_err_unreachable">der Server ist nicht erreichbar</string>
+    <string name="rd_tv_err_secure">die sichere Verbindung ist fehlgeschlagen</string>
+    <string name="rd_tv_err_failed">es konnte nicht heruntergeladen werden</string>
+    <string name="rd_tv_err_busy">der Server ist ausgelastet, bitte später erneut versuchen</string>
+    <string name="rd_tv_err_wrong">die Antwort des Servers konnte nicht gelesen werden</string>
+    <string name="rd_tv_err_cancelled">abgebrochen</string>
+    <string name="rd_tv_err_unreadable">die Datei kann nicht gelesen werden</string>
+    <string name="rd_tv_err_unsaved">es kann auf diesem Gerät nicht gespeichert werden</string>
+    <string name="rd_tv_err_redirections">der Server hat es zu oft weitergeleitet</string>
+    <string name="rd_tv_err_too_large">es ist zu groß</string>
+    <string name="rd_tv_err_not_m3u">es ist keine M3U-Wiedergabeliste</string>
+    <string name="rd_tv_err_no_channels">es enthält keine Sender</string>
+    <string name="rd_tv_err_not_xmltv">es ist kein XMLTV-Fernsehprogramm</string>
+    <string name="rd_tv_err_guide_unreadable">das Fernsehprogramm konnte nicht gelesen werden</string>
+    <string name="rd_tv_err_cut">das Fernsehprogramm kam unvollständig an</string>
+    <string name="rd_tv_err_account">das Konto konnte nicht gelesen werden</string>
+    <string name="rd_tv_err_sign_in">bitte zuerst anmelden</string>
+    <string name="rd_tv_err_refused">der Server hat den Zugriff verweigert (%1$d)</string>
+    <string name="rd_tv_err_missing">unter dieser Adresse wurde nichts gefunden (%1$d)</string>
+    <string name="rd_tv_err_http">der Server hat mit einem Fehler geantwortet (%1$d)</string>
 </resources>

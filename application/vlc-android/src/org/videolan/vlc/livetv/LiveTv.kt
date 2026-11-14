@@ -562,7 +562,7 @@ object LiveTv {
                 } catch (e: CancelledException) {
                     throw e
                 } catch (e: Exception) {
-                    st.error = e.message ?: "the playlist could not be downloaded"
+                    st.error = TvErrors.reason(e)
                     Log.i(TAG, "the playlist of ${TvNet.hostOf(cfg.url)} could not be downloaded: ${st.error}")
                     if (!file.exists()) return false
                 }
@@ -583,7 +583,7 @@ object LiveTv {
         } catch (e: CancelledException) {
             throw e
         } catch (e: Exception) {
-            st.error = e.message ?: e.javaClass.simpleName
+            st.error = TvErrors.reason(e)
             return false
         }
     }
@@ -615,7 +615,7 @@ object LiveTv {
                 throw e
             } catch (e: Exception) {
                 android.util.Log.w(TAG, "Xtream account ${cfg.id} could not be read", e)
-                st.error = e.message ?: "the account could not be read"
+                st.error = TvErrors.reason(e, "the account could not be read")
                 if (!liveFile.exists()) return false
             }
         }
@@ -661,10 +661,10 @@ object LiveTv {
                 throw e
             } catch (e: TvAccountException) {
                 st.refused = e.refused
-                st.error = if (e.refused) app.getString(org.videolan.vlc.R.string.rd_os_login_refused_check) else e.message ?: "?"
+                st.error = if (e.refused) app.getString(org.videolan.vlc.R.string.rd_os_login_refused_check) else TvErrors.reason(e)
                 if (!file.exists()) return cfg.accountType == "schedulesdirect" && !e.refused
             } catch (e: Exception) {
-                st.error = e.message ?: e.javaClass.simpleName
+                st.error = TvErrors.reason(e)
                 if (!file.exists()) return false
             }
         }
@@ -823,7 +823,7 @@ object LiveTv {
                     keepAsItWas(w.url)
                     continue
                 } catch (e: Exception) {
-                    error = e.message ?: "?"
+                    error = TvErrors.reason(e)
                     Log.i(TAG, "a guide of ${TvNet.hostOf(w.url)} could not be downloaded: $error")
                     // where it broke (debug builds: no address in it)
                     if (BuildConfig.DEBUG) Log.d(TAG, "guide download failure", e)

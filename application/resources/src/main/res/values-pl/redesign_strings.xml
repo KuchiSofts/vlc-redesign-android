@@ -687,4 +687,27 @@
     <string name="rd_help_sub_fontsize_px">Wysokość liter w pikselach obrazu.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_lyrics">Tekst</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">serwer nie odpowiedział</string>
+    <string name="rd_tv_err_not_found">nie znaleziono adresu serwera</string>
+    <string name="rd_tv_err_unreachable">nie można połączyć się z serwerem</string>
+    <string name="rd_tv_err_secure">bezpieczne połączenie nie powiodło się</string>
+    <string name="rd_tv_err_failed">nie udało się pobrać</string>
+    <string name="rd_tv_err_busy">serwer jest zajęty, spróbuj ponownie później</string>
+    <string name="rd_tv_err_wrong">nie udało się odczytać odpowiedzi serwera</string>
+    <string name="rd_tv_err_cancelled">anulowano</string>
+    <string name="rd_tv_err_unreadable">nie można odczytać pliku</string>
+    <string name="rd_tv_err_unsaved">nie można zapisać na tym urządzeniu</string>
+    <string name="rd_tv_err_redirections">serwer przekierował zbyt wiele razy</string>
+    <string name="rd_tv_err_too_large">rozmiar jest za duży</string>
+    <string name="rd_tv_err_not_m3u">to nie jest lista odtwarzania M3U</string>
+    <string name="rd_tv_err_no_channels">nie zawiera kanałów</string>
+    <string name="rd_tv_err_not_xmltv">to nie jest program TV w formacie XMLTV</string>
+    <string name="rd_tv_err_guide_unreadable">nie udało się odczytać programu TV</string>
+    <string name="rd_tv_err_cut">program TV dotarł niekompletny</string>
+    <string name="rd_tv_err_account">nie udało się odczytać konta</string>
+    <string name="rd_tv_err_sign_in">najpierw się zaloguj</string>
+    <string name="rd_tv_err_refused">serwer odmówił dostępu (%1$d)</string>
+    <string name="rd_tv_err_missing">pod tym adresem nic nie znaleziono (%1$d)</string>
+    <string name="rd_tv_err_http">serwer odpowiedział błędem (%1$d)</string>
 </resources>

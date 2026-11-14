@@ -682,4 +682,27 @@
     <string name="rd_help_sub_fontsize_px">Bokstävernas höjd i videons bildpunkter.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_lyrics">Låttexter</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">servern svarade inte</string>
+    <string name="rd_tv_err_not_found">serverns adress hittades inte</string>
+    <string name="rd_tv_err_unreachable">servern kunde inte nås</string>
+    <string name="rd_tv_err_secure">den säkra anslutningen misslyckades</string>
+    <string name="rd_tv_err_failed">den kunde inte laddas ner</string>
+    <string name="rd_tv_err_busy">servern är upptagen, försök igen senare</string>
+    <string name="rd_tv_err_wrong">serverns svar kunde inte läsas</string>
+    <string name="rd_tv_err_cancelled">avbrutet</string>
+    <string name="rd_tv_err_unreadable">filen kan inte läsas</string>
+    <string name="rd_tv_err_unsaved">den kan inte sparas på den här enheten</string>
+    <string name="rd_tv_err_redirections">servern omdirigerade för många gånger</string>
+    <string name="rd_tv_err_too_large">den är för stor</string>
+    <string name="rd_tv_err_not_m3u">det är inte en M3U-spellista</string>
+    <string name="rd_tv_err_no_channels">den har inga kanaler</string>
+    <string name="rd_tv_err_not_xmltv">det är inte en XMLTV-guide</string>
+    <string name="rd_tv_err_guide_unreadable">guiden kunde inte läsas</string>
+    <string name="rd_tv_err_cut">guiden kom ofullständig</string>
+    <string name="rd_tv_err_account">kontot kunde inte läsas</string>
+    <string name="rd_tv_err_sign_in">logga in först</string>
+    <string name="rd_tv_err_refused">servern nekade åtkomst (%1$d)</string>
+    <string name="rd_tv_err_missing">inget hittades på den här adressen (%1$d)</string>
+    <string name="rd_tv_err_http">servern svarade med ett fel (%1$d)</string>
 </resources>

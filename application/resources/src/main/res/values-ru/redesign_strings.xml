@@ -687,4 +687,27 @@
     <string name="rd_help_sub_fontsize_px">Высота букв в пикселях видео.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_lyrics">Слова песни</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">сервер не ответил</string>
+    <string name="rd_tv_err_not_found">адрес сервера не найден</string>
+    <string name="rd_tv_err_unreachable">не удалось подключиться к серверу</string>
+    <string name="rd_tv_err_secure">не удалось установить защищённое соединение</string>
+    <string name="rd_tv_err_failed">не удалось загрузить</string>
+    <string name="rd_tv_err_busy">сервер занят, повторите попытку позже</string>
+    <string name="rd_tv_err_wrong">не удалось прочитать ответ сервера</string>
+    <string name="rd_tv_err_cancelled">отменено</string>
+    <string name="rd_tv_err_unreadable">не удаётся прочитать файл</string>
+    <string name="rd_tv_err_unsaved">не удаётся сохранить на этом устройстве</string>
+    <string name="rd_tv_err_redirections">сервер слишком много раз перенаправил запрос</string>
+    <string name="rd_tv_err_too_large">слишком большой размер</string>
+    <string name="rd_tv_err_not_m3u">это не плейлист M3U</string>
+    <string name="rd_tv_err_no_channels">в нём нет каналов</string>
+    <string name="rd_tv_err_not_xmltv">это не телепрограмма XMLTV</string>
+    <string name="rd_tv_err_guide_unreadable">не удалось прочитать телепрограмму</string>
+    <string name="rd_tv_err_cut">телепрограмма получена не полностью</string>
+    <string name="rd_tv_err_account">не удалось прочитать учётную запись</string>
+    <string name="rd_tv_err_sign_in">сначала войдите</string>
+    <string name="rd_tv_err_refused">сервер отказал в доступе (%1$d)</string>
+    <string name="rd_tv_err_missing">по этому адресу ничего не найдено (%1$d)</string>
+    <string name="rd_tv_err_http">сервер ответил ошибкой (%1$d)</string>
 </resources>

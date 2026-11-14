@@ -682,4 +682,27 @@
     <string name="rd_help_sub_fontsize_px">De hoogte van de letters in pixels van de video.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_lyrics">Songteksten</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">de server antwoordde niet</string>
+    <string name="rd_tv_err_not_found">het adres van de server is niet gevonden</string>
+    <string name="rd_tv_err_unreachable">de server is niet bereikbaar</string>
+    <string name="rd_tv_err_secure">de beveiligde verbinding is mislukt</string>
+    <string name="rd_tv_err_failed">het kon niet worden gedownload</string>
+    <string name="rd_tv_err_busy">de server is bezet, probeer het later opnieuw</string>
+    <string name="rd_tv_err_wrong">het antwoord van de server kon niet worden gelezen</string>
+    <string name="rd_tv_err_cancelled">geannuleerd</string>
+    <string name="rd_tv_err_unreadable">het bestand kan niet worden gelezen</string>
+    <string name="rd_tv_err_unsaved">het kan niet op dit apparaat worden opgeslagen</string>
+    <string name="rd_tv_err_redirections">de server stuurde het te vaak door</string>
+    <string name="rd_tv_err_too_large">het is te groot</string>
+    <string name="rd_tv_err_not_m3u">het is geen M3U-afspeellijst</string>
+    <string name="rd_tv_err_no_channels">het bevat geen zenders</string>
+    <string name="rd_tv_err_not_xmltv">het is geen XMLTV-gids</string>
+    <string name="rd_tv_err_guide_unreadable">de gids kon niet worden gelezen</string>
+    <string name="rd_tv_err_cut">de gids kwam onvolledig aan</string>
+    <string name="rd_tv_err_account">het account kon niet worden gelezen</string>
+    <string name="rd_tv_err_sign_in">meld je eerst aan</string>
+    <string name="rd_tv_err_refused">de server weigerde de toegang (%1$d)</string>
+    <string name="rd_tv_err_missing">op dit adres is niets gevonden (%1$d)</string>
+    <string name="rd_tv_err_http">de server antwoordde met een fout (%1$d)</string>
 </resources>

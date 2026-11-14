@@ -689,4 +689,27 @@
     <string name="rd_help_sub_fontsize_px">ارتفاع الحروف ببكسلات الفيديو.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_lyrics">كلمات الأغنية</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">لم يستجب الخادم</string>
+    <string name="rd_tv_err_not_found">لم يُعثر على عنوان الخادم</string>
+    <string name="rd_tv_err_unreachable">تعذّر الوصول إلى الخادم</string>
+    <string name="rd_tv_err_secure">فشل الاتصال الآمن</string>
+    <string name="rd_tv_err_failed">تعذّر تنزيله</string>
+    <string name="rd_tv_err_busy">الخادم مشغول، حاول مرة أخرى لاحقًا</string>
+    <string name="rd_tv_err_wrong">تعذّرت قراءة رد الخادم</string>
+    <string name="rd_tv_err_cancelled">أُلغي</string>
+    <string name="rd_tv_err_unreadable">لا يمكن قراءة الملف</string>
+    <string name="rd_tv_err_unsaved">لا يمكن حفظه على هذا الجهاز</string>
+    <string name="rd_tv_err_redirections">أعاد الخادم توجيهه مرات كثيرة جدًا</string>
+    <string name="rd_tv_err_too_large">حجمه كبير جدًا</string>
+    <string name="rd_tv_err_not_m3u">هذه ليست قائمة تشغيل M3U</string>
+    <string name="rd_tv_err_no_channels">لا يحتوي على قنوات</string>
+    <string name="rd_tv_err_not_xmltv">هذا ليس دليل XMLTV</string>
+    <string name="rd_tv_err_guide_unreadable">تعذّرت قراءة الدليل</string>
+    <string name="rd_tv_err_cut">وصل الدليل ناقصًا</string>
+    <string name="rd_tv_err_account">تعذّرت قراءة الحساب</string>
+    <string name="rd_tv_err_sign_in">سجّل الدخول أولًا</string>
+    <string name="rd_tv_err_refused">رفض الخادم الوصول (%1$d)</string>
+    <string name="rd_tv_err_missing">لم يُعثر على شيء في هذا العنوان (%1$d)</string>
+    <string name="rd_tv_err_http">ردّ الخادم بخطأ (%1$d)</string>
 </resources>

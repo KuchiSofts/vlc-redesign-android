@@ -687,4 +687,27 @@
     <string name="rd_help_sub_fontsize_px">Висота літер у пікселях відео.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_lyrics">Текст</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">сервер не відповів</string>
+    <string name="rd_tv_err_not_found">адресу сервера не знайдено</string>
+    <string name="rd_tv_err_unreachable">не вдалося з\'єднатися із сервером</string>
+    <string name="rd_tv_err_secure">не вдалося встановити захищене з\'єднання</string>
+    <string name="rd_tv_err_failed">не вдалося завантажити</string>
+    <string name="rd_tv_err_busy">сервер зайнятий, спробуйте пізніше</string>
+    <string name="rd_tv_err_wrong">не вдалося прочитати відповідь сервера</string>
+    <string name="rd_tv_err_cancelled">скасовано</string>
+    <string name="rd_tv_err_unreadable">не вдається прочитати файл</string>
+    <string name="rd_tv_err_unsaved">не вдається зберегти на цьому пристрої</string>
+    <string name="rd_tv_err_redirections">сервер забагато разів перенаправив запит</string>
+    <string name="rd_tv_err_too_large">завеликий розмір</string>
+    <string name="rd_tv_err_not_m3u">це не список відтворення M3U</string>
+    <string name="rd_tv_err_no_channels">у ньому немає каналів</string>
+    <string name="rd_tv_err_not_xmltv">це не програма передач XMLTV</string>
+    <string name="rd_tv_err_guide_unreadable">не вдалося прочитати програму передач</string>
+    <string name="rd_tv_err_cut">програму передач отримано не повністю</string>
+    <string name="rd_tv_err_account">не вдалося прочитати обліковий запис</string>
+    <string name="rd_tv_err_sign_in">спершу увійдіть</string>
+    <string name="rd_tv_err_refused">сервер відмовив у доступі (%1$d)</string>
+    <string name="rd_tv_err_missing">за цією адресою нічого не знайдено (%1$d)</string>
+    <string name="rd_tv_err_http">сервер відповів помилкою (%1$d)</string>
 </resources>

@@ -682,4 +682,27 @@
     <string name="rd_help_sub_fontsize_px">Harflerin videonun piksellerindeki yüksekliği.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_lyrics">Sözler</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">sunucu yanıt vermedi</string>
+    <string name="rd_tv_err_not_found">sunucunun adresi bulunamadı</string>
+    <string name="rd_tv_err_unreachable">sunucuya ulaşılamadı</string>
+    <string name="rd_tv_err_secure">güvenli bağlantı başarısız oldu</string>
+    <string name="rd_tv_err_failed">indirilemedi</string>
+    <string name="rd_tv_err_busy">sunucu meşgul, daha sonra yeniden deneyin</string>
+    <string name="rd_tv_err_wrong">sunucunun yanıtı okunamadı</string>
+    <string name="rd_tv_err_cancelled">iptal edildi</string>
+    <string name="rd_tv_err_unreadable">dosya okunamıyor</string>
+    <string name="rd_tv_err_unsaved">bu cihaza kaydedilemiyor</string>
+    <string name="rd_tv_err_redirections">sunucu çok fazla kez yönlendirdi</string>
+    <string name="rd_tv_err_too_large">boyutu çok büyük</string>
+    <string name="rd_tv_err_not_m3u">bir M3U oynatma listesi değil</string>
+    <string name="rd_tv_err_no_channels">hiç kanal yok</string>
+    <string name="rd_tv_err_not_xmltv">bir XMLTV kılavuzu değil</string>
+    <string name="rd_tv_err_guide_unreadable">kılavuz okunamadı</string>
+    <string name="rd_tv_err_cut">kılavuz eksik geldi</string>
+    <string name="rd_tv_err_account">hesap okunamadı</string>
+    <string name="rd_tv_err_sign_in">önce oturum açın</string>
+    <string name="rd_tv_err_refused">sunucu erişimi reddetti (%1$d)</string>
+    <string name="rd_tv_err_missing">bu adreste hiçbir şey bulunamadı (%1$d)</string>
+    <string name="rd_tv_err_http">sunucu bir hatayla yanıt verdi (%1$d)</string>
 </resources>

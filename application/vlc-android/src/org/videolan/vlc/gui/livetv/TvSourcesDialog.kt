@@ -436,7 +436,7 @@ class TvSourcesDialog : DialogFragment() {
         card.addView(badges, gap(ctx, 8f))
         val status = when {
             s.busy -> progressText(s)
-            s.error.isNotEmpty() && s.channels == 0 -> getString(R.string.rd_tv_could_not_load, s.name, s.error)
+            s.error.isNotEmpty() && s.channels == 0 -> getString(R.string.rd_tv_could_not_load, s.name, org.videolan.vlc.livetv.TvErrors.text(requireContext(), s.error))
             s.updated > 0 -> getString(R.string.rd_tv_updated_at, TvTexts.day(ctx, s.updated), TvTexts.time(ctx, s.updated))
             else -> ""
         }
@@ -591,7 +591,7 @@ class TvSourcesDialog : DialogFragment() {
             s.refused -> getString(R.string.rd_os_login_refused_check)
             s.check != null -> checkText(s.check)
             s.busy -> getString(R.string.rd_tv_updating_channels)
-            s.error.isNotEmpty() -> getString(R.string.rd_tv_could_not_load, s.name, s.error)
+            s.error.isNotEmpty() -> getString(R.string.rd_tv_could_not_load, s.name, org.videolan.vlc.livetv.TvErrors.text(requireContext(), s.error))
             s.updated > 0 -> getString(R.string.rd_tv_updated_at, TvTexts.day(ctx, s.updated), TvTexts.time(ctx, s.updated))
             else -> ""
         }
@@ -780,7 +780,7 @@ class TvSourcesDialog : DialogFragment() {
         row.addView(ctx.tvText(android.text.BidiFormatter.getInstance().unicodeWrap(name) + " · " + kind, 13f, ctx.tvColor(R.color.rd_fg_2), medium = true, lines = 1))
         val state = when {
             s.busy && (s.stage == "guide" || s.stage == "reading") -> progressText(s)
-            g.error.isNotEmpty() && g.channels == 0 -> getString(R.string.rd_tv_could_not_load, name, g.error)
+            g.error.isNotEmpty() && g.channels == 0 -> getString(R.string.rd_tv_could_not_load, name, org.videolan.vlc.livetv.TvErrors.text(requireContext(), g.error))
             g.updated > 0 -> getString(R.string.rd_tv_updated_at, TvTexts.day(ctx, g.updated), TvTexts.time(ctx, g.updated)) +
                 if (g.channels > 0) " · " + resources.getQuantityString(R.plurals.rd_tv_guide_n, g.channels, g.channels) else ""
             else -> ""
