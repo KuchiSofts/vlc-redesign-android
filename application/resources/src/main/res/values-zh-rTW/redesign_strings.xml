@@ -603,4 +603,9 @@
     <string name="rd_ob_subtitles_text">您語言的字幕會自動顯示：來自影片本身、影片旁的檔案，或在線上找到。若該語言完全沒有字幕 (線上也沒有)，則改用第二語言。</string>
     <string name="rd_ob_default_language">預設語言</string>
     <string name="rd_ob_second_language">第二語言 (沒有字幕時)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="other">顯示 %1$d 個隱藏的裝置</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">隱藏此裝置</string>
 </resources>

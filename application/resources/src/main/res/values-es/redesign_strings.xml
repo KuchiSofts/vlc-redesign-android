@@ -604,4 +604,10 @@
     <string name="rd_ob_subtitles_text">Los subtítulos en su idioma aparecen solos: del vídeo, de un archivo junto a él o encontrados en línea. Si no hay ninguno en ese idioma, ni siquiera en línea, se usa el segundo idioma.</string>
     <string name="rd_ob_default_language">Idioma predeterminado</string>
     <string name="rd_ob_second_language">Segundo idioma (si no hay ninguno)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="one">Mostrar %1$d dispositivo oculto</item>
+        <item quantity="other">Mostrar %1$d dispositivos ocultos</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">Ocultar este dispositivo</string>
 </resources>

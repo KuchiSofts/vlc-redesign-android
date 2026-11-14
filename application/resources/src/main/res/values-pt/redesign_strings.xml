@@ -577,4 +577,10 @@
     <string name="rd_ob_subtitles_text">As legendas no seu idioma aparecem automaticamente: do vídeo, de um ficheiro ao lado dele ou encontradas online. Quando não existem nesse idioma, nem sequer online, é usado o segundo idioma.</string>
     <string name="rd_ob_default_language">Idioma predefinido</string>
     <string name="rd_ob_second_language">Segundo idioma (quando não existem)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="one">Mostrar %1$d dispositivo oculto</item>
+        <item quantity="other">Mostrar %1$d dispositivos ocultos</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">Ocultar este dispositivo</string>
 </resources>

@@ -607,4 +607,12 @@
     <string name="rd_ob_subtitles_text">Titulky ve vašem jazyce se zobrazí samy: z videa, ze souboru vedle něj nebo nalezené online. Když v něm žádné nejsou, ani online, použije se druhý jazyk.</string>
     <string name="rd_ob_default_language">Výchozí jazyk</string>
     <string name="rd_ob_second_language">Druhý jazyk (když žádné nejsou)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="one">Zobrazit %1$d skryté zařízení</item>
+        <item quantity="few">Zobrazit %1$d skrytá zařízení</item>
+        <item quantity="many">Zobrazit %1$d skrytých zařízení</item>
+        <item quantity="other">Zobrazit %1$d skrytých zařízení</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">Skrýt toto zařízení</string>
 </resources>

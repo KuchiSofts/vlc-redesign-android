@@ -604,4 +604,10 @@
     <string name="rd_ob_subtitles_text">Dilinizdeki altyazılar kendiliğinden görüntülenir: videonun içinden, yanındaki bir dosyadan ya da çevrim içi bulunarak. Bu dilde hiç yoksa, çevrim içi de bulunamazsa ikinci dil kullanılır.</string>
     <string name="rd_ob_default_language">Varsayılan dil</string>
     <string name="rd_ob_second_language">İkinci dil (hiç yoksa)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="one">%1$d gizli aygıtı göster</item>
+        <item quantity="other">%1$d gizli aygıtı göster</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">Bu aygıtı gizle</string>
 </resources>

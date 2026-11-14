@@ -607,4 +607,12 @@
     <string name="rd_ob_subtitles_text">Субтитри вашою мовою з’являються самі: з відео, з файлу поруч із ним або знайдені в Інтернеті. Якщо субтитрів цією мовою немає навіть в Інтернеті, використовується друга мова.</string>
     <string name="rd_ob_default_language">Основна мова</string>
     <string name="rd_ob_second_language">Друга мова (якщо першою немає)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="one">Показати %1$d прихований пристрій</item>
+        <item quantity="few">Показати %1$d приховані пристрої</item>
+        <item quantity="many">Показати %1$d прихованих пристроїв</item>
+        <item quantity="other">Показати %1$d прихованих пристроїв</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">Сховати цей пристрій</string>
 </resources>

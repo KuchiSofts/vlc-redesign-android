@@ -607,4 +607,12 @@
     <string name="rd_ob_subtitles_text">Napisy w Twoim języku pojawiają się same: z wideo, z pliku obok niego lub znalezione w internecie. Gdy nie ma ich w tym języku, nawet w internecie, używany jest drugi język.</string>
     <string name="rd_ob_default_language">Język domyślny</string>
     <string name="rd_ob_second_language">Drugi język (gdy brak napisów)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="one">Pokaż %1$d ukryte urządzenie</item>
+        <item quantity="few">Pokaż %1$d ukryte urządzenia</item>
+        <item quantity="many">Pokaż %1$d ukrytych urządzeń</item>
+        <item quantity="other">Pokaż %1$d ukrytych urządzeń</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">Ukryj to urządzenie</string>
 </resources>

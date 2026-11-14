@@ -35,6 +35,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.videolan.libvlc.RendererItem
+import org.videolan.tools.Settings
+import org.videolan.tools.putSingle
 import org.videolan.vlc.PlaybackService
 import org.videolan.vlc.R
 import org.videolan.vlc.RendererDelegate
@@ -124,11 +126,14 @@ class CastSheet : VLCBottomSheetDialogFragment() {
             dotAnimation = null
         }
 
-        // the rows again only when they change (not under a finger each second)
-        val list = if (current != null && devices.none { sameDevice(it, current) }) listOf(current) + devices else devices
+        // the rows again only when they change (not under a finger each second); the devices hidden from the list
+        // (the desktop's Hide this device) are left out, but the one playing
+        val hidden = hiddenDevices(ctx)
+        val found = devices.filter { sameDevice(it, current) || it.displayName.lowercase() !in hidden }
+        val list = if (current != null && found.none { sameDevice(it, current) }) listOf(current) + found else found
         empty.isVisible = list.isEmpty()
         empty.text = getString(if (scanning && !searchedLong()) R.string.rd_cast_looking else R.string.rd_cast_none_found)
-        val signature = "${state}|${current?.displayName}|" + list.joinToString("|") { it.displayName + it.canVideo() }
+        val signature = "${state}|${current?.displayName}|${hidden.size}|" + list.joinToString("|") { it.displayName + it.canVideo() }
         if (signature == shown) return
         shown = signature
         rows.removeAllViews()
@@ -147,19 +152,40 @@ class CastSheet : VLCBottomSheetDialogFragment() {
                 !item.canVideo() -> getString(R.string.rd_cast_sound_only)
                 else -> null
             }
-            addRow(item.displayName, if (item.canVideo()) R.drawable.rd_ic_tv else R.drawable.rd_ic_music, detail, failed, selected) {
+            val row = addRow(item.displayName, if (item.canVideo()) R.drawable.rd_ic_tv else R.drawable.rd_ic_music, detail, failed, selected) {
                 // the one it plays on: again only when it failed
                 if (!selected) choose(item) else if (failed) CastController.retry()
                 dismissAllowingStateLoss()
             }
+            // the desktop's menu of a device: Hide this device (a long press, the remote's long OK); not the one playing
+            if (!selected) row.setOnLongClickListener { offerHide(it, item.displayName); true }
         }
+        // the devices hidden, listed again in one go
+        if (hidden.isNotEmpty()) addRow(resources.getQuantityString(R.plurals.rd_cast_show_hidden, hidden.size, hidden.size),
+                R.drawable.ic_refresh, null, false, false) {
+            Settings.getInstance(ctx).putSingle(KEY_HIDDEN, emptySet<String>())
+            shown = ""
+            update()
+        }
+    }
+
+    private fun offerHide(anchor: View, name: String) {
+        val menu = androidx.appcompat.widget.PopupMenu(requireContext(), anchor)
+        menu.menu.add(R.string.rd_cast_hide_device).setOnMenuItemClickListener {
+            val ctx = requireContext()
+            Settings.getInstance(ctx).putSingle(KEY_HIDDEN, hiddenDevices(ctx) + name.lowercase())
+            shown = ""
+            update()
+            true
+        }
+        menu.show()
     }
 
     private fun choose(item: RendererItem) {
         PlaybackService.renderer.value = item
     }
 
-    private fun addRow(name: String, icon: Int, detail: String?, alert: Boolean, selected: Boolean, onClick: () -> Unit) {
+    private fun addRow(name: String, icon: Int, detail: String?, alert: Boolean, selected: Boolean, onClick: () -> Unit): View {
         val row = layoutInflater.inflate(R.layout.item_rd_cast_device, rows, false)
         val accent = requireContext().rdAccent()
         row.findViewById<TextView>(R.id.rd_cast_row_name).text = name
@@ -177,10 +203,16 @@ class CastSheet : VLCBottomSheetDialogFragment() {
         row.contentDescription = listOfNotNull(name, detail).joinToString(", ")
         row.setOnClickListener { onClick() }
         rows.addView(row)
+        return row
     }
 
     companion object {
         private const val TAG = "cast"
+        /** the devices hidden from the list by their names (lower case), as the desktop's redesign/cast-hidden-devices */
+        const val KEY_HIDDEN = "rd_cast_hidden_devices"
+
+        fun hiddenDevices(context: android.content.Context): Set<String> =
+            Settings.getInstance(context).getStringSet(KEY_HIDDEN, null).orEmpty()
 
         /** the cast list, once */
         fun show(manager: FragmentManager) {

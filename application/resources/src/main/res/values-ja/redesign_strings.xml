@@ -603,4 +603,9 @@
     <string name="rd_ob_subtitles_text">設定した言語の字幕は自動的に表示されます: ビデオ内の字幕、同じ場所にあるファイル、またはオンラインで見つかった字幕です。その言語の字幕がオンラインにもない場合は、第2言語が使用されます。</string>
     <string name="rd_ob_default_language">デフォルトの言語</string>
     <string name="rd_ob_second_language">第2言語 (字幕がない場合)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="other">非表示のデバイスを表示 (%1$d)</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">このデバイスを非表示</string>
 </resources>

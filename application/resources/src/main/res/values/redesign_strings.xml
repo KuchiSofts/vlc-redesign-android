@@ -755,6 +755,12 @@
     <string name="rd_ob_subtitles_text">Subtitles in your language show by themselves: from the video, from a file next to it, or found online. When there are none in it, not even online, the second language is used.</string>
     <string name="rd_ob_default_language">Default language</string>
     <string name="rd_ob_second_language">Second language (when there are none)</string>
+    <!-- The cast list: the desktop's Hide this device and Show %1 hidden devices (CastSheet) -->
+    <string name="rd_cast_hide_device">Hide this device</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="one">Show %1$d hidden device</item>
+        <item quantity="other">Show %1$d hidden devices</item>
+    </plurals>
     <!-- Settings › Subtitles › Timing: the desktop's Subtitle delay (sub-delay), the default of every video -->
     <string name="rd_subtitle_delay">Subtitle delay</string>
     <!-- Settings › Library › Advanced: the desktop's Ignored file extensions (libvlc's ignore-filetypes) -->

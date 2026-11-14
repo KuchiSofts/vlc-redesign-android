@@ -604,4 +604,10 @@
     <string name="rd_ob_subtitles_text">Ondertitels in uw taal verschijnen vanzelf: uit de video, uit een bestand ernaast of online gevonden. Zijn er geen, ook niet online, dan wordt de tweede taal gebruikt.</string>
     <string name="rd_ob_default_language">Standaardtaal</string>
     <string name="rd_ob_second_language">Tweede taal (als er geen zijn)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="one">%1$d verborgen apparaat weergeven</item>
+        <item quantity="other">%1$d verborgen apparaten weergeven</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">Dit apparaat verbergen</string>
 </resources>

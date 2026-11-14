@@ -607,4 +607,14 @@
     <string name="rd_ob_subtitles_text">تظهر الترجمة بلغتك تلقائيًا: من الفيديو، أو من ملف بجانبه، أو من الإنترنت. وإذا لم تتوفر بها ولا حتى عبر الإنترنت، تُستخدم اللغة الثانية.</string>
     <string name="rd_ob_default_language">اللغة الافتراضية</string>
     <string name="rd_ob_second_language">اللغة الثانية (إن لم تتوفر الأولى)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="zero">إظهار %1$d جهاز مخفي</item>
+        <item quantity="one">إظهار %1$d جهاز مخفي</item>
+        <item quantity="two">إظهار %1$d جهازين مخفيين</item>
+        <item quantity="few">إظهار %1$d أجهزة مخفية</item>
+        <item quantity="many">إظهار %1$d جهازًا مخفيًا</item>
+        <item quantity="other">إظهار %1$d جهاز مخفي</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">إخفاء هذا الجهاز</string>
 </resources>

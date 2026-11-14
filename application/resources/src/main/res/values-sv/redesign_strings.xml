@@ -604,4 +604,10 @@
     <string name="rd_ob_subtitles_text">Undertexter på ditt språk visas av sig själva: från videon, från en fil bredvid den eller hittade online. När det inte finns några på det, inte ens online, används det andra språket.</string>
     <string name="rd_ob_default_language">Standardspråk</string>
     <string name="rd_ob_second_language">Andra språk (när det inte finns några)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="one">Visa %1$d dold enhet</item>
+        <item quantity="other">Visa %1$d dolda enheter</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">Dölj den här enheten</string>
 </resources>

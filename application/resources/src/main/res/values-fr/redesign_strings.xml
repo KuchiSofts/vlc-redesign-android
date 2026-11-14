@@ -604,4 +604,10 @@
     <string name="rd_ob_subtitles_text">Les sous-titres dans votre langue s\'affichent d\'eux-mêmes : depuis la vidéo, depuis un fichier placé à côté, ou trouvés en ligne. Quand il n\'y en a aucun, même en ligne, la seconde langue est utilisée.</string>
     <string name="rd_ob_default_language">Langue par défaut</string>
     <string name="rd_ob_second_language">Seconde langue (s\'il n\'y en a aucun)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="one">Afficher %1$d périphérique masqué</item>
+        <item quantity="other">Afficher %1$d périphériques masqués</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">Masquer ce périphérique</string>
 </resources>

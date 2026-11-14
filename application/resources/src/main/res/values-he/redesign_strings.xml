@@ -589,4 +589,11 @@
     <string name="rd_ob_subtitles_text">כתוביות בשפה שלך מוצגות מעצמן: מתוך הווידאו, מקובץ שלידו או מהאינטרנט. כשאין כתוביות בשפה זו, אפילו לא באינטרנט, נעשה שימוש בשפה השנייה.</string>
     <string name="rd_ob_default_language">שפת ברירת המחדל</string>
     <string name="rd_ob_second_language">שפה שנייה (כשאין כתוביות)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="one">הצגת %1$d התקן מוסתר</item>
+        <item quantity="two">הצגת %1$d התקנים מוסתרים</item>
+        <item quantity="other">הצגת %1$d התקנים מוסתרים</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">הסתרת התקן זה</string>
 </resources>
