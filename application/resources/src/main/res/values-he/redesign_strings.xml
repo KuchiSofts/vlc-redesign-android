@@ -454,7 +454,7 @@
     <string name="rd_update_checking">מחפש עדכונים…</string>
     <string name="rd_update_latest">הגרסה העדכנית ביותר מותקנת</string>
     <string name="rd_update_offline">לא ניתן היה להתחבר ל־GitHub. בדוק את החיבור ונסה שוב.</string>
-    <string name="rd_update_unexpected">GitHub החזיר תשובה לא צפויה (%1$s).</string>
+    <string name="rd_update_unexpected">השירות GitHub החזיר תשובה לא צפויה (%1$s).</string>
     <string name="rd_default_speed">מהירות נגינה התחלתית</string>
     <string name="rd_menu_language">שפת התפריטים המועדפת</string>
     <string name="rd_help_menu_language">שפת התפריטים של DVD ו־Blu-ray: קודים של שתיים או שלוש אותיות, כמו en או fr, מופרדים בפסיקים.</string>
@@ -635,8 +635,8 @@
     <string name="rd_audio_track_added">רצועת השמע נוספה: %1$s</string>
     <string name="rd_audio_track_failed">לא ניתן היה להוסיף את רצועת השמע.</string>
     <!-- 0.6.6: more of the desktop options -->
-    <string name="rd_update_rate_limited_at">GitHub קיבל יותר מדי בקשות מהרשת הזו. נסה שוב אחרי %1$s.</string>
-    <string name="rd_update_rate_limited">GitHub קיבל יותר מדי בקשות מהרשת הזו. נסה שוב מאוחר יותר.</string>
+    <string name="rd_update_rate_limited_at">השירות GitHub קיבל יותר מדי בקשות מהרשת הזו. נסה שוב אחרי %1$s.</string>
+    <string name="rd_update_rate_limited">השירות GitHub קיבל יותר מדי בקשות מהרשת הזו. נסה שוב מאוחר יותר.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_fx_presets">ערכות אפקטים</string>
     <string name="rd_fx_preset_default">ערכת ברירת המחדל</string>
