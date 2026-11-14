@@ -1335,6 +1335,11 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
      *
      */
     fun takeScreenshot() {
+        // (the picture is copied with PixelCopy, Android 7 and later: before, a snapshot crashed the player)
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
+            UiTools.snacker(this, R.string.screenshot_error)
+            return
+        }
         if (AndroidUtil.isOOrLater && !Permissions.canWriteStorage(this)) {
             Permissions.askWriteStoragePermission(this, false){}
             return
