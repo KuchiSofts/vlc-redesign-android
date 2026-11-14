@@ -35,6 +35,13 @@
     </PreferenceCategory>
     <!-- the desktop's Framing: custom-aspect-ratios, added to the player's aspect ratio list (RdCustomAspect) -->
     <PreferenceCategory android:title="@string/rd_sec_framing">
+        <!-- VLC Redesign: the desktop's Aspect ratio for the videos that open (the player's own size list and its
+             custom ratios below). (Crop: libvlc 3 on Android crops nothing, not even with its crop option) -->
+        <org.videolan.vlc.gui.preferences.rd.RdListPreference
+            android:key="rd_default_aspect"
+            android:persistent="false"
+            android:summary="%s"
+            android:title="@string/rd_aspect_ratio" />
         <org.videolan.vlc.gui.preferences.rd.RdEditTextPreference
             android:defaultValue=""
             android:key="rd_custom_aspect_ratios"

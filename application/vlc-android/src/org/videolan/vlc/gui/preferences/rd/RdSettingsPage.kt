@@ -275,6 +275,8 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             preset.setOnPreferenceChangeListener { _, newValue -> applySubtitlePreset(newValue as String); false }
         }
         manageSubtitleVisibilities()
+        // Video › Framing › Aspect ratio: the size the next videos open with (the player's list and its custom ratios)
+        setupDefaultAspect()
         // Controls
         setupControls()
         // Loudness: Android's audio effects
@@ -967,6 +969,45 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
 
     private fun updateFastplaySpeedSummary() {
         pref<Preference>(FASTPLAY_SPEED)?.summary = String.format("%sx", Settings.fastplaySpeed.readableString())
+    }
+
+    /**
+     * The desktop's Aspect ratio of Settings › Video › Framing: the player's own sizes (MediaPlayer.ScaleType, kept in
+     * video_ratio as the player keeps its last choice) and the custom ratios (RdCustomAspect); what is chosen in the
+     * player shows here too
+     */
+    private fun setupDefaultAspect() {
+        val p = pref<ListPreference>("rd_default_aspect") ?: return
+        val prefs = Settings.getInstance(requireContext())
+        val scales = org.videolan.libvlc.MediaPlayer.ScaleType.entries
+        val names = scales.map {
+            when (it) {
+                org.videolan.libvlc.MediaPlayer.ScaleType.SURFACE_BEST_FIT -> getString(R.string.surface_best_fit)
+                org.videolan.libvlc.MediaPlayer.ScaleType.SURFACE_FIT_SCREEN -> getString(R.string.surface_fit_screen)
+                org.videolan.libvlc.MediaPlayer.ScaleType.SURFACE_FILL -> getString(R.string.surface_fill)
+                org.videolan.libvlc.MediaPlayer.ScaleType.SURFACE_ORIGINAL -> getString(R.string.surface_original)
+                org.videolan.libvlc.MediaPlayer.ScaleType.SURFACE_221_1 -> "2.21:1"
+                org.videolan.libvlc.MediaPlayer.ScaleType.SURFACE_235_1 -> "2.35:1"
+                org.videolan.libvlc.MediaPlayer.ScaleType.SURFACE_239_1 -> "2.39:1"
+                else -> it.name.removePrefix("SURFACE_").replace('_', ':')
+            }
+        }
+        val customs = org.videolan.vlc.gui.video.RdCustomAspect.list(requireContext())
+        p.entries = (names + customs).toTypedArray()
+        p.entryValues = (scales.indices.map { it.toString() } + customs.map { "c:$it" }).toTypedArray()
+        val custom = org.videolan.vlc.gui.video.RdCustomAspect.saved(requireContext())
+        p.value = if (custom != null) "c:$custom" else prefs.getInt(VIDEO_RATIO, 0).coerceIn(0, scales.size - 1).toString()
+        p.setOnPreferenceChangeListener { _, newValue ->
+            val v = newValue as String
+            if (v.startsWith("c:")) {
+                prefs.putSingle(org.videolan.vlc.gui.video.RdCustomAspect.KEY_CURRENT, v.removePrefix("c:"))
+                prefs.putSingle(VIDEO_RATIO, org.videolan.libvlc.MediaPlayer.ScaleType.SURFACE_BEST_FIT.ordinal)
+            } else {
+                prefs.putSingle(org.videolan.vlc.gui.video.RdCustomAspect.KEY_CURRENT, "")
+                prefs.putSingle(VIDEO_RATIO, v.toIntOrNull() ?: 0)
+            }
+            true
+        }
     }
 
     /** "150 %": the output gain (in tenths) */

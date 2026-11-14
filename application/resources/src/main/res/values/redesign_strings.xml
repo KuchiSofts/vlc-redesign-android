@@ -549,6 +549,8 @@
     <string name="rd_help_ipv4_timeout">How long to wait for a server to answer, in milliseconds (5000 when empty).</string>
     <string name="rd_cast_http_port">Cast HTTP port</string>
     <string name="rd_help_cast_port">The port the TV reads the video from (8010 when empty).</string>
+    <!-- Settings › Video › Framing -->
+    <string name="rd_aspect_ratio">Aspect ratio</string>
     <!-- Settings › Video › Snapshots -->
     <string name="rd_save_to">Save to</string>
     <string name="rd_snapshot_dir_screenshots">Pictures › Screenshots</string>
