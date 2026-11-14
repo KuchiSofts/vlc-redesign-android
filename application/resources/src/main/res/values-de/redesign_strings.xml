@@ -673,4 +673,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_clone">Klonen</string>
     <string name="rd_clone_profile">Profil duplizieren</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_repeat">Wiederholen</string>
 </resources>

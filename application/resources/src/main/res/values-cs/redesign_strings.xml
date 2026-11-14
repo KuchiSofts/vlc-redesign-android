@@ -678,4 +678,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_clone">Klonovat</string>
     <string name="rd_clone_profile">Duplikovat profil</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_repeat">Opakovat</string>
 </resources>

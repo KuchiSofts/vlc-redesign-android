@@ -929,6 +929,16 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         pref<Preference>(org.videolan.vlc.gui.video.SeekPreview.KEY_SEEK_THUMBNAIL)?.isVisible = !tv
         // the system's accent: Android 12 and later (Material You), not in the TV layout
         pref<Preference>(org.videolan.vlc.gui.helpers.KEY_RD_ACCENT_SYSTEM)?.isVisible = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S && !tv
+        // the desktop's Repeat: the player's own remembered modes (ints), the video one shown
+        pref<ListPreference>("rd_repeat")?.let { p ->
+            p.value = settings.getInt("video_repeat_mode", 0).coerceIn(0, 2).toString()
+            p.setOnPreferenceChangeListener { _, v ->
+                val mode = (v as String).toIntOrNull()?.coerceIn(0, 2) ?: 0
+                settings.putSingle("video_repeat_mode", mode)
+                settings.putSingle("audio_repeat_mode", mode)
+                true
+            }
+        }
         // Increase text contrast: Android 8 and later (LocaleUtils.withRdContrast)
         pref<Preference>("rd_sec_accessibility")?.isVisible = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O
         // Always show the player bar: the phone and tablet layouts (the TV one has its own mini player)

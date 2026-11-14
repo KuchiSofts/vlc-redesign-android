@@ -85,6 +85,15 @@
             android:key="playlist_mode_audio"
             android:summary="@string/force_play_all_audio_summary"
             android:title="@string/force_play_all_audio_title" />
+        <!-- VLC Redesign: the desktop's Repeat (Off, One, All): the mode the player starts with, the one it keeps as
+             it is changed in the player (video_repeat_mode and audio_repeat_mode, both: RdSettingsPage) -->
+        <org.videolan.vlc.gui.preferences.rd.RdListPreference
+            android:entries="@array/rd_repeat_entries"
+            android:entryValues="@array/rd_repeat_values"
+            android:key="rd_repeat"
+            android:persistent="false"
+            android:summary="%s"
+            android:title="@string/rd_repeat" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="audio_force_shuffle"

@@ -671,4 +671,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_clone">複製</string>
     <string name="rd_clone_profile">複製設定檔</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_repeat">重複</string>
 </resources>

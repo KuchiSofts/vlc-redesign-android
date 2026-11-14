@@ -678,4 +678,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_clone">Klonowanie</string>
     <string name="rd_clone_profile">Klonuj profil</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_repeat">Powtórz</string>
 </resources>

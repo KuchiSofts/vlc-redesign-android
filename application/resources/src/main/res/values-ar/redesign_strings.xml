@@ -680,4 +680,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_clone">نسخه</string>
     <string name="rd_clone_profile">استنساخ ملف التعريف</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_repeat">التكرار</string>
 </resources>

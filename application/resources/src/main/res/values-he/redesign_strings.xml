@@ -659,4 +659,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_clone">שכפול</string>
     <string name="rd_clone_profile">שכפול פרופיל</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_repeat">חזרה</string>
 </resources>

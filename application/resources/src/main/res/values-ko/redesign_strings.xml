@@ -671,4 +671,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_clone">복제 (Clone)</string>
     <string name="rd_clone_profile">프로필 복제</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_repeat">반복</string>
 </resources>
