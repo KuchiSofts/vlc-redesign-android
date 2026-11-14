@@ -1219,6 +1219,19 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
     @MainThread
     fun remove(position: Int) = mediaList.remove(position)
 
+    /**
+     * VLC Redesign: the queue's Sort (the desktop's keys, RdQueueSort): the queue is put in the new order by moves, so
+     * what plays keeps playing and the views follow; the order is kept as the queue is
+     */
+    @MainThread
+    fun sortQueue(key: RdQueueSort.Key, descending: Boolean) {
+        val items = mediaList.copy
+        if (items.size < 2) return
+        val order = RdQueueSort.order(items.map { RdQueueSort.fields(it) }, key, descending)
+        for ((from, to) in RdQueueSort.moves(order)) mediaList.move(from, to)
+        launch { saveMediaList() }
+    }
+
     @MainThread
     fun removeLocation(location: String) = mediaList.remove(location)
 

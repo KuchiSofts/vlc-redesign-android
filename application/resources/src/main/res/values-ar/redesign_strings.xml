@@ -541,4 +541,27 @@
     <string name="rd_also_on">متوفر أيضًا على: %1$s</string>
     <string name="rd_suggest_idea">اقترح فكرة</string>
     <string name="rd_report_problem">الإبلاغ عن مشكلة</string>
+    <plurals name="rd_files_added_queue">
+        <item quantity="zero">لم تُضف أي ملفات إلى قائمة الانتظار</item>
+        <item quantity="one">أُضيف ملف واحد إلى قائمة الانتظار</item>
+        <item quantity="two">أُضيف ملفان إلى قائمة الانتظار</item>
+        <item quantity="few">أُضيفت %1$d ملفات إلى قائمة الانتظار</item>
+        <item quantity="many">أُضيف %1$d ملفًا إلى قائمة الانتظار</item>
+        <item quantity="other">أُضيف %1$d ملف إلى قائمة الانتظار</item>
+    </plurals>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sort_queue">رتّب</string>
+    <string name="rd_add_files_queue">إضافة ملفات إلى قائمة الانتظار</string>
+    <string name="rd_sort_title">العنوان</string>
+    <string name="rd_sort_duration">المدة</string>
+    <string name="rd_sort_artist">الفنان</string>
+    <string name="rd_sort_album">الألبوم</string>
+    <string name="rd_sort_album_artist">فنان الألبوم</string>
+    <string name="rd_sort_genre">الصنف</string>
+    <string name="rd_sort_date">التاريخ</string>
+    <string name="rd_sort_track_number">رقم المقطع</string>
+    <string name="rd_sort_disc_number">رقم القرص</string>
+    <string name="rd_sort_url">ملقم انترنت</string>
+    <string name="rd_sort_file_modified">تاريخ التعديل</string>
+    <string name="rd_no_file_picker">لا يحتوي هذا الجهاز على أداة لاختيار الملفات: أضف الملفات من مجلدات التطبيق.</string>
 </resources>

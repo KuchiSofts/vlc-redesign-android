@@ -526,4 +526,24 @@
     <string name="rd_also_on">זמין גם עבור: %1$s</string>
     <string name="rd_suggest_idea">הצעת רעיון</string>
     <string name="rd_report_problem">דיווח על בעיה</string>
+    <plurals name="rd_files_added_queue">
+        <item quantity="one">קובץ אחד נוסף לתור</item>
+        <item quantity="two">שני קבצים נוספו לתור</item>
+        <item quantity="other">%1$d קבצים נוספו לתור</item>
+    </plurals>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sort_queue">מיון</string>
+    <string name="rd_add_files_queue">הוסף קבצים לתור</string>
+    <string name="rd_sort_title">כותרת</string>
+    <string name="rd_sort_duration">אורך</string>
+    <string name="rd_sort_artist">אמן</string>
+    <string name="rd_sort_album">אלבום</string>
+    <string name="rd_sort_album_artist">אמן האלבום</string>
+    <string name="rd_sort_genre">סגנון</string>
+    <string name="rd_sort_date">תאריך</string>
+    <string name="rd_sort_track_number">מספר רצועה</string>
+    <string name="rd_sort_disc_number">מספר תקליטור</string>
+    <string name="rd_sort_url">כתובת</string>
+    <string name="rd_sort_file_modified">תאריך שינוי</string>
+    <string name="rd_no_file_picker">אין במכשיר הזה בוחר קבצים: אפשר להוסיף קבצים מהתיקיות של האפליקציה.</string>
 </resources>

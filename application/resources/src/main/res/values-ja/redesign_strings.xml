@@ -542,4 +542,22 @@
     <string name="rd_also_on">その他の対応環境: %1$s</string>
     <string name="rd_suggest_idea">アイデアを提案</string>
     <string name="rd_report_problem">問題を報告</string>
+    <plurals name="rd_files_added_queue">
+        <item quantity="other">%1$d 個のファイルをキューに追加しました</item>
+    </plurals>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sort_queue">並べ替え</string>
+    <string name="rd_add_files_queue">キューにファイルを追加</string>
+    <string name="rd_sort_title">タイトル</string>
+    <string name="rd_sort_duration">長さ</string>
+    <string name="rd_sort_artist">アーティスト</string>
+    <string name="rd_sort_album">アルバム</string>
+    <string name="rd_sort_album_artist">アルバムアーティスト</string>
+    <string name="rd_sort_genre">ジャンル</string>
+    <string name="rd_sort_date">日付</string>
+    <string name="rd_sort_track_number">トラック番号</string>
+    <string name="rd_sort_disc_number">ディスク番号</string>
+    <string name="rd_sort_url">URL</string>
+    <string name="rd_sort_file_modified">更新日時</string>
+    <string name="rd_no_file_picker">この端末にはファイル選択機能がありません。アプリのフォルダーからファイルを追加してください。</string>
 </resources>

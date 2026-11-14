@@ -83,6 +83,9 @@ private const val ID_SAFE_MODE_UNLOCK = 22L
 private const val ID_SHARE = 23L
 private const val ID_CUSTOMIZE_PLAYER = 24L
 private const val ID_RECORD = 108L
+// VLC Redesign: the desktop's queue buttons, Sort and Add files to the queue
+private const val ID_SORT_QUEUE = 109L
+private const val ID_ADD_FILES = 110L
 @SuppressLint("ShowToast")
 class PlayerOptionsDelegate(val activity: FragmentActivity, val service: PlaybackService, private val showABReapeat:Boolean = true)  {
 
@@ -138,6 +141,8 @@ class PlayerOptionsDelegate(val activity: FragmentActivity, val service: Playbac
         if (::bookmarkClickedListener.isInitialized) options.add(PlayerOption(ID_BOOKMARK, R.drawable.ic_bookmark, res.getString(R.string.bookmarks)))
         if (showABReapeat) options.add(PlayerOption(ID_ABREPEAT, R.drawable.ic_abrepeat, res.getString(R.string.ab_repeat)))
         options.add(PlayerOption(ID_SAVE_PLAYLIST, R.drawable.ic_addtoplaylist, res.getString(R.string.playlist_save)))
+        if (!isChromecast) options.add(PlayerOption(ID_ADD_FILES, R.drawable.ic_add, res.getString(R.string.rd_add_files_queue)))
+        if (service.playlistManager.getMediaListSize() > 1) options.add(PlayerOption(ID_SORT_QUEUE, R.drawable.ic_sort, res.getString(R.string.rd_sort_queue)))
         if (service.playlistManager.player.canDoPassthrough() && settings.getString(KEY_AOUT, "0") != "2")
             options.add(PlayerOption(ID_PASSTHROUGH, R.drawable.ic_passthrough, res.getString(R.string.audio_digital_title)))
 
@@ -434,6 +439,16 @@ class PlayerOptionsDelegate(val activity: FragmentActivity, val service: Playbac
             ID_SAVE_PLAYLIST -> {
                 activity.addToPlaylist(service.media)
                 hide()
+                return
+            }
+            ID_SORT_QUEUE -> {
+                hide()
+                RdQueueActions.sort(activity, service)
+                return
+            }
+            ID_ADD_FILES -> {
+                hide()
+                RdQueueActions.addFiles(activity, service)
                 return
             }
             else -> return

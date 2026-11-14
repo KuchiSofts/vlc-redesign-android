@@ -543,4 +543,25 @@
     <string name="rd_also_on">Také pro: %1$s</string>
     <string name="rd_suggest_idea">Navrhnout nápad</string>
     <string name="rd_report_problem">Nahlásit problém</string>
+    <plurals name="rd_files_added_queue">
+        <item quantity="one">%1$d soubor přidán do fronty</item>
+        <item quantity="few">%1$d soubory přidány do fronty</item>
+        <item quantity="many">%1$d souboru přidáno do fronty</item>
+        <item quantity="other">%1$d souborů přidáno do fronty</item>
+    </plurals>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sort_queue">Seřadit</string>
+    <string name="rd_add_files_queue">Přidat soubory do fronty</string>
+    <string name="rd_sort_title">Název</string>
+    <string name="rd_sort_duration">Délka</string>
+    <string name="rd_sort_artist">Umělec</string>
+    <string name="rd_sort_album">Album</string>
+    <string name="rd_sort_album_artist">Umělec alba</string>
+    <string name="rd_sort_genre">Žánr</string>
+    <string name="rd_sort_date">Datum</string>
+    <string name="rd_sort_track_number">Číslo stopy</string>
+    <string name="rd_sort_disc_number">Číslo disku</string>
+    <string name="rd_sort_url">URL</string>
+    <string name="rd_sort_file_modified">Datum změny</string>
+    <string name="rd_no_file_picker">Toto zařízení nemá výběr souborů: přidejte soubory ze složek aplikace.</string>
 </resources>

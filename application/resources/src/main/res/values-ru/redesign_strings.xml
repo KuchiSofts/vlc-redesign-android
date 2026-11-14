@@ -543,4 +543,25 @@
     <string name="rd_also_on">Также для: %1$s</string>
     <string name="rd_suggest_idea">Предложить идею</string>
     <string name="rd_report_problem">Сообщить о проблеме</string>
+    <plurals name="rd_files_added_queue">
+        <item quantity="one">%1$d файл добавлен в очередь</item>
+        <item quantity="few">%1$d файла добавлены в очередь</item>
+        <item quantity="many">%1$d файлов добавлено в очередь</item>
+        <item quantity="other">%1$d файла добавлено в очередь</item>
+    </plurals>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sort_queue">Сортировка</string>
+    <string name="rd_add_files_queue">Добавить файлы в очередь</string>
+    <string name="rd_sort_title">Название</string>
+    <string name="rd_sort_duration">Длительность</string>
+    <string name="rd_sort_artist">Исполнитель</string>
+    <string name="rd_sort_album">Альбом</string>
+    <string name="rd_sort_album_artist">Исполнитель альбома</string>
+    <string name="rd_sort_genre">Жанр</string>
+    <string name="rd_sort_date">Дата</string>
+    <string name="rd_sort_track_number">Номер дорожки</string>
+    <string name="rd_sort_disc_number">Номер диска</string>
+    <string name="rd_sort_url">URL</string>
+    <string name="rd_sort_file_modified">Дата изменения</string>
+    <string name="rd_no_file_picker">На этом устройстве нет выбора файлов: добавьте файлы из папок приложения.</string>
 </resources>

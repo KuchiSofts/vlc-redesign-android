@@ -542,4 +542,22 @@
     <string name="rd_also_on">다른 플랫폼: %1$s</string>
     <string name="rd_suggest_idea">아이디어 제안</string>
     <string name="rd_report_problem">문제 보고</string>
+    <plurals name="rd_files_added_queue">
+        <item quantity="other">파일 %1$d개를 대기열에 추가했습니다</item>
+    </plurals>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sort_queue">정렬</string>
+    <string name="rd_add_files_queue">대기열에 파일 추가</string>
+    <string name="rd_sort_title">제목</string>
+    <string name="rd_sort_duration">재생시간</string>
+    <string name="rd_sort_artist">아티스트</string>
+    <string name="rd_sort_album">앨범</string>
+    <string name="rd_sort_album_artist">앨범 아티스트</string>
+    <string name="rd_sort_genre">장르</string>
+    <string name="rd_sort_date">날짜</string>
+    <string name="rd_sort_track_number">트랙 번호</string>
+    <string name="rd_sort_disc_number">디스크 번호</string>
+    <string name="rd_sort_url">URL</string>
+    <string name="rd_sort_file_modified">수정한 날짜</string>
+    <string name="rd_no_file_picker">이 기기에는 파일 선택기가 없습니다. 앱의 폴더에서 파일을 추가하세요.</string>
 </resources>

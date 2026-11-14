@@ -542,4 +542,23 @@
     <string name="rd_also_on">Ook voor: %1$s</string>
     <string name="rd_suggest_idea">Een idee voorstellen</string>
     <string name="rd_report_problem">Een probleem melden</string>
+    <plurals name="rd_files_added_queue">
+        <item quantity="one">%1$d bestand aan de wachtrij toegevoegd</item>
+        <item quantity="other">%1$d bestanden aan de wachtrij toegevoegd</item>
+    </plurals>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sort_queue">Sorteren</string>
+    <string name="rd_add_files_queue">Bestanden aan de wachtrij toevoegen</string>
+    <string name="rd_sort_title">Titel</string>
+    <string name="rd_sort_duration">Duur</string>
+    <string name="rd_sort_artist">Artiest</string>
+    <string name="rd_sort_album">Album</string>
+    <string name="rd_sort_album_artist">Albumartiest</string>
+    <string name="rd_sort_genre">Genre</string>
+    <string name="rd_sort_date">Datum</string>
+    <string name="rd_sort_track_number">Tracknummer</string>
+    <string name="rd_sort_disc_number">Schijfnummer</string>
+    <string name="rd_sort_url">URL</string>
+    <string name="rd_sort_file_modified">Gewijzigd</string>
+    <string name="rd_no_file_picker">Dit apparaat heeft geen bestandskiezer: voeg bestanden toe via de mappen van de app.</string>
 </resources>

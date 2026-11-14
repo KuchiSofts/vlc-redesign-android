@@ -542,4 +542,23 @@
     <string name="rd_also_on">Também para: %1$s</string>
     <string name="rd_suggest_idea">Sugerir uma ideia</string>
     <string name="rd_report_problem">Relatar um problema</string>
+    <plurals name="rd_files_added_queue">
+        <item quantity="one">%1$d arquivo adicionado à fila</item>
+        <item quantity="other">%1$d arquivos adicionados à fila</item>
+    </plurals>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sort_queue">Ordenar</string>
+    <string name="rd_add_files_queue">Adicionar arquivos à fila</string>
+    <string name="rd_sort_title">Título</string>
+    <string name="rd_sort_duration">Duração</string>
+    <string name="rd_sort_artist">Artista</string>
+    <string name="rd_sort_album">Álbum</string>
+    <string name="rd_sort_album_artist">Artista do álbum</string>
+    <string name="rd_sort_genre">Gênero</string>
+    <string name="rd_sort_date">Data</string>
+    <string name="rd_sort_track_number">Número da Trilha</string>
+    <string name="rd_sort_disc_number">Número do disco</string>
+    <string name="rd_sort_url">URL</string>
+    <string name="rd_sort_file_modified">Arquivo modificado</string>
+    <string name="rd_no_file_picker">Este dispositivo não tem seletor de arquivos: adicione arquivos pelas pastas do aplicativo.</string>
 </resources>

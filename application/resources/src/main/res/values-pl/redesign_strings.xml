@@ -543,4 +543,25 @@
     <string name="rd_also_on">Również na: %1$s</string>
     <string name="rd_suggest_idea">Zaproponuj pomysł</string>
     <string name="rd_report_problem">Zgłoś problem</string>
+    <plurals name="rd_files_added_queue">
+        <item quantity="one">%1$d plik dodano do kolejki</item>
+        <item quantity="few">%1$d pliki dodano do kolejki</item>
+        <item quantity="many">%1$d plików dodano do kolejki</item>
+        <item quantity="other">%1$d pliku dodano do kolejki</item>
+    </plurals>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sort_queue">Sortuj</string>
+    <string name="rd_add_files_queue">Dodaj pliki do kolejki</string>
+    <string name="rd_sort_title">Tytuł</string>
+    <string name="rd_sort_duration">Czas trwania</string>
+    <string name="rd_sort_artist">Wykonawca</string>
+    <string name="rd_sort_album">Album</string>
+    <string name="rd_sort_album_artist">Wykonawca albumu</string>
+    <string name="rd_sort_genre">Gatunek</string>
+    <string name="rd_sort_date">Data</string>
+    <string name="rd_sort_track_number">Numer ścieżki</string>
+    <string name="rd_sort_disc_number">Numer płyty</string>
+    <string name="rd_sort_url">URL</string>
+    <string name="rd_sort_file_modified">Data modyfikacji</string>
+    <string name="rd_no_file_picker">To urządzenie nie ma selektora plików: dodaj pliki z folderów aplikacji.</string>
 </resources>

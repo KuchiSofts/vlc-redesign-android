@@ -542,4 +542,22 @@
     <string name="rd_also_on">其他平台：%1$s</string>
     <string name="rd_suggest_idea">提出建議</string>
     <string name="rd_report_problem">回報問題</string>
+    <plurals name="rd_files_added_queue">
+        <item quantity="other">已將 %1$d 個檔案新增至佇列</item>
+    </plurals>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sort_queue">排序</string>
+    <string name="rd_add_files_queue">將檔案加入佇列</string>
+    <string name="rd_sort_title">標題</string>
+    <string name="rd_sort_duration">時間</string>
+    <string name="rd_sort_artist">藝人</string>
+    <string name="rd_sort_album">專輯</string>
+    <string name="rd_sort_album_artist">專輯藝人</string>
+    <string name="rd_sort_genre">類型</string>
+    <string name="rd_sort_date">日期</string>
+    <string name="rd_sort_disc_number">光碟編號</string>
+    <string name="rd_sort_url">網址</string>
+    <string name="rd_sort_file_modified">檔案修改時間</string>
+    <string name="rd_no_file_picker">此裝置沒有檔案選擇器：請從應用程式的資料夾新增檔案。</string>
+    <string name="rd_sort_track_number">曲目編號</string>
 </resources>

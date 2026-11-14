@@ -542,4 +542,23 @@
     <string name="rd_also_on">Şunlarda da: %1$s</string>
     <string name="rd_suggest_idea">Bir fikir önerin</string>
     <string name="rd_report_problem">Bir sorun bildirin</string>
+    <plurals name="rd_files_added_queue">
+        <item quantity="one">%1$d dosya sıraya eklendi</item>
+        <item quantity="other">%1$d dosya sıraya eklendi</item>
+    </plurals>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_sort_queue">Sırala</string>
+    <string name="rd_add_files_queue">Kuyruğa dosya ekle</string>
+    <string name="rd_sort_title">Başlık</string>
+    <string name="rd_sort_duration">Süre</string>
+    <string name="rd_sort_artist">Sanatçı</string>
+    <string name="rd_sort_album">Albüm</string>
+    <string name="rd_sort_album_artist">Albüm Sanatçısı</string>
+    <string name="rd_sort_genre">Tür</string>
+    <string name="rd_sort_date">Tarih</string>
+    <string name="rd_sort_track_number">Kayıt Numarası</string>
+    <string name="rd_sort_disc_number">Disk numarası</string>
+    <string name="rd_sort_url">İnternet Adresi</string>
+    <string name="rd_sort_file_modified">Değiştirilme tarihi</string>
+    <string name="rd_no_file_picker">Bu cihazda dosya seçici yok: dosyaları uygulamanın klasörlerinden ekleyin.</string>
 </resources>
