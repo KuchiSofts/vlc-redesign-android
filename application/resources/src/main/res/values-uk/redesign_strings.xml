@@ -685,4 +685,6 @@
     <string name="rd_sub_size_relative">Відносний</string>
     <string name="rd_sub_size_pixels">Пікселі</string>
     <string name="rd_help_sub_fontsize_px">Висота літер у пікселях відео.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_lyrics">Текст</string>
 </resources>

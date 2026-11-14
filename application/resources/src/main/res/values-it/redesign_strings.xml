@@ -680,4 +680,6 @@
     <string name="rd_sub_size_relative">Relativa</string>
     <string name="rd_sub_size_pixels">Pixel</string>
     <string name="rd_help_sub_fontsize_px">L\'altezza delle lettere in pixel del video.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_lyrics">Testi</string>
 </resources>

@@ -678,4 +678,6 @@
     <string name="rd_sub_size_relative">相對</string>
     <string name="rd_sub_size_pixels">像素</string>
     <string name="rd_help_sub_fontsize_px">以影片像素計的字母高度。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_lyrics">歌詞</string>
 </resources>

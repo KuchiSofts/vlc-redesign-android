@@ -86,6 +86,8 @@ private const val ID_RECORD = 108L
 // VLC Redesign: the desktop's queue buttons, Sort and Add files to the queue
 private const val ID_SORT_QUEUE = 109L
 private const val ID_ADD_FILES = 110L
+/** VLC Redesign: the song's lyrics (RdLyricsSheet), as the desktop's music view */
+private const val ID_LYRICS = 111L
 @SuppressLint("ShowToast")
 class PlayerOptionsDelegate(val activity: FragmentActivity, val service: PlaybackService, private val showABReapeat:Boolean = true)  {
 
@@ -135,6 +137,8 @@ class PlayerOptionsDelegate(val activity: FragmentActivity, val service: Playbac
                 if (service.canShuffle()) options.add(PlayerOption(ID_SHUFFLE, R.drawable.ic_player_shuffle, res.getString(R.string.shuffle_title)))
             }
             if (service.videoTracksCount > 0) options.add(PlayerOption(ID_PLAY_AS_VIDEO, R.drawable.ic_playasaudio_off, res.getString(R.string.play_as_video)))
+            if (org.videolan.vlc.gui.audio.RdLyricsSheet.has(service.currentMediaWrapper?.location))
+                options.add(PlayerOption(ID_LYRICS, R.drawable.rd_ic_track_subtitles, res.getString(R.string.rd_lyrics)))
         }
         val chaptersCount = service.getChapters(-1)?.size ?: 0
         if (chaptersCount > 1) options.add(PlayerOption(ID_CHAPTER_TITLE, R.drawable.ic_chapter, res.getString(R.string.go_to_chapter)))
@@ -311,6 +315,10 @@ class PlayerOptionsDelegate(val activity: FragmentActivity, val service: Playbac
 
     fun onClick(option: PlayerOption) {
         when (option.id) {
+            ID_LYRICS -> {
+                hide()
+                org.videolan.vlc.gui.audio.RdLyricsSheet.show(activity.supportFragmentManager)
+            }
             ID_SLEEP -> {
                 showFragment(ID_SLEEP)
             }

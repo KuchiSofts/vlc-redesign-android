@@ -653,4 +653,6 @@
     <string name="rd_sub_size_relative">Relativo</string>
     <string name="rd_sub_size_pixels">Píxeis</string>
     <string name="rd_help_sub_fontsize_px">A altura das letras em píxeis do vídeo.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_lyrics">Letra</string>
 </resources>

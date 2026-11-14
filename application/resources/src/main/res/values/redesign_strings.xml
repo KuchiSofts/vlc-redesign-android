@@ -849,6 +849,8 @@
         <item>0</item>
         <item>1</item>
     </string-array>
+    <!-- The music player's menu: the song's lyrics, the desktop's music view (RdLyricsSheet) -->
+    <string name="rd_lyrics">Lyrics</string>
     <!-- Settings › Subtitles › Timing: the desktop's Subtitle delay (sub-delay), the default of every video -->
     <string name="rd_subtitle_delay">Subtitle delay</string>
     <!-- Settings › Library › Advanced: the desktop's Ignored file extensions (libvlc's ignore-filetypes) -->

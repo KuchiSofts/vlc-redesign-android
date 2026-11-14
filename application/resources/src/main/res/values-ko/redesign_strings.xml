@@ -678,4 +678,6 @@
     <string name="rd_sub_size_relative">상대 크기</string>
     <string name="rd_sub_size_pixels">픽셀</string>
     <string name="rd_help_sub_fontsize_px">영상 픽셀 단위의 글자 높이.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_lyrics">가사</string>
 </resources>

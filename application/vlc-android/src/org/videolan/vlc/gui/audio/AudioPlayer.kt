@@ -517,6 +517,8 @@ class AudioPlayer : Fragment(), PlaylistAdapter.IPlayer, TextWatcher, IAudioPlay
         // (Always show the player bar: the idle bar keeps its words until something plays)
         if (rdIdle) return
         if (isVisible && playlistModel.switchToVideo()) return
+        // VLC Redesign: the song's lyrics, read once (the menu's Lyrics, RdLyricsSheet)
+        RdLyricsSheet.load(playlistModel.service?.currentMediaWrapper?.location)
         updatePlayPause()
         updateShuffleMode()
         updateRepeatMode()
