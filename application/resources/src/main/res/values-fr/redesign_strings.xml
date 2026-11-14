@@ -590,4 +590,8 @@
     <string name="rd_sec_accessibility">Accessibilité</string>
     <string name="rd_increase_contrast">Augmenter le contraste du texte</string>
     <string name="rd_help_increase_contrast">Affiche plus clairement les textes atténués du design (indications, descriptions, éléments vus), au contraste demandé par les règles d\'accessibilité WCAG (AA).</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">Toujours afficher la barre du lecteur</string>
+    <string name="rd_help_always_show_player_bar">Garde la barre du lecteur en bas de la bibliothèque quand rien n\'est lu : « Lire » démarre la file de lecture, ou ouvre des fichiers si elle est vide.</string>
+    <string name="rd_nothing_playing">Aucune lecture en cours</string>
 </resources>

@@ -590,4 +590,8 @@
     <string name="rd_sec_accessibility">Barrierefreiheit</string>
     <string name="rd_increase_contrast">Textkontrast erhöhen</string>
     <string name="rd_help_increase_contrast">Zeichnet die blassen Texte des Designs (Hinweise, Beschreibungen, gesehene Einträge) heller, mit dem Kontrast, den die WCAG-Richtlinien für Barrierefreiheit verlangen (AA).</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">Wiedergabeleiste immer anzeigen</string>
+    <string name="rd_help_always_show_player_bar">Behält die Wiedergabeleiste unten in der Bibliothek, auch wenn nichts läuft: „Wiedergabe“ startet die Warteschlange oder öffnet Dateien, wenn sie leer ist.</string>
+    <string name="rd_nothing_playing">Es wird nichts wiedergegeben</string>
 </resources>

@@ -590,4 +590,8 @@
     <string name="rd_sec_accessibility">Toegankelijkheid</string>
     <string name="rd_increase_contrast">Tekstcontrast verhogen</string>
     <string name="rd_help_increase_contrast">Toont de gedimde teksten van het ontwerp (hints, beschrijvingen, bekeken items) helderder, met het contrast dat de WCAG-toegankelijkheidsrichtlijnen vereisen (AA).</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">Spelerbalk altijd weergeven</string>
+    <string name="rd_help_always_show_player_bar">Houdt de spelerbalk onderaan de bibliotheek als er niets speelt: Afspelen start de wachtrij, of opent bestanden als die leeg is.</string>
+    <string name="rd_nothing_playing">Er wordt niets afgespeeld</string>
 </resources>

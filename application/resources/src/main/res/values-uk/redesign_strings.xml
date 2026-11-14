@@ -593,4 +593,8 @@
     <string name="rd_sec_accessibility">Спеціальні можливості</string>
     <string name="rd_increase_contrast">Підвищити контрастність тексту</string>
     <string name="rd_help_increase_contrast">Робить тьмяні тексти дизайну (підказки, описи, переглянуті елементи) яскравішими — до контрастності, якої вимагають рекомендації доступності WCAG (AA).</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">Завжди показувати панель програвача</string>
+    <string name="rd_help_always_show_player_bar">Залишає панель програвача внизу бібліотеки, навіть коли нічого не відтворюється: кнопка «Відтворити» запускає чергу відтворення або, якщо вона порожня, відкриває файли.</string>
+    <string name="rd_nothing_playing">Нічого не відтворюється</string>
 </resources>

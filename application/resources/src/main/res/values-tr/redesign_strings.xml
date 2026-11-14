@@ -590,4 +590,8 @@
     <string name="rd_sec_accessibility">Erişilebilirlik</string>
     <string name="rd_increase_contrast">Metin karşıtlığı artırılsın</string>
     <string name="rd_help_increase_contrast">Tasarımdaki soluk metinleri (ipuçları, açıklamalar, izlenmiş ögeler), WCAG erişilebilirlik yönergelerinin istediği karşıtlığa (AA) ulaşacak kadar parlak çizer.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">Oynatıcı çubuğu her zaman görüntülensin</string>
+    <string name="rd_help_always_show_player_bar">Hiçbir şey oynatılmazken oynatıcı çubuğunu kitaplığın altında tutar: Oynat, oynatma kuyruğunu başlatır ya da kuyruk boşsa dosya açar.</string>
+    <string name="rd_nothing_playing">Hiçbir şey oynatılmıyor</string>
 </resources>

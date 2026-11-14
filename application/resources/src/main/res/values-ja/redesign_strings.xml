@@ -589,4 +589,8 @@
     <string name="rd_sec_accessibility">アクセシビリティ</string>
     <string name="rd_increase_contrast">テキストのコントラストを上げる</string>
     <string name="rd_help_increase_contrast">デザイン内の薄い文字 (ヒント、説明、視聴済みの項目) を、WCAG アクセシビリティガイドラインが求めるコントラスト (AA) まで明るく表示します。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">プレイヤーバーを常に表示</string>
+    <string name="rd_help_always_show_player_bar">何も再生していないときも、ライブラリの下部にプレイヤーバーを表示します: 再生ボタンで再生キューを開始し、キューが空の場合はファイルを開きます。</string>
+    <string name="rd_nothing_playing">何も再生されていません</string>
 </resources>

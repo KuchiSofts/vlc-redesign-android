@@ -590,4 +590,8 @@
     <string name="rd_sec_accessibility">Acessibilidade</string>
     <string name="rd_increase_contrast">Aumentar contraste do texto</string>
     <string name="rd_help_increase_contrast">Deixa mais claros os textos esmaecidos do design (dicas, descrições, itens assistidos), até o contraste exigido pelas diretrizes de acessibilidade WCAG (AA).</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">Sempre mostrar a barra do player</string>
+    <string name="rd_help_always_show_player_bar">Mantém a barra do player embaixo da biblioteca enquanto nada toca: Reproduzir inicia a fila de reprodução ou abre arquivos quando ela está vazia.</string>
+    <string name="rd_nothing_playing">Nada está sendo reproduzido</string>
 </resources>

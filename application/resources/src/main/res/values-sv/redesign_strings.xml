@@ -590,4 +590,8 @@
     <string name="rd_sec_accessibility">Hjälpmedel</string>
     <string name="rd_increase_contrast">Öka textkontrasten</string>
     <string name="rd_help_increase_contrast">Ritar designens nedtonade texter (tips, beskrivningar, sedda objekt) ljusare, med den kontrast som WCAG:s tillgänglighetsriktlinjer kräver (AA).</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">Visa alltid spelarfältet</string>
+    <string name="rd_help_always_show_player_bar">Behåller spelarfältet längst ned i biblioteket när inget spelas: Spela upp startar spelkön, eller öppnar filer när den är tom.</string>
+    <string name="rd_nothing_playing">Inget spelas upp</string>
 </resources>

@@ -593,4 +593,8 @@
     <string name="rd_sec_accessibility">Přístupnost</string>
     <string name="rd_increase_contrast">Zvýšit kontrast textu</string>
     <string name="rd_help_increase_contrast">Vykresluje tlumené texty návrhu (nápovědy, popisy, zhlédnuté položky) jasněji, s kontrastem, který vyžadují pravidla přístupnosti WCAG (AA).</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">Vždy zobrazovat panel přehrávače</string>
+    <string name="rd_help_always_show_player_bar">Ponechá panel přehrávače dole v knihovně, i když se nic nepřehrává: Přehrát spustí frontu přehrávání, nebo otevře soubory, když je prázdná.</string>
+    <string name="rd_nothing_playing">Nic se nepřehrává</string>
 </resources>

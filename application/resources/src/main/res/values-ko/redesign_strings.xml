@@ -589,4 +589,8 @@
     <string name="rd_sec_accessibility">접근성</string>
     <string name="rd_increase_contrast">텍스트 대비 높이기</string>
     <string name="rd_help_increase_contrast">디자인의 흐린 텍스트(힌트, 설명, 시청한 항목)를 WCAG 접근성 지침(AA)이 요구하는 대비가 되도록 더 밝게 표시합니다.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">항상 플레이어 막대 표시</string>
+    <string name="rd_help_always_show_player_bar">아무것도 재생하지 않을 때도 라이브러리 아래쪽에 플레이어 막대를 표시합니다. 재생을 누르면 재생 대기열을 시작하고, 대기열이 비어 있으면 파일을 엽니다.</string>
+    <string name="rd_nothing_playing">재생 중인 항목 없음</string>
 </resources>

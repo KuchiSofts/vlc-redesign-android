@@ -164,6 +164,17 @@
             android:summary="@string/browser_show_missing_media_summary"
             android:title="@string/browser_show_missing_media" />
     </PreferenceCategory>
+    <!-- VLC Redesign: the desktop's Player Bar section: the bar while nothing plays (AudioPlayerContainerActivity,
+         AudioPlayer.showIdle; not in the TV layout, which has its own mini player) -->
+    <PreferenceCategory
+        android:key="rd_sec_player_bar"
+        android:title="@string/rd_sec_player_bar">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="rd_always_show_player_bar"
+            android:summary="@string/rd_help_always_show_player_bar"
+            android:title="@string/rd_always_show_player_bar" />
+    </PreferenceCategory>
     <!-- VLC Redesign: the desktop's Accessibility section: Increase text contrast (LocaleUtils.withRdContrast,
          values-highdr/redesign_contrast.xml; Android 8 and later, RdSettingsPage hides it before) -->
     <PreferenceCategory

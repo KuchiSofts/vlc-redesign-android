@@ -98,4 +98,30 @@ object RdQueueActions {
             UiTools.snacker(activity, activity.getString(R.string.rd_no_file_picker))
         }
     }
+
+    /** the desktop's Open Files: videos and songs picked on the device, played as a new queue (the player bar's Play
+     *  while nothing plays and nothing was played before) */
+    fun openFiles(activity: FragmentActivity) {
+        var launcher: androidx.activity.result.ActivityResultLauncher<Array<String>>? = null
+        launcher = activity.activityResultRegistry.register("rd_open_files_" + System.nanoTime(), ActivityResultContracts.OpenMultipleDocuments()) { uris ->
+            launcher?.unregister()
+            if (uris.isNullOrEmpty()) return@register
+            val media = uris.mapNotNull { uri: Uri ->
+                try {
+                    activity.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                } catch (e: Exception) {
+                    Log.w(TAG, "No lasting permission for $uri: ${e.message}")
+                }
+                MLServiceLocator.getAbstractMediaWrapper(uri)
+            }
+            org.videolan.vlc.media.MediaUtils.openList(activity, media, 0)
+        }
+        try {
+            launcher.launch(arrayOf("video/*", "audio/*"))
+        } catch (e: Exception) {
+            launcher.unregister()
+            Log.w(TAG, "No file picker: ${e.message}")
+            UiTools.snacker(activity, activity.getString(R.string.rd_no_file_picker))
+        }
+    }
 }

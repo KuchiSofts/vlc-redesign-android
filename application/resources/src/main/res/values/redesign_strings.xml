@@ -746,5 +746,9 @@
     <!-- Settings › Interface › Accessibility: the desktop's Increase text contrast (LocaleUtils.withRdContrast) -->
     <string name="rd_sec_accessibility">Accessibility</string>
     <string name="rd_increase_contrast">Increase text contrast</string>
+    <!-- Settings › Interface › Player Bar: the desktop's Always show the player bar (AudioPlayer.showIdle) -->
+    <string name="rd_always_show_player_bar">Always show the player bar</string>
+    <string name="rd_help_always_show_player_bar">Keeps the player bar at the bottom of the library while nothing plays: Play starts the play queue, or opens files when it is empty.</string>
+    <string name="rd_nothing_playing">Nothing is playing</string>
     <string name="rd_help_increase_contrast">Draws the dim texts of the design (hints, descriptions, watched items) brighter, to the contrast the WCAG accessibility guidelines ask for (AA).</string>
 </resources>

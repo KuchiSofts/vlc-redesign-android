@@ -593,4 +593,8 @@
     <string name="rd_sec_accessibility">إمكانية الوصول</string>
     <string name="rd_increase_contrast">زيادة تباين النص</string>
     <string name="rd_help_increase_contrast">يرسم النصوص الباهتة في التصميم (التلميحات والأوصاف والعناصر التي شوهدت) بسطوع أكبر، بالتباين الذي تطلبه إرشادات إمكانية الوصول WCAG (المستوى AA).</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">إظهار شريط المشغل دائمًا</string>
+    <string name="rd_help_always_show_player_bar">يُبقي شريط المشغل أسفل المكتبة عندما لا يُشغَّل شيء: يبدأ زر التشغيل قائمة الانتظار، أو يفتح الملفات إذا كانت فارغة.</string>
+    <string name="rd_nothing_playing">لا شيء قيد التشغيل</string>
 </resources>

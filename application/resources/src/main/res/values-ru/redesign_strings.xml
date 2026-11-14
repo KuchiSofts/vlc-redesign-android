@@ -593,4 +593,8 @@
     <string name="rd_sec_accessibility">Специальные возможности</string>
     <string name="rd_increase_contrast">Повысить контрастность текста</string>
     <string name="rd_help_increase_contrast">Делает тусклые тексты дизайна (подсказки, описания, просмотренные элементы) ярче — до контрастности, которую требуют рекомендации по доступности WCAG (AA).</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">Всегда показывать панель воспроизведения</string>
+    <string name="rd_help_always_show_player_bar">Оставляет панель воспроизведения внизу медиатеки, когда ничего не играет: «Воспроизвести» запускает очередь воспроизведения или открывает файлы, если она пуста.</string>
+    <string name="rd_nothing_playing">Ничего не воспроизводится</string>
 </resources>

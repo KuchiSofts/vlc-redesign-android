@@ -86,6 +86,7 @@ import org.videolan.tools.PREF_PLAYLIST_TIPS_SHOWN
 import org.videolan.tools.PREF_RESTORE_VIDEO_TIPS_SHOWN
 import org.videolan.tools.RESTORE_BACKGROUND_VIDEO
 import org.videolan.tools.SHOW_REMAINING_TIME
+import org.videolan.tools.KEY_CURRENT_AUDIO
 import org.videolan.tools.Settings
 import org.videolan.tools.copy
 import org.videolan.tools.dp
@@ -494,7 +495,27 @@ class AudioPlayer : Fragment(), PlaylistAdapter.IPlayer, TextWatcher, IAudioPlay
 
     override fun getLifeCycle() = this.lifecycle
 
+    /** VLC Redesign: Settings › Interface › Player Bar › Always show the player bar (the desktop's): the bar stays
+     *  while nothing plays, "Nothing is playing" over the item played last; Play (or a tap on the bar) resumes it,
+     *  or opens files when there is none (AudioPlayerContainerActivity.rdIdlePlay). Nothing else moves it. */
+    var rdIdle = false
+        private set
+
+    fun showIdle(on: Boolean) {
+        rdIdle = on
+        if (!on || !isAdded || view == null) return
+        val last = Settings.getInstance(requireContext()).getString(KEY_CURRENT_AUDIO, null)
+        val lastName = last?.let { android.net.Uri.parse(it).lastPathSegment?.substringAfterLast('/')?.substringBeforeLast('.') }
+        binding.audioMediaSwitcher.showIdle(getString(R.string.rd_nothing_playing), lastName)
+        binding.headerPlayPause.setImageResource(R.drawable.rd_ic_mini_play)
+        binding.headerPlayPause.contentDescription = getString(R.string.play)
+        binding.headerTime.text = ""
+        binding.progressBar.progress = 0
+    }
+
     private suspend fun doUpdate() {
+        // (Always show the player bar: the idle bar keeps its words until something plays)
+        if (rdIdle) return
         if (isVisible && playlistModel.switchToVideo()) return
         updatePlayPause()
         updateShuffleMode()
@@ -667,7 +688,7 @@ class AudioPlayer : Fragment(), PlaylistAdapter.IPlayer, TextWatcher, IAudioPlay
      * @param progress the progress to be displayed
      */
     private fun updateProgress(progress: PlaybackProgress) {
-        if (playlistModel.currentMediaPosition == -1) return
+        if (playlistModel.currentMediaPosition == -1 || rdIdle) return
         binding.length.text = if (showRemainingTime) Tools.millisToString(progress.time - progress.length) else progress.lengthText
         binding.timeline.max = progress.length.toInt()
         binding.progressBar.max = progress.length.toInt()
@@ -808,6 +829,10 @@ class AudioPlayer : Fragment(), PlaylistAdapter.IPlayer, TextWatcher, IAudioPlay
     }
 
     fun onPlayPauseClick(@Suppress("UNUSED_PARAMETER") view: View?) {
+        if (rdIdle) {
+            (activity as? AudioPlayerContainerActivity)?.rdIdlePlay()
+            return
+        }
         if (playlistModel.service?.isPausable == false) {
             UiTools.snackerConfirm(requireActivity(), getString(R.string.stop_unpaubale), true) {
                 playlistModel.stop()
@@ -818,6 +843,7 @@ class AudioPlayer : Fragment(), PlaylistAdapter.IPlayer, TextWatcher, IAudioPlay
     }
 
     fun onStopClick(@Suppress("UNUSED_PARAMETER") view: View?): Boolean {
+        if (rdIdle) return true
         playlistModel.stop()
         if (activity is AudioPlayerContainerActivity)
             (activity as AudioPlayerContainerActivity).closeMiniPlayer()
@@ -1069,6 +1095,10 @@ class AudioPlayer : Fragment(), PlaylistAdapter.IPlayer, TextWatcher, IAudioPlay
 
         override fun onTouchClick() {
             val activity = activity as AudioPlayerContainerActivity
+            if (rdIdle) {
+                activity.rdIdlePlay()
+                return
+            }
             activity.slideUpOrDownAudioPlayer()
         }
 

@@ -589,4 +589,8 @@
     <string name="rd_sec_accessibility">辅助功能</string>
     <string name="rd_increase_contrast">提高文本对比度</string>
     <string name="rd_help_increase_contrast">将界面中较暗的文本 (提示、说明、已观看项目) 绘制得更亮，达到 WCAG 无障碍指南要求的对比度 (AA)。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">始终显示播放栏</string>
+    <string name="rd_help_always_show_player_bar">未播放时也在媒体库底部保留播放栏：点击“播放”将开始播放播放队列，队列为空时则打开文件。</string>
+    <string name="rd_nothing_playing">没有正在播放的内容</string>
 </resources>

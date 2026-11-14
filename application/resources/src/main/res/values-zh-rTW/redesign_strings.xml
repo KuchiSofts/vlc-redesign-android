@@ -589,4 +589,8 @@
     <string name="rd_sec_accessibility">協助工具</string>
     <string name="rd_increase_contrast">提高文字對比</string>
     <string name="rd_help_increase_contrast">讓設計中較暗淡的文字 (提示、說明、已觀看的項目) 更明亮，達到 WCAG 無障礙指引要求的對比度 (AA)。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">一律顯示播放列</string>
+    <string name="rd_help_always_show_player_bar">未播放任何內容時，將播放列保留在媒體櫃底部：按「播放」會開始播放佇列，佇列為空時則開啟檔案。</string>
+    <string name="rd_nothing_playing">目前沒有播放任何內容</string>
 </resources>

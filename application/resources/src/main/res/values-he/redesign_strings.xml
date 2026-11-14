@@ -575,4 +575,8 @@
     <string name="rd_sec_accessibility">נגישות</string>
     <string name="rd_increase_contrast">הגבר את ניגודיות הטקסט</string>
     <string name="rd_help_increase_contrast">מציג את הטקסטים העמומים של העיצוב (רמזים, תיאורים, פריטים שנצפו) בהירים יותר, עד לניגודיות שדורשות הנחיות הנגישות WCAG ברמה AA.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">הצג תמיד את סרגל הנגן</string>
+    <string name="rd_help_always_show_player_bar">משאיר את סרגל הנגן בתחתית הספרייה כשדבר אינו מתנגן: נגינה מתחילה את תור הנגינה, או פותחת קבצים כשהתור ריק.</string>
+    <string name="rd_nothing_playing">שום דבר לא מתנגן</string>
 </resources>

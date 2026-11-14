@@ -933,6 +933,8 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         pref<Preference>(org.videolan.vlc.gui.helpers.KEY_RD_ACCENT_SYSTEM)?.isVisible = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S && !tv
         // Increase text contrast: Android 8 and later (LocaleUtils.withRdContrast)
         pref<Preference>("rd_sec_accessibility")?.isVisible = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O
+        // Always show the player bar: the phone and tablet layouts (the TV one has its own mini player)
+        pref<Preference>("rd_sec_player_bar")?.isVisible = !org.videolan.vlc.gui.tablet.RdTvWindow.isOn(requireActivity())
         // the layout direction: the one in use while none was chosen (shown, not saved)
         pref<ListPreference>(org.videolan.tools.KEY_RD_LAYOUT_DIRECTION)?.let { p ->
             if (p.sharedPreferences?.contains(p.key) != true) {
