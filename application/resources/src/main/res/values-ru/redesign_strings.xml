@@ -600,4 +600,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_ignored_extensions">Игнорируемые расширения файлов</string>
     <string name="rd_help_ignore_filetypes">Файлы с этими расширениями пропускаются при открытии или просмотре папки; через запятую.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">Задержка субтитров</string>
 </resources>

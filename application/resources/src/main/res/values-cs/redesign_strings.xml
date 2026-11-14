@@ -600,4 +600,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_ignored_extensions">Ignorované přípony souborů</string>
     <string name="rd_help_ignore_filetypes">Soubory s těmito příponami se při otevření nebo výpisu složky vynechají; oddělené čárkami.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">Zpoždění titulků</string>
 </resources>

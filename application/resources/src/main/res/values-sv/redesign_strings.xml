@@ -597,4 +597,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_ignored_extensions">Ignorerade filtillägg</string>
     <string name="rd_help_ignore_filetypes">Filer med dessa filändelser utelämnas när en mapp öppnas eller listas, åtskilda med kommatecken.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">Undertextfördröjning</string>
 </resources>

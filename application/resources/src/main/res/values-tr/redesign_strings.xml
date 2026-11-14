@@ -597,4 +597,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_ignored_extensions">Yok sayılan dosya uzantıları</string>
     <string name="rd_help_ignore_filetypes">Bu uzantılara sahip dosyalar bir klasör açıldığında veya listelendiğinde dışarıda bırakılır; virgülle ayrılır.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">Altyazı gecikmesi</string>
 </resources>

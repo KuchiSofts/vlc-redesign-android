@@ -1,7 +1,7 @@
 /*
  * VLC Redesign: Settings › Subtitles › On-Screen Messages, as the desktop's "Show feedback for shortcuts" (osd) and
  * "Show feedback for" (osd-duration): the player's messages over the video (speed, delays, zoom, a track
- * changed...) shown or not, and for how long. The desktop shows each one the same time (1 s by default, 0.1 to 10 s);
+ * changed...) shown or not, and for how long. The desktop shows each one the same time (1 s by default, 0.5 to 5 s);
  * here a message the app shows longer (a hint of 5 s) keeps its share: the setting scales them all.
  *
  * This program is free software; you can redistribute it and/or modify it under the terms of the GNU General
@@ -15,7 +15,7 @@ import java.util.Locale
 
 object RdOsd {
     const val KEY = "rd_osd"
-    /** in tenths of a second, as the desktop's slider (1 = 0.1 s ... 100 = 10 s) */
+    /** in tenths of a second, as the desktop's slider (5 = 0.5 s ... 50 = 5 s; VLC takes 0.1 to 10 s) */
     const val KEY_DURATION = "rd_osd_duration"
     const val DEFAULT_TENTHS = 10
 

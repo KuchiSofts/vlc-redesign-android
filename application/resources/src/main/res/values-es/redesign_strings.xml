@@ -597,4 +597,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_ignored_extensions">Extensiones de archivo ignoradas</string>
     <string name="rd_help_ignore_filetypes">Los archivos con estas extensiones se omiten al abrir o listar una carpeta, separadas por comas.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">Retraso de subtítulo</string>
 </resources>

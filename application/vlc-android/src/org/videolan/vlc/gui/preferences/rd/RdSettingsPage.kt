@@ -791,6 +791,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             "rd_gain" -> updateGainSummary()
             "rd_video_title_timeout" -> updateTitleTimeoutSummary()
             org.videolan.vlc.gui.video.RdOsd.KEY_DURATION -> updateOsdDurationSummary()
+            org.videolan.vlc.media.RdSubDelay.KEY -> updateSubDelaySummary()
             // Controls (audio)
             KEY_AUDIO_JUMP_DELAY -> Settings.audioJumpDelay = sharedPreferences.getInt(KEY_AUDIO_JUMP_DELAY, 10)
             KEY_AUDIO_LONG_JUMP_DELAY -> Settings.audioLongJumpDelay = sharedPreferences.getInt(KEY_AUDIO_LONG_JUMP_DELAY, 20)
@@ -911,6 +912,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         pref<Preference>("rd_shadow_angle")?.isVisible = shadow
         updateTitleTimeoutSummary()
         updateOsdDurationSummary()
+        updateSubDelaySummary()
         pref<Preference>(KEY_SUBTITLES_OUTLINE_COLOR)?.isVisible = outline
         pref<Preference>(KEY_SUBTITLES_OUTLINE_COLOR_OPACITY)?.isVisible = outline
     }
@@ -1036,6 +1038,12 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         val p = pref<Preference>(org.videolan.vlc.gui.video.RdOsd.KEY_DURATION) ?: return
         val tenths = p.sharedPreferences?.getInt(p.key, org.videolan.vlc.gui.video.RdOsd.DEFAULT_TENTHS) ?: org.videolan.vlc.gui.video.RdOsd.DEFAULT_TENTHS
         p.summary = getString(R.string.video_hud_timeout_summary, org.videolan.vlc.gui.video.RdOsd.secondsText(tenths))
+    }
+
+    /** "+1.5 s": the subtitle delay a video without its own starts with (the desktop's sub-delay) */
+    private fun updateSubDelaySummary() {
+        val p = pref<Preference>(org.videolan.vlc.media.RdSubDelay.KEY) ?: return
+        p.summary = getString(R.string.video_hud_timeout_summary, org.videolan.vlc.media.RdSubDelay.text(p.sharedPreferences?.getInt(p.key, 0) ?: 0))
     }
 
     /** "1.25x": the speed a media without its own plays at (the desktop's slider of quarters) */

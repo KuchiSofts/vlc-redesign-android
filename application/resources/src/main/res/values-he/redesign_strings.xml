@@ -582,4 +582,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_ignored_extensions">סיומות קבצים מוחרגות</string>
     <string name="rd_help_ignore_filetypes">קבצים עם הסיומות האלה לא נכללים כשתיקייה נפתחת או מוצגת, מופרדות בפסיקים.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">השהיית כתוביות</string>
 </resources>

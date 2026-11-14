@@ -596,4 +596,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_ignored_extensions">무시할 파일 확장자</string>
     <string name="rd_help_ignore_filetypes">폴더를 열거나 목록을 볼 때 이 확장자의 파일은 제외됩니다(쉼표로 구분).</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">자막 싱크</string>
 </resources>

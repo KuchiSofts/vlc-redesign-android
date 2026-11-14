@@ -597,4 +597,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_ignored_extensions">Extensions de fichiers ignorées</string>
     <string name="rd_help_ignore_filetypes">Les fichiers ayant ces extensions sont ignorés quand un dossier est ouvert ou listé, séparées par des virgules.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">Retard des sous-titres</string>
 </resources>

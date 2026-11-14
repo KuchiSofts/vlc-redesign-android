@@ -596,4 +596,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_ignored_extensions">無視するファイル拡張子</string>
     <string name="rd_help_ignore_filetypes">フォルダーを開くときや一覧表示するときに、これらの拡張子のファイルを除外します (カンマ区切り)。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">字幕の遅延</string>
 </resources>

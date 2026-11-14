@@ -600,4 +600,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_ignored_extensions">امتدادات الملفات المتجاهلة</string>
     <string name="rd_help_ignore_filetypes">تُستبعد الملفات ذات هذه الامتدادات عند فتح مجلد أو عرضه، مفصولة بفواصل.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">تأخير الترجمة</string>
 </resources>

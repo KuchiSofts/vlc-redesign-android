@@ -597,4 +597,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_ignored_extensions">Genegeerde bestandsextensies</string>
     <string name="rd_help_ignore_filetypes">Bestanden met deze extensies worden overgeslagen als een map wordt geopend of getoond, gescheiden door komma\'s.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">Ondertitelvertraging</string>
 </resources>

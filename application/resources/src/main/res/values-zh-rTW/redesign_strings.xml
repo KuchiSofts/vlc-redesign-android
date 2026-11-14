@@ -596,4 +596,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_ignored_extensions">忽略的副檔名</string>
     <string name="rd_help_ignore_filetypes">開啟或列出資料夾時，略過這些副檔名的檔案，以逗號分隔。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">字幕延遲</string>
 </resources>

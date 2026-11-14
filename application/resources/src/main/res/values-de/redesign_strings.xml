@@ -597,4 +597,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_ignored_extensions">Ignorierte Dateiendungen</string>
     <string name="rd_help_ignore_filetypes">Dateien mit diesen Endungen werden beim Öffnen oder Auflisten eines Ordners ausgelassen, durch Kommas getrennt.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">Untertitelverzögerung</string>
 </resources>

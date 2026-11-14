@@ -596,4 +596,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_ignored_extensions">忽略的文件扩展名</string>
     <string name="rd_help_ignore_filetypes">打开或列出文件夹时，跳过这些扩展名的文件，以逗号分隔。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">字幕延迟</string>
 </resources>

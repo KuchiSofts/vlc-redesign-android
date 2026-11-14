@@ -233,6 +233,17 @@
     </PreferenceCategory>
     <!-- VLC Redesign: the desktop's Timing section: the lines marked on the seek bar (gui/video/RdSeekCueMarks) -->
     <PreferenceCategory android:title="@string/rd_sec_timing">
+        <!-- VLC Redesign: the desktop's Subtitle delay (sub-delay, -5 to +5 s in tenths): every video without a delay
+             of its own starts with it (PlaylistManager.loadMediaMeta) -->
+        <org.videolan.vlc.gui.preferences.rd.RdValueSeekBarPreference
+            android:defaultValue="0"
+            android:key="rd_sub_delay"
+            android:max="50"
+            android:summary="%s"
+            android:title="@string/rd_subtitle_delay"
+            app:min="-50"
+            app:seekBarIncrement="5"
+            app:updatesContinuously="true" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="rd_seek_sub_cues"
@@ -241,7 +252,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/rd_sec_osd">
         <!-- VLC Redesign: the desktop's Show feedback for shortcuts (osd) and Show feedback for (osd-duration, in
-             tenths of a second here: 0.1 to 10 s, VLC's 1 s), gui/video/RdOsd -->
+             tenths of a second here: 0.5 to 5 s as the desktop's slider, VLC's 1 s), gui/video/RdOsd -->
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="rd_osd"
@@ -251,11 +262,11 @@
             android:defaultValue="10"
             android:dependency="rd_osd"
             android:key="rd_osd_duration"
-            android:max="100"
+            android:max="50"
             android:summary="%s"
             android:title="@string/rd_show_feedback_for"
-            app:min="1"
-            app:seekBarIncrement="1"
+            app:min="5"
+            app:seekBarIncrement="5"
             app:updatesContinuously="true" />
         <CheckBoxPreference
             android:key="rd_video_title"

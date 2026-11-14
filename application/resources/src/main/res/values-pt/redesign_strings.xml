@@ -570,4 +570,6 @@
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_ignored_extensions">Extensões de ficheiro ignoradas</string>
     <string name="rd_help_ignore_filetypes">Os ficheiros com estas extensões ficam de fora quando uma pasta é aberta ou listada, separadas por vírgulas.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">Atraso das legendas</string>
 </resources>
