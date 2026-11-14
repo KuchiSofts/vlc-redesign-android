@@ -615,4 +615,38 @@
     </plurals>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_cast_hide_device">Skrýt toto zařízení</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">Klávesové zkratky</string>
+    <string name="rd_help_keyboard_shortcuts">Co v přehrávači dělají klávesy klávesnice, herního ovladače nebo dálkového ovladače TV.</string>
+    <string name="rd_key_play_pause">Přehrát/Pozastavit</string>
+    <string name="rd_key_stop">Zastavit</string>
+    <string name="rd_key_next">Následující</string>
+    <string name="rd_key_previous">Předchozí</string>
+    <string name="rd_key_very_short_back">Velmi krátký skok zpět</string>
+    <string name="rd_key_very_short_forward">Velmi krátký skok vpřed</string>
+    <string name="rd_key_short_back">Krátký skok zpět</string>
+    <string name="rd_key_short_forward">Krátký skok vpřed</string>
+    <string name="rd_key_medium_back">Střední skok zpět</string>
+    <string name="rd_key_medium_forward">Střední skok vpřed</string>
+    <string name="rd_key_long_back">Dlouhý skok zpět</string>
+    <string name="rd_key_long_forward">Dlouhý skok vpřed</string>
+    <string name="rd_key_faster">Rychleji</string>
+    <string name="rd_key_slower">Pomaleji</string>
+    <string name="rd_key_normal_rate">Normální rychlost</string>
+    <string name="rd_key_volume_up">Zvýšit hlasitost</string>
+    <string name="rd_key_volume_down">Snížit hlasitost</string>
+    <string name="rd_key_mute">Ztlumit</string>
+    <string name="rd_key_audio_delay_down">Snížit zpoždění zvuku</string>
+    <string name="rd_key_audio_delay_up">Zvýšit zpoždění zvuku</string>
+    <string name="rd_key_aspect">Procházet poměry stran</string>
+    <string name="rd_key_snapshot">Vytvořit snímek videa</string>
+    <string name="rd_key_record">Nahrávat</string>
+    <string name="rd_key_sub_delay_down">Snížit zpoždění titulků</string>
+    <string name="rd_key_sub_delay_up">Zvýšit zpoždění titulků</string>
+    <string name="rd_key_sync_audio">Synchronizace titulků / uložit časovou známku zvuku</string>
+    <string name="rd_key_sync_subtitle">Synchronizace titulků / uložit časovou známku titulků</string>
+    <string name="rd_key_sync_apply">Synchronizace titulků / synchronizovat časové známky titulků a zvuku</string>
+    <string name="rd_key_sub_scale_reset">Obnovit měřítko textu titulků</string>
+    <string name="rd_key_show_controls">Zobrazit ovládání v režimu celé obrazovky</string>
+    <string name="rd_key_options">Místní nabídka</string>
 </resources>

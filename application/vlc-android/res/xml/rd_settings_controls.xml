@@ -70,6 +70,12 @@
             app:updatesContinuously="true" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/rd_sec_skip">
+        <!-- VLC Redesign: the desktop's Keyboard Shortcuts, the list of the player's keys (RdShortcuts) -->
+        <org.videolan.vlc.gui.preferences.rd.RdLinkPreference
+            android:key="rd_keyboard_shortcuts"
+            android:summary="@string/rd_help_keyboard_shortcuts"
+            android:title="@string/rd_keyboard_shortcuts"
+            app:actionText="@string/rd_open" />
         <!-- VLC Redesign: the desktop's four skips (Shift, Alt, Ctrl, Ctrl+Alt with the arrows) -->
         <org.videolan.vlc.gui.view.NumberPickerPreference
             android:defaultValue="3"

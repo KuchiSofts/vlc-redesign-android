@@ -610,4 +610,38 @@
     </plurals>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_cast_hide_device">Bu aygıtı gizle</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">Klavye Kısayolları</string>
+    <string name="rd_help_keyboard_shortcuts">Klavye, oyun kumandası veya TV kumandası tuşlarının oynatıcıda ne yaptığı.</string>
+    <string name="rd_key_play_pause">Duraklatma/Oynatma</string>
+    <string name="rd_key_stop">Durdur</string>
+    <string name="rd_key_next">Sonraki</string>
+    <string name="rd_key_previous">Önceki</string>
+    <string name="rd_key_very_short_back">Çok Kısa Geri Atlama</string>
+    <string name="rd_key_very_short_forward">Çok Kısa İleri Atlama</string>
+    <string name="rd_key_short_back">Kısa Geri Atlama</string>
+    <string name="rd_key_short_forward">Kısa İleri Atlama</string>
+    <string name="rd_key_medium_back">Orta Geri Atlama</string>
+    <string name="rd_key_medium_forward">Orta İleri Atlama</string>
+    <string name="rd_key_long_back">Uzun Geri Atlama</string>
+    <string name="rd_key_long_forward">Uzun İleri Atlama</string>
+    <string name="rd_key_faster">Daha Hızlı</string>
+    <string name="rd_key_slower">Daha Yavaş</string>
+    <string name="rd_key_normal_rate">Normal Hız</string>
+    <string name="rd_key_volume_up">Ses Açma</string>
+    <string name="rd_key_volume_down">Sesi Kısma</string>
+    <string name="rd_key_mute">Sesi Kapat</string>
+    <string name="rd_key_audio_delay_down">Ses Gecikmesini Azaltma</string>
+    <string name="rd_key_audio_delay_up">Ses Gecikmesini Arttırma</string>
+    <string name="rd_key_aspect">Kaynak en boy oranları arasında dolaş</string>
+    <string name="rd_key_snapshot">Görüntüden Fotoğraf Çekme</string>
+    <string name="rd_key_record">Kayıt</string>
+    <string name="rd_key_sub_delay_down">Altyazı Gecikmesini Azaltma</string>
+    <string name="rd_key_sub_delay_up">Altyazı Gecikmesini Arttırma</string>
+    <string name="rd_key_sync_audio">Altyazı Eşleme / Ses Zaman Damgası İmleme</string>
+    <string name="rd_key_sync_subtitle">Altyazı Eşleme / Altyazı Zaman Damgası İmleme</string>
+    <string name="rd_key_sync_apply">Altyazı Eşleme / Ses ve Altyazı Zaman Damgası İmleme</string>
+    <string name="rd_key_sub_scale_reset">Altyazı metni ölçeğini sıfırla</string>
+    <string name="rd_key_show_controls">Tam Ekranda Denetimleri Görüntüleme</string>
+    <string name="rd_key_options">İçerik Menüsü</string>
 </resources>

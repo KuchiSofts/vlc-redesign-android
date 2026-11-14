@@ -615,4 +615,38 @@
     </plurals>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_cast_hide_device">Скрыть это устройство</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">Сочетания клавиш</string>
+    <string name="rd_help_keyboard_shortcuts">Что делают в плеере клавиши клавиатуры, геймпада или пульта телевизора.</string>
+    <string name="rd_key_play_pause">Воспроизведение/пауза</string>
+    <string name="rd_key_stop">Остановить</string>
+    <string name="rd_key_next">Следующий</string>
+    <string name="rd_key_previous">Предыдущий</string>
+    <string name="rd_key_very_short_back">Очень короткий скачок назад</string>
+    <string name="rd_key_very_short_forward">Очень короткий скачок вперёд</string>
+    <string name="rd_key_short_back">Короткий скачок назад</string>
+    <string name="rd_key_short_forward">Короткий скачок вперёд</string>
+    <string name="rd_key_medium_back">Средний скачок назад</string>
+    <string name="rd_key_medium_forward">Средний скачок вперёд</string>
+    <string name="rd_key_long_back">Длинный скачок назад</string>
+    <string name="rd_key_long_forward">Длинный скачок вперёд</string>
+    <string name="rd_key_faster">Быстрее</string>
+    <string name="rd_key_slower">Медленнее</string>
+    <string name="rd_key_normal_rate">Нормальная скорость</string>
+    <string name="rd_key_volume_up">Громче</string>
+    <string name="rd_key_volume_down">Тише</string>
+    <string name="rd_key_mute">Выключить звук</string>
+    <string name="rd_key_audio_delay_down">Уменьшить задержку аудио</string>
+    <string name="rd_key_audio_delay_up">Увеличить задержку аудио</string>
+    <string name="rd_key_aspect">Смена соотношения сторон</string>
+    <string name="rd_key_snapshot">Сделать стоп-кадр</string>
+    <string name="rd_key_record">Запись</string>
+    <string name="rd_key_sub_delay_down">Уменьшение задержки субтитров</string>
+    <string name="rd_key_sub_delay_up">Увеличение задержки субтитров</string>
+    <string name="rd_key_sync_audio">Синхронизация: отметка в аудиодорожке</string>
+    <string name="rd_key_sync_subtitle">Синхронизация: отметка в субтитрах</string>
+    <string name="rd_key_sync_apply">Синхронизация: установка задержки</string>
+    <string name="rd_key_sub_scale_reset">Сбросить масштаб текста субтитров</string>
+    <string name="rd_key_show_controls">Панель управления в полноэкранном режиме</string>
+    <string name="rd_key_options">Контекстное меню</string>
 </resources>

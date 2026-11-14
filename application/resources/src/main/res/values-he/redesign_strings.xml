@@ -596,4 +596,38 @@
     </plurals>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_cast_hide_device">הסתרת התקן זה</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">קיצורי מקלדת</string>
+    <string name="rd_help_keyboard_shortcuts">מה עושים בנגן המקשים של מקלדת, בקר משחק או שלט טלוויזיה.</string>
+    <string name="rd_key_play_pause">ניגון/השהיה</string>
+    <string name="rd_key_stop">עצור</string>
+    <string name="rd_key_next">הבא</string>
+    <string name="rd_key_previous">הקודם</string>
+    <string name="rd_key_very_short_back">קפיצה קצרה מאוד אחורה</string>
+    <string name="rd_key_very_short_forward">קפיצה קצרה מאוד קדימה</string>
+    <string name="rd_key_short_back">קפיצה קצרה אחורה</string>
+    <string name="rd_key_short_forward">קפיצה קצרה קדימה</string>
+    <string name="rd_key_medium_back">קפיצה בינונית אחורה</string>
+    <string name="rd_key_medium_forward">קפיצה בינונית קדימה</string>
+    <string name="rd_key_long_back">קפיצה ארוכה קדימה</string>
+    <string name="rd_key_long_forward">קפיצה ארוכה קדימה</string>
+    <string name="rd_key_faster">נגינה מהירה</string>
+    <string name="rd_key_slower">נגינה איטית</string>
+    <string name="rd_key_normal_rate">קצב רגיל</string>
+    <string name="rd_key_volume_up">הגברת העוצמה</string>
+    <string name="rd_key_volume_down">הנמכת העוצמה</string>
+    <string name="rd_key_mute">השתקה</string>
+    <string name="rd_key_audio_delay_down">הקטנת השהיית השמע</string>
+    <string name="rd_key_audio_delay_up">הגדלת השהיית השמע</string>
+    <string name="rd_key_aspect">החלפה בין יחסי התצוגה של המקור</string>
+    <string name="rd_key_snapshot">צילום תמונה מהווידאו</string>
+    <string name="rd_key_record">הקלטה</string>
+    <string name="rd_key_sub_delay_down">הקטנת השהיית הכתוביות</string>
+    <string name="rd_key_sub_delay_up">הגדלת השהיית הכתוביות</string>
+    <string name="rd_key_sync_audio">סנכרון כתוביות / שמירת חותמת הזמן של השמע בסימנייה</string>
+    <string name="rd_key_sync_subtitle">סנכרון כתוביות / שמירת חותמת הזמן של הכתובית בסימנייה</string>
+    <string name="rd_key_sync_apply">סנכרון כתוביות / סנכרון חותמות הזמן בין השמע והכתוביות</string>
+    <string name="rd_key_sub_scale_reset">איפוס יחס גודל כתוביות</string>
+    <string name="rd_key_show_controls">הצגת הפקדים במסך מלא</string>
+    <string name="rd_key_options">תפריט הקשר</string>
 </resources>

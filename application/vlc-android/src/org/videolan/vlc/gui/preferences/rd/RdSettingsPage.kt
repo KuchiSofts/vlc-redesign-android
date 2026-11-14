@@ -424,6 +424,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             "android_auto_category" -> openSub(PreferencesAndroidAuto())
             "optional_features" -> openSub(PreferencesOptional())
             "rd_welcome_setup" -> activity.startOnboarding()
+            "rd_keyboard_shortcuts" -> RdShortcuts.show(requireContext())
             // Privacy
             PLAYBACK_HISTORY -> {
                 activity.setResult(RESULT_RESTART)

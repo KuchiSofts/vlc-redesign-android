@@ -615,4 +615,38 @@
     </plurals>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_cast_hide_device">Ukryj to urządzenie</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">Skróty klawiszowe</string>
+    <string name="rd_help_keyboard_shortcuts">Co robią w odtwarzaczu klawisze klawiatury, kontrolera do gier lub pilota TV.</string>
+    <string name="rd_key_play_pause">Odtwarzaj/Wstrzymaj</string>
+    <string name="rd_key_stop">Zatrzymaj</string>
+    <string name="rd_key_next">Następny</string>
+    <string name="rd_key_previous">Poprzedni</string>
+    <string name="rd_key_very_short_back">Bardzo mały przeskok wstecz</string>
+    <string name="rd_key_very_short_forward">Bardzo mały przeskok do przodu</string>
+    <string name="rd_key_short_back">Mały przeskok wstecz</string>
+    <string name="rd_key_short_forward">Mały przeskok do przodu</string>
+    <string name="rd_key_medium_back">Średni przeskok wstecz</string>
+    <string name="rd_key_medium_forward">Średni przeskok do przodu</string>
+    <string name="rd_key_long_back">Duży przeskok wstecz</string>
+    <string name="rd_key_long_forward">Duży przeskok do przodu</string>
+    <string name="rd_key_faster">Przyspiesz</string>
+    <string name="rd_key_slower">Zwolnij</string>
+    <string name="rd_key_normal_rate">Standardowa stawka</string>
+    <string name="rd_key_volume_up">Zwiększ głośność</string>
+    <string name="rd_key_volume_down">Zmniejsz głośność</string>
+    <string name="rd_key_mute">Wycisz</string>
+    <string name="rd_key_audio_delay_down">Zmniejsz opóźnienie dźwięku</string>
+    <string name="rd_key_audio_delay_up">Zwiększ opóźnienie dźwięku</string>
+    <string name="rd_key_aspect">Wybieranie kolejnych proporcji obrazu źródłowego</string>
+    <string name="rd_key_snapshot">Wykonaj zrzut obrazu</string>
+    <string name="rd_key_record">Nagrywaj</string>
+    <string name="rd_key_sub_delay_down">Zmniejsz opóźnienie napisów</string>
+    <string name="rd_key_sub_delay_up">Zwiększ opóźnienie napisów</string>
+    <string name="rd_key_sync_audio">Synchronizacja napisów / zakładka znacznika czasu dźwięku</string>
+    <string name="rd_key_sync_subtitle">Synchronizacja napisów / zakładka znacznika czasu napisów</string>
+    <string name="rd_key_sync_apply">Synchronizacja napisów / znaczniki synchronizacji czasu dla dźwięku i napisów</string>
+    <string name="rd_key_sub_scale_reset">Resetuj skalę tekstu napisów</string>
+    <string name="rd_key_show_controls">Pokaż kontrolera w trybie pełnoekranowym</string>
+    <string name="rd_key_options">Menu kontekstowe</string>
 </resources>

@@ -608,4 +608,38 @@
     </plurals>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_cast_hide_device">이 장치 숨기기</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">단축키</string>
+    <string name="rd_help_keyboard_shortcuts">키보드, 게임 컨트롤러, TV 리모컨의 키가 플레이어에서 하는 일.</string>
+    <string name="rd_key_play_pause">재생/일시중지</string>
+    <string name="rd_key_stop">정지</string>
+    <string name="rd_key_next">다음</string>
+    <string name="rd_key_previous">이전</string>
+    <string name="rd_key_very_short_back">매우 짧게 뒤로 이동</string>
+    <string name="rd_key_very_short_forward">매우 짧게 앞으로 이동</string>
+    <string name="rd_key_short_back">짧게 뒤로 이동</string>
+    <string name="rd_key_short_forward">짧게 앞으로 이동</string>
+    <string name="rd_key_medium_back">중간 뒤로 이동</string>
+    <string name="rd_key_medium_forward">중간 앞으로 이동</string>
+    <string name="rd_key_long_back">길게 뒤로 이동</string>
+    <string name="rd_key_long_forward">길게 앞으로 이동</string>
+    <string name="rd_key_faster">더 빠르게</string>
+    <string name="rd_key_slower">더 느리게</string>
+    <string name="rd_key_normal_rate">기본 속도 (1x)</string>
+    <string name="rd_key_volume_up">볼륨 높임</string>
+    <string name="rd_key_volume_down">볼륨 낮춤</string>
+    <string name="rd_key_mute">음소거</string>
+    <string name="rd_key_audio_delay_down">오디오 싱크 빠르게</string>
+    <string name="rd_key_audio_delay_up">오디오 싱크 느리게</string>
+    <string name="rd_key_aspect">소스 화면 비율 순차 선택</string>
+    <string name="rd_key_snapshot">비디오 스냅샷 찍기</string>
+    <string name="rd_key_record">녹음/녹화</string>
+    <string name="rd_key_sub_delay_down">자막 싱크 빠르게</string>
+    <string name="rd_key_sub_delay_up">자막 싱크 느리게</string>
+    <string name="rd_key_sync_audio">자막 싱크: 오디오 타임스탬프 책갈피</string>
+    <string name="rd_key_sync_subtitle">자막 싱크: 자막 타임스탬프 책갈피</string>
+    <string name="rd_key_sync_apply">자막 싱크: 오디오 &amp; 자막 타임스탬프 동기화</string>
+    <string name="rd_key_sub_scale_reset">자막 텍스트 배율 초기화</string>
+    <string name="rd_key_show_controls">전체화면에서 컨트롤러 보이기</string>
+    <string name="rd_key_options">컨텍스트 메뉴</string>
 </resources>

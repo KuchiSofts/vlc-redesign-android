@@ -617,4 +617,38 @@
     </plurals>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_cast_hide_device">إخفاء هذا الجهاز</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">اختصارات لوحة المفاتيح</string>
+    <string name="rd_help_keyboard_shortcuts">ما تفعله في المشغل مفاتيح لوحة المفاتيح أو ذراع الألعاب أو جهاز التحكم بالتلفاز.</string>
+    <string name="rd_key_play_pause">شغّل/ألبث</string>
+    <string name="rd_key_stop">أوقف</string>
+    <string name="rd_key_next">التالي</string>
+    <string name="rd_key_previous">السابق</string>
+    <string name="rd_key_very_short_back">قفزة قصيرة جدًا إلى الخلف</string>
+    <string name="rd_key_very_short_forward">قفزة قصيرة جدًا إلى الأمام</string>
+    <string name="rd_key_short_back">قفزة قصيرة إلى الخلف</string>
+    <string name="rd_key_short_forward">قفزة قصيرة إلى الأمام</string>
+    <string name="rd_key_medium_back">قفزة متوسطة إلى الخلف</string>
+    <string name="rd_key_medium_forward">قفزة متوسطة إلى الأمام</string>
+    <string name="rd_key_long_back">قفزة طويلة إلى الخلف</string>
+    <string name="rd_key_long_forward">قفزة طويلة إلى الأمام</string>
+    <string name="rd_key_faster">أسرع</string>
+    <string name="rd_key_slower">أبطأ</string>
+    <string name="rd_key_normal_rate">نسبة عادية</string>
+    <string name="rd_key_volume_up">ارفع الصوت</string>
+    <string name="rd_key_volume_down">أخفض الصوت</string>
+    <string name="rd_key_mute">كتم</string>
+    <string name="rd_key_audio_delay_down">تأخير الصوت</string>
+    <string name="rd_key_audio_delay_up">تقديم الصوت</string>
+    <string name="rd_key_aspect">دورة بين الجوانب</string>
+    <string name="rd_key_snapshot">التقاط صورة</string>
+    <string name="rd_key_record">تسجيل</string>
+    <string name="rd_key_sub_delay_down">تأخير الترجمة</string>
+    <string name="rd_key_sub_delay_up">تقديم الترجمة</string>
+    <string name="rd_key_sync_audio">مزامنة الترجمة / وضع إشارة على توقيت الصوت</string>
+    <string name="rd_key_sync_subtitle">مزامنة الترجمة / وضع إشارة على توقيت الترجمة</string>
+    <string name="rd_key_sync_apply">مزامنة الترجمة / مزامنة توقيتَي الصوت والترجمة</string>
+    <string name="rd_key_sub_scale_reset">إعادة ضبط حجم نص الترجمة</string>
+    <string name="rd_key_show_controls">إظهار عناصر التحكم في ملء الشاشة</string>
+    <string name="rd_key_options">قائمة السياق</string>
 </resources>

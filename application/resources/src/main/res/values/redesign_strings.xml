@@ -761,6 +761,40 @@
         <item quantity="one">Show %1$d hidden device</item>
         <item quantity="other">Show %1$d hidden devices</item>
     </plurals>
+    <!-- Settings › Controls › Keyboard Shortcuts: the player's keys, in VLC's own words for its hotkeys (RdShortcuts) -->
+    <string name="rd_keyboard_shortcuts">Keyboard Shortcuts</string>
+    <string name="rd_help_keyboard_shortcuts">What the keys of a keyboard, a game controller or a TV remote do in the player.</string>
+    <string name="rd_key_play_pause">Play/Pause</string>
+    <string name="rd_key_stop">Stop</string>
+    <string name="rd_key_next">Next</string>
+    <string name="rd_key_previous">Previous</string>
+    <string name="rd_key_very_short_back">Very short backwards jump</string>
+    <string name="rd_key_very_short_forward">Very short forward jump</string>
+    <string name="rd_key_short_back">Short backwards jump</string>
+    <string name="rd_key_short_forward">Short forward jump</string>
+    <string name="rd_key_medium_back">Medium backwards jump</string>
+    <string name="rd_key_medium_forward">Medium forward jump</string>
+    <string name="rd_key_long_back">Long backwards jump</string>
+    <string name="rd_key_long_forward">Long forward jump</string>
+    <string name="rd_key_faster">Faster</string>
+    <string name="rd_key_slower">Slower</string>
+    <string name="rd_key_normal_rate">Normal rate</string>
+    <string name="rd_key_volume_up">Volume up</string>
+    <string name="rd_key_volume_down">Volume down</string>
+    <string name="rd_key_mute">Mute</string>
+    <string name="rd_key_audio_delay_down">Audio delay down</string>
+    <string name="rd_key_audio_delay_up">Audio delay up</string>
+    <string name="rd_key_aspect">Cycle source aspect ratio</string>
+    <string name="rd_key_snapshot">Take video snapshot</string>
+    <string name="rd_key_record">Record</string>
+    <string name="rd_key_sub_delay_down">Subtitle delay down</string>
+    <string name="rd_key_sub_delay_up">Subtitle delay up</string>
+    <string name="rd_key_sync_audio">Subtitle sync / bookmark audio timestamp</string>
+    <string name="rd_key_sync_subtitle">Subtitle sync / bookmark subtitle timestamp</string>
+    <string name="rd_key_sync_apply">Subtitle sync / synchronize audio &amp; subtitle timestamps</string>
+    <string name="rd_key_sub_scale_reset">Reset subtitles text scale</string>
+    <string name="rd_key_show_controls">Show controller in fullscreen</string>
+    <string name="rd_key_options">Context menu</string>
     <!-- Settings › Subtitles › Timing: the desktop's Subtitle delay (sub-delay), the default of every video -->
     <string name="rd_subtitle_delay">Subtitle delay</string>
     <!-- Settings › Library › Advanced: the desktop's Ignored file extensions (libvlc's ignore-filetypes) -->

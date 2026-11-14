@@ -608,4 +608,38 @@
     </plurals>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_cast_hide_device">隱藏此裝置</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">鍵盤快速鍵</string>
+    <string name="rd_help_keyboard_shortcuts">鍵盤、遊戲控制器或電視遙控器的按鍵在播放器中的作用。</string>
+    <string name="rd_key_play_pause">播放/暫停</string>
+    <string name="rd_key_stop">停止</string>
+    <string name="rd_key_next">下一個</string>
+    <string name="rd_key_previous">上一個</string>
+    <string name="rd_key_very_short_back">極短程向前跳轉</string>
+    <string name="rd_key_very_short_forward">極短程向後跳轉</string>
+    <string name="rd_key_short_back">短程向前跳轉</string>
+    <string name="rd_key_short_forward">短程向後跳轉</string>
+    <string name="rd_key_medium_back">中程向前跳轉</string>
+    <string name="rd_key_medium_forward">中程向後跳轉</string>
+    <string name="rd_key_long_back">長程向前跳轉</string>
+    <string name="rd_key_long_forward">長程向後跳轉</string>
+    <string name="rd_key_faster">加快</string>
+    <string name="rd_key_slower">放慢</string>
+    <string name="rd_key_normal_rate">正常速率</string>
+    <string name="rd_key_volume_up">音量上升</string>
+    <string name="rd_key_volume_down">音量下降</string>
+    <string name="rd_key_mute">靜音</string>
+    <string name="rd_key_audio_delay_down">減少音訊延遲</string>
+    <string name="rd_key_audio_delay_up">增加音訊延遲</string>
+    <string name="rd_key_aspect">循環切換來源長寬比例</string>
+    <string name="rd_key_snapshot">視訊抓圖</string>
+    <string name="rd_key_record">錄製</string>
+    <string name="rd_key_sub_delay_down">減少字幕延遲</string>
+    <string name="rd_key_sub_delay_up">增加字幕延遲</string>
+    <string name="rd_key_sync_audio">字幕同步 / 將音訊時間戳記加入書籤</string>
+    <string name="rd_key_sync_subtitle">字幕同步 / 將字幕時間戳記加入書籤</string>
+    <string name="rd_key_sync_apply">字幕同步 / 同步音訊與字幕時間戳記</string>
+    <string name="rd_key_sub_scale_reset">重設字幕文字縮放</string>
+    <string name="rd_key_show_controls">全螢幕中顯示控制介面</string>
+    <string name="rd_key_options">右鍵選單</string>
 </resources>

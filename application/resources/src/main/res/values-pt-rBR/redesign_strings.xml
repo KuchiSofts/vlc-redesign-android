@@ -610,4 +610,38 @@
     </plurals>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_cast_hide_device">Ocultar este dispositivo</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">Atalhos de teclado</string>
+    <string name="rd_help_keyboard_shortcuts">O que as teclas de um teclado, um controle de jogo ou um controle remoto de TV fazem no player.</string>
+    <string name="rd_key_play_pause">Reproduzir/Pausar</string>
+    <string name="rd_key_stop">Parar</string>
+    <string name="rd_key_next">Próximo</string>
+    <string name="rd_key_previous">Anterior</string>
+    <string name="rd_key_very_short_back">Retrocesso muito curto</string>
+    <string name="rd_key_very_short_forward">Avanço muito curto</string>
+    <string name="rd_key_short_back">Retrocesso curto</string>
+    <string name="rd_key_short_forward">Avanço curto</string>
+    <string name="rd_key_medium_back">Retrocesso médio</string>
+    <string name="rd_key_medium_forward">Avanço médio</string>
+    <string name="rd_key_long_back">Retrocesso longo</string>
+    <string name="rd_key_long_forward">Avanço longo</string>
+    <string name="rd_key_faster">Mais rápido</string>
+    <string name="rd_key_slower">Mais devagar</string>
+    <string name="rd_key_normal_rate">Taxa normal</string>
+    <string name="rd_key_volume_up">Aumentar o volume</string>
+    <string name="rd_key_volume_down">Diminuir o volume</string>
+    <string name="rd_key_mute">Sem Áudio</string>
+    <string name="rd_key_audio_delay_down">Reduzir o atraso do áudio</string>
+    <string name="rd_key_audio_delay_up">Aumentar o atraso do áudio</string>
+    <string name="rd_key_aspect">Repetir as configurações de proporção</string>
+    <string name="rd_key_snapshot">Capturar imagem do vídeo</string>
+    <string name="rd_key_record">Gravar</string>
+    <string name="rd_key_sub_delay_down">Reduzir o atraso da legenda</string>
+    <string name="rd_key_sub_delay_up">Aumentar o atraso da legenda</string>
+    <string name="rd_key_sync_audio">Sincronia de legendas / marcar instante no áudio</string>
+    <string name="rd_key_sync_subtitle">Sincronia de legendas / marcar instante na legenda</string>
+    <string name="rd_key_sync_apply">Sincronia de legendas / sincronizar instantes de áudio e da legenda</string>
+    <string name="rd_key_sub_scale_reset">Redefinir a escala do texto das legendas</string>
+    <string name="rd_key_show_controls">Mostrar o controle no modo Tela Inteira</string>
+    <string name="rd_key_options">Menu de contexto</string>
 </resources>

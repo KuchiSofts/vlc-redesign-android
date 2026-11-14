@@ -610,4 +610,38 @@
     </plurals>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_cast_hide_device">Ocultar este dispositivo</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">Atajos de teclado</string>
+    <string name="rd_help_keyboard_shortcuts">Qué hacen en el reproductor las teclas de un teclado, un mando de juegos o un mando de TV.</string>
+    <string name="rd_key_play_pause">Reproducir/Pausar</string>
+    <string name="rd_key_stop">Detener</string>
+    <string name="rd_key_next">Siguiente</string>
+    <string name="rd_key_previous">Anterior</string>
+    <string name="rd_key_very_short_back">Salto muy corto atrás</string>
+    <string name="rd_key_very_short_forward">Salto muy corto adelante</string>
+    <string name="rd_key_short_back">Salto corto atrás</string>
+    <string name="rd_key_short_forward">Salto corto adelante</string>
+    <string name="rd_key_medium_back">Medio salto atrás</string>
+    <string name="rd_key_medium_forward">Medio salto adelante</string>
+    <string name="rd_key_long_back">Salto largo atrás</string>
+    <string name="rd_key_long_forward">Gran salto adelante</string>
+    <string name="rd_key_faster">Más rápido</string>
+    <string name="rd_key_slower">Más lento</string>
+    <string name="rd_key_normal_rate">Velocidad normal</string>
+    <string name="rd_key_volume_up">Subir volumen</string>
+    <string name="rd_key_volume_down">Bajar volumen</string>
+    <string name="rd_key_mute">Silenciar</string>
+    <string name="rd_key_audio_delay_down">Menos retraso de audio</string>
+    <string name="rd_key_audio_delay_up">Más retraso de audio</string>
+    <string name="rd_key_aspect">Rotar proporción fuente</string>
+    <string name="rd_key_snapshot">Tomar captura de pantalla de vídeo</string>
+    <string name="rd_key_record">Grabar</string>
+    <string name="rd_key_sub_delay_down">Menos retraso de subtítulos</string>
+    <string name="rd_key_sub_delay_up">Más retraso de subtítulos</string>
+    <string name="rd_key_sync_audio">Sincronizar subtítulos / marcador de tiempo de audio</string>
+    <string name="rd_key_sync_subtitle">Sincronización de subtítulos / marcador de tiempo de subtítulo</string>
+    <string name="rd_key_sync_apply">Sincronización de subtítulos / sincronizar audio y marcas de tiempo</string>
+    <string name="rd_key_sub_scale_reset">Restablecer escala del texto de subtítulos</string>
+    <string name="rd_key_show_controls">Mostrar controlador a pantalla completa</string>
+    <string name="rd_key_options">Menú contextual</string>
 </resources>

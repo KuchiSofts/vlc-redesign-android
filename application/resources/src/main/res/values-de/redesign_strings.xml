@@ -610,4 +610,38 @@
     </plurals>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_cast_hide_device">Dieses Gerät ausblenden</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">Tastenkürzel</string>
+    <string name="rd_help_keyboard_shortcuts">Was die Tasten einer Tastatur, eines Gamecontrollers oder einer TV-Fernbedienung im Player tun.</string>
+    <string name="rd_key_play_pause">Abspielen/Pause</string>
+    <string name="rd_key_stop">Stopp</string>
+    <string name="rd_key_next">Nächstes</string>
+    <string name="rd_key_previous">Vorheriges</string>
+    <string name="rd_key_very_short_back">Sehr kurzer Sprung zurück</string>
+    <string name="rd_key_very_short_forward">Sehr kurzer Sprung vorwärts</string>
+    <string name="rd_key_short_back">Kurzer Sprung zurück</string>
+    <string name="rd_key_short_forward">Kurzer Sprung vorwärts</string>
+    <string name="rd_key_medium_back">Sprung zurück</string>
+    <string name="rd_key_medium_forward">Sprung vorwärts</string>
+    <string name="rd_key_long_back">Langer Sprung zurück</string>
+    <string name="rd_key_long_forward">Langer Sprung vorwärts</string>
+    <string name="rd_key_faster">Schneller</string>
+    <string name="rd_key_slower">Langsamer</string>
+    <string name="rd_key_normal_rate">Normale Rate</string>
+    <string name="rd_key_volume_up">Lauter</string>
+    <string name="rd_key_volume_down">Leiser</string>
+    <string name="rd_key_mute">Ton aus</string>
+    <string name="rd_key_audio_delay_down">Audioverzögerung verringern</string>
+    <string name="rd_key_audio_delay_up">Audioverzögerung erhöhen</string>
+    <string name="rd_key_aspect">Durch die verfügbaren Bildseitenverhältnisse wechseln</string>
+    <string name="rd_key_snapshot">Videoschnappschuss machen</string>
+    <string name="rd_key_record">Aufnehmen</string>
+    <string name="rd_key_sub_delay_down">Untertitelverzögerung verringern</string>
+    <string name="rd_key_sub_delay_up">Untertitelverzögerung erhöhen</string>
+    <string name="rd_key_sync_audio">Untertitel synchronisieren / Audio-Zeitstempel als Lesezeichen speichern</string>
+    <string name="rd_key_sync_subtitle">Untertitel synchronisieren / Untertitel-Zeitstempel als Lesezeichen speichern</string>
+    <string name="rd_key_sync_apply">Untertitel Synchronisation / synchronisiere Audio- und Untertitel-Zeitstempel</string>
+    <string name="rd_key_sub_scale_reset">Untertitel-Textgröße zurücksetzen</string>
+    <string name="rd_key_show_controls">Steuerung im Vollbildmodus anzeigen</string>
+    <string name="rd_key_options">Kontextmenü</string>
 </resources>

@@ -615,4 +615,38 @@
     </plurals>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_cast_hide_device">Сховати цей пристрій</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">Клавіатурні скорочення</string>
+    <string name="rd_help_keyboard_shortcuts">Що роблять у програвачі клавіші клавіатури, геймпада або пульта телевізора.</string>
+    <string name="rd_key_play_pause">Відтворити/Призупинити</string>
+    <string name="rd_key_stop">Зупинити</string>
+    <string name="rd_key_next">Наступний</string>
+    <string name="rd_key_previous">Попередній</string>
+    <string name="rd_key_very_short_back">Дуже короткий стрибок назад</string>
+    <string name="rd_key_very_short_forward">Дуже короткий стрибок вперед</string>
+    <string name="rd_key_short_back">Короткий стрибок назад</string>
+    <string name="rd_key_short_forward">Короткий стрибок вперед</string>
+    <string name="rd_key_medium_back">Середній стрибок назад</string>
+    <string name="rd_key_medium_forward">Середній стрибок вперед</string>
+    <string name="rd_key_long_back">Довгий стрибок назад</string>
+    <string name="rd_key_long_forward">Довгий стрибок вперед</string>
+    <string name="rd_key_faster">Швидше</string>
+    <string name="rd_key_slower">Повільніше</string>
+    <string name="rd_key_normal_rate">Нормальна швидкість</string>
+    <string name="rd_key_volume_up">Голосніше</string>
+    <string name="rd_key_volume_down">Тихіше</string>
+    <string name="rd_key_mute">Вимкнути звук</string>
+    <string name="rd_key_audio_delay_down">Зменшити затримку звуку</string>
+    <string name="rd_key_audio_delay_up">Збільшити затримку звуку</string>
+    <string name="rd_key_aspect">Циклічно перемикати співвідношення сторін джерела</string>
+    <string name="rd_key_snapshot">Зробити стоп-кадр</string>
+    <string name="rd_key_record">Записування</string>
+    <string name="rd_key_sub_delay_down">Зменшити затримку субтитрів</string>
+    <string name="rd_key_sub_delay_up">Збільшити затримку субтитрів</string>
+    <string name="rd_key_sync_audio">Закладка аудіо мітки при синхронізації субтитрів</string>
+    <string name="rd_key_sync_subtitle">Закладка мітки субтитрів при синхронізації субтитрів</string>
+    <string name="rd_key_sync_apply">Синхронізація міток аудіо та субтитрів при синхронізації субтитрів</string>
+    <string name="rd_key_sub_scale_reset">Скинути масштаб тексту субтитрів</string>
+    <string name="rd_key_show_controls">Показати елемент керування в повноекранному режимі</string>
+    <string name="rd_key_options">Контекстне меню</string>
 </resources>

@@ -610,4 +610,38 @@
     </plurals>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_cast_hide_device">Nascondi questo dispositivo</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">Scorciatoie da tastiera</string>
+    <string name="rd_help_keyboard_shortcuts">Cosa fanno nel lettore i tasti di una tastiera, di un controller o di un telecomando TV.</string>
+    <string name="rd_key_play_pause">Riproduci/Pausa</string>
+    <string name="rd_key_stop">Interrompi</string>
+    <string name="rd_key_next">Successivo</string>
+    <string name="rd_key_previous">Precedente</string>
+    <string name="rd_key_very_short_back">Salto molto corto all\'indietro</string>
+    <string name="rd_key_very_short_forward">Salto molto corto in avanti</string>
+    <string name="rd_key_short_back">Salto corto all\'indietro</string>
+    <string name="rd_key_short_forward">Salto corto in avanti</string>
+    <string name="rd_key_medium_back">Salto medio all\'indietro</string>
+    <string name="rd_key_medium_forward">Salto medio in avanti</string>
+    <string name="rd_key_long_back">Salto lungo all\'indietro</string>
+    <string name="rd_key_long_forward">Salto lungo in avanti</string>
+    <string name="rd_key_faster">Più veloce</string>
+    <string name="rd_key_slower">Più lento</string>
+    <string name="rd_key_normal_rate">Velocità normale</string>
+    <string name="rd_key_volume_up">Aumenta il volume</string>
+    <string name="rd_key_volume_down">Riduci il volume</string>
+    <string name="rd_key_mute">Silenzio</string>
+    <string name="rd_key_audio_delay_down">Riduci ritardo audio</string>
+    <string name="rd_key_audio_delay_up">Aumenta ritardo audio</string>
+    <string name="rd_key_aspect">Rotazione delle proporzioni della sorgente</string>
+    <string name="rd_key_snapshot">Cattura schermata video</string>
+    <string name="rd_key_record">Registra</string>
+    <string name="rd_key_sub_delay_down">Riduci ritardo sottotitoli</string>
+    <string name="rd_key_sub_delay_up">Aumenta ritardo sottotitoli</string>
+    <string name="rd_key_sync_audio">Sincronizzazione dei sottotitoli / data e ora dei segnalibri audio</string>
+    <string name="rd_key_sync_subtitle">Sincronizzazione dei sottotitoli / data e ora dei segnalibri dei sottotitoli</string>
+    <string name="rd_key_sync_apply">Sincronizzazione dei sottotitoli / sincronizza data e ora di sottotitoli e audio</string>
+    <string name="rd_key_sub_scale_reset">Reimposta la dimensione del testo dei sottotitoli</string>
+    <string name="rd_key_show_controls">Mostra controllo a schermo intero</string>
+    <string name="rd_key_options">Menu contestuale</string>
 </resources>

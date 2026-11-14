@@ -610,4 +610,38 @@
     </plurals>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_cast_hide_device">Dit apparaat verbergen</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">Sneltoetsen</string>
+    <string name="rd_help_keyboard_shortcuts">Wat de toetsen van een toetsenbord, een gamecontroller of een tv-afstandsbediening in de speler doen.</string>
+    <string name="rd_key_play_pause">Afspelen/pauzeren</string>
+    <string name="rd_key_stop">Stoppen</string>
+    <string name="rd_key_next">Volgende</string>
+    <string name="rd_key_previous">Vorige</string>
+    <string name="rd_key_very_short_back">Heel kleine sprong achteruit</string>
+    <string name="rd_key_very_short_forward">Heel kleine sprong vooruit</string>
+    <string name="rd_key_short_back">Kleine sprong achteruit</string>
+    <string name="rd_key_short_forward">Kleine sprong vooruit</string>
+    <string name="rd_key_medium_back">Normale sprong achteruit</string>
+    <string name="rd_key_medium_forward">Normale sprong vooruit</string>
+    <string name="rd_key_long_back">Grote sprong achteruit</string>
+    <string name="rd_key_long_forward">Grote sprong vooruit</string>
+    <string name="rd_key_faster">Sneller</string>
+    <string name="rd_key_slower">Langzamer</string>
+    <string name="rd_key_normal_rate">Normale snelheid</string>
+    <string name="rd_key_volume_up">Geluid harder</string>
+    <string name="rd_key_volume_down">Geluid zachter</string>
+    <string name="rd_key_mute">Dempen</string>
+    <string name="rd_key_audio_delay_down">Audiovertraging verkleinen</string>
+    <string name="rd_key_audio_delay_up">Audiovertraging vergroten</string>
+    <string name="rd_key_aspect">Beeldverhouding veranderen</string>
+    <string name="rd_key_snapshot">Videomomentopname maken</string>
+    <string name="rd_key_record">Opnemen</string>
+    <string name="rd_key_sub_delay_down">Ondertitelvertraging verlagen</string>
+    <string name="rd_key_sub_delay_up">Ondertitelvertraging verhogen</string>
+    <string name="rd_key_sync_audio">Ondertitelsync / audio-timestamp bladwijzer aanmaken</string>
+    <string name="rd_key_sync_subtitle">Ondertitelsync / ondertitel-timestamp bladwijzer aanmaken</string>
+    <string name="rd_key_sync_apply">Ondertitelsync / audio- en ondertitel-timestamps synchroniseren</string>
+    <string name="rd_key_sub_scale_reset">Tekstschaal ondertitels herstellen</string>
+    <string name="rd_key_show_controls">Bediening in schermvullende modus weergeven</string>
+    <string name="rd_key_options">Contextmenu</string>
 </resources>

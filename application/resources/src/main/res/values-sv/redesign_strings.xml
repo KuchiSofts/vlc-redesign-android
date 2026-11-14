@@ -610,4 +610,38 @@
     </plurals>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_cast_hide_device">Dölj den här enheten</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">Kortkommandon</string>
+    <string name="rd_help_keyboard_shortcuts">Vad tangenterna på ett tangentbord, en spelkontroll eller en tv-fjärrkontroll gör i spelaren.</string>
+    <string name="rd_key_play_pause">Spela upp/Pausa</string>
+    <string name="rd_key_stop">Stoppa</string>
+    <string name="rd_key_next">Nästa</string>
+    <string name="rd_key_previous">Föregående</string>
+    <string name="rd_key_very_short_back">Mycket kort hopp bakåt</string>
+    <string name="rd_key_very_short_forward">Mycket kort hopp framåt</string>
+    <string name="rd_key_short_back">Kort hopp bakåt</string>
+    <string name="rd_key_short_forward">Kort hopp framåt</string>
+    <string name="rd_key_medium_back">Medellångt hopp bakåt</string>
+    <string name="rd_key_medium_forward">Medellångt hopp framåt</string>
+    <string name="rd_key_long_back">Långt hopp bakåt</string>
+    <string name="rd_key_long_forward">Långt hopp framåt</string>
+    <string name="rd_key_faster">Snabbare</string>
+    <string name="rd_key_slower">Långsammare</string>
+    <string name="rd_key_normal_rate">Normal hastighet</string>
+    <string name="rd_key_volume_up">Volym upp</string>
+    <string name="rd_key_volume_down">Volym ned</string>
+    <string name="rd_key_mute">Tyst</string>
+    <string name="rd_key_audio_delay_down">Ljudfördröjning mindre</string>
+    <string name="rd_key_audio_delay_up">Ljudfördröjning mer</string>
+    <string name="rd_key_aspect">Växla källbildförhållande</string>
+    <string name="rd_key_snapshot">Ta videoskärmbild</string>
+    <string name="rd_key_record">Spela in</string>
+    <string name="rd_key_sub_delay_down">Sänk undertextens fördröjning</string>
+    <string name="rd_key_sub_delay_up">Öka undertextens fördröjning</string>
+    <string name="rd_key_sync_audio">Undertextsynkr. / skapa bokmärke för ljudtidstämpel</string>
+    <string name="rd_key_sync_subtitle">Undertextsynkr. / skapa bokmärke för undertexttidstämpel</string>
+    <string name="rd_key_sync_apply">Undertextsynkr. / synkronisera ljud- &amp; undertexttidsstämplar</string>
+    <string name="rd_key_sub_scale_reset">Återställ undertexternas textskala</string>
+    <string name="rd_key_show_controls">Visa kontroller i helskärm</string>
+    <string name="rd_key_options">Innehållsmeny</string>
 </resources>
