@@ -581,4 +581,8 @@
     <string name="rd_link_added">已加入字幕：%1$s</string>
     <string name="rd_seek_sub_cues">在跳轉列上顯示字幕行</string>
     <string name="rd_help_seek_sub_cues">在跳轉列上標出目前字幕之後還有台詞的位置。</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">顯示快速鍵的回饋訊息</string>
+    <string name="rd_show_feedback_for">回饋訊息顯示時間</string>
+    <string name="rd_help_osd">有變化時顯示在影片上的訊息：速度、延遲、縮放、軌道。</string>
 </resources>

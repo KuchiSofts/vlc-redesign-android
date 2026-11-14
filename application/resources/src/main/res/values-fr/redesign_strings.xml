@@ -582,4 +582,8 @@
     <string name="rd_link_added">Sous-titre ajouté : %1$s</string>
     <string name="rd_seek_sub_cues">Afficher les lignes des sous-titres sur la barre de progression</string>
     <string name="rd_help_seek_sub_cues">Des repères sur la barre de progression là où le sous-titre affiché a encore des lignes.</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">Afficher un retour pour les raccourcis</string>
+    <string name="rd_show_feedback_for">Afficher le retour pendant</string>
+    <string name="rd_help_osd">Des messages sur la vidéo quand quelque chose change : la vitesse, un décalage, le zoom, une piste.</string>
 </resources>

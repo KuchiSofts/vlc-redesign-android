@@ -739,4 +739,8 @@
     <string name="rd_subs_larger">Larger subtitles</string>
     <string name="rd_os_show_both">Show both languages at once (dual subtitles)</string>
     <string name="rd_on_this_device">On this device</string>
+    <!-- Settings › Subtitles › On-Screen Messages: the desktop's osd and osd-duration (gui/video/RdOsd) -->
+    <string name="rd_show_shortcut_feedback">Show feedback for shortcuts</string>
+    <string name="rd_show_feedback_for">Show feedback for</string>
+    <string name="rd_help_osd">Messages over the video when something changes: the speed, a delay, the zoom, a track.</string>
 </resources>

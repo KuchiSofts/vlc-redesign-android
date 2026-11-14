@@ -581,4 +581,8 @@
     <string name="rd_link_added">자막 추가됨: %1$s</string>
     <string name="rd_seek_sub_cues">탐색 막대에 자막 줄 표시</string>
     <string name="rd_help_seek_sub_cues">표시 중인 자막에 이후 대사가 있는 위치를 탐색 막대에 표시합니다.</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">단축키 사용 시 화면에 표시</string>
+    <string name="rd_show_feedback_for">화면 표시 시간</string>
+    <string name="rd_help_osd">무언가 바뀔 때 영상 위에 나오는 메시지: 속도, 지연, 확대, 트랙.</string>
 </resources>

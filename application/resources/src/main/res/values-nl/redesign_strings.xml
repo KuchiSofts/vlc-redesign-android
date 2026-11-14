@@ -582,4 +582,8 @@
     <string name="rd_link_added">Ondertitel toegevoegd: %1$s</string>
     <string name="rd_seek_sub_cues">Ondertitelregels op de voortgangsbalk weergeven</string>
     <string name="rd_help_seek_sub_cues">Markeringen op de voortgangsbalk waar de getoonde ondertitel nog regels heeft.</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">Feedback weergeven voor sneltoetsen</string>
+    <string name="rd_show_feedback_for">Feedback weergeven gedurende</string>
+    <string name="rd_help_osd">Meldingen over de video als er iets verandert: de snelheid, een vertraging, de zoom, een spoor.</string>
 </resources>

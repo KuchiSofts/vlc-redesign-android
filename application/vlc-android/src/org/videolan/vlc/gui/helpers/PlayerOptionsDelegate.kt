@@ -240,7 +240,7 @@ class PlayerOptionsDelegate(val activity: FragmentActivity, val service: Playbac
             mp.record(null)
             recordingDir = null
             // the folder kept left to right in a right-to-left sentence
-            overlay?.showInfo(activity.getString(R.string.rd_record_saved, androidx.core.text.BidiFormatter.getInstance().unicodeWrap(dir, androidx.core.text.TextDirectionHeuristicsCompat.LTR)), 4000)
+            overlay?.showInfo(activity.getString(R.string.rd_record_saved, androidx.core.text.BidiFormatter.getInstance().unicodeWrap(dir, androidx.core.text.TextDirectionHeuristicsCompat.LTR)), 4000, notice = true)
             return
         }
         // Settings › Video › Recording › Save recordings to: Movies (as before), Download, or the app's own folder
@@ -252,7 +252,7 @@ class PlayerOptionsDelegate(val activity: FragmentActivity, val service: Playbac
                 else own.apply { mkdirs() }
         val ok = mp.record(dir.absolutePath)
         if (ok) recordingDir = dir.absolutePath
-        overlay?.showInfo(activity.getString(if (ok) R.string.rd_record_started else R.string.rd_record_failed), 2000)
+        overlay?.showInfo(activity.getString(if (ok) R.string.rd_record_started else R.string.rd_record_failed), 2000, notice = true)
     }
 
     fun hide() {

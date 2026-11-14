@@ -567,4 +567,8 @@
     <string name="rd_link_added">הכתוביות נוספו: %1$s</string>
     <string name="rd_seek_sub_cues">הצגת שורות הכתוביות על פס ההתקדמות</string>
     <string name="rd_help_seek_sub_cues">סימונים על פס ההתקדמות במקומות שבהם יש לכתוביות המוצגות שורות בהמשך.</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">הצג משוב לקיצורים</string>
+    <string name="rd_show_feedback_for">הצג משוב למשך</string>
+    <string name="rd_help_osd">הודעות מעל הסרטון כשמשהו משתנה: המהירות, השהיה, הזום, רצועה.</string>
 </resources>

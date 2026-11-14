@@ -240,6 +240,23 @@
             android:title="@string/rd_seek_sub_cues" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/rd_sec_osd">
+        <!-- VLC Redesign: the desktop's Show feedback for shortcuts (osd) and Show feedback for (osd-duration, in
+             tenths of a second here: 0.1 to 10 s, VLC's 1 s), gui/video/RdOsd -->
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="rd_osd"
+            android:summary="@string/rd_help_osd"
+            android:title="@string/rd_show_shortcut_feedback" />
+        <org.videolan.vlc.gui.preferences.rd.RdValueSeekBarPreference
+            android:defaultValue="10"
+            android:dependency="rd_osd"
+            android:key="rd_osd_duration"
+            android:max="100"
+            android:summary="%s"
+            android:title="@string/rd_show_feedback_for"
+            app:min="1"
+            app:seekBarIncrement="1"
+            app:updatesContinuously="true" />
         <CheckBoxPreference
             android:key="rd_video_title"
             android:title="@string/rd_show_filename"

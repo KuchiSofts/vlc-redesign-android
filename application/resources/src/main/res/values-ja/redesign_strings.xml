@@ -581,4 +581,8 @@
     <string name="rd_link_added">字幕を追加しました: %1$s</string>
     <string name="rd_seek_sub_cues">シークバーに字幕の行を表示</string>
     <string name="rd_help_seek_sub_cues">表示中の字幕にこの先セリフがある位置をシークバーに印で示します。</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">ショートカットのフィードバックを表示</string>
+    <string name="rd_show_feedback_for">フィードバックの表示時間</string>
+    <string name="rd_help_osd">何かが変わったときに映像の上に出るメッセージ (速度、遅延、ズーム、トラック)。</string>
 </resources>

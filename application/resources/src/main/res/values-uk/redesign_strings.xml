@@ -585,4 +585,8 @@
     <string name="rd_link_added">Субтитри додано: %1$s</string>
     <string name="rd_seek_sub_cues">Показувати рядки субтитрів на смузі перемотування</string>
     <string name="rd_help_seek_sub_cues">Позначки на смузі перемотування там, де показані субтитри ще мають рядки.</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">Показувати відгук на скорочення</string>
+    <string name="rd_show_feedback_for">Показувати відгук протягом</string>
+    <string name="rd_help_osd">Повідомлення поверх відео, коли щось змінюється: швидкість, затримка, масштаб, доріжка.</string>
 </resources>

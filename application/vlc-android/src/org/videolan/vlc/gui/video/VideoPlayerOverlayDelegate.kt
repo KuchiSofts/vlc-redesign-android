@@ -326,8 +326,14 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
      * @param text
      * @param duration
      */
-    fun showInfo(text: String, duration: Int, subText:String = "") {
+    fun showInfo(text: String, duration: Int, subText:String = "", notice: Boolean = false) {
         if (player.isInPictureInPictureMode) return
+        // VLC Redesign: On-Screen Messages (RdOsd, the desktop's osd and osd-duration): the feedback of what the user
+        // does follows them; a [notice] (a recording or a snapshot saved, the casting's news, a preset applied) is
+        // always shown, for its own time
+        val settings = Settings.getInstance(player)
+        if (!notice && !RdOsd.shown(settings)) return
+        val shownMs = if (notice) duration.toLong() else RdOsd.duration(duration, settings)
         initInfoOverlay()
         overlayInfo.setVisible()
         info.setVisible()
@@ -337,7 +343,7 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
             subinfo.setVisible()
         } else subinfo.setGone()
         player.handler.removeMessages(VideoPlayerActivity.FADE_OUT_INFO)
-        player.handler.sendEmptyMessageDelayed(VideoPlayerActivity.FADE_OUT_INFO, duration.toLong())
+        player.handler.sendEmptyMessageDelayed(VideoPlayerActivity.FADE_OUT_INFO, shownMs)
         player.rootView?.announceForAccessibility("$text.$subText")
     }
 

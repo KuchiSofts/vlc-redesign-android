@@ -582,4 +582,8 @@
     <string name="rd_link_added">Undertext tillagd: %1$s</string>
     <string name="rd_seek_sub_cues">Visa undertextrader på tidslinjen</string>
     <string name="rd_help_seek_sub_cues">Markeringar på tidslinjen där den visade undertexten har fler rader.</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">Visa återkoppling för kortkommandon</string>
+    <string name="rd_show_feedback_for">Visa återkoppling i</string>
+    <string name="rd_help_osd">Meddelanden över videon när något ändras: hastigheten, en fördröjning, zoomen, ett spår.</string>
 </resources>

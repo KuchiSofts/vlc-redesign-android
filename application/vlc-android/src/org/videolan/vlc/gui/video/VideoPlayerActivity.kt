@@ -610,7 +610,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         castingCard.bind()
         org.videolan.vlc.cast.CastController.notice.observe(this) { message ->
             // (the player's message on the video)
-            if (!message.isNullOrEmpty()) overlayDelegate.showInfo(message, 5000)
+            if (!message.isNullOrEmpty()) overlayDelegate.showInfo(message, 5000, notice = true)
         }
 
 
@@ -1373,7 +1373,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                                     when {
                                         dst == null -> UiTools.snacker(this@VideoPlayerActivity, R.string.screenshot_error)
                                         settings.getBoolean(RdSnapshot.KEY_PREVIEW, true) -> screenshotDelegate.takeScreenshot(dst, bitmap, coords, surface.width, surface.height)
-                                        else -> overlayDelegate.showInfo(getString(R.string.rd_snapshot_saved, RdSnapshot.relativeDir(settings).replace("/", " › ")), 2000)
+                                        else -> overlayDelegate.showInfo(getString(R.string.rd_snapshot_saved, RdSnapshot.relativeDir(settings).replace("/", " › ")), 2000, notice = true)
                                     }
                                 }
                             }, Handler(Looper.getMainLooper()))
@@ -2138,7 +2138,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
             val s = service ?: return@launch
             if (s.currentMediaWrapper?.uri != uri || isFinishing) return@launch
             val applied = org.videolan.vlc.util.SeriesPreset.apply(this@VideoPlayerActivity, s) ?: return@launch
-            if (seriesPresetAgain != uri) overlayDelegate.showInfo(getString(applied.message), 3000)
+            if (seriesPresetAgain != uri) overlayDelegate.showInfo(getString(applied.message), 3000, notice = true)
             seriesPresetAgain = null
             if (applied.subtitleSize > 0) {
                 // the new size opens the video again in place: the tracks and the delay are set again then
@@ -2376,7 +2376,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
             if (file == null || service?.currentMediaWrapper?.uri != uri || isFinishing) return@launch
             Log.i(TAG, "online subtitles: ${pick.result.language} of ${pick.result.provider} loaded by itself")
             rdAddOnlineSubtitle(file, pick.result, select = true)
-            overlayDelegate.showInfo(org.videolan.vlc.gui.dialogs.RdOnlineSubtitlesSheet.loadedText(ctx, pick.result), 3000)
+            overlayDelegate.showInfo(org.videolan.vlc.gui.dialogs.RdOnlineSubtitlesSheet.loadedText(ctx, pick.result), 3000, notice = true)
         }
     }
 

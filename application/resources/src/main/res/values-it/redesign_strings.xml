@@ -582,4 +582,8 @@
     <string name="rd_link_added">Sottotitolo aggiunto: %1$s</string>
     <string name="rd_seek_sub_cues">Mostra le righe dei sottotitoli sulla barra di avanzamento</string>
     <string name="rd_help_seek_sub_cues">Segni sulla barra di avanzamento dove il sottotitolo mostrato ha ancora delle righe.</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">Mostra un riscontro per le scorciatoie</string>
+    <string name="rd_show_feedback_for">Mostra il riscontro per</string>
+    <string name="rd_help_osd">Messaggi sul video quando qualcosa cambia: la velocità, un ritardo, lo zoom, una traccia.</string>
 </resources>

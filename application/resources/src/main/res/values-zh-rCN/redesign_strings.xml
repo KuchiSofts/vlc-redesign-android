@@ -581,4 +581,8 @@
     <string name="rd_link_added">已添加字幕：%1$s</string>
     <string name="rd_seek_sub_cues">在进度条上显示字幕行</string>
     <string name="rd_help_seek_sub_cues">在进度条上标出当前字幕之后还有台词的位置。</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">显示快捷键操作提示</string>
+    <string name="rd_show_feedback_for">提示显示时长</string>
+    <string name="rd_help_osd">有变化时显示在视频上的提示：速度、延迟、缩放、轨道。</string>
 </resources>

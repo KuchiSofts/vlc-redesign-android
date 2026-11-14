@@ -585,4 +585,8 @@
     <string name="rd_link_added">Dodano napisy: %1$s</string>
     <string name="rd_seek_sub_cues">Pokazuj wiersze napisów na pasku przewijania</string>
     <string name="rd_help_seek_sub_cues">Znaczniki na pasku przewijania tam, gdzie wyświetlane napisy mają jeszcze wiersze.</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">Pokazuj komunikaty dla skrótów</string>
+    <string name="rd_show_feedback_for">Pokazuj komunikaty przez</string>
+    <string name="rd_help_osd">Komunikaty na filmie, gdy coś się zmienia: szybkość, opóźnienie, powiększenie, ścieżka.</string>
 </resources>

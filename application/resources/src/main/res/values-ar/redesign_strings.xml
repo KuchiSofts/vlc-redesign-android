@@ -585,4 +585,8 @@
     <string name="rd_link_added">أُضيفت الترجمة: %1$s</string>
     <string name="rd_seek_sub_cues">إظهار أسطر الترجمة على شريط التنقل</string>
     <string name="rd_help_seek_sub_cues">علامات على شريط التنقل حيث للترجمة المعروضة أسطر قادمة.</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">إظهار إشعار للاختصارات</string>
+    <string name="rd_show_feedback_for">إظهار الإشعار لمدة</string>
+    <string name="rd_help_osd">رسائل فوق الفيديو عند تغيّر شيء: السرعة، أو تأخير، أو التكبير، أو مسار.</string>
 </resources>

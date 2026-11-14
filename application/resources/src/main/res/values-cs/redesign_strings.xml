@@ -585,4 +585,8 @@
     <string name="rd_link_added">Titulky přidány: %1$s</string>
     <string name="rd_seek_sub_cues">Zobrazovat řádky titulků na posuvníku</string>
     <string name="rd_help_seek_sub_cues">Značky na posuvníku v místech, kde zobrazené titulky ještě mají řádky.</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">Zobrazovat odezvu klávesových zkratek</string>
+    <string name="rd_show_feedback_for">Zobrazovat odezvu po dobu</string>
+    <string name="rd_help_osd">Zprávy přes video, když se něco změní: rychlost, zpoždění, přiblížení, stopa.</string>
 </resources>

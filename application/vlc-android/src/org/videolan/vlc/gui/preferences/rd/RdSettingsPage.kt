@@ -789,6 +789,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             org.videolan.vlc.media.PlaylistManager.KEY_DEFAULT_SPEED -> updateDefaultSpeedSummary()
             "rd_gain" -> updateGainSummary()
             "rd_video_title_timeout" -> updateTitleTimeoutSummary()
+            org.videolan.vlc.gui.video.RdOsd.KEY_DURATION -> updateOsdDurationSummary()
             // Controls (audio)
             KEY_AUDIO_JUMP_DELAY -> Settings.audioJumpDelay = sharedPreferences.getInt(KEY_AUDIO_JUMP_DELAY, 10)
             KEY_AUDIO_LONG_JUMP_DELAY -> Settings.audioLongJumpDelay = sharedPreferences.getInt(KEY_AUDIO_LONG_JUMP_DELAY, 20)
@@ -908,6 +909,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         pref<Preference>(KEY_SUBTITLES_OUTLINE_SIZE)?.isVisible = outline
         pref<Preference>("rd_shadow_angle")?.isVisible = shadow
         updateTitleTimeoutSummary()
+        updateOsdDurationSummary()
         pref<Preference>(KEY_SUBTITLES_OUTLINE_COLOR)?.isVisible = outline
         pref<Preference>(KEY_SUBTITLES_OUTLINE_COLOR_OPACITY)?.isVisible = outline
     }
@@ -1022,6 +1024,13 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
     private fun updateTitleTimeoutSummary() {
         val p = pref<Preference>("rd_video_title_timeout") ?: return
         p.summary = getString(R.string.video_hud_timeout_summary, (p.sharedPreferences?.getInt(p.key, 5) ?: 5).toString())
+    }
+
+    /** "1.5s": how long the player's messages show (On-Screen Messages, the desktop's osd-duration) */
+    private fun updateOsdDurationSummary() {
+        val p = pref<Preference>(org.videolan.vlc.gui.video.RdOsd.KEY_DURATION) ?: return
+        val tenths = p.sharedPreferences?.getInt(p.key, org.videolan.vlc.gui.video.RdOsd.DEFAULT_TENTHS) ?: org.videolan.vlc.gui.video.RdOsd.DEFAULT_TENTHS
+        p.summary = getString(R.string.video_hud_timeout_summary, org.videolan.vlc.gui.video.RdOsd.secondsText(tenths))
     }
 
     /** "1.25x": the speed a media without its own plays at (the desktop's slider of quarters) */
