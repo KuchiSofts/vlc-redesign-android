@@ -35,6 +35,13 @@
     </PreferenceCategory>
     <!-- the desktop's Framing: custom-aspect-ratios, added to the player's aspect ratio list (RdCustomAspect) -->
     <PreferenceCategory android:title="@string/rd_sec_framing">
+        <!-- VLC Redesign: the desktop's Aspect ratio for the videos that open (the player's own size list and its
+             custom ratios below). (Crop: libvlc 3 on Android crops nothing, not even with its crop option) -->
+        <org.videolan.vlc.gui.preferences.rd.RdListPreference
+            android:key="rd_default_aspect"
+            android:persistent="false"
+            android:summary="%s"
+            android:title="@string/rd_aspect_ratio" />
         <org.videolan.vlc.gui.preferences.rd.RdEditTextPreference
             android:defaultValue=""
             android:key="rd_custom_aspect_ratios"
@@ -49,5 +56,51 @@
             android:key="screenshot_mode"
             android:summary="%s"
             android:title="@string/enable_video_screenshot" />
+        <!-- VLC Redesign: the desktop's Snapshots rows (gui/video/RdSnapshot) -->
+        <org.videolan.vlc.gui.preferences.rd.RdListPreference
+            android:defaultValue="screenshots"
+            android:entries="@array/rd_snapshot_dir_entries"
+            android:entryValues="@array/rd_snapshot_dir_values"
+            android:key="rd_snapshot_dir"
+            android:summary="%s"
+            android:title="@string/rd_save_to" />
+        <org.videolan.vlc.gui.preferences.rd.RdEditTextPreference
+            android:defaultValue="vlc_"
+            android:key="rd_snapshot_prefix"
+            android:title="@string/rd_file_name_prefix" />
+        <org.videolan.vlc.gui.preferences.rd.RdSegmentedPreference
+            android:defaultValue="jpg"
+            android:entries="@array/rd_snapshot_format_entries"
+            android:entryValues="@array/rd_snapshot_format_values"
+            android:key="rd_snapshot_format"
+            android:title="@string/rd_format" />
+        <org.videolan.vlc.gui.preferences.rd.RdEditTextPreference
+            android:defaultValue=""
+            android:key="rd_snapshot_width"
+            android:summary="@string/rd_help_snapshot_width"
+            android:title="@string/rd_snapshot_size" />
+        <org.videolan.vlc.gui.preferences.rd.RdEditTextPreference
+            android:defaultValue=""
+            android:key="rd_snapshot_height"
+            android:summary="@string/rd_help_snapshot_height"
+            android:title="@string/rd_snapshot_height" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="rd_snapshot_sequential"
+            android:title="@string/rd_number_sequentially" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="rd_snapshot_preview"
+            android:title="@string/rd_snapshot_preview" />
+    </PreferenceCategory>
+    <!-- VLC Redesign: the desktop's Recording page, its folder (PlayerOptionsDelegate) -->
+    <PreferenceCategory android:title="@string/rd_sec_recording">
+        <org.videolan.vlc.gui.preferences.rd.RdListPreference
+            android:defaultValue="movies"
+            android:entries="@array/rd_record_dir_entries"
+            android:entryValues="@array/rd_record_dir_values"
+            android:key="rd_record_dir"
+            android:summary="%s"
+            android:title="@string/rd_save_recordings_to" />
     </PreferenceCategory>
 </androidx.preference.PreferenceScreen>

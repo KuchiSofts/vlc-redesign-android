@@ -2063,7 +2063,13 @@ class PlaybackService : MediaBrowserServiceCompat(), LifecycleOwner, CoroutineSc
                     val timerExpired = System.currentTimeMillis() > it.timeInMillis
                     val shouldStop = if (waitForMediaEnd) timerExpired && mediaEndReached else timerExpired
                     if (shouldStop) {
-                        withContext(Dispatchers.Main) { if (isPlaying) stop() else setSleepTimer(null) }
+                        // VLC Redesign: the desktop's Pause playback (the sleep timer's choice) instead of stopping
+                        withContext(Dispatchers.Main) {
+                            if (isPlaying && settings.getBoolean(org.videolan.vlc.gui.dialogs.KEY_RD_SLEEP_PAUSE, false)) {
+                                pause()
+                                setSleepTimer(null)
+                            } else if (isPlaying) stop() else setSleepTimer(null)
+                        }
                     }
                 }
                 if (mediaEndReached) mediaEndReached = false

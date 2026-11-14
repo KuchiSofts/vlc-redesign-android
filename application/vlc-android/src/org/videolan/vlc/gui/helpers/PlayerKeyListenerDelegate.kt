@@ -31,6 +31,10 @@ import android.view.KeyEvent
  * This class routes the key events to the player actions
  */
 class PlayerKeyListenerDelegate(private val keycodeListener: KeycodeListener) {
+
+    /** VLC Redesign: a skip of Settings › Controls › Skip Amounts (the desktop's keys), in ms */
+    private fun jump(key: String, default: Int) =
+        org.videolan.tools.Settings.getInstance(org.videolan.resources.AppContextProvider.appContext).getInt(key, default).coerceIn(1, 3600) * 1000
     /**
      * Launches a player action depending on a [KeyEvent]
      *
@@ -71,16 +75,19 @@ class PlayerKeyListenerDelegate(private val keycodeListener: KeycodeListener) {
                 val result = if (!keycodeListener.isReadyForDirectional())
                     false
                 else if (event.isAltPressed && event.isCtrlPressed) {
-                    keycodeListener.seek(-300000)
+                    keycodeListener.seek(-jump("video_long_jump_delay", 20))
                     true
                 } else if (event.isShiftPressed && event.isCtrlPressed) {
                     keycodeListener.seek(-30000)
                     true
                 } else if (event.isShiftPressed) {
-                    keycodeListener.seek(-5000)
+                    keycodeListener.seek(-jump("rd_extrashort_jump", 3))
                     true
                 } else if (event.isCtrlPressed) {
-                    keycodeListener.seek(-60000)
+                    keycodeListener.seek(-jump("rd_medium_jump", 60))
+                    true
+                } else if (event.isAltPressed) {
+                    keycodeListener.seek(-jump("video_jump_delay", 10))
                     true
                 } else false
                 result
@@ -89,16 +96,19 @@ class PlayerKeyListenerDelegate(private val keycodeListener: KeycodeListener) {
                 val result = if (!keycodeListener.isReadyForDirectional())
                     false
                 else if (event.isAltPressed && event.isCtrlPressed) {
-                    keycodeListener.seek(300000)
+                    keycodeListener.seek(jump("video_long_jump_delay", 20))
                     true
                 } else if (event.isShiftPressed && event.isCtrlPressed) {
                     keycodeListener.seek(30000)
                     true
                 } else if (event.isShiftPressed) {
-                    keycodeListener.seek(5000)
+                    keycodeListener.seek(jump("rd_extrashort_jump", 3))
                     true
                 } else if (event.isCtrlPressed) {
-                    keycodeListener.seek(60000)
+                    keycodeListener.seek(jump("rd_medium_jump", 60))
+                    true
+                } else if (event.isAltPressed) {
+                    keycodeListener.seek(jump("video_jump_delay", 10))
                     true
                 } else false
                 result

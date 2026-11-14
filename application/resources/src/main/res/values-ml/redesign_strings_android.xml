@@ -29,7 +29,6 @@
     <string name="rd_ob_online_text">ടെലിമെട്രി ഇല്ല, പരസ്യങ്ങളില്ല, അക്കൗണ്ട് ഇല്ല. സ്വയം ഓൺലൈനിൽ പോകുന്നവ അതിന് താഴെ അക്കാര്യം പറയുന്നു, അവിടെ എഴുതിയിരിക്കുന്നത് മാത്രം അയയ്ക്കുന്നു. ഈ തിരഞ്ഞെടുപ്പുകൾ സജ്ജീകരണങ്ങളിൽ നിലനിൽക്കും.</string>
     <string name="rd_ob_history_help">ഈ ഉപകരണത്തിൽ മാത്രം സൂക്ഷിക്കുന്നു, നിങ്ങൾ നിർത്തിയിടത്തുനിന്ന് തുടരാൻ.</string>
     <string name="rd_ob_updates_help">ദിവസത്തിൽ ഒരിക്കൽ VLC for Android-ന്റെ പുതിയ ടെസ്റ്റ് ബിൽഡിനായി തിരയുന്നു.</string>
-    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">ഉപശീർഷക വലുപ്പം</string>
     <string name="rd_cast_this_phone">ഈ ഫോൺ</string>
     <string name="rd_cast_this_tablet">ഈ ടാബ്‌ലെറ്റ്</string>

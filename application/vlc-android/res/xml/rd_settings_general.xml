@@ -9,14 +9,28 @@
             android:defaultValue=""
             android:key="set_locale"
             android:title="@string/rd_interface_language" />
+        <!-- VLC Redesign: the desktop's Layout direction: the language's until changed here (LocaleUtils) -->
+        <org.videolan.vlc.gui.preferences.rd.RdSegmentedPreference
+            android:key="rd_layout_direction"
+            android:title="@string/rd_layout_direction"
+            android:entries="@array/rd_layout_direction_entries"
+            android:entryValues="@array/rd_layout_direction_values" />
         <org.videolan.vlc.gui.preferences.rd.RdSegmentedPreference
             android:defaultValue="-1"
             android:key="app_theme"
             android:title="@string/rd_theme"
             android:entries="@array/rd_theme_entries"
             android:entryValues="@array/rd_theme_values" />
+        <!-- VLC Redesign: the desktop's Follow the system accent color (Android 12 and later: Material You) -->
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:disableDependentsState="true"
+            android:key="rd_accent_system"
+            android:title="@string/rd_follow_system_accent"
+            app:isPreferenceVisible="false" />
         <org.videolan.vlc.gui.preferences.rd.RdAccentPreference
             android:defaultValue="orange"
+            android:dependency="rd_accent_system"
             android:key="rd_accent"
             android:title="@string/rd_accent_color"
             android:entries="@array/rd_accent_entries"

@@ -29,7 +29,6 @@
     <string name="rd_ob_online_text">Ingen telemetri, ingen reklame, ingen konto. Det som går på nettet av seg selv, sier det under seg og sender bare det som står der. Disse valgene finnes også i Innstillinger.</string>
     <string name="rd_ob_history_help">Lagres bare på denne enheten, så du kan fortsette der du slapp.</string>
     <string name="rd_ob_updates_help">Ser etter en nyere testversjon av VLC for Android én gang om dagen.</string>
-    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Undertekststørrelse</string>
     <string name="rd_cast_this_phone">Denne telefonen</string>
     <string name="rd_cast_this_tablet">Dette nettbrettet</string>

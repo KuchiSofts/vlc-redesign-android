@@ -29,7 +29,16 @@
     <string name="rd_ob_online_text">Telemetri yok, reklam yok, hesap yok. Kendiliğinden çevrim içi olan her şey bunu altında belirtir ve yalnızca orada yazanı gönderir. Bu seçimler Ayarlar\'da kalır.</string>
     <string name="rd_ob_history_help">Kaldığınız yerden devam edebilmeniz için yalnızca bu aygıtta saklanır.</string>
     <string name="rd_ob_updates_help">Günde bir kez VLC for Android\'in daha yeni bir test derlemesini arar.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>Bilgisayardan daha fazla ayar: oynatma, altyazı, ses, ağ, ekran görüntüleri ve kayıtlar.</item>
+        <item>Oynatma sırasını sıralayın ve ona dosya ekleyin.</item>
+        <item>Bir oynatma listesini M3U8 dosyası olarak dışa aktarın.</item>
+        <item>Hakkında: güncellemeleri denetle, fikir öner, sorun bildir.</item>
+        <item>Uyku zamanlayıcısı: durdurmak yerine duraklat.</item>
+        <item>İkinci altyazı dilinin kendi gecikmesi var.</item>
+        <item>Bilgisayarın tuşları: dört atlama uzunluğu, ekran görüntüsü, kayıt ve kulakla eşitleme.</item>
+        <item>Düzeltildi: bir videonun yanındaki altyazılar tercih ettiğiniz dilde açılır.</item>
+    </string-array>
     <string name="rd_subtitle_size">Altyazı boyutu</string>
     <string name="rd_cast_this_phone">Bu telefon</string>
     <string name="rd_cast_this_tablet">Bu tablet</string>

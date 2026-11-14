@@ -29,7 +29,6 @@
     <string name="rd_ob_online_text">Fără telemetrie, fără reclame, fără cont. Ce se conectează singur la internet spune asta dedesubt și trimite doar ce scrie acolo. Aceste alegeri rămân în Setări.</string>
     <string name="rd_ob_history_help">Păstrat doar pe acest dispozitiv, pentru a continua de unde ați rămas.</string>
     <string name="rd_ob_updates_help">Caută o dată pe zi o versiune de test mai nouă a VLC for Android.</string>
-    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Dimensiunea subtitrărilor</string>
     <string name="rd_cast_this_phone">Acest telefon</string>
     <string name="rd_cast_this_tablet">Această tabletă</string>

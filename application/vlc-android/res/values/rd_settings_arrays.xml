@@ -143,4 +143,138 @@
         <item>top_right</item>
         <item>top_left</item>
     </string-array>
+    <!-- Subtitles › Appearance (advanced): freetype-text-direction 0 left to right, 1 right to left, 2 automatic -->
+    <string-array name="rd_text_direction_entries" translatable="false">
+        <item>@string/rd_ltr</item>
+        <item>@string/rd_rtl</item>
+        <item>@string/rd_automatic</item>
+    </string-array>
+    <string-array name="rd_text_direction_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <!-- Subtitles › Appearance (advanced): subsdec-align -1 automatic, 0 center, 1 left, 2 right -->
+    <string-array name="rd_sub_align_entries" translatable="false">
+        <item>@string/rd_automatic</item>
+        <item>@string/rd_zone_center</item>
+        <item>@string/rd_left</item>
+        <item>@string/rd_right</item>
+    </string-array>
+    <string-array name="rd_sub_align_values" translatable="false">
+        <item>-1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <!-- Subtitles › On-Screen Messages: video-title-position (VLC's subpicture alignment flags) -->
+    <string-array name="rd_title_position_entries" translatable="false">
+        <item>@string/rd_zone_center</item>
+        <item>@string/rd_left</item>
+        <item>@string/rd_right</item>
+        <item>@string/rd_fx_top</item>
+        <item>@string/rd_fx_bottom</item>
+        <item>@string/rd_top_left</item>
+        <item>@string/rd_top_right</item>
+        <item>@string/rd_bottom_left</item>
+        <item>@string/rd_bottom_right</item>
+    </string-array>
+    <string-array name="rd_title_position_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+        <item>8</item>
+        <item>5</item>
+        <item>6</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+    <!-- Audio › Effects: Spatial audio mode (the desktop's mix-mode 0 / 2; libvlc 3 spatialaudio-headphones) -->
+    <string-array name="rd_mix_mode_entries" translatable="false">
+        <item>@string/rd_automatic</item>
+        <item>@string/rd_headphone_virtualization</item>
+    </string-array>
+    <string-array name="rd_mix_mode_values" translatable="false">
+        <item>0</item>
+        <item>2</item>
+    </string-array>
+    <!-- Audio › Output (advanced): force-dolby-surround 0 automatic, 1 on, 2 off -->
+    <string-array name="rd_dolby_entries" translatable="false">
+        <item>@string/rd_automatic</item>
+        <item>@string/rd_on</item>
+        <item>@string/rd_off</item>
+    </string-array>
+    <string-array name="rd_dolby_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <!-- Audio › Output (advanced): soxr-resampler-quality 0 to 4 (VLC's 2) -->
+    <string-array name="rd_soxr_entries" translatable="false">
+        <item>@string/rd_fastest</item>
+        <item>@string/rd_fast</item>
+        <item>@string/rd_balanced</item>
+        <item>@string/rd_high</item>
+        <item>@string/rd_best</item>
+    </string-array>
+    <string-array name="rd_soxr_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    <!-- Network › Security: gnutls-priorities (VLC's NORMAL) -->
+    <string-array name="rd_cipher_entries" translatable="false">
+        <item>@string/rd_fastest</item>
+        <item>@string/rd_balanced</item>
+        <item>@string/rd_cipher_128</item>
+        <item>@string/rd_cipher_256</item>
+    </string-array>
+    <string-array name="rd_cipher_values" translatable="false">
+        <item>PERFORMANCE</item>
+        <item>NORMAL</item>
+        <item>SECURE128</item>
+        <item>SECURE256</item>
+    </string-array>
+    <!-- Video › Recording: where Record writes (PlayerOptionsDelegate) -->
+    <string-array name="rd_record_dir_entries" translatable="false">
+        <item>@string/rd_record_dir_movies</item>
+        <item>@string/rd_record_dir_downloads</item>
+        <item>@string/rd_record_dir_app</item>
+    </string-array>
+    <string-array name="rd_record_dir_values" translatable="false">
+        <item>movies</item>
+        <item>downloads</item>
+        <item>app</item>
+    </string-array>
+    <!-- Video › Snapshots: the folder (RdSnapshot.relativeDir) and the format -->
+    <string-array name="rd_snapshot_dir_entries" translatable="false">
+        <item>@string/rd_snapshot_dir_screenshots</item>
+        <item>@string/rd_snapshot_dir_pictures</item>
+        <item>@string/rd_snapshot_dir_dcim</item>
+    </string-array>
+    <string-array name="rd_snapshot_dir_values" translatable="false">
+        <item>screenshots</item>
+        <item>pictures</item>
+        <item>dcim</item>
+    </string-array>
+    <string-array name="rd_snapshot_format_entries" translatable="false">
+        <item>JPG</item>
+        <item>PNG</item>
+    </string-array>
+    <string-array name="rd_snapshot_format_values" translatable="false">
+        <item>jpg</item>
+        <item>png</item>
+    </string-array>
+    <!-- General › Appearance: Layout direction (LocaleUtils.withRdLayoutDirection) -->
+    <string-array name="rd_layout_direction_entries" translatable="false">
+        <item>@string/rd_ltr</item>
+        <item>@string/rd_rtl</item>
+    </string-array>
+    <string-array name="rd_layout_direction_values" translatable="false">
+        <item>ltr</item>
+        <item>rtl</item>
+    </string-array>
 </resources>

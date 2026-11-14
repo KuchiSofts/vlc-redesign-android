@@ -113,6 +113,14 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
     override val coroutineContext = Dispatchers.Main.immediate + SupervisorJob()
 
     companion object {
+        /** VLC Redesign, Settings › Playback: stop when an item ends (the desktop's play-and-stop) */
+        const val KEY_STOP_AFTER_EACH = "rd_stop_after_each"
+        /** VLC Redesign, Settings › Playback: the default speed in quarters (1 = 0.25x … 8 = 2x, the desktop's slider) */
+        const val KEY_DEFAULT_SPEED = "rd_default_speed"
+
+        fun defaultRate(settings: android.content.SharedPreferences): Float =
+            (settings.getInt(KEY_DEFAULT_SPEED, 4).coerceIn(1, 8)) / 4f
+
         val showAudioPlayer = MutableLiveData<Boolean>().apply { value = false }
         val currentPlayedMedia = MutableLiveData<MediaWrapper?>().apply { value = null }
         val playingState = MutableLiveData<Boolean>().apply { value = false }
@@ -290,6 +298,8 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
         if (settings.getLong(SLEEP_TIMER_DEFAULT_INTERVAL, -1L) != -1L) {
             service.waitForMediaEnd = settings.getBoolean(SLEEP_TIMER_DEFAULT_WAIT, false)
             service.resetOnInteraction = settings.getBoolean(SLEEP_TIMER_DEFAULT_RESET_INTERACTION, false)
+            // VLC Redesign: pause or stop at the end, as the default timer says
+            settings.putSingle(org.videolan.vlc.gui.dialogs.KEY_RD_SLEEP_PAUSE, settings.getBoolean(org.videolan.vlc.gui.dialogs.KEY_RD_SLEEP_PAUSE_DEFAULT, false))
             val sleepTime = Calendar.getInstance()
             sleepTime.timeInMillis += settings.getLong(SLEEP_TIMER_DEFAULT_INTERVAL, -1L)
             sleepTime.set(Calendar.SECOND, 0)
@@ -778,6 +788,8 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
         if (currentMedia.uri.scheme.isSchemeFD()) return@outerLaunch
         if (org.videolan.vlc.livetv.TvPlayback.isTvUrl(currentMedia.uri.toString())) return@outerLaunch
         if (Settings.getInstance(AppContextProvider.appContext).getBoolean(KEY_INCOGNITO, false)) return@outerLaunch
+        // VLC Redesign: Settings › Privacy › Never remember items matching: no playback position either
+        if (org.videolan.vlc.util.RdHistoryFilter.excluded(settings, currentMedia.uri?.toString(), currentMedia.title)) return@outerLaunch
         //Save progress
         val time = player.mediaplayer.time
         val length = player.getLength()
@@ -877,16 +889,19 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
     fun restoreSpeed(media: MediaWrapper) {
         val incognitoMode = settings.getBoolean(KEY_INCOGNITO, false)
         val playbackSpeedModeAll = settings.getBoolean(if (player.isVideoPlaying()) KEY_PLAYBACK_SPEED_VIDEO_GLOBAL else KEY_PLAYBACK_SPEED_AUDIO_GLOBAL, false)
+        // VLC Redesign: the desktop's "Default playback speed" (Settings › Playback): what a media without a speed
+        // of its own plays at
+        val defaultRate = defaultRate(settings)
         val playbackRate = when {
-            incognitoMode && playbackSpeedModeAll -> settings.getFloat(if (player.isVideoPlaying()) KEY_INCOGNITO_PLAYBACK_SPEED_VIDEO_GLOBAL_VALUE else KEY_INCOGNITO_PLAYBACK_SPEED_AUDIO_GLOBAL_VALUE, 1.0f)
+            incognitoMode && playbackSpeedModeAll -> settings.getFloat(if (player.isVideoPlaying()) KEY_INCOGNITO_PLAYBACK_SPEED_VIDEO_GLOBAL_VALUE else KEY_INCOGNITO_PLAYBACK_SPEED_AUDIO_GLOBAL_VALUE, defaultRate)
             //restore all
-            playbackSpeedModeAll -> settings.getFloat(if (player.isVideoPlaying()) KEY_PLAYBACK_SPEED_VIDEO_GLOBAL_VALUE else KEY_PLAYBACK_SPEED_AUDIO_GLOBAL_VALUE, 1.0f)
-            incognitoMode -> 1F
+            playbackSpeedModeAll -> settings.getFloat(if (player.isVideoPlaying()) KEY_PLAYBACK_SPEED_VIDEO_GLOBAL_VALUE else KEY_PLAYBACK_SPEED_AUDIO_GLOBAL_VALUE, defaultRate)
+            incognitoMode -> defaultRate
             //restore one
             else -> try {
                 media.getMetaString(MediaWrapper.META_SPEED).toFloat()
             } catch (e: Exception) {
-                1F
+                defaultRate
             }
         }
         player.setRate(playbackRate, false)
@@ -1092,7 +1107,7 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
                             type = MediaWrapper.TYPE_STREAM
                             entryUrl = mrl
                             medialibrary.getMedia(mrl)?.run { if (id > 0) medialibrary.removeExternalMedia(id) }
-                        } else if (!uri.scheme.isSchemeFD()) {
+                        } else if (!uri.scheme.isSchemeFD() && !org.videolan.vlc.util.RdHistoryFilter.excluded(this@PlaylistManager.settings, mrl, title)) {
                             medialibrary.addToHistory(mrl, title)
                         }
                     }
@@ -1205,6 +1220,19 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
 
     @MainThread
     fun remove(position: Int) = mediaList.remove(position)
+
+    /**
+     * VLC Redesign: the queue's Sort (the desktop's keys, RdQueueSort): the queue is put in the new order by moves, so
+     * what plays keeps playing and the views follow; the order is kept as the queue is
+     */
+    @MainThread
+    fun sortQueue(key: RdQueueSort.Key, descending: Boolean) {
+        val items = mediaList.copy
+        if (items.size < 2) return
+        val order = RdQueueSort.order(items.map { RdQueueSort.fields(it) }, key, descending)
+        for ((from, to) in RdQueueSort.moves(order)) mediaList.move(from, to)
+        launch { saveMediaList() }
+    }
 
     @MainThread
     fun removeLocation(location: String) = mediaList.remove(location)
@@ -1338,7 +1366,11 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
                         if (isBenchmark) player.setPreviousStats()
                         if (nextIndex == -1) savePosition(reset = true)
                     }
-                    if (stopAfter == currentIndex) {
+                    // VLC Redesign: the desktop's "Stop after each item" (Settings › Playback), unless one item repeats;
+                    // a playlist file or a folder that ends opens its items: that is no item of its own
+                    val stopAfterEach = settings.getBoolean(KEY_STOP_AFTER_EACH, false) &&
+                            repeating.value != PlaybackStateCompat.REPEAT_MODE_ONE && !player.hasSubItems()
+                    if (stopAfter == currentIndex || stopAfterEach) {
                         if (BuildConfig.DEBUG) Log.d("AUDIO_STOP_AFTER", "reset")
                         stopAfter = -1
                         stop()
@@ -1427,6 +1459,8 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
         if (Settings.getInstance(AppContextProvider.appContext).getBoolean(KEY_INCOGNITO, false)) return
         // VLC Redesign, Live TV: a channel is kept neither in the history nor in the library (as the desktop's)
         if (org.videolan.vlc.livetv.TvPlayback.isTvUrl(mw.uri.toString())) return
+        // VLC Redesign: Settings › Privacy › Never remember items matching (the desktop's)
+        if (org.videolan.vlc.util.RdHistoryFilter.excluded(settings, mw.uri?.toString(), mw.title)) return
         var currentMedia = mw
         if (settings.getBoolean(PLAYBACK_HISTORY, true) && !mw.uri.scheme.isSchemeFD()) withContext(Dispatchers.IO) {
             var id = mw.id

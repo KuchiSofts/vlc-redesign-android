@@ -29,7 +29,6 @@
     <string name="rd_ob_online_text">Jokios telemetrijos, jokių reklamų, jokios paskyros. Kas pats jungiasi prie interneto, tai nurodo po savimi ir siunčia tik tai, kas ten parašyta. Šie pasirinkimai lieka Nuostatose.</string>
     <string name="rd_ob_history_help">Laikoma tik šiame įrenginyje, kad galėtumėte tęsti nuo ten, kur baigėte.</string>
     <string name="rd_ob_updates_help">Kartą per dieną ieško naujesnės VLC for Android bandomosios versijos.</string>
-    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Subtitrų dydis</string>
     <string name="rd_cast_this_phone">Šis telefonas</string>
     <string name="rd_cast_this_tablet">Ši planšetė</string>

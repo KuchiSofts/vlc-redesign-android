@@ -29,7 +29,16 @@
     <string name="rd_ob_online_text">没有遥测，没有广告，无需账号。会自行联网的功能都会在其下方注明，并且只发送那里写明的内容。这些选择会保留在设置中。</string>
     <string name="rd_ob_history_help">仅保存在本设备上，用于从上次停下的地方继续。</string>
     <string name="rd_ob_updates_help">每天检查一次是否有更新的 VLC for Android 测试版。</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>更多电脑版设置：播放、字幕、音频、网络、快照和录制。</item>
+        <item>对播放队列排序并向其中添加文件。</item>
+        <item>将播放列表导出为 M3U8 文件。</item>
+        <item>关于：检查更新、提出想法、报告问题。</item>
+        <item>睡眠定时器：暂停而不是停止。</item>
+        <item>第二字幕语言有自己的延迟。</item>
+        <item>电脑版按键：四种跳转长度、快照、录制和听音同步。</item>
+        <item>已修复：视频旁的字幕文件以你的首选语言打开。</item>
+    </string-array>
     <string name="rd_subtitle_size">字幕大小</string>
     <string name="rd_cast_this_phone">此手机</string>
     <string name="rd_cast_this_tablet">此平板电脑</string>

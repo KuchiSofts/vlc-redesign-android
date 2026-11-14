@@ -160,6 +160,45 @@
                 app:layout_constraintWidth_max="600dp"
                 tools:text="What's new in 0.4.0" />
 
+        <!-- VLC Redesign: a check for a new release now, as the desktop's About (its result on the left) -->
+        <LinearLayout
+                android:id="@+id/rd_update_row"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rd_whats_new_link"
+                app:layout_constraintWidth_max="600dp">
+
+            <TextView
+                    android:id="@+id/rd_update_state"
+                    style="@style/RD.About.Body"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="12dp"
+                    android:accessibilityLiveRegion="polite"
+                    android:visibility="gone"
+                    tools:text="You have the latest version"
+                    tools:visibility="visible" />
+
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/rd_update_button"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
+                    android:minHeight="40dp"
+                    android:text="@string/rd_check_for_updates"
+                    android:textAllCaps="false"
+                    app:cornerRadius="8dp" />
+        </LinearLayout>
+
         <androidx.cardview.widget.CardView
                 android:id="@+id/donationsButton"
                 android:layout_width="0dp"
@@ -172,7 +211,7 @@
                 app:cardCornerRadius="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rd_whats_new_link"
+                app:layout_constraintTop_toBottomOf="@+id/rd_update_row"
                 app:layout_constraintWidth_max="600dp"
                 tools:visibility="visible">
 
@@ -305,6 +344,16 @@
                     android:layout_marginTop="6dp"
                     tools:text="Built on VLC media player by the VideoLAN team and contributors" />
 
+            <!-- the other platforms, from the copy of platforms.json built into this release (nothing is fetched) -->
+            <TextView
+                    android:id="@+id/rd_also_on"
+                    style="@style/RD.About.Body"
+                    android:layout_marginTop="6dp"
+                    android:textColor="@color/rd_fg_a2"
+                    android:visibility="gone"
+                    tools:text="Also on: Windows 0.6.4 · Linux 0.6.4 · macOS 0.6.4"
+                    tools:visibility="visible" />
+
             <TextView
                     style="@style/RD.About.Body"
                     android:layout_marginTop="12dp"
@@ -407,12 +456,63 @@
                         android:layout_marginStart="24dp"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="1"
-                        android:text="@string/send_feedback"
+                        android:text="@string/rd_report_problem"
                         app:layout_constraintBottom_toBottomOf="@+id/report_icon"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/report_icon"
                         app:layout_constraintTop_toTopOf="@+id/report_icon" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- VLC Redesign: the desktop's "Suggest an idea" (a new discussion in the Ideas category) -->
+        <androidx.cardview.widget.CardView
+                android:id="@+id/rd_about_idea_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/transparent"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/about_report_container"
+                app:layout_constraintWidth_max="600dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/rd_idea_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        android:importantForAccessibility="no"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/rd_ic_idea" />
+
+                <TextView
+                        android:id="@+id/rd_idea_text"
+                        style="@style/About.Title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/rd_suggest_idea"
+                        app:layout_constraintBottom_toBottomOf="@+id/rd_idea_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/rd_idea_icon"
+                        app:layout_constraintTop_toTopOf="@+id/rd_idea_icon" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -431,7 +531,7 @@
                 app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/about_report_container"
+                app:layout_constraintTop_toBottomOf="@+id/rd_about_idea_container"
                 app:layout_constraintWidth_max="600dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout

@@ -100,9 +100,11 @@ class PlayerController(val context: Context) : IVLCVout.Callback, MediaPlayer.Ev
             } else {
                 mediaplayer.setEqualizer(null)
             }
-            // VLC Redesign: Settings > Subtitles > Show filename when a video starts (the desktop's video-title-show,
-            // at the bottom for 3 s)
-            if (settings.getBoolean("rd_video_title", false)) mediaplayer.setVideoTitleDisplay(MediaPlayer.Position.Bottom, 3000)
+            // VLC Redesign: Settings > Subtitles > Show filename when a video starts (the desktop's video-title-show),
+            // for its time (video-title-timeout, 5 s) at its place (video-title-position, at the top as the desktop)
+            if (settings.getBoolean("rd_video_title", false))
+                mediaplayer.setVideoTitleDisplay(titlePosition(settings.getString("rd_video_title_position", "4")),
+                        settings.getInt("rd_video_title_timeout", 5).coerceIn(1, 10) * 1000)
             else mediaplayer.setVideoTitleDisplay(MediaPlayer.Position.Disable, 0)
             mediaplayer.play()
         }
@@ -356,6 +358,17 @@ class PlayerController(val context: Context) : IVLCVout.Callback, MediaPlayer.Ev
 
     fun setVolume(volume: Int) = if (!mediaplayer.isReleased) mediaplayer.setVolume(volume) else -1
 
+    /** True when the media that played is a playlist or a folder whose items come next (expand() opens them) */
+    suspend fun hasSubItems(): Boolean = mediaplayer.media?.let {
+        withContext(playerContext) {
+            val items = it.subItems()
+            val count = items.count
+            items.release()
+            it.release()
+            count > 0
+        }
+    } ?: false
+
     suspend fun expand(): IMediaList? {
         return mediaplayer.media?.let {
             return withContext(playerContext) {
@@ -420,6 +433,19 @@ class PlayerController(val context: Context) : IVLCVout.Callback, MediaPlayer.Ev
     companion object {
         @Volatile var playbackState = PlaybackStateCompat.STATE_NONE
             private set
+
+        /** Settings › Subtitles › Position of the filename: VLC's alignment flags (video-title-position) */
+        fun titlePosition(value: String?): Int = when (value?.toIntOrNull()) {
+            0 -> MediaPlayer.Position.Center
+            1 -> MediaPlayer.Position.Left
+            2 -> MediaPlayer.Position.Right
+            8 -> MediaPlayer.Position.Bottom
+            5 -> MediaPlayer.Position.TopLeft
+            6 -> MediaPlayer.Position.TopRight
+            9 -> MediaPlayer.Position.BottomLeft
+            10 -> MediaPlayer.Position.BottomRight
+            else -> MediaPlayer.Position.Top
+        }
     }
 }
 

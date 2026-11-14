@@ -29,7 +29,6 @@
     <string name="rd_ob_online_text">Sense telemetria, sense anuncis, sense compte. El que es connecta a Internet pel seu compte ho indica a sota i només envia el que hi ha escrit. Aquestes opcions es mantenen a Paràmetres.</string>
     <string name="rd_ob_history_help">Es desa només en aquest dispositiu, per continuar on ho vau deixar.</string>
     <string name="rd_ob_updates_help">Cerca una versió de prova més nova del VLC for Android un cop al dia.</string>
-    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Mida dels subtítols</string>
     <string name="rd_cast_this_phone">Aquest telèfon</string>
     <string name="rd_cast_this_tablet">Aquesta tauleta</string>

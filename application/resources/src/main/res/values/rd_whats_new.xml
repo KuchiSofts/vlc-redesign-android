@@ -2,5 +2,14 @@
 <!-- VLC Redesign: the What's new card of this release (English only: listed in coverage.md, "Android strings to
      translate"). -->
 <resources>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>More of the computer\'s settings: playback, subtitles, audio, network, snapshots and recordings.</item>
+        <item>Sort the play queue and add files to it.</item>
+        <item>Export a playlist as an M3U8 file.</item>
+        <item>About: check for updates, suggest an idea, report a problem.</item>
+        <item>Sleep timer: pause instead of stopping.</item>
+        <item>A second subtitle language has a delay of its own.</item>
+        <item>The computer\'s keys: four skip lengths, snapshot, record and sync by ear.</item>
+        <item>Fixed: subtitle files beside a video open in your preferred language.</item>
+    </string-array>
 </resources>

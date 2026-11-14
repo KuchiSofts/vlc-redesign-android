@@ -83,6 +83,9 @@ private const val ID_SAFE_MODE_UNLOCK = 22L
 private const val ID_SHARE = 23L
 private const val ID_CUSTOMIZE_PLAYER = 24L
 private const val ID_RECORD = 108L
+// VLC Redesign: the desktop's queue buttons, Sort and Add files to the queue
+private const val ID_SORT_QUEUE = 109L
+private const val ID_ADD_FILES = 110L
 @SuppressLint("ShowToast")
 class PlayerOptionsDelegate(val activity: FragmentActivity, val service: PlaybackService, private val showABReapeat:Boolean = true)  {
 
@@ -138,6 +141,8 @@ class PlayerOptionsDelegate(val activity: FragmentActivity, val service: Playbac
         if (::bookmarkClickedListener.isInitialized) options.add(PlayerOption(ID_BOOKMARK, R.drawable.ic_bookmark, res.getString(R.string.bookmarks)))
         if (showABReapeat) options.add(PlayerOption(ID_ABREPEAT, R.drawable.ic_abrepeat, res.getString(R.string.ab_repeat)))
         options.add(PlayerOption(ID_SAVE_PLAYLIST, R.drawable.ic_addtoplaylist, res.getString(R.string.playlist_save)))
+        if (!isChromecast) options.add(PlayerOption(ID_ADD_FILES, R.drawable.ic_add, res.getString(R.string.rd_add_files_queue)))
+        if (service.playlistManager.getMediaListSize() > 1) options.add(PlayerOption(ID_SORT_QUEUE, R.drawable.ic_sort, res.getString(R.string.rd_sort_queue)))
         if (service.playlistManager.player.canDoPassthrough() && settings.getString(KEY_AOUT, "0") != "2")
             options.add(PlayerOption(ID_PASSTHROUGH, R.drawable.ic_passthrough, res.getString(R.string.audio_digital_title)))
 
@@ -238,9 +243,13 @@ class PlayerOptionsDelegate(val activity: FragmentActivity, val service: Playbac
             overlay?.showInfo(activity.getString(R.string.rd_record_saved, androidx.core.text.BidiFormatter.getInstance().unicodeWrap(dir, androidx.core.text.TextDirectionHeuristicsCompat.LTR)), 4000)
             return
         }
-        val shared = java.io.File(android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_MOVIES), "VLC Recordings")
-        val dir = if ((shared.isDirectory || shared.mkdirs()) && shared.canWrite()) shared
-                else java.io.File(activity.getExternalFilesDir(android.os.Environment.DIRECTORY_MOVIES) ?: activity.filesDir, "VLC Recordings").apply { mkdirs() }
+        // Settings › Video › Recording › Save recordings to: Movies (as before), Download, or the app's own folder
+        val own = java.io.File(activity.getExternalFilesDir(android.os.Environment.DIRECTORY_MOVIES) ?: activity.filesDir, "VLC Recordings")
+        val place = org.videolan.tools.Settings.getInstance(activity).getString("rd_record_dir", "movies")
+        val shared = if (place == "app") null else java.io.File(android.os.Environment.getExternalStoragePublicDirectory(
+                if (place == "downloads") android.os.Environment.DIRECTORY_DOWNLOADS else android.os.Environment.DIRECTORY_MOVIES), "VLC Recordings")
+        val dir = if (shared != null && (shared.isDirectory || shared.mkdirs()) && shared.canWrite()) shared
+                else own.apply { mkdirs() }
         val ok = mp.record(dir.absolutePath)
         if (ok) recordingDir = dir.absolutePath
         overlay?.showInfo(activity.getString(if (ok) R.string.rd_record_started else R.string.rd_record_failed), 2000)
@@ -430,6 +439,16 @@ class PlayerOptionsDelegate(val activity: FragmentActivity, val service: Playbac
             ID_SAVE_PLAYLIST -> {
                 activity.addToPlaylist(service.media)
                 hide()
+                return
+            }
+            ID_SORT_QUEUE -> {
+                hide()
+                RdQueueActions.sort(activity, service)
+                return
+            }
+            ID_ADD_FILES -> {
+                hide()
+                RdQueueActions.addFiles(activity, service)
                 return
             }
             else -> return

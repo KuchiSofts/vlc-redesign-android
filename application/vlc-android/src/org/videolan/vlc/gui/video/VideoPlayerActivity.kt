@@ -172,6 +172,7 @@ import org.videolan.tools.VIDEO_RESUME_URI
 import org.videolan.tools.VIDEO_TRANSITION_SHOW
 import org.videolan.tools.dp
 import org.videolan.tools.getContextWithLocale
+import org.videolan.tools.withRdLayoutDirection
 import org.videolan.vlc.gui.helpers.rdTvDesignScale
 import org.videolan.tools.isStarted
 import org.videolan.tools.isVisible
@@ -556,7 +557,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     override fun getDelegate() = baseContextWrappingDelegate
             ?: BaseContextWrappingDelegate(super.getDelegate()).apply { baseContextWrappingDelegate = this }
 
-    override fun createConfigurationContext(overrideConfiguration: Configuration) = super.createConfigurationContext(overrideConfiguration).getContextWithLocale(AppContextProvider.locale)
+    override fun createConfigurationContext(overrideConfiguration: Configuration) = super.createConfigurationContext(overrideConfiguration).getContextWithLocale(AppContextProvider.locale).withRdLayoutDirection()
 
     // VLC Redesign: the player is always dark, set before the base context is made: AppCompat then builds a
     // configuration context of its own. Set in onCreate() it went through Resources.updateConfiguration() (the
@@ -1334,6 +1335,11 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
      *
      */
     fun takeScreenshot() {
+        // (the picture is copied with PixelCopy, Android 7 and later: before, a snapshot crashed the player)
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
+            UiTools.snacker(this, R.string.screenshot_error)
+            return
+        }
         if (AndroidUtil.isOOrLater && !Permissions.canWriteStorage(this)) {
             Permissions.askWriteStoragePermission(this, false){}
             return
@@ -1353,9 +1359,6 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                         if (height == 0) height = surface.height
                         try {
                             val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-                            val simpleDateFormat = SimpleDateFormat("yyyyMMdd_HHmmss")
-                            AndroidDevices.MediaFolders.EXTERNAL_PUBLIC_SCREENSHOTS_URI_DIRECTORY.toFile().mkdirs()
-                            val dst = File(AndroidDevices.MediaFolders.EXTERNAL_PUBLIC_SCREENSHOTS_URI_DIRECTORY.path + "/vlc_${simpleDateFormat.format(Date())}.jpg")
 
                             PixelCopy.request(surface, bitmap, { copyResult ->
                                 if (copyResult != 0) {
@@ -1364,10 +1367,15 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                                 }
                                 val coords = IntArray(2)
                                 surfaceView.getLocationOnScreen(coords)
-                                if (BitmapUtil.saveOnDisk(bitmap, dst.absolutePath, publish = true, context = this@VideoPlayerActivity))
-                                    screenshotDelegate.takeScreenshot(dst, bitmap, coords, surface.width, surface.height)
-                                else
-                                    UiTools.snacker(this@VideoPlayerActivity, R.string.screenshot_error)
+                                // VLC Redesign: the desktop's Snapshots settings (RdSnapshot): folder, name, format, size, preview
+                                lifecycleScope.launch {
+                                    val dst = withContext(Dispatchers.IO) { RdSnapshot.save(this@VideoPlayerActivity, RdSnapshot.scaled(bitmap, settings), settings) }
+                                    when {
+                                        dst == null -> UiTools.snacker(this@VideoPlayerActivity, R.string.screenshot_error)
+                                        settings.getBoolean(RdSnapshot.KEY_PREVIEW, true) -> screenshotDelegate.takeScreenshot(dst, bitmap, coords, surface.width, surface.height)
+                                        else -> overlayDelegate.showInfo(getString(R.string.rd_snapshot_saved, RdSnapshot.relativeDir(settings).replace("/", " › ")), 2000)
+                                    }
+                                }
                             }, Handler(Looper.getMainLooper()))
                         } catch (e: Exception) {
                             Log.e(TAG, e.message, e)
@@ -1518,8 +1526,14 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 updateMute()
                 return true
             }
+            // VLC Redesign: the desktop's Shift+S snapshot and Shift+R record
             KeyEvent.KEYCODE_S, KeyEvent.KEYCODE_MEDIA_STOP -> {
-                exitOK()
+                if (keyCode == KeyEvent.KEYCODE_S && event.isShiftPressed) takeScreenshot() else exitOK()
+                return true
+            }
+            KeyEvent.KEYCODE_R -> if (event.isShiftPressed) {
+                ensureOptionsDelegate()
+                optionsDelegate?.performAction("record")
                 return true
             }
             KeyEvent.KEYCODE_DPAD_LEFT -> {
@@ -1528,14 +1542,18 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 else if (isLocked) {
                     overlayDelegate.showOverlayTimeout(Settings.videoHudDelay * 1000)
                 } else if (!isShowing && !overlayDelegate.playlistContainer.isVisible() && !resizeDelegate.isShowing()) {
+                    // VLC Redesign: the desktop's skips and keys (Settings › Controls › Skip Amounts): Shift very short,
+                    // Alt short, Ctrl medium, Ctrl+Alt long
                     if (event.isAltPressed && event.isCtrlPressed) {
-                        touchDelegate.seekDelta(-300000)
+                        touchDelegate.seekDelta(-Settings.videoLongJumpDelay * 1000)
                     } else if (event.isShiftPressed && event.isCtrlPressed) {
                         touchDelegate.seekDelta(-30000)
                     } else if (event.isShiftPressed) {
-                        touchDelegate.seekDelta(-5000)
+                        touchDelegate.seekDelta(-rdJump(KEY_RD_EXTRASHORT_JUMP, 3))
                     } else if (event.isCtrlPressed) {
-                        touchDelegate.seekDelta(-60000)
+                        touchDelegate.seekDelta(-rdJump(KEY_RD_MEDIUM_JUMP, 60))
+                    } else if (event.isAltPressed) {
+                        touchDelegate.seekDelta(-Settings.videoJumpDelay * 1000)
                     } else if (fov == 0f)
                         touchDelegate.seekDelta(-Settings.videoDoubleTapJumpDelay * 1000)
                     else
@@ -1549,14 +1567,18 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 else if (isLocked) {
                     overlayDelegate.showOverlayTimeout(Settings.videoHudDelay * 1000)
                 } else if (!isShowing && !overlayDelegate.playlistContainer.isVisible() && !resizeDelegate.isShowing()) {
+                    // VLC Redesign: the desktop's skips and keys (Settings › Controls › Skip Amounts): Shift very short,
+                    // Alt short, Ctrl medium, Ctrl+Alt long
                     if (event.isAltPressed && event.isCtrlPressed) {
-                        touchDelegate.seekDelta(300000)
+                        touchDelegate.seekDelta(Settings.videoLongJumpDelay * 1000)
                     } else if (event.isShiftPressed && event.isCtrlPressed) {
                         touchDelegate.seekDelta(30000)
                     } else if (event.isShiftPressed) {
-                        touchDelegate.seekDelta(5000)
+                        touchDelegate.seekDelta(rdJump(KEY_RD_EXTRASHORT_JUMP, 3))
                     } else if (event.isCtrlPressed) {
-                        touchDelegate.seekDelta(60000)
+                        touchDelegate.seekDelta(rdJump(KEY_RD_MEDIUM_JUMP, 60))
+                    } else if (event.isAltPressed) {
+                        touchDelegate.seekDelta(Settings.videoJumpDelay * 1000)
                     } else if (fov == 0f)
                         touchDelegate.seekDelta(Settings.videoDoubleTapJumpDelay * 1000)
                     else
@@ -1613,12 +1635,15 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
             else
                 super.onKeyDown(keyCode, event)
             KeyEvent.KEYCODE_J -> {
+                // VLC Redesign: the desktop's sync by ear, Shift+H voice heard, Shift+J text seen, Shift+K apply
+                if (event.isShiftPressed) return rdSyncByEar(keyCode, event)
                 delayDelegate.delayAudioOrSpu(delta = -50000L, delayState = IPlaybackSettingsController.DelayState.AUDIO)
                 handler.removeMessages(HIDE_SETTINGS)
                 handler.sendEmptyMessageDelayed(HIDE_SETTINGS, 4000L)
                 return true
             }
             KeyEvent.KEYCODE_K -> {
+                if (event.isShiftPressed) return rdSyncByEar(keyCode, event)
                 delayDelegate.showDelayControls()
                 delayDelegate.delayAudioOrSpu(delta = 50000L, delayState = IPlaybackSettingsController.DelayState.AUDIO)
                 handler.removeMessages(HIDE_SETTINGS)
@@ -1635,6 +1660,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 overlayDelegate.showOverlay()
             }
             KeyEvent.KEYCODE_H -> {
+                if (event.isShiftPressed) return rdSyncByEar(keyCode, event)
                 if (event.isCtrlPressed) {
                     overlayDelegate.showOverlay()
                 } else {
@@ -1677,6 +1703,45 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         }
         if (playerKeyListenerDelegate.onKeyDown(keyCode, event)) return true
         return super.onKeyDown(keyCode, event)
+    }
+
+    /** A skip of Settings › Controls › Skip Amounts, in ms */
+    private fun rdJump(key: String, default: Int) = settings.getInt(key, default).coerceIn(1, 3600) * 1000
+
+    private var rdVoiceMark = -1L
+    private var rdTextMark = -1L
+
+    /**
+     * The desktop's subtitle sync by ear (VLC's subsync keys): Shift+H when the voice is heard, Shift+J when the text
+     * shows, Shift+K moves the subtitles by the difference, Ctrl+Shift+K puts them back
+     */
+    private fun rdSyncByEar(keyCode: Int, event: KeyEvent): Boolean {
+        val s = service ?: return true
+        when {
+            keyCode == KeyEvent.KEYCODE_H -> {
+                rdVoiceMark = s.getTime()
+                overlayDelegate.showInfo(getString(R.string.rd_voice_marked), 1500)
+            }
+            keyCode == KeyEvent.KEYCODE_J -> {
+                rdTextMark = s.getTime()
+                overlayDelegate.showInfo(getString(R.string.rd_text_marked), 1500)
+            }
+            event.isCtrlPressed -> {
+                rdVoiceMark = -1L
+                rdTextMark = -1L
+                s.setSpuDelay(0L)
+                overlayDelegate.showInfo("${getString(R.string.spu_delay)}: 0 ms", 1500)
+            }
+            rdVoiceMark >= 0 && rdTextMark >= 0 -> {
+                val delay = (s.spuDelay / 1000L + (rdVoiceMark - rdTextMark)).coerceIn(-600000L, 600000L)
+                s.setSpuDelay(delay * 1000L)
+                rdVoiceMark = -1L
+                rdTextMark = -1L
+                overlayDelegate.showInfo("${getString(R.string.spu_delay)}: $delay ms", 1500)
+            }
+            else -> overlayDelegate.showInfo(getString(R.string.rd_mark_voice_heard), 1500)
+        }
+        return true
     }
 
     override fun showEqualizer() {
@@ -1899,6 +1964,9 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                                         }
                                     }
                                 }
+                                // VLC Redesign: Settings › Playback › Default audio track (the desktop's audio-track) wins
+                                // over the preferred language, as in VLC; a track chosen for this media wins over both
+                                rdDefaultTrack("rd_audio_track", service.audioTracks)?.let { preferredTrack = it }
                                 val audioTrack = when (val savedTrack = media.getMetaString(MediaWrapper.META_AUDIOTRACK)?.takeIf { it.isRestorableTrack() } ?: "0") {
                                     "0" -> preferredTrack
                                     else -> savedTrack
@@ -1908,7 +1976,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                             }
                         } else if (event.esChangedType == IMedia.Track.Type.Text) {
                             // (where the new track comes from: the file added last of its language)
-                            rdSubtitleLocals()
+                            val locals = rdSubtitleLocals()
                             lifecycleScope.launch(Dispatchers.IO) {
                                 val media = medialibrary.findMedia(mw)
                                 var preferredTrack = "0"
@@ -1927,6 +1995,17 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                                         }
                                     }
                                 }
+                                // VLC Redesign: a subtitle file beside the video has no language in the media's tracks (libvlc
+                                // 3 adds it later): the language of its name (".he.srt", the tracks panel's) is the one
+                                if (preferredTrack == "0" && !preferredSpuLang.isNullOrEmpty()) {
+                                    val wanted = org.videolan.vlc.util.OnlineSubtitles.normalize(preferredSpuLang)
+                                    locals.firstOrNull { org.videolan.vlc.util.OnlineSubtitles.normalize(it.language) == wanted }?.let { preferredTrack = it.id }
+                                }
+                                // VLC Redesign: Settings › Playback › Default subtitle track (the desktop's sub-track), as above;
+                                // Settings › Subtitles › Enable subtitles off: none chosen by itself (only one the user chose
+                                // for this media, or turns on in the player)
+                                rdDefaultTrack("rd_sub_track", service.spuTracks)?.let { preferredTrack = it }
+                                if (!settings.getBoolean(KEY_RD_SPU, true)) preferredTrack = "0"
                                 val spuTrack = when (val savedTrack = media.getMetaString(MediaWrapper.META_SUBTITLE_TRACK)?.takeIf { it.isRestorableTrack() } ?: "0") {
                                     "0" -> preferredTrack
                                     else -> savedTrack
@@ -2094,6 +2173,16 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         return list
     }
 
+    /**
+     * The id of the track a Default audio / subtitle track setting names (1 is the first; the "Disable" entry is
+     * not counted), or null when it is empty or the media has fewer tracks
+     */
+    private fun rdDefaultTrack(key: String, tracks: Array<out VlcTrack>?): String? {
+        if (key == "rd_sub_track" && !settings.getBoolean(KEY_RD_SPU, true)) return null
+        val n = settings.getString(key, "")?.trim()?.toIntOrNull()?.takeIf { it >= 1 } ?: return null
+        return tracks?.filter { it.getId() != "-1" }?.getOrNull(n - 1)?.getId()
+    }
+
     /** the video's subtitle tracks for the Subtitles panel: language, shown or not, where each comes from */
     fun rdSubtitleLocals(): List<org.videolan.vlc.util.RdSubtitleChoices.Local> {
         val s = service ?: return emptyList()
@@ -2163,6 +2252,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         // (the search by itself only when the user said so; a subtitles folder's file of the user's language is read
         // whatever the switch: nothing goes online for it)
         val auto = Settings.getInstance(ctx).getBoolean(org.videolan.vlc.util.OnlineSubtitles.KEY_AUTO, true)
+        // Settings › Subtitles › Enable subtitles off: a video starts without any, none is looked for by itself
+        if (!Settings.getInstance(ctx).getBoolean(KEY_RD_SPU, true)) return
         val mw = service?.currentMediaWrapper ?: return
         val uri = mw.uri ?: return
         if (uri == rdOnlineAutoUri) return
@@ -3428,3 +3519,10 @@ fun setConstraintPercent(view: Guideline, percent: Float) {
 fun setProgressMax(view: SeekBar, length: Long) {
     view.max =  if (length == 0L) NO_LENGTH_PROGRESS_MAX else length.toInt()
 }
+
+/** VLC Redesign, Settings > Subtitles > Enable subtitles (the desktop's spu): off, a video starts without subtitles */
+const val KEY_RD_SPU = "rd_spu"
+
+/** VLC Redesign, Settings > Controls > Skip Amounts: the desktop's very short and medium skips, in seconds */
+const val KEY_RD_EXTRASHORT_JUMP = "rd_extrashort_jump"
+const val KEY_RD_MEDIUM_JUMP = "rd_medium_jump"

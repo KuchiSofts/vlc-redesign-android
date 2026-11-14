@@ -29,7 +29,16 @@
     <string name="rd_ob_online_text">テレメトリーなし、広告なし、アカウント不要。自動的にオンラインに接続する機能には、その下にそのことが書かれており、そこに書かれた内容だけを送信します。これらの選択は設定に残り、いつでも変更できます。</string>
     <string name="rd_ob_history_help">このデバイスにのみ保存され、前回の続きから再開するために使われます。</string>
     <string name="rd_ob_updates_help">1 日に 1 回、VLC for Android の新しいテスト版を確認します。</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>パソコン版の設定を追加: 再生、字幕、音声、ネットワーク、スナップショット、録画。</item>
+        <item>再生キューの並べ替えとファイルの追加。</item>
+        <item>プレイリストを M3U8 ファイルとして書き出し。</item>
+        <item>情報: アップデートの確認、アイデアの提案、問題の報告。</item>
+        <item>スリープタイマー: 停止ではなく一時停止。</item>
+        <item>2 つ目の字幕言語に独自の遅延。</item>
+        <item>パソコン版のキー: 4 段階のスキップ、スナップショット、録画、耳での同期。</item>
+        <item>修正: 動画の横の字幕ファイルが優先言語で開くように。</item>
+    </string-array>
     <string name="rd_subtitle_size">字幕のサイズ</string>
     <string name="rd_cast_this_phone">このスマートフォン</string>
     <string name="rd_cast_this_tablet">このタブレット</string>

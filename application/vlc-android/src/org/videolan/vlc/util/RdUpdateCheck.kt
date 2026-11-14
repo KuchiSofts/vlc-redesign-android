@@ -1,8 +1,10 @@
 /*
- * VLC Redesign: the app's own update check. Once a day it reads the latest release of
- * KuchiSofts/vlc-redesign on GitHub; when that release is newer than this app and carries an
- * Android APK, the user is offered to download it (Android installs it over this one: every
+ * VLC Redesign: the app's own update check. Once a day it reads the releases of
+ * KuchiSofts/vlc-redesign on GitHub; when the newest release that carries an Android APK is newer
+ * than this app, the user is offered to download it (Android installs it over this one: every
  * release is signed with the same key). Nothing is downloaded or installed by itself.
+ * A desktop-only release (no APK) does not hide the last Android one: the list is read, not
+ * only GitHub's "latest" release.
  */
 package org.videolan.vlc.util
 
@@ -10,7 +12,7 @@ import android.content.Context
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
+import org.json.JSONArray
 import org.videolan.tools.Settings
 import org.videolan.tools.putSingle
 import org.videolan.vlc.BuildConfig
@@ -23,12 +25,26 @@ object RdUpdateCheck {
     /** the switch in Settings › General and in the privacy step of the welcome (on by default) */
     const val KEY_CHECK = "rd_check_updates"
     private const val KEY_LAST = "rd_update_last_check"
-    /** a version the user chose to skip: not offered again */
+    /** a version the user chose to skip: not offered again by the daily check */
     const val KEY_SKIPPED = "rd_update_skipped"
-    private const val LATEST = "https://api.github.com/repos/KuchiSofts/vlc-redesign/releases/latest"
+    /** the newest releases first; a few desktop-only ones in a row still leave the last APK in the page */
+    private const val RELEASES = "https://api.github.com/repos/KuchiSofts/vlc-redesign/releases?per_page=30"
+    const val RELEASES_PAGE = "https://github.com/KuchiSofts/vlc-redesign/releases"
     private val INTERVAL = TimeUnit.DAYS.toMillis(1)
 
     data class Release(val version: String, val apkUrl: String, val pageUrl: String)
+
+    /** What a check asked for by the user found (About, Settings) */
+    sealed class Result {
+        object UpToDate : Result()
+        data class Available(val release: Release) : Result()
+        /** GitHub could not be reached (offline, timeout) */
+        object Offline : Result()
+        /** GitHub answered with an HTTP status other than 200 (rate limit, outage) */
+        data class Unexpected(val status: Int) : Result()
+    }
+
+    private class HttpStatus(val status: Int) : Exception("HTTP $status")
 
     /** The newer release to offer, or null (switched off, checked today, skipped, none, offline) */
     suspend fun check(context: Context): Release? = withContext(Dispatchers.IO) {
@@ -46,29 +62,58 @@ object RdUpdateCheck {
         release?.takeIf { isNewer(it.version, BuildConfig.RD_VERSION_NAME) && it.version != settings.getString(KEY_SKIPPED, null) }
     }
 
+    /** A check the user asked for: now, whatever the switch, the day or a skipped version say */
+    suspend fun checkNow(context: Context): Result = withContext(Dispatchers.IO) {
+        val release = try {
+            fetch()
+        } catch (e: HttpStatus) {
+            return@withContext Result.Unexpected(e.status)
+        } catch (e: Exception) {
+            Log.w(TAG, "No update check: ${e.message}")
+            return@withContext Result.Offline
+        }
+        Settings.getInstance(context).putSingle(KEY_LAST, System.currentTimeMillis())
+        if (release != null && isNewer(release.version, BuildConfig.RD_VERSION_NAME)) Result.Available(release) else Result.UpToDate
+    }
+
     private fun fetch(): Release? {
-        val connection = URL(LATEST).openConnection() as HttpURLConnection
+        val connection = URL(RELEASES).openConnection() as HttpURLConnection
         org.videolan.vlc.util.RdTls.apply(connection)
         try {
             connection.connectTimeout = 10_000
             connection.readTimeout = 10_000
             connection.setRequestProperty("Accept", "application/vnd.github+json")
             connection.setRequestProperty("User-Agent", "VLC-Media-Player-Redesign-Android/${BuildConfig.RD_VERSION_NAME}")
-            if (connection.responseCode != HttpURLConnection.HTTP_OK) return null
-            val json = JSONObject(connection.inputStream.bufferedReader().use { it.readText() })
-            if (json.optBoolean("draft") || json.optBoolean("prerelease")) return null
-            val version = json.optString("tag_name").removePrefix("v")
-            val assets = json.optJSONArray("assets") ?: return null
-            for (i in 0 until assets.length()) {
-                val asset = assets.getJSONObject(i)
-                val name = asset.optString("name")
-                if (name == "vlc-redesign-$version-android.apk")
-                    return Release(version, asset.optString("browser_download_url"), json.optString("html_url"))
-            }
-            return null
+            val status = connection.responseCode
+            if (status != HttpURLConnection.HTTP_OK) throw HttpStatus(status)
+            return pick(JSONArray(connection.inputStream.bufferedReader().use { it.readText() }))
         } finally {
             connection.disconnect()
         }
+    }
+
+    /**
+     * The newest published release (not a draft, not a pre-release) that has the Android APK
+     * `vlc-redesign-<version>-android.apk`; the order of the list does not matter
+     */
+    fun pick(releases: JSONArray): Release? {
+        var best: Release? = null
+        for (r in 0 until releases.length()) {
+            val json = releases.optJSONObject(r) ?: continue
+            if (json.optBoolean("draft") || json.optBoolean("prerelease")) continue
+            val version = json.optString("tag_name").removePrefix("v")
+            if (version.isEmpty()) continue
+            val assets = json.optJSONArray("assets") ?: continue
+            for (i in 0 until assets.length()) {
+                val asset = assets.optJSONObject(i) ?: continue
+                if (asset.optString("name") != "vlc-redesign-$version-android.apk") continue
+                val url = asset.optString("browser_download_url")
+                if (url.isNotEmpty() && (best == null || isNewer(version, best.version)))
+                    best = Release(version, url, json.optString("html_url"))
+                break
+            }
+        }
+        return best
     }
 
     /** "0.5.1" > "0.5.0", "0.10.0" > "0.9.2"; anything after a "-" is ignored */

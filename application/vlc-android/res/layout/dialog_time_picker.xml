@@ -283,6 +283,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tim_pic_wait_checkbox" />
 
+            <!-- VLC Redesign: the desktop's "Pause playback" when the timer ends, instead of stopping -->
+            <CheckBox
+                    android:id="@+id/rd_tim_pic_pause_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/rd_sleep_pause"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tim_pic_reset_checkbox" />
+
             <Button
                     android:id="@+id/tim_pic_delete_current"
                     android:layout_width="0dp"
@@ -310,7 +320,7 @@
                     android:text="@string/ok"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tim_pic_reset_checkbox" />
+                    app:layout_constraintTop_toBottomOf="@+id/rd_tim_pic_pause_checkbox" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

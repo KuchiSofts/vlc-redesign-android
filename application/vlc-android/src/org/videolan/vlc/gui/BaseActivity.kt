@@ -35,6 +35,7 @@ import org.videolan.resources.AppContextProvider
 import org.videolan.tools.KeyHelper
 import org.videolan.tools.Settings
 import org.videolan.tools.getContextWithLocale
+import org.videolan.tools.withRdLayoutDirection
 import org.videolan.tools.setGone
 import org.videolan.vlc.R
 import org.videolan.vlc.gui.helpers.UiTools
@@ -230,7 +231,8 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun getDelegate() = baseContextWrappingDelegate
             ?: BaseContextWrappingDelegate(super.getDelegate()).apply { baseContextWrappingDelegate = this }
 
-    override fun createConfigurationContext(overrideConfiguration: Configuration) = super.createConfigurationContext(overrideConfiguration).getContextWithLocale(AppContextProvider.locale)
+    // (VLC Redesign: with the layout direction chosen in Settings, if one was)
+    override fun createConfigurationContext(overrideConfiguration: Configuration) = super.createConfigurationContext(overrideConfiguration).getContextWithLocale(AppContextProvider.locale).withRdLayoutDirection()
 
     // VLC Redesign: in the TV layout, the pages at the design's size on the TV (RdTvDesignScale)
     override fun attachBaseContext(newBase: Context) {

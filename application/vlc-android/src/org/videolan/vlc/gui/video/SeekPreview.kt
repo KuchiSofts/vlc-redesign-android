@@ -42,6 +42,11 @@ import org.videolan.vlc.R
 import org.videolan.medialibrary.Tools
 
 class SeekPreview(private val activity: VideoPlayerActivity) {
+    companion object {
+        /** Settings › Playback › Seeking: the picture over the seek bar while it is dragged */
+        const val KEY_SEEK_THUMBNAIL = "rd_seek_thumbnail"
+    }
+
     private var card: LinearLayout? = null
     private var image: ImageView? = null
     private var label: TextView? = null
@@ -59,6 +64,8 @@ class SeekPreview(private val activity: VideoPlayerActivity) {
     /** Shows the card for the media playing when it is a local video; false else (the time OSD then) */
     fun start(media: Uri?, hasVideo: Boolean): Boolean {
         if (media == null || !hasVideo || (media.scheme != "file" && media.scheme != "content")) return false
+        // the desktop's "Show thumbnail while scrubbing" (Settings › Playback › Seeking, on by default)
+        if (!org.videolan.tools.Settings.getInstance(activity).getBoolean(KEY_SEEK_THUMBNAIL, true)) return false
         if (media != uri) {
             frames.evictAll()
             // (on the retriever's own thread: one frame may still be decoded with it there)

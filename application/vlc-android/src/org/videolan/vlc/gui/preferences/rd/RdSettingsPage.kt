@@ -244,9 +244,10 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
                 it.setSelection(it.editableText.length)
             }
         }
-        for (key in arrayOf("network_caching", "rd_file_caching", "rd_live_caching", "rd_avcodec_threads", "rd_audio_desync")) {
+        for (key in arrayOf("network_caching", "rd_file_caching", "rd_live_caching", "rd_avcodec_threads", "rd_audio_desync", "rd_audio_track", "rd_sub_track",
+                "rd_ipv4_timeout", "rd_cast_http_port", "rd_snapshot_width", "rd_snapshot_height")) {
             pref<EditTextPreference>(key)?.setOnBindEditTextListener {
-                it.inputType = InputType.TYPE_CLASS_NUMBER or (if (key == "rd_audio_desync") InputType.TYPE_NUMBER_FLAG_SIGNED else 0)
+                it.inputType = InputType.TYPE_CLASS_NUMBER or (if (key == "rd_audio_desync" || key == "rd_snapshot_height") InputType.TYPE_NUMBER_FLAG_SIGNED else 0)
                 it.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(5))
                 it.setSelection(it.editableText.length)
             }
@@ -274,6 +275,8 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             preset.setOnPreferenceChangeListener { _, newValue -> applySubtitlePreset(newValue as String); false }
         }
         manageSubtitleVisibilities()
+        // Video › Framing › Aspect ratio: the size the next videos open with (the player's list and its custom ratios)
+        setupDefaultAspect()
         // Controls
         setupControls()
         // Loudness: Android's audio effects
@@ -637,6 +640,8 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             // General / Interface
             // the desktop switches its language at once: this screen now, the others as they come back
             KEY_SET_LOCALE -> {
+                // (the desktop's rule: a language brings its own layout direction, which can then be changed again)
+                sharedPreferences.edit { remove(org.videolan.tools.KEY_RD_LAYOUT_DIRECTION) }
                 activity.setRestart()
                 AppContextProvider.setLocale(sharedPreferences.getString(KEY_SET_LOCALE, ""))
                 activity.recreate()
@@ -650,6 +655,10 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             }
             // the interface size changes at once: this screen now, the others when they come back
             org.videolan.tools.KEY_RD_INTERFACE_SCALE -> {
+                activity.setRestart()
+                activity.recreate()
+            }
+            org.videolan.tools.KEY_RD_LAYOUT_DIRECTION, org.videolan.vlc.gui.helpers.KEY_RD_ACCENT_SYSTEM -> {
                 activity.setRestart()
                 activity.recreate()
             }
@@ -684,7 +693,9 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
                 LoudnessEffects.apply(activity)
             }
             KEY_AUDIO_REPLAY_GAIN_ENABLE, KEY_AUDIO_REPLAY_GAIN_MODE, KEY_AUDIO_REPLAY_GAIN_PEAK_PROTECTION, "rd_stereo_mode", "rd_audio_desync",
-            "rd_deinterlace", "rd_deinterlace_mode", "rd_avi_index", "rd_sub_fuzzy", "rd_sub_font", "rd_file_caching", "rd_live_caching", "rd_http_proxy",
+            "rd_deinterlace", "rd_deinterlace_mode", "rd_avi_index", "rd_sub_fuzzy",
+            "rd_menu_language", "rd_audio_track", "rd_sub_track", "rd_mkv_preload", "rd_play_and_pause",
+            "rd_gain", "rd_force_dolby", "rd_soxr_quality", "rd_mix_mode", "rd_gnutls_priorities", "rd_ipv4_timeout", "rd_cast_http_port", "rd_sub_font", "rd_file_caching", "rd_live_caching", "rd_http_proxy",
             "rd_postproc", "rd_avcodec_threads", KEY_OPENGL, KEY_DEBLOCKING, KEY_ENABLE_FRAME_SKIP, KEY_ENABLE_TIME_STRETCHING_AUDIO,
             KEY_ENABLE_VERBOSE_MODE, KEY_CASTING_PASSTHROUGH, KEY_CASTING_QUALITY, KEY_CASTING_AUDIO_ONLY -> lifecycleScope.launch { restartLibVLC() }
             "rd_normalize", "rd_norm_level", "rd_night_mode" -> LoudnessEffects.apply(activity)
@@ -714,7 +725,8 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             KEY_SUBTITLES_COLOR, KEY_SUBTITLES_COLOR_OPACITY,
             KEY_SUBTITLES_BACKGROUND_COLOR, KEY_SUBTITLES_BACKGROUND_COLOR_OPACITY, KEY_SUBTITLES_BACKGROUND,
             KEY_SUBTITLES_OUTLINE, KEY_SUBTITLES_OUTLINE_SIZE, KEY_SUBTITLES_OUTLINE_COLOR, KEY_SUBTITLES_OUTLINE_COLOR_OPACITY,
-            KEY_SUBTITLES_SHADOW, KEY_SUBTITLES_SHADOW_COLOR, KEY_SUBTITLES_SHADOW_COLOR_OPACITY, "rd_shadow_distance", "rd_sub_margin" -> {
+            KEY_SUBTITLES_SHADOW, KEY_SUBTITLES_SHADOW_COLOR, KEY_SUBTITLES_SHADOW_COLOR_OPACITY, "rd_shadow_distance", "rd_sub_margin",
+            "rd_spu", "rd_sub_paths", "rd_shadow_angle", "rd_text_direction", "rd_sub_align" -> {
                 subtitlesChanged = true
                 manageSubtitleVisibilities()
             }
@@ -774,6 +786,9 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
                 Settings.fastplaySpeed = sharedPreferences.getInt(FASTPLAY_SPEED, 20) / 10f
                 updateFastplaySpeedSummary()
             }
+            org.videolan.vlc.media.PlaylistManager.KEY_DEFAULT_SPEED -> updateDefaultSpeedSummary()
+            "rd_gain" -> updateGainSummary()
+            "rd_video_title_timeout" -> updateTitleTimeoutSummary()
             // Controls (audio)
             KEY_AUDIO_JUMP_DELAY -> Settings.audioJumpDelay = sharedPreferences.getInt(KEY_AUDIO_JUMP_DELAY, 10)
             KEY_AUDIO_LONG_JUMP_DELAY -> Settings.audioLongJumpDelay = sharedPreferences.getInt(KEY_AUDIO_LONG_JUMP_DELAY, 20)
@@ -889,8 +904,10 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         pref<Preference>(KEY_SUBTITLES_SHADOW_COLOR_OPACITY)?.isVisible = shadow
         pref<Preference>("rd_shadow_distance")?.isVisible = shadow
         val outline = settings.getBoolean(KEY_SUBTITLES_OUTLINE, true)
-        // the outline size stays hidden, as upstream (it draws badly)
-        pref<Preference>(KEY_SUBTITLES_OUTLINE_SIZE)?.isVisible = false
+        // the desktop's Outline thickness (thin, normal, thick), with the outline
+        pref<Preference>(KEY_SUBTITLES_OUTLINE_SIZE)?.isVisible = outline
+        pref<Preference>("rd_shadow_angle")?.isVisible = shadow
+        updateTitleTimeoutSummary()
         pref<Preference>(KEY_SUBTITLES_OUTLINE_COLOR)?.isVisible = outline
         pref<Preference>(KEY_SUBTITLES_OUTLINE_COLOR_OPACITY)?.isVisible = outline
     }
@@ -907,6 +924,21 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         pref<Preference>(ENABLE_FASTPLAY)?.isVisible = !tv
         pref<Preference>(FASTPLAY_SPEED)?.isVisible = !tv
         pref<Preference>(SCREENSHOT_MODE)?.isVisible = !tv
+        // (the picture over the seek bar while it is dragged: a TV's remote drags nothing)
+        pref<Preference>(org.videolan.vlc.gui.video.SeekPreview.KEY_SEEK_THUMBNAIL)?.isVisible = !tv
+        // the system's accent: Android 12 and later (Material You), not in the TV layout
+        pref<Preference>(org.videolan.vlc.gui.helpers.KEY_RD_ACCENT_SYSTEM)?.isVisible = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S && !tv
+        // the layout direction: the one in use while none was chosen (shown, not saved)
+        pref<ListPreference>(org.videolan.tools.KEY_RD_LAYOUT_DIRECTION)?.let { p ->
+            if (p.sharedPreferences?.contains(p.key) != true) {
+                p.isPersistent = false
+                p.value = if (resources.configuration.layoutDirection == android.view.View.LAYOUT_DIRECTION_RTL) "rtl" else "ltr"
+                p.isPersistent = true
+            }
+        }
+        // (the snapshot's settings with the snapshot: not on a TV, which has no snapshot)
+        for (key in arrayOf("rd_snapshot_dir", "rd_snapshot_prefix", "rd_snapshot_format", "rd_snapshot_width", "rd_snapshot_height",
+                "rd_snapshot_sequential", "rd_snapshot_preview")) pref<Preference>(key)?.isVisible = !tv
         pref<Preference>(ENABLE_VOLUME_GESTURE)?.isVisible = AndroidDevices.hasTsp
         pref<Preference>(ENABLE_BRIGHTNESS_GESTURE)?.isVisible = AndroidDevices.hasTsp
         pref<Preference>(KEY_VIDEO_DOUBLE_TAP_JUMP_DELAY)?.title = getString(if (tv) R.string.video_key_jump_delay else R.string.video_double_tap_jump_delay)
@@ -914,6 +946,8 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         pref<Preference>(KEY_AUDIO_BOOST)?.isVisible = !tv
         updateHudTimeoutSummary()
         updateFastplaySpeedSummary()
+        updateDefaultSpeedSummary()
+        updateGainSummary()
         val audioManager = requireActivity().getSystemService<AudioManager>()
         if (audioManager?.isVolumeFixed == true) {
             pref<CheckBoxPreference>(KEY_AUDIO_BOOST)?.let {
@@ -937,6 +971,63 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
 
     private fun updateFastplaySpeedSummary() {
         pref<Preference>(FASTPLAY_SPEED)?.summary = String.format("%sx", Settings.fastplaySpeed.readableString())
+    }
+
+    /**
+     * The desktop's Aspect ratio of Settings › Video › Framing: the player's own sizes (MediaPlayer.ScaleType, kept in
+     * video_ratio as the player keeps its last choice) and the custom ratios (RdCustomAspect); what is chosen in the
+     * player shows here too
+     */
+    private fun setupDefaultAspect() {
+        val p = pref<ListPreference>("rd_default_aspect") ?: return
+        val prefs = Settings.getInstance(requireContext())
+        val scales = org.videolan.libvlc.MediaPlayer.ScaleType.entries
+        val names = scales.map {
+            when (it) {
+                org.videolan.libvlc.MediaPlayer.ScaleType.SURFACE_BEST_FIT -> getString(R.string.surface_best_fit)
+                org.videolan.libvlc.MediaPlayer.ScaleType.SURFACE_FIT_SCREEN -> getString(R.string.surface_fit_screen)
+                org.videolan.libvlc.MediaPlayer.ScaleType.SURFACE_FILL -> getString(R.string.surface_fill)
+                org.videolan.libvlc.MediaPlayer.ScaleType.SURFACE_ORIGINAL -> getString(R.string.surface_original)
+                org.videolan.libvlc.MediaPlayer.ScaleType.SURFACE_221_1 -> "2.21:1"
+                org.videolan.libvlc.MediaPlayer.ScaleType.SURFACE_235_1 -> "2.35:1"
+                org.videolan.libvlc.MediaPlayer.ScaleType.SURFACE_239_1 -> "2.39:1"
+                else -> it.name.removePrefix("SURFACE_").replace('_', ':')
+            }
+        }
+        val customs = org.videolan.vlc.gui.video.RdCustomAspect.list(requireContext())
+        p.entries = (names + customs).toTypedArray()
+        p.entryValues = (scales.indices.map { it.toString() } + customs.map { "c:$it" }).toTypedArray()
+        val custom = org.videolan.vlc.gui.video.RdCustomAspect.saved(requireContext())
+        p.value = if (custom != null) "c:$custom" else prefs.getInt(VIDEO_RATIO, 0).coerceIn(0, scales.size - 1).toString()
+        p.setOnPreferenceChangeListener { _, newValue ->
+            val v = newValue as String
+            if (v.startsWith("c:")) {
+                prefs.putSingle(org.videolan.vlc.gui.video.RdCustomAspect.KEY_CURRENT, v.removePrefix("c:"))
+                prefs.putSingle(VIDEO_RATIO, org.videolan.libvlc.MediaPlayer.ScaleType.SURFACE_BEST_FIT.ordinal)
+            } else {
+                prefs.putSingle(org.videolan.vlc.gui.video.RdCustomAspect.KEY_CURRENT, "")
+                prefs.putSingle(VIDEO_RATIO, v.toIntOrNull() ?: 0)
+            }
+            true
+        }
+    }
+
+    /** "150 %": the output gain (in tenths) */
+    private fun updateGainSummary() {
+        val p = pref<Preference>("rd_gain") ?: return
+        p.summary = "${(p.sharedPreferences?.getInt(p.key, 10) ?: 10) * 10} %"
+    }
+
+    /** "5s": how long the filename shows when a video starts */
+    private fun updateTitleTimeoutSummary() {
+        val p = pref<Preference>("rd_video_title_timeout") ?: return
+        p.summary = getString(R.string.video_hud_timeout_summary, (p.sharedPreferences?.getInt(p.key, 5) ?: 5).toString())
+    }
+
+    /** "1.25x": the speed a media without its own plays at (the desktop's slider of quarters) */
+    private fun updateDefaultSpeedSummary() {
+        val p = pref<Preference>(org.videolan.vlc.media.PlaylistManager.KEY_DEFAULT_SPEED) ?: return
+        p.summary = String.format("%sx", org.videolan.vlc.media.PlaylistManager.defaultRate(p.sharedPreferences ?: return).readableString())
     }
 
     companion object {

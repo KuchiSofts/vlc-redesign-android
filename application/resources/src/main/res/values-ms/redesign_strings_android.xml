@@ -29,7 +29,6 @@
     <string name="rd_ob_online_text">Tiada telemetri, tiada iklan, tiada akaun. Apa-apa yang pergi ke dalam talian dengan sendirinya menyatakannya di bawahnya dan hanya menghantar apa yang tertulis di situ. Pilihan ini kekal dalam Tetapan.</string>
     <string name="rd_ob_history_help">Disimpan pada peranti ini sahaja, untuk menyambung dari tempat anda berhenti.</string>
     <string name="rd_ob_updates_help">Mencari binaan ujian VLC for Android yang lebih baharu sekali sehari.</string>
-    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Saiz sari kata</string>
     <string name="rd_cast_this_phone">Telefon ini</string>
     <string name="rd_cast_this_tablet">Tablet ini</string>

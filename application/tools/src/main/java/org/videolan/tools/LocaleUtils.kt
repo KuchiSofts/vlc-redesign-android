@@ -188,3 +188,23 @@ fun String.substrlng(value: Int): String {
         '$' + ((it + value % 45) - '$' + 45) % 90
     }.joinToString("")
 }
+/** VLC Redesign: Settings › General › Layout direction (the desktop's): "ltr" or "rtl" over the language's; none = the language's */
+const val KEY_RD_LAYOUT_DIRECTION = "rd_layout_direction"
+
+/**
+ * VLC Redesign: this context with the layout direction chosen in Settings, when one was chosen (a right-to-left
+ * language can stay left to right, as some prefer, and the other way). Only the direction changes, not the language.
+ */
+fun Context.withRdLayoutDirection(): Context {
+    val dir = try {
+        Settings.getInstance(this).getString(KEY_RD_LAYOUT_DIRECTION, null)
+    } catch (e: Exception) {
+        null
+    }
+    if (dir != "ltr" && dir != "rtl") return this
+    val wanted = if (dir == "rtl") android.view.View.LAYOUT_DIRECTION_RTL else android.view.View.LAYOUT_DIRECTION_LTR
+    if (resources.configuration.layoutDirection == wanted) return this
+    val config = android.content.res.Configuration(resources.configuration)
+    config.setLayoutDirection(if (dir == "rtl") Locale("ar") else Locale.ENGLISH)
+    return createConfigurationContext(config)
+}

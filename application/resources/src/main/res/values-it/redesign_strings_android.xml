@@ -29,7 +29,16 @@
     <string name="rd_ob_online_text">Niente telemetria, niente pubblicità, nessun account. Ciò che va online da solo lo indica sotto di sé e invia solo quello che vi è scritto. Queste scelte restano nelle Impostazioni.</string>
     <string name="rd_ob_history_help">Conservata solo su questo dispositivo, per riprendere da dove avevi lasciato.</string>
     <string name="rd_ob_updates_help">Cerca una versione di prova più recente di VLC for Android una volta al giorno.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>Più impostazioni del computer: riproduzione, sottotitoli, audio, rete, istantanee e registrazioni.</item>
+        <item>Ordina la coda di riproduzione e aggiungi file.</item>
+        <item>Esporta una playlist come file M3U8.</item>
+        <item>Informazioni: cerca aggiornamenti, suggerisci un\'idea, segnala un problema.</item>
+        <item>Timer di spegnimento: pausa invece di arresto.</item>
+        <item>Una seconda lingua dei sottotitoli ha il proprio ritardo.</item>
+        <item>I tasti del computer: quattro salti, istantanea, registrazione e sincronia a orecchio.</item>
+        <item>Corretto: i sottotitoli accanto a un video si aprono nella lingua preferita.</item>
+    </string-array>
     <string name="rd_subtitle_size">Dimensione dei sottotitoli</string>
     <string name="rd_cast_this_phone">Questo telefono</string>
     <string name="rd_cast_this_tablet">Questo tablet</string>

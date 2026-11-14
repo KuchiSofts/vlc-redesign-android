@@ -483,6 +483,126 @@
     <string name="rd_update_you_have">You have %1$s.</string>
     <string name="rd_update_whats_new">What\'s new</string>
     <string name="rd_update_check_daily">Check for updates once a day</string>
+    <!-- About: the check asked for now, and its result (the desktop's texts) -->
+    <string name="rd_check_for_updates">Check for updates</string>
+    <string name="rd_update_checking">Checking for updates…</string>
+    <string name="rd_update_latest">You have the latest version</string>
+    <string name="rd_update_offline">Couldn\'t reach GitHub. Check your connection and try again.</string>
+    <string name="rd_update_unexpected">GitHub sent an unexpected answer (%1$s).</string>
+    <!-- Settings › Playback: the desktop's rows -->
+    <string name="rd_default_speed">Default playback speed</string>
+    <string name="rd_menu_language">Preferred menu language</string>
+    <string name="rd_help_menu_language">The language of DVD and Blu-ray menus: two- or three-letter codes such as en or fr, separated by commas.</string>
+    <string name="rd_default_audio_track">Default audio track</string>
+    <string name="rd_default_sub_track">Default subtitle track</string>
+    <string name="rd_help_default_track">The number of the track to start with (1 is the first); empty chooses by language.</string>
+    <string name="rd_stop_after_each">Stop after each item</string>
+    <string name="rd_help_stop_after_each">Playback stops when an item ends instead of going on to the next one.</string>
+    <string name="rd_mkv_preload">Load matching .mkv files from the same folder</string>
+    <string name="rd_help_mkv_preload">Files that belong to the same video (linked segments) are opened with it.</string>
+    <string name="rd_seek_thumbnail">Show thumbnail while scrubbing</string>
+    <string name="rd_play_and_pause">Pause on the last frame of each item</string>
+    <string name="rd_help_play_and_pause">The picture stays on its last frame, paused, at the end of each item.</string>
+    <!-- Settings › Subtitles: the desktop's rows -->
+    <string name="rd_enable_subtitles">Enable subtitles</string>
+    <string name="rd_help_spu">Off: videos start without subtitles; one can still be turned on in the player.</string>
+    <string name="rd_sub_paths">Load subtitles from these folders</string>
+    <string name="rd_help_sub_paths">Folders next to the video that are searched for its subtitles, separated by commas.</string>
+    <string name="rd_outline_thickness">Outline thickness</string>
+    <string name="rd_shadow_angle">Shadow angle</string>
+    <string name="rd_text_direction">Text direction</string>
+    <string name="rd_ltr">Left to right</string>
+    <string name="rd_rtl">Right to left</string>
+    <string name="rd_text_alignment">Text alignment</string>
+    <string name="rd_show_filename_for">Show filename for</string>
+    <string name="rd_filename_position">Position of the filename</string>
+    <string name="rd_top_left">Top left</string>
+    <string name="rd_top_right">Top right</string>
+    <string name="rd_bottom_left">Bottom left</string>
+    <string name="rd_bottom_right">Bottom right</string>
+    <!-- Settings › Audio: the desktop's rows -->
+    <string name="rd_spatial_audio_mode">Spatial audio mode</string>
+    <string name="rd_headphone_virtualization">Headphone virtualization</string>
+    <string name="rd_help_mix_mode">Surround and 3D audio rendered for headphones.</string>
+    <string name="rd_output_gain">Output gain</string>
+    <string name="rd_detect_dolby">Detect Dolby Surround</string>
+    <string name="rd_resampling_quality">Resampling quality</string>
+    <string name="rd_fastest">Fastest</string>
+    <string name="rd_fast">Fast</string>
+    <string name="rd_balanced">Balanced</string>
+    <string name="rd_high">High</string>
+    <string name="rd_best">Best</string>
+    <!-- The player's menu: the desktop's queue buttons, Sort (its keys) and Add files -->
+    <string name="rd_sort_queue">Sort</string>
+    <string name="rd_add_files_queue">Add files to the queue</string>
+    <string name="rd_sort_title">Title</string>
+    <string name="rd_sort_duration">Duration</string>
+    <string name="rd_sort_artist">Artist</string>
+    <string name="rd_sort_album">Album</string>
+    <string name="rd_sort_album_artist">Album Artist</string>
+    <string name="rd_sort_genre">Genre</string>
+    <string name="rd_sort_date">Date</string>
+    <string name="rd_sort_track_number">Track Number</string>
+    <string name="rd_sort_disc_number">Disc Number</string>
+    <string name="rd_sort_url">URL</string>
+    <string name="rd_sort_file_modified">File modified</string>
+    <plurals name="rd_files_added_queue">
+        <item quantity="one">%1$d file added to the queue</item>
+        <item quantity="other">%1$d files added to the queue</item>
+    </plurals>
+    <string name="rd_no_file_picker">This device has no file picker: add files from the app\'s folders instead.</string>
+    <!-- The subtitle timing panel: the second language's own delay (the desktop's) -->
+    <string name="rd_secondary_sub_delay">Secondary subtitle delay</string>
+    <!-- The sleep timer: when it ends, pause instead of stopping (the desktop's choice "Pause playback") -->
+    <string name="rd_sleep_pause">Pause playback</string>
+    <!-- Playlists: the desktop's Export Playlist (an M3U8 file) -->
+    <string name="rd_export_playlist">Export Playlist</string>
+    <string name="rd_playlist_exported">The playlist is saved.</string>
+    <string name="rd_playlist_export_failed">The playlist could not be saved.</string>
+    <string name="rd_no_file_picker_save">This device has no way to choose where to save a file.</string>
+    <!-- Settings › General and Privacy: the desktop's rows -->
+    <string name="rd_layout_direction">Layout direction</string>
+    <string name="rd_follow_system_accent">Follow the system accent color</string>
+    <string name="rd_never_remember">Never remember items matching</string>
+    <string name="rd_help_history_filter">A regular expression: the items whose address or name matches it are not saved in the history, nor their playback position.</string>
+    <!-- Settings › Controls › Skip Amounts: the desktop's rows -->
+    <string name="rd_very_short_skip">Very short skip</string>
+    <string name="rd_medium_skip">Medium skip</string>
+    <!-- Settings › Network: the desktop's rows -->
+    <string name="rd_sec_security">Security</string>
+    <string name="rd_cipher_preference">Cipher preference</string>
+    <string name="rd_cipher_128">Secure (128-bit)</string>
+    <string name="rd_cipher_256">Most secure (256-bit)</string>
+    <string name="rd_connection_timeout">Connection timeout</string>
+    <string name="rd_help_ipv4_timeout">How long to wait for a server to answer, in milliseconds (5000 when empty).</string>
+    <string name="rd_cast_http_port">Cast HTTP port</string>
+    <string name="rd_help_cast_port">The port the TV reads the video from (8010 when empty).</string>
+    <!-- Settings › Video › Framing -->
+    <string name="rd_aspect_ratio">Aspect ratio</string>
+    <!-- Settings › Video › Snapshots -->
+    <string name="rd_save_to">Save to</string>
+    <string name="rd_snapshot_dir_screenshots">Pictures › Screenshots</string>
+    <string name="rd_snapshot_dir_pictures">Pictures › VLC</string>
+    <string name="rd_snapshot_dir_dcim">DCIM › VLC</string>
+    <string name="rd_file_name_prefix">File name prefix</string>
+    <string name="rd_format">Format</string>
+    <string name="rd_snapshot_size">Width</string>
+    <string name="rd_help_snapshot_width">In pixels; empty keeps the video\'s own size.</string>
+    <string name="rd_snapshot_height">Height</string>
+    <string name="rd_help_snapshot_height">In pixels; empty follows the width, -1 keeps the video\'s own height.</string>
+    <string name="rd_number_sequentially">Number files sequentially</string>
+    <string name="rd_snapshot_preview">Show a preview after capture</string>
+    <string name="rd_snapshot_saved">Snapshot saved in %1$s</string>
+    <!-- Settings › Video › Recording -->
+    <string name="rd_sec_recording">Recording</string>
+    <string name="rd_save_recordings_to">Save recordings to</string>
+    <string name="rd_record_dir_movies">Movies › VLC Recordings</string>
+    <string name="rd_record_dir_downloads">Download › VLC Recordings</string>
+    <string name="rd_record_dir_app">The app\'s own folder</string>
+    <!-- About: the other platforms (a list such as "Windows 0.6.4 · Linux 0.6.4") -->
+    <string name="rd_also_on">Also on: %1$s</string>
+    <string name="rd_suggest_idea">Suggest an idea</string>
+    <string name="rd_report_problem">Report a problem</string>
     <!-- the place of the player's volume meter (the desktop's Volume indicator) -->
     <string name="rd_volume_indicator">Volume indicator</string>
     <string name="rd_volume_right_side">Right side</string>

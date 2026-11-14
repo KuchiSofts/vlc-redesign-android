@@ -31,7 +31,16 @@
     <string name="rd_ob_online_text">لا قياس عن بُعد، ولا إعلانات، ولا حساب. ما يتصل بالإنترنت من تلقاء نفسه يذكر ذلك تحته، ولا يرسل إلا ما هو مكتوب هناك. تبقى هذه الخيارات في الإعدادات.</string>
     <string name="rd_ob_history_help">يُحفظ على هذا الجهاز فقط، للمتابعة من حيث توقفت.</string>
     <string name="rd_ob_updates_help">يبحث مرة في اليوم عن إصدار تجريبي أحدث من VLC for Android.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>المزيد من إعدادات الحاسوب: التشغيل والترجمة والصوت والشبكة واللقطات والتسجيلات.</item>
+        <item>رتّب قائمة الانتظار وأضف إليها ملفات.</item>
+        <item>صدّر قائمة تشغيل كملف M3U8.</item>
+        <item>حول: البحث عن تحديثات، اقتراح فكرة، الإبلاغ عن مشكلة.</item>
+        <item>مؤقت النوم: إيقاف مؤقت بدلًا من الإيقاف.</item>
+        <item>للغة الترجمة الثانية تأخير خاص بها.</item>
+        <item>مفاتيح الحاسوب: أربعة أطوال للتخطي، لقطة، تسجيل ومزامنة بالسمع.</item>
+        <item>إصلاح: ملفات الترجمة بجوار الفيديو تُفتح بلغتك المفضلة.</item>
+    </string-array>
     <string name="rd_subtitle_size">حجم الترجمة</string>
     <string name="rd_cast_this_phone">هذا الهاتف</string>
     <string name="rd_cast_this_tablet">هذا الجهاز اللوحي</string>

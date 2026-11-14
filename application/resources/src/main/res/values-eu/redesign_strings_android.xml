@@ -29,7 +29,6 @@
     <string name="rd_ob_online_text">Telemetriarik ez, iragarkirik ez, konturik ez. Bere kabuz linean sartzen denak hala dio azpian, eta bertan idatzitakoa soilik bidaltzen du. Aukera hauek Ezarpenetan geratzen dira.</string>
     <string name="rd_ob_history_help">Gailu honetan soilik gordetzen da, utzi zenuen tokitik jarraitzeko.</string>
     <string name="rd_ob_updates_help">VLC for Android-en proba-bertsio berriago bat bilatzen du egunean behin.</string>
-    <string-array name="rd_whats_new_items" />
     <string name="rd_subtitle_size">Azpitituluen tamaina</string>
     <string name="rd_cast_this_phone">Telefono hau</string>
     <string name="rd_cast_this_tablet">Tableta hau</string>

@@ -23,6 +23,19 @@ object RdDualSubtitles {
      */
     fun cueTime(timeMs: Long, delayUs: Long): Long = timeMs - delayUs / 1000L
 
+    /**
+     * The desktop's Secondary subtitle delay (ms) of the video playing: none (null) the second language follows the
+     * first one's delay, as the desktop's until its own is set (VLC's delay of one track over its category's)
+     */
+    @Volatile var secondDelayMs: Long? = null
+
+    /** whether a second language is drawn for the video playing (the timing panel shows its delay then) */
+    @Volatile var secondShown = false
+
+    /** the second language's file time: its own delay when one was set, else the first one's */
+    fun secondCueTime(timeMs: Long, firstDelayUs: Long, ownDelayMs: Long?): Long =
+        if (ownDelayMs != null) timeMs - ownDelayMs else cueTime(timeMs, firstDelayUs)
+
     /** the text shown at [timeMs] (the file's time): the lines on then, in their order; "" for none */
     fun textAt(cues: List<SubtitleCues.Cue>, timeMs: Long): String {
         if (cues.isEmpty()) return ""

@@ -18,6 +18,12 @@
             android:persistent="true"
             android:summary="%s"
             android:title="@string/rd_text_encoding" />
+        <!-- VLC Redesign: the desktop's Enable subtitles (VLCOptions: spu) -->
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="rd_spu"
+            android:summary="@string/rd_help_spu"
+            android:title="@string/rd_enable_subtitles" />
     </PreferenceCategory>
     <!-- VLC Redesign: the desktop's "Second Language & Online Subtitles" (SettingsSubtitleLanguages.qml), then the
          services asked online (OnlineSubtitles): four free ones without an account, and OpenSubtitles.com with the
@@ -81,6 +87,12 @@
             android:defaultValue="3"
             android:entries="@array/rd_fuzzy_entries"
             android:entryValues="@array/rd_fuzzy_values" />
+        <!-- VLC Redesign: the desktop's advanced row (VLCOptions: sub-autodetect-path, VLC's folders by default) -->
+        <org.videolan.vlc.gui.preferences.rd.RdEditTextPreference
+            android:defaultValue="./Subtitles, ./subtitles, ./Subs, ./subs"
+            android:key="rd_sub_paths"
+            android:summary="@string/rd_help_sub_paths"
+            android:title="@string/rd_sub_paths" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/rd_sec_appearance">
         <org.videolan.vlc.gui.preferences.rd.RdListPreference
@@ -130,10 +142,9 @@
             android:entries="@array/subtitles_outline_size_entries"
             android:entryValues="@array/subtitles_outline_size_values"
             android:key="subtitles_outline_size"
-            app:isPreferenceVisible="false"
             android:summary="%s"
             android:persistent="true"
-            android:title="@string/subtitles_size" />
+            android:title="@string/rd_outline_thickness" />
         <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
             android:defaultValue="@color/black"
             android:key="subtitles_outline_color"
@@ -171,6 +182,31 @@
             app:min="0"
             app:showSeekBarValue="true"
             android:dependency="subtitles_shadow" />
+        <!-- VLC Redesign: the desktop's advanced rows of Appearance (VLCOptions: freetype-shadow-angle,
+             freetype-text-direction, subsdec-align) -->
+        <SeekBarPreference
+            android:key="rd_shadow_angle"
+            android:title="@string/rd_shadow_angle"
+            android:defaultValue="-45"
+            android:max="180"
+            app:min="-180"
+            app:seekBarIncrement="15"
+            app:showSeekBarValue="true"
+            android:dependency="subtitles_shadow" />
+        <org.videolan.vlc.gui.preferences.rd.RdListPreference
+            android:defaultValue="2"
+            android:entries="@array/rd_text_direction_entries"
+            android:entryValues="@array/rd_text_direction_values"
+            android:key="rd_text_direction"
+            android:summary="%s"
+            android:title="@string/rd_text_direction" />
+        <org.videolan.vlc.gui.preferences.rd.RdListPreference
+            android:defaultValue="-1"
+            android:entries="@array/rd_sub_align_entries"
+            android:entryValues="@array/rd_sub_align_values"
+            android:key="rd_sub_align"
+            android:summary="%s"
+            android:title="@string/rd_text_alignment" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="subtitles_background"
@@ -201,5 +237,25 @@
             android:title="@string/rd_show_filename"
             android:summary="@string/rd_help_video_title"
             android:defaultValue="false" />
+        <!-- VLC Redesign: the desktop's Show filename for (video-title-timeout, 1 to 10 s, VLC's 5 s) and Position
+             of the filename (video-title-position, at the top as the desktop: clear of the subtitles) -->
+        <org.videolan.vlc.gui.preferences.rd.RdValueSeekBarPreference
+            android:defaultValue="5"
+            android:dependency="rd_video_title"
+            android:key="rd_video_title_timeout"
+            android:max="10"
+            android:summary="%s"
+            android:title="@string/rd_show_filename_for"
+            app:min="1"
+            app:seekBarIncrement="1"
+            app:updatesContinuously="true" />
+        <org.videolan.vlc.gui.preferences.rd.RdListPreference
+            android:defaultValue="4"
+            android:dependency="rd_video_title"
+            android:entries="@array/rd_title_position_entries"
+            android:entryValues="@array/rd_title_position_values"
+            android:key="rd_video_title_position"
+            android:summary="%s"
+            android:title="@string/rd_filename_position" />
     </PreferenceCategory>
 </androidx.preference.PreferenceScreen>

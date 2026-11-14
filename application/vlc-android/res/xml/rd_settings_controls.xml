@@ -70,10 +70,21 @@
             app:updatesContinuously="true" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/rd_sec_skip">
+        <!-- VLC Redesign: the desktop's four skips (Shift, Alt, Ctrl, Ctrl+Alt with the arrows) -->
+        <org.videolan.vlc.gui.view.NumberPickerPreference
+            android:defaultValue="3"
+            android:summary="%ss"
+            app:key="rd_extrashort_jump"
+            app:title="@string/rd_very_short_skip" />
         <org.videolan.vlc.gui.view.NumberPickerPreference
             android:defaultValue="10"
             app:key="video_jump_delay"
             app:title="@string/jump_delay" />
+        <org.videolan.vlc.gui.view.NumberPickerPreference
+            android:defaultValue="60"
+            android:summary="%ss"
+            app:key="rd_medium_jump"
+            app:title="@string/rd_medium_skip" />
         <org.videolan.vlc.gui.view.NumberPickerPreference
             android:defaultValue="20"
             app:key="video_long_jump_delay"

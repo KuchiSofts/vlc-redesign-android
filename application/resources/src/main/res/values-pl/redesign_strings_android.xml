@@ -29,7 +29,16 @@
     <string name="rd_ob_online_text">Bez telemetrii, bez reklam, bez konta. To, co samo łączy się z internetem, informuje o tym pod spodem i wysyła tylko to, co tam napisano. Te wybory pozostają w Ustawieniach.</string>
     <string name="rd_ob_history_help">Przechowywana tylko na tym urządzeniu, aby kontynuować od miejsca, w którym przerwano.</string>
     <string name="rd_ob_updates_help">Raz dziennie sprawdza, czy jest nowsza testowa wersja VLC for Android.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>Więcej ustawień z komputera: odtwarzanie, napisy, dźwięk, sieć, zrzuty i nagrania.</item>
+        <item>Sortowanie kolejki i dodawanie do niej plików.</item>
+        <item>Eksport playlisty do pliku M3U8.</item>
+        <item>O programie: sprawdzanie aktualizacji, pomysł, zgłoszenie problemu.</item>
+        <item>Wyłącznik czasowy: pauza zamiast zatrzymania.</item>
+        <item>Drugi język napisów ma własne opóźnienie.</item>
+        <item>Klawisze z komputera: cztery długości przeskoku, zrzut, nagrywanie i synchronizacja na słuch.</item>
+        <item>Naprawiono: napisy obok filmu otwierają się w preferowanym języku.</item>
+    </string-array>
     <string name="rd_subtitle_size">Rozmiar napisów</string>
     <string name="rd_cast_this_phone">Ten telefon</string>
     <string name="rd_cast_this_tablet">Ten tablet</string>

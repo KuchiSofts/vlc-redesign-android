@@ -117,6 +117,75 @@
             app:cornerRadius="4dp" />
     </LinearLayout>
 
+    <!-- the desktop's Secondary subtitle delay: shown while a second language is drawn (RdDualSubtitles) -->
+    <LinearLayout
+        android:id="@+id/rd_sub2_delay_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:text="@string/rd_secondary_sub_delay"
+                android:textAlignment="viewStart"
+                android:textColor="@color/rd_dark_fg_1"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/rd_sub2_delay_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
+                android:fontFeatureSettings="tnum"
+                android:textColor="@color/rd_dark_fg_a1"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/rd_sub2_delay_slider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="ltr"
+            android:stepSize="50"
+            android:value="0"
+            android:valueFrom="-10000"
+            android:valueTo="10000"
+            app:haloColor="@color/rd_ripple_dark"
+            app:haloRadius="12dp"
+            app:labelBehavior="gone"
+            app:thumbColor="?attr/colorPrimary"
+            app:thumbRadius="7dp"
+            app:tickVisible="false"
+            app:trackColorActive="@color/rd_dark_bg_b2"
+            app:trackColorInactive="@color/rd_dark_bg_b2"
+            app:trackHeight="4dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/rd_sub2_delay_reset"
+            style="@style/Widget.Redesign.Button.Outlined.Player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minWidth="0dp"
+            android:minHeight="34dp"
+            android:text="@string/rd_reset"
+            android:textSize="12sp"
+            app:cornerRadius="4dp" />
+    </LinearLayout>
+
     <!-- the sync timeline: the sound and the subtitle lines, dragged in place (SubtitleSyncDialog) -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/rd_sub_sync_open"

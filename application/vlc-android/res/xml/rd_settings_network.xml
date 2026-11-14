@@ -28,6 +28,16 @@
             android:title="@string/rd_http_proxy"
             android:defaultValue="" />
     </PreferenceCategory>
+    <!-- VLC Redesign: the desktop's Security section (VLCOptions: gnutls-priorities) -->
+    <PreferenceCategory android:title="@string/rd_sec_security">
+        <org.videolan.vlc.gui.preferences.rd.RdListPreference
+            android:defaultValue="NORMAL"
+            android:entries="@array/rd_cipher_entries"
+            android:entryValues="@array/rd_cipher_values"
+            android:key="rd_gnutls_priorities"
+            android:summary="%s"
+            android:title="@string/rd_cipher_preference" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/rd_sec_connections">
         <org.videolan.vlc.gui.preferences.rd.RdEditTextPreference
             android:defaultValue=""
@@ -47,6 +57,12 @@
             android:key="prefer_smbv1"
             android:summary="@string/prefersmbv1_summary"
             android:title="@string/prefersmbv1" />
+        <!-- VLC Redesign: the desktop's Connection timeout (VLCOptions: ipv4-timeout, VLC's 5000 ms) -->
+        <org.videolan.vlc.gui.preferences.rd.RdEditTextPreference
+            android:defaultValue=""
+            android:key="rd_ipv4_timeout"
+            android:summary="@string/rd_help_ipv4_timeout"
+            android:title="@string/rd_connection_timeout" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/rd_sec_casting">
         <CheckBoxPreference
@@ -72,6 +88,13 @@
             android:key="casting_quality"
             android:summary="@string/casting_conversion_quality_summary"
             android:title="@string/rd_cast_quality"
+            android:dependency="enable_casting" />
+        <!-- VLC Redesign: the desktop's Cast HTTP port (VLCOptions: sout-chromecast-http-port, VLC's 8010) -->
+        <org.videolan.vlc.gui.preferences.rd.RdEditTextPreference
+            android:defaultValue=""
+            android:key="rd_cast_http_port"
+            android:summary="@string/rd_help_cast_port"
+            android:title="@string/rd_cast_http_port"
             android:dependency="enable_casting" />
     </PreferenceCategory>
 </androidx.preference.PreferenceScreen>

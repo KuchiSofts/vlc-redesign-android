@@ -29,7 +29,16 @@
     <string name="rd_ob_online_text">Geen telemetrie, geen advertenties, geen account. Wat uit zichzelf online gaat, staat eronder vermeld en verstuurt alleen wat daar staat. Deze keuzes blijven beschikbaar in Instellingen.</string>
     <string name="rd_ob_history_help">Alleen op dit apparaat bewaard, om verder te gaan waar je gebleven was.</string>
     <string name="rd_ob_updates_help">Zoekt eenmaal per dag naar een nieuwere testversie van VLC for Android.</string>
-    <string-array name="rd_whats_new_items" />
+    <string-array name="rd_whats_new_items">
+        <item>Meer instellingen van de computer: afspelen, ondertitels, audio, netwerk, momentopnamen en opnamen.</item>
+        <item>De afspeelwachtrij sorteren en er bestanden aan toevoegen.</item>
+        <item>Een afspeellijst exporteren als M3U8-bestand.</item>
+        <item>Over: naar updates zoeken, een idee voorstellen, een probleem melden.</item>
+        <item>Slaaptimer: pauzeren in plaats van stoppen.</item>
+        <item>Een tweede ondertiteltaal heeft een eigen vertraging.</item>
+        <item>De toetsen van de computer: vier spronglengtes, momentopname, opnemen en op gehoor synchroniseren.</item>
+        <item>Opgelost: ondertitels naast een video openen in je voorkeurstaal.</item>
+    </string-array>
     <string name="rd_subtitle_size">Ondertitelgrootte</string>
     <string name="rd_cast_this_phone">Deze telefoon</string>
     <string name="rd_cast_this_tablet">Deze tablet</string>

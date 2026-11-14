@@ -38,6 +38,16 @@
             android:defaultValue="-1"
             android:key="default_sleep_timer"
             android:title="@string/sleep_title" />
+        <!-- VLC Redesign: the desktop's Default playback speed (0.25x to 2x in quarters; PlaylistManager.defaultRate) -->
+        <org.videolan.vlc.gui.preferences.rd.RdValueSeekBarPreference
+            android:defaultValue="4"
+            android:key="rd_default_speed"
+            android:max="8"
+            android:summary="%s"
+            android:title="@string/rd_default_speed"
+            app:min="1"
+            app:seekBarIncrement="1"
+            app:updatesContinuously="true" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/rd_sec_tracks">
         <org.videolan.vlc.gui.preferences.rd.RdListPreference
@@ -47,6 +57,22 @@
             android:key="preferred_resolution"
             android:summary="@string/preferred_resolution_summary"
             android:title="@string/rd_preferred_quality" />
+        <!-- VLC Redesign: the desktop's rows of the same section (VLCOptions: menu-language, audio-track, sub-track) -->
+        <org.videolan.vlc.gui.preferences.rd.RdEditTextPreference
+            android:defaultValue=""
+            android:key="rd_menu_language"
+            android:summary="@string/rd_help_menu_language"
+            android:title="@string/rd_menu_language" />
+        <org.videolan.vlc.gui.preferences.rd.RdEditTextPreference
+            android:defaultValue=""
+            android:key="rd_audio_track"
+            android:summary="@string/rd_help_default_track"
+            android:title="@string/rd_default_audio_track" />
+        <org.videolan.vlc.gui.preferences.rd.RdEditTextPreference
+            android:defaultValue=""
+            android:key="rd_sub_track"
+            android:summary="@string/rd_help_default_track"
+            android:title="@string/rd_default_sub_track" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/rd_sec_order">
         <CheckBoxPreference
@@ -64,8 +90,19 @@
             android:key="audio_force_shuffle"
             android:summary="@string/force_shuffle_summary"
             android:title="@string/force_shuffle_title" />
+        <!-- VLC Redesign: the desktop's Stop after each item (PlaylistManager, EndReached) -->
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="rd_stop_after_each"
+            android:summary="@string/rd_help_stop_after_each"
+            android:title="@string/rd_stop_after_each" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/rd_sec_seeking">
+        <!-- VLC Redesign: the desktop's Show thumbnail while scrubbing (gui/video/SeekPreview) -->
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="rd_seek_thumbnail"
+            android:title="@string/rd_seek_thumbnail" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="always_fast_seek"
@@ -79,6 +116,12 @@
             android:defaultValue="0"
             android:entries="@array/rd_avi_index_entries"
             android:entryValues="@array/rd_avi_index_values" />
+        <!-- VLC Redesign: the desktop's row (VLCOptions: mkv-preload-local-dir, on by default as in VLC) -->
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="rd_mkv_preload"
+            android:summary="@string/rd_help_mkv_preload"
+            android:title="@string/rd_mkv_preload" />
     </PreferenceCategory>
     <org.videolan.vlc.gui.preferences.rd.RdAdvancedPreference android:key="playback_advanced_bar" android:title="@string/rd_sec_advanced" />
     <PreferenceCategory android:key="playback_advanced" android:layout="@layout/rd_pref_category_empty" app:isPreferenceVisible="false">
@@ -93,5 +136,11 @@
             android:dependency="quick_play"
             android:summary="@string/browser_quick_play_default_summary"
             android:title="@string/browser_quick_play_default" />
+        <!-- VLC Redesign: the desktop's advanced row (VLCOptions: play-and-pause) -->
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="rd_play_and_pause"
+            android:summary="@string/rd_help_play_and_pause"
+            android:title="@string/rd_play_and_pause" />
     </PreferenceCategory>
 </androidx.preference.PreferenceScreen>
