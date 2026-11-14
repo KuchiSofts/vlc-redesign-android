@@ -244,9 +244,10 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
                 it.setSelection(it.editableText.length)
             }
         }
-        for (key in arrayOf("network_caching", "rd_file_caching", "rd_live_caching", "rd_avcodec_threads", "rd_audio_desync", "rd_audio_track", "rd_sub_track")) {
+        for (key in arrayOf("network_caching", "rd_file_caching", "rd_live_caching", "rd_avcodec_threads", "rd_audio_desync", "rd_audio_track", "rd_sub_track",
+                "rd_ipv4_timeout", "rd_cast_http_port", "rd_snapshot_width", "rd_snapshot_height")) {
             pref<EditTextPreference>(key)?.setOnBindEditTextListener {
-                it.inputType = InputType.TYPE_CLASS_NUMBER or (if (key == "rd_audio_desync") InputType.TYPE_NUMBER_FLAG_SIGNED else 0)
+                it.inputType = InputType.TYPE_CLASS_NUMBER or (if (key == "rd_audio_desync" || key == "rd_snapshot_height") InputType.TYPE_NUMBER_FLAG_SIGNED else 0)
                 it.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(5))
                 it.setSelection(it.editableText.length)
             }
@@ -685,7 +686,8 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             }
             KEY_AUDIO_REPLAY_GAIN_ENABLE, KEY_AUDIO_REPLAY_GAIN_MODE, KEY_AUDIO_REPLAY_GAIN_PEAK_PROTECTION, "rd_stereo_mode", "rd_audio_desync",
             "rd_deinterlace", "rd_deinterlace_mode", "rd_avi_index", "rd_sub_fuzzy",
-            "rd_menu_language", "rd_audio_track", "rd_sub_track", "rd_mkv_preload", "rd_play_and_pause", "rd_sub_font", "rd_file_caching", "rd_live_caching", "rd_http_proxy",
+            "rd_menu_language", "rd_audio_track", "rd_sub_track", "rd_mkv_preload", "rd_play_and_pause",
+            "rd_gain", "rd_force_dolby", "rd_soxr_quality", "rd_mix_mode", "rd_gnutls_priorities", "rd_ipv4_timeout", "rd_cast_http_port", "rd_sub_font", "rd_file_caching", "rd_live_caching", "rd_http_proxy",
             "rd_postproc", "rd_avcodec_threads", KEY_OPENGL, KEY_DEBLOCKING, KEY_ENABLE_FRAME_SKIP, KEY_ENABLE_TIME_STRETCHING_AUDIO,
             KEY_ENABLE_VERBOSE_MODE, KEY_CASTING_PASSTHROUGH, KEY_CASTING_QUALITY, KEY_CASTING_AUDIO_ONLY -> lifecycleScope.launch { restartLibVLC() }
             "rd_normalize", "rd_norm_level", "rd_night_mode" -> LoudnessEffects.apply(activity)
@@ -777,6 +779,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
                 updateFastplaySpeedSummary()
             }
             org.videolan.vlc.media.PlaylistManager.KEY_DEFAULT_SPEED -> updateDefaultSpeedSummary()
+            "rd_gain" -> updateGainSummary()
             "rd_video_title_timeout" -> updateTitleTimeoutSummary()
             // Controls (audio)
             KEY_AUDIO_JUMP_DELAY -> Settings.audioJumpDelay = sharedPreferences.getInt(KEY_AUDIO_JUMP_DELAY, 10)
@@ -913,6 +916,9 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         pref<Preference>(ENABLE_FASTPLAY)?.isVisible = !tv
         pref<Preference>(FASTPLAY_SPEED)?.isVisible = !tv
         pref<Preference>(SCREENSHOT_MODE)?.isVisible = !tv
+        // (the snapshot's settings with the snapshot: not on a TV, which has no snapshot)
+        for (key in arrayOf("rd_snapshot_dir", "rd_snapshot_prefix", "rd_snapshot_format", "rd_snapshot_width", "rd_snapshot_height",
+                "rd_snapshot_sequential", "rd_snapshot_preview")) pref<Preference>(key)?.isVisible = !tv
         pref<Preference>(ENABLE_VOLUME_GESTURE)?.isVisible = AndroidDevices.hasTsp
         pref<Preference>(ENABLE_BRIGHTNESS_GESTURE)?.isVisible = AndroidDevices.hasTsp
         pref<Preference>(KEY_VIDEO_DOUBLE_TAP_JUMP_DELAY)?.title = getString(if (tv) R.string.video_key_jump_delay else R.string.video_double_tap_jump_delay)
@@ -921,6 +927,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         updateHudTimeoutSummary()
         updateFastplaySpeedSummary()
         updateDefaultSpeedSummary()
+        updateGainSummary()
         val audioManager = requireActivity().getSystemService<AudioManager>()
         if (audioManager?.isVolumeFixed == true) {
             pref<CheckBoxPreference>(KEY_AUDIO_BOOST)?.let {
@@ -944,6 +951,12 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
 
     private fun updateFastplaySpeedSummary() {
         pref<Preference>(FASTPLAY_SPEED)?.summary = String.format("%sx", Settings.fastplaySpeed.readableString())
+    }
+
+    /** "150 %": the output gain (in tenths) */
+    private fun updateGainSummary() {
+        val p = pref<Preference>("rd_gain") ?: return
+        p.summary = "${(p.sharedPreferences?.getInt(p.key, 10) ?: 10) * 10} %"
     }
 
     /** "5s": how long the filename shows when a video starts */

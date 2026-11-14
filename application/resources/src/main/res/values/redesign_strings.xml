@@ -520,6 +520,47 @@
     <string name="rd_top_right">Top right</string>
     <string name="rd_bottom_left">Bottom left</string>
     <string name="rd_bottom_right">Bottom right</string>
+    <!-- Settings › Audio: the desktop's rows -->
+    <string name="rd_spatial_audio_mode">Spatial audio mode</string>
+    <string name="rd_headphone_virtualization">Headphone virtualization</string>
+    <string name="rd_help_mix_mode">Surround and 3D audio rendered for headphones.</string>
+    <string name="rd_output_gain">Output gain</string>
+    <string name="rd_detect_dolby">Detect Dolby Surround</string>
+    <string name="rd_resampling_quality">Resampling quality</string>
+    <string name="rd_fastest">Fastest</string>
+    <string name="rd_fast">Fast</string>
+    <string name="rd_balanced">Balanced</string>
+    <string name="rd_high">High</string>
+    <string name="rd_best">Best</string>
+    <!-- Settings › Network: the desktop's rows -->
+    <string name="rd_sec_security">Security</string>
+    <string name="rd_cipher_preference">Cipher preference</string>
+    <string name="rd_cipher_128">Secure (128-bit)</string>
+    <string name="rd_cipher_256">Most secure (256-bit)</string>
+    <string name="rd_connection_timeout">Connection timeout</string>
+    <string name="rd_help_ipv4_timeout">How long to wait for a server to answer, in milliseconds (5000 when empty).</string>
+    <string name="rd_cast_http_port">Cast HTTP port</string>
+    <string name="rd_help_cast_port">The port the TV reads the video from (8010 when empty).</string>
+    <!-- Settings › Video › Snapshots -->
+    <string name="rd_save_to">Save to</string>
+    <string name="rd_snapshot_dir_screenshots">Pictures › Screenshots</string>
+    <string name="rd_snapshot_dir_pictures">Pictures › VLC</string>
+    <string name="rd_snapshot_dir_dcim">DCIM › VLC</string>
+    <string name="rd_file_name_prefix">File name prefix</string>
+    <string name="rd_format">Format</string>
+    <string name="rd_snapshot_size">Width</string>
+    <string name="rd_help_snapshot_width">In pixels; empty keeps the video\'s own size.</string>
+    <string name="rd_snapshot_height">Height</string>
+    <string name="rd_help_snapshot_height">In pixels; empty follows the width, -1 keeps the video\'s own height.</string>
+    <string name="rd_number_sequentially">Number files sequentially</string>
+    <string name="rd_snapshot_preview">Show a preview after capture</string>
+    <string name="rd_snapshot_saved">Snapshot saved in %1$s</string>
+    <!-- Settings › Video › Recording -->
+    <string name="rd_sec_recording">Recording</string>
+    <string name="rd_save_recordings_to">Save recordings to</string>
+    <string name="rd_record_dir_movies">Movies › VLC Recordings</string>
+    <string name="rd_record_dir_downloads">Download › VLC Recordings</string>
+    <string name="rd_record_dir_app">The app\'s own folder</string>
     <!-- About: the other platforms (a list such as "Windows 0.6.4 · Linux 0.6.4") -->
     <string name="rd_also_on">Also on: %1$s</string>
     <string name="rd_suggest_idea">Suggest an idea</string>

@@ -97,6 +97,14 @@
             android:key="enable_time_stretching_audio"
             android:summary="@string/enable_time_stretching_audio_summary"
             android:title="@string/rd_keep_pitch" />
+        <!-- VLC Redesign: the desktop's Spatial audio mode (libvlc 3: spatialaudio-headphones) -->
+        <org.videolan.vlc.gui.preferences.rd.RdListPreference
+            android:defaultValue="0"
+            android:entries="@array/rd_mix_mode_entries"
+            android:entryValues="@array/rd_mix_mode_values"
+            android:key="rd_mix_mode"
+            android:summary="@string/rd_help_mix_mode"
+            android:title="@string/rd_spatial_audio_mode" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/rd_sec_tracks">
         <org.videolan.vlc.gui.preferences.rd.RdListPreference
@@ -121,5 +129,29 @@
             android:key="soundfont"
             android:summary="@string/soundfont_summary"
             android:title="@string/soundfont" />
+        <!-- VLC Redesign: the desktop's advanced rows (VLCOptions: gain, force-dolby-surround, soxr-resampler-quality) -->
+        <org.videolan.vlc.gui.preferences.rd.RdValueSeekBarPreference
+            android:defaultValue="10"
+            android:key="rd_gain"
+            android:max="30"
+            android:summary="%s"
+            android:title="@string/rd_output_gain"
+            app:min="0"
+            app:seekBarIncrement="1"
+            app:updatesContinuously="true" />
+        <org.videolan.vlc.gui.preferences.rd.RdListPreference
+            android:defaultValue="0"
+            android:entries="@array/rd_dolby_entries"
+            android:entryValues="@array/rd_dolby_values"
+            android:key="rd_force_dolby"
+            android:summary="%s"
+            android:title="@string/rd_detect_dolby" />
+        <org.videolan.vlc.gui.preferences.rd.RdListPreference
+            android:defaultValue="2"
+            android:entries="@array/rd_soxr_entries"
+            android:entryValues="@array/rd_soxr_values"
+            android:key="rd_soxr_quality"
+            android:summary="%s"
+            android:title="@string/rd_resampling_quality" />
     </PreferenceCategory>
 </androidx.preference.PreferenceScreen>

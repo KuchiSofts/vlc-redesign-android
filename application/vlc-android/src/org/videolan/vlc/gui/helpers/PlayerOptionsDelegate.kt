@@ -238,9 +238,13 @@ class PlayerOptionsDelegate(val activity: FragmentActivity, val service: Playbac
             overlay?.showInfo(activity.getString(R.string.rd_record_saved, androidx.core.text.BidiFormatter.getInstance().unicodeWrap(dir, androidx.core.text.TextDirectionHeuristicsCompat.LTR)), 4000)
             return
         }
-        val shared = java.io.File(android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_MOVIES), "VLC Recordings")
-        val dir = if ((shared.isDirectory || shared.mkdirs()) && shared.canWrite()) shared
-                else java.io.File(activity.getExternalFilesDir(android.os.Environment.DIRECTORY_MOVIES) ?: activity.filesDir, "VLC Recordings").apply { mkdirs() }
+        // Settings › Video › Recording › Save recordings to: Movies (as before), Download, or the app's own folder
+        val own = java.io.File(activity.getExternalFilesDir(android.os.Environment.DIRECTORY_MOVIES) ?: activity.filesDir, "VLC Recordings")
+        val place = org.videolan.tools.Settings.getInstance(activity).getString("rd_record_dir", "movies")
+        val shared = if (place == "app") null else java.io.File(android.os.Environment.getExternalStoragePublicDirectory(
+                if (place == "downloads") android.os.Environment.DIRECTORY_DOWNLOADS else android.os.Environment.DIRECTORY_MOVIES), "VLC Recordings")
+        val dir = if (shared != null && (shared.isDirectory || shared.mkdirs()) && shared.canWrite()) shared
+                else own.apply { mkdirs() }
         val ok = mp.record(dir.absolutePath)
         if (ok) recordingDir = dir.absolutePath
         overlay?.showInfo(activity.getString(if (ok) R.string.rd_record_started else R.string.rd_record_failed), 2000)

@@ -286,6 +286,16 @@ object VLCOptions {
                     ?.let { options.add("--freetype-shadow-angle=$it") }
             text("rd_sub_align").toIntOrNull()?.takeIf { it in 0..2 }?.let { options.add("--subsdec-align=$it") }
             if (pref.getBoolean("rd_play_and_pause", false)) options.add("--play-and-pause")
+            // the desktop's Audio page: the gain of the output (in tenths: 10 = 100 %), Dolby Surround detection, the
+            // resampler's quality, the spatial audio mode (headphones: libvlc 3's spatialaudio-headphones)
+            pref.getInt("rd_gain", 10).takeIf { it in 0..30 && it != 10 }?.let { options.add("--gain=" + String.format(java.util.Locale.US, "%.1f", it / 10f)) }
+            text("rd_force_dolby").toIntOrNull()?.takeIf { it in 1..2 }?.let { options.add("--force-dolby-surround=$it") }
+            text("rd_soxr_quality").toIntOrNull()?.takeIf { it in 0..4 && it != 2 }?.let { options.add("--soxr-resampler-quality=$it") }
+            if (text("rd_mix_mode") == "2") options.add("--spatialaudio-headphones")
+            // the desktop's Network page: the ciphers TLS offers, the connection timeout, the port a TV reads a cast from
+            text("rd_gnutls_priorities").takeIf { it in setOf("PERFORMANCE", "SECURE128", "SECURE256") }?.let { options.add("--gnutls-priorities=$it") }
+            text("rd_ipv4_timeout").toIntOrNull()?.takeIf { it in 100..120000 }?.let { options.add("--ipv4-timeout=$it") }
+            text("rd_cast_http_port").toIntOrNull()?.takeIf { it in 1024..65535 }?.let { options.add("--sout-chromecast-http-port=$it") }
             // libvlc 3 on Android has no --http-proxy (it is the Windows build's only): its vlc_getProxyUrl() reads
             // the Java properties http.proxyHost / http.proxyPort, so the desktop's HTTP proxy is set there
             applyHttpProxy(text("rd_http_proxy"))

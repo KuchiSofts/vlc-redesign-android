@@ -1353,9 +1353,6 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                         if (height == 0) height = surface.height
                         try {
                             val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-                            val simpleDateFormat = SimpleDateFormat("yyyyMMdd_HHmmss")
-                            AndroidDevices.MediaFolders.EXTERNAL_PUBLIC_SCREENSHOTS_URI_DIRECTORY.toFile().mkdirs()
-                            val dst = File(AndroidDevices.MediaFolders.EXTERNAL_PUBLIC_SCREENSHOTS_URI_DIRECTORY.path + "/vlc_${simpleDateFormat.format(Date())}.jpg")
 
                             PixelCopy.request(surface, bitmap, { copyResult ->
                                 if (copyResult != 0) {
@@ -1364,10 +1361,15 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                                 }
                                 val coords = IntArray(2)
                                 surfaceView.getLocationOnScreen(coords)
-                                if (BitmapUtil.saveOnDisk(bitmap, dst.absolutePath, publish = true, context = this@VideoPlayerActivity))
-                                    screenshotDelegate.takeScreenshot(dst, bitmap, coords, surface.width, surface.height)
-                                else
-                                    UiTools.snacker(this@VideoPlayerActivity, R.string.screenshot_error)
+                                // VLC Redesign: the desktop's Snapshots settings (RdSnapshot): folder, name, format, size, preview
+                                lifecycleScope.launch {
+                                    val dst = withContext(Dispatchers.IO) { RdSnapshot.save(this@VideoPlayerActivity, RdSnapshot.scaled(bitmap, settings), settings) }
+                                    when {
+                                        dst == null -> UiTools.snacker(this@VideoPlayerActivity, R.string.screenshot_error)
+                                        settings.getBoolean(RdSnapshot.KEY_PREVIEW, true) -> screenshotDelegate.takeScreenshot(dst, bitmap, coords, surface.width, surface.height)
+                                        else -> overlayDelegate.showInfo(getString(R.string.rd_snapshot_saved, RdSnapshot.relativeDir(settings).replace("/", " › ")), 2000)
+                                    }
+                                }
                             }, Handler(Looper.getMainLooper()))
                         } catch (e: Exception) {
                             Log.e(TAG, e.message, e)
