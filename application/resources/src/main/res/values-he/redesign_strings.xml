@@ -209,7 +209,7 @@
     <string name="rd_default_value">ברירת מחדל</string>
     <string name="rd_accent_named">צבע הדגשה %1$s</string>
     <string name="rd_ob_welcome">ברוכים הבאים ל־VLC!</string>
-    <string name="rd_ob_welcome_text">VLC הוא נגן ומסגרת מולטימדיה חופשיים, בקוד פתוח וחוצי פלטפורמות, שמנגנים את רוב קובצי המולטימדיה וגם תקליטורי DVD,‏ Audio CD,‏ VCD ופרוטוקולי הזרמה שונים.</string>
+    <string name="rd_ob_welcome_text">תוכנת VLC היא נגן ומסגרת מולטימדיה חופשיים, בקוד פתוח וחוצי פלטפורמות, שמנגנים את רוב קובצי המולטימדיה וגם תקליטורי DVD,‏ Audio CD,‏ VCD ופרוטוקולי הזרמה שונים.</string>
     <string name="rd_ob_choose_folder">בחר תיקיית מדיה כדי להתחיל</string>
     <string name="rd_ob_no_folder">לא נבחרה תיקייה</string>
     <string name="rd_ob_remove_folder">הסר את התיקייה</string>
@@ -388,7 +388,7 @@
     <string name="rd_os_err_rar">כתוביות אלה מגיעות כארכיון RAR, שלא ניתן לפתוח כאן.</string>
     <string name="rd_os_err_unpack">לא ניתן היה לחלץ את הכתוביות.</string>
     <string name="rd_os_err_no_sub">אין כתוביות בארכיון.</string>
-    <string name="rd_os_err_vip">OpenSubtitles שומר כתוביות אלה למנויים המשלמים שלו. בחר כתוביות אחרות.</string>
+    <string name="rd_os_err_vip">השירות OpenSubtitles שומר כתוביות אלה למנויים המשלמים שלו. בחר כתוביות אחרות.</string>
     <string name="rd_os_err_empty">קובץ הכתוביות ריק.</string>
     <string name="rd_os_err_save">לא ניתן היה לשמור את הכתוביות.</string>
     <string name="rd_os_err_offline">אין חיבור לאינטרנט.</string>

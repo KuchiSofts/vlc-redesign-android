@@ -282,7 +282,7 @@
     <string name="rd_tv_acc_hdhomerun">موالف الشبكة الخاص بك: قنواته ودليله المجاني</string>
     <string name="rd_tv_acc_schedulesdirect">دليل مدفوع (الولايات المتحدة وكندا وغيرهما) لقنوات مصادرك</string>
     <string name="rd_tv_acc_m3ulogin">قائمة تشغيل ودليل يتطلبان اسم مستخدم وكلمة مرور</string>
-    <string name="rd_tv_acc_m3ulogin_name">M3U مع تسجيل الدخول</string>
+    <string name="rd_tv_acc_m3ulogin_name">قائمة M3U مع تسجيل الدخول</string>
     <string name="rd_tv_guide_for_sources">دليل لقنوات مصادرك</string>
     <string name="rd_tv_server_address">عنوان الخادم</string>
     <string name="rd_tv_pin">رمز PIN</string>
@@ -293,7 +293,7 @@
     <string name="rd_tv_example">مثال: %1$s</string>
     <string name="rd_tv_signing_in">جارٍ تسجيل الدخول…</string>
     <string name="rd_tv_works">يعمل</string>
-    <string name="rd_tv_quick_connect">Quick Connect: اكتب %1$s في تطبيق Jellyfin مسجَّل الدخول إلى هذا الخادم</string>
+    <string name="rd_tv_quick_connect">الاتصال السريع (Quick Connect): اكتب %1$s في تطبيق Jellyfin مسجَّل الدخول إلى هذا الخادم</string>
     <string name="rd_tv_found_network">عُثر عليها في شبكتك</string>
     <string name="rd_tv_looking_network">جارٍ البحث في شبكتك…</string>
     <string name="rd_tv_look_again">ابحث مجددًا</string>

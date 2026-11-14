@@ -252,7 +252,7 @@
     <string name="rd_tv_acc_hdhomerun">טיונר הרשת שלך: הערוצים שלו והמדריך החינמי שלו</string>
     <string name="rd_tv_acc_schedulesdirect">מדריך בתשלום (ארה״ב, קנדה ועוד) לערוצים של המקורות שלך</string>
     <string name="rd_tv_acc_m3ulogin">רשימת נגינה ומדריך שדורשים שם משתמש וסיסמה</string>
-    <string name="rd_tv_acc_m3ulogin_name">M3U עם התחברות</string>
+    <string name="rd_tv_acc_m3ulogin_name">רשימת M3U עם התחברות</string>
     <string name="rd_tv_guide_for_sources">מדריך לערוצים של המקורות שלך</string>
     <string name="rd_tv_server_address">כתובת השרת</string>
     <string name="rd_tv_pin">קוד PIN</string>
@@ -263,7 +263,7 @@
     <string name="rd_tv_example">לדוגמה: %1$s</string>
     <string name="rd_tv_signing_in">מתחבר…</string>
     <string name="rd_tv_works">עובד</string>
-    <string name="rd_tv_quick_connect">Quick Connect: יש להקליד %1$s באפליקציית Jellyfin שמחוברת לשרת הזה</string>
+    <string name="rd_tv_quick_connect">חיבור מהיר (Quick Connect): יש להקליד %1$s באפליקציית Jellyfin שמחוברת לשרת הזה</string>
     <string name="rd_tv_found_network">נמצאו ברשת שלך</string>
     <string name="rd_tv_looking_network">מחפש ברשת שלך…</string>
     <string name="rd_tv_look_again">חיפוש חוזר</string>
