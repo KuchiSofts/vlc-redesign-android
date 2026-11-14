@@ -585,4 +585,8 @@
     <string name="rd_show_shortcut_feedback">단축키 사용 시 화면에 표시</string>
     <string name="rd_show_feedback_for">화면 표시 시간</string>
     <string name="rd_help_osd">무언가 바뀔 때 영상 위에 나오는 메시지: 속도, 지연, 확대, 트랙.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">접근성</string>
+    <string name="rd_increase_contrast">텍스트 대비 높이기</string>
+    <string name="rd_help_increase_contrast">디자인의 흐린 텍스트(힌트, 설명, 시청한 항목)를 WCAG 접근성 지침(AA)이 요구하는 대비가 되도록 더 밝게 표시합니다.</string>
 </resources>

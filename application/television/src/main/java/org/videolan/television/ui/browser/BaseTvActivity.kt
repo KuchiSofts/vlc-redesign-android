@@ -47,7 +47,7 @@ import org.videolan.television.ui.dialogs.ConfirmationTvActivity
 import org.videolan.tools.KeyHelper
 import org.videolan.tools.Settings
 import org.videolan.tools.getContextWithLocale
-import org.videolan.tools.withRdLayoutDirection
+import org.videolan.tools.withRdOverrides
 import org.videolan.vlc.ExternalMonitor
 import org.videolan.vlc.MediaParsingService
 import org.videolan.vlc.ScanProgress
@@ -73,7 +73,7 @@ abstract class BaseTvActivity : FragmentActivity(), IDialogManager {
     private val idleScreen by lazy { RdTvIdleScreen(this) }
 
     override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(newBase?.getContextWithLocale(AppContextProvider.locale)?.withRdLayoutDirection())
+        super.attachBaseContext(newBase?.getContextWithLocale(AppContextProvider.locale)?.withRdOverrides())
         // VLC Redesign: the TV layout is in the design's dark palette whatever the phone's theme, the parts it shares
         // with the phone (the players' menus and sheets, the dialogs) as well
         newBase?.let {

@@ -586,4 +586,8 @@
     <string name="rd_show_shortcut_feedback">Rückmeldung zu Tastenkürzeln anzeigen</string>
     <string name="rd_show_feedback_for">Rückmeldung anzeigen für</string>
     <string name="rd_help_osd">Meldungen über dem Video, wenn sich etwas ändert: die Geschwindigkeit, eine Verzögerung, der Zoom, eine Spur.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">Barrierefreiheit</string>
+    <string name="rd_increase_contrast">Textkontrast erhöhen</string>
+    <string name="rd_help_increase_contrast">Zeichnet die blassen Texte des Designs (Hinweise, Beschreibungen, gesehene Einträge) heller, mit dem Kontrast, den die WCAG-Richtlinien für Barrierefreiheit verlangen (AA).</string>
 </resources>

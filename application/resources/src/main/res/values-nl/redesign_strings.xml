@@ -586,4 +586,8 @@
     <string name="rd_show_shortcut_feedback">Feedback weergeven voor sneltoetsen</string>
     <string name="rd_show_feedback_for">Feedback weergeven gedurende</string>
     <string name="rd_help_osd">Meldingen over de video als er iets verandert: de snelheid, een vertraging, de zoom, een spoor.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">Toegankelijkheid</string>
+    <string name="rd_increase_contrast">Tekstcontrast verhogen</string>
+    <string name="rd_help_increase_contrast">Toont de gedimde teksten van het ontwerp (hints, beschrijvingen, bekeken items) helderder, met het contrast dat de WCAG-toegankelijkheidsrichtlijnen vereisen (AA).</string>
 </resources>

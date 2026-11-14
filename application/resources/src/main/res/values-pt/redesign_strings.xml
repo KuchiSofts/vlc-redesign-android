@@ -559,4 +559,8 @@
     <string name="rd_show_shortcut_feedback">Mostrar indicações ao usar atalhos</string>
     <string name="rd_show_feedback_for">Mostrar indicações durante</string>
     <string name="rd_help_osd">Mensagens sobre o vídeo quando algo muda: a velocidade, um atraso, o zoom, uma faixa.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">Acessibilidade</string>
+    <string name="rd_increase_contrast">Aumentar o contraste do texto</string>
+    <string name="rd_help_increase_contrast">Mostra mais claros os textos esbatidos do design (dicas, descrições, itens vistos), com o contraste exigido pelas diretrizes de acessibilidade WCAG (AA).</string>
 </resources>

@@ -589,4 +589,8 @@
     <string name="rd_show_shortcut_feedback">Zobrazovat odezvu klávesových zkratek</string>
     <string name="rd_show_feedback_for">Zobrazovat odezvu po dobu</string>
     <string name="rd_help_osd">Zprávy přes video, když se něco změní: rychlost, zpoždění, přiblížení, stopa.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">Přístupnost</string>
+    <string name="rd_increase_contrast">Zvýšit kontrast textu</string>
+    <string name="rd_help_increase_contrast">Vykresluje tlumené texty návrhu (nápovědy, popisy, zhlédnuté položky) jasněji, s kontrastem, který vyžadují pravidla přístupnosti WCAG (AA).</string>
 </resources>

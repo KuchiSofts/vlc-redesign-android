@@ -585,4 +585,8 @@
     <string name="rd_show_shortcut_feedback">顯示快速鍵的回饋訊息</string>
     <string name="rd_show_feedback_for">回饋訊息顯示時間</string>
     <string name="rd_help_osd">有變化時顯示在影片上的訊息：速度、延遲、縮放、軌道。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">協助工具</string>
+    <string name="rd_increase_contrast">提高文字對比</string>
+    <string name="rd_help_increase_contrast">讓設計中較暗淡的文字 (提示、說明、已觀看的項目) 更明亮，達到 WCAG 無障礙指引要求的對比度 (AA)。</string>
 </resources>

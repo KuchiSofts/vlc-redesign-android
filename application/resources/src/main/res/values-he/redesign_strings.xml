@@ -571,4 +571,8 @@
     <string name="rd_show_shortcut_feedback">הצג משוב לקיצורים</string>
     <string name="rd_show_feedback_for">הצג משוב למשך</string>
     <string name="rd_help_osd">הודעות מעל הסרטון כשמשהו משתנה: המהירות, השהיה, הזום, רצועה.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">נגישות</string>
+    <string name="rd_increase_contrast">הגבר את ניגודיות הטקסט</string>
+    <string name="rd_help_increase_contrast">מציג את הטקסטים העמומים של העיצוב (רמזים, תיאורים, פריטים שנצפו) בהירים יותר, עד לניגודיות שדורשות הנחיות הנגישות WCAG ברמה AA.</string>
 </resources>

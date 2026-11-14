@@ -658,7 +658,8 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
                 activity.setRestart()
                 activity.recreate()
             }
-            org.videolan.tools.KEY_RD_LAYOUT_DIRECTION, org.videolan.vlc.gui.helpers.KEY_RD_ACCENT_SYSTEM -> {
+            org.videolan.tools.KEY_RD_LAYOUT_DIRECTION, org.videolan.vlc.gui.helpers.KEY_RD_ACCENT_SYSTEM,
+            org.videolan.tools.KEY_RD_INCREASE_CONTRAST -> {
                 activity.setRestart()
                 activity.recreate()
             }
@@ -930,6 +931,8 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         pref<Preference>(org.videolan.vlc.gui.video.SeekPreview.KEY_SEEK_THUMBNAIL)?.isVisible = !tv
         // the system's accent: Android 12 and later (Material You), not in the TV layout
         pref<Preference>(org.videolan.vlc.gui.helpers.KEY_RD_ACCENT_SYSTEM)?.isVisible = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S && !tv
+        // Increase text contrast: Android 8 and later (LocaleUtils.withRdContrast)
+        pref<Preference>("rd_sec_accessibility")?.isVisible = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O
         // the layout direction: the one in use while none was chosen (shown, not saved)
         pref<ListPreference>(org.videolan.tools.KEY_RD_LAYOUT_DIRECTION)?.let { p ->
             if (p.sharedPreferences?.contains(p.key) != true) {

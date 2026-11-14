@@ -589,4 +589,8 @@
     <string name="rd_show_shortcut_feedback">Pokazuj komunikaty dla skrótów</string>
     <string name="rd_show_feedback_for">Pokazuj komunikaty przez</string>
     <string name="rd_help_osd">Komunikaty na filmie, gdy coś się zmienia: szybkość, opóźnienie, powiększenie, ścieżka.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">Ułatwienia dostępu</string>
+    <string name="rd_increase_contrast">Zwiększ kontrast tekstu</string>
+    <string name="rd_help_increase_contrast">Rozjaśnia przygaszone teksty projektu (podpowiedzi, opisy, obejrzane pozycje) do kontrastu wymaganego przez wytyczne dostępności WCAG (AA).</string>
 </resources>

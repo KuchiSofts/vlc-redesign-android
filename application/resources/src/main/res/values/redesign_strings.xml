@@ -743,4 +743,8 @@
     <string name="rd_show_shortcut_feedback">Show feedback for shortcuts</string>
     <string name="rd_show_feedback_for">Show feedback for</string>
     <string name="rd_help_osd">Messages over the video when something changes: the speed, a delay, the zoom, a track.</string>
+    <!-- Settings › Interface › Accessibility: the desktop's Increase text contrast (LocaleUtils.withRdContrast) -->
+    <string name="rd_sec_accessibility">Accessibility</string>
+    <string name="rd_increase_contrast">Increase text contrast</string>
+    <string name="rd_help_increase_contrast">Draws the dim texts of the design (hints, descriptions, watched items) brighter, to the contrast the WCAG accessibility guidelines ask for (AA).</string>
 </resources>

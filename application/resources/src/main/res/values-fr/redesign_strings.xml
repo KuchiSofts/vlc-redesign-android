@@ -586,4 +586,8 @@
     <string name="rd_show_shortcut_feedback">Afficher un retour pour les raccourcis</string>
     <string name="rd_show_feedback_for">Afficher le retour pendant</string>
     <string name="rd_help_osd">Des messages sur la vidéo quand quelque chose change : la vitesse, un décalage, le zoom, une piste.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">Accessibilité</string>
+    <string name="rd_increase_contrast">Augmenter le contraste du texte</string>
+    <string name="rd_help_increase_contrast">Affiche plus clairement les textes atténués du design (indications, descriptions, éléments vus), au contraste demandé par les règles d\'accessibilité WCAG (AA).</string>
 </resources>

@@ -589,4 +589,8 @@
     <string name="rd_show_shortcut_feedback">إظهار إشعار للاختصارات</string>
     <string name="rd_show_feedback_for">إظهار الإشعار لمدة</string>
     <string name="rd_help_osd">رسائل فوق الفيديو عند تغيّر شيء: السرعة، أو تأخير، أو التكبير، أو مسار.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">إمكانية الوصول</string>
+    <string name="rd_increase_contrast">زيادة تباين النص</string>
+    <string name="rd_help_increase_contrast">يرسم النصوص الباهتة في التصميم (التلميحات والأوصاف والعناصر التي شوهدت) بسطوع أكبر، بالتباين الذي تطلبه إرشادات إمكانية الوصول WCAG (المستوى AA).</string>
 </resources>

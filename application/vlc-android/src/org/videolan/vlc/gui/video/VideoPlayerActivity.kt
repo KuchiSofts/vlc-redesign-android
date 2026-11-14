@@ -172,7 +172,7 @@ import org.videolan.tools.VIDEO_RESUME_URI
 import org.videolan.tools.VIDEO_TRANSITION_SHOW
 import org.videolan.tools.dp
 import org.videolan.tools.getContextWithLocale
-import org.videolan.tools.withRdLayoutDirection
+import org.videolan.tools.withRdOverrides
 import org.videolan.vlc.gui.helpers.rdTvDesignScale
 import org.videolan.tools.isStarted
 import org.videolan.tools.isVisible
@@ -557,7 +557,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     override fun getDelegate() = baseContextWrappingDelegate
             ?: BaseContextWrappingDelegate(super.getDelegate()).apply { baseContextWrappingDelegate = this }
 
-    override fun createConfigurationContext(overrideConfiguration: Configuration) = super.createConfigurationContext(overrideConfiguration).getContextWithLocale(AppContextProvider.locale).withRdLayoutDirection()
+    override fun createConfigurationContext(overrideConfiguration: Configuration) = super.createConfigurationContext(overrideConfiguration).getContextWithLocale(AppContextProvider.locale).withRdOverrides()
 
     // VLC Redesign: the player is always dark, set before the base context is made: AppCompat then builds a
     // configuration context of its own. Set in onCreate() it went through Resources.updateConfiguration() (the

@@ -585,4 +585,8 @@
     <string name="rd_show_shortcut_feedback">显示快捷键操作提示</string>
     <string name="rd_show_feedback_for">提示显示时长</string>
     <string name="rd_help_osd">有变化时显示在视频上的提示：速度、延迟、缩放、轨道。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">辅助功能</string>
+    <string name="rd_increase_contrast">提高文本对比度</string>
+    <string name="rd_help_increase_contrast">将界面中较暗的文本 (提示、说明、已观看项目) 绘制得更亮，达到 WCAG 无障碍指南要求的对比度 (AA)。</string>
 </resources>

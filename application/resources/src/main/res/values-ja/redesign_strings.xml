@@ -585,4 +585,8 @@
     <string name="rd_show_shortcut_feedback">ショートカットのフィードバックを表示</string>
     <string name="rd_show_feedback_for">フィードバックの表示時間</string>
     <string name="rd_help_osd">何かが変わったときに映像の上に出るメッセージ (速度、遅延、ズーム、トラック)。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">アクセシビリティ</string>
+    <string name="rd_increase_contrast">テキストのコントラストを上げる</string>
+    <string name="rd_help_increase_contrast">デザイン内の薄い文字 (ヒント、説明、視聴済みの項目) を、WCAG アクセシビリティガイドラインが求めるコントラスト (AA) まで明るく表示します。</string>
 </resources>

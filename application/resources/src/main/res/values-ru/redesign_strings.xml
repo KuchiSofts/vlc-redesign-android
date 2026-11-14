@@ -589,4 +589,8 @@
     <string name="rd_show_shortcut_feedback">Показывать отклик на сочетания клавиш</string>
     <string name="rd_show_feedback_for">Показывать отклик в течение</string>
     <string name="rd_help_osd">Сообщения поверх видео, когда что-то меняется: скорость, задержка, масштаб, дорожка.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">Специальные возможности</string>
+    <string name="rd_increase_contrast">Повысить контрастность текста</string>
+    <string name="rd_help_increase_contrast">Делает тусклые тексты дизайна (подсказки, описания, просмотренные элементы) ярче — до контрастности, которую требуют рекомендации по доступности WCAG (AA).</string>
 </resources>

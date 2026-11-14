@@ -586,4 +586,8 @@
     <string name="rd_show_shortcut_feedback">Visa återkoppling för kortkommandon</string>
     <string name="rd_show_feedback_for">Visa återkoppling i</string>
     <string name="rd_help_osd">Meddelanden över videon när något ändras: hastigheten, en fördröjning, zoomen, ett spår.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">Hjälpmedel</string>
+    <string name="rd_increase_contrast">Öka textkontrasten</string>
+    <string name="rd_help_increase_contrast">Ritar designens nedtonade texter (tips, beskrivningar, sedda objekt) ljusare, med den kontrast som WCAG:s tillgänglighetsriktlinjer kräver (AA).</string>
 </resources>

@@ -589,4 +589,8 @@
     <string name="rd_show_shortcut_feedback">Показувати відгук на скорочення</string>
     <string name="rd_show_feedback_for">Показувати відгук протягом</string>
     <string name="rd_help_osd">Повідомлення поверх відео, коли щось змінюється: швидкість, затримка, масштаб, доріжка.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">Спеціальні можливості</string>
+    <string name="rd_increase_contrast">Підвищити контрастність тексту</string>
+    <string name="rd_help_increase_contrast">Робить тьмяні тексти дизайну (підказки, описи, переглянуті елементи) яскравішими — до контрастності, якої вимагають рекомендації доступності WCAG (AA).</string>
 </resources>

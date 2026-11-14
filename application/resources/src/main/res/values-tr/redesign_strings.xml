@@ -586,4 +586,8 @@
     <string name="rd_show_shortcut_feedback">Kısayollar için geri bildirim görüntülensin</string>
     <string name="rd_show_feedback_for">Geri bildirim süresi</string>
     <string name="rd_help_osd">Bir şey değiştiğinde videonun üzerinde gösterilen iletiler: hız, gecikme, yakınlaştırma, parça.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">Erişilebilirlik</string>
+    <string name="rd_increase_contrast">Metin karşıtlığı artırılsın</string>
+    <string name="rd_help_increase_contrast">Tasarımdaki soluk metinleri (ipuçları, açıklamalar, izlenmiş ögeler), WCAG erişilebilirlik yönergelerinin istediği karşıtlığa (AA) ulaşacak kadar parlak çizer.</string>
 </resources>

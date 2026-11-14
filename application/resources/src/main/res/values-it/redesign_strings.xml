@@ -586,4 +586,8 @@
     <string name="rd_show_shortcut_feedback">Mostra un riscontro per le scorciatoie</string>
     <string name="rd_show_feedback_for">Mostra il riscontro per</string>
     <string name="rd_help_osd">Messaggi sul video quando qualcosa cambia: la velocità, un ritardo, lo zoom, una traccia.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">Accessibilità</string>
+    <string name="rd_increase_contrast">Aumenta il contrasto del testo</string>
+    <string name="rd_help_increase_contrast">Rende più luminosi i testi tenui del design (suggerimenti, descrizioni, elementi già visti) fino al contrasto richiesto dalle linee guida di accessibilità WCAG (AA).</string>
 </resources>
