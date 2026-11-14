@@ -571,4 +571,6 @@
     <string name="rd_no_file_picker_save">На этом устройстве нельзя выбрать, куда сохранить файл.</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_sleep_pause">Приостановить воспроизведение</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_secondary_sub_delay">Задержка дополнительных субтитров</string>
 </resources>

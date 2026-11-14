@@ -1971,7 +1971,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                             }
                         } else if (event.esChangedType == IMedia.Track.Type.Text) {
                             // (where the new track comes from: the file added last of its language)
-                            rdSubtitleLocals()
+                            val locals = rdSubtitleLocals()
                             lifecycleScope.launch(Dispatchers.IO) {
                                 val media = medialibrary.findMedia(mw)
                                 var preferredTrack = "0"
@@ -1989,6 +1989,12 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                                             }
                                         }
                                     }
+                                }
+                                // VLC Redesign: a subtitle file beside the video has no language in the media's tracks (libvlc
+                                // 3 adds it later): the language of its name (".he.srt", the tracks panel's) is the one
+                                if (preferredTrack == "0" && !preferredSpuLang.isNullOrEmpty()) {
+                                    val wanted = org.videolan.vlc.util.OnlineSubtitles.normalize(preferredSpuLang)
+                                    locals.firstOrNull { org.videolan.vlc.util.OnlineSubtitles.normalize(it.language) == wanted }?.let { preferredTrack = it.id }
                                 }
                                 // VLC Redesign: Settings › Playback › Default subtitle track (the desktop's sub-track), as above;
                                 // Settings › Subtitles › Enable subtitles off: none chosen by itself (only one the user chose

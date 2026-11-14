@@ -541,4 +541,6 @@
     <string name="rd_no_file_picker_save">Este dispositivo não permite escolher onde guardar um ficheiro.</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_sleep_pause">Pausar a reprodução</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_secondary_sub_delay">Atraso das legendas secundárias</string>
 </resources>

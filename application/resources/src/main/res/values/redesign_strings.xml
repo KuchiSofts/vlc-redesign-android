@@ -551,6 +551,8 @@
         <item quantity="other">%1$d files added to the queue</item>
     </plurals>
     <string name="rd_no_file_picker">This device has no file picker: add files from the app\'s folders instead.</string>
+    <!-- The subtitle timing panel: the second language's own delay (the desktop's) -->
+    <string name="rd_secondary_sub_delay">Secondary subtitle delay</string>
     <!-- The sleep timer: when it ends, pause instead of stopping (the desktop's choice "Pause playback") -->
     <string name="rd_sleep_pause">Pause playback</string>
     <!-- Playlists: the desktop's Export Playlist (an M3U8 file) -->

@@ -553,4 +553,6 @@
     <string name="rd_no_file_picker_save">אין במכשיר הזה דרך לבחור איפה לשמור קובץ.</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_sleep_pause">השהה את הנגינה</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_secondary_sub_delay">השהיית כתוביות משניות</string>
 </resources>

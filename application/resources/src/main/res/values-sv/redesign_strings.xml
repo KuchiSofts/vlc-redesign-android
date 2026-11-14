@@ -568,4 +568,6 @@
     <string name="rd_no_file_picker_save">På den här enheten går det inte att välja var en fil sparas.</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_sleep_pause">Pausa uppspelningen</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_secondary_sub_delay">Fördröjning av sekundär undertext</string>
 </resources>

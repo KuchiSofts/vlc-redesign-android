@@ -418,6 +418,15 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
             voiceMark = if (voiceMark >= 0) -1L else rdService?.getTime() ?: -1L
             applyMarks()
         }
+        // the desktop's Secondary subtitle delay: the second language's own (RdDualSubtitles)
+        timing.rdSub2DelaySlider.addOnChangeListener { _, value, fromUser ->
+            if (fromUser) org.videolan.vlc.util.RdDualSubtitles.secondDelayMs = value.toLong()
+            showSecondDelay(value.toLong())
+        }
+        timing.rdSub2DelayReset.setOnClickListener {
+            org.videolan.vlc.util.RdDualSubtitles.secondDelayMs = 0L
+            updateTiming()
+        }
         timing.rdSubMarkText.setOnClickListener {
             textMark = if (textMark >= 0) -1L else rdService?.getTime() ?: -1L
             applyMarks()
@@ -543,6 +552,16 @@ class VideoTracksDialog : VLCBottomSheetDialogFragment() {
         timing.rdSubMarkVoice.isChecked = voiceMark >= 0
         timing.rdSubMarkText.isChecked = textMark >= 0
         timing.rdSubDelayReset.isEnabled = delay != 0L || voiceMark >= 0 || textMark >= 0
+        // the second language's delay: its own, or the first one's while it has none
+        timing.rdSub2DelayBox.visibility = if (org.videolan.vlc.util.RdDualSubtitles.secondShown) View.VISIBLE else View.GONE
+        val second = (org.videolan.vlc.util.RdDualSubtitles.secondDelayMs ?: delay).coerceIn(-10000L, 10000L) / 50L * 50L
+        timing.rdSub2DelaySlider.value = second.toFloat()
+        showSecondDelay(second)
+        timing.rdSub2DelayReset.isEnabled = second != 0L
+    }
+
+    private fun showSecondDelay(ms: Long) {
+        binding.rdSubTiming.rdSub2DelayValue.text = String.format(java.util.Locale.US, "⁦%+d ms⁩", ms)
     }
 
     private fun showDelay(ms: Long) {

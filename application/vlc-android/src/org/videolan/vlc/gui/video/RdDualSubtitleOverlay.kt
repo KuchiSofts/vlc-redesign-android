@@ -83,6 +83,8 @@ class RdDualSubtitleOverlay(private val activity: VideoPlayerActivity) {
             return
         }
         stop()
+        // (a new video: its second language follows the first one's delay until its own is set)
+        if (now != uri) RdDualSubtitles.secondDelayMs = null
         uri = now
         language = wanted
         cues = emptyList()
@@ -97,6 +99,7 @@ class RdDualSubtitleOverlay(private val activity: VideoPlayerActivity) {
     }
 
     fun stop() {
+        RdDualSubtitles.secondShown = false
         running = false
         handler.removeCallbacks(tick)
         job?.cancel()
@@ -171,7 +174,9 @@ class RdDualSubtitleOverlay(private val activity: VideoPlayerActivity) {
             lastCheck = now
             sameShown = activity.rdSubtitleLocals().firstOrNull { it.checked }?.language?.substringBefore('-') == language.substringBefore('-')
         }
-        val line = if (sameShown) "" else RdDualSubtitles.textAt(cues, RdDualSubtitles.cueTime(service.getTime(), service.spuDelay))
+        RdDualSubtitles.secondShown = !sameShown
+        val line = if (sameShown) "" else RdDualSubtitles.textAt(cues,
+                RdDualSubtitles.secondCueTime(service.getTime(), service.spuDelay, RdDualSubtitles.secondDelayMs))
         val text = ensureView() ?: return
         val video = activity.findViewById<View>(R.id.surface_video)
         if (line.isEmpty() || video == null || video.height == 0) {

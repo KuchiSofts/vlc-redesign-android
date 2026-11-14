@@ -568,4 +568,6 @@
     <string name="rd_no_file_picker_save">Bu cihazda bir dosyanın nereye kaydedileceği seçilemiyor.</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_sleep_pause">Oynatmayı duraklat</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_secondary_sub_delay">İkincil altyazı gecikmesi</string>
 </resources>

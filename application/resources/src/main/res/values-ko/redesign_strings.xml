@@ -567,4 +567,6 @@
     <string name="rd_no_file_picker_save">이 기기에서는 파일을 저장할 위치를 선택할 수 없습니다.</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_sleep_pause">재생 일시중지</string>
+    <!-- 0.6.5: the desktop's settings, About and keys on Android -->
+    <string name="rd_secondary_sub_delay">보조 자막 지연</string>
 </resources>
