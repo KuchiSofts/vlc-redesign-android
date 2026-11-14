@@ -176,17 +176,12 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
      * a language once, whichever of its codes the lists gave ("iw" and "he").
      */
     private fun localeList(lp: ListPreference, pair: org.videolan.tools.LocalePair) {
-        val values = pair.localeEntryValues.map { it.toString() }
-        val names = pair.localeEntries.map { it.toString() }
-        if (values.isEmpty()) return
-        val head = listOf(org.videolan.vlc.util.RdLocaleChoices.Choice(values[0], names[0]))
-        val seen = HashSet<Pair<String, String>>()
-        val items = (1 until values.size).filter { seen.add(org.videolan.vlc.util.RdLocaleChoices.split(values[it])) }.map { values[it] to names[it] }
-        val detected = org.videolan.vlc.util.RdLocaleChoices.detectedLanguages(items.map { it.first }, org.videolan.vlc.util.RdDeviceLocale.languageTags())
-        val rows = org.videolan.vlc.util.RdLocaleChoices.order(head, items, detected)
+        val rows = org.videolan.vlc.util.RdLocaleChoices.rows(pair.localeEntryValues.map { it.toString() }, pair.localeEntries.map { it.toString() },
+                org.videolan.vlc.util.RdDeviceLocale.languageTags())
+        if (rows.isEmpty()) return
         lp.entries = rows.map { it.label }.toTypedArray()
         lp.entryValues = rows.map { it.value }.toTypedArray()
-        (lp as? RdListPreference)?.let { it.detected = detected.toSet(); it.locales = true }
+        (lp as? RdListPreference)?.let { it.detected = rows.filter { r -> r.detected }.map { r -> r.value }.toSet(); it.locales = true }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

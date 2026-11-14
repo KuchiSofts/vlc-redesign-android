@@ -599,4 +599,9 @@
     <string name="rd_help_ignore_filetypes">Filer med dessa filändelser utelämnas när en mapp öppnas eller listas, åtskilda med kommatecken.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_subtitle_delay">Undertextfördröjning</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">Välj språk för dina undertexter.</string>
+    <string name="rd_ob_subtitles_text">Undertexter på ditt språk visas av sig själva: från videon, från en fil bredvid den eller hittade online. När det inte finns några på det, inte ens online, används det andra språket.</string>
+    <string name="rd_ob_default_language">Standardspråk</string>
+    <string name="rd_ob_second_language">Andra språk (när det inte finns några)</string>
 </resources>

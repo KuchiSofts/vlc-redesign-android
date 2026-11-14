@@ -599,4 +599,9 @@
     <string name="rd_help_ignore_filetypes">I file con queste estensioni vengono esclusi quando si apre o si elenca una cartella, separate da virgole.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_subtitle_delay">Ritardo dei sottotitoli</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">Scegli le lingue dei sottotitoli.</string>
+    <string name="rd_ob_subtitles_text">I sottotitoli nella tua lingua compaiono da soli: dal video, da un file accanto a esso o trovati online. Quando non ce ne sono, nemmeno online, viene usata la seconda lingua.</string>
+    <string name="rd_ob_default_language">Lingua predefinita</string>
+    <string name="rd_ob_second_language">Seconda lingua (quando non ce ne sono)</string>
 </resources>

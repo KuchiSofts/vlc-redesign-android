@@ -599,4 +599,9 @@
     <string name="rd_help_ignore_filetypes">Arquivos com essas extensões ficam de fora quando uma pasta é aberta ou listada, separadas por vírgulas.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_subtitle_delay">Atraso de legenda</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">Escolha os idiomas das suas legendas.</string>
+    <string name="rd_ob_subtitles_text">As legendas no seu idioma aparecem sozinhas: do vídeo, de um arquivo ao lado dele ou encontradas na internet. Quando não houver nenhuma, nem na internet, o segundo idioma é usado.</string>
+    <string name="rd_ob_default_language">Idioma padrão</string>
+    <string name="rd_ob_second_language">Segundo idioma (quando não houver)</string>
 </resources>

@@ -750,6 +750,11 @@
     <string name="rd_always_show_player_bar">Always show the player bar</string>
     <string name="rd_help_always_show_player_bar">Keeps the player bar at the bottom of the library while nothing plays: Play starts the play queue, or opens files when it is empty.</string>
     <string name="rd_nothing_playing">Nothing is playing</string>
+    <!-- The welcome's Subtitle languages step, the desktop's (OnboardingSubtitlesFragment) -->
+    <string name="rd_ob_subtitles_title">Choose the languages of your subtitles.</string>
+    <string name="rd_ob_subtitles_text">Subtitles in your language show by themselves: from the video, from a file next to it, or found online. When there are none in it, not even online, the second language is used.</string>
+    <string name="rd_ob_default_language">Default language</string>
+    <string name="rd_ob_second_language">Second language (when there are none)</string>
     <!-- Settings › Subtitles › Timing: the desktop's Subtitle delay (sub-delay), the default of every video -->
     <string name="rd_subtitle_delay">Subtitle delay</string>
     <!-- Settings › Library › Advanced: the desktop's Ignored file extensions (libvlc's ignore-filetypes) -->

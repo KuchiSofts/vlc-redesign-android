@@ -602,4 +602,9 @@
     <string name="rd_help_ignore_filetypes">تُستبعد الملفات ذات هذه الامتدادات عند فتح مجلد أو عرضه، مفصولة بفواصل.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_subtitle_delay">تأخير الترجمة</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">اختر لغات الترجمة.</string>
+    <string name="rd_ob_subtitles_text">تظهر الترجمة بلغتك تلقائيًا: من الفيديو، أو من ملف بجانبه، أو من الإنترنت. وإذا لم تتوفر بها ولا حتى عبر الإنترنت، تُستخدم اللغة الثانية.</string>
+    <string name="rd_ob_default_language">اللغة الافتراضية</string>
+    <string name="rd_ob_second_language">اللغة الثانية (إن لم تتوفر الأولى)</string>
 </resources>

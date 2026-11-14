@@ -602,4 +602,9 @@
     <string name="rd_help_ignore_filetypes">Файли з цими розширеннями пропускаються під час відкриття або перегляду теки; через кому.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_subtitle_delay">Затримка субтитрів</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">Виберіть мови субтитрів.</string>
+    <string name="rd_ob_subtitles_text">Субтитри вашою мовою з’являються самі: з відео, з файлу поруч із ним або знайдені в Інтернеті. Якщо субтитрів цією мовою немає навіть в Інтернеті, використовується друга мова.</string>
+    <string name="rd_ob_default_language">Основна мова</string>
+    <string name="rd_ob_second_language">Друга мова (якщо першою немає)</string>
 </resources>

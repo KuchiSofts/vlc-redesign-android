@@ -602,4 +602,9 @@
     <string name="rd_help_ignore_filetypes">Pliki z tymi rozszerzeniami są pomijane przy otwieraniu lub wyświetlaniu folderu; oddzielone przecinkami.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_subtitle_delay">Opóźnienie napisów</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">Wybierz języki napisów.</string>
+    <string name="rd_ob_subtitles_text">Napisy w Twoim języku pojawiają się same: z wideo, z pliku obok niego lub znalezione w internecie. Gdy nie ma ich w tym języku, nawet w internecie, używany jest drugi język.</string>
+    <string name="rd_ob_default_language">Język domyślny</string>
+    <string name="rd_ob_second_language">Drugi język (gdy brak napisów)</string>
 </resources>

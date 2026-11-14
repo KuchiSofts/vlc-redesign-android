@@ -599,4 +599,9 @@
     <string name="rd_help_ignore_filetypes">Bu uzantılara sahip dosyalar bir klasör açıldığında veya listelendiğinde dışarıda bırakılır; virgülle ayrılır.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_subtitle_delay">Altyazı gecikmesi</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">Altyazılarınızın dillerini seçin.</string>
+    <string name="rd_ob_subtitles_text">Dilinizdeki altyazılar kendiliğinden görüntülenir: videonun içinden, yanındaki bir dosyadan ya da çevrim içi bulunarak. Bu dilde hiç yoksa, çevrim içi de bulunamazsa ikinci dil kullanılır.</string>
+    <string name="rd_ob_default_language">Varsayılan dil</string>
+    <string name="rd_ob_second_language">İkinci dil (hiç yoksa)</string>
 </resources>

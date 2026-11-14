@@ -599,4 +599,9 @@
     <string name="rd_help_ignore_filetypes">Les fichiers ayant ces extensions sont ignorés quand un dossier est ouvert ou listé, séparées par des virgules.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_subtitle_delay">Retard des sous-titres</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">Choisissez les langues de vos sous-titres.</string>
+    <string name="rd_ob_subtitles_text">Les sous-titres dans votre langue s\'affichent d\'eux-mêmes : depuis la vidéo, depuis un fichier placé à côté, ou trouvés en ligne. Quand il n\'y en a aucun, même en ligne, la seconde langue est utilisée.</string>
+    <string name="rd_ob_default_language">Langue par défaut</string>
+    <string name="rd_ob_second_language">Seconde langue (s\'il n\'y en a aucun)</string>
 </resources>

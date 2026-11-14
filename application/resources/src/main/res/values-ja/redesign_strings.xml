@@ -598,4 +598,9 @@
     <string name="rd_help_ignore_filetypes">フォルダーを開くときや一覧表示するときに、これらの拡張子のファイルを除外します (カンマ区切り)。</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_subtitle_delay">字幕の遅延</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">字幕の言語を選択してください。</string>
+    <string name="rd_ob_subtitles_text">設定した言語の字幕は自動的に表示されます: ビデオ内の字幕、同じ場所にあるファイル、またはオンラインで見つかった字幕です。その言語の字幕がオンラインにもない場合は、第2言語が使用されます。</string>
+    <string name="rd_ob_default_language">デフォルトの言語</string>
+    <string name="rd_ob_second_language">第2言語 (字幕がない場合)</string>
 </resources>

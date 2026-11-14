@@ -599,4 +599,9 @@
     <string name="rd_help_ignore_filetypes">Dateien mit diesen Endungen werden beim Öffnen oder Auflisten eines Ordners ausgelassen, durch Kommas getrennt.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_subtitle_delay">Untertitelverzögerung</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">Wählen Sie die Sprachen Ihrer Untertitel.</string>
+    <string name="rd_ob_subtitles_text">Untertitel in Ihrer Sprache erscheinen von selbst: aus dem Video, aus einer Datei daneben oder online gefunden. Gibt es keine in dieser Sprache, auch nicht online, wird die zweite Sprache verwendet.</string>
+    <string name="rd_ob_default_language">Standardsprache</string>
+    <string name="rd_ob_second_language">Zweitsprache (wenn keine vorhanden)</string>
 </resources>

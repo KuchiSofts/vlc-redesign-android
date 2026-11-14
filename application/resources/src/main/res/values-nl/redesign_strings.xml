@@ -599,4 +599,9 @@
     <string name="rd_help_ignore_filetypes">Bestanden met deze extensies worden overgeslagen als een map wordt geopend of getoond, gescheiden door komma\'s.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_subtitle_delay">Ondertitelvertraging</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">Kies de talen van uw ondertitels.</string>
+    <string name="rd_ob_subtitles_text">Ondertitels in uw taal verschijnen vanzelf: uit de video, uit een bestand ernaast of online gevonden. Zijn er geen, ook niet online, dan wordt de tweede taal gebruikt.</string>
+    <string name="rd_ob_default_language">Standaardtaal</string>
+    <string name="rd_ob_second_language">Tweede taal (als er geen zijn)</string>
 </resources>

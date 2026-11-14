@@ -584,4 +584,9 @@
     <string name="rd_help_ignore_filetypes">קבצים עם הסיומות האלה לא נכללים כשתיקייה נפתחת או מוצגת, מופרדות בפסיקים.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_subtitle_delay">השהיית כתוביות</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">בחר את שפות הכתוביות שלך.</string>
+    <string name="rd_ob_subtitles_text">כתוביות בשפה שלך מוצגות מעצמן: מתוך הווידאו, מקובץ שלידו או מהאינטרנט. כשאין כתוביות בשפה זו, אפילו לא באינטרנט, נעשה שימוש בשפה השנייה.</string>
+    <string name="rd_ob_default_language">שפת ברירת המחדל</string>
+    <string name="rd_ob_second_language">שפה שנייה (כשאין כתוביות)</string>
 </resources>

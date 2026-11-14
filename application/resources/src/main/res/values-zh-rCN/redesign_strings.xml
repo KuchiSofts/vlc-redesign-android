@@ -598,4 +598,9 @@
     <string name="rd_help_ignore_filetypes">打开或列出文件夹时，跳过这些扩展名的文件，以逗号分隔。</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_subtitle_delay">字幕延迟</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">选择字幕语言。</string>
+    <string name="rd_ob_subtitles_text">您所用语言的字幕会自动显示：来自视频本身、视频旁的文件或在线查找。如果该语言没有字幕（在线也找不到），则使用第二语言。</string>
+    <string name="rd_ob_default_language">默认语言</string>
+    <string name="rd_ob_second_language">第二语言 (无字幕时)</string>
 </resources>

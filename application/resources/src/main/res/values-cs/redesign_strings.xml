@@ -602,4 +602,9 @@
     <string name="rd_help_ignore_filetypes">Soubory s těmito příponami se při otevření nebo výpisu složky vynechají; oddělené čárkami.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_subtitle_delay">Zpoždění titulků</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">Vyberte jazyky titulků.</string>
+    <string name="rd_ob_subtitles_text">Titulky ve vašem jazyce se zobrazí samy: z videa, ze souboru vedle něj nebo nalezené online. Když v něm žádné nejsou, ani online, použije se druhý jazyk.</string>
+    <string name="rd_ob_default_language">Výchozí jazyk</string>
+    <string name="rd_ob_second_language">Druhý jazyk (když žádné nejsou)</string>
 </resources>

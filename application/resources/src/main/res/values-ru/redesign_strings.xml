@@ -602,4 +602,9 @@
     <string name="rd_help_ignore_filetypes">Файлы с этими расширениями пропускаются при открытии или просмотре папки; через запятую.</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_subtitle_delay">Задержка субтитров</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">Выберите языки субтитров.</string>
+    <string name="rd_ob_subtitles_text">Субтитры на вашем языке показываются сами: из видео, из файла рядом с ним или найденные в Интернете. Если их нет даже в Интернете, используется второй язык.</string>
+    <string name="rd_ob_default_language">Язык по умолчанию</string>
+    <string name="rd_ob_second_language">Второй язык (если субтитров нет)</string>
 </resources>

@@ -598,4 +598,9 @@
     <string name="rd_help_ignore_filetypes">폴더를 열거나 목록을 볼 때 이 확장자의 파일은 제외됩니다(쉼표로 구분).</string>
     <!-- 0.6.6: more of the desktop options -->
     <string name="rd_subtitle_delay">자막 싱크</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">자막 언어를 선택하세요.</string>
+    <string name="rd_ob_subtitles_text">사용자 언어의 자막이 자동으로 표시됩니다. 비디오에 포함된 자막, 옆에 있는 파일 또는 온라인에서 찾은 자막을 사용합니다. 온라인에도 해당 언어 자막이 없으면 두 번째 언어를 사용합니다.</string>
+    <string name="rd_ob_default_language">기본 언어</string>
+    <string name="rd_ob_second_language">두 번째 언어(해당 자막이 없을 때)</string>
 </resources>
