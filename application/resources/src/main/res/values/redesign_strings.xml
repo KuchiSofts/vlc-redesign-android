@@ -489,6 +489,37 @@
     <string name="rd_update_latest">You have the latest version</string>
     <string name="rd_update_offline">Couldn\'t reach GitHub. Check your connection and try again.</string>
     <string name="rd_update_unexpected">GitHub sent an unexpected answer (%1$s).</string>
+    <!-- Settings › Playback: the desktop's rows -->
+    <string name="rd_default_speed">Default playback speed</string>
+    <string name="rd_menu_language">Preferred menu language</string>
+    <string name="rd_help_menu_language">The language of DVD and Blu-ray menus: two- or three-letter codes such as en or fr, separated by commas.</string>
+    <string name="rd_default_audio_track">Default audio track</string>
+    <string name="rd_default_sub_track">Default subtitle track</string>
+    <string name="rd_help_default_track">The number of the track to start with (1 is the first); empty chooses by language.</string>
+    <string name="rd_stop_after_each">Stop after each item</string>
+    <string name="rd_help_stop_after_each">Playback stops when an item ends instead of going on to the next one.</string>
+    <string name="rd_mkv_preload">Load matching .mkv files from the same folder</string>
+    <string name="rd_help_mkv_preload">Files that belong to the same video (linked segments) are opened with it.</string>
+    <string name="rd_seek_thumbnail">Show thumbnail while scrubbing</string>
+    <string name="rd_play_and_pause">Pause on the last frame of each item</string>
+    <string name="rd_help_play_and_pause">The picture stays on its last frame, paused, at the end of each item.</string>
+    <!-- Settings › Subtitles: the desktop's rows -->
+    <string name="rd_enable_subtitles">Enable subtitles</string>
+    <string name="rd_help_spu">Off: videos start without subtitles; one can still be turned on in the player.</string>
+    <string name="rd_sub_paths">Load subtitles from these folders</string>
+    <string name="rd_help_sub_paths">Folders next to the video that are searched for its subtitles, separated by commas.</string>
+    <string name="rd_outline_thickness">Outline thickness</string>
+    <string name="rd_shadow_angle">Shadow angle</string>
+    <string name="rd_text_direction">Text direction</string>
+    <string name="rd_ltr">Left to right</string>
+    <string name="rd_rtl">Right to left</string>
+    <string name="rd_text_alignment">Text alignment</string>
+    <string name="rd_show_filename_for">Show filename for</string>
+    <string name="rd_filename_position">Position of the filename</string>
+    <string name="rd_top_left">Top left</string>
+    <string name="rd_top_right">Top right</string>
+    <string name="rd_bottom_left">Bottom left</string>
+    <string name="rd_bottom_right">Bottom right</string>
     <!-- About: the other platforms (a list such as "Windows 0.6.4 · Linux 0.6.4") -->
     <string name="rd_also_on">Also on: %1$s</string>
     <string name="rd_suggest_idea">Suggest an idea</string>

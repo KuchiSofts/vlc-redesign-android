@@ -143,4 +143,51 @@
         <item>top_right</item>
         <item>top_left</item>
     </string-array>
+    <!-- Subtitles › Appearance (advanced): freetype-text-direction 0 left to right, 1 right to left, 2 automatic -->
+    <string-array name="rd_text_direction_entries" translatable="false">
+        <item>@string/rd_ltr</item>
+        <item>@string/rd_rtl</item>
+        <item>@string/rd_automatic</item>
+    </string-array>
+    <string-array name="rd_text_direction_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <!-- Subtitles › Appearance (advanced): subsdec-align -1 automatic, 0 center, 1 left, 2 right -->
+    <string-array name="rd_sub_align_entries" translatable="false">
+        <item>@string/rd_automatic</item>
+        <item>@string/rd_zone_center</item>
+        <item>@string/rd_left</item>
+        <item>@string/rd_right</item>
+    </string-array>
+    <string-array name="rd_sub_align_values" translatable="false">
+        <item>-1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <!-- Subtitles › On-Screen Messages: video-title-position (VLC's subpicture alignment flags) -->
+    <string-array name="rd_title_position_entries" translatable="false">
+        <item>@string/rd_zone_center</item>
+        <item>@string/rd_left</item>
+        <item>@string/rd_right</item>
+        <item>@string/rd_fx_top</item>
+        <item>@string/rd_fx_bottom</item>
+        <item>@string/rd_top_left</item>
+        <item>@string/rd_top_right</item>
+        <item>@string/rd_bottom_left</item>
+        <item>@string/rd_bottom_right</item>
+    </string-array>
+    <string-array name="rd_title_position_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+        <item>8</item>
+        <item>5</item>
+        <item>6</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
 </resources>

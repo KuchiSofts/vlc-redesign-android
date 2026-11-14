@@ -113,6 +113,14 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
     override val coroutineContext = Dispatchers.Main.immediate + SupervisorJob()
 
     companion object {
+        /** VLC Redesign, Settings › Playback: stop when an item ends (the desktop's play-and-stop) */
+        const val KEY_STOP_AFTER_EACH = "rd_stop_after_each"
+        /** VLC Redesign, Settings › Playback: the default speed in quarters (1 = 0.25x … 8 = 2x, the desktop's slider) */
+        const val KEY_DEFAULT_SPEED = "rd_default_speed"
+
+        fun defaultRate(settings: android.content.SharedPreferences): Float =
+            (settings.getInt(KEY_DEFAULT_SPEED, 4).coerceIn(1, 8)) / 4f
+
         val showAudioPlayer = MutableLiveData<Boolean>().apply { value = false }
         val currentPlayedMedia = MutableLiveData<MediaWrapper?>().apply { value = null }
         val playingState = MutableLiveData<Boolean>().apply { value = false }
@@ -877,16 +885,19 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
     fun restoreSpeed(media: MediaWrapper) {
         val incognitoMode = settings.getBoolean(KEY_INCOGNITO, false)
         val playbackSpeedModeAll = settings.getBoolean(if (player.isVideoPlaying()) KEY_PLAYBACK_SPEED_VIDEO_GLOBAL else KEY_PLAYBACK_SPEED_AUDIO_GLOBAL, false)
+        // VLC Redesign: the desktop's "Default playback speed" (Settings › Playback): what a media without a speed
+        // of its own plays at
+        val defaultRate = defaultRate(settings)
         val playbackRate = when {
-            incognitoMode && playbackSpeedModeAll -> settings.getFloat(if (player.isVideoPlaying()) KEY_INCOGNITO_PLAYBACK_SPEED_VIDEO_GLOBAL_VALUE else KEY_INCOGNITO_PLAYBACK_SPEED_AUDIO_GLOBAL_VALUE, 1.0f)
+            incognitoMode && playbackSpeedModeAll -> settings.getFloat(if (player.isVideoPlaying()) KEY_INCOGNITO_PLAYBACK_SPEED_VIDEO_GLOBAL_VALUE else KEY_INCOGNITO_PLAYBACK_SPEED_AUDIO_GLOBAL_VALUE, defaultRate)
             //restore all
-            playbackSpeedModeAll -> settings.getFloat(if (player.isVideoPlaying()) KEY_PLAYBACK_SPEED_VIDEO_GLOBAL_VALUE else KEY_PLAYBACK_SPEED_AUDIO_GLOBAL_VALUE, 1.0f)
-            incognitoMode -> 1F
+            playbackSpeedModeAll -> settings.getFloat(if (player.isVideoPlaying()) KEY_PLAYBACK_SPEED_VIDEO_GLOBAL_VALUE else KEY_PLAYBACK_SPEED_AUDIO_GLOBAL_VALUE, defaultRate)
+            incognitoMode -> defaultRate
             //restore one
             else -> try {
                 media.getMetaString(MediaWrapper.META_SPEED).toFloat()
             } catch (e: Exception) {
-                1F
+                defaultRate
             }
         }
         player.setRate(playbackRate, false)
@@ -1338,7 +1349,11 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
                         if (isBenchmark) player.setPreviousStats()
                         if (nextIndex == -1) savePosition(reset = true)
                     }
-                    if (stopAfter == currentIndex) {
+                    // VLC Redesign: the desktop's "Stop after each item" (Settings › Playback), unless one item repeats;
+                    // a playlist file or a folder that ends opens its items: that is no item of its own
+                    val stopAfterEach = settings.getBoolean(KEY_STOP_AFTER_EACH, false) &&
+                            repeating.value != PlaybackStateCompat.REPEAT_MODE_ONE && !player.hasSubItems()
+                    if (stopAfter == currentIndex || stopAfterEach) {
                         if (BuildConfig.DEBUG) Log.d("AUDIO_STOP_AFTER", "reset")
                         stopAfter = -1
                         stop()

@@ -175,8 +175,10 @@ object VLCOptions {
             // detected as such.
             options.add(subtitlesEncoding.ifEmpty { defaultSubtitlesEncoding(pref.getString(KEY_SET_LOCALE, "") ?: "") })
             // VLC Redesign: lay out each subtitle line in the direction of its own text (Hebrew and Arabic right to
-            // left), as VLC 4 on the desktop does; VLC 3.0's default is left to right for every line
-            options.add("--freetype-text-direction=2")
+            // left), as VLC 4 on the desktop does; VLC 3.0's default is left to right for every line. Settings ›
+            // Subtitles › Text direction (advanced) can force one direction, as the desktop's row
+            val textDirection = pref.getString("rd_text_direction", "2")?.toIntOrNull()?.takeIf { it in 0..2 } ?: 2
+            options.add("--freetype-text-direction=$textDirection")
             options.add("--stats")
             if (networkCaching > 0) options.add("--network-caching=$networkCaching")
             options.add("--audio-resampler")
@@ -268,6 +270,22 @@ object VLCOptions {
             text("rd_sub_fuzzy").toIntOrNull()?.takeIf { it in 0..4 && it != 3 }?.let { options.add("--sub-autodetect-fuzzy=$it") }
             text("rd_file_caching").toIntOrNull()?.takeIf { it in 0..60000 }?.let { options.add("--file-caching=$it") }
             text("rd_live_caching").toIntOrNull()?.takeIf { it in 0..60000 }?.let { options.add("--live-caching=$it") }
+            // the desktop's Playback page: the menus' language of discs, the default tracks (shown from 1, VLC counts
+            // from 0), the .mkv files of the same folder, pause on the last frame
+            text("rd_menu_language").takeIf { it.matches(Regex("[A-Za-z]{2,3}(\\s*,\\s*[A-Za-z]{2,3})*")) }?.let { options.add("--menu-language=${it.replace(" ", "")}") }
+            text("rd_audio_track").toIntOrNull()?.takeIf { it in 1..100 }?.let { options.add("--audio-track=${it - 1}") }
+            text("rd_sub_track").toIntOrNull()?.takeIf { it in 1..100 }?.let { options.add("--sub-track=${it - 1}") }
+            if (!pref.getBoolean("rd_mkv_preload", true)) options.add("--no-mkv-preload-local-dir")
+            // the desktop's Subtitles page: on or off, the folders searched, the shadow's angle, the alignment
+            if (!pref.getBoolean("rd_spu", true)) options.add("--no-spu")
+            pref.getString("rd_sub_paths", null)?.let { paths ->
+                // (an empty field searches no folder: VLC's own list otherwise)
+                options.add("--sub-autodetect-path=" + paths.split(',', '\n').map { it.trim() }.filter { it.isNotEmpty() }.joinToString(", "))
+            }
+            if (pref.getBoolean(KEY_SUBTITLES_SHADOW, true)) pref.getInt("rd_shadow_angle", -45).takeIf { it in -360..360 && it != -45 }
+                    ?.let { options.add("--freetype-shadow-angle=$it") }
+            text("rd_sub_align").toIntOrNull()?.takeIf { it in 0..2 }?.let { options.add("--subsdec-align=$it") }
+            if (pref.getBoolean("rd_play_and_pause", false)) options.add("--play-and-pause")
             // libvlc 3 on Android has no --http-proxy (it is the Windows build's only): its vlc_getProxyUrl() reads
             // the Java properties http.proxyHost / http.proxyPort, so the desktop's HTTP proxy is set there
             applyHttpProxy(text("rd_http_proxy"))

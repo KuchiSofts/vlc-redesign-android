@@ -1899,6 +1899,9 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                                         }
                                     }
                                 }
+                                // VLC Redesign: Settings › Playback › Default audio track (the desktop's audio-track) wins
+                                // over the preferred language, as in VLC; a track chosen for this media wins over both
+                                rdDefaultTrack("rd_audio_track", service.audioTracks)?.let { preferredTrack = it }
                                 val audioTrack = when (val savedTrack = media.getMetaString(MediaWrapper.META_AUDIOTRACK)?.takeIf { it.isRestorableTrack() } ?: "0") {
                                     "0" -> preferredTrack
                                     else -> savedTrack
@@ -1927,6 +1930,11 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                                         }
                                     }
                                 }
+                                // VLC Redesign: Settings › Playback › Default subtitle track (the desktop's sub-track), as above;
+                                // Settings › Subtitles › Enable subtitles off: none chosen by itself (only one the user chose
+                                // for this media, or turns on in the player)
+                                rdDefaultTrack("rd_sub_track", service.spuTracks)?.let { preferredTrack = it }
+                                if (!settings.getBoolean(KEY_RD_SPU, true)) preferredTrack = "0"
                                 val spuTrack = when (val savedTrack = media.getMetaString(MediaWrapper.META_SUBTITLE_TRACK)?.takeIf { it.isRestorableTrack() } ?: "0") {
                                     "0" -> preferredTrack
                                     else -> savedTrack
@@ -2094,6 +2102,16 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         return list
     }
 
+    /**
+     * The id of the track a Default audio / subtitle track setting names (1 is the first; the "Disable" entry is
+     * not counted), or null when it is empty or the media has fewer tracks
+     */
+    private fun rdDefaultTrack(key: String, tracks: Array<out VlcTrack>?): String? {
+        if (key == "rd_sub_track" && !settings.getBoolean(KEY_RD_SPU, true)) return null
+        val n = settings.getString(key, "")?.trim()?.toIntOrNull()?.takeIf { it >= 1 } ?: return null
+        return tracks?.filter { it.getId() != "-1" }?.getOrNull(n - 1)?.getId()
+    }
+
     /** the video's subtitle tracks for the Subtitles panel: language, shown or not, where each comes from */
     fun rdSubtitleLocals(): List<org.videolan.vlc.util.RdSubtitleChoices.Local> {
         val s = service ?: return emptyList()
@@ -2163,6 +2181,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         // (the search by itself only when the user said so; a subtitles folder's file of the user's language is read
         // whatever the switch: nothing goes online for it)
         val auto = Settings.getInstance(ctx).getBoolean(org.videolan.vlc.util.OnlineSubtitles.KEY_AUTO, true)
+        // Settings › Subtitles › Enable subtitles off: a video starts without any, none is looked for by itself
+        if (!Settings.getInstance(ctx).getBoolean(KEY_RD_SPU, true)) return
         val mw = service?.currentMediaWrapper ?: return
         val uri = mw.uri ?: return
         if (uri == rdOnlineAutoUri) return
@@ -3428,3 +3448,6 @@ fun setConstraintPercent(view: Guideline, percent: Float) {
 fun setProgressMax(view: SeekBar, length: Long) {
     view.max =  if (length == 0L) NO_LENGTH_PROGRESS_MAX else length.toInt()
 }
+
+/** VLC Redesign, Settings > Subtitles > Enable subtitles (the desktop's spu): off, a video starts without subtitles */
+const val KEY_RD_SPU = "rd_spu"

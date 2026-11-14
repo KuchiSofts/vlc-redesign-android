@@ -244,7 +244,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
                 it.setSelection(it.editableText.length)
             }
         }
-        for (key in arrayOf("network_caching", "rd_file_caching", "rd_live_caching", "rd_avcodec_threads", "rd_audio_desync")) {
+        for (key in arrayOf("network_caching", "rd_file_caching", "rd_live_caching", "rd_avcodec_threads", "rd_audio_desync", "rd_audio_track", "rd_sub_track")) {
             pref<EditTextPreference>(key)?.setOnBindEditTextListener {
                 it.inputType = InputType.TYPE_CLASS_NUMBER or (if (key == "rd_audio_desync") InputType.TYPE_NUMBER_FLAG_SIGNED else 0)
                 it.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(5))
@@ -684,7 +684,8 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
                 LoudnessEffects.apply(activity)
             }
             KEY_AUDIO_REPLAY_GAIN_ENABLE, KEY_AUDIO_REPLAY_GAIN_MODE, KEY_AUDIO_REPLAY_GAIN_PEAK_PROTECTION, "rd_stereo_mode", "rd_audio_desync",
-            "rd_deinterlace", "rd_deinterlace_mode", "rd_avi_index", "rd_sub_fuzzy", "rd_sub_font", "rd_file_caching", "rd_live_caching", "rd_http_proxy",
+            "rd_deinterlace", "rd_deinterlace_mode", "rd_avi_index", "rd_sub_fuzzy",
+            "rd_menu_language", "rd_audio_track", "rd_sub_track", "rd_mkv_preload", "rd_play_and_pause", "rd_sub_font", "rd_file_caching", "rd_live_caching", "rd_http_proxy",
             "rd_postproc", "rd_avcodec_threads", KEY_OPENGL, KEY_DEBLOCKING, KEY_ENABLE_FRAME_SKIP, KEY_ENABLE_TIME_STRETCHING_AUDIO,
             KEY_ENABLE_VERBOSE_MODE, KEY_CASTING_PASSTHROUGH, KEY_CASTING_QUALITY, KEY_CASTING_AUDIO_ONLY -> lifecycleScope.launch { restartLibVLC() }
             "rd_normalize", "rd_norm_level", "rd_night_mode" -> LoudnessEffects.apply(activity)
@@ -714,7 +715,8 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             KEY_SUBTITLES_COLOR, KEY_SUBTITLES_COLOR_OPACITY,
             KEY_SUBTITLES_BACKGROUND_COLOR, KEY_SUBTITLES_BACKGROUND_COLOR_OPACITY, KEY_SUBTITLES_BACKGROUND,
             KEY_SUBTITLES_OUTLINE, KEY_SUBTITLES_OUTLINE_SIZE, KEY_SUBTITLES_OUTLINE_COLOR, KEY_SUBTITLES_OUTLINE_COLOR_OPACITY,
-            KEY_SUBTITLES_SHADOW, KEY_SUBTITLES_SHADOW_COLOR, KEY_SUBTITLES_SHADOW_COLOR_OPACITY, "rd_shadow_distance", "rd_sub_margin" -> {
+            KEY_SUBTITLES_SHADOW, KEY_SUBTITLES_SHADOW_COLOR, KEY_SUBTITLES_SHADOW_COLOR_OPACITY, "rd_shadow_distance", "rd_sub_margin",
+            "rd_spu", "rd_sub_paths", "rd_shadow_angle", "rd_text_direction", "rd_sub_align" -> {
                 subtitlesChanged = true
                 manageSubtitleVisibilities()
             }
@@ -774,6 +776,8 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
                 Settings.fastplaySpeed = sharedPreferences.getInt(FASTPLAY_SPEED, 20) / 10f
                 updateFastplaySpeedSummary()
             }
+            org.videolan.vlc.media.PlaylistManager.KEY_DEFAULT_SPEED -> updateDefaultSpeedSummary()
+            "rd_video_title_timeout" -> updateTitleTimeoutSummary()
             // Controls (audio)
             KEY_AUDIO_JUMP_DELAY -> Settings.audioJumpDelay = sharedPreferences.getInt(KEY_AUDIO_JUMP_DELAY, 10)
             KEY_AUDIO_LONG_JUMP_DELAY -> Settings.audioLongJumpDelay = sharedPreferences.getInt(KEY_AUDIO_LONG_JUMP_DELAY, 20)
@@ -889,8 +893,10 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         pref<Preference>(KEY_SUBTITLES_SHADOW_COLOR_OPACITY)?.isVisible = shadow
         pref<Preference>("rd_shadow_distance")?.isVisible = shadow
         val outline = settings.getBoolean(KEY_SUBTITLES_OUTLINE, true)
-        // the outline size stays hidden, as upstream (it draws badly)
-        pref<Preference>(KEY_SUBTITLES_OUTLINE_SIZE)?.isVisible = false
+        // the desktop's Outline thickness (thin, normal, thick), with the outline
+        pref<Preference>(KEY_SUBTITLES_OUTLINE_SIZE)?.isVisible = outline
+        pref<Preference>("rd_shadow_angle")?.isVisible = shadow
+        updateTitleTimeoutSummary()
         pref<Preference>(KEY_SUBTITLES_OUTLINE_COLOR)?.isVisible = outline
         pref<Preference>(KEY_SUBTITLES_OUTLINE_COLOR_OPACITY)?.isVisible = outline
     }
@@ -914,6 +920,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         pref<Preference>(KEY_AUDIO_BOOST)?.isVisible = !tv
         updateHudTimeoutSummary()
         updateFastplaySpeedSummary()
+        updateDefaultSpeedSummary()
         val audioManager = requireActivity().getSystemService<AudioManager>()
         if (audioManager?.isVolumeFixed == true) {
             pref<CheckBoxPreference>(KEY_AUDIO_BOOST)?.let {
@@ -937,6 +944,18 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
 
     private fun updateFastplaySpeedSummary() {
         pref<Preference>(FASTPLAY_SPEED)?.summary = String.format("%sx", Settings.fastplaySpeed.readableString())
+    }
+
+    /** "5s": how long the filename shows when a video starts */
+    private fun updateTitleTimeoutSummary() {
+        val p = pref<Preference>("rd_video_title_timeout") ?: return
+        p.summary = getString(R.string.video_hud_timeout_summary, (p.sharedPreferences?.getInt(p.key, 5) ?: 5).toString())
+    }
+
+    /** "1.25x": the speed a media without its own plays at (the desktop's slider of quarters) */
+    private fun updateDefaultSpeedSummary() {
+        val p = pref<Preference>(org.videolan.vlc.media.PlaylistManager.KEY_DEFAULT_SPEED) ?: return
+        p.summary = String.format("%sx", org.videolan.vlc.media.PlaylistManager.defaultRate(p.sharedPreferences ?: return).readableString())
     }
 
     companion object {
