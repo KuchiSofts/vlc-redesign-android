@@ -27,8 +27,9 @@ object RdUpdateCheck {
     private const val KEY_LAST = "rd_update_last_check"
     /** a version the user chose to skip: not offered again by the daily check */
     const val KEY_SKIPPED = "rd_update_skipped"
-    /** the newest releases first; a few desktop-only ones in a row still leave the last APK in the page */
-    private const val RELEASES = "https://api.github.com/repos/KuchiSofts/vlc-redesign/releases?per_page=30"
+    /** the newest releases first; a few desktop-only ones in a row still leave the last APK in the page (ten: the
+     *  notes and files of 30 made 1.4 MB to download each day) */
+    private const val RELEASES = "https://api.github.com/repos/KuchiSofts/vlc-redesign/releases?per_page=10"
     const val RELEASES_PAGE = "https://github.com/KuchiSofts/vlc-redesign/releases"
     private val INTERVAL = TimeUnit.DAYS.toMillis(1)
 
