@@ -275,6 +275,9 @@ class AudioPlayerActivity : BaseTvActivity(),KeycodeListener, PlaybackService.Ca
             else
                 R.drawable.ic_shuffle_audio)
             binding.buttonShuffle.contentDescription = getString(if (shuffling) org.videolan.vlc.R.string.shuffle_on else org.videolan.vlc.R.string.shuffle)
+            // VLC Redesign: the song's lyrics read here too (the menu's Lyrics): the phone's music player, which
+            // reads them, is not always open behind this one (read once a song: RdLyricsSheet.load)
+            org.videolan.vlc.gui.audio.RdLyricsSheet.load(mw?.location)
             if (mw == null || currentCoverArt == mw.artworkMrl) return@launch
             currentCoverArt = mw.artworkMrl
             updateBackground()

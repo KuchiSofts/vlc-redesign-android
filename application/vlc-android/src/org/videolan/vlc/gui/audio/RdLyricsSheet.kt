@@ -39,6 +39,8 @@ class RdLyricsSheet : VLCBottomSheetDialogFragment() {
     private lateinit var title: TextView
     private val rows = ArrayList<TextView>()
     private var shown = -2
+    // the last key on a line (the remote moving through them): its focus is left where the user put it a while
+    private var lastKey = 0L
     private val handler = Handler(Looper.getMainLooper())
     private val tick = object : Runnable {
         override fun run() {
@@ -88,12 +90,18 @@ class RdLyricsSheet : VLCBottomSheetDialogFragment() {
                     isFocusable = true
                     setBackgroundResource(R.drawable.rd_option_row_bg)
                     setOnClickListener { PlaybackService.instance?.setTime(line.timeMs) }
+                    setOnKeyListener { _, _, _ -> lastKey = android.os.SystemClock.uptimeMillis(); false }
                 }
             }
             rows.add(row)
             lines.addView(row)
         }
-        scroll = NestedScrollView(ctx).apply { addView(lines) }
+        scroll = NestedScrollView(ctx).apply {
+            addView(lines)
+            // (a line scrolled under the title fades out instead of being cut)
+            isVerticalFadingEdgeEnabled = true
+            setFadingEdgeLength(dp(32f))
+        }
         root.addView(scroll, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (resources.displayMetrics.heightPixels * 0.6f).toInt()))
         return root
     }
@@ -119,6 +127,9 @@ class RdLyricsSheet : VLCBottomSheetDialogFragment() {
         shown = i
         val row = rows.getOrNull(i) ?: return
         row.setTextColor(ctx.rdAccent())
+        // (the remote's focus on a line goes with the song, unless a key moved it a moment ago: it was left on the
+        // first line, half under the title, as the window scrolled to the line sung)
+        if (row.isFocusable && rows.any { it.isFocused } && android.os.SystemClock.uptimeMillis() - lastKey > 2500L) row.requestFocus()
         scroll.smoothScrollTo(0, (row.top - scroll.height / 2 + row.height / 2).coerceAtLeast(0))
     }
 
