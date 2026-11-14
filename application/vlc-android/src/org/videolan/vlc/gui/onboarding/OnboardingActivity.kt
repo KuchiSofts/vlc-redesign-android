@@ -92,6 +92,7 @@ class OnboardingActivity : AppCompatActivity(), OnboardingFragmentListener {
             FragmentName.NO_PERMISSION -> OnboardingNoPermissionFragment.newInstance()
             FragmentName.NOTIFICATION_PERMISSION -> OnboardingNotificationPermissionFragment.newInstance()
             FragmentName.THEME -> OnboardingThemeFragment.newInstance()
+            FragmentName.SUBTITLES -> OnboardingSubtitlesFragment.newInstance()
             FragmentName.PRIVACY -> OnboardingPrivacyFragment.newInstance()
         }
         (fragment as OnboardingFragment).onboardingFragmentListener = this
@@ -212,7 +213,9 @@ class OnboardingActivity : AppCompatActivity(), OnboardingFragmentListener {
                 )
             }
             FragmentName.NO_PERMISSION -> showFragment(if (Permissions.canReadStorage(applicationContext)) FragmentName.SCAN else FragmentName.THEME)
-            FragmentName.THEME -> showFragment(FragmentName.PRIVACY)
+            // VLC Redesign: the desktop's Subtitle languages step, between the look and the online choices
+            FragmentName.THEME -> showFragment(FragmentName.SUBTITLES)
+            FragmentName.SUBTITLES -> showFragment(FragmentName.PRIVACY)
             FragmentName.NOTIFICATION_PERMISSION -> if(!Permissions.canSendNotifications(applicationContext) && !viewModel.notificationPermissionAlreadyAsked) askNotificationPermission() else showFragment(FragmentName.THEME)
             FragmentName.SCAN -> if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S && !Permissions.canSendNotifications(applicationContext)) showFragment(FragmentName.NOTIFICATION_PERMISSION) else showFragment(FragmentName.THEME)
             else ->  onDone()
@@ -228,6 +231,7 @@ enum class FragmentName {
     NO_PERMISSION,
     NOTIFICATION_PERMISSION,
     THEME,
+    SUBTITLES,
     PRIVACY
 }
 

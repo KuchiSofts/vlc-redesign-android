@@ -569,4 +569,138 @@
     <string name="rd_sleep_pause">再生を一時停止</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">第2字幕の遅延</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">字幕を追加</string>
+    <string name="rd_from_a_file">ファイルから</string>
+    <string name="rd_from_link">リンクから</string>
+    <string name="rd_link_hint">字幕ファイルへの直接のHTTPSリンク</string>
+    <string name="rd_link_not_subtitle">字幕ファイル (.srt、.ass、.ssa、.sub、.vtt、.ttml、.smi) への直接のHTTPSリンクを入力してください。</string>
+    <string name="rd_link_too_big">字幕がダウンロードの上限 (20 MB) を超えています。</string>
+    <string name="rd_link_failed">字幕をダウンロードできませんでした: %1$s</string>
+    <string name="rd_link_downloading">字幕をダウンロードしています…</string>
+    <string name="rd_link_added">字幕を追加しました: %1$s</string>
+    <string name="rd_seek_sub_cues">シークバーに字幕の行を表示</string>
+    <string name="rd_help_seek_sub_cues">表示中の字幕にこの先セリフがある位置をシークバーに印で示します。</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">ショートカットのフィードバックを表示</string>
+    <string name="rd_show_feedback_for">フィードバックの表示時間</string>
+    <string name="rd_help_osd">何かが変わったときに映像の上に出るメッセージ (速度、遅延、ズーム、トラック)。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">アクセシビリティ</string>
+    <string name="rd_increase_contrast">テキストのコントラストを上げる</string>
+    <string name="rd_help_increase_contrast">デザイン内の薄い文字 (ヒント、説明、視聴済みの項目) を、WCAG アクセシビリティガイドラインが求めるコントラスト (AA) まで明るく表示します。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">プレイヤーバーを常に表示</string>
+    <string name="rd_help_always_show_player_bar">何も再生していないときも、ライブラリの下部にプレイヤーバーを表示します: 再生ボタンで再生キューを開始し、キューが空の場合はファイルを開きます。</string>
+    <string name="rd_nothing_playing">何も再生されていません</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">無視するファイル拡張子</string>
+    <string name="rd_help_ignore_filetypes">フォルダーを開くときや一覧表示するときに、これらの拡張子のファイルを除外します (カンマ区切り)。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">字幕の遅延</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">字幕の言語を選択してください。</string>
+    <string name="rd_ob_subtitles_text">設定した言語の字幕は自動的に表示されます: ビデオ内の字幕、同じ場所にあるファイル、またはオンラインで見つかった字幕です。その言語の字幕がオンラインにもない場合は、第2言語が使用されます。</string>
+    <string name="rd_ob_default_language">デフォルトの言語</string>
+    <string name="rd_ob_second_language">第2言語 (字幕がない場合)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="other">非表示のデバイスを表示 (%1$d)</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">このデバイスを非表示</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">キーボードショートカット</string>
+    <string name="rd_help_keyboard_shortcuts">キーボード、ゲームコントローラー、テレビのリモコンのキーがプレイヤーで行うこと。</string>
+    <string name="rd_key_play_pause">再生/一時停止</string>
+    <string name="rd_key_stop">停止</string>
+    <string name="rd_key_next">次へ</string>
+    <string name="rd_key_previous">前へ</string>
+    <string name="rd_key_very_short_back">ほんの少し前に戻る</string>
+    <string name="rd_key_very_short_forward">ほんの少し先に進む</string>
+    <string name="rd_key_short_back">少し前に戻る</string>
+    <string name="rd_key_short_forward">少し先に進む</string>
+    <string name="rd_key_medium_back">前に戻る</string>
+    <string name="rd_key_medium_forward">先に進む</string>
+    <string name="rd_key_long_back">かなり前に戻る</string>
+    <string name="rd_key_long_forward">かなり先に進む</string>
+    <string name="rd_key_faster">速く</string>
+    <string name="rd_key_slower">ゆっくり</string>
+    <string name="rd_key_normal_rate">通常レート</string>
+    <string name="rd_key_volume_up">音量を上げる</string>
+    <string name="rd_key_volume_down">音量を下げる</string>
+    <string name="rd_key_mute">ミュート</string>
+    <string name="rd_key_audio_delay_down">オーディオの遅延を減少</string>
+    <string name="rd_key_audio_delay_up">オーディオの遅延を増加</string>
+    <string name="rd_key_aspect">ソースのアスペクト比の切り替え</string>
+    <string name="rd_key_snapshot">ビデオスナップショットを撮る</string>
+    <string name="rd_key_record">レコーディング</string>
+    <string name="rd_key_sub_delay_down">字幕の遅延を減少</string>
+    <string name="rd_key_sub_delay_up">字幕の遅延を増加</string>
+    <string name="rd_key_sync_audio">字幕の同期 / オーディオのタイムスタンプをブックマーク</string>
+    <string name="rd_key_sync_subtitle">字幕の同期 / 字幕のタイムスタンプをブックマーク</string>
+    <string name="rd_key_sync_apply">字幕同期 / オーディオと字幕タイムスタンプを同期</string>
+    <string name="rd_key_sub_scale_reset">字幕テキストの拡大率をリセット</string>
+    <string name="rd_key_show_controls">全画面表示モードでコントローラーを表示</string>
+    <string name="rd_key_options">コンテキストメニュー</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">オーディオトラックを追加</string>
+    <string name="rd_audio_track_added">音声トラックを追加しました: %1$s</string>
+    <string name="rd_audio_track_failed">音声トラックを追加できませんでした。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">このネットワークから GitHub への問い合わせが多すぎます。%1$s 以降にもう一度お試しください。</string>
+    <string name="rd_update_rate_limited">このネットワークから GitHub への問い合わせが多すぎます。しばらくしてからもう一度お試しください。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">エフェクトのプリセット</string>
+    <string name="rd_fx_preset_default">デフォルトのプリセット</string>
+    <string name="rd_fx_preset_new">新しいプリセット</string>
+    <string name="rd_fx_preset_custom">カスタムプリセット %1$s</string>
+    <string name="rd_fx_preset_update">現在のエフェクトで更新</string>
+    <string name="rd_fx_preset_rename">名前を変更</string>
+    <string name="rd_fx_preset_delete">削除</string>
+    <string name="rd_fx_preset_rename_title">プリセット名を変更</string>
+    <string name="rd_fx_preset_create">作成</string>
+    <string name="rd_fx_preset_name_hint">例: 深夜の映画</string>
+    <string name="rd_fx_preset_keeps">使用中のオーディオとビデオのエフェクトがプリセットに保存されます。</string>
+    <string name="rd_fx_preset_keeps_own">プリセットのエフェクトはそのまま保持されます。</string>
+    <string name="rd_fx_preset_delete_title">プリセットを削除</string>
+    <string name="rd_fx_preset_delete_question">%1$sを削除しますか?</string>
+    <string name="rd_fx_preset_delete_note">使用中のエフェクトはそのまま残ります。</string>
+    <string name="rd_fx_preset_err_empty">プリセットの名前を入力してください。</string>
+    <string name="rd_fx_preset_err_default">「%1$s」はデフォルトのエフェクトのプリセットです。</string>
+    <string name="rd_fx_preset_err_taken">「%1$s」という名前のプリセットは既に存在します。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">複製</string>
+    <string name="rd_clone_profile">プロファイルを複製</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_repeat">リピート</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">サイズの指定方法</string>
+    <string name="rd_sub_size_relative">相対</string>
+    <string name="rd_sub_size_pixels">ピクセル</string>
+    <string name="rd_help_sub_fontsize_px">映像のピクセル単位での文字の高さ。</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_lyrics">歌詞</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">サーバーが応答しませんでした</string>
+    <string name="rd_tv_err_not_found">サーバーのアドレスが見つかりませんでした</string>
+    <string name="rd_tv_err_unreachable">サーバーに接続できませんでした</string>
+    <string name="rd_tv_err_secure">安全な接続に失敗しました</string>
+    <string name="rd_tv_err_failed">ダウンロードできませんでした</string>
+    <string name="rd_tv_err_busy">サーバーが混み合っています。しばらくしてからもう一度お試しください</string>
+    <string name="rd_tv_err_wrong">サーバーの応答を読み取れませんでした</string>
+    <string name="rd_tv_err_cancelled">キャンセルされました</string>
+    <string name="rd_tv_err_unreadable">ファイルを読み取れません</string>
+    <string name="rd_tv_err_unsaved">このデバイスに保存できません</string>
+    <string name="rd_tv_err_redirections">サーバーのリダイレクトが多すぎます</string>
+    <string name="rd_tv_err_too_large">サイズが大きすぎます</string>
+    <string name="rd_tv_err_not_m3u">M3U プレイリストではありません</string>
+    <string name="rd_tv_err_no_channels">チャンネルがありません</string>
+    <string name="rd_tv_err_not_xmltv">XMLTV ガイドではありません</string>
+    <string name="rd_tv_err_guide_unreadable">ガイドを読み取れませんでした</string>
+    <string name="rd_tv_err_cut">ガイドが途中で切れていました</string>
+    <string name="rd_tv_err_account">アカウントを読み取れませんでした</string>
+    <string name="rd_tv_err_sign_in">先にサインインしてください</string>
+    <string name="rd_tv_err_refused">サーバーがアクセスを拒否しました (%1$d)</string>
+    <string name="rd_tv_err_missing">このアドレスには何も見つかりませんでした (%1$d)</string>
+    <string name="rd_tv_err_http">サーバーがエラーを返しました (%1$d)</string>
 </resources>

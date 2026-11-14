@@ -573,4 +573,141 @@
     <string name="rd_sleep_pause">Призупинити відтворення</string>
     <!-- 0.6.5: the desktop's settings, About and keys on Android -->
     <string name="rd_secondary_sub_delay">Затримка додаткових субтитрів</string>
+    <!-- 0.6.6: subtitle marks on the seek bar, subtitles from a link -->
+    <string name="rd_add_subtitles">Додати субтитри</string>
+    <string name="rd_from_a_file">З файлу</string>
+    <string name="rd_from_link">За посиланням</string>
+    <string name="rd_link_hint">Пряме HTTPS-посилання на файл субтитрів</string>
+    <string name="rd_link_not_subtitle">Введіть пряме HTTPS-посилання на файл субтитрів (.srt, .ass, .ssa, .sub, .vtt, .ttml або .smi).</string>
+    <string name="rd_link_too_big">Субтитри перевищують ліміт завантаження 20 МБ.</string>
+    <string name="rd_link_failed">Не вдалося завантажити субтитри: %1$s</string>
+    <string name="rd_link_downloading">Завантаження субтитрів…</string>
+    <string name="rd_link_added">Субтитри додано: %1$s</string>
+    <string name="rd_seek_sub_cues">Показувати рядки субтитрів на смузі перемотування</string>
+    <string name="rd_help_seek_sub_cues">Позначки на смузі перемотування там, де показані субтитри ще мають рядки.</string>
+    <!-- 0.6.6: On-Screen Messages -->
+    <string name="rd_show_shortcut_feedback">Показувати відгук на скорочення</string>
+    <string name="rd_show_feedback_for">Показувати відгук протягом</string>
+    <string name="rd_help_osd">Повідомлення поверх відео, коли щось змінюється: швидкість, затримка, масштаб, доріжка.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sec_accessibility">Спеціальні можливості</string>
+    <string name="rd_increase_contrast">Підвищити контрастність тексту</string>
+    <string name="rd_help_increase_contrast">Робить тьмяні тексти дизайну (підказки, описи, переглянуті елементи) яскравішими — до контрастності, якої вимагають рекомендації доступності WCAG (AA).</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_always_show_player_bar">Завжди показувати панель програвача</string>
+    <string name="rd_help_always_show_player_bar">Залишає панель програвача внизу бібліотеки, навіть коли нічого не відтворюється: кнопка «Відтворити» запускає чергу відтворення або, якщо вона порожня, відкриває файли.</string>
+    <string name="rd_nothing_playing">Нічого не відтворюється</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ignored_extensions">Ігноровані розширення файлів</string>
+    <string name="rd_help_ignore_filetypes">Файли з цими розширеннями пропускаються під час відкриття або перегляду теки; через кому.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_subtitle_delay">Затримка субтитрів</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_ob_subtitles_title">Виберіть мови субтитрів.</string>
+    <string name="rd_ob_subtitles_text">Субтитри вашою мовою з’являються самі: з відео, з файлу поруч із ним або знайдені в Інтернеті. Якщо субтитрів цією мовою немає навіть в Інтернеті, використовується друга мова.</string>
+    <string name="rd_ob_default_language">Основна мова</string>
+    <string name="rd_ob_second_language">Друга мова (якщо першою немає)</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="one">Показати %1$d прихований пристрій</item>
+        <item quantity="few">Показати %1$d приховані пристрої</item>
+        <item quantity="many">Показати %1$d прихованих пристроїв</item>
+        <item quantity="other">Показати %1$d прихованих пристроїв</item>
+    </plurals>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_cast_hide_device">Сховати цей пристрій</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_keyboard_shortcuts">Клавіатурні скорочення</string>
+    <string name="rd_help_keyboard_shortcuts">Що роблять у програвачі клавіші клавіатури, геймпада або пульта телевізора.</string>
+    <string name="rd_key_play_pause">Відтворити/Призупинити</string>
+    <string name="rd_key_stop">Зупинити</string>
+    <string name="rd_key_next">Наступний</string>
+    <string name="rd_key_previous">Попередній</string>
+    <string name="rd_key_very_short_back">Дуже короткий стрибок назад</string>
+    <string name="rd_key_very_short_forward">Дуже короткий стрибок вперед</string>
+    <string name="rd_key_short_back">Короткий стрибок назад</string>
+    <string name="rd_key_short_forward">Короткий стрибок вперед</string>
+    <string name="rd_key_medium_back">Середній стрибок назад</string>
+    <string name="rd_key_medium_forward">Середній стрибок вперед</string>
+    <string name="rd_key_long_back">Довгий стрибок назад</string>
+    <string name="rd_key_long_forward">Довгий стрибок вперед</string>
+    <string name="rd_key_faster">Швидше</string>
+    <string name="rd_key_slower">Повільніше</string>
+    <string name="rd_key_normal_rate">Нормальна швидкість</string>
+    <string name="rd_key_volume_up">Голосніше</string>
+    <string name="rd_key_volume_down">Тихіше</string>
+    <string name="rd_key_mute">Вимкнути звук</string>
+    <string name="rd_key_audio_delay_down">Зменшити затримку звуку</string>
+    <string name="rd_key_audio_delay_up">Збільшити затримку звуку</string>
+    <string name="rd_key_aspect">Циклічно перемикати співвідношення сторін джерела</string>
+    <string name="rd_key_snapshot">Зробити стоп-кадр</string>
+    <string name="rd_key_record">Записування</string>
+    <string name="rd_key_sub_delay_down">Зменшити затримку субтитрів</string>
+    <string name="rd_key_sub_delay_up">Збільшити затримку субтитрів</string>
+    <string name="rd_key_sync_audio">Закладка аудіо мітки при синхронізації субтитрів</string>
+    <string name="rd_key_sync_subtitle">Закладка мітки субтитрів при синхронізації субтитрів</string>
+    <string name="rd_key_sync_apply">Синхронізація міток аудіо та субтитрів при синхронізації субтитрів</string>
+    <string name="rd_key_sub_scale_reset">Скинути масштаб тексту субтитрів</string>
+    <string name="rd_key_show_controls">Показати елемент керування в повноекранному режимі</string>
+    <string name="rd_key_options">Контекстне меню</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_add_audio_track">Додати звукові доріжки</string>
+    <string name="rd_audio_track_added">Звукову доріжку додано: %1$s</string>
+    <string name="rd_audio_track_failed">Не вдалося додати звукову доріжку.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_update_rate_limited_at">GitHub отримав забагато запитів із цієї мережі. Спробуйте після %1$s.</string>
+    <string name="rd_update_rate_limited">GitHub отримав забагато запитів із цієї мережі. Спробуйте пізніше.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_fx_presets">Набори ефектів</string>
+    <string name="rd_fx_preset_default">Типовий набір</string>
+    <string name="rd_fx_preset_new">Новий набір</string>
+    <string name="rd_fx_preset_custom">Власний набір %1$s</string>
+    <string name="rd_fx_preset_update">Оновити поточними ефектами</string>
+    <string name="rd_fx_preset_rename">Перейменувати</string>
+    <string name="rd_fx_preset_delete">Видалити</string>
+    <string name="rd_fx_preset_rename_title">Перейменувати набір</string>
+    <string name="rd_fx_preset_create">Створити</string>
+    <string name="rd_fx_preset_name_hint">напр., Нічні фільми</string>
+    <string name="rd_fx_preset_keeps">Набір зберігає поточні звукові та відеоефекти.</string>
+    <string name="rd_fx_preset_keeps_own">Набір зберігає свої ефекти.</string>
+    <string name="rd_fx_preset_delete_title">Видалити набір</string>
+    <string name="rd_fx_preset_delete_question">Видалити %1$s?</string>
+    <string name="rd_fx_preset_delete_note">Поточні ефекти залишаться без змін.</string>
+    <string name="rd_fx_preset_err_empty">Введіть назву набору.</string>
+    <string name="rd_fx_preset_err_default">«%1$s» — це набір типових ефектів.</string>
+    <string name="rd_fx_preset_err_taken">Набір із назвою «%1$s» вже існує.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_clone">Клонування</string>
+    <string name="rd_clone_profile">Клонувати профіль</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_repeat">Повторювати</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_sub_size_values">Значення розміру</string>
+    <string name="rd_sub_size_relative">Відносний</string>
+    <string name="rd_sub_size_pixels">Пікселі</string>
+    <string name="rd_help_sub_fontsize_px">Висота літер у пікселях відео.</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_lyrics">Текст</string>
+    <!-- 0.6.6: more of the desktop options -->
+    <string name="rd_tv_err_no_answer">сервер не відповів</string>
+    <string name="rd_tv_err_not_found">адресу сервера не знайдено</string>
+    <string name="rd_tv_err_unreachable">не вдалося з\'єднатися із сервером</string>
+    <string name="rd_tv_err_secure">не вдалося встановити захищене з\'єднання</string>
+    <string name="rd_tv_err_failed">не вдалося завантажити</string>
+    <string name="rd_tv_err_busy">сервер зайнятий, спробуйте пізніше</string>
+    <string name="rd_tv_err_wrong">не вдалося прочитати відповідь сервера</string>
+    <string name="rd_tv_err_cancelled">скасовано</string>
+    <string name="rd_tv_err_unreadable">не вдається прочитати файл</string>
+    <string name="rd_tv_err_unsaved">не вдається зберегти на цьому пристрої</string>
+    <string name="rd_tv_err_redirections">сервер забагато разів перенаправив запит</string>
+    <string name="rd_tv_err_too_large">завеликий розмір</string>
+    <string name="rd_tv_err_not_m3u">це не список відтворення M3U</string>
+    <string name="rd_tv_err_no_channels">у ньому немає каналів</string>
+    <string name="rd_tv_err_not_xmltv">це не програма передач XMLTV</string>
+    <string name="rd_tv_err_guide_unreadable">не вдалося прочитати програму передач</string>
+    <string name="rd_tv_err_cut">програму передач отримано не повністю</string>
+    <string name="rd_tv_err_account">не вдалося прочитати обліковий запис</string>
+    <string name="rd_tv_err_sign_in">спершу увійдіть</string>
+    <string name="rd_tv_err_refused">сервер відмовив у доступі (%1$d)</string>
+    <string name="rd_tv_err_missing">за цією адресою нічого не знайдено (%1$d)</string>
+    <string name="rd_tv_err_http">сервер відповів помилкою (%1$d)</string>
 </resources>

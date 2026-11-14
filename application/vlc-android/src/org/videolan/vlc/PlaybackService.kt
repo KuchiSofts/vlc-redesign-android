@@ -162,6 +162,7 @@ import org.videolan.tools.Settings
 import org.videolan.tools.isAppStarted
 import org.videolan.tools.formatRateString
 import org.videolan.tools.getContextWithLocale
+import org.videolan.tools.withRdOverrides
 import org.videolan.tools.getResourceUri
 import org.videolan.tools.markBidi
 import org.videolan.tools.readableSize
@@ -732,7 +733,8 @@ class PlaybackService : MediaBrowserServiceCompat(), LifecycleOwner, CoroutineSc
     }
 
     override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(newBase?.getContextWithLocale(AppContextProvider.locale))
+        // (VLC Redesign: the popup player is drawn here: the layout direction and text contrast of Settings too)
+        super.attachBaseContext(newBase?.getContextWithLocale(AppContextProvider.locale)?.withRdOverrides())
     }
 
     override fun getApplicationContext(): Context {

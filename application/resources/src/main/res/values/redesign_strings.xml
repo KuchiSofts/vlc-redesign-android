@@ -551,6 +551,19 @@
         <item quantity="other">%1$d files added to the queue</item>
     </plurals>
     <string name="rd_no_file_picker">This device has no file picker: add files from the app\'s folders instead.</string>
+    <!-- The subtitles panel's +: the desktop's Add Subtitles, from a file or From Link -->
+    <string name="rd_add_subtitles">Add Subtitles</string>
+    <string name="rd_from_a_file">From a file</string>
+    <string name="rd_from_link">From Link</string>
+    <string name="rd_link_hint">Direct HTTPS link to a subtitle file</string>
+    <string name="rd_link_not_subtitle">Enter a direct HTTPS link to a subtitle file (.srt, .ass, .ssa, .sub, .vtt, .ttml or .smi).</string>
+    <string name="rd_link_too_big">The subtitle exceeds the 20 MB download limit.</string>
+    <string name="rd_link_failed">Could not download the subtitle: %1$s</string>
+    <string name="rd_link_downloading">Downloading the subtitle…</string>
+    <string name="rd_link_added">Subtitle added: %1$s</string>
+    <!-- Settings › Subtitles › Timing: the desktop's row -->
+    <string name="rd_seek_sub_cues">Show subtitle lines on the seek bar</string>
+    <string name="rd_help_seek_sub_cues">Marks on the seek bar where the subtitle shown has lines still to come.</string>
     <!-- The subtitle timing panel: the second language's own delay (the desktop's) -->
     <string name="rd_secondary_sub_delay">Secondary subtitle delay</string>
     <!-- The sleep timer: when it ends, pause instead of stopping (the desktop's choice "Pause playback") -->
@@ -726,4 +739,145 @@
     <string name="rd_subs_larger">Larger subtitles</string>
     <string name="rd_os_show_both">Show both languages at once (dual subtitles)</string>
     <string name="rd_on_this_device">On this device</string>
+    <!-- Settings › Subtitles › On-Screen Messages: the desktop's osd and osd-duration (gui/video/RdOsd) -->
+    <string name="rd_show_shortcut_feedback">Show feedback for shortcuts</string>
+    <string name="rd_show_feedback_for">Show feedback for</string>
+    <string name="rd_help_osd">Messages over the video when something changes: the speed, a delay, the zoom, a track.</string>
+    <!-- Settings › Interface › Accessibility: the desktop's Increase text contrast (LocaleUtils.withRdContrast) -->
+    <string name="rd_sec_accessibility">Accessibility</string>
+    <string name="rd_increase_contrast">Increase text contrast</string>
+    <!-- Settings › Interface › Player Bar: the desktop's Always show the player bar (AudioPlayer.showIdle) -->
+    <string name="rd_always_show_player_bar">Always show the player bar</string>
+    <string name="rd_help_always_show_player_bar">Keeps the player bar at the bottom of the library while nothing plays: Play starts the play queue, or opens files when it is empty.</string>
+    <string name="rd_nothing_playing">Nothing is playing</string>
+    <!-- The welcome's Subtitle languages step, the desktop's (OnboardingSubtitlesFragment) -->
+    <string name="rd_ob_subtitles_title">Choose the languages of your subtitles.</string>
+    <string name="rd_ob_subtitles_text">Subtitles in your language show by themselves: from the video, from a file next to it, or found online. When there are none in it, not even online, the second language is used.</string>
+    <string name="rd_ob_default_language">Default language</string>
+    <string name="rd_ob_second_language">Second language (when there are none)</string>
+    <!-- The cast list: the desktop's Hide this device and Show %1 hidden devices (CastSheet) -->
+    <string name="rd_cast_hide_device">Hide this device</string>
+    <plurals name="rd_cast_show_hidden">
+        <item quantity="one">Show %1$d hidden device</item>
+        <item quantity="other">Show %1$d hidden devices</item>
+    </plurals>
+    <!-- Settings › Controls › Keyboard Shortcuts: the player's keys, in VLC's own words for its hotkeys (RdShortcuts) -->
+    <string name="rd_keyboard_shortcuts">Keyboard Shortcuts</string>
+    <string name="rd_help_keyboard_shortcuts">What the keys of a keyboard, a game controller or a TV remote do in the player.</string>
+    <string name="rd_key_play_pause">Play/Pause</string>
+    <string name="rd_key_stop">Stop</string>
+    <string name="rd_key_next">Next</string>
+    <string name="rd_key_previous">Previous</string>
+    <string name="rd_key_very_short_back">Very short backwards jump</string>
+    <string name="rd_key_very_short_forward">Very short forward jump</string>
+    <string name="rd_key_short_back">Short backwards jump</string>
+    <string name="rd_key_short_forward">Short forward jump</string>
+    <string name="rd_key_medium_back">Medium backwards jump</string>
+    <string name="rd_key_medium_forward">Medium forward jump</string>
+    <string name="rd_key_long_back">Long backwards jump</string>
+    <string name="rd_key_long_forward">Long forward jump</string>
+    <string name="rd_key_faster">Faster</string>
+    <string name="rd_key_slower">Slower</string>
+    <string name="rd_key_normal_rate">Normal rate</string>
+    <string name="rd_key_volume_up">Volume up</string>
+    <string name="rd_key_volume_down">Volume down</string>
+    <string name="rd_key_mute">Mute</string>
+    <string name="rd_key_audio_delay_down">Audio delay down</string>
+    <string name="rd_key_audio_delay_up">Audio delay up</string>
+    <string name="rd_key_aspect">Cycle source aspect ratio</string>
+    <string name="rd_key_snapshot">Take video snapshot</string>
+    <string name="rd_key_record">Record</string>
+    <string name="rd_key_sub_delay_down">Subtitle delay down</string>
+    <string name="rd_key_sub_delay_up">Subtitle delay up</string>
+    <string name="rd_key_sync_audio">Subtitle sync / bookmark audio timestamp</string>
+    <string name="rd_key_sync_subtitle">Subtitle sync / bookmark subtitle timestamp</string>
+    <string name="rd_key_sync_apply">Subtitle sync / synchronize audio &amp; subtitle timestamps</string>
+    <string name="rd_key_sub_scale_reset">Reset subtitles text scale</string>
+    <string name="rd_key_show_controls">Show controller in fullscreen</string>
+    <string name="rd_key_options">Context menu</string>
+    <!-- The tracks panel's Audio: the desktop's Add Audio Track (VideoPlayerActivity.rdAddAudioTrack) -->
+    <string name="rd_add_audio_track">Add Audio Tracks</string>
+    <string name="rd_audio_track_added">Audio track added: %1$s</string>
+    <string name="rd_audio_track_failed">The audio track could not be added.</string>
+    <!-- About's update check: GitHub's rate limit, as the desktop's (RdUpdateCheck.Result.RateLimited) -->
+    <string name="rd_update_rate_limited_at">GitHub was asked too often from this network. Try again after %1$s.</string>
+    <string name="rd_update_rate_limited">GitHub was asked too often from this network. Try again later.</string>
+    <!-- The Effects window's presets, the desktop's (RdEffectPresets, RdEffectsDialog) -->
+    <string name="rd_fx_presets">Effect presets</string>
+    <string name="rd_fx_preset_default">Default Preset</string>
+    <string name="rd_fx_preset_new">New Preset</string>
+    <string name="rd_fx_preset_custom">Custom Preset %1$s</string>
+    <string name="rd_fx_preset_update">Update with current effects</string>
+    <string name="rd_fx_preset_rename">Rename</string>
+    <string name="rd_fx_preset_delete">Delete</string>
+    <string name="rd_fx_preset_rename_title">Rename Preset</string>
+    <string name="rd_fx_preset_create">Create</string>
+    <string name="rd_fx_preset_name_hint">e.g., Late Night Movies</string>
+    <string name="rd_fx_preset_keeps">The preset keeps the audio and video effects in use.</string>
+    <string name="rd_fx_preset_keeps_own">The preset keeps its effects.</string>
+    <string name="rd_fx_preset_delete_title">Delete Preset</string>
+    <string name="rd_fx_preset_delete_question">Delete %1$s?</string>
+    <string name="rd_fx_preset_delete_note">The effects in use stay as they are.</string>
+    <string name="rd_fx_preset_err_empty">Enter a name for the preset.</string>
+    <string name="rd_fx_preset_err_default">\"%1$s\" is the preset of the default effects.</string>
+    <string name="rd_fx_preset_err_taken">A preset named \"%1$s\" already exists.</string>
+    <!-- Customize Player: the desktop's Clone of a profile -->
+    <string name="rd_clone">Clone</string>
+    <string name="rd_clone_profile">Clone Profile</string>
+    <!-- Settings › Playback › Order: the desktop's Repeat (Off, One, All) -->
+    <string name="rd_repeat">Repeat</string>
+    <string-array name="rd_repeat_entries" translatable="false">
+        <item>@string/repeat_none</item>
+        <item>@string/repeat_single</item>
+        <item>@string/repeat_all</item>
+    </string-array>
+    <string-array name="rd_repeat_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <!-- Settings › Subtitles › Appearance: the desktop's Size values (Relative, Pixels) -->
+    <string name="rd_sub_size_values">Size values</string>
+    <string name="rd_sub_size_relative">Relative</string>
+    <string name="rd_sub_size_pixels">Pixels</string>
+    <string name="rd_help_sub_fontsize_px">The height of the letters in pixels of the video.</string>
+    <string-array name="rd_sub_size_mode_entries" translatable="false">
+        <item>@string/rd_sub_size_relative</item>
+        <item>@string/rd_sub_size_pixels</item>
+    </string-array>
+    <string-array name="rd_sub_size_mode_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <!-- The music player's menu: the song's lyrics, the desktop's music view (RdLyricsSheet) -->
+    <string name="rd_lyrics">Lyrics</string>
+    <!-- Settings › Subtitles › Timing: the desktop's Subtitle delay (sub-delay), the default of every video -->
+    <string name="rd_subtitle_delay">Subtitle delay</string>
+    <!-- Settings › Library › Advanced: the desktop's Ignored file extensions (libvlc's ignore-filetypes) -->
+    <string name="rd_ignored_extensions">Ignored file extensions</string>
+    <string name="rd_help_ignore_filetypes">Files with these extensions are left out when a folder is opened or listed, separated by commas.</string>
+    <string name="rd_help_increase_contrast">Draws the dim texts of the design (hints, descriptions, watched items) brighter, to the contrast the WCAG accessibility guidelines ask for (AA).</string>
+    <!-- Live TV: why a source or a guide could not be loaded (TvErrors: the reasons the desktop keeps) -->
+    <string name="rd_tv_err_no_answer">the server did not answer</string>
+    <string name="rd_tv_err_not_found">the server\'s address was not found</string>
+    <string name="rd_tv_err_unreachable">the server could not be reached</string>
+    <string name="rd_tv_err_secure">the secure connection failed</string>
+    <string name="rd_tv_err_failed">it could not be downloaded</string>
+    <string name="rd_tv_err_busy">the server is busy, try again later</string>
+    <string name="rd_tv_err_wrong">the server\'s answer could not be read</string>
+    <string name="rd_tv_err_cancelled">cancelled</string>
+    <string name="rd_tv_err_unreadable">the file cannot be read</string>
+    <string name="rd_tv_err_unsaved">it cannot be saved on this device</string>
+    <string name="rd_tv_err_redirections">the server sent it on too many times</string>
+    <string name="rd_tv_err_too_large">it is too large</string>
+    <string name="rd_tv_err_not_m3u">it is not an M3U playlist</string>
+    <string name="rd_tv_err_no_channels">it has no channels</string>
+    <string name="rd_tv_err_not_xmltv">it is not an XMLTV guide</string>
+    <string name="rd_tv_err_guide_unreadable">the guide could not be read</string>
+    <string name="rd_tv_err_cut">the guide came cut short</string>
+    <string name="rd_tv_err_account">the account could not be read</string>
+    <string name="rd_tv_err_sign_in">sign in first</string>
+    <string name="rd_tv_err_refused">the server refused access (%1$d)</string>
+    <string name="rd_tv_err_missing">nothing was found at this address (%1$d)</string>
+    <string name="rd_tv_err_http">the server answered with an error (%1$d)</string>
 </resources>

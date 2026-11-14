@@ -140,6 +140,7 @@ import org.videolan.resources.TV_AUDIOPLAYER_ACTIVITY
 import org.videolan.resources.buildPkgString
 import org.videolan.resources.util.parcelable
 import org.videolan.resources.util.parcelableList
+import org.videolan.resources.util.getFromMl
 import org.videolan.tools.BRIGHTNESS_VALUE
 import org.videolan.tools.DISPLAY_UNDER_NOTCH
 import org.videolan.tools.ENABLE_BRIGHTNESS_GESTURE
@@ -172,7 +173,7 @@ import org.videolan.tools.VIDEO_RESUME_URI
 import org.videolan.tools.VIDEO_TRANSITION_SHOW
 import org.videolan.tools.dp
 import org.videolan.tools.getContextWithLocale
-import org.videolan.tools.withRdLayoutDirection
+import org.videolan.tools.withRdOverrides
 import org.videolan.vlc.gui.helpers.rdTvDesignScale
 import org.videolan.tools.isStarted
 import org.videolan.tools.isVisible
@@ -557,7 +558,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     override fun getDelegate() = baseContextWrappingDelegate
             ?: BaseContextWrappingDelegate(super.getDelegate()).apply { baseContextWrappingDelegate = this }
 
-    override fun createConfigurationContext(overrideConfiguration: Configuration) = super.createConfigurationContext(overrideConfiguration).getContextWithLocale(AppContextProvider.locale).withRdLayoutDirection()
+    override fun createConfigurationContext(overrideConfiguration: Configuration) = super.createConfigurationContext(overrideConfiguration).getContextWithLocale(AppContextProvider.locale).withRdOverrides()
 
     // VLC Redesign: the player is always dark, set before the base context is made: AppCompat then builds a
     // configuration context of its own. Set in onCreate() it went through Resources.updateConfiguration() (the
@@ -610,7 +611,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         castingCard.bind()
         org.videolan.vlc.cast.CastController.notice.observe(this) { message ->
             // (the player's message on the video)
-            if (!message.isNullOrEmpty()) overlayDelegate.showInfo(message, 5000)
+            if (!message.isNullOrEmpty()) overlayDelegate.showInfo(message, 5000, notice = true)
         }
 
 
@@ -1373,7 +1374,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                                     when {
                                         dst == null -> UiTools.snacker(this@VideoPlayerActivity, R.string.screenshot_error)
                                         settings.getBoolean(RdSnapshot.KEY_PREVIEW, true) -> screenshotDelegate.takeScreenshot(dst, bitmap, coords, surface.width, surface.height)
-                                        else -> overlayDelegate.showInfo(getString(R.string.rd_snapshot_saved, RdSnapshot.relativeDir(settings).replace("/", " › ")), 2000)
+                                        else -> overlayDelegate.showInfo(getString(R.string.rd_snapshot_saved, RdSnapshot.relativeDir(settings).replace("/", " › ")), 2000, notice = true)
                                     }
                                 }
                             }, Handler(Looper.getMainLooper()))
@@ -1403,19 +1404,50 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         super.onActivityResult(requestCode, resultCode, data)
         if (data == null) return
 
+        // VLC Redesign: Add Audio Track (VideoPlayerOverlayDelegate.pickAudioTrack)
+        if (requestCode == RD_PICK_AUDIO && data.hasExtra(EXTRA_MRL)) {
+            rdAddAudioTrack(data.getStringExtra(EXTRA_MRL)!!)
+            return
+        }
         if (data.hasExtra(EXTRA_MRL)) {
             val subtitleUri = data.getStringExtra(EXTRA_MRL)!!.toUri()
             val picked = getUri(subtitleUri) ?: subtitleUri
-            // (the Subtitles panel says "Opened · its name" under it)
-            val pickedName = (subtitleUri.lastPathSegment ?: "").substringAfterLast('/')
-            rdExpectSubtitle(org.videolan.vlc.util.RdSubtitleChoices.Source(org.videolan.vlc.util.RdSubtitleChoices.Kind.OPENED, pickedName,
-                language = org.videolan.vlc.util.OnlineSubtitles.languageOfSubtitleFile(pickedName)))
-            lifecycleScope.launch { service?.addSubtitleTrackAsync(picked, false) }
-            service?.currentMediaWrapper?.let {
-                SlaveRepository.getInstance(this).saveSlave(it.location, IMedia.Slave.Type.Subtitle, 2, data.getStringExtra(EXTRA_MRL)!!)
-            }
-            addNextTrack = true
+            rdAddOpenedSubtitle(picked, (subtitleUri.lastPathSegment ?: "").substringAfterLast('/'), data.getStringExtra(EXTRA_MRL)!!)
         } else if (BuildConfig.DEBUG) Log.d(TAG, "Subtitle selection dialog was cancelled")
+    }
+
+    /** VLC Redesign: the desktop's Add Audio Track: the sound file played with the video, chosen at once and kept for
+     *  it (its slave). The player stopped while the picker covered it: added once its queue is back. */
+    private fun rdAddAudioTrack(mrl: String) {
+        lifecycleScope.launch {
+            var waited = 0L
+            while ((!lifecycle.currentState.isAtLeast(androidx.lifecycle.Lifecycle.State.RESUMED)
+                            || service?.playlistManager?.hasCurrentMedia() != true) && waited < 8000L) {
+                kotlinx.coroutines.delay(100L)
+                waited += 100L
+            }
+            kotlinx.coroutines.delay(300L)
+            val s = service ?: return@launch
+            val uri = getUri(mrl.toUri()) ?: mrl.toUri()
+            val added = s.playlistManager.player.addAudioTrack(uri, true)
+            if (added) s.currentMediaWrapper?.let {
+                SlaveRepository.getInstance(this@VideoPlayerActivity).saveSlave(it.location, IMedia.Slave.Type.Audio, 2, mrl)
+            }
+            overlayDelegate.showInfo(if (added) getString(R.string.rd_audio_track_added, (mrl.toUri().lastPathSegment ?: "").substringAfterLast('/'))
+                    else getString(R.string.rd_audio_track_failed), 3000, notice = true)
+        }
+    }
+
+    /** VLC Redesign: a subtitle file the user opened (a file of the device, a link downloaded): added, chosen when it
+     *  comes (whatever track was on), kept for this media (its slave), and "Opened · its name" in the Subtitles panel */
+    fun rdAddOpenedSubtitle(uri: Uri, name: String, slaveMrl: String = uri.toString()) {
+        rdExpectSubtitle(org.videolan.vlc.util.RdSubtitleChoices.Source(org.videolan.vlc.util.RdSubtitleChoices.Kind.OPENED, name,
+            language = org.videolan.vlc.util.OnlineSubtitles.languageOfSubtitleFile(name)))
+        addNextTrack = true
+        lifecycleScope.launch { if (service?.addSubtitleTrackAsync(uri, false) != true) addNextTrack = false }
+        service?.currentMediaWrapper?.let {
+            SlaveRepository.getInstance(this).saveSlave(it.location, IMedia.Slave.Type.Subtitle, 2, slaveMrl)
+        }
     }
 
     open fun exit(resultCode: Int) {
@@ -1705,6 +1737,38 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         return super.onKeyDown(keyCode, event)
     }
 
+    /** VLC Redesign: the lines of the subtitle shown, marked on the seek bar (the desktop's option, RdSeekCueMarks) */
+    private var rdCueMarks: RdSeekCueMarks? = null
+    private var rdCueKey: String? = null
+
+    fun rdUpdateCueMarks() {
+        val s = service ?: return
+        if (!overlayDelegate.isHudBindingInitialized()) return
+        val bar = overlayDelegate.hudBinding.playerOverlaySeekbar
+        // (a new bar after the controls were made again: the marks go on it)
+        if (rdCueMarks == null || rdCueMarks?.let { it.bar !== bar } == true) {
+            rdCueMarks?.detach()
+            rdCueMarks = RdSeekCueMarks(bar) { (service?.spuDelay ?: 0L) / 1000L }
+            rdCueKey = null
+        }
+        val marks = rdCueMarks ?: return
+        val media = s.currentMediaWrapper
+        val uri = media?.uri
+        if (!settings.getBoolean(KEY_RD_SEEK_SUB_CUES, true) || media == null || uri == null || !s.isSeekable) {
+            rdCueKey = null
+            marks.set(emptyList(), 0L)
+            return
+        }
+        val key = org.videolan.vlc.util.RdCueLoader.key(s, uri) + "|" + s.length
+        if (key == rdCueKey) return
+        rdCueKey = key
+        lifecycleScope.launch {
+            val cues = org.videolan.vlc.util.RdCueLoader.load(this@VideoPlayerActivity, s, media, uri) ?: emptyList()
+            if (rdCueKey != key) return@launch
+            marks.set(cues, s.length)
+        }
+    }
+
     /** A skip of Settings › Controls › Skip Amounts, in ms */
     private fun rdJump(key: String, default: Int) = settings.getInt(key, default).coerceIn(1, 3600) * 1000
 
@@ -1797,6 +1861,30 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     override fun resetRate() {
         service?.resetRate()
         if (keyFeedback.active) service?.let { keyFeedback.rate(it.rate) }
+    }
+
+    /** VLC Redesign: the player bar's Stop, Snapshot, Add bookmark, long jumps and Favorite (Customize Player,
+     *  PlayerBarLayout) */
+    fun rdBarAction(action: String) {
+        when (action) {
+            "stop" -> exitOK()
+            "snapshot" -> takeScreenshot()
+            "add_bookmark" -> bookmark()
+            "backward_long" -> touchDelegate.seekDelta(-Settings.videoLongJumpDelay * 1000)
+            "forward_long" -> touchDelegate.seekDelta(Settings.videoLongJumpDelay * 1000)
+            "favorite" -> lifecycleScope.launch {
+                // the media of the library playing: in the favorites, or out of them (as the library's menus)
+                val mw = service?.currentMediaWrapper ?: return@launch
+                // (a file or a stream the library does not have yet: added to it, as its history does; the library
+                // started first when the player was opened by itself)
+                val media = getFromMl { findMedia(mw)?.takeIf { it.id != 0L } ?: addMedia(mw.uri.toString(), mw.length) }
+                if (media == null || media.id == 0L) return@launch
+                val favorite = !media.isFavorite
+                withContext(Dispatchers.IO) { media.isFavorite = favorite }
+                if (BuildConfig.DEBUG) Log.d(TAG, "favorite: ${media.id} -> $favorite")
+                overlayDelegate.showInfo(getString(if (favorite) R.string.favorite_added else R.string.favorite_removed), 1500)
+            }
+        }
     }
 
     override fun bookmark() {
@@ -1916,7 +2004,10 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     override fun onMediaPlayerEvent(event: MediaPlayer.Event) {
         service?.let { service ->
             when (event.type) {
-                MediaPlayer.Event.Playing -> onPlaying()
+                MediaPlayer.Event.Playing -> {
+                    onPlaying()
+                    rdUpdateCueMarks()
+                }
                 MediaPlayer.Event.Paused -> overlayDelegate.updateOverlayPausePlay()
                 MediaPlayer.Event.Opening -> {
                     forcedTime = -1
@@ -2044,7 +2135,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                     val vt = service.currentVideoTrack
                     if (vt != null)
                         fov = if (vt.getProjection() == IMedia.VideoTrack.Projection.Rectangular) 0f else DEFAULT_FOV
-                }
+                } else if (event.esChangedType == IMedia.Track.Type.Text) rdUpdateCueMarks()
                 MediaPlayer.Event.SeekableChanged -> overlayDelegate.updateSeekable(event.seekable)
                 MediaPlayer.Event.PausableChanged -> overlayDelegate.updatePausable(event.pausable)
                 MediaPlayer.Event.Buffering -> {
@@ -2099,7 +2190,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
             val s = service ?: return@launch
             if (s.currentMediaWrapper?.uri != uri || isFinishing) return@launch
             val applied = org.videolan.vlc.util.SeriesPreset.apply(this@VideoPlayerActivity, s) ?: return@launch
-            if (seriesPresetAgain != uri) overlayDelegate.showInfo(getString(applied.message), 3000)
+            if (seriesPresetAgain != uri) overlayDelegate.showInfo(getString(applied.message), 3000, notice = true)
             seriesPresetAgain = null
             if (applied.subtitleSize > 0) {
                 // the new size opens the video again in place: the tracks and the delay are set again then
@@ -2337,7 +2428,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
             if (file == null || service?.currentMediaWrapper?.uri != uri || isFinishing) return@launch
             Log.i(TAG, "online subtitles: ${pick.result.language} of ${pick.result.provider} loaded by itself")
             rdAddOnlineSubtitle(file, pick.result, select = true)
-            overlayDelegate.showInfo(org.videolan.vlc.gui.dialogs.RdOnlineSubtitlesSheet.loadedText(ctx, pick.result), 3000)
+            overlayDelegate.showInfo(org.videolan.vlc.gui.dialogs.RdOnlineSubtitlesSheet.loadedText(ctx, pick.result), 3000, notice = true)
         }
     }
 
@@ -3393,6 +3484,8 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
 
 
         private const val TAG = "VLC/VideoPlayerActivity"
+        /** VLC Redesign: the request of Add Audio Track's file picker (the subtitles' is 0) */
+        const val RD_PICK_AUDIO = 4723
 
         private val ACTION_RESULT = "player.result".buildPkgString()
         private const val EXTRA_POSITION = "extra_position"
@@ -3526,3 +3619,6 @@ const val KEY_RD_SPU = "rd_spu"
 /** VLC Redesign, Settings > Controls > Skip Amounts: the desktop's very short and medium skips, in seconds */
 const val KEY_RD_EXTRASHORT_JUMP = "rd_extrashort_jump"
 const val KEY_RD_MEDIUM_JUMP = "rd_medium_jump"
+
+/** VLC Redesign, Settings > Subtitles > Show subtitle lines on the seek bar (the desktop's qt-seek-subtitle-cues, on) */
+const val KEY_RD_SEEK_SUB_CUES = "rd_seek_sub_cues"

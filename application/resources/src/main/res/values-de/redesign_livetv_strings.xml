@@ -5,7 +5,7 @@
     <string name="rd_tv_live_tv">Live-TV</string>
     <string name="rd_tv_addon">Live-TV-Add-on (IPTV)</string>
     <string name="rd_tv_addon_help">Zeigt Fernsehen in der Bibliothek: die Sender Ihrer IPTV-Wiedergabelisten und -Konten mit ihrem Fernsehprogramm. Aus: Nichts davon wird geladen.</string>
-    <string name="rd_tv_channels">Kanäle</string>
+    <string name="rd_tv_channels">Sender</string>
     <string name="rd_tv_guide">Fernsehprogramm</string>
     <string name="rd_tv_films">Filme</string>
     <string name="rd_tv_series">Serien</string>

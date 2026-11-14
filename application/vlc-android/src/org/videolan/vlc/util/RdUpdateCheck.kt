@@ -27,8 +27,9 @@ object RdUpdateCheck {
     private const val KEY_LAST = "rd_update_last_check"
     /** a version the user chose to skip: not offered again by the daily check */
     const val KEY_SKIPPED = "rd_update_skipped"
-    /** the newest releases first; a few desktop-only ones in a row still leave the last APK in the page */
-    private const val RELEASES = "https://api.github.com/repos/KuchiSofts/vlc-redesign/releases?per_page=30"
+    /** the newest releases first; a few desktop-only ones in a row still leave the last APK in the page (ten: the
+     *  notes and files of 30 made 1.4 MB to download each day) */
+    private const val RELEASES = "https://api.github.com/repos/KuchiSofts/vlc-redesign/releases?per_page=10"
     const val RELEASES_PAGE = "https://github.com/KuchiSofts/vlc-redesign/releases"
     private val INTERVAL = TimeUnit.DAYS.toMillis(1)
 
@@ -40,11 +41,21 @@ object RdUpdateCheck {
         data class Available(val release: Release) : Result()
         /** GitHub could not be reached (offline, timeout) */
         object Offline : Result()
-        /** GitHub answered with an HTTP status other than 200 (rate limit, outage) */
+        /** GitHub answered with an HTTP status other than 200 (an outage) */
         data class Unexpected(val status: Int) : Result()
+        /** GitHub was asked too often from this network (60 an hour without an account, shared by every device behind
+         *  one address): asked again after [resetAt] (ms since the epoch), or later when it did not say */
+        data class RateLimited(val resetAt: Long?) : Result()
     }
 
-    private class HttpStatus(val status: Int) : Exception("HTTP $status")
+    private class HttpStatus(val status: Int, val rateLimited: Boolean = false, val resetAt: Long? = null) : Exception("HTTP $status")
+
+    /** GitHub's rate limit: 429, or 403 with no requests left (x-ratelimit-remaining 0); pure, for the tests */
+    fun isRateLimited(status: Int, remaining: String?): Boolean = status == 429 || status == 403 && remaining?.trim() == "0"
+
+    /** x-ratelimit-reset (seconds since the epoch) in ms, when it is still to come */
+    fun resetAt(header: String?, now: Long = System.currentTimeMillis()): Long? =
+        header?.trim()?.toLongOrNull()?.times(1000L)?.takeIf { it > now }
 
     /** The newer release to offer, or null (switched off, checked today, skipped, none, offline) */
     suspend fun check(context: Context): Release? = withContext(Dispatchers.IO) {
@@ -67,7 +78,7 @@ object RdUpdateCheck {
         val release = try {
             fetch()
         } catch (e: HttpStatus) {
-            return@withContext Result.Unexpected(e.status)
+            return@withContext if (e.rateLimited) Result.RateLimited(e.resetAt) else Result.Unexpected(e.status)
         } catch (e: Exception) {
             Log.w(TAG, "No update check: ${e.message}")
             return@withContext Result.Offline
@@ -85,7 +96,9 @@ object RdUpdateCheck {
             connection.setRequestProperty("Accept", "application/vnd.github+json")
             connection.setRequestProperty("User-Agent", "VLC-Media-Player-Redesign-Android/${BuildConfig.RD_VERSION_NAME}")
             val status = connection.responseCode
-            if (status != HttpURLConnection.HTTP_OK) throw HttpStatus(status)
+            if (status != HttpURLConnection.HTTP_OK) throw HttpStatus(status,
+                    isRateLimited(status, connection.getHeaderField("x-ratelimit-remaining")),
+                    resetAt(connection.getHeaderField("x-ratelimit-reset")))
             return pick(JSONArray(connection.inputStream.bufferedReader().use { it.readText() }))
         } finally {
             connection.disconnect()

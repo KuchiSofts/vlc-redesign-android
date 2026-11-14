@@ -78,6 +78,16 @@ object RdLocaleChoices {
         return head + first + rest
     }
 
+    /** A language list as Settings shows it: its first row (no preference) as it is, each language once, the device's
+     *  first ([deviceTags], RdDeviceLocale), then the others in the interface's order (Settings, the welcome's step) */
+    fun rows(values: List<String>, names: List<String>, deviceTags: List<String>, ui: Locale = Locale.getDefault()): List<Choice> {
+        if (values.isEmpty()) return emptyList()
+        val head = listOf(Choice(values[0], names[0]))
+        val seen = HashSet<Pair<String, String>>()
+        val items = (1 until values.size).filter { seen.add(split(values[it])) }.map { values[it] to names[it] }
+        return order(head, items, detectedLanguages(items.map { it.first }, deviceTags), ui)
+    }
+
     /** Where a list opens: the value chosen (when it is in it), else the first of the device's, else the first row. */
     fun openAt(choices: List<Choice>, current: String?, preferDetected: Boolean = false): Int {
         val chosen = if (current.isNullOrEmpty() && preferDetected) -1 else choices.indexOfFirst { it.value == (current ?: "") }

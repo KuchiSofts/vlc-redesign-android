@@ -176,17 +176,12 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
      * a language once, whichever of its codes the lists gave ("iw" and "he").
      */
     private fun localeList(lp: ListPreference, pair: org.videolan.tools.LocalePair) {
-        val values = pair.localeEntryValues.map { it.toString() }
-        val names = pair.localeEntries.map { it.toString() }
-        if (values.isEmpty()) return
-        val head = listOf(org.videolan.vlc.util.RdLocaleChoices.Choice(values[0], names[0]))
-        val seen = HashSet<Pair<String, String>>()
-        val items = (1 until values.size).filter { seen.add(org.videolan.vlc.util.RdLocaleChoices.split(values[it])) }.map { values[it] to names[it] }
-        val detected = org.videolan.vlc.util.RdLocaleChoices.detectedLanguages(items.map { it.first }, org.videolan.vlc.util.RdDeviceLocale.languageTags())
-        val rows = org.videolan.vlc.util.RdLocaleChoices.order(head, items, detected)
+        val rows = org.videolan.vlc.util.RdLocaleChoices.rows(pair.localeEntryValues.map { it.toString() }, pair.localeEntries.map { it.toString() },
+                org.videolan.vlc.util.RdDeviceLocale.languageTags())
+        if (rows.isEmpty()) return
         lp.entries = rows.map { it.label }.toTypedArray()
         lp.entryValues = rows.map { it.value }.toTypedArray()
-        (lp as? RdListPreference)?.let { it.detected = detected.toSet(); it.locales = true }
+        (lp as? RdListPreference)?.let { it.detected = rows.filter { r -> r.detected }.map { r -> r.value }.toSet(); it.locales = true }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -429,6 +424,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             "android_auto_category" -> openSub(PreferencesAndroidAuto())
             "optional_features" -> openSub(PreferencesOptional())
             "rd_welcome_setup" -> activity.startOnboarding()
+            "rd_keyboard_shortcuts" -> RdShortcuts.show(requireContext())
             // Privacy
             PLAYBACK_HISTORY -> {
                 activity.setResult(RESULT_RESTART)
@@ -658,7 +654,8 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
                 activity.setRestart()
                 activity.recreate()
             }
-            org.videolan.tools.KEY_RD_LAYOUT_DIRECTION, org.videolan.vlc.gui.helpers.KEY_RD_ACCENT_SYSTEM -> {
+            org.videolan.tools.KEY_RD_LAYOUT_DIRECTION, org.videolan.vlc.gui.helpers.KEY_RD_ACCENT_SYSTEM,
+            org.videolan.tools.KEY_RD_INCREASE_CONTRAST -> {
                 activity.setRestart()
                 activity.recreate()
             }
@@ -695,7 +692,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             KEY_AUDIO_REPLAY_GAIN_ENABLE, KEY_AUDIO_REPLAY_GAIN_MODE, KEY_AUDIO_REPLAY_GAIN_PEAK_PROTECTION, "rd_stereo_mode", "rd_audio_desync",
             "rd_deinterlace", "rd_deinterlace_mode", "rd_avi_index", "rd_sub_fuzzy",
             "rd_menu_language", "rd_audio_track", "rd_sub_track", "rd_mkv_preload", "rd_play_and_pause",
-            "rd_gain", "rd_force_dolby", "rd_soxr_quality", "rd_mix_mode", "rd_gnutls_priorities", "rd_ipv4_timeout", "rd_cast_http_port", "rd_sub_font", "rd_file_caching", "rd_live_caching", "rd_http_proxy",
+            "rd_gain", "rd_ignore_filetypes", "rd_force_dolby", "rd_soxr_quality", "rd_mix_mode", "rd_gnutls_priorities", "rd_ipv4_timeout", "rd_cast_http_port", "rd_sub_font", "rd_file_caching", "rd_live_caching", "rd_http_proxy",
             "rd_postproc", "rd_avcodec_threads", KEY_OPENGL, KEY_DEBLOCKING, KEY_ENABLE_FRAME_SKIP, KEY_ENABLE_TIME_STRETCHING_AUDIO,
             KEY_ENABLE_VERBOSE_MODE, KEY_CASTING_PASSTHROUGH, KEY_CASTING_QUALITY, KEY_CASTING_AUDIO_ONLY -> lifecycleScope.launch { restartLibVLC() }
             "rd_normalize", "rd_norm_level", "rd_night_mode" -> LoudnessEffects.apply(activity)
@@ -726,7 +723,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             KEY_SUBTITLES_BACKGROUND_COLOR, KEY_SUBTITLES_BACKGROUND_COLOR_OPACITY, KEY_SUBTITLES_BACKGROUND,
             KEY_SUBTITLES_OUTLINE, KEY_SUBTITLES_OUTLINE_SIZE, KEY_SUBTITLES_OUTLINE_COLOR, KEY_SUBTITLES_OUTLINE_COLOR_OPACITY,
             KEY_SUBTITLES_SHADOW, KEY_SUBTITLES_SHADOW_COLOR, KEY_SUBTITLES_SHADOW_COLOR_OPACITY, "rd_shadow_distance", "rd_sub_margin",
-            "rd_spu", "rd_sub_paths", "rd_shadow_angle", "rd_text_direction", "rd_sub_align" -> {
+            "rd_spu", "rd_sub_paths", "rd_shadow_angle", "rd_text_direction", "rd_sub_align", "rd_sub_size_mode", "rd_sub_fontsize_px" -> {
                 subtitlesChanged = true
                 manageSubtitleVisibilities()
             }
@@ -789,6 +786,8 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             org.videolan.vlc.media.PlaylistManager.KEY_DEFAULT_SPEED -> updateDefaultSpeedSummary()
             "rd_gain" -> updateGainSummary()
             "rd_video_title_timeout" -> updateTitleTimeoutSummary()
+            org.videolan.vlc.gui.video.RdOsd.KEY_DURATION -> updateOsdDurationSummary()
+            org.videolan.vlc.media.RdSubDelay.KEY -> updateSubDelaySummary()
             // Controls (audio)
             KEY_AUDIO_JUMP_DELAY -> Settings.audioJumpDelay = sharedPreferences.getInt(KEY_AUDIO_JUMP_DELAY, 10)
             KEY_AUDIO_LONG_JUMP_DELAY -> Settings.audioLongJumpDelay = sharedPreferences.getInt(KEY_AUDIO_LONG_JUMP_DELAY, 20)
@@ -907,7 +906,13 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         // the desktop's Outline thickness (thin, normal, thick), with the outline
         pref<Preference>(KEY_SUBTITLES_OUTLINE_SIZE)?.isVisible = outline
         pref<Preference>("rd_shadow_angle")?.isVisible = shadow
+        // Size values: the row of the way chosen
+        val pixels = settings.getString("rd_sub_size_mode", "0") == "1"
+        pref<Preference>(KEY_SUBTITLES_SIZE)?.isVisible = !pixels
+        pref<Preference>("rd_sub_fontsize_px")?.isVisible = pixels
         updateTitleTimeoutSummary()
+        updateOsdDurationSummary()
+        updateSubDelaySummary()
         pref<Preference>(KEY_SUBTITLES_OUTLINE_COLOR)?.isVisible = outline
         pref<Preference>(KEY_SUBTITLES_OUTLINE_COLOR_OPACITY)?.isVisible = outline
     }
@@ -928,6 +933,20 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         pref<Preference>(org.videolan.vlc.gui.video.SeekPreview.KEY_SEEK_THUMBNAIL)?.isVisible = !tv
         // the system's accent: Android 12 and later (Material You), not in the TV layout
         pref<Preference>(org.videolan.vlc.gui.helpers.KEY_RD_ACCENT_SYSTEM)?.isVisible = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S && !tv
+        // the desktop's Repeat: the player's own remembered modes (ints), the video one shown
+        pref<ListPreference>("rd_repeat")?.let { p ->
+            p.value = settings.getInt("video_repeat_mode", 0).coerceIn(0, 2).toString()
+            p.setOnPreferenceChangeListener { _, v ->
+                val mode = (v as String).toIntOrNull()?.coerceIn(0, 2) ?: 0
+                settings.putSingle("video_repeat_mode", mode)
+                settings.putSingle("audio_repeat_mode", mode)
+                true
+            }
+        }
+        // Increase text contrast: Android 8 and later (LocaleUtils.withRdContrast)
+        pref<Preference>("rd_sec_accessibility")?.isVisible = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O
+        // Always show the player bar: the phone and tablet layouts (the TV one has its own mini player)
+        pref<Preference>("rd_sec_player_bar")?.isVisible = !org.videolan.vlc.gui.tablet.RdTvWindow.isOn(requireActivity())
         // the layout direction: the one in use while none was chosen (shown, not saved)
         pref<ListPreference>(org.videolan.tools.KEY_RD_LAYOUT_DIRECTION)?.let { p ->
             if (p.sharedPreferences?.contains(p.key) != true) {
@@ -1022,6 +1041,19 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
     private fun updateTitleTimeoutSummary() {
         val p = pref<Preference>("rd_video_title_timeout") ?: return
         p.summary = getString(R.string.video_hud_timeout_summary, (p.sharedPreferences?.getInt(p.key, 5) ?: 5).toString())
+    }
+
+    /** "1.5s": how long the player's messages show (On-Screen Messages, the desktop's osd-duration) */
+    private fun updateOsdDurationSummary() {
+        val p = pref<Preference>(org.videolan.vlc.gui.video.RdOsd.KEY_DURATION) ?: return
+        val tenths = p.sharedPreferences?.getInt(p.key, org.videolan.vlc.gui.video.RdOsd.DEFAULT_TENTHS) ?: org.videolan.vlc.gui.video.RdOsd.DEFAULT_TENTHS
+        p.summary = getString(R.string.video_hud_timeout_summary, org.videolan.vlc.gui.video.RdOsd.secondsText(tenths))
+    }
+
+    /** "+1.5 s": the subtitle delay a video without its own starts with (the desktop's sub-delay) */
+    private fun updateSubDelaySummary() {
+        val p = pref<Preference>(org.videolan.vlc.media.RdSubDelay.KEY) ?: return
+        p.summary = getString(R.string.video_hud_timeout_summary, org.videolan.vlc.media.RdSubDelay.text(p.sharedPreferences?.getInt(p.key, 0) ?: 0))
     }
 
     /** "1.25x": the speed a media without its own plays at (the desktop's slider of quarters) */

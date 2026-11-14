@@ -102,6 +102,14 @@
             android:key="subtitles_presets"
             android:persistent="false"
             android:title="@string/subtitles_presets_title" />
+        <!-- VLC Redesign: the desktop's Size values: by name (relative to the picture) or in pixels
+             (freetype-fontsize, VLCOptions); one of the two Font size rows shows -->
+        <org.videolan.vlc.gui.preferences.rd.RdSegmentedPreference
+            android:defaultValue="0"
+            android:entries="@array/rd_sub_size_mode_entries"
+            android:entryValues="@array/rd_sub_size_mode_values"
+            android:key="rd_sub_size_mode"
+            android:title="@string/rd_sub_size_values" />
         <org.videolan.vlc.gui.preferences.rd.RdListPreference
             android:defaultValue="16"
             android:entries="@array/subtitles_size_entries"
@@ -110,6 +118,12 @@
             android:summary="%s"
             android:persistent="true"
             android:title="@string/rd_font_size" />
+        <org.videolan.vlc.gui.preferences.rd.RdEditTextPreference
+            android:defaultValue="32"
+            android:key="rd_sub_fontsize_px"
+            android:summary="@string/rd_help_sub_fontsize_px"
+            android:title="@string/rd_font_size"
+            app:isPreferenceVisible="false" />
         <!-- VLC Redesign: the desktop's Font (freetype-font): the families Android's font list has -->
         <org.videolan.vlc.gui.preferences.rd.RdListPreference
             android:defaultValue=""
@@ -231,7 +245,43 @@
             app:min="0"
             app:showSeekBarValue="true" />
     </PreferenceCategory>
+    <!-- VLC Redesign: the desktop's Timing section: the lines marked on the seek bar (gui/video/RdSeekCueMarks) -->
+    <PreferenceCategory android:title="@string/rd_sec_timing">
+        <!-- VLC Redesign: the desktop's Subtitle delay (sub-delay, -5 to +5 s in tenths): every video without a delay
+             of its own starts with it (PlaylistManager.loadMediaMeta) -->
+        <org.videolan.vlc.gui.preferences.rd.RdValueSeekBarPreference
+            android:defaultValue="0"
+            android:key="rd_sub_delay"
+            android:max="50"
+            android:summary="%s"
+            android:title="@string/rd_subtitle_delay"
+            app:min="-50"
+            app:seekBarIncrement="5"
+            app:updatesContinuously="true" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="rd_seek_sub_cues"
+            android:summary="@string/rd_help_seek_sub_cues"
+            android:title="@string/rd_seek_sub_cues" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/rd_sec_osd">
+        <!-- VLC Redesign: the desktop's Show feedback for shortcuts (osd) and Show feedback for (osd-duration, in
+             tenths of a second here: 0.5 to 5 s as the desktop's slider, VLC's 1 s), gui/video/RdOsd -->
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="rd_osd"
+            android:summary="@string/rd_help_osd"
+            android:title="@string/rd_show_shortcut_feedback" />
+        <org.videolan.vlc.gui.preferences.rd.RdValueSeekBarPreference
+            android:defaultValue="10"
+            android:dependency="rd_osd"
+            android:key="rd_osd_duration"
+            android:max="50"
+            android:summary="%s"
+            android:title="@string/rd_show_feedback_for"
+            app:min="5"
+            app:seekBarIncrement="5"
+            app:updatesContinuously="true" />
         <CheckBoxPreference
             android:key="rd_video_title"
             android:title="@string/rd_show_filename"
