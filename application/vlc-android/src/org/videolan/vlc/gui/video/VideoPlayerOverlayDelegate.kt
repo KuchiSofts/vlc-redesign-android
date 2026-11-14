@@ -493,6 +493,8 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
             player.keyFeedback.onControlsShown()
             initOverlay()
             if (!::hudBinding.isInitialized) return
+            // (the subtitle lines on the seek bar: the bar exists from the first time the controls show)
+            player.rdUpdateCueMarks()
             overlayTimeout = when {
                 service.playlistManager.videoStatsOn.value == true -> VideoPlayerActivity.OVERLAY_INFINITE
                 player.isTalkbackIsEnabled() -> VideoPlayerActivity.OVERLAY_INFINITE

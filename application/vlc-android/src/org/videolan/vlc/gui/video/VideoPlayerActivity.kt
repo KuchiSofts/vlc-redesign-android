@@ -1705,6 +1705,38 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         return super.onKeyDown(keyCode, event)
     }
 
+    /** VLC Redesign: the lines of the subtitle shown, marked on the seek bar (the desktop's option, RdSeekCueMarks) */
+    private var rdCueMarks: RdSeekCueMarks? = null
+    private var rdCueKey: String? = null
+
+    fun rdUpdateCueMarks() {
+        val s = service ?: return
+        if (!overlayDelegate.isHudBindingInitialized()) return
+        val bar = overlayDelegate.hudBinding.playerOverlaySeekbar
+        // (a new bar after the controls were made again: the marks go on it)
+        if (rdCueMarks == null || rdCueMarks?.let { it.bar !== bar } == true) {
+            rdCueMarks?.detach()
+            rdCueMarks = RdSeekCueMarks(bar) { (service?.spuDelay ?: 0L) / 1000L }
+            rdCueKey = null
+        }
+        val marks = rdCueMarks ?: return
+        val media = s.currentMediaWrapper
+        val uri = media?.uri
+        if (!settings.getBoolean(KEY_RD_SEEK_SUB_CUES, true) || media == null || uri == null || !s.isSeekable) {
+            rdCueKey = null
+            marks.set(emptyList(), 0L)
+            return
+        }
+        val key = org.videolan.vlc.util.RdCueLoader.key(s, uri) + "|" + s.length
+        if (key == rdCueKey) return
+        rdCueKey = key
+        lifecycleScope.launch {
+            val cues = org.videolan.vlc.util.RdCueLoader.load(this@VideoPlayerActivity, s, media, uri) ?: emptyList()
+            if (rdCueKey != key) return@launch
+            marks.set(cues, s.length)
+        }
+    }
+
     /** A skip of Settings › Controls › Skip Amounts, in ms */
     private fun rdJump(key: String, default: Int) = settings.getInt(key, default).coerceIn(1, 3600) * 1000
 
@@ -1916,7 +1948,10 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
     override fun onMediaPlayerEvent(event: MediaPlayer.Event) {
         service?.let { service ->
             when (event.type) {
-                MediaPlayer.Event.Playing -> onPlaying()
+                MediaPlayer.Event.Playing -> {
+                    onPlaying()
+                    rdUpdateCueMarks()
+                }
                 MediaPlayer.Event.Paused -> overlayDelegate.updateOverlayPausePlay()
                 MediaPlayer.Event.Opening -> {
                     forcedTime = -1
@@ -2044,7 +2079,7 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                     val vt = service.currentVideoTrack
                     if (vt != null)
                         fov = if (vt.getProjection() == IMedia.VideoTrack.Projection.Rectangular) 0f else DEFAULT_FOV
-                }
+                } else if (event.esChangedType == IMedia.Track.Type.Text) rdUpdateCueMarks()
                 MediaPlayer.Event.SeekableChanged -> overlayDelegate.updateSeekable(event.seekable)
                 MediaPlayer.Event.PausableChanged -> overlayDelegate.updatePausable(event.pausable)
                 MediaPlayer.Event.Buffering -> {
@@ -3526,3 +3561,6 @@ const val KEY_RD_SPU = "rd_spu"
 /** VLC Redesign, Settings > Controls > Skip Amounts: the desktop's very short and medium skips, in seconds */
 const val KEY_RD_EXTRASHORT_JUMP = "rd_extrashort_jump"
 const val KEY_RD_MEDIUM_JUMP = "rd_medium_jump"
+
+/** VLC Redesign, Settings > Subtitles > Show subtitle lines on the seek bar (the desktop's qt-seek-subtitle-cues, on) */
+const val KEY_RD_SEEK_SUB_CUES = "rd_seek_sub_cues"

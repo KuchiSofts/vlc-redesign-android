@@ -231,6 +231,14 @@
             app:min="0"
             app:showSeekBarValue="true" />
     </PreferenceCategory>
+    <!-- VLC Redesign: the desktop's Timing section: the lines marked on the seek bar (gui/video/RdSeekCueMarks) -->
+    <PreferenceCategory android:title="@string/rd_sec_timing">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="rd_seek_sub_cues"
+            android:summary="@string/rd_help_seek_sub_cues"
+            android:title="@string/rd_seek_sub_cues" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/rd_sec_osd">
         <CheckBoxPreference
             android:key="rd_video_title"
