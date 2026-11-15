@@ -703,4 +703,7 @@
     <string name="rd_tv_err_refused">サーバーがアクセスを拒否しました (%1$d)</string>
     <string name="rd_tv_err_missing">このアドレスには何も見つかりませんでした (%1$d)</string>
     <string name="rd_tv_err_http">サーバーがエラーを返しました (%1$d)</string>
+    <string name="rd_delete_to_trash">削除したファイルはゴミ箱に移動し、30日間は復元できます。</string>
+    <string name="rd_trash_failed_one">このファイルはゴミ箱に移動できません。完全に削除しますか？</string>
+    <string name="rd_trash_failed_many">これらのファイルはゴミ箱に移動できません。完全に削除しますか？</string>
 </resources>

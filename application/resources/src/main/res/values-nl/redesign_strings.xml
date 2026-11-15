@@ -705,4 +705,7 @@
     <string name="rd_tv_err_refused">de server weigerde de toegang (%1$d)</string>
     <string name="rd_tv_err_missing">op dit adres is niets gevonden (%1$d)</string>
     <string name="rd_tv_err_http">de server antwoordde met een fout (%1$d)</string>
+    <string name="rd_delete_to_trash">Verwijderde bestanden gaan naar de prullenbak en kunnen 30 dagen lang worden hersteld.</string>
+    <string name="rd_trash_failed_one">Dit bestand kan niet naar de prullenbak worden verplaatst. Definitief verwijderen?</string>
+    <string name="rd_trash_failed_many">Deze bestanden kunnen niet naar de prullenbak worden verplaatst. Definitief verwijderen?</string>
 </resources>

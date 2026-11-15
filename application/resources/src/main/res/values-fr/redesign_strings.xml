@@ -705,4 +705,7 @@
     <string name="rd_tv_err_refused">le serveur a refusé l\'accès (%1$d)</string>
     <string name="rd_tv_err_missing">rien n\'a été trouvé à cette adresse (%1$d)</string>
     <string name="rd_tv_err_http">le serveur a répondu par une erreur (%1$d)</string>
+    <string name="rd_delete_to_trash">Les fichiers supprimés vont dans la corbeille et peuvent être restaurés pendant 30 jours.</string>
+    <string name="rd_trash_failed_one">Impossible de placer ce fichier dans la corbeille. Le supprimer définitivement ?</string>
+    <string name="rd_trash_failed_many">Impossible de placer ces fichiers dans la corbeille. Les supprimer définitivement ?</string>
 </resources>

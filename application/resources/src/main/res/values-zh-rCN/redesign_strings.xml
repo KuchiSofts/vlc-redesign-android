@@ -703,4 +703,7 @@
     <string name="rd_tv_err_refused">服务器拒绝访问 (%1$d)</string>
     <string name="rd_tv_err_missing">此地址下未找到任何内容 (%1$d)</string>
     <string name="rd_tv_err_http">服务器返回错误 (%1$d)</string>
+    <string name="rd_delete_to_trash">删除的文件会移到回收站，可在 30 天内恢复。</string>
+    <string name="rd_trash_failed_one">无法将此文件移到回收站。要永久删除吗？</string>
+    <string name="rd_trash_failed_many">无法将这些文件移到回收站。要永久删除吗？</string>
 </resources>

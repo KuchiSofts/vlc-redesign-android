@@ -710,4 +710,7 @@
     <string name="rd_tv_err_refused">serwer odmówił dostępu (%1$d)</string>
     <string name="rd_tv_err_missing">pod tym adresem nic nie znaleziono (%1$d)</string>
     <string name="rd_tv_err_http">serwer odpowiedział błędem (%1$d)</string>
+    <string name="rd_delete_to_trash">Usunięte pliki trafiają do kosza i można je przywrócić przez 30 dni.</string>
+    <string name="rd_trash_failed_one">Nie można przenieść tego pliku do kosza. Usunąć go trwale?</string>
+    <string name="rd_trash_failed_many">Nie można przenieść tych plików do kosza. Usunąć je trwale?</string>
 </resources>

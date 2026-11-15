@@ -691,4 +691,7 @@
     <string name="rd_tv_err_refused">השרת סירב לתת גישה (%1$d)</string>
     <string name="rd_tv_err_missing">לא נמצא דבר בכתובת הזו (%1$d)</string>
     <string name="rd_tv_err_http">השרת ענה בשגיאה (%1$d)</string>
+    <string name="rd_delete_to_trash">קבצים שנמחקים עוברים לפח האשפה ואפשר לשחזר אותם במשך 30 יום.</string>
+    <string name="rd_trash_failed_one">לא ניתן להעביר את הקובץ לפח האשפה. למחוק אותו לצמיתות?</string>
+    <string name="rd_trash_failed_many">לא ניתן להעביר את הקבצים האלה לפח האשפה. למחוק אותם לצמיתות?</string>
 </resources>

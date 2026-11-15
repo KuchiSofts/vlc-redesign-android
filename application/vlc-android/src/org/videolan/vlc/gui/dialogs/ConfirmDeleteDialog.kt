@@ -145,6 +145,13 @@ class ConfirmDeleteDialog : VLCBottomSheetDialogFragment() {
         }
 
         if (descriptionString?.isNotEmpty() == true) description.text = descriptionString
+        // VLC Redesign (#46): media files go to the system's trash (Android 11+), not away for good
+        else if (org.videolan.vlc.util.RdTrash.available && resultType != CONFIRM_DELETE_DIALOG_RESULT_BAN_FOLDER && mediaList.isNotEmpty()
+            && mediaList.all { it is Album || (it is MediaWrapper && it.type != MediaWrapper.TYPE_DIR && org.videolan.vlc.util.RdTrash.isLocalFile(it.uri)) }) {
+            description.text = getString(R.string.rd_delete_to_trash)
+            // (not "Delete forever": it can be restored)
+            deleteButton.text = getString(R.string.delete)
+        }
         if (buttonText?.isNotEmpty() == true) deleteButton.text = buttonText
 
 

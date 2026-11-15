@@ -710,4 +710,7 @@
     <string name="rd_tv_err_refused">сервер отказал в доступе (%1$d)</string>
     <string name="rd_tv_err_missing">по этому адресу ничего не найдено (%1$d)</string>
     <string name="rd_tv_err_http">сервер ответил ошибкой (%1$d)</string>
+    <string name="rd_delete_to_trash">Удалённые файлы попадают в корзину, их можно восстановить в течение 30 дней.</string>
+    <string name="rd_trash_failed_one">Не удаётся переместить этот файл в корзину. Удалить его безвозвратно?</string>
+    <string name="rd_trash_failed_many">Не удаётся переместить эти файлы в корзину. Удалить их безвозвратно?</string>
 </resources>
