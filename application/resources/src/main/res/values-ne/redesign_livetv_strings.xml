@@ -165,7 +165,7 @@
     <string name="rd_tv_edit_sidebar">साइडबार सम्पादन गर्नुहोस्</string>
     <string name="rd_tv_reset_default">पूर्वनिर्धारितमा रिसेट गर्नुहोस्</string>
     <string name="rd_tv_sidebar_pages">साइडबारका पृष्ठहरू</string>
-    <string name="rd_tv_sidebar_pages_help">पृष्ठलाई यसको ह्यान्डलबाट तान्नुहोस्, वा तीरहरूले सार्नुहोस् । लुकाइएका पृष्ठहरू यहाँ एक क्लिकको दूरीमा रहन्छन् ।</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">पृष्ठलाई तीरहरूले सार्नुहोस् । लुकाइएका पृष्ठहरू यहाँ एक क्लिकको दूरीमा रहन्छन् ।</string>
     <string name="rd_tv_show_page">%1$s देखाउनुहोस्</string>
     <string name="rd_tv_hidden">लुकाइएको</string>
     <string name="rd_tv_playlists">बजाउने सूचीहरू</string>

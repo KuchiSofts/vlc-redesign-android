@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">サイドバーの編集</string>
     <string name="rd_tv_reset_default">既定値に戻す</string>
     <string name="rd_tv_sidebar_pages">サイドバーのページ</string>
-    <string name="rd_tv_sidebar_pages_help">ページをハンドルでドラッグするか、矢印で移動してください。非表示のページもここからワンクリックで戻せます。</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">矢印でページを移動してください。非表示のページもここからワンクリックで戻せます。</string>
     <string name="rd_tv_show_page">%1$s を表示</string>
     <string name="rd_tv_hidden">非表示</string>
     <string name="rd_tv_playlists">プレイリスト</string>

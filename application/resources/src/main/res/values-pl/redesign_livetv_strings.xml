@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Edytuj pasek boczny</string>
     <string name="rd_tv_reset_default">Przywróć domyślne</string>
     <string name="rd_tv_sidebar_pages">Strony paska bocznego</string>
-    <string name="rd_tv_sidebar_pages_help">Przeciągnij stronę za uchwyt lub przesuń ją strzałkami. Ukryte strony są tu zawsze o jedno kliknięcie.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Przesuń stronę strzałkami. Ukryte strony są tu zawsze o jedno kliknięcie.</string>
     <string name="rd_tv_show_page">Pokaż %1$s</string>
     <string name="rd_tv_hidden">ukryta</string>
     <string name="rd_tv_playlists">Listy odtwarzania</string>

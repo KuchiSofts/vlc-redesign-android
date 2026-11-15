@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Rediger sidepanel</string>
     <string name="rd_tv_reset_default">Tilbakestill til standard</string>
     <string name="rd_tv_sidebar_pages">Sidene i sidepanelet</string>
-    <string name="rd_tv_sidebar_pages_help">Dra en side etter håndtaket, eller flytt den med pilene. Skjulte sider er bare ett klikk unna her.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Flytt en side med pilene. Skjulte sider er bare ett klikk unna her.</string>
     <string name="rd_tv_show_page">Vis %1$s</string>
     <string name="rd_tv_hidden">skjult</string>
     <string name="rd_tv_playlists">Spillelister</string>

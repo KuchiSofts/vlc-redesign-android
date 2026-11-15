@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">ਸਾਈਡਬਾਰ ਸੋਧੋ</string>
     <string name="rd_tv_reset_default">ਡਿਫਾਲਟ ਉੱਤੇ ਮੁੜ-ਸੈੱਟ ਕਰੋ</string>
     <string name="rd_tv_sidebar_pages">ਸਾਈਡਬਾਰ ਦੇ ਸਫ਼ੇ</string>
-    <string name="rd_tv_sidebar_pages_help">ਸਫ਼ੇ ਨੂੰ ਉਸ ਦੇ ਹੈਂਡਲ ਤੋਂ ਖਿੱਚੋ, ਜਾਂ ਤੀਰਾਂ ਨਾਲ ਹਿਲਾਓ। ਲੁਕਵੇਂ ਸਫ਼ੇ ਇੱਥੇ ਇੱਕ ਕਲਿੱਕ ਦੀ ਦੂਰੀ ਉੱਤੇ ਰਹਿੰਦੇ ਹਨ।</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">ਸਫ਼ੇ ਨੂੰ ਤੀਰਾਂ ਨਾਲ ਹਿਲਾਓ। ਲੁਕਵੇਂ ਸਫ਼ੇ ਇੱਥੇ ਇੱਕ ਕਲਿੱਕ ਦੀ ਦੂਰੀ ਉੱਤੇ ਰਹਿੰਦੇ ਹਨ।</string>
     <string name="rd_tv_show_page">%1$s ਵੇਖਾਓ</string>
     <string name="rd_tv_hidden">ਲੁਕਵਾਂ</string>
     <string name="rd_tv_playlists">ਪਲੇਅਲਿਸਟਾਂ</string>

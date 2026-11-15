@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">编辑侧边栏</string>
     <string name="rd_tv_reset_default">恢复默认</string>
     <string name="rd_tv_sidebar_pages">侧边栏页面</string>
-    <string name="rd_tv_sidebar_pages_help">拖动页面的手柄，或用箭头移动。隐藏的页面在这里只需一次点击即可恢复。</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">用箭头移动页面。隐藏的页面在这里只需一次点击即可恢复。</string>
     <string name="rd_tv_show_page">显示 %1$s</string>
     <string name="rd_tv_hidden">已隐藏</string>
     <string name="rd_tv_playlists">播放列表</string>

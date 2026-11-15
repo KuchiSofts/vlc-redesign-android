@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Rediģēt sānjoslu</string>
     <string name="rd_tv_reset_default">Atiestatīt uz noklusējumu</string>
     <string name="rd_tv_sidebar_pages">Sānjoslas lapas</string>
-    <string name="rd_tv_sidebar_pages_help">Velciet lapu aiz tās roktura vai pārvietojiet to ar bultiņām. Paslēptās lapas šeit ir pieejamas ar vienu klikšķi.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Pārvietojiet lapu ar bultiņām. Paslēptās lapas šeit ir pieejamas ar vienu klikšķi.</string>
     <string name="rd_tv_show_page">Rādīt %1$s</string>
     <string name="rd_tv_hidden">paslēpta</string>
     <string name="rd_tv_playlists">Atskaņošanas saraksti</string>

@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Redigera sidofält</string>
     <string name="rd_tv_reset_default">Återställ till standard</string>
     <string name="rd_tv_sidebar_pages">Sidofältets sidor</string>
-    <string name="rd_tv_sidebar_pages_help">Dra en sida i dess handtag eller flytta den med pilarna. Dolda sidor finns ett klick bort här.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Flytta en sida med pilarna. Dolda sidor finns ett klick bort här.</string>
     <string name="rd_tv_show_page">Visa %1$s</string>
     <string name="rd_tv_hidden">dold</string>
     <string name="rd_tv_playlists">Spellistor</string>

@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Uredi stransko vrstico</string>
     <string name="rd_tv_reset_default">Ponastavi na privzeto</string>
     <string name="rd_tv_sidebar_pages">Strani stranske vrstice</string>
-    <string name="rd_tv_sidebar_pages_help">Stran povlecite za ročico ali jo premaknite s puščicama. Skrite strani so tukaj oddaljene le en klik.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Stran premaknite s puščicama. Skrite strani so tukaj oddaljene le en klik.</string>
     <string name="rd_tv_show_page">Pokaži %1$s</string>
     <string name="rd_tv_hidden">skrita</string>
     <string name="rd_tv_playlists">Seznami predvajanja</string>

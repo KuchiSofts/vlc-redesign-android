@@ -231,7 +231,7 @@
     <string name="rd_tv_edit_sidebar">Edit Sidebar</string>
     <string name="rd_tv_reset_default">Reset to Default</string>
     <string name="rd_tv_sidebar_pages">The pages of the sidebar</string>
-    <string name="rd_tv_sidebar_pages_help">Drag a page by its handle, or move it with the arrows. Hidden pages stay one click away here.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Move a page with the arrows. Hidden pages stay one click away here.</string>
     <string name="rd_tv_show_page">Show %1$s</string>
     <string name="rd_tv_hidden">hidden</string>
     <string name="rd_tv_playlists">Playlists</string>

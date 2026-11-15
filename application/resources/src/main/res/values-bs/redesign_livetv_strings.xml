@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Uredi bočnu traku</string>
     <string name="rd_tv_reset_default">Vrati na zadano</string>
     <string name="rd_tv_sidebar_pages">Stranice bočne trake</string>
-    <string name="rd_tv_sidebar_pages_help">Prevucite stranicu za njenu ručku ili je pomjerite strelicama. Skrivene stranice ostaju ovdje na jedan klik.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Pomjerite stranicu strelicama. Skrivene stranice ostaju ovdje na jedan klik.</string>
     <string name="rd_tv_show_page">Prikaži %1$s</string>
     <string name="rd_tv_hidden">skriveno</string>
     <string name="rd_tv_playlists">Liste izvođenja</string>

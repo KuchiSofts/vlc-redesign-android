@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Oldalsáv szerkesztése</string>
     <string name="rd_tv_reset_default">Alapértelmezés visszaállítása</string>
     <string name="rd_tv_sidebar_pages">Az oldalsáv oldalai</string>
-    <string name="rd_tv_sidebar_pages_help">Húzza az oldalt a fogantyújánál fogva, vagy mozgassa a nyilakkal. A rejtett oldalak itt egy kattintásnyira maradnak.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Mozgassa az oldalt a nyilakkal. A rejtett oldalak itt egy kattintásnyira maradnak.</string>
     <string name="rd_tv_show_page">%1$s megjelenítése</string>
     <string name="rd_tv_hidden">rejtett</string>
     <string name="rd_tv_playlists">Lejátszólisták</string>

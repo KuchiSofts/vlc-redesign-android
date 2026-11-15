@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Modifier la barre latérale</string>
     <string name="rd_tv_reset_default">Rétablir les valeurs par défaut</string>
     <string name="rd_tv_sidebar_pages">Les pages de la barre latérale</string>
-    <string name="rd_tv_sidebar_pages_help">Faites glisser une page par sa poignée ou déplacez-la avec les flèches. Les pages masquées restent ici à un clic.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Déplacez une page avec les flèches. Les pages masquées restent ici à un clic.</string>
     <string name="rd_tv_show_page">Afficher %1$s</string>
     <string name="rd_tv_hidden">masquée</string>
     <string name="rd_tv_playlists">Listes de lecture</string>

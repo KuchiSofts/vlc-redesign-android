@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Keisti šoninę juostą</string>
     <string name="rd_tv_reset_default">Atkurti numatytąsias</string>
     <string name="rd_tv_sidebar_pages">Šoninės juostos puslapiai</string>
-    <string name="rd_tv_sidebar_pages_help">Vilkite puslapį už rankenėlės arba perkelkite jį rodyklėmis. Paslėpti puslapiai čia pasiekiami vienu spustelėjimu.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Perkelkite puslapį rodyklėmis. Paslėpti puslapiai čia pasiekiami vienu spustelėjimu.</string>
     <string name="rd_tv_show_page">Rodyti %1$s</string>
     <string name="rd_tv_hidden">paslėpta</string>
     <string name="rd_tv_playlists">Grojaraščiai</string>

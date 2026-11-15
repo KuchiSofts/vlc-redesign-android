@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Muokkaa sivupalkkia</string>
     <string name="rd_tv_reset_default">Palauta oletukset</string>
     <string name="rd_tv_sidebar_pages">Sivupalkin sivut</string>
-    <string name="rd_tv_sidebar_pages_help">Vedä sivua sen kahvasta tai siirrä sitä nuolilla. Piilotetut sivut ovat täällä yhden napsautuksen päässä.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Siirrä sivua nuolilla. Piilotetut sivut ovat täällä yhden napsautuksen päässä.</string>
     <string name="rd_tv_show_page">Näytä %1$s</string>
     <string name="rd_tv_hidden">piilotettu</string>
     <string name="rd_tv_playlists">Soittolistat</string>

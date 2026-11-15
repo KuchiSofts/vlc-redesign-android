@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Cuir an barra taoibh in eagar</string>
     <string name="rd_tv_reset_default">Athshocraigh go réamhshocrú</string>
     <string name="rd_tv_sidebar_pages">Leathanaigh an bharra taoibh</string>
-    <string name="rd_tv_sidebar_pages_help">Tarraing leathanach ar a hanla, nó bog é leis na saigheada. Fanann na leathanaigh fholaithe anseo, cliceáil amháin uait.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Bog leathanach leis na saigheada. Fanann na leathanaigh fholaithe anseo, cliceáil amháin uait.</string>
     <string name="rd_tv_show_page">Taispeáin %1$s</string>
     <string name="rd_tv_hidden">folaithe</string>
     <string name="rd_tv_playlists">Seinnlistí</string>

@@ -164,7 +164,7 @@
     <string name="rd_tv_edit_sidebar">გვერდითი ზოლის რედაქტირება</string>
     <string name="rd_tv_reset_default">ნაგულისხმევზე დაბრუნება</string>
     <string name="rd_tv_sidebar_pages">გვერდითი ზოლის გვერდები</string>
-    <string name="rd_tv_sidebar_pages_help">გადაათრიეთ გვერდი სახელურით ან გადაადგილეთ ისრებით. დამალული გვერდები აქ ერთი დაწკაპებით ბრუნდება.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">გადაადგილეთ გვერდი ისრებით. დამალული გვერდები აქ ერთი დაწკაპებით ბრუნდება.</string>
     <string name="rd_tv_show_page">%1$s-ის ჩვენება</string>
     <string name="rd_tv_hidden">დამალული</string>
     <string name="rd_tv_playlists">დაკვრის სიები</string>

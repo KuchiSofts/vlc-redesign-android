@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Golygu\'r Bar Ochr</string>
     <string name="rd_tv_reset_default">Ailosod i\'r Rhagosodiad</string>
     <string name="rd_tv_sidebar_pages">Tudalennau\'r bar ochr</string>
-    <string name="rd_tv_sidebar_pages_help">Llusgwch dudalen wrth ei dolen afael, neu ei symud gyda\'r saethau. Mae tudalennau cudd yn aros un clic i ffwrdd yma.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Symudwch dudalen gyda\'r saethau. Mae tudalennau cudd yn aros un clic i ffwrdd yma.</string>
     <string name="rd_tv_show_page">Dangos %1$s</string>
     <string name="rd_tv_hidden">cudd</string>
     <string name="rd_tv_playlists">Rhestrau Chwarae</string>

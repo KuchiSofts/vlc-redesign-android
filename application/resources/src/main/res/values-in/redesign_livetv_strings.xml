@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Edit Bilah Sisi</string>
     <string name="rd_tv_reset_default">Setel Ulang ke Bawaan</string>
     <string name="rd_tv_sidebar_pages">Halaman bilah sisi</string>
-    <string name="rd_tv_sidebar_pages_help">Seret halaman melalui pegangannya, atau pindahkan dengan tanda panah. Halaman yang disembunyikan tetap dapat dimunculkan dengan sekali klik di sini.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Pindahkan halaman dengan tanda panah. Halaman yang disembunyikan tetap dapat dimunculkan dengan sekali klik di sini.</string>
     <string name="rd_tv_show_page">Tampilkan %1$s</string>
     <string name="rd_tv_hidden">tersembunyi</string>
     <string name="rd_tv_playlists">Daftar Putar</string>

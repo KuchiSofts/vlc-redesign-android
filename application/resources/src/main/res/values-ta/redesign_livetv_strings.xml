@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">பக்கப்பட்டியைத் திருத்து</string>
     <string name="rd_tv_reset_default">இயல்புநிலைக்கு மீட்டமை</string>
     <string name="rd_tv_sidebar_pages">பக்கப்பட்டியின் பக்கங்கள்</string>
-    <string name="rd_tv_sidebar_pages_help">ஒரு பக்கத்தை அதன் பிடியால் இழுக்கவும், அல்லது அம்புகளால் நகர்த்தவும். மறைக்கப்பட்ட பக்கங்கள் இங்கே ஒரே சொடுக்கில் கிடைக்கும்.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">ஒரு பக்கத்தை அம்புகளால் நகர்த்தவும். மறைக்கப்பட்ட பக்கங்கள் இங்கே ஒரே சொடுக்கில் கிடைக்கும்.</string>
     <string name="rd_tv_show_page">%1$s ஐக் காட்டு</string>
     <string name="rd_tv_hidden">மறைக்கப்பட்டது</string>
     <string name="rd_tv_playlists">தொகுப்பு பட்டியல்கள்</string>

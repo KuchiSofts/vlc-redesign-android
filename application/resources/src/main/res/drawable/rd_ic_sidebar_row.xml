@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Edit Sidebar's icon in a More row: the design's 18 dp icon in the 24 dp of the other rows' icons, so its title
+     lines up with theirs. -->
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/rd_ic_sidebar"
+    android:inset="3dp" />

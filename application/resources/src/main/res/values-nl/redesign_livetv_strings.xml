@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Zijbalk bewerken</string>
     <string name="rd_tv_reset_default">Standaardwaarden herstellen</string>
     <string name="rd_tv_sidebar_pages">De pagina\'s van de zijbalk</string>
-    <string name="rd_tv_sidebar_pages_help">Sleep een pagina aan de greep of verplaats deze met de pijlen. Verborgen pagina\'s blijven hier één klik verwijderd.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Verplaats een pagina met de pijlen. Verborgen pagina\'s blijven hier één klik verwijderd.</string>
     <string name="rd_tv_show_page">%1$s weergeven</string>
     <string name="rd_tv_hidden">verborgen</string>
     <string name="rd_tv_playlists">Afspeellijsten</string>

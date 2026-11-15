@@ -165,7 +165,7 @@
     <string name="rd_tv_edit_sidebar">ویرایش نوار کناری</string>
     <string name="rd_tv_reset_default">بازنشانی به پیش‌فرض</string>
     <string name="rd_tv_sidebar_pages">صفحه‌های نوار کناری</string>
-    <string name="rd_tv_sidebar_pages_help">یک صفحه را از دستگیره‌اش بکشید یا با پیکان‌ها جابه‌جا کنید. صفحه‌های پنهان اینجا با یک کلیک در دسترس می‌مانند.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">یک صفحه را با پیکان‌ها جابه‌جا کنید. صفحه‌های پنهان اینجا با یک کلیک در دسترس می‌مانند.</string>
     <string name="rd_tv_show_page">نمایش %1$s</string>
     <string name="rd_tv_hidden">پنهان</string>
     <string name="rd_tv_playlists">فهرست‌های پخش</string>

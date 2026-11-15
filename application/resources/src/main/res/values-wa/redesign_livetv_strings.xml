@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Candjî l\' bår di costé</string>
     <string name="rd_tv_reset_default">Rimete les prémetowès valixhances</string>
     <string name="rd_tv_sidebar_pages">Les pådjes del bår di costé</string>
-    <string name="rd_tv_sidebar_pages_help">Hertchîz ene pådje pa s\' pougnete, ou bodjîz-l avou les fletches. Les pådjes catchîes dimorèt chal a on clitch.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Bodjîz ene pådje avou les fletches. Les pådjes catchîes dimorèt chal a on clitch.</string>
     <string name="rd_tv_show_page">Mostrer %1$s</string>
     <string name="rd_tv_hidden">catchî</string>
     <string name="rd_tv_playlists">Djivêyes a djouwer</string>

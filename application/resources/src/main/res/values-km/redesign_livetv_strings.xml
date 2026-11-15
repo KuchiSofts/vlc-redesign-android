@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">កែសម្រួលរបារចំហៀង</string>
     <string name="rd_tv_reset_default">កំណត់ទៅលំនាំដើមវិញ</string>
     <string name="rd_tv_sidebar_pages">ទំព័រនៃរបារចំហៀង</string>
-    <string name="rd_tv_sidebar_pages_help">អូសទំព័រដោយចំណុចចាប់របស់វា ឬផ្លាស់ទីវាដោយព្រួញ។ ទំព័រដែលលាក់នៅតែអាចបង្ហាញវិញបានដោយចុចតែម្ដងនៅទីនេះ។</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">ផ្លាស់ទីទំព័រដោយព្រួញ។ ទំព័រដែលលាក់នៅតែអាចបង្ហាញវិញបានដោយចុចតែម្ដងនៅទីនេះ។</string>
     <string name="rd_tv_show_page">បង្ហាញ %1$s</string>
     <string name="rd_tv_hidden">បានលាក់</string>
     <string name="rd_tv_playlists">បញ្ជីចាក់</string>

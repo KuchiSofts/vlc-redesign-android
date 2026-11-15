@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Editează bara laterală</string>
     <string name="rd_tv_reset_default">Resetează la implicit</string>
     <string name="rd_tv_sidebar_pages">Paginile barei laterale</string>
-    <string name="rd_tv_sidebar_pages_help">Trageți o pagină de mâner sau mutați-o cu săgețile. Paginile ascunse rămân aici, la un clic distanță.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Mutați o pagină cu săgețile. Paginile ascunse rămân aici, la un clic distanță.</string>
     <string name="rd_tv_show_page">Afișează %1$s</string>
     <string name="rd_tv_hidden">ascunsă</string>
     <string name="rd_tv_playlists">Liste de redare</string>

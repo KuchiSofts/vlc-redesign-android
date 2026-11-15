@@ -190,7 +190,7 @@ object TvNavigation {
         val streams = root.findViewById<View>(R.id.streamsButton) ?: return
         val edit = inflater.inflate(R.layout.rd_tv_more_row, column, false) as TextView
         edit.text = ctx.getString(R.string.rd_tv_edit_sidebar)
-        edit.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.rd_ic_sidebar, 0, R.drawable.rd_ic_chevron_right, 0)
+        edit.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.rd_ic_sidebar_row, 0, R.drawable.rd_ic_chevron_right, 0)
         edit.setTag(R.id.nav_tv, true)
         edit.setOnClickListener { editSidebar(activity) }
         val i = column.indexOfChild(streams) + 1
@@ -214,11 +214,13 @@ object TvNavigation {
         val pins = Pins.list(ctx).associateBy { Pins.key(it) }
         var order = order(ctx).filter { available(ctx, it) }.toMutableList()
         val hidden = hidden(ctx).toMutableSet()
-        val list = LinearLayout(ctx).apply { orientation = LinearLayout.VERTICAL; setPadding(ctx.tvPx(20f), ctx.tvPx(4f), ctx.tvPx(20f), 0) }
+        // (24 dp at the sides: the dialog's title starts there, the list under it lines up with it)
+        val list = LinearLayout(ctx).apply { orientation = LinearLayout.VERTICAL; setPadding(ctx.tvPx(24f), ctx.tvPx(4f), ctx.tvPx(24f), 0) }
         fun build() {
             list.removeAllViews()
             list.addView(ctx.tvText(ctx.getString(R.string.rd_tv_sidebar_pages), 14f, ctx.tvColor(R.color.rd_fg_2), medium = true))
-            list.addView(ctx.tvText(ctx.getString(R.string.rd_tv_sidebar_pages_help), 12f, ctx.tvColor(R.color.rd_fg_a3), lines = 0),
+            // (the desktop's text speaks of a drag handle: these rows move with their arrows only)
+            list.addView(ctx.tvText(ctx.getString(R.string.rd_tv_sidebar_pages_help_arrows), 12f, ctx.tvColor(R.color.rd_fg_a3), lines = 0),
                 LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { topMargin = ctx.tvPx(4f); bottomMargin = ctx.tvPx(8f) })
             order.forEachIndexed { i, key ->
                 // a page, or a pinned folder or playlist (its own icon and name, as the desktop's dialog)

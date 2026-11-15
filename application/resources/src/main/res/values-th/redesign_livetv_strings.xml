@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">แก้ไขแถบด้านข้าง</string>
     <string name="rd_tv_reset_default">คืนค่าปริยาย</string>
     <string name="rd_tv_sidebar_pages">หน้าของแถบด้านข้าง</string>
-    <string name="rd_tv_sidebar_pages_help">ลากหน้าที่ที่จับ หรือย้ายด้วยลูกศร หน้าที่ซ่อนไว้ยังอยู่ที่นี่ห่างเพียงคลิกเดียว</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">ย้ายหน้าด้วยลูกศร หน้าที่ซ่อนไว้ยังอยู่ที่นี่ห่างเพียงคลิกเดียว</string>
     <string name="rd_tv_show_page">แสดง %1$s</string>
     <string name="rd_tv_hidden">ซ่อนอยู่</string>
     <string name="rd_tv_playlists">ผังเล่น</string>

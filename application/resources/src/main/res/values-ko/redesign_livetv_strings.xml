@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">사이드바 편집</string>
     <string name="rd_tv_reset_default">기본값으로 재설정</string>
     <string name="rd_tv_sidebar_pages">사이드바의 페이지</string>
-    <string name="rd_tv_sidebar_pages_help">핸들을 끌거나 화살표로 페이지를 이동하세요. 숨긴 페이지는 여기서 클릭 한 번으로 다시 표시할 수 있습니다.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">화살표로 페이지를 이동하세요. 숨긴 페이지는 여기서 클릭 한 번으로 다시 표시할 수 있습니다.</string>
     <string name="rd_tv_show_page">%1$s 표시</string>
     <string name="rd_tv_hidden">숨김</string>
     <string name="rd_tv_playlists">재생목록</string>

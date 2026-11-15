@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Редагування бічної панелі</string>
     <string name="rd_tv_reset_default">Відновити типові</string>
     <string name="rd_tv_sidebar_pages">Сторінки бічної панелі</string>
-    <string name="rd_tv_sidebar_pages_help">Перетягніть сторінку за її ручку або перемістіть стрілками. Приховані сторінки лишаються тут на відстані одного клацання.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Переміщуйте сторінку стрілками. Приховані сторінки лишаються тут на відстані одного клацання.</string>
     <string name="rd_tv_show_page">Показати %1$s</string>
     <string name="rd_tv_hidden">приховано</string>
     <string name="rd_tv_playlists">Списки відтворення</string>

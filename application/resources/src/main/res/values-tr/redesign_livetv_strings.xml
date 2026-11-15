@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Kenar Çubuğunu Düzenle</string>
     <string name="rd_tv_reset_default">Varsayılana Sıfırla</string>
     <string name="rd_tv_sidebar_pages">Kenar çubuğunun sayfaları</string>
-    <string name="rd_tv_sidebar_pages_help">Bir sayfayı tutamacından sürükleyin ya da oklarla taşıyın. Gizli sayfalar burada bir tık uzaklıkta kalır.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Bir sayfayı oklarla taşıyın. Gizli sayfalar burada bir tık uzaklıkta kalır.</string>
     <string name="rd_tv_show_page">%1$s öğesini göster</string>
     <string name="rd_tv_hidden">gizli</string>
     <string name="rd_tv_playlists">Oynatma Listeleri</string>
