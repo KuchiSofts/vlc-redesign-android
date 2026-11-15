@@ -705,4 +705,7 @@
     <string name="rd_tv_err_refused">sunucu erişimi reddetti (%1$d)</string>
     <string name="rd_tv_err_missing">bu adreste hiçbir şey bulunamadı (%1$d)</string>
     <string name="rd_tv_err_http">sunucu bir hatayla yanıt verdi (%1$d)</string>
+    <string name="rd_delete_to_trash">Silinen dosyalar çöp kutusuna gider ve 30 gün boyunca geri yüklenebilir.</string>
+    <string name="rd_trash_failed_one">Bu dosya çöp kutusuna taşınamıyor. Kalıcı olarak silinsin mi?</string>
+    <string name="rd_trash_failed_many">Bu dosyalar çöp kutusuna taşınamıyor. Kalıcı olarak silinsin mi?</string>
 </resources>

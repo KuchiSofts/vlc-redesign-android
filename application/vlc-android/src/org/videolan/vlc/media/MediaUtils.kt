@@ -62,6 +62,7 @@ import org.videolan.vlc.providers.medialibrary.MedialibraryProvider
 import org.videolan.vlc.providers.medialibrary.VideoGroupsProvider
 import org.videolan.vlc.util.FileUtils
 import org.videolan.vlc.util.Permissions
+import org.videolan.vlc.util.RdTrash
 import org.videolan.vlc.util.TextUtils
 import org.videolan.vlc.util.generateResolutionClass
 import org.videolan.vlc.util.isOTG
@@ -97,7 +98,32 @@ object MediaUtils {
         val deletionAction = when (item) {
             is MediaWrapper, is Album -> Runnable {
                 activity.lifecycleScope.launchWhenStarted {
-                    if (!deleteMedia(item, null)) onDeleteFailed.invoke(item)
+                    // VLC Redesign (#46): to the system's trash first (Android 11+); a file it can't take is
+                    // deleted for good only after a second yes
+                    if (!RdTrash.available) {
+                        if (!deleteMedia(item, null)) onDeleteFailed.invoke(item)
+                        return@launchWhenStarted
+                    }
+                    deleteMedia(item, null, toTrash = true)
+                    val left = withContext(Dispatchers.IO) {
+                        item.tracks.filter { RdTrash.isLocalFile(it.uri) && File(it.uri.path!!).exists() }
+                    }
+                    if (left.isEmpty()) return@launchWhenStarted
+                    if (activity.isFinishing || activity.isDestroyed) {
+                        onDeleteFailed.invoke(item)
+                        return@launchWhenStarted
+                    }
+                    com.google.android.material.dialog.MaterialAlertDialogBuilder(activity)
+                        .setTitle(R.string.delete)
+                        .setMessage(if (left.size == 1) R.string.rd_trash_failed_one else R.string.rd_trash_failed_many)
+                        .setPositiveButton(R.string.delete) { _, _ ->
+                            activity.lifecycleScope.launch {
+                                if (!deleteTracks(left, item is Album, null, toTrash = false)) onDeleteFailed.invoke(item)
+                            }
+                        }
+                        .setNegativeButton(R.string.cancel) { _, _ -> onDeleteFailed.invoke(item) }
+                        .setOnCancelListener { onDeleteFailed.invoke(item) }
+                        .show()
                 }
             }
             is Playlist -> Runnable { deletePlaylist(item) }
@@ -111,13 +137,19 @@ object MediaUtils {
         }
     }
 
-    suspend fun deleteMedia(mw: MediaLibraryItem, failCB: Runnable? = null) = withContext(Dispatchers.IO) {
+    suspend fun deleteMedia(mw: MediaLibraryItem, failCB: Runnable? = null, toTrash: Boolean = false) =
+        deleteTracks(mw.tracks.toList(), mw is Album, failCB, toTrash)
+
+    /** VLC Redesign: [tracks] deleted for good, or moved to the system's trash with [toTrash] (RdTrash) */
+    private suspend fun deleteTracks(tracks: List<MediaWrapper>, album: Boolean, failCB: Runnable?, toTrash: Boolean) = withContext(Dispatchers.IO) {
         val foldersToReload = LinkedList<String>()
         val mediaPaths = LinkedList<String>()
-        for (media in mw.tracks) {
+        val resolver = AppContextProvider.appContext.contentResolver
+        for (media in tracks) {
             val path = media.uri.path
             val parentPath = FileUtils.getParent(path)
-            if (FileUtils.deleteFile(media.uri)) parentPath?.let {
+            val gone = if (toTrash) RdTrash.moveToTrash(resolver, media.uri) else FileUtils.deleteFile(media.uri)
+            if (gone) parentPath?.let {
                 if (media.id > 0L && !foldersToReload.contains(it)) {
                     foldersToReload.add(it)
                 }
@@ -126,7 +158,7 @@ object MediaUtils {
         }
         val mediaLibrary = Medialibrary.getInstance()
         for (folder in foldersToReload) mediaLibrary.reload(folder)
-        if (mw is Album) {
+        if (album) {
             foldersToReload.forEach {
                 if (File(it).list().isNullOrEmpty()) {
                     FileUtils.deleteFile(it)

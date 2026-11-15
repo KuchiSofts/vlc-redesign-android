@@ -705,4 +705,7 @@
     <string name="rd_tv_err_refused">el servidor denegó el acceso (%1$d)</string>
     <string name="rd_tv_err_missing">no se encontró nada en esta dirección (%1$d)</string>
     <string name="rd_tv_err_http">el servidor respondió con un error (%1$d)</string>
+    <string name="rd_delete_to_trash">Los archivos eliminados van a la papelera y se pueden restaurar durante 30 días.</string>
+    <string name="rd_trash_failed_one">Este archivo no se puede mover a la papelera. ¿Eliminarlo definitivamente?</string>
+    <string name="rd_trash_failed_many">Estos archivos no se pueden mover a la papelera. ¿Eliminarlos definitivamente?</string>
 </resources>

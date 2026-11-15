@@ -705,4 +705,7 @@
     <string name="rd_tv_err_refused">servern nekade åtkomst (%1$d)</string>
     <string name="rd_tv_err_missing">inget hittades på den här adressen (%1$d)</string>
     <string name="rd_tv_err_http">servern svarade med ett fel (%1$d)</string>
+    <string name="rd_delete_to_trash">Raderade filer hamnar i papperskorgen och kan återställas i 30 dagar.</string>
+    <string name="rd_trash_failed_one">Den här filen kan inte flyttas till papperskorgen. Radera den permanent?</string>
+    <string name="rd_trash_failed_many">De här filerna kan inte flyttas till papperskorgen. Radera dem permanent?</string>
 </resources>

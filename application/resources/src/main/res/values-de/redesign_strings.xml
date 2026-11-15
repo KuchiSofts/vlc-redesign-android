@@ -705,4 +705,7 @@
     <string name="rd_tv_err_refused">der Server hat den Zugriff verweigert (%1$d)</string>
     <string name="rd_tv_err_missing">unter dieser Adresse wurde nichts gefunden (%1$d)</string>
     <string name="rd_tv_err_http">der Server hat mit einem Fehler geantwortet (%1$d)</string>
+    <string name="rd_delete_to_trash">Gelöschte Dateien kommen in den Papierkorb und können 30 Tage lang wiederhergestellt werden.</string>
+    <string name="rd_trash_failed_one">Diese Datei kann nicht in den Papierkorb verschoben werden. Endgültig löschen?</string>
+    <string name="rd_trash_failed_many">Diese Dateien können nicht in den Papierkorb verschoben werden. Endgültig löschen?</string>
 </resources>

@@ -880,4 +880,8 @@
     <string name="rd_tv_err_refused">the server refused access (%1$d)</string>
     <string name="rd_tv_err_missing">nothing was found at this address (%1$d)</string>
     <string name="rd_tv_err_http">the server answered with an error (%1$d)</string>
+    <!-- Delete: media files go to the system's trash (Android 11+, #46) -->
+    <string name="rd_delete_to_trash">Deleted files go to the trash and can be restored for 30 days.</string>
+    <string name="rd_trash_failed_one">This file can\'t be moved to the trash. Delete it permanently?</string>
+    <string name="rd_trash_failed_many">These files can\'t be moved to the trash. Delete them permanently?</string>
 </resources>

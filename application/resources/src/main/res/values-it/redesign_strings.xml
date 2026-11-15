@@ -705,4 +705,7 @@
     <string name="rd_tv_err_refused">il server ha negato l\'accesso (%1$d)</string>
     <string name="rd_tv_err_missing">non è stato trovato nulla a questo indirizzo (%1$d)</string>
     <string name="rd_tv_err_http">il server ha risposto con un errore (%1$d)</string>
+    <string name="rd_delete_to_trash">I file eliminati vanno nel cestino e possono essere ripristinati per 30 giorni.</string>
+    <string name="rd_trash_failed_one">Impossibile spostare questo file nel cestino. Eliminarlo definitivamente?</string>
+    <string name="rd_trash_failed_many">Impossibile spostare questi file nel cestino. Eliminarli definitivamente?</string>
 </resources>

@@ -703,4 +703,7 @@
     <string name="rd_tv_err_refused">伺服器拒絕存取 (%1$d)</string>
     <string name="rd_tv_err_missing">此位址下找不到任何內容 (%1$d)</string>
     <string name="rd_tv_err_http">伺服器回傳錯誤 (%1$d)</string>
+    <string name="rd_delete_to_trash">刪除的檔案會移至垃圾桶，可在 30 天內還原。</string>
+    <string name="rd_trash_failed_one">無法將此檔案移至垃圾桶。要永久刪除嗎？</string>
+    <string name="rd_trash_failed_many">無法將這些檔案移至垃圾桶。要永久刪除嗎？</string>
 </resources>

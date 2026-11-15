@@ -710,4 +710,7 @@
     <string name="rd_tv_err_refused">server odepřel přístup (%1$d)</string>
     <string name="rd_tv_err_missing">na této adrese nebylo nic nalezeno (%1$d)</string>
     <string name="rd_tv_err_http">server odpověděl chybou (%1$d)</string>
+    <string name="rd_delete_to_trash">Smazané soubory se přesunou do koše a lze je obnovit po dobu 30 dnů.</string>
+    <string name="rd_trash_failed_one">Tento soubor nelze přesunout do koše. Smazat ho natrvalo?</string>
+    <string name="rd_trash_failed_many">Tyto soubory nelze přesunout do koše. Smazat je natrvalo?</string>
 </resources>

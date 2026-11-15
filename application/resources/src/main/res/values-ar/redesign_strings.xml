@@ -712,4 +712,7 @@
     <string name="rd_tv_err_refused">رفض الخادم الوصول (%1$d)</string>
     <string name="rd_tv_err_missing">لم يُعثر على شيء في هذا العنوان (%1$d)</string>
     <string name="rd_tv_err_http">ردّ الخادم بخطأ (%1$d)</string>
+    <string name="rd_delete_to_trash">تنتقل الملفات المحذوفة إلى سلة المهملات ويمكن استعادتها خلال 30 يومًا.</string>
+    <string name="rd_trash_failed_one">تعذّر نقل هذا الملف إلى سلة المهملات. هل تريد حذفه نهائيًا؟</string>
+    <string name="rd_trash_failed_many">تعذّر نقل هذه الملفات إلى سلة المهملات. هل تريد حذفها نهائيًا؟</string>
 </resources>
