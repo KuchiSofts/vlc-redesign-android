@@ -3,6 +3,6 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>Deleted media files go to the trash (Android 11+) and can be restored for 30 days.</item>
+        <item>Edit Sidebar on the More page lines up with the other rows, and its window says how pages move: with the arrows.</item>
     </string-array>
 </resources>
