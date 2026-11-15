@@ -3,8 +3,6 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>Fixed: a video opened from another app while a song plays is the one played.</item>
-        <item>Hebrew and Arabic texts that began with a Latin word read from the right.</item>
-        <item>European Portuguese and Traditional Chinese: the texts still in English are translated.</item>
+        <item>Deleted media files go to the trash (Android 11+) and can be restored for 30 days.</item>
     </string-array>
 </resources>
