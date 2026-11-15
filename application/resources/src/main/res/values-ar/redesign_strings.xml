@@ -59,7 +59,7 @@
     <string name="rd_reverse_stereo">ستيريو عكسي</string>
     <string name="rd_left">يسار</string>
     <string name="rd_right">يمين</string>
-    <string name="rd_dolby_surround">Dolby  محيط</string>
+    <string name="rd_dolby_surround">صوت Dolby المحيطي</string>
     <string name="rd_audio_delay">تأخير الصوت</string>
     <string name="rd_accent_color">لون التمييز</string>
     <string name="rd_red">أحمر</string>
@@ -500,7 +500,7 @@
     <string name="rd_bottom_left">أسفل يسار</string>
     <string name="rd_bottom_right">أسفل يمين</string>
     <string name="rd_spatial_audio_mode">وضع الصوت المجسَّم</string>
-    <string name="rd_headphone_virtualization">virtualization السماعة</string>
+    <string name="rd_headphone_virtualization">المحاكاة الافتراضية لسماعات الرأس</string>
     <string name="rd_help_mix_mode">صوت محيطي وثلاثي الأبعاد مُعالَج لسماعات الرأس.</string>
     <string name="rd_output_gain">كسب الخرج</string>
     <string name="rd_detect_dolby">اكتشاف Dolby Surround</string>

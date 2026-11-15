@@ -3136,7 +3136,9 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
                 // Start playback & seek
                 /* prepare playback */
                 val medialoaded = media != null
-                if (!medialoaded) media = if (hasMedia && !forceUsingNew) currentMedia else MLServiceLocator.getAbstractMediaWrapper(uri)
+                // VLC Redesign: what plays is kept only when it is the media opened: a video opened from a file manager
+                // (not in the library) while a song played was replaced by the song, and the player went to audio mode
+                if (!medialoaded) media = if (hasMedia && !forceUsingNew && currentMedia?.uri == uri) currentMedia else MLServiceLocator.getAbstractMediaWrapper(uri)
                 itemTitle?.let { media?.title = Uri.decode(it) }
                 if (wasPaused) media?.addFlags(MediaWrapper.MEDIA_PAUSED)
                 if (intent.hasExtra(PLAY_DISABLE_HARDWARE)) media?.addFlags(MediaWrapper.MEDIA_NO_HWACCEL)

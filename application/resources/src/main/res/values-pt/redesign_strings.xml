@@ -678,4 +678,31 @@
     <string name="rd_tv_err_refused">o servidor recusou o acesso (%1$d)</string>
     <string name="rd_tv_err_missing">nada foi encontrado neste endereço (%1$d)</string>
     <string name="rd_tv_err_http">o servidor respondeu com um erro (%1$d)</string>
+    <!-- 0.6.7: the texts this language still had in English -->
+    <string name="rd_add_item">Adicionar item</string>
+    <string name="rd_mini_player">Mini leitor</string>
+    <string name="rd_net_url">URL de rede</string>
+    <string name="rd_net_url_help">Pode introduzir várias ligações para carregar.</string>
+    <string name="rd_net_url_hint">ex.: https://www.example.com/stream.avi</string>
+    <string name="rd_net_playlist_name">Nome da lista de reprodução</string>
+    <string name="rd_net_optional">(opcional)</string>
+    <string name="rd_net_playlist_help">A lista de reprodução será guardada e mostrada com este título.</string>
+    <string name="rd_net_playlist_hint">ex.: Canais de TV favoritos</string>
+    <string name="rd_new_playlist">Nova lista de reprodução</string>
+    <string name="rd_np_details">Detalhes da lista de reprodução</string>
+    <string name="rd_np_details_help">A lista de reprodução será guardada e mostrada com este título e miniatura.</string>
+    <string name="rd_np_hint">ex.: Vídeos favoritos</string>
+    <string name="rd_np_files">Selecionar ficheiros</string>
+    <string name="rd_np_files_help">Estes ficheiros serão adicionados à lista de reprodução.</string>
+    <string name="rd_np_files_tv">Prima OK no + para escolher os ficheiros.</string>
+    <string name="rd_np_chosen">Escolhidos: %s</string>
+    <string name="rd_interface_size">Tamanho da interface</string>
+    <string name="rd_interface_size_summary">O tamanho com que as páginas, os textos e os controlos são desenhados. Automático escolhe o tamanho adequado a este ecrã.</string>
+    <string name="rd_interface_size_auto">Automático (%1$s)</string>
+    <string name="rd_on_this_device">Neste dispositivo</string>
+    <plurals name="rd_items_count">
+        <item quantity="one">%d item</item>
+        <item quantity="many">%d itens</item>
+        <item quantity="other">%d itens</item>
+    </plurals>
 </resources>

@@ -333,7 +333,7 @@
     <!-- About -->
     <string name="revision">מהדורה</string>
     <string name="about">על אודות</string>
-    <string name="about_vlc_text">VLC ל־Android™‎ הוא הסבה של נגן המדיה הפופולרית בקוד פתוחVLC. הגירסה ל־Android™‎ יכולה לקרוא את כל הקבצים ותזרימי הרשת.</string>
+    <string name="about_vlc_text">גרסת Android™‎ של VLC היא הסבה של נגן המדיה הפופולרי בקוד פתוח, VLC. הגירסה ל־Android™‎ יכולה לקרוא את כל הקבצים ותזרימי הרשת.</string>
     <string name="authors">יוצרים</string>
     <string name="vlc_authors">ויוצרי VLC.</string>
     <string name="is_compiled_by">נבנה על ידי</string>
@@ -650,7 +650,7 @@
     <string name="no_result">לא נמצאו תוצאות</string>
     <string name="no_internet_connection">נא לבדוק את החיבור שלך לאינטרנט</string>
     <string name="retry">לנסות שוב</string>
-    <string name="open_subs_download_error">OpenSubtitles לא זמין כרגע. נא לנסות שוב מאוחר יותר</string>
+    <string name="open_subs_download_error">השירות OpenSubtitles לא זמין כרגע. נא לנסות שוב מאוחר יותר</string>
     <string name="open_subs_download_link_error">יש בעיה עם OpenSubtitles. נא לנסות שוב</string>
 
     <string name="network_browsing">רשת מקומית</string>
@@ -907,8 +907,8 @@
     <string name="onboarding_scan_title">זיהוי אוטומטי של המדיה שלך</string>
     <string name="onboarding_all_set">הנגן VLC מוכן!</string>
     <string name="onboarding_permission_given">כעת ניתן לגלות את המדיה שלך אוטומטית, להשתמש בכתוביות חיצוניות לרבות נגינה של תזרימים או מדיה מהרשת</string>
-    <string name="daynight_system_explanation">VLC יעבור למצב כהה בהתאם להגדרות המערכת</string>
-    <string name="daynight_legacy_explanation">VLC יעבור אוטומטית למצב לילה בזמן המתאים</string>
+    <string name="daynight_system_explanation">הנגן יעבור למצב כהה בהתאם להגדרות המערכת</string>
+    <string name="daynight_legacy_explanation">הנגן יעבור אוטומטית למצב לילה בזמן המתאים</string>
     <string name="onboarding_scanning_enable">לאפשר ל־VLC לסרוק את המכשיר שלי לאיתור תוכן מדיה</string>
     <string name="onboarding_scan_customize">לאפשר לי לבחור אילו תיקיות VLC יסרוק</string>
     <string name="button_medialibrary_preferences">לעבור להעדפות ספריית המדיה</string>
@@ -959,7 +959,7 @@
     <string name="include_medialib">לכלול את מסד הנתונים שלך</string>
     <string name="include_logs">לכלול את היומנים שלך</string>
     <string name="vlc_reporter">המדווח של VLC</string>
-    <string name="welcome_beta_title">VLC בטא</string>
+    <string name="welcome_beta_title">גרסת בטא של VLC</string>
     <string name="welcome_beta_description">ברוך בורך לתכנית הבטא של VLC.\nנא לשים לב שבגרסה זו עשויות להופיע מגוון תקלות.</string>
     <string name="welcome_beta_description_bugs">אם הבחנת בתקלה, נא לדווח עליה לפורום או למערכת דיווח התקלות שלנו.</string>
     <string name="welcome_beta_description_crashes">אם נתקלת בתקלה או קריסה, נא לפתוח את מסך על אודות ולהשתמש בכפתור משוב > יצירת קשר עם צוות התמיכה.</string>
@@ -1233,7 +1233,7 @@
     <string name="add_server_favorite">הוספת שרת למועדפים</string>
     <string name="widget_theme">ערכת עיצוב וידג׳ט</string>
     <string name="widget_preferences">הגדרת וידג׳ט</string>
-    <string name="material_you">Material You (מושכת צבעים מהרקע)</string>
+    <string name="material_you">עיצוב Material You (צבעים מהרקע)</string>
     <string name="palette">פלטת צבעים (מושכת צבעים מהתמונה שקשורה במדיה)</string>
     <string name="custom">התאמה אישית</string>
     <string name="widget_type">סוג וידג׳ט</string>
