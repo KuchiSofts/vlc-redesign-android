@@ -16,11 +16,13 @@ import android.content.ContentValues
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.annotation.WorkerThread
 import java.io.File
 
 object RdTrash {
     /** the system has a trash for media files (Android 11+) */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.R)
     val available: Boolean get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
 
     /** whether [uri] is a local file (file:// or a bare path), the only kind trashed */
