@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Edita la barra lateral</string>
     <string name="rd_tv_reset_default">Restableix els valors per defecte</string>
     <string name="rd_tv_sidebar_pages">Les pàgines de la barra lateral</string>
-    <string name="rd_tv_sidebar_pages_help">Arrossegueu una pàgina per la nansa o moveu-la amb les fletxes. Les pàgines amagades queden aquí a un clic.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Moveu una pàgina amb les fletxes. Les pàgines amagades queden aquí a un clic.</string>
     <string name="rd_tv_show_page">Mostra %1$s</string>
     <string name="rd_tv_hidden">amagada</string>
     <string name="rd_tv_playlists">Llistes de reproducció</string>

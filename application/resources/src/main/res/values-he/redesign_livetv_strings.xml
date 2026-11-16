@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">עריכת סרגל הצד</string>
     <string name="rd_tv_reset_default">איפוס לברירת המחדל</string>
     <string name="rd_tv_sidebar_pages">הדפים של סרגל הצד</string>
-    <string name="rd_tv_sidebar_pages_help">גרור דף בידית שלו, או הזז אותו בעזרת החיצים. דפים מוסתרים נשארים כאן במרחק לחיצה.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">הזז דף בעזרת החיצים. דפים מוסתרים נשארים כאן במרחק לחיצה.</string>
     <string name="rd_tv_show_page">הצגת %1$s</string>
     <string name="rd_tv_hidden">מוסתר</string>
     <string name="rd_tv_playlists">רשימות נגינה</string>

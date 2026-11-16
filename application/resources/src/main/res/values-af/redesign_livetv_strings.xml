@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Wysig kantbalk</string>
     <string name="rd_tv_reset_default">Stel terug na verstek</string>
     <string name="rd_tv_sidebar_pages">Die bladsye van die kantbalk</string>
-    <string name="rd_tv_sidebar_pages_help">Sleep \'n bladsy aan sy handvatsel, of skuif dit met die pyltjies. Versteekte bladsye bly hier een klik weg.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Skuif \'n bladsy met die pyltjies. Versteekte bladsye bly hier een klik weg.</string>
     <string name="rd_tv_show_page">Wys %1$s</string>
     <string name="rd_tv_hidden">versteek</string>
     <string name="rd_tv_playlists">Afspeellyste</string>

@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">編輯側邊欄</string>
     <string name="rd_tv_reset_default">重設為預設值</string>
     <string name="rd_tv_sidebar_pages">側邊欄頁面</string>
-    <string name="rd_tv_sidebar_pages_help">拖曳頁面的控點，或用箭頭移動。隱藏的頁面在這裡只要按一下即可恢復。</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">用箭頭移動頁面。隱藏的頁面在這裡只要按一下即可恢復。</string>
     <string name="rd_tv_show_page">顯示 %1$s</string>
     <string name="rd_tv_hidden">已隱藏</string>
     <string name="rd_tv_playlists">播放清單</string>

@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">സൈഡ്ബാർ തിരുത്തുക</string>
     <string name="rd_tv_reset_default">സ്ഥിരസ്ഥിതിയിലേക്ക് പുനഃസജ്ജമാക്കുക</string>
     <string name="rd_tv_sidebar_pages">സൈഡ്ബാറിന്റെ പേജുകൾ</string>
-    <string name="rd_tv_sidebar_pages_help">ഒരു പേജ് അതിന്റെ ഹാൻഡിൽ ഉപയോഗിച്ച് വലിച്ചിടുക, അല്ലെങ്കിൽ അമ്പടയാളങ്ങൾ ഉപയോഗിച്ച് നീക്കുക. മറച്ച പേജുകൾ ഇവിടെ ഒരു ക്ലിക്ക് അകലെയാണ്.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">അമ്പടയാളങ്ങൾ ഉപയോഗിച്ച് ഒരു പേജ് നീക്കുക. മറച്ച പേജുകൾ ഇവിടെ ഒരു ക്ലിക്ക് അകലെയാണ്.</string>
     <string name="rd_tv_show_page">%1$s കാണിക്കുക</string>
     <string name="rd_tv_hidden">മറച്ചത്</string>
     <string name="rd_tv_playlists">പ്ലേലിസ്റ്റുകൾ</string>

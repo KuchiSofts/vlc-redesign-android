@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">बाजूपट्टी संपादित करा</string>
     <string name="rd_tv_reset_default">पूर्वनिर्धारितवर रीसेट करा</string>
     <string name="rd_tv_sidebar_pages">बाजूपट्टीची पाने</string>
-    <string name="rd_tv_sidebar_pages_help">पान त्याच्या हँडलने ओढा, किंवा बाणांनी हलवा. लपवलेली पाने येथे एका क्लिकवर आहेत.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">पान बाणांनी हलवा. लपवलेली पाने येथे एका क्लिकवर आहेत.</string>
     <string name="rd_tv_show_page">%1$s दाखवा</string>
     <string name="rd_tv_hidden">लपवलेले</string>
     <string name="rd_tv_playlists">प्लेलिस्ट</string>

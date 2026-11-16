@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Editatu alboko barra</string>
     <string name="rd_tv_reset_default">Berrezarri lehenetsiak</string>
     <string name="rd_tv_sidebar_pages">Alboko barraren orriak</string>
-    <string name="rd_tv_sidebar_pages_help">Arrastatu orri bat bere heldulekutik, edo mugitu geziekin. Ezkutuko orriak klik batera daude hemen.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Mugitu orri bat geziekin. Ezkutuko orriak klik batera daude hemen.</string>
     <string name="rd_tv_show_page">Erakutsi %1$s</string>
     <string name="rd_tv_hidden">ezkutuan</string>
     <string name="rd_tv_playlists">Erreprodukzio-zerrendak</string>

@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Upraviť bočný panel</string>
     <string name="rd_tv_reset_default">Obnoviť predvolené</string>
     <string name="rd_tv_sidebar_pages">Stránky bočného panela</string>
-    <string name="rd_tv_sidebar_pages_help">Stránku potiahnite za úchyt alebo ju presuňte šípkami. Skryté stránky sú tu vždy na jedno kliknutie.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Stránku presuňte šípkami. Skryté stránky sú tu vždy na jedno kliknutie.</string>
     <string name="rd_tv_show_page">Zobraziť %1$s</string>
     <string name="rd_tv_hidden">skrytá</string>
     <string name="rd_tv_playlists">Playlisty</string>

@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Breyta hliðarstiku</string>
     <string name="rd_tv_reset_default">Endurstilla á sjálfgefið</string>
     <string name="rd_tv_sidebar_pages">Síður hliðarstikunnar</string>
-    <string name="rd_tv_sidebar_pages_help">Dragðu síðu í haldfangið, eða færðu hana með örvunum. Faldar síður eru hér aðeins einum smelli frá.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Færðu síðu með örvunum. Faldar síður eru hér aðeins einum smelli frá.</string>
     <string name="rd_tv_show_page">Birta %1$s</string>
     <string name="rd_tv_hidden">falið</string>
     <string name="rd_tv_playlists">Spilunarlistar</string>

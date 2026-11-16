@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Επεξεργασία πλευρικής γραμμής</string>
     <string name="rd_tv_reset_default">Επαναφορά προεπιλογών</string>
     <string name="rd_tv_sidebar_pages">Οι σελίδες της πλευρικής γραμμής</string>
-    <string name="rd_tv_sidebar_pages_help">Σύρετε μια σελίδα από τη λαβή της ή μετακινήστε τη με τα βέλη. Οι κρυφές σελίδες παραμένουν εδώ, ένα κλικ μακριά.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Μετακινήστε μια σελίδα με τα βέλη. Οι κρυφές σελίδες παραμένουν εδώ, ένα κλικ μακριά.</string>
     <string name="rd_tv_show_page">Εμφάνιση %1$s</string>
     <string name="rd_tv_hidden">κρυφή</string>
     <string name="rd_tv_playlists">Λίστες αναπαραγωγής</string>

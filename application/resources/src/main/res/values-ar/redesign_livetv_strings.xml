@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">تحرير الشريط الجانبي</string>
     <string name="rd_tv_reset_default">إعادة التعيين إلى الافتراضي</string>
     <string name="rd_tv_sidebar_pages">صفحات الشريط الجانبي</string>
-    <string name="rd_tv_sidebar_pages_help">اسحب صفحة من مقبضها، أو حرّكها بالأسهم. تبقى الصفحات المخفية على بُعد نقرة واحدة هنا.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">حرّك صفحة بالأسهم. تبقى الصفحات المخفية على بُعد نقرة واحدة هنا.</string>
     <string name="rd_tv_show_page">إظهار %1$s</string>
     <string name="rd_tv_hidden">مخفية</string>
     <string name="rd_tv_playlists">قوائم التشغيل</string>

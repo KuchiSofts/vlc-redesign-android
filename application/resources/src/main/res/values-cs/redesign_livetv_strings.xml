@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Upravit postranní panel</string>
     <string name="rd_tv_reset_default">Obnovit výchozí</string>
     <string name="rd_tv_sidebar_pages">Stránky postranního panelu</string>
-    <string name="rd_tv_sidebar_pages_help">Přetáhněte stránku za úchyt nebo ji přesuňte šipkami. Skryté stránky zůstávají zde na jedno klepnutí.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Přesuňte stránku šipkami. Skryté stránky zůstávají zde na jedno klepnutí.</string>
     <string name="rd_tv_show_page">Zobrazit %1$s</string>
     <string name="rd_tv_hidden">skryto</string>
     <string name="rd_tv_playlists">Seznamy skladeb</string>

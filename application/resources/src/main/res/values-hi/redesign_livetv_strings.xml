@@ -162,7 +162,7 @@
     <string name="rd_tv_edit_sidebar">साइडबार संपादित करें</string>
     <string name="rd_tv_reset_default">डिफ़ॉल्ट पर रीसेट करें</string>
     <string name="rd_tv_sidebar_pages">साइडबार के पृष्ठ</string>
-    <string name="rd_tv_sidebar_pages_help">किसी पृष्ठ को उसके हैंडल से खींचें, या तीरों से खिसकाएँ। छिपे हुए पृष्ठ यहाँ बस एक क्लिक की दूरी पर रहते हैं।</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">किसी पृष्ठ को तीरों से खिसकाएँ। छिपे हुए पृष्ठ यहाँ बस एक क्लिक की दूरी पर रहते हैं।</string>
     <string name="rd_tv_show_page">%1$s दिखाएँ</string>
     <string name="rd_tv_hidden">छिपा हुआ</string>
     <string name="rd_tv_playlists">प्लेलिस्ट</string>

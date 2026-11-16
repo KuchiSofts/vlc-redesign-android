@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Seitenleiste bearbeiten</string>
     <string name="rd_tv_reset_default">Auf Standard zurücksetzen</string>
     <string name="rd_tv_sidebar_pages">Die Seiten der Seitenleiste</string>
-    <string name="rd_tv_sidebar_pages_help">Ziehen Sie eine Seite an ihrem Griff oder verschieben Sie sie mit den Pfeilen. Ausgeblendete Seiten bleiben hier einen Klick entfernt.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Verschieben Sie eine Seite mit den Pfeilen. Ausgeblendete Seiten bleiben hier einen Klick entfernt.</string>
     <string name="rd_tv_show_page">%1$s anzeigen</string>
     <string name="rd_tv_hidden">ausgeblendet</string>
     <string name="rd_tv_playlists">Wiedergabelisten</string>

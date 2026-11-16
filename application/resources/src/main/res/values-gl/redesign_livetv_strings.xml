@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Editar a barra lateral</string>
     <string name="rd_tv_reset_default">Restabelecer os valores predeterminados</string>
     <string name="rd_tv_sidebar_pages">As páxinas da barra lateral</string>
-    <string name="rd_tv_sidebar_pages_help">Arrastre unha páxina pola súa asa ou móvaa coas frechas. As páxinas ocultas seguen aquí, a un clic.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Mova unha páxina coas frechas. As páxinas ocultas seguen aquí, a un clic.</string>
     <string name="rd_tv_show_page">Mostrar %1$s</string>
     <string name="rd_tv_hidden">oculta</string>
     <string name="rd_tv_playlists">Listas de reprodución</string>

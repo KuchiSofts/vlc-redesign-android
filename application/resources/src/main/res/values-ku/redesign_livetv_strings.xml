@@ -165,7 +165,7 @@
     <string name="rd_tv_edit_sidebar">دەستکاریکردنی شریتی لاتەنیشت</string>
     <string name="rd_tv_reset_default">گەڕاندنەوە بۆ بنەڕەت</string>
     <string name="rd_tv_sidebar_pages">پەڕەکانی شریتی لاتەنیشت</string>
-    <string name="rd_tv_sidebar_pages_help">پەڕەیەک لە دەسکەکەیەوە ڕابکێشە، یان بە تیرەکان بیجوڵێنە. پەڕە شاردراوەکان لێرە بە یەک کرتە دەمێننەوە.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">پەڕەیەک بە تیرەکان بجوڵێنە. پەڕە شاردراوەکان لێرە بە یەک کرتە دەمێننەوە.</string>
     <string name="rd_tv_show_page">پیشاندانی %1$s</string>
     <string name="rd_tv_hidden">شاردراوە</string>
     <string name="rd_tv_playlists">لیستەکانی لێدان</string>

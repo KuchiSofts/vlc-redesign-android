@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Змяніць бакавую панэль</string>
     <string name="rd_tv_reset_default">Скінуць да стандартных</string>
     <string name="rd_tv_sidebar_pages">Старонкі бакавой панэлі</string>
-    <string name="rd_tv_sidebar_pages_help">Перацягніце старонку за ручку або перамяшчайце яе стрэлкамі. Схаваныя старонкі застаюцца тут на адлегласці аднаго пстрыку.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Перамяшчайце старонку стрэлкамі. Схаваныя старонкі застаюцца тут на адлегласці аднаго пстрыку.</string>
     <string name="rd_tv_show_page">Паказаць %1$s</string>
     <string name="rd_tv_hidden">схавана</string>
     <string name="rd_tv_playlists">Плэйлісты</string>

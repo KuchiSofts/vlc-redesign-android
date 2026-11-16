@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Modifica barra laterale</string>
     <string name="rd_tv_reset_default">Ripristina predefiniti</string>
     <string name="rd_tv_sidebar_pages">Le pagine della barra laterale</string>
-    <string name="rd_tv_sidebar_pages_help">Trascina una pagina dalla sua maniglia o spostala con le frecce. Le pagine nascoste restano qui a portata di clic.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Sposta una pagina con le frecce. Le pagine nascoste restano qui a portata di clic.</string>
     <string name="rd_tv_show_page">Mostra %1$s</string>
     <string name="rd_tv_hidden">nascosta</string>
     <string name="rd_tv_playlists">Scalette</string>

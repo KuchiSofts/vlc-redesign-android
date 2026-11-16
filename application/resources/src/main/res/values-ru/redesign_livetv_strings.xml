@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Изменить боковую панель</string>
     <string name="rd_tv_reset_default">Сбросить по умолчанию</string>
     <string name="rd_tv_sidebar_pages">Страницы боковой панели</string>
-    <string name="rd_tv_sidebar_pages_help">Перетащите страницу за маркер или переместите её стрелками. Скрытые страницы остаются здесь в одном щелчке.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Перемещайте страницу стрелками. Скрытые страницы остаются здесь в одном щелчке.</string>
     <string name="rd_tv_show_page">Показать %1$s</string>
     <string name="rd_tv_hidden">скрыта</string>
     <string name="rd_tv_playlists">Плейлисты</string>

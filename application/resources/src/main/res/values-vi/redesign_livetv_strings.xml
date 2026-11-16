@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Sửa thanh bên</string>
     <string name="rd_tv_reset_default">Đặt lại mặc định</string>
     <string name="rd_tv_sidebar_pages">Các trang của thanh bên</string>
-    <string name="rd_tv_sidebar_pages_help">Kéo một trang bằng tay cầm hoặc di chuyển bằng các mũi tên. Các trang ẩn vẫn ở đây, chỉ cách một cú nhấp.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Di chuyển trang bằng các mũi tên. Các trang ẩn vẫn ở đây, chỉ cách một cú nhấp.</string>
     <string name="rd_tv_show_page">Hiện %1$s</string>
     <string name="rd_tv_hidden">ẩn</string>
     <string name="rd_tv_playlists">Danh sách phát</string>

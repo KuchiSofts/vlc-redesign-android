@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Rediger sidepanel</string>
     <string name="rd_tv_reset_default">Tilbakestill til standard</string>
     <string name="rd_tv_sidebar_pages">Sidene i sidepanelet</string>
-    <string name="rd_tv_sidebar_pages_help">Dra ei side etter handtaket, eller flytt ho med pilene. Gøymde sider er berre eitt klikk unna her.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Flytt ei side med pilene. Gøymde sider er berre eitt klikk unna her.</string>
     <string name="rd_tv_show_page">Vis %1$s</string>
     <string name="rd_tv_hidden">gøymd</string>
     <string name="rd_tv_playlists">Spelelister</string>

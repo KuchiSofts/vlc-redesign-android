@@ -166,7 +166,7 @@
     <string name="rd_tv_edit_sidebar">Külgriba muutmine</string>
     <string name="rd_tv_reset_default">Lähtesta vaikeväärtustele</string>
     <string name="rd_tv_sidebar_pages">Külgriba lehed</string>
-    <string name="rd_tv_sidebar_pages_help">Lohista lehte selle pidemest või liiguta seda nooltega. Peidetud lehed on siin ühe klõpsu kaugusel.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Liiguta lehte nooltega. Peidetud lehed on siin ühe klõpsu kaugusel.</string>
     <string name="rd_tv_show_page">Näita: %1$s</string>
     <string name="rd_tv_hidden">peidetud</string>
     <string name="rd_tv_playlists">Esitusloendid</string>

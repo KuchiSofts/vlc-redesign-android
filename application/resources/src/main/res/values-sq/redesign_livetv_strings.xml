@@ -165,7 +165,7 @@
     <string name="rd_tv_edit_sidebar">Redakto shiritin anësor</string>
     <string name="rd_tv_reset_default">Rikthe parazgjedhjen</string>
     <string name="rd_tv_sidebar_pages">Faqet e shiritit anësor</string>
-    <string name="rd_tv_sidebar_pages_help">Tërhiqni një faqe nga doreza ose lëvizeni me shigjetat. Faqet e fshehura mbeten këtu, një klikim larg.</string>
+    <string name="rd_tv_sidebar_pages_help_arrows">Lëvizni një faqe me shigjetat. Faqet e fshehura mbeten këtu, një klikim larg.</string>
     <string name="rd_tv_show_page">Shfaq %1$s</string>
     <string name="rd_tv_hidden">e fshehur</string>
     <string name="rd_tv_playlists">Listat e luajtjes</string>
