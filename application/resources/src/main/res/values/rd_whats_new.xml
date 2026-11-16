@@ -3,6 +3,6 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>Edit Sidebar on the More page lines up with the other rows, and its window says how pages move: with the arrows.</item>
+        <item>Version 0.7.0, in step with the Windows, Linux and macOS apps. Nothing changes on Android since 0.6.9.</item>
     </string-array>
 </resources>
