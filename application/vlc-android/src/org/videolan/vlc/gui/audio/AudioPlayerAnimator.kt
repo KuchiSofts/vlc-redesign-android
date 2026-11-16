@@ -244,9 +244,23 @@ internal class AudioPlayerAnimator : IAudioPlayerAnimator, LifecycleObserver {
                 else {
                     // VLC Redesign: the desktop's backdrop (ArtworkBackdrop.qml): under a white veil in the light
                     // theme; in the dark one the desktop's four-pass blur averages the colours away, this lighter
-                    // blur kept bright colourful covers (seen on a tablet): a black veil of 40 % tones it down
+                    // blur kept bright colourful covers (seen on a tablet): a black veil of 40 % tones it down, and
+                    // more of it over a bright cover, as much as the white texts need to read on its bright parts
+                    // (RdBackdrop, the desktop's rule: a white cover left them at 2.9:1)
                     val dark = (activity.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
-                    UiTools.blurView(binding.backgroundView, cover, 20F, if (dark) android.graphics.Color.argb(102, 0, 0, 0) else android.graphics.Color.argb(153, 255, 255, 255))
+                    val veil = if (!dark) 0.0 else withContext(Dispatchers.Default) {
+                        try {
+                            // areas of the cover, not its pixels: what the blur leaves of them
+                            val small = android.graphics.Bitmap.createScaledBitmap(cover, 12, 12, true)
+                            val pixels = IntArray(144)
+                            small.getPixels(pixels, 0, 12, 0, 0, 12, 12)
+                            if (small !== cover) small.recycle()
+                            org.videolan.vlc.gui.helpers.RdBackdrop.veil(org.videolan.vlc.gui.helpers.RdBackdrop.brightParts(pixels))
+                        } catch (e: Exception) {
+                            org.videolan.vlc.gui.helpers.RdBackdrop.LEAST_VEIL
+                        }
+                    }
+                    UiTools.blurView(binding.backgroundView, cover, 20F, if (dark) android.graphics.Color.argb(Math.round(veil * 255).toInt(), 0, 0, 0) else android.graphics.Color.argb(153, 255, 255, 255))
                     binding.backgroundView.setVisible()
                 }
             }
