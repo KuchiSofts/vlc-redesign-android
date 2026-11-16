@@ -3,6 +3,6 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>Version 0.7.0, in step with the Windows, Linux and macOS apps. Nothing changes on Android since 0.6.9.</item>
+        <item>Music player: the texts over a bright cover stay readable, its backdrop darkens as much as they need.</item>
     </string-array>
 </resources>
