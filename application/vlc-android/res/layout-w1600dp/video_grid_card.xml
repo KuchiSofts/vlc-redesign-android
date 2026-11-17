@@ -12,6 +12,8 @@
 
         <import type="android.text.TextUtils" />
 
+        <import type="org.videolan.vlc.util.RdShowName" />
+
         <variable
                 name="media"
                 type="org.videolan.medialibrary.media.MediaLibraryItem" />
@@ -332,7 +334,7 @@
                 android:maxLines="1"
                 android:includeFontPadding="false"
                 android:paddingBottom="19dp"
-                android:text="@{media.title}"
+                android:text="@{RdShowName.ofItem(media)}"
                 android:textSize="16dp"
                 android:fontFamily="@font/inter"
                 android:textColor="@{seen != 0L ? 0xFF6B6B6B : 0xFF969696}"

@@ -1,7 +1,7 @@
 /*
  * VLC Redesign: the lyrics of the song playing, as the desktop's music view shows them (LyricsFlickable.qml): every
  * line, the one sung in the accent and kept in the middle while the song plays (synchronized lyrics); a tap on a line
- * goes there. Opened from the music player's menu (Lyrics) when the song has lyrics (RdLyrics: its ID3 tag or an
+ * goes there; lyrics without times move with the song. Opened from the music player's menu (Lyrics) when the song has lyrics (RdLyrics: its ID3 tag or an
  * .lrc file beside it). The lyrics of the song playing are kept in [current].
  *
  * This program is free software; you can redistribute it and/or modify it under the terms of the GNU General
@@ -41,6 +41,8 @@ class RdLyricsSheet : VLCBottomSheetDialogFragment() {
     private var shown = -2
     // the last key on a line (the remote moving through them): its focus is left where the user put it a while
     private var lastKey = 0L
+    // the user's last touch of the page: lyrics without times are left where the user scrolled them a while
+    private var lastTouch = 0L
     private val handler = Handler(Looper.getMainLooper())
     private val tick = object : Runnable {
         override fun run() {
@@ -101,6 +103,7 @@ class RdLyricsSheet : VLCBottomSheetDialogFragment() {
             // (a line scrolled under the title fades out instead of being cut)
             isVerticalFadingEdgeEnabled = true
             setFadingEdgeLength(dp(32f))
+            setOnTouchListener { _, _ -> lastTouch = android.os.SystemClock.uptimeMillis(); false }
         }
         root.addView(scroll, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (resources.displayMetrics.heightPixels * 0.6f).toInt()))
         return root
@@ -108,7 +111,7 @@ class RdLyricsSheet : VLCBottomSheetDialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        if (current?.second?.synced == true) handler.post(tick)
+        if (current?.second != null) handler.post(tick)
     }
 
     override fun onStop() {
@@ -120,6 +123,10 @@ class RdLyricsSheet : VLCBottomSheetDialogFragment() {
     private fun follow() {
         val lyrics = current?.second ?: return
         val service = PlaybackService.instance ?: return
+        if (!lyrics.synced) {
+            followPage(service)
+            return
+        }
         val i = lyrics.indexAt(service.getTime())
         if (i == shown) return
         val ctx = context ?: return
@@ -131,6 +138,27 @@ class RdLyricsSheet : VLCBottomSheetDialogFragment() {
         // first line, half under the title, as the window scrolled to the line sung)
         if (row.isFocusable && rows.any { it.isFocused } && android.os.SystemClock.uptimeMillis() - lastKey > 2500L) row.requestFocus()
         scroll.smoothScrollTo(0, (row.top - scroll.height / 2 + row.height / 2).coerceAtLeast(0))
+    }
+
+    /**
+     * lyrics without times (#101, #109): the page with the song, the middle of the window at the part of the lyrics
+     * the part of the song played gives (the top at the start, the end as the last half page is sung), moved a
+     * step at a time (within a step of an end, to the end itself)
+     */
+    private fun followPage(service: PlaybackService) {
+        val length = service.length
+        val content = scroll.getChildAt(0) ?: return
+        val range = content.height - scroll.height
+        if (length <= 0 || range <= 0) return
+        if (android.os.SystemClock.uptimeMillis() - lastTouch < 4000L) return
+        val step = dp(48f)
+        // the middle of the window where the song is (its part played, of the lyrics): the lines sung are about
+        // there, the end shown as its last half page is sung
+        val sung = content.height * (service.getTime().toDouble() / length).coerceIn(0.0, 1.0)
+        var target = (sung - scroll.height / 2.0).toInt().coerceIn(0, range)
+        if (range - target < step) target = range else if (target < step) target = 0
+        if (kotlin.math.abs(target - scroll.scrollY) >= step || ((target == 0 || target == range) && target != scroll.scrollY))
+            scroll.smoothScrollTo(0, target)
     }
 
     companion object {

@@ -3,6 +3,8 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>Version 0.7.2, in step with the Windows, Linux and macOS apps. Nothing changes on Android since 0.7.1.</item>
+        <item>Videos grouped by name show the show\'s name, and play its episodes in order: 2 before 10.</item>
+        <item>Lyrics without times move with the song, to their last line.</item>
+        <item>What\'s new no longer shows an old list in other languages.</item>
     </string-array>
 </resources>

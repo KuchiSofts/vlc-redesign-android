@@ -56,7 +56,7 @@ object TalkbackUtil {
             .talkbackAppend(context.getString(R.string.talkback_album, audio.albumName))
             .talkbackAppend(context.getString(R.string.talkback_artist, audio.artistName))
 
-    fun getVideoGroup(context: Context, video: VideoGroup) = context.getString(R.string.talkback_video_group, video.title)
+    fun getVideoGroup(context: Context, video: VideoGroup) = context.getString(R.string.talkback_video_group, org.videolan.vlc.util.RdShowName.of(video.title))
             .talkbackAppend(context.resources.getQuantityString(R.plurals.videos_quantity, video.mediaCount(), video.mediaCount()))
 
     fun getGenre(context: Context, genre: Genre) = context.getString(R.string.talkback_genre, genre.title)
