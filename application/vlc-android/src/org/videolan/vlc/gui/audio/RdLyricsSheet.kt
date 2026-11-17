@@ -141,8 +141,9 @@ class RdLyricsSheet : VLCBottomSheetDialogFragment() {
     }
 
     /**
-     * lyrics without times (#101, #109): the page in proportion to the song, its top at the start and its end at
-     * the end, moved a step at a time (within a step of an end, to the end itself)
+     * lyrics without times (#101, #109): the page with the song, the middle of the window at the part of the lyrics
+     * the part of the song played gives (the top at the start, the end as the last half page is sung), moved a
+     * step at a time (within a step of an end, to the end itself)
      */
     private fun followPage(service: PlaybackService) {
         val length = service.length
@@ -151,7 +152,10 @@ class RdLyricsSheet : VLCBottomSheetDialogFragment() {
         if (length <= 0 || range <= 0) return
         if (android.os.SystemClock.uptimeMillis() - lastTouch < 4000L) return
         val step = dp(48f)
-        var target = (range * (service.getTime().toDouble() / length).coerceIn(0.0, 1.0)).toInt()
+        // the middle of the window where the song is (its part played, of the lyrics): the lines sung are about
+        // there, the end shown as its last half page is sung
+        val sung = content.height * (service.getTime().toDouble() / length).coerceIn(0.0, 1.0)
+        var target = (sung - scroll.height / 2.0).toInt().coerceIn(0, range)
         if (range - target < step) target = range else if (target < step) target = 0
         if (kotlin.math.abs(target - scroll.scrollY) >= step || ((target == 0 || target == range) && target != scroll.scrollY))
             scroll.smoothScrollTo(0, target)
