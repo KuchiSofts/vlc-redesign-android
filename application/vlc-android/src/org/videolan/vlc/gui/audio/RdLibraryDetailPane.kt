@@ -58,7 +58,7 @@ class RdLibraryDetailPane(private val root: View, private val scope: LifecycleCo
     fun show(selected: MediaLibraryItem) {
         if (selected.id == item?.id && selected.itemType == item?.itemType) return
         item = selected
-        title.text = selected.title
+        title.text = if (selected is VideoGroup) org.videolan.vlc.util.RdShowName.of(selected.title) else selected.title
         subtitle.text = ""
         adapter.set(emptyList())
         tracks = emptyList()

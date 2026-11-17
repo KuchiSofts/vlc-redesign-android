@@ -23,6 +23,7 @@ package org.videolan.vlc.providers.medialibrary
 import android.content.Context
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import org.videolan.medialibrary.interfaces.Medialibrary
 import org.videolan.medialibrary.interfaces.media.Folder
 import org.videolan.medialibrary.interfaces.media.MediaWrapper
 import org.videolan.medialibrary.interfaces.media.VideoGroup
@@ -51,6 +52,10 @@ class VideosProvider(val folder : Folder?, val group: VideoGroup?, context: Cont
     override fun getPage(loadSize: Int, startposition: Int): Array<MediaWrapper> {
         val list = if (model.filterQuery == null) when {
             folder !== null -> folder.media(Folder.TYPE_FOLDER_VIDEO, sort, desc, Settings.includeMissing, onlyFavorites, loadSize, startposition)
+            // VLC Redesign: a group by title in its natural order (getAll sorts it, #108): the page cut out of it
+            group !== null && (sort == Medialibrary.SORT_DEFAULT || sort == Medialibrary.SORT_ALPHA) ->
+                group.getAll(sort, desc, Settings.includeMissing, onlyFavorites)
+                    .drop(startposition).take(loadSize).toTypedArray()
             group !== null -> group.media(sort, desc, Settings.includeMissing, onlyFavorites, loadSize, startposition)
             else -> medialibrary.getPagedVideos(sort, desc, Settings.includeMissing, onlyFavorites, loadSize, startposition)
         } else when {

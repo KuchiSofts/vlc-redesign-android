@@ -598,6 +598,11 @@ fun VideoGroup.getAll(sort: Int = Medialibrary.SORT_DEFAULT, desc: Boolean = fal
         all.addAll(list)
         index += pageCount
     }
+    // VLC Redesign: the episodes of a show by title in their natural order, "Episode 2" before "Episode 10" (#108)
+    if (sort == Medialibrary.SORT_DEFAULT || sort == Medialibrary.SORT_ALPHA) {
+        val byTitle = compareBy<MediaWrapper, String>(org.videolan.vlc.util.RdNaturalOrder) { it.title ?: "" }
+        all.sortWith(if (desc) byTitle.reversed() else byTitle)
+    }
     return all
 }
 

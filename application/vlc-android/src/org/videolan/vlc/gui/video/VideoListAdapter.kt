@@ -93,6 +93,7 @@ class VideoListAdapter(private var isSeenMediaMarkerVisible: Boolean, private va
         val item = getItem(position) ?: return
         holder.binding.setVariable(BR.scaleType, ImageView.ScaleType.CENTER_CROP)
         fillView(holder, item)
+        // (the card's title: RdShowName.ofItem, a group by its show's name, #108)
         holder.binding.setVariable(BR.media, item)
         holder.selectView(multiSelectHelper.isSelected(position))
         item.let {
@@ -146,7 +147,7 @@ class VideoListAdapter(private var isSeenMediaMarkerVisible: Boolean, private va
             is VideoGroup -> holder.itemView.scope.launch {
                 val count = item.mediaCount()
                 holder.binding.setVariable(BR.time, if (count < 2) null else if (item.presentCount == item.mediaCount()) holder.itemView.context.resources.getQuantityString(R.plurals.videos_quantity, count, count) else if(item.presentCount == 0) holder.itemView.context.resources.getString(R.string.no_video) else item.getPresenceDescription())
-                holder.title.text = item.title
+                holder.title.text = org.videolan.vlc.util.RdShowName.of(item.title)
                 if (!isListMode) holder.binding.setVariable(BR.resolution, null)
                 val seen = if (item.presentSeen == item.presentCount && item.presentCount != 0) 1L else 0L
                 holder.binding.setVariable(BR.seen, seen)
