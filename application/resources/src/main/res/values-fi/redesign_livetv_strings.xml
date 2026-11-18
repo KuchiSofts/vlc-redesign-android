@@ -266,4 +266,28 @@
     <string name="rd_tv_its_guide_id">Ohjelmaoppaan tunniste</string>
     <string name="rd_tv_forget_guide_id">Unohda ohjelmaoppaan tunniste</string>
     <string name="rd_tv_guide_id_of">Kanavan %1$s tunniste ohjelmaoppaassa</string>
+    <string name="rd_tv_live_mark">Live</string>
+    <string name="rd_tv_next_mark">Seuraava</string>
+    <string name="rd_idle_after_1">1 minuutin kuluttua</string>
+    <string name="rd_idle_after_10">10 minuutin kuluttua</string>
+    <string name="rd_idle_after_3">3 minuutin kuluttua</string>
+    <string name="rd_idle_after_5">5 minuutin kuluttua</string>
+    <string name="rd_idle_screen">Joutonäyttö</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Ohjelmaopas on liian suuri: %1$d kanavasi ohjelmat säilytettiin</item>
+        <item quantity="other">Ohjelmaopas on liian suuri: %1$d kanavasi ohjelmat säilytettiin</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Ohjelmaopas on liian suuri: kanaviesi seuraava %1$d päivä säilytettiin</item>
+        <item quantity="other">Ohjelmaopas on liian suuri: kanaviesi seuraavat %1$d päivää säilytettiin</item>
+    </plurals>
+    <string name="rd_tv_programmes">Ohjelmat</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Luetaan ohjelmaopasta… %1$s Mt · %2$d kanava</item>
+        <item quantity="other">Luetaan ohjelmaopasta… %1$s Mt · %2$d kanavaa</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Luetaan ohjelmaopasta %1$s… %2$s Mt · %3$d kanava</item>
+        <item quantity="other">Luetaan ohjelmaopasta %1$s… %2$s Mt · %3$d kanavaa</item>
+    </plurals>
 </resources>

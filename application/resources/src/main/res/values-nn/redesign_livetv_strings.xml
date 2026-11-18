@@ -266,4 +266,28 @@
     <string name="rd_tv_its_guide_id">ID i programtablået</string>
     <string name="rd_tv_forget_guide_id">Gløym ID-en i programtablået</string>
     <string name="rd_tv_guide_id_of">ID-en til %1$s i programtablået</string>
+    <string name="rd_tv_live_mark">Konsert</string>
+    <string name="rd_tv_next_mark">Neste</string>
+    <string name="rd_idle_after_1">Etter 1 minutt</string>
+    <string name="rd_idle_after_10">Etter 10 minutt</string>
+    <string name="rd_idle_after_3">Etter 3 minutt</string>
+    <string name="rd_idle_after_5">Etter 5 minutt</string>
+    <string name="rd_idle_screen">Kvileskjerm</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Programoversikta er for stor: programma for %1$d av kanalane dine vart haldne</item>
+        <item quantity="other">Programoversikta er for stor: programma for %1$d av kanalane dine vart haldne</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Programoversikta er for stor: neste %1$d dag for kanalane dine vart halden</item>
+        <item quantity="other">Programoversikta er for stor: dei neste %1$d dagane for kanalane dine vart haldne</item>
+    </plurals>
+    <string name="rd_tv_programmes">Program</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Les programoversikta… %1$s MB · %2$d kanal</item>
+        <item quantity="other">Les programoversikta… %1$s MB · %2$d kanalar</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Les programoversikta for %1$s… %2$s MB · %3$d kanal</item>
+        <item quantity="other">Les programoversikta for %1$s… %2$s MB · %3$d kanalar</item>
+    </plurals>
 </resources>

@@ -289,4 +289,5 @@
         <item quantity="one">Guiden är för stor: programmen för %1$d av dina kanaler sparades</item>
         <item quantity="other">Guiden är för stor: programmen för %1$d av dina kanaler sparades</item>
     </plurals>
+    <string name="rd_tv_live_mark">Live</string>
 </resources>

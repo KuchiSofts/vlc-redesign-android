@@ -266,4 +266,28 @@
     <string name="rd_tv_its_guide_id">Gidaren IDa</string>
     <string name="rd_tv_forget_guide_id">Ahaztu gidaren IDa</string>
     <string name="rd_tv_guide_id_of">%1$s kanalaren IDa gidan</string>
+    <string name="rd_tv_live_mark">Zuzenean</string>
+    <string name="rd_tv_next_mark">Hurrengoa</string>
+    <string name="rd_idle_after_1">Minutu 1 ondoren</string>
+    <string name="rd_idle_after_10">10 minutu ondoren</string>
+    <string name="rd_idle_after_3">3 minutu ondoren</string>
+    <string name="rd_idle_after_5">5 minutu ondoren</string>
+    <string name="rd_idle_screen">Inaktibitate-pantaila</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Gida handiegia: zure %1$d kateren programak gorde dira</item>
+        <item quantity="other">Gida handiegia: zure %1$d kateren programak gorde dira</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Gida handiegia: zure kateen hurrengo egun %1$d gorde da</item>
+        <item quantity="other">Gida handiegia: zure kateen hurrengo %1$d egunak gorde dira</item>
+    </plurals>
+    <string name="rd_tv_programmes">Programak</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Gida irakurtzen… %1$s MB · kate %2$d</item>
+        <item quantity="other">Gida irakurtzen… %1$s MB · %2$d kate</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">%1$s gida irakurtzen… %2$s MB · kate %3$d</item>
+        <item quantity="other">%1$s gida irakurtzen… %2$s MB · %3$d kate</item>
+    </plurals>
 </resources>

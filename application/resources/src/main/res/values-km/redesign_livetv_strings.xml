@@ -256,4 +256,24 @@
     <string name="rd_tv_its_guide_id">ID មគ្គុទ្ទេសក៍របស់វា</string>
     <string name="rd_tv_forget_guide_id">លុប ID មគ្គុទ្ទេសក៍របស់វា</string>
     <string name="rd_tv_guide_id_of">ID របស់ %1$s ក្នុងមគ្គុទ្ទេសក៍</string>
+    <string name="rd_tv_live_mark">ផ្ទាល់</string>
+    <string name="rd_tv_next_mark">បន្ទាប់</string>
+    <string name="rd_idle_after_1">បន្ទាប់​ពី 1 នាទី</string>
+    <string name="rd_idle_after_10">បន្ទាប់​ពី 10 នាទី</string>
+    <string name="rd_idle_after_3">បន្ទាប់​ពី 3 នាទី</string>
+    <string name="rd_idle_after_5">បន្ទាប់​ពី 5 នាទី</string>
+    <string name="rd_idle_screen">អេក្រង់​ទំនេរ</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="other">កាលវិភាគ​ធំ​ពេក៖ បាន​រក្សា​កម្មវិធី​នៃ​ឆានែល %1$d របស់​អ្នក</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="other">កាលវិភាគ​ធំ​ពេក៖ បាន​រក្សា %1$d ថ្ងៃ​បន្ទាប់​នៃ​ឆានែល​របស់​អ្នក</item>
+    </plurals>
+    <string name="rd_tv_programmes">កម្មវិធី</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="other">កំពុង​អាន​កាលវិភាគ… %1$s MB · ឆានែល %2$d</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="other">កំពុង​អាន​កាលវិភាគ​របស់ %1$s… %2$s MB · ឆានែល %3$d</item>
+    </plurals>
 </resources>

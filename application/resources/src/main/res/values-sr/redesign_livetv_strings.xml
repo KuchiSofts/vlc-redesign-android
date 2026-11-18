@@ -276,4 +276,32 @@
     <string name="rd_tv_its_guide_id">Његов ID у водичу</string>
     <string name="rd_tv_forget_guide_id">Заборави његов ID у водичу</string>
     <string name="rd_tv_guide_id_of">ID канала %1$s у водичу</string>
+    <string name="rd_tv_live_mark">Уживо</string>
+    <string name="rd_tv_next_mark">Следеће</string>
+    <string name="rd_idle_after_1">После 1 минута</string>
+    <string name="rd_idle_after_10">После 10 минута</string>
+    <string name="rd_idle_after_3">После 3 минута</string>
+    <string name="rd_idle_after_5">После 5 минута</string>
+    <string name="rd_idle_screen">Екран мировања</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Водич је превелик: задржане емисије %1$d вашег канала</item>
+        <item quantity="few">Водич је превелик: задржане емисије %1$d ваша канала</item>
+        <item quantity="other">Водич је превелик: задржане емисије %1$d ваших канала</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Водич је превелик: задржан следећи %1$d дан ваших канала</item>
+        <item quantity="few">Водич је превелик: задржана следећа %1$d дана ваших канала</item>
+        <item quantity="other">Водич је превелик: задржано следећих %1$d дана ваших канала</item>
+    </plurals>
+    <string name="rd_tv_programmes">Емисије</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Читање водича… %1$s MB · %2$d канал</item>
+        <item quantity="few">Читање водича… %1$s MB · %2$d канала</item>
+        <item quantity="other">Читање водича… %1$s MB · %2$d канала</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Читање водича %1$s… %2$s MB · %3$d канал</item>
+        <item quantity="few">Читање водича %1$s… %2$s MB · %3$d канала</item>
+        <item quantity="other">Читање водича %1$s… %2$s MB · %3$d канала</item>
+    </plurals>
 </resources>

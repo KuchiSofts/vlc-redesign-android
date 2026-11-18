@@ -266,4 +266,28 @@
     <string name="rd_tv_its_guide_id">Sy gids-ID</string>
     <string name="rd_tv_forget_guide_id">Vergeet sy gids-ID</string>
     <string name="rd_tv_guide_id_of">Die ID van %1$s in die gids</string>
+    <string name="rd_tv_live_mark">Lewendig</string>
+    <string name="rd_tv_next_mark">Volgende</string>
+    <string name="rd_idle_after_1">Na 1 minuut</string>
+    <string name="rd_idle_after_10">Na 10 minute</string>
+    <string name="rd_idle_after_3">Na 3 minute</string>
+    <string name="rd_idle_after_5">Na 5 minute</string>
+    <string name="rd_idle_screen">Ledige skerm</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Gids te groot: die programme van %1$d van jou kanale is behou</item>
+        <item quantity="other">Gids te groot: die programme van %1$d van jou kanale is behou</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Gids te groot: die volgende %1$d dag van jou kanale is behou</item>
+        <item quantity="other">Gids te groot: die volgende %1$d dae van jou kanale is behou</item>
+    </plurals>
+    <string name="rd_tv_programmes">Programme</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Lees die gids… %1$s MB · %2$d kanaal</item>
+        <item quantity="other">Lees die gids… %1$s MB · %2$d kanale</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Lees die gids van %1$s… %2$s MB · %3$d kanaal</item>
+        <item quantity="other">Lees die gids van %1$s… %2$s MB · %3$d kanale</item>
+    </plurals>
 </resources>

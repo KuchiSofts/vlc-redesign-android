@@ -276,4 +276,32 @@
     <string name="rd_tv_its_guide_id">Id-ul său din ghid</string>
     <string name="rd_tv_forget_guide_id">Uită id-ul din ghid</string>
     <string name="rd_tv_guide_id_of">Id-ul canalului %1$s din ghid</string>
+    <string name="rd_tv_live_mark">Live</string>
+    <string name="rd_tv_next_mark">Următor</string>
+    <string name="rd_idle_after_1">După 1 minut</string>
+    <string name="rd_idle_after_10">După 10 minute</string>
+    <string name="rd_idle_after_3">După 3 minute</string>
+    <string name="rd_idle_after_5">După 5 minute</string>
+    <string name="rd_idle_screen">Ecran de inactivitate</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Ghid prea mare: s-au păstrat emisiunile a %1$d dintre canalele tale</item>
+        <item quantity="few">Ghid prea mare: s-au păstrat emisiunile a %1$d dintre canalele tale</item>
+        <item quantity="other">Ghid prea mare: s-au păstrat emisiunile a %1$d dintre canalele tale</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Ghid prea mare: s-a păstrat următoarea %1$d zi a canalelor tale</item>
+        <item quantity="few">Ghid prea mare: s-au păstrat următoarele %1$d zile ale canalelor tale</item>
+        <item quantity="other">Ghid prea mare: s-au păstrat următoarele %1$d de zile ale canalelor tale</item>
+    </plurals>
+    <string name="rd_tv_programmes">Emisiuni</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Se citește ghidul… %1$s MB · %2$d canal</item>
+        <item quantity="few">Se citește ghidul… %1$s MB · %2$d canale</item>
+        <item quantity="other">Se citește ghidul… %1$s MB · %2$d de canale</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Se citește ghidul %1$s… %2$s MB · %3$d canal</item>
+        <item quantity="few">Se citește ghidul %1$s… %2$s MB · %3$d canale</item>
+        <item quantity="other">Se citește ghidul %1$s… %2$s MB · %3$d de canale</item>
+    </plurals>
 </resources>

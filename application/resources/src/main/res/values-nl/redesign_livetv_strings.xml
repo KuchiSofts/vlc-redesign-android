@@ -289,4 +289,5 @@
         <item quantity="one">Gids te groot: de programma\'s van %1$d van je zenders bewaard</item>
         <item quantity="other">Gids te groot: de programma\'s van %1$d van je zenders bewaard</item>
     </plurals>
+    <string name="rd_tv_live_mark">Live</string>
 </resources>

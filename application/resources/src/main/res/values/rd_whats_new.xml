@@ -3,6 +3,6 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>Version 0.7.4, in step with the Windows, Linux and macOS apps. Nothing changes on Android since 0.7.3.</item>
+        <item>The texts of the redesign are now translated in 61 languages, 41 more than before.</item>
     </string-array>
 </resources>

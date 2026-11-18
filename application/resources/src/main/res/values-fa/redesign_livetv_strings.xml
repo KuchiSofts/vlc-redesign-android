@@ -266,4 +266,28 @@
     <string name="rd_tv_its_guide_id">شناسهٔ راهنمای آن</string>
     <string name="rd_tv_forget_guide_id">فراموش کردن شناسهٔ راهنمای آن</string>
     <string name="rd_tv_guide_id_of">شناسهٔ %1$s در راهنما</string>
+    <string name="rd_tv_live_mark">زنده</string>
+    <string name="rd_tv_next_mark">بعدی</string>
+    <string name="rd_idle_after_1">پس از 1 دقیقه</string>
+    <string name="rd_idle_after_10">پس از 10 دقیقه</string>
+    <string name="rd_idle_after_3">پس از 3 دقیقه</string>
+    <string name="rd_idle_after_5">پس از 5 دقیقه</string>
+    <string name="rd_idle_screen">صفحه بیکاری</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">راهنما بیش از حد بزرگ است: برنامه‌های %1$d کانال شما نگه داشته شد</item>
+        <item quantity="other">راهنما بیش از حد بزرگ است: برنامه‌های %1$d کانال شما نگه داشته شد</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">راهنما بیش از حد بزرگ است: %1$d روز آینده کانال‌های شما نگه داشته شد</item>
+        <item quantity="other">راهنما بیش از حد بزرگ است: %1$d روز آینده کانال‌های شما نگه داشته شد</item>
+    </plurals>
+    <string name="rd_tv_programmes">برنامه‌ها</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">در حال خواندن راهنما… %1$s مگابایت · %2$d کانال</item>
+        <item quantity="other">در حال خواندن راهنما… %1$s مگابایت · %2$d کانال</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">در حال خواندن راهنمای %1$s… %2$s مگابایت · %3$d کانال</item>
+        <item quantity="other">در حال خواندن راهنمای %1$s… %2$s مگابایت · %3$d کانال</item>
+    </plurals>
 </resources>

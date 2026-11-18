@@ -266,4 +266,28 @@
     <string name="rd_tv_its_guide_id">Auðkenni í dagskránni</string>
     <string name="rd_tv_forget_guide_id">Gleyma auðkenni í dagskránni</string>
     <string name="rd_tv_guide_id_of">Auðkenni %1$s í dagskránni</string>
+    <string name="rd_tv_live_mark">Lifandi</string>
+    <string name="rd_tv_next_mark">Áfram</string>
+    <string name="rd_idle_after_1">Eftir 1 mínútu</string>
+    <string name="rd_idle_after_10">Eftir 10 mínútur</string>
+    <string name="rd_idle_after_3">Eftir 3 mínútur</string>
+    <string name="rd_idle_after_5">Eftir 5 mínútur</string>
+    <string name="rd_idle_screen">Aðgerðaleysisskjár</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Dagskráin er of stór: dagskrá %1$d af rásunum þínum var haldið</item>
+        <item quantity="other">Dagskráin er of stór: dagskrá %1$d af rásunum þínum var haldið</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Dagskráin er of stór: næsta %1$d degi rásanna þinna var haldið</item>
+        <item quantity="other">Dagskráin er of stór: næstu %1$d dögum rásanna þinna var haldið</item>
+    </plurals>
+    <string name="rd_tv_programmes">Dagskrárliðir</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Les dagskrána… %1$s MB · %2$d rás</item>
+        <item quantity="other">Les dagskrána… %1$s MB · %2$d rásir</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Les dagskrá %1$s… %2$s MB · %3$d rás</item>
+        <item quantity="other">Les dagskrá %1$s… %2$s MB · %3$d rásir</item>
+    </plurals>
 </resources>

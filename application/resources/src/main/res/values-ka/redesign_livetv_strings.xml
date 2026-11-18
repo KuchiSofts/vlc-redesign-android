@@ -266,4 +266,28 @@
     <string name="rd_tv_its_guide_id">მისი ID გიდში</string>
     <string name="rd_tv_forget_guide_id">მისი გიდის ID-ის დავიწყება</string>
     <string name="rd_tv_guide_id_of">%1$s-ის ID გიდში</string>
+    <string name="rd_tv_next_mark">შემდეგი</string>
+    <string name="rd_idle_after_1">1 წუთის შემდეგ</string>
+    <string name="rd_idle_after_10">10 წუთის შემდეგ</string>
+    <string name="rd_idle_after_3">3 წუთის შემდეგ</string>
+    <string name="rd_idle_after_5">5 წუთის შემდეგ</string>
+    <string name="rd_idle_screen">უმოქმედობის ეკრანი</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">გზამკვლევი ზედმეტად დიდია: შენარჩუნდა თქვენი %1$d არხის გადაცემები</item>
+        <item quantity="other">გზამკვლევი ზედმეტად დიდია: შენარჩუნდა თქვენი %1$d არხის გადაცემები</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">გზამკვლევი ზედმეტად დიდია: შენარჩუნდა თქვენი არხების შემდეგი %1$d დღე</item>
+        <item quantity="other">გზამკვლევი ზედმეტად დიდია: შენარჩუნდა თქვენი არხების შემდეგი %1$d დღე</item>
+    </plurals>
+    <string name="rd_tv_live_mark">პირდაპირი</string>
+    <string name="rd_tv_programmes">გადაცემები</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">გზამკვლევის კითხვა… %1$s მბ · %2$d არხი</item>
+        <item quantity="other">გზამკვლევის კითხვა… %1$s მბ · %2$d არხი</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">%1$s-ის გზამკვლევის კითხვა… %2$s მბ · %3$d არხი</item>
+        <item quantity="other">%1$s-ის გზამკვლევის კითხვა… %2$s მბ · %3$d არხი</item>
+    </plurals>
 </resources>

@@ -289,4 +289,5 @@
         <item quantity="one">Fernsehprogramm zu groß: die Sendungen von %1$d deiner Sender behalten</item>
         <item quantity="other">Fernsehprogramm zu groß: die Sendungen von %1$d deiner Sender behalten</item>
     </plurals>
+    <string name="rd_tv_live_mark">Live</string>
 </resources>

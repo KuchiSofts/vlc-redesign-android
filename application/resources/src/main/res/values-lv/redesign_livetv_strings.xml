@@ -276,4 +276,32 @@
     <string name="rd_tv_its_guide_id">Tā ID gidā</string>
     <string name="rd_tv_forget_guide_id">Aizmirst tā ID gidā</string>
     <string name="rd_tv_guide_id_of">%1$s ID gidā</string>
+    <string name="rd_tv_live_mark">Dzīvā</string>
+    <string name="rd_tv_next_mark">Nākamais</string>
+    <string name="rd_idle_after_1">Pēc 1 minūtes</string>
+    <string name="rd_idle_after_10">Pēc 10 minūtēm</string>
+    <string name="rd_idle_after_3">Pēc 3 minūtēm</string>
+    <string name="rd_idle_after_5">Pēc 5 minūtēm</string>
+    <string name="rd_idle_screen">Dīkstāves ekrāns</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="zero">Programma ir pārāk liela: saglabāti %1$d jūsu kanālu raidījumi</item>
+        <item quantity="one">Programma ir pārāk liela: saglabāti %1$d jūsu kanāla raidījumi</item>
+        <item quantity="other">Programma ir pārāk liela: saglabāti %1$d jūsu kanālu raidījumi</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="zero">Programma ir pārāk liela: saglabātas nākamās %1$d jūsu kanālu dienas</item>
+        <item quantity="one">Programma ir pārāk liela: saglabāta nākamā %1$d jūsu kanālu diena</item>
+        <item quantity="other">Programma ir pārāk liela: saglabātas nākamās %1$d jūsu kanālu dienas</item>
+    </plurals>
+    <string name="rd_tv_programmes">Raidījumi</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="zero">Lasa programmu… %1$s MB · %2$d kanālu</item>
+        <item quantity="one">Lasa programmu… %1$s MB · %2$d kanāls</item>
+        <item quantity="other">Lasa programmu… %1$s MB · %2$d kanāli</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="zero">Lasa %1$s programmu… %2$s MB · %3$d kanālu</item>
+        <item quantity="one">Lasa %1$s programmu… %2$s MB · %3$d kanāls</item>
+        <item quantity="other">Lasa %1$s programmu… %2$s MB · %3$d kanāli</item>
+    </plurals>
 </resources>

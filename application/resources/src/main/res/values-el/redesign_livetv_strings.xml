@@ -266,4 +266,28 @@
     <string name="rd_tv_its_guide_id">Το αναγνωριστικό του στον οδηγό</string>
     <string name="rd_tv_forget_guide_id">Κατάργηση του αναγνωριστικού του στον οδηγό</string>
     <string name="rd_tv_guide_id_of">Το αναγνωριστικό του %1$s στον οδηγό</string>
+    <string name="rd_tv_live_mark">Ζωντανή</string>
+    <string name="rd_tv_next_mark">Επόμενο</string>
+    <string name="rd_idle_after_1">Μετά από 1 λεπτό</string>
+    <string name="rd_idle_after_10">Μετά από 10 λεπτά</string>
+    <string name="rd_idle_after_3">Μετά από 3 λεπτά</string>
+    <string name="rd_idle_after_5">Μετά από 5 λεπτά</string>
+    <string name="rd_idle_screen">Οθόνη αδράνειας</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Ο οδηγός είναι πολύ μεγάλος: κρατήθηκαν τα προγράμματα %1$d από τα κανάλια σας</item>
+        <item quantity="other">Ο οδηγός είναι πολύ μεγάλος: κρατήθηκαν τα προγράμματα %1$d από τα κανάλια σας</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Ο οδηγός είναι πολύ μεγάλος: κρατήθηκε η επόμενη %1$d ημέρα των καναλιών σας</item>
+        <item quantity="other">Ο οδηγός είναι πολύ μεγάλος: κρατήθηκαν οι επόμενες %1$d ημέρες των καναλιών σας</item>
+    </plurals>
+    <string name="rd_tv_programmes">Προγράμματα</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Ανάγνωση του οδηγού… %1$s MB · %2$d κανάλι</item>
+        <item quantity="other">Ανάγνωση του οδηγού… %1$s MB · %2$d κανάλια</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Ανάγνωση του οδηγού του %1$s… %2$s MB · %3$d κανάλι</item>
+        <item quantity="other">Ανάγνωση του οδηγού του %1$s… %2$s MB · %3$d κανάλια</item>
+    </plurals>
 </resources>

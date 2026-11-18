@@ -286,4 +286,36 @@
     <string name="rd_tv_its_guide_id">Jeho ID v sprievodcovi</string>
     <string name="rd_tv_forget_guide_id">Zabudnúť jeho ID v sprievodcovi</string>
     <string name="rd_tv_guide_id_of">ID kanála %1$s v sprievodcovi</string>
+    <string name="rd_tv_live_mark">Živá hudba</string>
+    <string name="rd_tv_next_mark">Ďalej</string>
+    <string name="rd_idle_after_1">Po 1 minúte</string>
+    <string name="rd_idle_after_10">Po 10 minútach</string>
+    <string name="rd_idle_after_3">Po 3 minútach</string>
+    <string name="rd_idle_after_5">Po 5 minútach</string>
+    <string name="rd_idle_screen">Obrazovka nečinnosti</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Program je príliš veľký: zachovali sa relácie %1$d vášho kanála</item>
+        <item quantity="few">Program je príliš veľký: zachovali sa relácie %1$d vašich kanálov</item>
+        <item quantity="many">Program je príliš veľký: zachovali sa relácie %1$d vašich kanálov</item>
+        <item quantity="other">Program je príliš veľký: zachovali sa relácie %1$d vašich kanálov</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Program je príliš veľký: zachoval sa nasledujúci %1$d deň vašich kanálov</item>
+        <item quantity="few">Program je príliš veľký: zachovali sa nasledujúce %1$d dni vašich kanálov</item>
+        <item quantity="many">Program je príliš veľký: zachovalo sa nasledujúcich %1$d dňa vašich kanálov</item>
+        <item quantity="other">Program je príliš veľký: zachovalo sa nasledujúcich %1$d dní vašich kanálov</item>
+    </plurals>
+    <string name="rd_tv_programmes">Relácie</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Číta sa program… %1$s MB · %2$d kanál</item>
+        <item quantity="few">Číta sa program… %1$s MB · %2$d kanály</item>
+        <item quantity="many">Číta sa program… %1$s MB · %2$d kanála</item>
+        <item quantity="other">Číta sa program… %1$s MB · %2$d kanálov</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Číta sa program %1$s… %2$s MB · %3$d kanál</item>
+        <item quantity="few">Číta sa program %1$s… %2$s MB · %3$d kanály</item>
+        <item quantity="many">Číta sa program %1$s… %2$s MB · %3$d kanála</item>
+        <item quantity="other">Číta sa program %1$s… %2$s MB · %3$d kanálov</item>
+    </plurals>
 </resources>

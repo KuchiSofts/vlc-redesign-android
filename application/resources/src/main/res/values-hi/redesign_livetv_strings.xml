@@ -266,4 +266,28 @@
     <string name="rd_tv_its_guide_id">इसकी गाइड id</string>
     <string name="rd_tv_forget_guide_id">इसकी गाइड id भूलें</string>
     <string name="rd_tv_guide_id_of">गाइड में %1$s की id</string>
+    <string name="rd_tv_next_mark">अगला</string>
+    <string name="rd_idle_after_1">1 मिनट बाद</string>
+    <string name="rd_idle_after_10">10 मिनट बाद</string>
+    <string name="rd_idle_after_3">3 मिनट बाद</string>
+    <string name="rd_idle_after_5">5 मिनट बाद</string>
+    <string name="rd_idle_screen">निष्क्रिय स्क्रीन</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">गाइड बहुत बड़ी है: आपके %1$d चैनल के कार्यक्रम रखे गए</item>
+        <item quantity="other">गाइड बहुत बड़ी है: आपके %1$d चैनलों के कार्यक्रम रखे गए</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">गाइड बहुत बड़ी है: आपके चैनलों का अगला %1$d दिन रखा गया</item>
+        <item quantity="other">गाइड बहुत बड़ी है: आपके चैनलों के अगले %1$d दिन रखे गए</item>
+    </plurals>
+    <string name="rd_tv_live_mark">लाइव</string>
+    <string name="rd_tv_programmes">कार्यक्रम</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">गाइड पढ़ी जा रही है… %1$s MB · %2$d चैनल</item>
+        <item quantity="other">गाइड पढ़ी जा रही है… %1$s MB · %2$d चैनल</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">%1$s की गाइड पढ़ी जा रही है… %2$s MB · %3$d चैनल</item>
+        <item quantity="other">%1$s की गाइड पढ़ी जा रही है… %2$s MB · %3$d चैनल</item>
+    </plurals>
 </resources>

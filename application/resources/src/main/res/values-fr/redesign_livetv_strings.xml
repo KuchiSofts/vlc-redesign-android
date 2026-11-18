@@ -303,4 +303,5 @@
         <item quantity="many">Guide trop volumineux : programmes de %1$d de vos chaînes conservés</item>
         <item quantity="other">Guide trop volumineux : programmes de %1$d de vos chaînes conservés</item>
     </plurals>
+    <string name="rd_tv_programmes">Programmes</string>
 </resources>

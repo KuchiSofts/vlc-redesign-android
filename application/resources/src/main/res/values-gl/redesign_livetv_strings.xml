@@ -266,4 +266,28 @@
     <string name="rd_tv_its_guide_id">O seu identificador da guía</string>
     <string name="rd_tv_forget_guide_id">Esquecer o seu identificador da guía</string>
     <string name="rd_tv_guide_id_of">O identificador de %1$s na guía</string>
+    <string name="rd_tv_live_mark">En directo</string>
+    <string name="rd_tv_next_mark">Seguinte</string>
+    <string name="rd_idle_after_1">Despois de 1 minuto</string>
+    <string name="rd_idle_after_10">Despois de 10 minutos</string>
+    <string name="rd_idle_after_3">Despois de 3 minutos</string>
+    <string name="rd_idle_after_5">Despois de 5 minutos</string>
+    <string name="rd_idle_screen">Pantalla de inactividade</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Guía demasiado grande: conserváronse os programas de %1$d das túas canles</item>
+        <item quantity="other">Guía demasiado grande: conserváronse os programas de %1$d das túas canles</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Guía demasiado grande: conservouse o seguinte %1$d día das túas canles</item>
+        <item quantity="other">Guía demasiado grande: conserváronse os seguintes %1$d días das túas canles</item>
+    </plurals>
+    <string name="rd_tv_programmes">Programas</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Lendo a guía… %1$s MB · %2$d canle</item>
+        <item quantity="other">Lendo a guía… %1$s MB · %2$d canles</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Lendo a guía de %1$s… %2$s MB · %3$d canle</item>
+        <item quantity="other">Lendo a guía de %1$s… %2$s MB · %3$d canles</item>
+    </plurals>
 </resources>

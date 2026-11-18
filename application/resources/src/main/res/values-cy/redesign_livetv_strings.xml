@@ -306,4 +306,44 @@
     <string name="rd_tv_its_guide_id">Ei ID yn yr amserlen</string>
     <string name="rd_tv_forget_guide_id">Anghofio\'i ID Amserlen</string>
     <string name="rd_tv_guide_id_of">ID %1$s yn yr amserlen</string>
+    <string name="rd_tv_live_mark">Sesiwn fyw</string>
+    <string name="rd_tv_next_mark">Nesaf</string>
+    <string name="rd_idle_after_1">Ar ôl 1 munud</string>
+    <string name="rd_idle_after_10">Ar ôl 10 munud</string>
+    <string name="rd_idle_after_3">Ar ôl 3 munud</string>
+    <string name="rd_idle_after_5">Ar ôl 5 munud</string>
+    <string name="rd_idle_screen">Sgrin segur</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="zero">Canllaw yn rhy fawr: cadwyd rhaglenni %1$d o\'ch sianeli</item>
+        <item quantity="one">Canllaw yn rhy fawr: cadwyd rhaglenni %1$d o\'ch sianeli</item>
+        <item quantity="two">Canllaw yn rhy fawr: cadwyd rhaglenni %1$d o\'ch sianeli</item>
+        <item quantity="few">Canllaw yn rhy fawr: cadwyd rhaglenni %1$d o\'ch sianeli</item>
+        <item quantity="many">Canllaw yn rhy fawr: cadwyd rhaglenni %1$d o\'ch sianeli</item>
+        <item quantity="other">Canllaw yn rhy fawr: cadwyd rhaglenni %1$d o\'ch sianeli</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="zero">Canllaw yn rhy fawr: cadwyd y %1$d diwrnod nesaf o\'ch sianeli</item>
+        <item quantity="one">Canllaw yn rhy fawr: cadwyd y %1$d diwrnod nesaf o\'ch sianeli</item>
+        <item quantity="two">Canllaw yn rhy fawr: cadwyd y %1$d ddiwrnod nesaf o\'ch sianeli</item>
+        <item quantity="few">Canllaw yn rhy fawr: cadwyd y %1$d diwrnod nesaf o\'ch sianeli</item>
+        <item quantity="many">Canllaw yn rhy fawr: cadwyd y %1$d diwrnod nesaf o\'ch sianeli</item>
+        <item quantity="other">Canllaw yn rhy fawr: cadwyd y %1$d diwrnod nesaf o\'ch sianeli</item>
+    </plurals>
+    <string name="rd_tv_programmes">Rhaglenni</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="zero">Yn darllen y canllaw… %1$s MB · %2$d sianel</item>
+        <item quantity="one">Yn darllen y canllaw… %1$s MB · %2$d sianel</item>
+        <item quantity="two">Yn darllen y canllaw… %1$s MB · %2$d sianel</item>
+        <item quantity="few">Yn darllen y canllaw… %1$s MB · %2$d sianel</item>
+        <item quantity="many">Yn darllen y canllaw… %1$s MB · %2$d sianel</item>
+        <item quantity="other">Yn darllen y canllaw… %1$s MB · %2$d sianel</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="zero">Yn darllen canllaw %1$s… %2$s MB · %3$d sianel</item>
+        <item quantity="one">Yn darllen canllaw %1$s… %2$s MB · %3$d sianel</item>
+        <item quantity="two">Yn darllen canllaw %1$s… %2$s MB · %3$d sianel</item>
+        <item quantity="few">Yn darllen canllaw %1$s… %2$s MB · %3$d sianel</item>
+        <item quantity="many">Yn darllen canllaw %1$s… %2$s MB · %3$d sianel</item>
+        <item quantity="other">Yn darllen canllaw %1$s… %2$s MB · %3$d sianel</item>
+    </plurals>
 </resources>

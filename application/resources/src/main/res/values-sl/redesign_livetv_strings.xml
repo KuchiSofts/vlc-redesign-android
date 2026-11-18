@@ -286,4 +286,36 @@
     <string name="rd_tv_its_guide_id">Njegov ID v vodniku</string>
     <string name="rd_tv_forget_guide_id">Pozabi njegov ID v vodniku</string>
     <string name="rd_tv_guide_id_of">ID kanala %1$s v vodniku</string>
+    <string name="rd_tv_live_mark">Predvajanje v živo</string>
+    <string name="rd_tv_next_mark">Naslednji</string>
+    <string name="rd_idle_after_1">Po 1 minuti</string>
+    <string name="rd_idle_after_10">Po 10 minutah</string>
+    <string name="rd_idle_after_3">Po 3 minutah</string>
+    <string name="rd_idle_after_5">Po 5 minutah</string>
+    <string name="rd_idle_screen">Zaslon nedejavnosti</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Vodnik je prevelik: ohranjene so oddaje %1$d vašega kanala</item>
+        <item quantity="two">Vodnik je prevelik: ohranjene so oddaje %1$d vaših kanalov</item>
+        <item quantity="few">Vodnik je prevelik: ohranjene so oddaje %1$d vaših kanalov</item>
+        <item quantity="other">Vodnik je prevelik: ohranjene so oddaje %1$d vaših kanalov</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Vodnik je prevelik: ohranjen je naslednji %1$d dan vaših kanalov</item>
+        <item quantity="two">Vodnik je prevelik: ohranjena sta naslednja %1$d dneva vaših kanalov</item>
+        <item quantity="few">Vodnik je prevelik: ohranjeni so naslednji %1$d dnevi vaših kanalov</item>
+        <item quantity="other">Vodnik je prevelik: ohranjenih je naslednjih %1$d dni vaših kanalov</item>
+    </plurals>
+    <string name="rd_tv_programmes">Oddaje</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Branje vodnika… %1$s MB · %2$d kanal</item>
+        <item quantity="two">Branje vodnika… %1$s MB · %2$d kanala</item>
+        <item quantity="few">Branje vodnika… %1$s MB · %2$d kanali</item>
+        <item quantity="other">Branje vodnika… %1$s MB · %2$d kanalov</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Branje vodnika %1$s… %2$s MB · %3$d kanal</item>
+        <item quantity="two">Branje vodnika %1$s… %2$s MB · %3$d kanala</item>
+        <item quantity="few">Branje vodnika %1$s… %2$s MB · %3$d kanali</item>
+        <item quantity="other">Branje vodnika %1$s… %2$s MB · %3$d kanalov</item>
+    </plurals>
 </resources>

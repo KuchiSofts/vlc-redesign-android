@@ -266,4 +266,28 @@
     <string name="rd_tv_its_guide_id">Telekava ID</string>
     <string name="rd_tv_forget_guide_id">Unusta telekava ID</string>
     <string name="rd_tv_guide_id_of">Kanali %1$s ID telekavas</string>
+    <string name="rd_tv_live_mark">Kontsert otse</string>
+    <string name="rd_tv_next_mark">Järgmine</string>
+    <string name="rd_idle_after_1">1 minuti pärast</string>
+    <string name="rd_idle_after_10">10 minuti pärast</string>
+    <string name="rd_idle_after_3">3 minuti pärast</string>
+    <string name="rd_idle_after_5">5 minuti pärast</string>
+    <string name="rd_idle_screen">Ooteekraan</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Telekava on liiga suur: alles jäeti %1$d sinu kanali saated</item>
+        <item quantity="other">Telekava on liiga suur: alles jäeti %1$d sinu kanali saated</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Telekava on liiga suur: alles jäeti sinu kanalite järgmine %1$d päev</item>
+        <item quantity="other">Telekava on liiga suur: alles jäeti sinu kanalite järgmised %1$d päeva</item>
+    </plurals>
+    <string name="rd_tv_programmes">Saated</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Telekava lugemine… %1$s MB · %2$d kanal</item>
+        <item quantity="other">Telekava lugemine… %1$s MB · %2$d kanalit</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Telekava %1$s lugemine… %2$s MB · %3$d kanal</item>
+        <item quantity="other">Telekava %1$s lugemine… %2$s MB · %3$d kanalit</item>
+    </plurals>
 </resources>

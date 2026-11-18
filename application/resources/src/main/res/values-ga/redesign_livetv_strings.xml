@@ -296,4 +296,40 @@
     <string name="rd_tv_its_guide_id">A aitheantas san eolaire</string>
     <string name="rd_tv_forget_guide_id">Déan dearmad ar a aitheantas eolaire</string>
     <string name="rd_tv_guide_id_of">Aitheantas %1$s san eolaire</string>
+    <string name="rd_tv_live_mark">Beo</string>
+    <string name="rd_tv_next_mark">Ar aghaidh</string>
+    <string name="rd_idle_after_1">Tar éis 1 nóiméad</string>
+    <string name="rd_idle_after_10">Tar éis 10 nóiméad</string>
+    <string name="rd_idle_after_3">Tar éis 3 nóiméad</string>
+    <string name="rd_idle_after_5">Tar éis 5 nóiméad</string>
+    <string name="rd_idle_screen">Scáileán díomhaoin</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Treoir rómhór: coimeádadh cláir %1$d de do bhealaí</item>
+        <item quantity="two">Treoir rómhór: coimeádadh cláir %1$d de do bhealaí</item>
+        <item quantity="few">Treoir rómhór: coimeádadh cláir %1$d de do bhealaí</item>
+        <item quantity="many">Treoir rómhór: coimeádadh cláir %1$d de do bhealaí</item>
+        <item quantity="other">Treoir rómhór: coimeádadh cláir %1$d de do bhealaí</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Treoir rómhór: coimeádadh an chéad %1$d lá eile de do bhealaí</item>
+        <item quantity="two">Treoir rómhór: coimeádadh na %1$d lá eile de do bhealaí</item>
+        <item quantity="few">Treoir rómhór: coimeádadh na %1$d lá eile de do bhealaí</item>
+        <item quantity="many">Treoir rómhór: coimeádadh na %1$d lá eile de do bhealaí</item>
+        <item quantity="other">Treoir rómhór: coimeádadh na %1$d lá eile de do bhealaí</item>
+    </plurals>
+    <string name="rd_tv_programmes">Cláir</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Ag léamh na treorach… %1$s MB · %2$d bhealach</item>
+        <item quantity="two">Ag léamh na treorach… %1$s MB · %2$d bhealach</item>
+        <item quantity="few">Ag léamh na treorach… %1$s MB · %2$d bhealach</item>
+        <item quantity="many">Ag léamh na treorach… %1$s MB · %2$d mbealach</item>
+        <item quantity="other">Ag léamh na treorach… %1$s MB · %2$d bealach</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Ag léamh treoir %1$s… %2$s MB · %3$d bhealach</item>
+        <item quantity="two">Ag léamh treoir %1$s… %2$s MB · %3$d bhealach</item>
+        <item quantity="few">Ag léamh treoir %1$s… %2$s MB · %3$d bhealach</item>
+        <item quantity="many">Ag léamh treoir %1$s… %2$s MB · %3$d mbealach</item>
+        <item quantity="other">Ag léamh treoir %1$s… %2$s MB · %3$d bealach</item>
+    </plurals>
 </resources>
