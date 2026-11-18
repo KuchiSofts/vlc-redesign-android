@@ -266,4 +266,28 @@
     <string name="rd_tv_its_guide_id">ID-ja e tij në udhëzues</string>
     <string name="rd_tv_forget_guide_id">Harro ID-në e tij në udhëzues</string>
     <string name="rd_tv_guide_id_of">ID-ja e %1$s në udhëzues</string>
+    <string name="rd_tv_next_mark">Tjetri</string>
+    <string name="rd_idle_after_1">Pas 1 minute</string>
+    <string name="rd_idle_after_10">Pas 10 minutash</string>
+    <string name="rd_idle_after_3">Pas 3 minutash</string>
+    <string name="rd_idle_after_5">Pas 5 minutash</string>
+    <string name="rd_idle_screen">Ekran plogështie</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Udhërrëfyes shumë i madh: u mbajtën emisionet e %1$d prej kanaleve tuaja</item>
+        <item quantity="other">Udhërrëfyes shumë i madh: u mbajtën emisionet e %1$d prej kanaleve tuaja</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Udhërrëfyes shumë i madh: u mbajt %1$d ditë e ardhshme e kanaleve tuaja</item>
+        <item quantity="other">Udhërrëfyes shumë i madh: u mbajtën %1$d ditët e ardhshme të kanaleve tuaja</item>
+    </plurals>
+    <string name="rd_tv_live_mark">Drejtpërdrejt</string>
+    <string name="rd_tv_programmes">Emisione</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Po lexohet udhërrëfyesi… %1$s MB · %2$d kanal</item>
+        <item quantity="other">Po lexohet udhërrëfyesi… %1$s MB · %2$d kanale</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Po lexohet udhërrëfyesi i %1$s… %2$s MB · %3$d kanal</item>
+        <item quantity="other">Po lexohet udhërrëfyesi i %1$s… %2$s MB · %3$d kanale</item>
+    </plurals>
 </resources>

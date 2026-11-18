@@ -286,4 +286,36 @@
     <string name="rd_tv_its_guide_id">Jo ID TV programoje</string>
     <string name="rd_tv_forget_guide_id">Pamiršti jo ID TV programoje</string>
     <string name="rd_tv_guide_id_of">%1$s ID TV programoje</string>
+    <string name="rd_tv_live_mark">Gyvai</string>
+    <string name="rd_tv_next_mark">Toliau</string>
+    <string name="rd_idle_after_1">Po 1 minutės</string>
+    <string name="rd_idle_after_10">Po 10 minučių</string>
+    <string name="rd_idle_after_3">Po 3 minučių</string>
+    <string name="rd_idle_after_5">Po 5 minučių</string>
+    <string name="rd_idle_screen">Neveikos ekranas</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Programa per didelė: palikta %1$d jūsų kanalo laidų</item>
+        <item quantity="few">Programa per didelė: paliktos %1$d jūsų kanalų laidos</item>
+        <item quantity="many">Programa per didelė: palikta %1$d jūsų kanalo laidų</item>
+        <item quantity="other">Programa per didelė: palikta %1$d jūsų kanalų laidų</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Programa per didelė: palikta kita %1$d jūsų kanalų diena</item>
+        <item quantity="few">Programa per didelė: paliktos kitos %1$d jūsų kanalų dienos</item>
+        <item quantity="many">Programa per didelė: palikta kitos %1$d dienos jūsų kanalų</item>
+        <item quantity="other">Programa per didelė: palikta kitų %1$d dienų jūsų kanalų</item>
+    </plurals>
+    <string name="rd_tv_programmes">Laidos</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Skaitoma programa… %1$s MB · %2$d kanalas</item>
+        <item quantity="few">Skaitoma programa… %1$s MB · %2$d kanalai</item>
+        <item quantity="many">Skaitoma programa… %1$s MB · %2$d kanalo</item>
+        <item quantity="other">Skaitoma programa… %1$s MB · %2$d kanalų</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Skaitoma %1$s programa… %2$s MB · %3$d kanalas</item>
+        <item quantity="few">Skaitoma %1$s programa… %2$s MB · %3$d kanalai</item>
+        <item quantity="many">Skaitoma %1$s programa… %2$s MB · %3$d kanalo</item>
+        <item quantity="other">Skaitoma %1$s programa… %2$s MB · %3$d kanalų</item>
+    </plurals>
 </resources>

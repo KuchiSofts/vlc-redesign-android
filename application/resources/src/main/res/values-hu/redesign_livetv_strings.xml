@@ -266,4 +266,28 @@
     <string name="rd_tv_its_guide_id">Azonosítója a műsorújságban</string>
     <string name="rd_tv_forget_guide_id">Műsorújság-azonosító elfelejtése</string>
     <string name="rd_tv_guide_id_of">%1$s azonosítója a műsorújságban</string>
+    <string name="rd_tv_live_mark">Élő</string>
+    <string name="rd_tv_next_mark">Következő</string>
+    <string name="rd_idle_after_1">1 perc után</string>
+    <string name="rd_idle_after_10">10 perc után</string>
+    <string name="rd_idle_after_3">3 perc után</string>
+    <string name="rd_idle_after_5">5 perc után</string>
+    <string name="rd_idle_screen">Tétlenségi képernyő</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">A műsorújság túl nagy: %1$d csatornájának műsorai maradtak meg</item>
+        <item quantity="other">A műsorújság túl nagy: %1$d csatornájának műsorai maradtak meg</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">A műsorújság túl nagy: csatornái következő %1$d napja maradt meg</item>
+        <item quantity="other">A műsorújság túl nagy: csatornái következő %1$d napja maradt meg</item>
+    </plurals>
+    <string name="rd_tv_programmes">Műsorok</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Műsorújság olvasása… %1$s MB · %2$d csatorna</item>
+        <item quantity="other">Műsorújság olvasása… %1$s MB · %2$d csatorna</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">%1$s műsorújságának olvasása… %2$s MB · %3$d csatorna</item>
+        <item quantity="other">%1$s műsorújságának olvasása… %2$s MB · %3$d csatorna</item>
+    </plurals>
 </resources>

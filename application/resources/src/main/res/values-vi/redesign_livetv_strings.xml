@@ -256,4 +256,24 @@
     <string name="rd_tv_its_guide_id">ID hướng dẫn của kênh</string>
     <string name="rd_tv_forget_guide_id">Xóa ID hướng dẫn của kênh</string>
     <string name="rd_tv_guide_id_of">ID của %1$s trong hướng dẫn</string>
+    <string name="rd_tv_live_mark">Live</string>
+    <string name="rd_tv_next_mark">Tiếp theo</string>
+    <string name="rd_idle_after_1">Sau 1 phút</string>
+    <string name="rd_idle_after_10">Sau 10 phút</string>
+    <string name="rd_idle_after_3">Sau 3 phút</string>
+    <string name="rd_idle_after_5">Sau 5 phút</string>
+    <string name="rd_idle_screen">Màn hình chờ</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="other">Lịch phát sóng quá lớn: đã giữ chương trình của %1$d kênh của bạn</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="other">Lịch phát sóng quá lớn: đã giữ %1$d ngày tới của các kênh của bạn</item>
+    </plurals>
+    <string name="rd_tv_programmes">Chương trình</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="other">Đang đọc lịch phát sóng… %1$s MB · %2$d kênh</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="other">Đang đọc lịch phát sóng của %1$s… %2$s MB · %3$d kênh</item>
+    </plurals>
 </resources>

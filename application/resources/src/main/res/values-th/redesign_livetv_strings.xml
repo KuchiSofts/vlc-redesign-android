@@ -256,4 +256,24 @@
     <string name="rd_tv_its_guide_id">ID ในแนะนำรายการ</string>
     <string name="rd_tv_forget_guide_id">ล้าง ID ในแนะนำรายการ</string>
     <string name="rd_tv_guide_id_of">ID ของ %1$s ในแนะนำรายการ</string>
+    <string name="rd_tv_live_mark">แสดงสด</string>
+    <string name="rd_tv_next_mark">ถัดไป</string>
+    <string name="rd_idle_after_1">หลังจาก 1 นาที</string>
+    <string name="rd_idle_after_10">หลังจาก 10 นาที</string>
+    <string name="rd_idle_after_3">หลังจาก 3 นาที</string>
+    <string name="rd_idle_after_5">หลังจาก 5 นาที</string>
+    <string name="rd_idle_screen">หน้าจอขณะว่าง</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="other">ผังรายการใหญ่เกินไป: เก็บรายการของช่องของคุณไว้ %1$d ช่อง</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="other">ผังรายการใหญ่เกินไป: เก็บ %1$d วันถัดไปของช่องของคุณไว้</item>
+    </plurals>
+    <string name="rd_tv_programmes">รายการ</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="other">กำลังอ่านผังรายการ… %1$s MB · %2$d ช่อง</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="other">กำลังอ่านผังรายการของ %1$s… %2$s MB · %3$d ช่อง</item>
+    </plurals>
 </resources>

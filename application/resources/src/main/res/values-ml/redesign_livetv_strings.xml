@@ -266,4 +266,28 @@
     <string name="rd_tv_its_guide_id">അതിന്റെ ഗൈഡ് ഐഡി</string>
     <string name="rd_tv_forget_guide_id">അതിന്റെ ഗൈഡ് ഐഡി മറക്കുക</string>
     <string name="rd_tv_guide_id_of">ഗൈഡിൽ %1$s-ന്റെ ഐഡി</string>
+    <string name="rd_tv_live_mark">ലൈവ്</string>
+    <string name="rd_tv_next_mark">അടുത്തത്</string>
+    <string name="rd_idle_after_1">1 മിനിറ്റിന് ശേഷം</string>
+    <string name="rd_idle_after_10">10 മിനിറ്റിന് ശേഷം</string>
+    <string name="rd_idle_after_3">3 മിനിറ്റിന് ശേഷം</string>
+    <string name="rd_idle_after_5">5 മിനിറ്റിന് ശേഷം</string>
+    <string name="rd_idle_screen">നിഷ്ക്രിയ സ്ക്രീൻ</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">ഗൈഡ് വളരെ വലുതാണ്: നിങ്ങളുടെ %1$d ചാനലിന്റെ പരിപാടികൾ നിലനിർത്തി</item>
+        <item quantity="other">ഗൈഡ് വളരെ വലുതാണ്: നിങ്ങളുടെ %1$d ചാനലുകളുടെ പരിപാടികൾ നിലനിർത്തി</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">ഗൈഡ് വളരെ വലുതാണ്: നിങ്ങളുടെ ചാനലുകളുടെ അടുത്ത %1$d ദിവസം നിലനിർത്തി</item>
+        <item quantity="other">ഗൈഡ് വളരെ വലുതാണ്: നിങ്ങളുടെ ചാനലുകളുടെ അടുത്ത %1$d ദിവസങ്ങൾ നിലനിർത്തി</item>
+    </plurals>
+    <string name="rd_tv_programmes">പരിപാടികൾ</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">ഗൈഡ് വായിക്കുന്നു… %1$s MB · %2$d ചാനൽ</item>
+        <item quantity="other">ഗൈഡ് വായിക്കുന്നു… %1$s MB · %2$d ചാനലുകൾ</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">%1$s ന്റെ ഗൈഡ് വായിക്കുന്നു… %2$s MB · %3$d ചാനൽ</item>
+        <item quantity="other">%1$s ന്റെ ഗൈഡ് വായിക്കുന്നു… %2$s MB · %3$d ചാനലുകൾ</item>
+    </plurals>
 </resources>

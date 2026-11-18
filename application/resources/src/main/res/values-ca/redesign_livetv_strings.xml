@@ -276,4 +276,32 @@
     <string name="rd_tv_its_guide_id">El seu identificador de guia</string>
     <string name="rd_tv_forget_guide_id">Oblida el seu identificador de guia</string>
     <string name="rd_tv_guide_id_of">L\'identificador de guia de %1$s</string>
+    <string name="rd_tv_live_mark">En viu</string>
+    <string name="rd_tv_next_mark">Següent</string>
+    <string name="rd_idle_after_1">Al cap d\'1 minut</string>
+    <string name="rd_idle_after_10">Al cap de 10 minuts</string>
+    <string name="rd_idle_after_3">Al cap de 3 minuts</string>
+    <string name="rd_idle_after_5">Al cap de 5 minuts</string>
+    <string name="rd_idle_screen">Pantalla d\'inactivitat</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Guia massa gran: s\'han conservat els programes de %1$d dels vostres canals</item>
+        <item quantity="many">Guia massa gran: s\'han conservat els programes de %1$d dels vostres canals</item>
+        <item quantity="other">Guia massa gran: s\'han conservat els programes de %1$d dels vostres canals</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Guia massa gran: s\'ha conservat el proper %1$d dia dels vostres canals</item>
+        <item quantity="many">Guia massa gran: s\'han conservat els propers %1$d dies dels vostres canals</item>
+        <item quantity="other">Guia massa gran: s\'han conservat els propers %1$d dies dels vostres canals</item>
+    </plurals>
+    <string name="rd_tv_programmes">Programes</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">S\'està llegint la guia… %1$s MB · %2$d canal</item>
+        <item quantity="many">S\'està llegint la guia… %1$s MB · %2$d canals</item>
+        <item quantity="other">S\'està llegint la guia… %1$s MB · %2$d canals</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">S\'està llegint la guia de %1$s… %2$s MB · %3$d canal</item>
+        <item quantity="many">S\'està llegint la guia de %1$s… %2$s MB · %3$d canals</item>
+        <item quantity="other">S\'està llegint la guia de %1$s… %2$s MB · %3$d canals</item>
+    </plurals>
 </resources>

@@ -266,4 +266,28 @@
     <string name="rd_tv_its_guide_id">அதன் வழிகாட்டி அடையாளம்</string>
     <string name="rd_tv_forget_guide_id">அதன் வழிகாட்டி அடையாளத்தை மறந்துவிடு</string>
     <string name="rd_tv_guide_id_of">வழிகாட்டியில் %1$s-இன் அடையாளம்</string>
+    <string name="rd_tv_next_mark">அடுத்த</string>
+    <string name="rd_idle_after_1">1 நிமிடத்திற்குப் பிறகு</string>
+    <string name="rd_idle_after_10">10 நிமிடங்களுக்குப் பிறகு</string>
+    <string name="rd_idle_after_3">3 நிமிடங்களுக்குப் பிறகு</string>
+    <string name="rd_idle_after_5">5 நிமிடங்களுக்குப் பிறகு</string>
+    <string name="rd_idle_screen">செயலற்ற திரை</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">வழிகாட்டி மிகப் பெரியது: உங்கள் %1$d அலைவரிசையின் நிகழ்ச்சிகள் வைக்கப்பட்டன</item>
+        <item quantity="other">வழிகாட்டி மிகப் பெரியது: உங்கள் %1$d அலைவரிசைகளின் நிகழ்ச்சிகள் வைக்கப்பட்டன</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">வழிகாட்டி மிகப் பெரியது: உங்கள் அலைவரிசைகளின் அடுத்த %1$d நாள் வைக்கப்பட்டது</item>
+        <item quantity="other">வழிகாட்டி மிகப் பெரியது: உங்கள் அலைவரிசைகளின் அடுத்த %1$d நாட்கள் வைக்கப்பட்டன</item>
+    </plurals>
+    <string name="rd_tv_live_mark">நேரலை</string>
+    <string name="rd_tv_programmes">நிகழ்ச்சிகள்</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">வழிகாட்டி படிக்கப்படுகிறது… %1$s MB · %2$d அலைவரிசை</item>
+        <item quantity="other">வழிகாட்டி படிக்கப்படுகிறது… %1$s MB · %2$d அலைவரிசைகள்</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">%1$s இன் வழிகாட்டி படிக்கப்படுகிறது… %2$s MB · %3$d அலைவரிசை</item>
+        <item quantity="other">%1$s இன் வழிகாட்டி படிக்கப்படுகிறது… %2$s MB · %3$d அலைவரிசைகள்</item>
+    </plurals>
 </resources>

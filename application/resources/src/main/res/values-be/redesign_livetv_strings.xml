@@ -286,4 +286,36 @@
     <string name="rd_tv_its_guide_id">Яго ID у даведніку</string>
     <string name="rd_tv_forget_guide_id">Забыць яго ID у даведніку</string>
     <string name="rd_tv_guide_id_of">ID канала %1$s у даведніку</string>
+    <string name="rd_tv_live_mark">канцэрт</string>
+    <string name="rd_tv_next_mark">Наступны</string>
+    <string name="rd_idle_after_1">Праз 1 хвіліну</string>
+    <string name="rd_idle_after_10">Праз 10 хвілін</string>
+    <string name="rd_idle_after_3">Праз 3 хвіліны</string>
+    <string name="rd_idle_after_5">Праз 5 хвілін</string>
+    <string name="rd_idle_screen">Экран прастою</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">Тэлепраграма завялікая: захаваны перадачы %1$d вашага канала</item>
+        <item quantity="few">Тэлепраграма завялікая: захаваны перадачы %1$d вашых каналаў</item>
+        <item quantity="many">Тэлепраграма завялікая: захаваны перадачы %1$d вашых каналаў</item>
+        <item quantity="other">Тэлепраграма завялікая: захаваны перадачы %1$d вашага канала</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">Тэлепраграма завялікая: захаваны наступны %1$d дзень вашых каналаў</item>
+        <item quantity="few">Тэлепраграма завялікая: захаваны наступныя %1$d дні вашых каналаў</item>
+        <item quantity="many">Тэлепраграма завялікая: захаваны наступныя %1$d дзён вашых каналаў</item>
+        <item quantity="other">Тэлепраграма завялікая: захаваны наступныя %1$d дня вашых каналаў</item>
+    </plurals>
+    <string name="rd_tv_programmes">Перадачы</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">Чытанне тэлепраграмы… %1$s МБ · %2$d канал</item>
+        <item quantity="few">Чытанне тэлепраграмы… %1$s МБ · %2$d каналы</item>
+        <item quantity="many">Чытанне тэлепраграмы… %1$s МБ · %2$d каналаў</item>
+        <item quantity="other">Чытанне тэлепраграмы… %1$s МБ · %2$d канала</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">Чытанне тэлепраграмы %1$s… %2$s МБ · %3$d канал</item>
+        <item quantity="few">Чытанне тэлепраграмы %1$s… %2$s МБ · %3$d каналы</item>
+        <item quantity="many">Чытанне тэлепраграмы %1$s… %2$s МБ · %3$d каналаў</item>
+        <item quantity="other">Чытанне тэлепраграмы %1$s… %2$s МБ · %3$d канала</item>
+    </plurals>
 </resources>

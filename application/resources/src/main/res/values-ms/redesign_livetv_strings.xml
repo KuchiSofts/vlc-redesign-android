@@ -256,4 +256,24 @@
     <string name="rd_tv_its_guide_id">ID panduannya</string>
     <string name="rd_tv_forget_guide_id">Padam ID panduannya</string>
     <string name="rd_tv_guide_id_of">ID %1$s dalam panduan</string>
+    <string name="rd_tv_live_mark">Langsung</string>
+    <string name="rd_tv_next_mark">Berikutnya</string>
+    <string name="rd_idle_after_1">Selepas 1 minit</string>
+    <string name="rd_idle_after_10">Selepas 10 minit</string>
+    <string name="rd_idle_after_3">Selepas 3 minit</string>
+    <string name="rd_idle_after_5">Selepas 5 minit</string>
+    <string name="rd_idle_screen">Skrin melahu</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="other">Panduan terlalu besar: rancangan %1$d saluran anda disimpan</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="other">Panduan terlalu besar: %1$d hari seterusnya saluran anda disimpan</item>
+    </plurals>
+    <string name="rd_tv_programmes">Rancangan</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="other">Membaca panduan… %1$s MB · %2$d saluran</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="other">Membaca panduan %1$s… %2$s MB · %3$d saluran</item>
+    </plurals>
 </resources>

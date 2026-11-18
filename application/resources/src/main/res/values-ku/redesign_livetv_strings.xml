@@ -266,4 +266,28 @@
     <string name="rd_tv_its_guide_id">ناسنامەی ڕێبەرەکەی</string>
     <string name="rd_tv_forget_guide_id">لەبیرکردنی ناسنامەی ڕێبەرەکەی</string>
     <string name="rd_tv_guide_id_of">ناسنامەی %1$s لە ڕێبەردا</string>
+    <string name="rd_tv_live_mark">ڕاستەوخۆ</string>
+    <string name="rd_tv_next_mark">داهاتوو</string>
+    <string name="rd_idle_after_1">دوای 1 خولەک</string>
+    <string name="rd_idle_after_10">دوای 10 خولەک</string>
+    <string name="rd_idle_after_3">دوای 3 خولەک</string>
+    <string name="rd_idle_after_5">دوای 5 خولەک</string>
+    <string name="rd_idle_screen">شاشەی بێکاری</string>
+    <plurals name="rd_tv_guide_too_large_channels">
+        <item quantity="one">ڕێبەر زۆر گەورەیە: بەرنامەکانی %1$d لە کەناڵەکانت هێڵدرانەوە</item>
+        <item quantity="other">ڕێبەر زۆر گەورەیە: بەرنامەکانی %1$d لە کەناڵەکانت هێڵدرانەوە</item>
+    </plurals>
+    <plurals name="rd_tv_guide_too_large_days">
+        <item quantity="one">ڕێبەر زۆر گەورەیە: %1$d ڕۆژی داهاتووی کەناڵەکانت هێڵدرایەوە</item>
+        <item quantity="other">ڕێبەر زۆر گەورەیە: %1$d ڕۆژی داهاتووی کەناڵەکانت هێڵدرانەوە</item>
+    </plurals>
+    <string name="rd_tv_programmes">بەرنامەکان</string>
+    <plurals name="rd_tv_reading_guide">
+        <item quantity="one">ڕێبەر دەخوێندرێتەوە… %1$s MB · %2$d کەناڵ</item>
+        <item quantity="other">ڕێبەر دەخوێندرێتەوە… %1$s MB · %2$d کەناڵ</item>
+    </plurals>
+    <plurals name="rd_tv_reading_guide_of">
+        <item quantity="one">ڕێبەری %1$s دەخوێندرێتەوە… %2$s MB · %3$d کەناڵ</item>
+        <item quantity="other">ڕێبەری %1$s دەخوێندرێتەوە… %2$s MB · %3$d کەناڵ</item>
+    </plurals>
 </resources>
