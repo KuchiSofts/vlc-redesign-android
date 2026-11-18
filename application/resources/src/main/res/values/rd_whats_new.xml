@@ -3,6 +3,6 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>41 more languages are complete: the app is now fully translated in 61 languages.</item>
+        <item>The texts of the redesign are now translated in 61 languages, 41 more than before.</item>
     </string-array>
 </resources>
