@@ -74,8 +74,6 @@ object RdShortcuts {
             val row = LinearLayout(context).apply {
                 orientation = LinearLayout.HORIZONTAL
                 setPadding(0, d(6f), 0, d(6f))
-                // (a TV remote moves through the rows)
-                isFocusable = true
                 contentDescription = "${context.getString(action)}: $keys"
             }
             row.addView(TextView(context).apply {
@@ -98,7 +96,12 @@ object RdShortcuts {
         }
         val dialog = MaterialAlertDialogBuilder(context)
             .setTitle(R.string.rd_keyboard_shortcuts)
-            .setView(ScrollView(context).apply { addView(list) })
+            // one stop for the remote: the list itself, Up and Down scroll it, then OK (rows of text that took a
+            // stop each did nothing on OK)
+            .setView(ScrollView(context).apply {
+                isFocusable = true
+                addView(list)
+            })
             .setPositiveButton(R.string.ok, null)
             .show()
         RdTvFocusRing.attach(dialog.window)
