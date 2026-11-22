@@ -65,6 +65,10 @@ allprojects {
     }
 }
 
+// Remote Access release tags, shared with buildsystem/compile-remoteaccess.sh
+def remoteAccessVersions = new Properties()
+file('buildsystem/remoteaccess.properties').withInputStream { remoteAccessVersions.load(it) }
+
 ext {
     // VLC Redesign's own: it installs beside VideoLAN's VLC (org.videolan.vlc)
     appId = "org.kuchisofts.vlcredesign"
@@ -77,7 +81,7 @@ ext {
     versionCode = redesignVersionName.tokenize('.').with { v -> 3100000 + 10 * (v[0].toInteger() * 10000 + v[1].toInteger() * 100 + v[2].toInteger()) }
     vlcMajorVersion = project.hasProperty('forceVlc4') && project.getProperty('forceVlc4') ? 4 : 3
     versionName = vlcMajorVersion == 3 ? redesignVersionName : '4.0.0-preview - ' + versionCode
-    remoteAccessVersion = '0.27.0'
+    remoteAccessVersion = remoteAccessVersions.getProperty(vlcMajorVersion == 3 ? 'remoteAccessVersionVlc3' : 'remoteAccessVersionVlc4')
     libvlcVersion = vlcMajorVersion == 3 ? '3.7.7' :'4.0.0-eap29'
     // (0.13.24 with our fix of #81, a cover stored as a video track: built from VideoLAN's tagged source)
     medialibraryVersion = (vlcMajorVersion == 3 ? '0.13.24-rd1' : '0.13.22-vlc4')
