@@ -175,7 +175,7 @@ class TvFragment : BaseFragment(), Filterable {
         guide = TvGuideView(ctx, { c -> play(c) }, { c, e -> TvProgrammeDialog.show(requireContext(), c, e) { guide.invalidate() } })
         guideDay = ctx.tvText("", 16f, ctx.tvColor(R.color.rd_fg_a1))
         // the day of what shows (a phone shows half of the hours): of now while now is in it (Now puts it a
-        // quarter in: from 22:30 the middle was already past midnight, "Tomorrow" over tonight's shows), else of the middle
+        // quarter in: from 23:15 (23:38 on a phone) the middle was already past midnight, "Tomorrow" over tonight's shows), else of the middle
         guide.onTimeChanged = { t ->
             val w = (guide.shownHours * 3600).toLong()
             val now = System.currentTimeMillis() / 1000
