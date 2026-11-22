@@ -505,7 +505,7 @@
     <string name="rd_key_long_back">Nhảy tới phía sau dài</string>
     <string name="rd_key_long_forward">Nhảy tới phía trước dài</string>
     <string name="rd_key_medium_back">Nhảy tới phía sau trung bình</string>
-    <string name="rd_key_medium_forward">Nhảy tới phía sau trung bình</string>
+    <string name="rd_key_medium_forward">Nhảy tới phía trước trung bình</string>
     <string name="rd_key_mute">Tắt âm thanh</string>
     <string name="rd_key_next">Tiếp theo</string>
     <string name="rd_key_normal_rate">Xếp hạng bình thường</string>
@@ -525,7 +525,7 @@
     <string name="rd_key_sync_apply">Đồng bộ hóa thời gian đối với phụ đề &amp; audio</string>
     <string name="rd_key_sync_audio">Đánh dấu/đồng bộ hóa thời gian audio đối với phụ đề</string>
     <string name="rd_key_sync_subtitle">Đánh dấu/đồng bộ hóa thời gian của phụ đề</string>
-    <string name="rd_key_very_short_back">Nhảy tới phía sau chậm dần</string>
+    <string name="rd_key_very_short_back">Nhảy tới phía sau ngắn nhất</string>
     <string name="rd_key_very_short_forward">Nhảy tới phía trước ngắn nhất</string>
     <string name="rd_key_volume_down">Giảm âm lượng</string>
     <string name="rd_key_volume_up">Tăng âm lượng</string>

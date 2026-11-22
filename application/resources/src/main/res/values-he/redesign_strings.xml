@@ -609,7 +609,7 @@
     <string name="rd_key_short_forward">קפיצה קצרה קדימה</string>
     <string name="rd_key_medium_back">קפיצה בינונית אחורה</string>
     <string name="rd_key_medium_forward">קפיצה בינונית קדימה</string>
-    <string name="rd_key_long_back">קפיצה ארוכה קדימה</string>
+    <string name="rd_key_long_back">קפיצה ארוכה אחורה</string>
     <string name="rd_key_long_forward">קפיצה ארוכה קדימה</string>
     <string name="rd_key_faster">נגינה מהירה</string>
     <string name="rd_key_slower">נגינה איטית</string>
