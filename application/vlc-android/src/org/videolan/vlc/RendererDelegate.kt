@@ -160,9 +160,15 @@ object RendererDelegate : RendererDiscoverer.EventListener {
     private fun stop() {
         if (!started) return
         started = false
-        // (stop() releases the discovery and the items it found)
-        for (discoverer in discoverers) if (!discoverer.isReleased) discoverer.stop()
+        // (stop() releases the discovery and the items it found; it waits for
+        // the network searches to end, UPnP up to seconds: on the IO thread,
+        // the screen froze when the scan ended. No events from them after this)
+        val closing = discoverers.toList()
         discoverers.clear()
+        for (discoverer in closing) if (!discoverer.isReleased) discoverer.setEventListener(null)
+        if (closing.isNotEmpty()) AppScope.launch(Dispatchers.IO) {
+            for (discoverer in closing) if (!discoverer.isReleased) discoverer.stop()
+        }
         entries.clear()
         renderers.value = mutableListOf()
         scanning.value = false
