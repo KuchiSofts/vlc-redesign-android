@@ -151,8 +151,19 @@ class AudioBrowserFragment : BaseAudioBrowser<AudioBrowserViewModel>() {
                 lists.add(it.findViewById(R.id.audio_list))
             }
         }
-        val titles = arrayOf(getString(R.string.artists), getString(R.string.albums), getString(R.string.tracks), getString(R.string.genres), getString(R.string.playlists))
-        viewPager.offscreenPageLimit = MODE_TOTAL - 1
+        // the songs by folder and subfolder (discussion #132): a page of its own after the lists, not one of them
+        // (the lists' code reads its tab number: it keeps the last list's while this page shows)
+        val folderPage = androidx.fragment.app.FragmentContainerView(requireContext()).apply { id = R.id.rd_audio_folders_page }
+        viewPager.addView(folderPage)
+        views.add(folderPage)
+        if (childFragmentManager.findFragmentById(R.id.rd_audio_folders_page) == null)
+            childFragmentManager.beginTransaction()
+                .replace(R.id.rd_audio_folders_page, org.videolan.vlc.gui.RdMediaFoldersFragment.newInstance(
+                    org.videolan.medialibrary.interfaces.media.Folder.TYPE_FOLDER_AUDIO))
+                .commitNow()
+        val titles = arrayOf(getString(R.string.artists), getString(R.string.albums), getString(R.string.tracks), getString(R.string.genres), getString(R.string.playlists),
+            getString(R.string.rd_folders))
+        viewPager.offscreenPageLimit = views.size - 1
         audioPagerAdapter = AudioPagerAdapter(views.toTypedArray(), titles)
         @Suppress("UNCHECKED_CAST")
         viewPager.adapter = audioPagerAdapter
@@ -328,7 +339,8 @@ class AudioBrowserFragment : BaseAudioBrowser<AudioBrowserViewModel>() {
         menu.findItem(R.id.ml_menu_last_playlist)?.isVisible = settings.contains(KEY_AUDIO_LAST_PLAYLIST)
         (viewModel.providers[currentTab]).run {
             menu.findItem(R.id.ml_menu_sortby).isVisible = false
-            menu.findItem(R.id.ml_menu_display_options).isVisible = true
+            // (the folders' page has no display options: they were the last list's)
+            menu.findItem(R.id.ml_menu_display_options).isVisible = !foldersShown
         }
         sortMenuTitles(currentTab)
         reopenSearchIfNeeded()
@@ -375,7 +387,7 @@ class AudioBrowserFragment : BaseAudioBrowser<AudioBrowserViewModel>() {
 
     private fun setFabPlayShuffleAllVisibility(force: Boolean = false) {
         setFabPlayVisibility(
-                currentTab == 2 && (
+                currentTab == 2 && !foldersShown && (
                         force ||
                                 (viewModel.providers[currentTab].pagedList.value?.size ?: 0) > 2
                         )
@@ -389,6 +401,11 @@ class AudioBrowserFragment : BaseAudioBrowser<AudioBrowserViewModel>() {
     private fun updateEmptyView() {
         if (!isAdded) return
         swipeRefreshLayout.visibility = if (Medialibrary.getInstance().isInitiated) View.VISIBLE else View.GONE
+        // (the folders' page says when it has nothing itself)
+        if (foldersShown) {
+            binding.audioEmptyLoading.state = EmptyLoadingState.NONE
+            return
+        }
         binding.audioEmptyLoading.emptyText = viewModel.filterQuery?.let {  getString(R.string.empty_search, it) } ?: if (viewModel.providers[currentTab].onlyFavorites) getString(R.string.nofav) else getString(R.string.nomedia)
         binding.audioEmptyLoading.state = when {
             !Permissions.canReadStorage(requireActivity()) && empty -> EmptyLoadingState.MISSING_PERMISSION
@@ -417,10 +434,15 @@ class AudioBrowserFragment : BaseAudioBrowser<AudioBrowserViewModel>() {
             val view = tab?.customView ?: View.inflate(requireActivity(), R.layout.audio_tab, null)
             val title = view.findViewById<TextView>(R.id.tab_title)
             title.text = audioPagerAdapter.getPageTitle(i)
-            if (viewModel.providers[i].onlyFavorites) title.addFavoritesIcon() else title.removeDrawables()
+            if (i < MODE_TOTAL && viewModel.providers[i].onlyFavorites) title.addFavoritesIcon() else title.removeDrawables()
             tab?.customView = view
         }
     }
+
+    override val listTabCount get() = MODE_TOTAL
+
+    /** The page of folders on screen (none of the lists) */
+    private val foldersShown get() = ::viewPager.isInitialized && viewPager.currentItem >= MODE_TOTAL
 
     override fun onPageSelected(position: Int) {
         updateEmptyView()
@@ -431,6 +453,14 @@ class AudioBrowserFragment : BaseAudioBrowser<AudioBrowserViewModel>() {
     }
 
     override fun onTabSelected(tab: TabLayout.Tab) {
+        if (tab.position >= MODE_TOTAL) {
+            super.onTabSelected(tab)
+            detailPane?.clear()
+            binding.rdDetailContainer.visibility = View.GONE
+            setFabPlayVisibility(false)
+            binding.audioEmptyLoading.state = EmptyLoadingState.NONE
+            return
+        }
         adapter = adapters[tab.position]
         viewModel.currentTab = tab.position
         setupProvider()
@@ -445,11 +475,13 @@ class AudioBrowserFragment : BaseAudioBrowser<AudioBrowserViewModel>() {
 
     override fun onTabUnselected(tab: TabLayout.Tab) {
         super.onTabUnselected(tab)
+        if (tab.position >= MODE_TOTAL) return
         onDestroyActionMode(lists[tab.position].adapter as AudioBrowserAdapter?)
         viewModel.restore()
     }
 
     override fun onTabReselected(tab: TabLayout.Tab) {
+        if (tab.position >= MODE_TOTAL) return
         lists[tab.position].smoothScrollToPosition(0)
     }
 
@@ -510,7 +542,7 @@ class AudioBrowserFragment : BaseAudioBrowser<AudioBrowserViewModel>() {
 
     /** every tab but Tracks (artists, albums, genres, playlists: the desktop's list + detail views) */
     // (not in the TV layout: an artist, an album, a genre opens as its own page there, as the design's)
-    private fun detailWanted() = currentTab in DETAIL_TABS && view != null && !org.videolan.vlc.gui.tablet.RdTvWindow.isOn(requireContext()) &&
+    private fun detailWanted() = currentTab in DETAIL_TABS && !foldersShown && view != null && !org.videolan.vlc.gui.tablet.RdTvWindow.isOn(requireContext()) &&
             binding.root.width / resources.displayMetrics.density >= RdLibraryDetailPane.MIN_WIDTH_DP
 
     /** Shows or hides the detail pane for the window's width and the tab; the first entry is selected at first. */

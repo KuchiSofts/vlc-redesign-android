@@ -706,4 +706,6 @@
     <string name="rd_tv_err_sign_in">ចូល​គណនី​ជាមុន​សិន</string>
     <string name="rd_tv_err_unreadable">មិន​អាច​អាន​ឯកសារ​បាន​ទេ</string>
     <string name="rd_tv_err_wrong">មិន​អាច​អាន​ចម្លើយ​របស់​ម៉ាស៊ីនមេ​បាន​ទេ</string>
+    <string name="rd_folders">ថត</string>
+    <string name="rd_up_one_folder">ឡើងមួយថត</string>
 </resources>

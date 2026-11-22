@@ -696,4 +696,6 @@
     <string name="rd_tv_err_sign_in">sínigh isteach ar dtús</string>
     <string name="rd_tv_err_unreadable">ní féidir an comhad a léamh</string>
     <string name="rd_tv_err_wrong">níorbh fhéidir freagra an fhreastalaí a léamh</string>
+    <string name="rd_folders">Fillteáin</string>
+    <string name="rd_up_one_folder">Suas fillteán amháin</string>
 </resources>

@@ -692,4 +692,6 @@
     <string name="rd_tv_err_sign_in">conectează-te mai întâi</string>
     <string name="rd_tv_err_unreadable">fișierul nu poate fi citit</string>
     <string name="rd_tv_err_wrong">răspunsul serverului nu a putut fi citit</string>
+    <string name="rd_folders">Dosare</string>
+    <string name="rd_up_one_folder">Un dosar mai sus</string>
 </resources>

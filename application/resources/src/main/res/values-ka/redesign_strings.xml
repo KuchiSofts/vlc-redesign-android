@@ -687,4 +687,6 @@
     <string name="rd_tv_err_sign_in">ჯერ შედით</string>
     <string name="rd_tv_err_unreadable">ფაილის წაკითხვა შეუძლებელია</string>
     <string name="rd_tv_err_wrong">სერვერის პასუხის წაკითხვა ვერ მოხერხდა</string>
+    <string name="rd_folders">საქაღალდეები</string>
+    <string name="rd_up_one_folder">ერთი საქაღალდით ზემოთ</string>
 </resources>

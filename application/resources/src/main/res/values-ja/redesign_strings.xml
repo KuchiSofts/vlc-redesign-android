@@ -706,4 +706,6 @@
     <string name="rd_delete_to_trash">削除したファイルはゴミ箱に移動し、30日間は復元できます。</string>
     <string name="rd_trash_failed_one">このファイルはゴミ箱に移動できません。完全に削除しますか？</string>
     <string name="rd_trash_failed_many">これらのファイルはゴミ箱に移動できません。完全に削除しますか？</string>
+    <string name="rd_folders">フォルダー</string>
+    <string name="rd_up_one_folder">1つ上のフォルダーへ</string>
 </resources>

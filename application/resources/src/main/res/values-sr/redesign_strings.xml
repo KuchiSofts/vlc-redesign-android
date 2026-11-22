@@ -691,4 +691,6 @@
     <string name="rd_tv_err_sign_in">прво се пријавите</string>
     <string name="rd_tv_err_unreadable">датотека се не може прочитати</string>
     <string name="rd_tv_err_wrong">одговор сервера није могуће прочитати</string>
+    <string name="rd_folders">Фасцикле</string>
+    <string name="rd_up_one_folder">Фасцикла изнад</string>
 </resources>

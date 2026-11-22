@@ -708,4 +708,6 @@
     <string name="rd_delete_to_trash">Silinen dosyalar çöp kutusuna gider ve 30 gün boyunca geri yüklenebilir.</string>
     <string name="rd_trash_failed_one">Bu dosya çöp kutusuna taşınamıyor. Kalıcı olarak silinsin mi?</string>
     <string name="rd_trash_failed_many">Bu dosyalar çöp kutusuna taşınamıyor. Kalıcı olarak silinsin mi?</string>
+    <string name="rd_folders">Klasörler</string>
+    <string name="rd_up_one_folder">Bir üst klasör</string>
 </resources>

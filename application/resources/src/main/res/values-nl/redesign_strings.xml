@@ -708,4 +708,6 @@
     <string name="rd_delete_to_trash">Verwijderde bestanden gaan naar de prullenbak en kunnen 30 dagen lang worden hersteld.</string>
     <string name="rd_trash_failed_one">Dit bestand kan niet naar de prullenbak worden verplaatst. Definitief verwijderen?</string>
     <string name="rd_trash_failed_many">Deze bestanden kunnen niet naar de prullenbak worden verplaatst. Definitief verwijderen?</string>
+    <string name="rd_folders">Mappen</string>
+    <string name="rd_up_one_folder">Eén map omhoog</string>
 </resources>

@@ -706,4 +706,6 @@
     <string name="rd_delete_to_trash">删除的文件会移到回收站，可在 30 天内恢复。</string>
     <string name="rd_trash_failed_one">无法将此文件移到回收站。要永久删除吗？</string>
     <string name="rd_trash_failed_many">无法将这些文件移到回收站。要永久删除吗？</string>
+    <string name="rd_folders">文件夹</string>
+    <string name="rd_up_one_folder">上一级文件夹</string>
 </resources>

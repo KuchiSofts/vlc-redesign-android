@@ -688,4 +688,6 @@
     <string name="rd_tv_err_sign_in">logg inn først</string>
     <string name="rd_tv_err_unreadable">fila kan ikkje lesast</string>
     <string name="rd_tv_err_wrong">svaret frå tenaren kunne ikkje lesast</string>
+    <string name="rd_folders">Mapper</string>
+    <string name="rd_up_one_folder">Opp éi mappe</string>
 </resources>

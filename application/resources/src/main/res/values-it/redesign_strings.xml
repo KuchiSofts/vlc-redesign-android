@@ -708,4 +708,6 @@
     <string name="rd_delete_to_trash">I file eliminati vanno nel cestino e possono essere ripristinati per 30 giorni.</string>
     <string name="rd_trash_failed_one">Impossibile spostare questo file nel cestino. Eliminarlo definitivamente?</string>
     <string name="rd_trash_failed_many">Impossibile spostare questi file nel cestino. Eliminarli definitivamente?</string>
+    <string name="rd_folders">Cartelle</string>
+    <string name="rd_up_one_folder">Cartella superiore</string>
 </resources>

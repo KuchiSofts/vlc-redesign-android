@@ -694,4 +694,6 @@
     <string name="rd_delete_to_trash">קבצים שנמחקים עוברים לפח האשפה ואפשר לשחזר אותם במשך 30 יום.</string>
     <string name="rd_trash_failed_one">לא ניתן להעביר את הקובץ לפח האשפה. למחוק אותו לצמיתות?</string>
     <string name="rd_trash_failed_many">לא ניתן להעביר את הקבצים האלה לפח האשפה. למחוק אותם לצמיתות?</string>
+    <string name="rd_folders">תיקיות</string>
+    <string name="rd_up_one_folder">תיקייה אחת למעלה</string>
 </resources>

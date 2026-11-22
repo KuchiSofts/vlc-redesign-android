@@ -686,4 +686,6 @@
     <string name="rd_tv_err_sign_in">hãy đăng nhập trước</string>
     <string name="rd_tv_err_unreadable">không thể đọc tệp</string>
     <string name="rd_tv_err_wrong">không thể đọc câu trả lời của máy chủ</string>
+    <string name="rd_folders">Thư mục</string>
+    <string name="rd_up_one_folder">Lên một thư mục</string>
 </resources>

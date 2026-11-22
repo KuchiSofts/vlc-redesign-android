@@ -686,4 +686,6 @@
     <string name="rd_tv_err_sign_in">daftar masuk dahulu</string>
     <string name="rd_tv_err_unreadable">fail tidak dapat dibaca</string>
     <string name="rd_tv_err_wrong">jawapan pelayan tidak dapat dibaca</string>
+    <string name="rd_folders">Folder</string>
+    <string name="rd_up_one_folder">Naik satu folder</string>
 </resources>

@@ -884,4 +884,6 @@
     <string name="rd_delete_to_trash">Deleted files go to the trash and can be restored for 30 days.</string>
     <string name="rd_trash_failed_one">This file can\'t be moved to the trash. Delete it permanently?</string>
     <string name="rd_trash_failed_many">These files can\'t be moved to the trash. Delete them permanently?</string>
+    <string name="rd_folders">Folders</string>
+    <string name="rd_up_one_folder">Up one folder</string>
 </resources>

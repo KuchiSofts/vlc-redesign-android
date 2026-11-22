@@ -687,4 +687,6 @@
     <string name="rd_tv_err_sign_in">ਪਹਿਲਾਂ ਸਾਈਨ ਇਨ ਕਰੋ</string>
     <string name="rd_tv_err_unreadable">ਫਾਈਲ ਪੜ੍ਹੀ ਨਹੀਂ ਜਾ ਸਕਦੀ</string>
     <string name="rd_tv_err_wrong">ਸਰਵਰ ਦਾ ਜਵਾਬ ਪੜ੍ਹਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ</string>
+    <string name="rd_folders">ਫੋਲਡਰ</string>
+    <string name="rd_up_one_folder">ਇੱਕ ਫੋਲਡਰ ਉੱਪਰ</string>
 </resources>

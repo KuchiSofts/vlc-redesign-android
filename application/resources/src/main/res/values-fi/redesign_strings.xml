@@ -689,4 +689,6 @@
     <string name="rd_tv_err_sign_in">kirjaudu ensin sisään</string>
     <string name="rd_tv_err_unreadable">tiedostoa ei voi lukea</string>
     <string name="rd_tv_err_wrong">palvelimen vastausta ei voitu lukea</string>
+    <string name="rd_folders">Kansiot</string>
+    <string name="rd_up_one_folder">Yksi kansio ylöspäin</string>
 </resources>

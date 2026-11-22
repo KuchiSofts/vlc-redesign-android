@@ -687,4 +687,6 @@
     <string name="rd_tv_err_sign_in">முதலில் உள்நுழையவும்</string>
     <string name="rd_tv_err_unreadable">கோப்பைப் படிக்க முடியாது</string>
     <string name="rd_tv_err_wrong">சேவையகத்தின் பதிலைப் படிக்க முடியவில்லை</string>
+    <string name="rd_folders">கோப்புறைகள்</string>
+    <string name="rd_up_one_folder">ஒரு கோப்புறை மேலே</string>
 </resources>

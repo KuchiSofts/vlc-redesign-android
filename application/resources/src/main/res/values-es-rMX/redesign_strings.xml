@@ -687,4 +687,6 @@
     <string name="rd_tv_err_sign_in">inicia sesión primero</string>
     <string name="rd_tv_err_unreadable">no se puede leer el archivo</string>
     <string name="rd_tv_err_wrong">no se pudo leer la respuesta del servidor</string>
+    <string name="rd_folders">Carpetas</string>
+    <string name="rd_up_one_folder">Subir una carpeta</string>
 </resources>
