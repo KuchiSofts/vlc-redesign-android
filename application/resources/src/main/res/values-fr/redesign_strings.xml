@@ -710,4 +710,7 @@
     <string name="rd_trash_failed_many">Impossible de placer ces fichiers dans la corbeille. Les supprimer définitivement ?</string>
     <string name="rd_folders">Dossiers</string>
     <string name="rd_up_one_folder">Dossier parent</string>
+    <string name="rd_file_gone">Le fichier %1$s a été supprimé ou déplacé.</string>
+    <string name="rd_include_subfolders">Inclure les sous-dossiers</string>
+    <string name="rd_modified">Modifié le</string>
 </resources>

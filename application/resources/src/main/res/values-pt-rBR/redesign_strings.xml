@@ -710,4 +710,7 @@
     <string name="rd_trash_failed_many">Não é possível mover estes arquivos para a lixeira. Excluí-los permanentemente?</string>
     <string name="rd_folders">Pastas</string>
     <string name="rd_up_one_folder">Subir uma pasta</string>
+    <string name="rd_file_gone">O arquivo %1$s foi excluído ou movido.</string>
+    <string name="rd_include_subfolders">Incluir subpastas</string>
+    <string name="rd_modified">Modificado</string>
 </resources>

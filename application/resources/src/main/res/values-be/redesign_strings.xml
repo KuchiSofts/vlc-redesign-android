@@ -697,4 +697,7 @@
     <string name="rd_tv_err_wrong">не ўдалося прачытаць адказ сервера</string>
     <string name="rd_folders">Папкі</string>
     <string name="rd_up_one_folder">На ўзровень вышэй</string>
+    <string name="rd_file_gone">Файл %1$s выдалены або перамешчаны.</string>
+    <string name="rd_include_subfolders">Уключаючы падпапкі</string>
+    <string name="rd_modified">Зменена</string>
 </resources>

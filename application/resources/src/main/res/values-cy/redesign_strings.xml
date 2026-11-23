@@ -702,4 +702,7 @@
     <string name="rd_tv_err_wrong">nid oedd modd darllen ateb y gweinydd</string>
     <string name="rd_folders">Ffolderi</string>
     <string name="rd_up_one_folder">I fyny un ffolder</string>
+    <string name="rd_file_gone">Mae\'r ffeil %1$s wedi\'i dileu neu ei symud.</string>
+    <string name="rd_include_subfolders">Cynnwys is-ffolderi</string>
+    <string name="rd_modified">Addaswyd</string>
 </resources>

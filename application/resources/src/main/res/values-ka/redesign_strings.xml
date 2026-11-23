@@ -689,4 +689,7 @@
     <string name="rd_tv_err_wrong">სერვერის პასუხის წაკითხვა ვერ მოხერხდა</string>
     <string name="rd_folders">საქაღალდეები</string>
     <string name="rd_up_one_folder">ერთი საქაღალდით ზემოთ</string>
+    <string name="rd_file_gone">ფაილი %1$s წაიშალა ან გადაიტანეს.</string>
+    <string name="rd_include_subfolders">ქვესაქაღალდეების ჩართვით</string>
+    <string name="rd_modified">შეცვლილია</string>
 </resources>

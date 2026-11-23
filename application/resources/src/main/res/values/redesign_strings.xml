@@ -886,4 +886,7 @@
     <string name="rd_trash_failed_many">These files can\'t be moved to the trash. Delete them permanently?</string>
     <string name="rd_folders">Folders</string>
     <string name="rd_up_one_folder">Up one folder</string>
+    <string name="rd_file_gone">%1$s was deleted or moved.</string>
+    <string name="rd_include_subfolders">Include subfolders</string>
+    <string name="rd_modified">Modified</string>
 </resources>

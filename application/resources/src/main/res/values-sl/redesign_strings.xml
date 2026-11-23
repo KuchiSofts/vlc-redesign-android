@@ -697,4 +697,7 @@
     <string name="rd_tv_err_wrong">odgovora strežnika ni bilo mogoče prebrati</string>
     <string name="rd_folders">Mape</string>
     <string name="rd_up_one_folder">Mapo višje</string>
+    <string name="rd_file_gone">Datoteka %1$s je bila izbrisana ali premaknjena.</string>
+    <string name="rd_include_subfolders">Vključi podmape</string>
+    <string name="rd_modified">Spremenjeno</string>
 </resources>

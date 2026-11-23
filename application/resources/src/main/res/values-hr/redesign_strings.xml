@@ -694,4 +694,7 @@
     <string name="rd_tv_err_wrong">odgovor poslužitelja nije moguće pročitati</string>
     <string name="rd_folders">Mape</string>
     <string name="rd_up_one_folder">Jednu mapu gore</string>
+    <string name="rd_file_gone">Datoteka %1$s je izbrisana ili premještena.</string>
+    <string name="rd_include_subfolders">Uključi podmape</string>
+    <string name="rd_modified">Izmijenjeno</string>
 </resources>

@@ -691,4 +691,7 @@
     <string name="rd_tv_err_wrong">δεν ήταν δυνατή η ανάγνωση της απάντησης του διακομιστή</string>
     <string name="rd_folders">Φάκελοι</string>
     <string name="rd_up_one_folder">Έναν φάκελο επάνω</string>
+    <string name="rd_file_gone">Το αρχείο %1$s διαγράφηκε ή μετακινήθηκε.</string>
+    <string name="rd_include_subfolders">Συμπερίληψη υποφακέλων</string>
+    <string name="rd_modified">Τροποποίηση</string>
 </resources>

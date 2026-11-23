@@ -48,6 +48,14 @@
             android:visible="false"
             vlc:showAsAction="ifRoom|collapseActionView" />
 
+    <!-- VLC Redesign (discussion #132): the order said in the menu; it opens Display settings, where it is -->
+    <item
+            android:id="@+id/ml_menu_rd_sort"
+            android:icon="@drawable/ic_sort"
+            android:orderInCategory="2"
+            android:title="@string/sortby"
+            android:visible="false"
+            vlc:showAsAction="never" />
     <item
             android:id="@+id/ml_menu_display_options"
             android:icon="@drawable/ic_display_settings"

@@ -11,6 +11,7 @@
 package org.videolan.vlc.gui
 
 import android.graphics.Rect
+import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
@@ -24,6 +25,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -38,6 +40,9 @@ import org.videolan.medialibrary.interfaces.media.Folder
 import org.videolan.medialibrary.interfaces.media.MediaWrapper
 import org.videolan.resources.util.getFromMl
 import org.videolan.vlc.R
+import org.videolan.tools.Settings
+import org.videolan.vlc.gui.helpers.RdStyle
+import org.videolan.vlc.gui.helpers.RdTvFocusRing
 import org.videolan.vlc.gui.helpers.loadImage
 import org.videolan.vlc.media.MediaUtils
 
@@ -73,6 +78,30 @@ class RdMediaFoldersFragment : Fragment() {
     private var loadJob: Job? = null
     private lateinit var list: RecyclerView
     private lateinit var empty: TextView
+    // (discussion #132) Play all of the folder shown, its subfolders too when asked; the order of its media
+    private lateinit var bar: LinearLayout
+    private lateinit var subfolders: SwitchCompat
+    private class SortOption(val sort: Int, val desc: Boolean, val label: String)
+    private val sortKey get() = "rd_folders_sort_$type"
+    private val subKey get() = "rd_folders_subfolders_$type"
+    private fun sortOptions(): List<SortOption> {
+        val name = getString(R.string.sortby_name)
+        // (the names of Display settings' order)
+        val added = getString(R.string.sortby_last_modified_date)
+        val modified = getString(R.string.rd_modified)
+        val length = getString(R.string.sortby_length)
+        return listOf(
+            SortOption(Medialibrary.SORT_FILENAME, false, "$name: ${getString(R.string.sort_alpha_asc)}"),
+            SortOption(Medialibrary.SORT_FILENAME, true, "$name: ${getString(R.string.sort_alpha_desc)}"),
+            SortOption(Medialibrary.SORT_INSERTIONDATE, true, "$added: ${getString(R.string.sort_date_desc)}"),
+            SortOption(Medialibrary.SORT_INSERTIONDATE, false, "$added: ${getString(R.string.sort_date_asc)}"),
+            SortOption(Medialibrary.SORT_LASTMODIFICATIONDATE, true, "$modified: ${getString(R.string.sort_date_desc)}"),
+            SortOption(Medialibrary.SORT_LASTMODIFICATIONDATE, false, "$modified: ${getString(R.string.sort_date_asc)}"),
+            SortOption(Medialibrary.SORT_DURATION, true, "$length: ${getString(R.string.sortby_length_desc)}"),
+            SortOption(Medialibrary.SORT_DURATION, false, "$length: ${getString(R.string.sortby_length_asc)}"))
+    }
+    private fun sortIndex() = Settings.getInstance(requireContext()).getInt(sortKey, 0).coerceIn(0, 7)
+    private fun sortOption() = sortOptions()[sortIndex()]
 
     private val back = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {
@@ -103,7 +132,96 @@ class RdMediaFoldersFragment : Fragment() {
         }
         root.addView(list, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
         root.addView(empty, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
-        return root
+        // above the list: Play all, its subfolders too or not, the order
+        val font = ResourcesCompat.getFont(ctx, R.font.inter)
+        bar = LinearLayout(ctx).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+            setPaddingRelative(d(16f), d(10f), d(8f), d(2f))
+            visibility = View.GONE
+        }
+        val play = TextView(ctx).apply {
+            text = getString(R.string.play_all)
+            typeface = font
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+            setTextColor(ContextCompat.getColor(ctx, android.R.color.white))
+            val icon = ContextCompat.getDrawable(ctx, R.drawable.ic_play_all)?.mutate()
+            icon?.setTint(ContextCompat.getColor(ctx, android.R.color.white))
+            icon?.setBounds(0, 0, d(18f), d(18f))
+            setCompoundDrawablesRelative(icon, null, null, null)
+            compoundDrawablePadding = d(6f)
+            gravity = Gravity.CENTER_VERTICAL
+            setPaddingRelative(d(12f), d(7f), d(14f), d(7f))
+            background = GradientDrawable().apply {
+                cornerRadius = d(6f).toFloat()
+                setColor(ContextCompat.getColor(ctx, R.color.rd_accent))
+            }
+            isFocusable = true
+            setOnClickListener { playAll() }
+        }
+        subfolders = SwitchCompat(ctx).apply {
+            text = getString(R.string.rd_include_subfolders)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
+            setTextColor(ContextCompat.getColor(ctx, R.color.rd_fg_a1))
+            maxLines = 2
+            RdStyle.toggle(this)
+            isChecked = Settings.getInstance(ctx).getBoolean(subKey, false)
+            setOnCheckedChangeListener { _, on -> Settings.getInstance(ctx).edit().putBoolean(subKey, on).apply() }
+        }
+        val sort = ImageView(ctx).apply {
+            setImageResource(R.drawable.ic_sort)
+            setColorFilter(ContextCompat.getColor(ctx, R.color.rd_fg_1))
+            scaleType = ImageView.ScaleType.CENTER
+            contentDescription = getString(R.string.sortby)
+            val attrs = ctx.obtainStyledAttributes(intArrayOf(android.R.attr.selectableItemBackgroundBorderless))
+            background = attrs.getDrawable(0)
+            attrs.recycle()
+            isFocusable = true
+            setOnClickListener { chooseSort() }
+        }
+        bar.addView(play, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+        bar.addView(subfolders, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f).apply { marginStart = d(16f) })
+        bar.addView(sort, LinearLayout.LayoutParams(d(44f), d(44f)).apply { marginStart = d(8f) })
+        val page = LinearLayout(ctx).apply { orientation = LinearLayout.VERTICAL }
+        page.addView(bar, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+        page.addView(root, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f))
+        return page
+    }
+
+    private fun chooseSort() {
+        val ctx = context ?: return
+        val options = sortOptions()
+        val dialog = com.google.android.material.dialog.MaterialAlertDialogBuilder(ctx)
+            .setTitle(R.string.sortby)
+            .setSingleChoiceItems(options.map { it.label }.toTypedArray(), sortIndex()) { dialog, which ->
+                Settings.getInstance(ctx).edit().putInt(sortKey, which).apply()
+                dialog.dismiss()
+                load()
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
+        RdTvFocusRing.attach(dialog.window)
+    }
+
+    /** The media of the folder shown (its subfolders' too when asked; all of them at the top), in the chosen order */
+    private fun playAll() {
+        val ctx = context ?: return
+        val here = path ?: roots.singleOrNull()
+        val withSub = here == null || subfolders.isChecked
+        val opt = sortOption()
+        val tops = roots
+        viewLifecycleOwner.lifecycleScope.launch {
+            val all = ctx.getFromMl {
+                getFolders(type, Medialibrary.SORT_DEFAULT, false, false, false, 100000, 0)
+                    .filter { !it.mMrl.isNullOrEmpty() }
+                    .associateBy { if (it.mMrl.endsWith("/")) it.mMrl else it.mMrl + "/" }
+                    .filterKeys { p -> if (here == null) tops.any { p.startsWith(it) } else if (withSub) p.startsWith(here) else p == here }
+                    // (folder by folder, each one's media in the chosen order: the folder itself first)
+                    .toSortedMap(String.CASE_INSENSITIVE_ORDER)
+                    .flatMap { (_, f) -> f.media(type, opt.sort, opt.desc, false, false, MAX_MEDIA, 0)?.toList() ?: emptyList() }
+            }
+            if (all.isNotEmpty()) MediaUtils.openList(ctx, all.take(10000), 0)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -168,6 +286,7 @@ class RdMediaFoldersFragment : Fragment() {
         loadJob?.cancel()
         val ctx = context ?: return
         val shown = path
+        val opt = sortOption()
         loadJob = viewLifecycleOwner.lifecycleScope.launch {
             val result = ctx.getFromMl {
                 val folders = getFolders(type, Medialibrary.SORT_DEFAULT, false, false, false, 100000, 0)
@@ -187,7 +306,7 @@ class RdMediaFoldersFragment : Fragment() {
                         dirs[child] = (dirs[child] ?: 0) + f.mediaCount(type)
                     }
                 }
-                val own = here?.let { byPath[it] }?.media(type, Medialibrary.SORT_FILENAME, false, false, false, MAX_MEDIA, 0)
+                val own = here?.let { byPath[it] }?.media(type, opt.sort, opt.desc, false, false, MAX_MEDIA, 0)
                     ?.toList() ?: emptyList()
                 Triple(tops, dirs, own)
             }
@@ -196,15 +315,18 @@ class RdMediaFoldersFragment : Fragment() {
             media = result.third
             val out = ArrayList<Row>()
             if (path != null) out.add(Row.Up(nameOf(path!!)))
+            // (the folders by name; Z → A turns them round too)
+            val byName = compareBy<Map.Entry<String, Int>, String>(String.CASE_INSENSITIVE_ORDER) { nameOf(it.key) }
             result.second.entries
                 .filter { it.value > 0 }
-                .sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { nameOf(it.key) })
+                .sortedWith(if (opt.sort == Medialibrary.SORT_FILENAME && opt.desc) byName.reversed() else byName)
                 .forEach { out.add(Row.Dir(it.key, if (path == null && roots.size > 1) storageName(it.key) else nameOf(it.key), it.value)) }
             media.forEachIndexed { i, m -> out.add(Row.Media(m, i)) }
             rows = out
             list.adapter?.notifyDataSetChanged()
             list.scrollToPosition(0)
             empty.visibility = if (out.none { it !is Row.Up }) View.VISIBLE else View.GONE
+            bar.visibility = if (out.any { it !is Row.Up }) View.VISIBLE else View.GONE
             updateBack()
         }
     }

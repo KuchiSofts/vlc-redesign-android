@@ -715,4 +715,7 @@
     <string name="rd_trash_failed_many">Tyto soubory nelze přesunout do koše. Smazat je natrvalo?</string>
     <string name="rd_folders">Složky</string>
     <string name="rd_up_one_folder">O složku výš</string>
+    <string name="rd_file_gone">Soubor %1$s byl smazán nebo přesunut.</string>
+    <string name="rd_include_subfolders">Včetně podsložek</string>
+    <string name="rd_modified">Změněno</string>
 </resources>

@@ -696,4 +696,7 @@
     <string name="rd_trash_failed_many">לא ניתן להעביר את הקבצים האלה לפח האשפה. למחוק אותם לצמיתות?</string>
     <string name="rd_folders">תיקיות</string>
     <string name="rd_up_one_folder">תיקייה אחת למעלה</string>
+    <string name="rd_file_gone">הקובץ %1$s נמחק או הועבר.</string>
+    <string name="rd_include_subfolders">כלול תיקיות משנה</string>
+    <string name="rd_modified">שינוי אחרון</string>
 </resources>

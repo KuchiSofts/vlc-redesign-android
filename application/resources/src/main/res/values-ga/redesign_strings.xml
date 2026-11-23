@@ -698,4 +698,7 @@
     <string name="rd_tv_err_wrong">níorbh fhéidir freagra an fhreastalaí a léamh</string>
     <string name="rd_folders">Fillteáin</string>
     <string name="rd_up_one_folder">Suas fillteán amháin</string>
+    <string name="rd_file_gone">Scriosadh nó bogadh an comhad %1$s.</string>
+    <string name="rd_include_subfolders">Cuir fofhillteáin san áireamh</string>
+    <string name="rd_modified">Athraithe</string>
 </resources>

@@ -688,4 +688,7 @@
     <string name="rd_tv_err_wrong">không thể đọc câu trả lời của máy chủ</string>
     <string name="rd_folders">Thư mục</string>
     <string name="rd_up_one_folder">Lên một thư mục</string>
+    <string name="rd_file_gone">Tệp %1$s đã bị xóa hoặc di chuyển.</string>
+    <string name="rd_include_subfolders">Bao gồm thư mục con</string>
+    <string name="rd_modified">Ngày sửa đổi</string>
 </resources>

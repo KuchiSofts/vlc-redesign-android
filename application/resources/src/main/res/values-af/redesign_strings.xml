@@ -689,4 +689,7 @@
     <string name="rd_tv_err_wrong">die bediener se antwoord kon nie gelees word nie</string>
     <string name="rd_folders">Vouers</string>
     <string name="rd_up_one_folder">Een vouer op</string>
+    <string name="rd_file_gone">%1$s is uitgevee of geskuif.</string>
+    <string name="rd_include_subfolders">Sluit subvouers in</string>
+    <string name="rd_modified">Gewysig</string>
 </resources>

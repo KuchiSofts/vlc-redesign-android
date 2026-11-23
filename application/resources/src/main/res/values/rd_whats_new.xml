@@ -3,10 +3,8 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>Videos and Music have a Folders tab: your media folder by folder.</item>
-        <item>No more short freeze about 20 seconds after a video starts.</item>
-        <item>The TV guide says Today in the evening.</item>
-        <item>Android TV: the remote stays on the setting you changed, and the shortcuts list scrolls in one stop.</item>
-        <item>Translations: the Hebrew and Vietnamese jump names are right.</item>
+        <item>Folders: sort by name, date added, date modified or length, and Play all, with or without subfolders.</item>
+        <item>Sort by… in the menu of the Videos and Music lists.</item>
+        <item>A deleted or moved file says so once and leaves the queue and the history.</item>
     </string-array>
 </resources>

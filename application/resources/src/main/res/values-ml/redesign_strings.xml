@@ -691,4 +691,7 @@
     <string name="rd_tv_err_wrong">സെർവറിന്റെ മറുപടി വായിക്കാൻ കഴിഞ്ഞില്ല</string>
     <string name="rd_folders">ഫോൾഡറുകൾ</string>
     <string name="rd_up_one_folder">ഒരു ഫോൾഡർ മുകളിലേക്ക്</string>
+    <string name="rd_file_gone">%1$s എന്ന ഫയൽ ഇല്ലാതാക്കുകയോ നീക്കുകയോ ചെയ്തു.</string>
+    <string name="rd_include_subfolders">ഉപഫോൾഡറുകൾ ഉൾപ്പെടുത്തുക</string>
+    <string name="rd_modified">പരിഷ്കരിച്ചത്</string>
 </resources>

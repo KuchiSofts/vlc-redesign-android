@@ -691,4 +691,7 @@
     <string name="rd_tv_err_wrong">serverens svar kunne ikke læses</string>
     <string name="rd_folders">Mapper</string>
     <string name="rd_up_one_folder">Én mappe op</string>
+    <string name="rd_file_gone">Filen %1$s er slettet eller flyttet.</string>
+    <string name="rd_include_subfolders">Medtag undermapper</string>
+    <string name="rd_modified">Ændret</string>
 </resources>

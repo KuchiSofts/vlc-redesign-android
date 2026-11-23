@@ -693,4 +693,7 @@
     <string name="rd_tv_err_wrong">одговор сервера није могуће прочитати</string>
     <string name="rd_folders">Фасцикле</string>
     <string name="rd_up_one_folder">Фасцикла изнад</string>
+    <string name="rd_file_gone">Датотека %1$s је обрисана или премештена.</string>
+    <string name="rd_include_subfolders">Укључи потфасцикле</string>
+    <string name="rd_modified">Измењено</string>
 </resources>

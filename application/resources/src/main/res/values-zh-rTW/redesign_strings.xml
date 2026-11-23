@@ -708,4 +708,7 @@
     <string name="rd_trash_failed_many">無法將這些檔案移至垃圾桶。要永久刪除嗎？</string>
     <string name="rd_folders">資料夾</string>
     <string name="rd_up_one_folder">上一層資料夾</string>
+    <string name="rd_file_gone">檔案 %1$s 已被刪除或移動。</string>
+    <string name="rd_include_subfolders">包含子資料夾</string>
+    <string name="rd_modified">修改時間</string>
 </resources>

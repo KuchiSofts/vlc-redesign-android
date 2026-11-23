@@ -694,4 +694,7 @@
     <string name="rd_tv_err_wrong">no s\'ha pogut llegir la resposta del servidor</string>
     <string name="rd_folders">Carpetes</string>
     <string name="rd_up_one_folder">Puja una carpeta</string>
+    <string name="rd_file_gone">El fitxer %1$s s\'ha suprimit o s\'ha mogut.</string>
+    <string name="rd_include_subfolders">Inclou les subcarpetes</string>
+    <string name="rd_modified">Modificat</string>
 </resources>

@@ -688,4 +688,7 @@
     <string name="rd_tv_err_wrong">jawaban server tidak dapat dibaca</string>
     <string name="rd_folders">Folder</string>
     <string name="rd_up_one_folder">Naik satu folder</string>
+    <string name="rd_file_gone">File %1$s telah dihapus atau dipindahkan.</string>
+    <string name="rd_include_subfolders">Sertakan subfolder</string>
+    <string name="rd_modified">Diubah</string>
 </resources>
