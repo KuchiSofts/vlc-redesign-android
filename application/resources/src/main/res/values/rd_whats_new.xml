@@ -3,8 +3,6 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>Folders: sort by name, date added, date modified or length, and Play all, with or without subfolders.</item>
-        <item>Sort by… in the menu of the Videos and Music lists.</item>
-        <item>A deleted or moved file says so once and leaves the queue and the history.</item>
+        <item>Dialogs are easier to read in the light theme: their lists and messages were grey on grey.</item>
     </string-array>
 </resources>
