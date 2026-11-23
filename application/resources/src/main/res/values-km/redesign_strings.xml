@@ -709,4 +709,6 @@
     <string name="rd_folders">ថត</string>
     <string name="rd_up_one_folder">ឡើងមួយថត</string>
     <string name="rd_file_gone">ឯកសារ %1$s ត្រូវបានលុប ឬផ្លាស់ទី។</string>
+    <string name="rd_include_subfolders">រួមបញ្ចូលថតរង</string>
+    <string name="rd_modified">បានកែប្រែ</string>
 </resources>

@@ -716,4 +716,6 @@
     <string name="rd_folders">Foldery</string>
     <string name="rd_up_one_folder">Folder wyżej</string>
     <string name="rd_file_gone">Plik %1$s został usunięty lub przeniesiony.</string>
+    <string name="rd_include_subfolders">Uwzględnij podfoldery</string>
+    <string name="rd_modified">Zmodyfikowano</string>
 </resources>

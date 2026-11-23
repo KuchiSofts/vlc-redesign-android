@@ -82,6 +82,7 @@ open class ContentActivity : AudioPlayerContainerActivity(), SearchView.OnQueryT
         super.onCreateOptionsMenu(menu)
         if (current is AboutFragment) return true
         menuInflater.inflate(R.menu.activity_option, menu)
+        optionsMenu = menu
         if (current is Filterable) {
             val filterable = current as Filterable?
             searchItem = menu.findItem(R.id.ml_menu_filter)
@@ -107,8 +108,22 @@ open class ContentActivity : AudioPlayerContainerActivity(), SearchView.OnQueryT
         return true
     }
 
+    // VLC Redesign (discussion #132): "Sort by…" in the menu wherever a list has Display settings (where its order is)
+    private var optionsMenu: Menu? = null
+
+    // (the panel: the fragments set their items in its super, after the activity's onPrepareOptionsMenu)
+    override fun onPreparePanel(featureId: Int, view: android.view.View?, menu: Menu): Boolean {
+        val prepared = super.onPreparePanel(featureId, view, menu)
+        menu.findItem(R.id.ml_menu_rd_sort)?.isVisible = menu.findItem(R.id.ml_menu_display_options)?.isVisible == true
+        return prepared
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.ml_menu_rd_sort -> {
+                optionsMenu?.performIdentifierAction(R.id.ml_menu_display_options, 0)
+                return true
+            }
             R.id.ml_menu_search -> {
                 startActivity(Intent(Intent.ACTION_SEARCH, null, this, SearchActivity::class.java))
                 return true

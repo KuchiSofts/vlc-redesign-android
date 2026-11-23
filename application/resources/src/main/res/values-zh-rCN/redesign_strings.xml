@@ -709,4 +709,6 @@
     <string name="rd_folders">文件夹</string>
     <string name="rd_up_one_folder">上一级文件夹</string>
     <string name="rd_file_gone">文件 %1$s 已被删除或移动。</string>
+    <string name="rd_include_subfolders">包括子文件夹</string>
+    <string name="rd_modified">修改时间</string>
 </resources>

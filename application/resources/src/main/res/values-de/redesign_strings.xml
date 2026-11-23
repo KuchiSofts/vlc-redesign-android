@@ -711,4 +711,6 @@
     <string name="rd_folders">Ordner</string>
     <string name="rd_up_one_folder">Eine Ebene höher</string>
     <string name="rd_file_gone">Die Datei %1$s wurde gelöscht oder verschoben.</string>
+    <string name="rd_include_subfolders">Unterordner einbeziehen</string>
+    <string name="rd_modified">Geändert</string>
 </resources>

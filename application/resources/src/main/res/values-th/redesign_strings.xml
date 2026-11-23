@@ -687,4 +687,6 @@
     <string name="rd_folders">โฟลเดอร์</string>
     <string name="rd_up_one_folder">ขึ้นไปหนึ่งโฟลเดอร์</string>
     <string name="rd_file_gone">ไฟล์ %1$s ถูกลบหรือย้ายไปแล้ว</string>
+    <string name="rd_include_subfolders">รวมโฟลเดอร์ย่อย</string>
+    <string name="rd_modified">แก้ไขเมื่อ</string>
 </resources>

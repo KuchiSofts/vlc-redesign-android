@@ -711,4 +711,6 @@
     <string name="rd_folders">Pastas</string>
     <string name="rd_up_one_folder">Pasta acima</string>
     <string name="rd_file_gone">O ficheiro %1$s foi eliminado ou movido.</string>
+    <string name="rd_include_subfolders">Incluir subpastas</string>
+    <string name="rd_modified">Modificado</string>
 </resources>

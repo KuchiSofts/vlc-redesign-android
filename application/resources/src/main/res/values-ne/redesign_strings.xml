@@ -691,4 +691,6 @@
     <string name="rd_folders">फोल्डरहरू</string>
     <string name="rd_up_one_folder">एक फोल्डर माथि</string>
     <string name="rd_file_gone">फाइल %1$s मेटाइएको वा सारिएको छ।</string>
+    <string name="rd_include_subfolders">सबफोल्डरहरू समावेश गर्नुहोस्</string>
+    <string name="rd_modified">परिमार्जित</string>
 </resources>

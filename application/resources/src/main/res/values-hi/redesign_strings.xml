@@ -690,4 +690,6 @@
     <string name="rd_folders">फ़ोल्डर</string>
     <string name="rd_up_one_folder">एक फ़ोल्डर ऊपर</string>
     <string name="rd_file_gone">फ़ाइल %1$s हटा दी गई है या कहीं और ले जाई गई है।</string>
+    <string name="rd_include_subfolders">उपफ़ोल्डर शामिल करें</string>
+    <string name="rd_modified">संशोधित</string>
 </resources>

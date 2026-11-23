@@ -724,4 +724,6 @@
     <string name="rd_folders">Ridants</string>
     <string name="rd_up_one_folder">Ridant d\' dzeu</string>
     <string name="rd_file_gone">Li fitchî %1$s a stî disfacé ou bodjî.</string>
+    <string name="rd_include_subfolders">Prinde les dizo-ridants</string>
+    <string name="rd_modified">Dierin candjmint</string>
 </resources>

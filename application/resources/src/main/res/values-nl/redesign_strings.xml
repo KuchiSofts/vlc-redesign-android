@@ -711,4 +711,6 @@
     <string name="rd_folders">Mappen</string>
     <string name="rd_up_one_folder">Eén map omhoog</string>
     <string name="rd_file_gone">Het bestand %1$s is verwijderd of verplaatst.</string>
+    <string name="rd_include_subfolders">Inclusief submappen</string>
+    <string name="rd_modified">Gewijzigd</string>
 </resources>

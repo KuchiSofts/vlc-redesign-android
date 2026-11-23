@@ -692,4 +692,6 @@
     <string name="rd_folders">Mappák</string>
     <string name="rd_up_one_folder">Egy mappával feljebb</string>
     <string name="rd_file_gone">A(z) %1$s fájlt törölték vagy áthelyezték.</string>
+    <string name="rd_include_subfolders">Almappákkal együtt</string>
+    <string name="rd_modified">Módosítva</string>
 </resources>

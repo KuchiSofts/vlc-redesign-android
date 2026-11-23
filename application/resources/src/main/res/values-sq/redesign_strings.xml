@@ -690,4 +690,6 @@
     <string name="rd_folders">Dosjet</string>
     <string name="rd_up_one_folder">Një dosje lart</string>
     <string name="rd_file_gone">Skedari %1$s u fshi ose u zhvendos.</string>
+    <string name="rd_include_subfolders">Përfshi nëndosjet</string>
+    <string name="rd_modified">Ndryshuar</string>
 </resources>

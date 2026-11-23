@@ -689,4 +689,6 @@
     <string name="rd_folders">Folder</string>
     <string name="rd_up_one_folder">Naik satu folder</string>
     <string name="rd_file_gone">Fail %1$s telah dipadam atau dipindahkan.</string>
+    <string name="rd_include_subfolders">Sertakan subfolder</string>
+    <string name="rd_modified">Diubah suai</string>
 </resources>

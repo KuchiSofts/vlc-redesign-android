@@ -691,4 +691,6 @@
     <string name="rd_folders">پوشه‌ها</string>
     <string name="rd_up_one_folder">یک پوشه بالاتر</string>
     <string name="rd_file_gone">فایل %1$s حذف یا جابه‌جا شده است.</string>
+    <string name="rd_include_subfolders">همراه زیرپوشه‌ها</string>
+    <string name="rd_modified">تاریخ تغییر</string>
 </resources>

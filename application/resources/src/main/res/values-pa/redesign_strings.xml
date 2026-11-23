@@ -690,4 +690,6 @@
     <string name="rd_folders">ਫੋਲਡਰ</string>
     <string name="rd_up_one_folder">ਇੱਕ ਫੋਲਡਰ ਉੱਪਰ</string>
     <string name="rd_file_gone">ਫ਼ਾਈਲ %1$s ਮਿਟਾ ਦਿੱਤੀ ਗਈ ਹੈ ਜਾਂ ਹਿਲਾਈ ਗਈ ਹੈ।</string>
+    <string name="rd_include_subfolders">ਸਬ-ਫੋਲਡਰ ਸ਼ਾਮਲ ਕਰੋ</string>
+    <string name="rd_modified">ਸੋਧਿਆ</string>
 </resources>

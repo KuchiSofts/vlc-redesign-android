@@ -695,4 +695,6 @@
     <string name="rd_folders">Dosare</string>
     <string name="rd_up_one_folder">Un dosar mai sus</string>
     <string name="rd_file_gone">Fișierul %1$s a fost șters sau mutat.</string>
+    <string name="rd_include_subfolders">Include subdosarele</string>
+    <string name="rd_modified">Modificat</string>
 </resources>

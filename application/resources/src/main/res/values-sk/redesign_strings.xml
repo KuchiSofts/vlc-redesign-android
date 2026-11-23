@@ -698,4 +698,6 @@
     <string name="rd_folders">Priečinky</string>
     <string name="rd_up_one_folder">O priečinok vyššie</string>
     <string name="rd_file_gone">Súbor %1$s bol odstránený alebo presunutý.</string>
+    <string name="rd_include_subfolders">Vrátane podpriečinkov</string>
+    <string name="rd_modified">Zmenené</string>
 </resources>

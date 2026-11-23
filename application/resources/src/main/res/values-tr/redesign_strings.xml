@@ -711,4 +711,6 @@
     <string name="rd_folders">Klasörler</string>
     <string name="rd_up_one_folder">Bir üst klasör</string>
     <string name="rd_file_gone">%1$s dosyası silinmiş veya taşınmış.</string>
+    <string name="rd_include_subfolders">Alt klasörler dahil</string>
+    <string name="rd_modified">Değiştirilme</string>
 </resources>

@@ -711,4 +711,6 @@
     <string name="rd_folders">Mappar</string>
     <string name="rd_up_one_folder">Upp en mapp</string>
     <string name="rd_file_gone">Filen %1$s har tagits bort eller flyttats.</string>
+    <string name="rd_include_subfolders">Inkludera undermappar</string>
+    <string name="rd_modified">Ändrad</string>
 </resources>

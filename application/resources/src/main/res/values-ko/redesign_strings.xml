@@ -709,4 +709,6 @@
     <string name="rd_folders">폴더</string>
     <string name="rd_up_one_folder">상위 폴더로</string>
     <string name="rd_file_gone">%1$s 파일이 삭제되었거나 이동되었습니다.</string>
+    <string name="rd_include_subfolders">하위 폴더 포함</string>
+    <string name="rd_modified">수정한 날짜</string>
 </resources>

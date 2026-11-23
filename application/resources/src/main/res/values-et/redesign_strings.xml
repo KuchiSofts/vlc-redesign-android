@@ -692,4 +692,6 @@
     <string name="rd_folders">Kaustad</string>
     <string name="rd_up_one_folder">Kaust üles</string>
     <string name="rd_file_gone">Fail %1$s on kustutatud või teisaldatud.</string>
+    <string name="rd_include_subfolders">Kaasa alamkaustad</string>
+    <string name="rd_modified">Muudetud</string>
 </resources>

@@ -692,4 +692,6 @@
     <string name="rd_folders">फोल्डर</string>
     <string name="rd_up_one_folder">एक फोल्डर वर</string>
     <string name="rd_file_gone">%1$s ही फाइल हटवली किंवा हलवली गेली आहे.</string>
+    <string name="rd_include_subfolders">उपफोल्डर समाविष्ट करा</string>
+    <string name="rd_modified">सुधारित</string>
 </resources>

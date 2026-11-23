@@ -691,4 +691,6 @@
     <string name="rd_folders">Mapper</string>
     <string name="rd_up_one_folder">Opp éi mappe</string>
     <string name="rd_file_gone">Fila %1$s er sletta eller flytta.</string>
+    <string name="rd_include_subfolders">Ta med undermapper</string>
+    <string name="rd_modified">Endra</string>
 </resources>

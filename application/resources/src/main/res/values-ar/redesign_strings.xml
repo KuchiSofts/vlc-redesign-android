@@ -718,4 +718,6 @@
     <string name="rd_folders">المجلدات</string>
     <string name="rd_up_one_folder">مجلد واحد لأعلى</string>
     <string name="rd_file_gone">حُذف الملف %1$s أو نُقل.</string>
+    <string name="rd_include_subfolders">تضمين المجلدات الفرعية</string>
+    <string name="rd_modified">تاريخ التعديل</string>
 </resources>

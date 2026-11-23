@@ -716,4 +716,6 @@
     <string name="rd_folders">Папки</string>
     <string name="rd_up_one_folder">На уровень вверх</string>
     <string name="rd_file_gone">Файл %1$s удалён или перемещён.</string>
+    <string name="rd_include_subfolders">Включая подпапки</string>
+    <string name="rd_modified">Изменено</string>
 </resources>
