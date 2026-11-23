@@ -695,4 +695,6 @@
     <string name="rd_tv_err_sign_in">pirmiausia prisijunkite</string>
     <string name="rd_tv_err_unreadable">failo negalima perskaityti</string>
     <string name="rd_tv_err_wrong">nepavyko perskaityti serverio atsakymo</string>
+    <string name="rd_folders">Aplankai</string>
+    <string name="rd_up_one_folder">Aplanku aukštyn</string>
 </resources>

@@ -689,4 +689,6 @@
     <string name="rd_tv_err_sign_in">inicia sesión primeiro</string>
     <string name="rd_tv_err_unreadable">non se pode ler o ficheiro</string>
     <string name="rd_tv_err_wrong">non foi posíbel ler a resposta do servidor</string>
+    <string name="rd_folders">Cartafoles</string>
+    <string name="rd_up_one_folder">Subir un cartafol</string>
 </resources>

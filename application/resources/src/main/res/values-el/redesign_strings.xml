@@ -689,4 +689,6 @@
     <string name="rd_tv_err_sign_in">συνδεθείτε πρώτα</string>
     <string name="rd_tv_err_unreadable">δεν είναι δυνατή η ανάγνωση του αρχείου</string>
     <string name="rd_tv_err_wrong">δεν ήταν δυνατή η ανάγνωση της απάντησης του διακομιστή</string>
+    <string name="rd_folders">Φάκελοι</string>
+    <string name="rd_up_one_folder">Έναν φάκελο επάνω</string>
 </resources>

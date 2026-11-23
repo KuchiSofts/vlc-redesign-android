@@ -689,4 +689,6 @@
     <string name="rd_tv_err_sign_in">előbb jelentkezzen be</string>
     <string name="rd_tv_err_unreadable">a fájl nem olvasható</string>
     <string name="rd_tv_err_wrong">a kiszolgáló válasza nem olvasható</string>
+    <string name="rd_folders">Mappák</string>
+    <string name="rd_up_one_folder">Egy mappával feljebb</string>
 </resources>

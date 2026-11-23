@@ -687,4 +687,6 @@
     <string name="rd_tv_err_sign_in">skráðu þig fyrst inn</string>
     <string name="rd_tv_err_unreadable">ekki er hægt að lesa skrána</string>
     <string name="rd_tv_err_wrong">ekki tókst að lesa svar þjónsins</string>
+    <string name="rd_folders">Möppur</string>
+    <string name="rd_up_one_folder">Upp um eina möppu</string>
 </resources>

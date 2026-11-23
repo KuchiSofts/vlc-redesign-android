@@ -691,4 +691,6 @@
     <string name="rd_tv_err_sign_in">prvo se prijavite</string>
     <string name="rd_tv_err_unreadable">fajl se ne može pročitati</string>
     <string name="rd_tv_err_wrong">odgovor servera nije moguće pročitati</string>
+    <string name="rd_folders">Mape</string>
+    <string name="rd_up_one_folder">Jednu mapu gore</string>
 </resources>

@@ -688,4 +688,6 @@
     <string name="rd_tv_err_sign_in">पहिले साइन इन गर्नुहोस्</string>
     <string name="rd_tv_err_unreadable">फाइल पढ्न सकिँदैन</string>
     <string name="rd_tv_err_wrong">सर्भरको जवाफ पढ्न सकिएन</string>
+    <string name="rd_folders">फोल्डरहरू</string>
+    <string name="rd_up_one_folder">एक फोल्डर माथि</string>
 </resources>

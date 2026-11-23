@@ -26,6 +26,7 @@ import android.text.InputFilter
 import android.text.InputType
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
@@ -304,6 +305,12 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             }, 250)
             arguments?.remove(RD_SCROLL_TO)
         }
+        // a change that drew the window again (an accent, the theme, the layout's side, the size): the remote's focus
+        // comes back to that row, on its chosen choice; it started over at the top of the page
+        focusAfterRecreate?.let { key ->
+            focusAfterRecreate = null
+            view.postDelayed({ if (isAdded) focusRow(key) }, 300)
+        }
         requireActivity().supportFragmentManager.setFragmentResultListener(CONFIRM_PREFERENCE_CHANGE_DIALOG_RESULT, viewLifecycleOwner) { _, bundle ->
             when (bundle.getString(PREFERENCE_KEY, "")) {
                 AUDIO_RESUME_PLAYBACK -> {
@@ -390,6 +397,34 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
             needToRestartOnResume = false
         }
         super.onResume()
+    }
+
+    /** The focus on the row of [key]: its chosen choice (the accent's square, the layout's side), else its first
+     *  focusable view, else the row */
+    private fun focusRow(key: String) {
+        val list = listView ?: return
+        val position = (list.adapter as? androidx.preference.PreferenceGroup.PreferencePositionCallback)
+            ?.getPreferenceAdapterPosition(key) ?: -1
+        if (position < 0) return
+        list.scrollToPosition(position)
+        list.post {
+            if (!isAdded) return@post
+            val row = list.findViewHolderForAdapterPosition(position)?.itemView ?: return@post
+            val group = row as? ViewGroup
+            val target = group?.let { focusableIn(it, selected = true) }
+                ?: row.takeIf { it.isFocusable }
+                ?: group?.let { focusableIn(it, selected = false) }
+            target?.requestFocus()
+        }
+    }
+
+    private fun focusableIn(group: ViewGroup, selected: Boolean): View? {
+        for (i in 0 until group.childCount) {
+            val child = group.getChildAt(i)
+            if (child.isFocusable && child.isShown && (!selected || child.isSelected)) return child
+            if (child is ViewGroup) focusableIn(child, selected)?.let { return it }
+        }
+        return null
     }
 
     private fun openSub(fragment: androidx.fragment.app.Fragment) {
@@ -632,6 +667,7 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
         languages?.changed(key)
         if (key == org.videolan.vlc.util.OnlineSubtitles.KEY_LANGUAGES) services?.refresh()
         if (key == org.videolan.vlc.util.OnlineSubtitles.KEY_SECOND) updateShowBoth()
+        if (key in RECREATING) focusAfterRecreate = key
         when (key) {
             // General / Interface
             // the desktop switches its language at once: this screen now, the others as they come back
@@ -1063,6 +1099,11 @@ class RdSettingsPage : BasePreferenceFragment(), SharedPreferences.OnSharedPrefe
     }
 
     companion object {
+        /** the row whose change recreated the window (see onViewCreated) */
+        private var focusAfterRecreate: String? = null
+        private val RECREATING = setOf(KEY_SET_LOCALE, KEY_APP_THEME, org.videolan.tools.KEY_RD_INTERFACE_SCALE,
+                org.videolan.tools.KEY_RD_LAYOUT_DIRECTION, org.videolan.vlc.gui.helpers.KEY_RD_ACCENT_SYSTEM,
+                org.videolan.tools.KEY_RD_INCREASE_CONTRAST, "rd_accent")
         private val AUDIO_CONTROLS = setOf(KEY_AUDIO_JUMP_DELAY, KEY_AUDIO_LONG_JUMP_DELAY, KEY_AUDIO_SHOW_TRACK_NUMBERS,
                 KEY_AUDIO_SHOW_BOOkMARK_BUTTONS, "audio_show_bookmark_markers", "audio_show_chapter_buttons",
                 "blurred_cover_background", "audio_force_shuffle")

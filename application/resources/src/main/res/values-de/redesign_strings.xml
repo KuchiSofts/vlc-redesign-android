@@ -708,4 +708,6 @@
     <string name="rd_delete_to_trash">Gelöschte Dateien kommen in den Papierkorb und können 30 Tage lang wiederhergestellt werden.</string>
     <string name="rd_trash_failed_one">Diese Datei kann nicht in den Papierkorb verschoben werden. Endgültig löschen?</string>
     <string name="rd_trash_failed_many">Diese Dateien können nicht in den Papierkorb verschoben werden. Endgültig löschen?</string>
+    <string name="rd_folders">Ordner</string>
+    <string name="rd_up_one_folder">Eine Ebene höher</string>
 </resources>

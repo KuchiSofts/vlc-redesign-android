@@ -713,4 +713,6 @@
     <string name="rd_delete_to_trash">Видалені файли потрапляють до кошика, їх можна відновити протягом 30 днів.</string>
     <string name="rd_trash_failed_one">Не вдається перемістити цей файл до кошика. Видалити його назавжди?</string>
     <string name="rd_trash_failed_many">Не вдається перемістити ці файли до кошика. Видалити їх назавжди?</string>
+    <string name="rd_folders">Теки</string>
+    <string name="rd_up_one_folder">На рівень вище</string>
 </resources>

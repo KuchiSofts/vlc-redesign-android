@@ -708,4 +708,6 @@
     <string name="rd_delete_to_trash">Les fichiers supprimés vont dans la corbeille et peuvent être restaurés pendant 30 jours.</string>
     <string name="rd_trash_failed_one">Impossible de placer ce fichier dans la corbeille. Le supprimer définitivement ?</string>
     <string name="rd_trash_failed_many">Impossible de placer ces fichiers dans la corbeille. Les supprimer définitivement ?</string>
+    <string name="rd_folders">Dossiers</string>
+    <string name="rd_up_one_folder">Dossier parent</string>
 </resources>

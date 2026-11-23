@@ -715,4 +715,6 @@
     <string name="rd_delete_to_trash">تنتقل الملفات المحذوفة إلى سلة المهملات ويمكن استعادتها خلال 30 يومًا.</string>
     <string name="rd_trash_failed_one">تعذّر نقل هذا الملف إلى سلة المهملات. هل تريد حذفه نهائيًا؟</string>
     <string name="rd_trash_failed_many">تعذّر نقل هذه الملفات إلى سلة المهملات. هل تريد حذفها نهائيًا؟</string>
+    <string name="rd_folders">المجلدات</string>
+    <string name="rd_up_one_folder">مجلد واحد لأعلى</string>
 </resources>

@@ -689,4 +689,6 @@
     <string name="rd_tv_err_sign_in">logi esmalt sisse</string>
     <string name="rd_tv_err_unreadable">faili ei saa lugeda</string>
     <string name="rd_tv_err_wrong">serveri vastust ei õnnestunud lugeda</string>
+    <string name="rd_folders">Kaustad</string>
+    <string name="rd_up_one_folder">Kaust üles</string>
 </resources>

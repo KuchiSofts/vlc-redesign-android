@@ -713,4 +713,6 @@
     <string name="rd_delete_to_trash">Удалённые файлы попадают в корзину, их можно восстановить в течение 30 дней.</string>
     <string name="rd_trash_failed_one">Не удаётся переместить этот файл в корзину. Удалить его безвозвратно?</string>
     <string name="rd_trash_failed_many">Не удаётся переместить эти файлы в корзину. Удалить их безвозвратно?</string>
+    <string name="rd_folders">Папки</string>
+    <string name="rd_up_one_folder">На уровень вверх</string>
 </resources>

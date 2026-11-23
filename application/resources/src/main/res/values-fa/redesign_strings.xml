@@ -688,4 +688,6 @@
     <string name="rd_tv_err_sign_in">نخست وارد شوید</string>
     <string name="rd_tv_err_unreadable">پرونده خوانده نمی‌شود</string>
     <string name="rd_tv_err_wrong">پاسخ سرور خوانده نشد</string>
+    <string name="rd_folders">پوشه‌ها</string>
+    <string name="rd_up_one_folder">یک پوشه بالاتر</string>
 </resources>

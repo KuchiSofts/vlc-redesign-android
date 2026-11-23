@@ -684,4 +684,6 @@
     <string name="rd_tv_err_sign_in">ลงชื่อเข้าใช้ก่อน</string>
     <string name="rd_tv_err_unreadable">ไม่สามารถอ่านไฟล์ได้</string>
     <string name="rd_tv_err_wrong">ไม่สามารถอ่านการตอบกลับของเซิร์ฟเวอร์ได้</string>
+    <string name="rd_folders">โฟลเดอร์</string>
+    <string name="rd_up_one_folder">ขึ้นไปหนึ่งโฟลเดอร์</string>
 </resources>

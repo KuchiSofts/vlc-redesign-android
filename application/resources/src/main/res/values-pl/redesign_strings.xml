@@ -713,4 +713,6 @@
     <string name="rd_delete_to_trash">Usunięte pliki trafiają do kosza i można je przywrócić przez 30 dni.</string>
     <string name="rd_trash_failed_one">Nie można przenieść tego pliku do kosza. Usunąć go trwale?</string>
     <string name="rd_trash_failed_many">Nie można przenieść tych plików do kosza. Usunąć je trwale?</string>
+    <string name="rd_folders">Foldery</string>
+    <string name="rd_up_one_folder">Folder wyżej</string>
 </resources>

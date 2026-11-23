@@ -708,4 +708,6 @@
     <string name="rd_delete_to_trash">Os arquivos excluídos vão para a lixeira e podem ser restaurados por 30 dias.</string>
     <string name="rd_trash_failed_one">Não é possível mover este arquivo para a lixeira. Excluí-lo permanentemente?</string>
     <string name="rd_trash_failed_many">Não é possível mover estes arquivos para a lixeira. Excluí-los permanentemente?</string>
+    <string name="rd_folders">Pastas</string>
+    <string name="rd_up_one_folder">Subir uma pasta</string>
 </resources>

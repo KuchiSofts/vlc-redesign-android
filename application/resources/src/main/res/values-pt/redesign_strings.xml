@@ -708,4 +708,6 @@
     <string name="rd_delete_to_trash">Os ficheiros eliminados vão para o lixo e podem ser restaurados durante 30 dias.</string>
     <string name="rd_trash_failed_one">Não é possível mover este ficheiro para o lixo. Eliminá-lo permanentemente?</string>
     <string name="rd_trash_failed_many">Não é possível mover estes ficheiros para o lixo. Eliminá-los permanentemente?</string>
+    <string name="rd_folders">Pastas</string>
+    <string name="rd_up_one_folder">Pasta acima</string>
 </resources>

@@ -695,4 +695,6 @@
     <string name="rd_tv_err_sign_in">najprej se prijavite</string>
     <string name="rd_tv_err_unreadable">datoteke ni mogoče prebrati</string>
     <string name="rd_tv_err_wrong">odgovora strežnika ni bilo mogoče prebrati</string>
+    <string name="rd_folders">Mape</string>
+    <string name="rd_up_one_folder">Mapo višje</string>
 </resources>

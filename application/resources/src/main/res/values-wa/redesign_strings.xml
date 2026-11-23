@@ -721,4 +721,6 @@
     <string name="rd_tv_err_sign_in">elodjîz vs dvant</string>
     <string name="rd_tv_err_unreadable">on n\' pout nén lére li fitchî</string>
     <string name="rd_tv_err_wrong">on n\' a savou lére li rsponse do sierveu</string>
+    <string name="rd_folders">Ridants</string>
+    <string name="rd_up_one_folder">Ridant d\' dzeu</string>
 </resources>

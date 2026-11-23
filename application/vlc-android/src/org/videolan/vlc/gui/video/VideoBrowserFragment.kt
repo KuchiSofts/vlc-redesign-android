@@ -157,6 +157,7 @@ class VideoBrowserFragment : BaseFragment(), TabLayout.OnTabSelectedListener, Fi
 
     private fun getPageTitle(position: Int) = when (position) {
         0 -> getString(R.string.default_action_videos)
+        2 -> getString(R.string.rd_folders)
         else -> getString(R.string.playlists)
     }
 
@@ -177,13 +178,15 @@ class VideoBrowserFragment : BaseFragment(), TabLayout.OnTabSelectedListener, Fi
      */
     inner class VideoPagerAdapter(fa: VideoBrowserFragment) : FragmentStateAdapter(fa) {
 
-        override fun getItemCount() = 2
+        override fun getItemCount() = 3
 
         // Returns the fragment to display for that page
         override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> VideoGridFragment.newInstance()
                 1 -> PlaylistFragment.newInstance(Playlist.Type.Video)
+                // the videos by folder and subfolder (discussion #132)
+                2 -> org.videolan.vlc.gui.RdMediaFoldersFragment.newInstance(org.videolan.medialibrary.interfaces.media.Folder.TYPE_FOLDER_VIDEO)
                 else -> throw IllegalStateException("Invalid fragment index")
             }
         }

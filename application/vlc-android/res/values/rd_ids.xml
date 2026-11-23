@@ -9,4 +9,6 @@
     <!-- the feedback of a key in the player (#72, RdKeyFeedback): its pill and its progress line -->
     <item name="rd_fs_pill" type="id" />
     <item name="rd_fs_progress" type="id" />
+    <!-- the Music tab's page of folders (discussion #132) -->
+    <item name="rd_audio_folders_page" type="id" />
 </resources>

@@ -155,8 +155,12 @@ abstract class BaseAudioBrowser<T : MedialibraryViewModel> : MediaBrowserFragmen
     var needToReopenSearch = false
     var lastQuery = ""
 
+    // the pages that are lists of the library (a page after them, as the Music tab's folders, reads as the last
+    // list: the code of the lists keeps a list to work on)
+    protected open val listTabCount: Int get() = Int.MAX_VALUE
+
     protected var currentTab
-        get() = if (::viewPager.isInitialized) viewPager.currentItem else 0
+        get() = if (::viewPager.isInitialized) viewPager.currentItem.coerceAtMost(listTabCount - 1) else 0
         set(value) {
             if (::viewPager.isInitialized) viewPager.currentItem = value
         }

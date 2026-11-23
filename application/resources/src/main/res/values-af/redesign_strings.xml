@@ -687,4 +687,6 @@
     <string name="rd_tv_err_sign_in">meld eers aan</string>
     <string name="rd_tv_err_unreadable">die lêer kan nie gelees word nie</string>
     <string name="rd_tv_err_wrong">die bediener se antwoord kon nie gelees word nie</string>
+    <string name="rd_folders">Vouers</string>
+    <string name="rd_up_one_folder">Een vouer op</string>
 </resources>

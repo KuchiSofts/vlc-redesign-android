@@ -3,6 +3,10 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>The texts of the redesign are now translated in 61 languages, 41 more than before.</item>
+        <item>Videos and Music have a Folders tab: your media folder by folder.</item>
+        <item>No more short freeze about 20 seconds after a video starts.</item>
+        <item>The TV guide says Today in the evening.</item>
+        <item>Android TV: the remote stays on the setting you changed, and the shortcuts list scrolls in one stop.</item>
+        <item>Translations: the Hebrew and Vietnamese jump names are right.</item>
     </string-array>
 </resources>

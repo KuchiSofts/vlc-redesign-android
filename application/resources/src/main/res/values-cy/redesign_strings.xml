@@ -700,4 +700,6 @@
     <string name="rd_tv_err_sign_in">mewngofnodwch yn gyntaf</string>
     <string name="rd_tv_err_unreadable">nid oes modd darllen y ffeil</string>
     <string name="rd_tv_err_wrong">nid oedd modd darllen ateb y gweinydd</string>
+    <string name="rd_folders">Ffolderi</string>
+    <string name="rd_up_one_folder">I fyny un ffolder</string>
 </resources>

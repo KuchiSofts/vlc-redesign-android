@@ -174,8 +174,14 @@ class TvFragment : BaseFragment(), Filterable {
         guideTools = LinearLayout(ctx).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
         guide = TvGuideView(ctx, { c -> play(c) }, { c, e -> TvProgrammeDialog.show(requireContext(), c, e) { guide.invalidate() } })
         guideDay = ctx.tvText("", 16f, ctx.tvColor(R.color.rd_fg_a1))
-        // the day of the middle of what shows (a phone shows half of the hours)
-        guide.onTimeChanged = { t -> val d = TvTexts.day(ctx, t + (guide.shownHours * 1800).toLong()); if (guideDay.text != d) guideDay.text = d }
+        // the day of what shows (a phone shows half of the hours): of now while now is in it (Now puts it a
+        // quarter in: from 23:15 (23:38 on a phone) the middle was already past midnight, "Tomorrow" over tonight's shows), else of the middle
+        guide.onTimeChanged = { t ->
+            val w = (guide.shownHours * 3600).toLong()
+            val now = System.currentTimeMillis() / 1000
+            val d = TvTexts.day(ctx, if (now >= t && now < t + w) now else t + w / 2)
+            if (guideDay.text != d) guideDay.text = d
+        }
         guideTools.addView(ctx.tvButton(getString(R.string.rd_tv_now), accent = true) { guide.jumpToNow() })
         guideTools.addView(ctx.tvButton(getString(R.string.rd_tv_earlier)) { guide.earlier() }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginStart = ctx.tvPx(8f) })
         guideTools.addView(ctx.tvButton(getString(R.string.rd_tv_later)) { guide.later() }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginStart = ctx.tvPx(8f) })

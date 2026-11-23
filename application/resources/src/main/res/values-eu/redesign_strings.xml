@@ -689,4 +689,6 @@
     <string name="rd_tv_err_sign_in">hasi saioa lehenik</string>
     <string name="rd_tv_err_unreadable">ezin da fitxategia irakurri</string>
     <string name="rd_tv_err_wrong">ezin izan da zerbitzariaren erantzuna irakurri</string>
+    <string name="rd_folders">Karpetak</string>
+    <string name="rd_up_one_folder">Karpeta bat gora</string>
 </resources>

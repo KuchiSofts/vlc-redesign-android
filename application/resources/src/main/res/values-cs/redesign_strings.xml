@@ -713,4 +713,6 @@
     <string name="rd_delete_to_trash">Smazané soubory se přesunou do koše a lze je obnovit po dobu 30 dnů.</string>
     <string name="rd_trash_failed_one">Tento soubor nelze přesunout do koše. Smazat ho natrvalo?</string>
     <string name="rd_trash_failed_many">Tyto soubory nelze přesunout do koše. Smazat je natrvalo?</string>
+    <string name="rd_folders">Složky</string>
+    <string name="rd_up_one_folder">O složku výš</string>
 </resources>
