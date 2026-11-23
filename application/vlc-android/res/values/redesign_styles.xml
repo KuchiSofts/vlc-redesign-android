@@ -199,6 +199,10 @@
         <item name="android:textColorSecondary">@color/rd_dark_fg_a1</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Redesign.Large</item>
         <item name="materialAlertDialogTitleTextStyle">@style/Redesign.DialogTitle</item>
+        <!-- the list and the message in the text colour itself, as the desktop's dialogs (Material draws them at
+             60 %: grey on the light panel, under 3:1) -->
+        <item name="android:checkedTextViewStyle">@style/Widget.Redesign.Dialog.CheckedTextView</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/Redesign.DialogBody</item>
         <!-- the dialog panel in the 1 px window border -->
         <item name="android:windowBackground">@drawable/rd_dialog_background</item>
         <item name="buttonBarPositiveButtonStyle">@style/Widget.Redesign.Button.Text</item>
@@ -215,6 +219,10 @@
         <item name="android:textColorSecondary">@color/rd_light_fg_a1</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Redesign.Large</item>
         <item name="materialAlertDialogTitleTextStyle">@style/Redesign.DialogTitle</item>
+        <!-- the list and the message in the text colour itself, as the desktop's dialogs (Material draws them at
+             60 %: grey on the light panel, under 3:1) -->
+        <item name="android:checkedTextViewStyle">@style/Widget.Redesign.Dialog.CheckedTextView</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/Redesign.DialogBody</item>
         <!-- the dialog panel in the 1 px window border -->
         <item name="android:windowBackground">@drawable/rd_dialog_background</item>
         <item name="buttonBarPositiveButtonStyle">@style/Widget.Redesign.Button.Text</item>
@@ -222,6 +230,12 @@
         <item name="buttonBarNeutralButtonStyle">@style/Widget.Redesign.Button.Text</item>
         <item name="android:fontFamily">@font/inter</item>
         <item name="fontFamily">@font/inter</item>
+    </style>
+    <style name="Widget.Redesign.Dialog.CheckedTextView" parent="Widget.MaterialComponents.CheckedTextView">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+    <style name="Redesign.DialogBody" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
     <style name="Redesign.DialogTitle" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
         <item name="android:textAppearance">@style/TextAppearance.Redesign.Headline6</item>
