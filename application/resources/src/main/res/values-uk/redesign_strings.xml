@@ -715,4 +715,5 @@
     <string name="rd_trash_failed_many">Не вдається перемістити ці файли до кошика. Видалити їх назавжди?</string>
     <string name="rd_folders">Теки</string>
     <string name="rd_up_one_folder">На рівень вище</string>
+    <string name="rd_file_gone">Файл %1$s видалено або переміщено.</string>
 </resources>

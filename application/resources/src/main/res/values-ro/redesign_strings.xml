@@ -694,4 +694,5 @@
     <string name="rd_tv_err_wrong">răspunsul serverului nu a putut fi citit</string>
     <string name="rd_folders">Dosare</string>
     <string name="rd_up_one_folder">Un dosar mai sus</string>
+    <string name="rd_file_gone">Fișierul %1$s a fost șters sau mutat.</string>
 </resources>

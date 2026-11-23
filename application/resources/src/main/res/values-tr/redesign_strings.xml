@@ -710,4 +710,5 @@
     <string name="rd_trash_failed_many">Bu dosyalar çöp kutusuna taşınamıyor. Kalıcı olarak silinsin mi?</string>
     <string name="rd_folders">Klasörler</string>
     <string name="rd_up_one_folder">Bir üst klasör</string>
+    <string name="rd_file_gone">%1$s dosyası silinmiş veya taşınmış.</string>
 </resources>

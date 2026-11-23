@@ -691,4 +691,5 @@
     <string name="rd_tv_err_wrong">ezin izan da zerbitzariaren erantzuna irakurri</string>
     <string name="rd_folders">Karpetak</string>
     <string name="rd_up_one_folder">Karpeta bat gora</string>
+    <string name="rd_file_gone">%1$s fitxategia ezabatu edo lekuz aldatu da.</string>
 </resources>

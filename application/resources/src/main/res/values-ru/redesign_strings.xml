@@ -715,4 +715,5 @@
     <string name="rd_trash_failed_many">Не удаётся переместить эти файлы в корзину. Удалить их безвозвратно?</string>
     <string name="rd_folders">Папки</string>
     <string name="rd_up_one_folder">На уровень вверх</string>
+    <string name="rd_file_gone">Файл %1$s удалён или перемещён.</string>
 </resources>

@@ -686,4 +686,5 @@
     <string name="rd_tv_err_wrong">ไม่สามารถอ่านการตอบกลับของเซิร์ฟเวอร์ได้</string>
     <string name="rd_folders">โฟลเดอร์</string>
     <string name="rd_up_one_folder">ขึ้นไปหนึ่งโฟลเดอร์</string>
+    <string name="rd_file_gone">ไฟล์ %1$s ถูกลบหรือย้ายไปแล้ว</string>
 </resources>

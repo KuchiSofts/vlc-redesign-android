@@ -1409,10 +1409,24 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
                     }
                     Log.w(TAG, "Invalid location $location")
 
-                    service.showToast(if (location != null && location.toUri().scheme == "missing") service.getString(R.string.missing_location) else service.getString(R.string.invalid_location, location
-                            ?: ""), Toast.LENGTH_SHORT, true)
+                    // VLC Redesign: a local file that was deleted or moved (its folder is still there) leaves the queue
+                    // and the history, and is said so: it no longer fails again at each play
+                    val gone = location?.toUri()?.takeIf { it.scheme == "file" }?.path?.let { java.io.File(it) }
+                        ?.takeIf { !it.exists() && it.parentFile?.exists() == true }
+                    service.showToast(when {
+                        gone != null -> service.getString(R.string.rd_file_gone, gone.name)
+                        location != null && location.toUri().scheme == "missing" -> service.getString(R.string.missing_location)
+                        else -> service.getString(R.string.invalid_location, location ?: "")
+                    }, Toast.LENGTH_SHORT, true)
                     if (location != null) PlaybackService.lastError.postValue(location)
                     if (currentIndex != nextIndex) next() else stop()
+                    if (gone != null && location != null) {
+                        for (i in mediaList.size() - 1 downTo 0)
+                            if (mediaList.getMedia(i)?.location == location) remove(i)
+                        AppScope.launch(Dispatchers.IO) {
+                            medialibrary.getMedia(location)?.let { if (it.id > 0) it.removeFromHistory() }
+                        }
+                    }
                 }
                 MediaPlayer.Event.TimeChanged -> {
                     abRepeat.value?.let {

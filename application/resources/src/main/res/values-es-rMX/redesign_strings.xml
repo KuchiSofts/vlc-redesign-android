@@ -689,4 +689,5 @@
     <string name="rd_tv_err_wrong">no se pudo leer la respuesta del servidor</string>
     <string name="rd_folders">Carpetas</string>
     <string name="rd_up_one_folder">Subir una carpeta</string>
+    <string name="rd_file_gone">El archivo %1$s se eliminó o se movió.</string>
 </resources>

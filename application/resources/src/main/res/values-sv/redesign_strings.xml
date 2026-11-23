@@ -710,4 +710,5 @@
     <string name="rd_trash_failed_many">De här filerna kan inte flyttas till papperskorgen. Radera dem permanent?</string>
     <string name="rd_folders">Mappar</string>
     <string name="rd_up_one_folder">Upp en mapp</string>
+    <string name="rd_file_gone">Filen %1$s har tagits bort eller flyttats.</string>
 </resources>

@@ -710,4 +710,5 @@
     <string name="rd_trash_failed_many">Impossibile spostare questi file nel cestino. Eliminarli definitivamente?</string>
     <string name="rd_folders">Cartelle</string>
     <string name="rd_up_one_folder">Cartella superiore</string>
+    <string name="rd_file_gone">Il file %1$s è stato eliminato o spostato.</string>
 </resources>

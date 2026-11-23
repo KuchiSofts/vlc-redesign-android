@@ -715,4 +715,5 @@
     <string name="rd_trash_failed_many">Nie można przenieść tych plików do kosza. Usunąć je trwale?</string>
     <string name="rd_folders">Foldery</string>
     <string name="rd_up_one_folder">Folder wyżej</string>
+    <string name="rd_file_gone">Plik %1$s został usunięty lub przeniesiony.</string>
 </resources>

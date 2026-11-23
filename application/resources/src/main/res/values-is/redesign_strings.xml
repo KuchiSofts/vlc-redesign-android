@@ -689,4 +689,5 @@
     <string name="rd_tv_err_wrong">ekki tókst að lesa svar þjónsins</string>
     <string name="rd_folders">Möppur</string>
     <string name="rd_up_one_folder">Upp um eina möppu</string>
+    <string name="rd_file_gone">Skránni %1$s var eytt eða hún færð.</string>
 </resources>

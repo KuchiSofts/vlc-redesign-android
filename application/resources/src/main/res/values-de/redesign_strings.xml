@@ -710,4 +710,5 @@
     <string name="rd_trash_failed_many">Diese Dateien können nicht in den Papierkorb verschoben werden. Endgültig löschen?</string>
     <string name="rd_folders">Ordner</string>
     <string name="rd_up_one_folder">Eine Ebene höher</string>
+    <string name="rd_file_gone">Die Datei %1$s wurde gelöscht oder verschoben.</string>
 </resources>

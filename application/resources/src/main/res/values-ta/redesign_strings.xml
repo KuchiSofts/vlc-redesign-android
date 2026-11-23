@@ -689,4 +689,5 @@
     <string name="rd_tv_err_wrong">சேவையகத்தின் பதிலைப் படிக்க முடியவில்லை</string>
     <string name="rd_folders">கோப்புறைகள்</string>
     <string name="rd_up_one_folder">ஒரு கோப்புறை மேலே</string>
+    <string name="rd_file_gone">%1$s கோப்பு நீக்கப்பட்டது அல்லது நகர்த்தப்பட்டது.</string>
 </resources>

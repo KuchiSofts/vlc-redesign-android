@@ -691,4 +691,5 @@
     <string name="rd_tv_err_wrong">serveri vastust ei õnnestunud lugeda</string>
     <string name="rd_folders">Kaustad</string>
     <string name="rd_up_one_folder">Kaust üles</string>
+    <string name="rd_file_gone">Fail %1$s on kustutatud või teisaldatud.</string>
 </resources>

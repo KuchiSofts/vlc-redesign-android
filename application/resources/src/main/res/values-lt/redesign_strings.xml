@@ -697,4 +697,5 @@
     <string name="rd_tv_err_wrong">nepavyko perskaityti serverio atsakymo</string>
     <string name="rd_folders">Aplankai</string>
     <string name="rd_up_one_folder">Aplanku aukštyn</string>
+    <string name="rd_file_gone">Failas %1$s ištrintas arba perkeltas.</string>
 </resources>

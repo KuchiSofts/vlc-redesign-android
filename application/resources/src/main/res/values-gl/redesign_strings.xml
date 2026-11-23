@@ -691,4 +691,5 @@
     <string name="rd_tv_err_wrong">non foi posíbel ler a resposta do servidor</string>
     <string name="rd_folders">Cartafoles</string>
     <string name="rd_up_one_folder">Subir un cartafol</string>
+    <string name="rd_file_gone">O ficheiro %1$s eliminouse ou moveuse.</string>
 </resources>

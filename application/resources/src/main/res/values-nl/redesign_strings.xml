@@ -710,4 +710,5 @@
     <string name="rd_trash_failed_many">Deze bestanden kunnen niet naar de prullenbak worden verplaatst. Definitief verwijderen?</string>
     <string name="rd_folders">Mappen</string>
     <string name="rd_up_one_folder">Eén map omhoog</string>
+    <string name="rd_file_gone">Het bestand %1$s is verwijderd of verplaatst.</string>
 </resources>

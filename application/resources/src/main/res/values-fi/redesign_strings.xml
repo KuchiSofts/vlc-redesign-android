@@ -691,4 +691,5 @@
     <string name="rd_tv_err_wrong">palvelimen vastausta ei voitu lukea</string>
     <string name="rd_folders">Kansiot</string>
     <string name="rd_up_one_folder">Yksi kansio ylöspäin</string>
+    <string name="rd_file_gone">Tiedosto %1$s on poistettu tai siirretty.</string>
 </resources>
