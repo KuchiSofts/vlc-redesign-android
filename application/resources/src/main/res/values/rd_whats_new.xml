@@ -3,8 +3,8 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>Android TV: every folder and file of a folder list can be reached with the remote (only the first column could).</item>
-        <item>Android TV: Play all in the menu of a folder.</item>
-        <item>The Videos page no longer keeps drawing itself while nothing moves: less battery used.</item>
+        <item>Android TV: Up from a page reaches the nearest button of the header, and the Favorites row of the Network page.</item>
+        <item>Android TV: the focus returns to the file you played, also far down a long list.</item>
+        <item>Android TV: Play all is offered only where there is something to play.</item>
     </string-array>
 </resources>
