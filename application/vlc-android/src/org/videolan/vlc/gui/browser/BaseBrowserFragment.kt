@@ -250,9 +250,16 @@ abstract class BaseBrowserFragment : MediaBrowserFragment<BrowserModel>(), IRefr
         addPlaylistFolderOnly = menu.findItem(R.id.folder_add_playlist)
         addPlaylistFolderOnly.isVisible = adapter.mediaCount > 0
 
-        if (requireActivity().isTalkbackIsEnabled()) menu.findItem(R.id.play_all).isVisible = true
+        playAllShown = showPlayAll()
+        menu.findItem(R.id.play_all)?.isVisible = playAllShown
         UiTools.updateSortTitles(this)
     }
+
+    // (VLC Redesign) The TV's page has no play button of its own: Play all is in its menu, for a folder with
+    // media in it (discussion #132: asked for the phone, checked on every device)
+    private var playAllShown = false
+    private fun showPlayAll() = requireActivity().isTalkbackIsEnabled() ||
+            (AndroidDevices.isTv && this !is StorageBrowserFragment && !isRootDirectory && adapter.mediaCount > 0)
 
     protected open fun defineIsRoot() = mrl == null
 
@@ -940,6 +947,8 @@ abstract class BaseBrowserFragment : MediaBrowserFragment<BrowserModel>(), IRefr
         if (!isRootDirectory) {
             updateFab()
         }
+        // (the menu again only when Play all comes or goes: the TV's header is drawn from it)
+        if (AndroidDevices.isTv && showPlayAll() != playAllShown) activity?.invalidateOptionsMenu()
     }
 
     override fun onItemFocused(v: View, item: MediaLibraryItem) {

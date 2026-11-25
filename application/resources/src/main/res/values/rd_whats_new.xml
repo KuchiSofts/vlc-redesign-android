@@ -4,5 +4,6 @@
 <resources>
     <string-array name="rd_whats_new_items">
         <item>Android TV: every folder and file of a folder list can be reached with the remote (only the first column could).</item>
+        <item>Android TV: Play all in the menu of a folder.</item>
     </string-array>
 </resources>
