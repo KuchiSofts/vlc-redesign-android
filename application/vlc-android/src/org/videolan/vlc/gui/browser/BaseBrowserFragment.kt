@@ -260,7 +260,7 @@ abstract class BaseBrowserFragment : MediaBrowserFragment<BrowserModel>(), IRefr
     // media in it (discussion #132: asked for the phone, checked on every device)
     private var playAllShown = false
     private fun showPlayAll() = requireActivity().isTalkbackIsEnabled() ||
-            (AndroidDevices.isTv && this !is StorageBrowserFragment && !isRootDirectory && adapter.mediaCount > 0)
+            (Settings.showTvUi && this !is StorageBrowserFragment && !isRootDirectory && adapter.mediaCount > 0)
 
     // (VLC Redesign) TV: the row the remote was on. A list read again (back from the player, a folder opened from
     // the path at the top) is emptied first: the focus had nowhere to stay and went to the window's menu at the
@@ -275,7 +275,7 @@ abstract class BaseBrowserFragment : MediaBrowserFragment<BrowserModel>(), IRefr
     }
 
     private fun tvRestoreFocus() {
-        if (!AndroidDevices.isTv || view == null || android.os.SystemClock.uptimeMillis() > tvRestoreUntil) return
+        if (!Settings.showTvUi || view == null || android.os.SystemClock.uptimeMillis() > tvRestoreUntil) return
         // (once the rows are laid out, which comes a frame or more after the list's update: tried a little later,
         // and again for a slow list)
         for (delay in longArrayOf(120, 500, 1200)) binding.networkList.postDelayed({ tvFocusRow() }, delay)
@@ -456,7 +456,7 @@ abstract class BaseBrowserFragment : MediaBrowserFragment<BrowserModel>(), IRefr
     override fun onStart() {
         super.onStart()
         tvRestoreUntil = android.os.SystemClock.uptimeMillis() + 4000
-        if (AndroidDevices.isTv) binding.networkList.viewTreeObserver.addOnGlobalFocusChangeListener(tvFocusListener)
+        if (Settings.showTvUi) binding.networkList.viewTreeObserver.addOnGlobalFocusChangeListener(tvFocusListener)
         startedScope = MainScope()
         PlaybackService.serviceFlow.onEach {
             it?.addCallback(this)
@@ -477,7 +477,7 @@ abstract class BaseBrowserFragment : MediaBrowserFragment<BrowserModel>(), IRefr
 
     override fun onStop() {
         super.onStop()
-        if (AndroidDevices.isTv && view != null) binding.networkList.viewTreeObserver.takeIf { it.isAlive }?.removeOnGlobalFocusChangeListener(tvFocusListener)
+        if (view != null) binding.networkList.viewTreeObserver.takeIf { it.isAlive }?.removeOnGlobalFocusChangeListener(tvFocusListener)
         startedScope.cancel()
         PlaybackService.serviceFlow.value?.removeCallback(this)
         viewModel.stop()
@@ -986,7 +986,7 @@ abstract class BaseBrowserFragment : MediaBrowserFragment<BrowserModel>(), IRefr
         }
         tvRestoreFocus()
         // (the menu again only when Play all comes or goes: the TV's header is drawn from it)
-        if (AndroidDevices.isTv && showPlayAll() != playAllShown) activity?.invalidateOptionsMenu()
+        if (Settings.showTvUi && showPlayAll() != playAllShown) activity?.invalidateOptionsMenu()
     }
 
     override fun onItemFocused(v: View, item: MediaLibraryItem) {
