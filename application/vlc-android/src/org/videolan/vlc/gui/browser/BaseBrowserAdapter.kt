@@ -399,7 +399,9 @@ open class BaseBrowserAdapter(val browserContainer: BrowserContainer<MediaLibrar
 
     override fun prepareList(list: List<MediaLibraryItem>): List<MediaLibraryItem> {
         val internalList = ArrayList(list)
-        mediaCount = internalList.filterNotNull().map {item -> item.itemType == TYPE_MEDIA && ((item as MediaWrapper).type == MediaWrapper.TYPE_AUDIO || item.type == MediaWrapper.TYPE_VIDEO) }.size
+        // (VLC Redesign: counted, not mapped: every row counted as media, a folder of folders too, and Play all
+        // showed for a folder with nothing to play)
+        mediaCount = internalList.filterNotNull().count { item -> item.itemType == TYPE_MEDIA && ((item as MediaWrapper).type == MediaWrapper.TYPE_AUDIO || item.type == MediaWrapper.TYPE_VIDEO) }
         return internalList
     }
 

@@ -448,7 +448,10 @@ object RdTvWindow {
                 // the sort's choices, or the page's display options that hold them
                 val sort = menu(activity)?.findItem(R.id.ml_menu_sortby)
                 if (visible(sort)) popup(activity, v, R.id.ml_menu_sortby)
-                else if (!sortPopup(activity, v)) menu(activity)?.findItem(R.id.ml_menu_display_options)?.let { activity.onOptionsItemSelected(it) }
+                else if (!sortPopup(activity, v)) menu(activity)?.findItem(R.id.ml_menu_display_options)?.let {
+                    // (the page answers this one: through the window's own dispatch, as the menu's items)
+                    activity.onMenuItemSelected(android.view.Window.FEATURE_OPTIONS_PANEL, it)
+                }
             }
         }, lp(-4, -4))
         row.addView(iconButton(ctx, R.drawable.rd_tvd_grid, MUTED, ctx.getString(R.string.display_settings)).apply {
@@ -540,8 +543,17 @@ object RdTvWindow {
      * The remote in the design's window (the Samsung TV app's focus rules): Up from the top of the page goes to the
      * header's control above it (not to the sidebar), Down from the header goes into the page. True when handled.
      */
+    /** When the remote's last arrow was pressed (uptime): a focus that moves right after it was moved by the user */
+    @Volatile
+    var lastArrowAt = 0L
+        private set
+
     fun dispatchKey(activity: AudioPlayerContainerActivity, event: android.view.KeyEvent): Boolean {
         if (!isOn(activity)) return false
+        if (event.action == android.view.KeyEvent.ACTION_DOWN) when (event.keyCode) {
+            android.view.KeyEvent.KEYCODE_DPAD_UP, android.view.KeyEvent.KEYCODE_DPAD_DOWN,
+            android.view.KeyEvent.KEYCODE_DPAD_LEFT, android.view.KeyEvent.KEYCODE_DPAD_RIGHT -> lastArrowAt = android.os.SystemClock.uptimeMillis()
+        }
         RdTvPrebuild.onKey()
         val focused = activity.currentFocus ?: return false
         val page = pageView(activity) ?: return false

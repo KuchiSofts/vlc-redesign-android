@@ -268,10 +268,21 @@ abstract class BaseBrowserFragment : MediaBrowserFragment<BrowserModel>(), IRefr
     // (never while the user is in the menus: a network list keeps updating).
     private var tvFocusPosition = -1
     private var tvRestoreUntil = 0L
+    // (the restore's own request: not a row the user chose)
+    private var tvRestoring = false
     private val tvFocusListener = ViewTreeObserver.OnGlobalFocusChangeListener { _, focused ->
-        if (view == null || focused == null) return@OnGlobalFocusChangeListener
-        val row = binding.networkList.findContainingItemView(focused) ?: return@OnGlobalFocusChangeListener
-        tvFocusPosition = binding.networkList.getChildAdapterPosition(row)
+        if (view == null || focused == null || tvRestoring) return@OnGlobalFocusChangeListener
+        val list = binding.networkList
+        val row = list.findContainingItemView(focused)
+        if (row == null) {
+            // Out of the list right after an arrow of the remote: the user went there (the header, the window's
+            // menu), so nothing is given back. Without one the focus fell (the list was emptied to be read
+            // again) and comes back with the rows.
+            if (android.os.SystemClock.uptimeMillis() - org.videolan.vlc.gui.tablet.RdTvWindow.lastArrowAt < 500) tvRestoreUntil = 0L
+            return@OnGlobalFocusChangeListener
+        }
+        val position = list.getChildAdapterPosition(row)
+        if (position != RecyclerView.NO_POSITION) tvFocusPosition = position
     }
 
     private fun tvRestoreFocus() {
@@ -282,14 +293,31 @@ abstract class BaseBrowserFragment : MediaBrowserFragment<BrowserModel>(), IRefr
     }
 
     private fun tvFocusRow() {
-        if (view == null || !isResumed) return
+        if (view == null || !isResumed || android.os.SystemClock.uptimeMillis() > tvRestoreUntil + 1500) return
         val focus = activity?.currentFocus
         if (focus != null && focus.id != R.id.rd_tv_title_menu) return
         val list = binding.networkList
         if (adapter.itemCount == 0) return
-        val position = tvFocusPosition.coerceIn(0, adapter.itemCount - 1)
-        val row = list.findViewHolderForAdapterPosition(position)?.itemView ?: list.getChildAt(0) ?: return
+        // (a list still filling: the row is not there yet, the next try finds it)
+        val position = if (tvFocusPosition < 0) 0 else tvFocusPosition
+        if (position >= adapter.itemCount) return
+        val holder = list.findViewHolderForAdapterPosition(position)
+        if (holder == null) {
+            // a row far down the list is not laid out: brought into view first, focused on the next frame
+            list.scrollToPosition(position)
+            list.post { if (view != null && isResumed) tvFocus(list.findViewHolderForAdapterPosition(position)?.itemView) }
+            return
+        }
+        tvFocus(holder.itemView)
+    }
+
+    private fun tvFocus(row: View?) {
+        row ?: return
+        val focus = activity?.currentFocus
+        if (focus != null && focus.id != R.id.rd_tv_title_menu) return
+        tvRestoring = true
         (row.findViewById<View>(R.id.browser_container) ?: row).requestFocus()
+        tvRestoring = false
     }
 
     protected open fun defineIsRoot() = mrl == null

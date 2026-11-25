@@ -232,7 +232,6 @@
                 android:contentDescription="@string/more_actions"
                 android:onClick="@{holder::onBanClick}"
                 android:nextFocusLeft="@+id/browser_container"
-                android:nextFocusRight="@+id/browser_container"
                 android:nextFocusUp="@+id/browser_container"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/item_more"
