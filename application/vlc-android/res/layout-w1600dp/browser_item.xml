@@ -88,7 +88,6 @@
             android:id="@+id/browser_container"
             android:contentDescription="@{TalkbackUtil.INSTANCE.getDir(context, item, favorite)}"
             android:focusable="true"
-            android:nextFocusRight="@+id/item_ban"
             android:foreground="?android:attr/selectableItemBackground"
             android:longClickable="@{hasContextMenu || item.getItemType() == MediaLibraryItem.TYPE_STORAGE}"
             android:minHeight="32dp"

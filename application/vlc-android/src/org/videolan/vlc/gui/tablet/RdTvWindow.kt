@@ -757,7 +757,11 @@ object RdTvWindow {
         }
         // the design's Sorting Options (no icons, the accent's check on the chosen) or the page's menu
         val entries = items.map { item ->
-            RdTvMenu.Entry(item.title ?: "", checked = item.isCheckable && item.isChecked) { activity.onOptionsItemSelected(item) }
+            // (through the window's own way to a pressed item: the activity first, then the page. Called on the
+            // activity alone, an item the page answers did nothing: Play all, Add to / Remove from favorites)
+            RdTvMenu.Entry(item.title ?: "", checked = item.isCheckable && item.isChecked) {
+                activity.onMenuItemSelected(android.view.Window.FEATURE_OPTIONS_PANEL, item)
+            }
         }.toMutableList()
         // the Playlists page: New Playlist first (the desktop's, Figma 6259:14954)
         if (id == 0 && playlistsPage(activity)) entries.add(0, RdTvMenu.Entry(activity.getString(R.string.rd_new_playlist), "add") {

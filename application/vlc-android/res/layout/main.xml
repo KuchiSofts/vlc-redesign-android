@@ -59,11 +59,13 @@
 
     <include layout="@layout/audioplayercontainer" />
 
+    <!-- No bottom margin: the button is anchored to the navigation, which is also a bottom inset edge it dodges.
+         A margin pushed it up off the navigation and the anchor pulled it back before every frame, so the page
+         was drawn again without end while the button showed (it was drawn where it is now). -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/default_margin"
             app:useCompatPadding="true"
             app:layout_dodgeInsetEdges="bottom"
             app:srcCompat="@drawable/ic_fab_add"
