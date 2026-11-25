@@ -600,6 +600,10 @@ object RdTvWindow {
                             ?: page.getFocusables(View.FOCUS_UP).lastOrNull { it.isShown }
                     return back?.requestFocus() == true
                 }
+                // Sections stacked as lists of their own (Network: Favorites over Storages): from the first row of
+                // one to the row straight above in the one before. The views' own search took the list itself as
+                // the nearest view above, and the focus ended in the header's search box, past those rows.
+                if (inside(focused, page)) sectionRowAbove(page, focused)?.let { if (it.requestFocus(View.FOCUS_UP)) return true }
                 // (an album's / a playlist's page: its Play and Shuffle are between the rows and the header)
                 val band = root.findViewById<View>(R.id.rd_tv_band)?.takeIf { it.isShown }
                 val inBand = band != null && inside(focused, band)
@@ -649,6 +653,66 @@ object RdTvWindow {
             }
         }
         return false
+    }
+
+    /**
+     * From a row at the top of a section's list (org.videolan.vlc.gui.view.TitleListView), the row of the nearest
+     * section above that is straight above it; null when the row has rows of its own list above, or no section is.
+     */
+    private fun sectionRowAbove(page: View, focused: View): View? {
+        var row: View = focused
+        var own: androidx.recyclerview.widget.RecyclerView? = null
+        var p = focused.parent
+        while (p is View) {
+            if (p is androidx.recyclerview.widget.RecyclerView) { own = p; break }
+            row = p
+            p = p.parent
+        }
+        val list = own ?: return null
+        fun section(v: View): org.videolan.vlc.gui.view.TitleListView? {
+            var q = v.parent
+            while (q is View) { if (q is org.videolan.vlc.gui.view.TitleListView) return q; q = q.parent }
+            return null
+        }
+        section(list) ?: return null
+        if (list.canScrollVertically(-1)) return null
+        val at = IntArray(2)
+        row.getLocationOnScreen(at)
+        val top = at[1]
+        val middle = at[0] + row.width / 2
+        for (i in 0 until list.childCount) {
+            val other = list.getChildAt(i)
+            if (other === row) continue
+            other.getLocationOnScreen(at)
+            if (at[1] + other.height <= top) return null
+        }
+        val lists = ArrayList<androidx.recyclerview.widget.RecyclerView>()
+        fun collect(v: View) {
+            if (v is androidx.recyclerview.widget.RecyclerView) {
+                if (v !== list && v.isShown && v.childCount > 0 && section(v) != null) lists.add(v)
+            } else if (v is ViewGroup) for (i in 0 until v.childCount) collect(v.getChildAt(i))
+        }
+        collect(page)
+        var best: View? = null
+        var bestBottom = Int.MIN_VALUE
+        var bestAway = Int.MAX_VALUE
+        for (l in lists) for (i in 0 until l.childCount) {
+            val item = l.getChildAt(i)
+            if (!item.isShown) continue
+            item.getLocationOnScreen(at)
+            val bottom = at[1] + item.height
+            if (bottom > top) continue
+            val away = kotlin.math.abs(at[0] + item.width / 2 - middle)
+            // (a row lower on the screen wins; in the same row, the item nearest in the line of the columns)
+            val sameRow = kotlin.math.abs(bottom - bestBottom) <= item.height / 2
+            if ((!sameRow && bottom > bestBottom) || (sameRow && away < bestAway)) {
+                best = item
+                bestBottom = if (sameRow) maxOf(bottom, bestBottom) else bottom
+                bestAway = away
+            }
+        }
+        val item = best ?: return null
+        return (item.findViewById<View>(R.id.browser_container) ?: item).takeIf { it.isFocusable && it.isShown }
     }
 
     /** the page's item the focus left for the mini player: Up on the mini player goes back to it */
