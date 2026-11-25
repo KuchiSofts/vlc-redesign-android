@@ -3,6 +3,6 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>Dialogs are easier to read in the light theme: their lists and messages were grey on grey.</item>
+        <item>Android TV: every folder and file of a folder list can be reached with the remote (only the first column could).</item>
     </string-array>
 </resources>

@@ -87,7 +87,13 @@ class StorageBrowserAdapter(browserContainer: BrowserContainer<MediaLibraryItem>
                 hasDiscoveredChildren(storagePath) -> vh.bindingContainer.browserCheckbox.state = ThreeStatesCheckbox.STATE_PARTIAL
                 else -> vh.bindingContainer.browserCheckbox.state = ThreeStatesCheckbox.STATE_UNCHECKED
             }
-            if(AndroidDevices.isTv && !browserContainer.isRootDirectory) vh.bindingContainer.banIcon.visibility = View.VISIBLE
+            if(AndroidDevices.isTv && !browserContainer.isRootDirectory) {
+                vh.bindingContainer.banIcon.visibility = View.VISIBLE
+                // Right goes to the ban button only here, where it shows. Set in the layout, it sent Right back
+                // to the row itself wherever the button is gone: in the TV's folder lists (several columns) only
+                // the first column could be reached with the remote.
+                vh.bindingContainer.container.nextFocusRightId = R.id.item_ban
+            }
             vh.bindingContainer.setCheckEnabled(!browserContainer.scannedDirectory)
         }
     }
