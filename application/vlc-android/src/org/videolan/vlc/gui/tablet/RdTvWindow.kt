@@ -180,6 +180,11 @@ object RdTvWindow {
         // the page and its header beside the sidebar, under the title bar
         val appbar = findViewById<AppBarLayout>(R.id.appbar)
         appbar.setBackgroundColor(PAGE)
+        // (The remote: the bar's own style, Widget.Design.AppBarLayout, has touchscreenBlocksFocus. On a device that
+        // reports a touchscreen (a tablet with a remote or a keyboard, an emulator) its buttons then refuse a focus
+        // that comes from outside the bar: Up from the page went past Back, Sort and View to the search box, the one
+        // view there that takes the focus in touch mode, and an album's Play could not be reached from its tracks.)
+        appbar.touchscreenBlocksFocus = false
         // (flat as the design: the bar's elevation drew a shadow under the music pages' tabs)
         appbar.stateListAnimator = null
         appbar.elevation = 0f
@@ -588,7 +593,11 @@ object RdTvWindow {
             intoPage -> {
                 // from the sidebar into the page (not along the header)
                 if (side == null || !inside(focused, side)) return false
-                val first = page.getFocusables(if (rtl) View.FOCUS_LEFT else View.FOCUS_RIGHT).firstOrNull { it.isShown } ?: return false
+                val into = page.getFocusables(if (rtl) View.FOCUS_LEFT else View.FOCUS_RIGHT).filter { it.isShown }
+                // (a folder's page: its first row, as when the page opens, not the path over the rows; the path
+                // when the folder has no row yet)
+                val path = page.findViewById<View>(R.id.ariane)
+                val first = into.firstOrNull { path == null || !inside(it, path) } ?: into.firstOrNull() ?: return false
                 first.requestFocus()
                 return true
             }

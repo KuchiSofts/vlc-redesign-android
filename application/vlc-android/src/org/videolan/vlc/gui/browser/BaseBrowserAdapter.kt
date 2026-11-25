@@ -82,6 +82,9 @@ open class BaseBrowserAdapter(val browserContainer: BrowserContainer<MediaLibrar
     private val qaDownloadDrawableBig: BitmapDrawable by lazy { BitmapDrawable(browserContainer.containerActivity().resources, browserContainer.containerActivity().getBitmapFromDrawable(R.drawable.ic_folder_download_big)) }
 
     internal var mediaCount = 0
+    // (VLC Redesign) the rows that are not folders: what "Add to playlist > This folder" adds (a playlist file,
+    // a network item of a kind not known yet), a folder of folders has none
+    internal var fileCount = 0
     private var networkRoot = false
     private var specialIcons = false
 
@@ -404,6 +407,7 @@ open class BaseBrowserAdapter(val browserContainer: BrowserContainer<MediaLibrar
         // (VLC Redesign: counted, not mapped: every row counted as media, a folder of folders too, and Play all
         // showed for a folder with nothing to play)
         mediaCount = internalList.filterNotNull().count { item -> item.itemType == TYPE_MEDIA && ((item as MediaWrapper).type == MediaWrapper.TYPE_AUDIO || item.type == MediaWrapper.TYPE_VIDEO) }
+        fileCount = internalList.filterNotNull().count { item -> item.itemType == TYPE_MEDIA && (item as MediaWrapper).type != MediaWrapper.TYPE_DIR }
         return internalList
     }
 

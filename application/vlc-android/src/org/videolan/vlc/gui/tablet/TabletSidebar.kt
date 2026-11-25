@@ -395,6 +395,10 @@ object TabletSidebar {
             if (row.tag != TAG_ROW) continue
             val checked = row.getTag(R.id.rd_tablet_sidebar_label) == current
             row.isSelected = checked
+            // (the TV window on a device with a touchscreen: after a touch or a mouse nothing has the focus,
+            // and the first arrow of the remote gave it to the first view of the window, the title bar's menu.
+            // The current page's row is the window's default focus instead.)
+            if (android.os.Build.VERSION.SDK_INT >= 26 && org.videolan.tools.Settings.showTvUi) row.isFocusedByDefault = checked
             row.findViewById<TextView>(R.id.rd_tablet_sidebar_label).setTextColor(if (checked) main else muted)
             row.findViewById<View>(R.id.rd_tablet_sidebar_indicator).let { if (it.tag != "gone") it.visibility = if (checked && light) View.VISIBLE else View.INVISIBLE }
             if (isDesktopPage(ctx)) { tintIcon(row.findViewById(R.id.rd_tablet_sidebar_icon), row.getTag(R.id.rd_tablet_sidebar_label) as Int, checked); continue }
