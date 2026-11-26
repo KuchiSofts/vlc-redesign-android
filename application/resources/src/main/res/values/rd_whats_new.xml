@@ -3,10 +3,9 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>The player on a phone held sideways: the seek bar runs the whole width, on a row of its own.</item>
-        <item>Its top bar there is as slim as the title and fades into the video.</item>
-        <item>Android TV: Up from a page reaches the nearest button of the header, and the Favorites row of the Network page.</item>
-        <item>Android TV: the focus returns to the file you played, also far down a long list.</item>
-        <item>Android TV: Play all is offered only where there is something to play.</item>
+        <item>The player on a phone held sideways shows the Landscape layout of Customize Player again, on the row under the seek bar.</item>
+        <item>Turning the phone with the controls up keeps the buttons of the top bar.</item>
+        <item>Subtitles drawn into the picture stay above the controls.</item>
+        <item>Bookmarks opened from the options before the controls were ever shown no longer close the app.</item>
     </string-array>
 </resources>

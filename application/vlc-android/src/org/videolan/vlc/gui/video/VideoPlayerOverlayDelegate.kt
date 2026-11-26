@@ -605,8 +605,10 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
         val subtitles = player.findViewById<View>(R.id.surface_subtitles)
         val shown = try { player.service?.let { it.spuTracksCount > 0 && it.spuTrack != "-1" } == true } catch (e: Exception) { false }
         val ownSurface = rdSubtitlesOwnSurface != false || !shown
-        // (the picture itself no further than an eighth of its height: a phone's bar is tall)
-        val moved = if (ownSurface) lift else lift.coerceAtMost((video?.height ?: 0) / 8)
+        // (the picture itself no further than an eighth of its height upright; a third sideways, where a phone's
+        // bar has two rows since 0.8.4: an eighth left the subtitles under it)
+        val cap = (video?.height ?: 0) / if (video != null && video.width > video.height) 3 else 8
+        val moved = if (ownSurface) lift else lift.coerceAtMost(cap)
         player.rdSubtitleLift = moved
         subtitles?.translationY = -moved.toFloat()
         video?.translationY = if (ownSurface) 0f else -moved.toFloat()
@@ -789,8 +791,10 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
                 updateTitleConstraints()
                 updateHudMargins()
                 hudBinding.rdBar.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> syncHudBackground(); syncTopBarBackground(); rdLiftSubtitles() }
-                if (::hudRightBinding.isInitialized)
+                if (::hudRightBinding.isInitialized) {
                     hudRightBinding.playerOverlayTitle.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> syncTopBarBackground() }
+                    hudRightBinding.playerOverlayTitleWarning.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> syncTopBarBackground() }
+                }
                 if (RdTvWindow.isOn(player)) tvSeekBarKeys()
 
                 initSeekButton()
@@ -1032,6 +1036,12 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
         titleConstraintSetPortrait.setMargin(hudRightBinding.playerOverlayTitle.id, ConstraintSet.START, 16.dp)
         titleConstraintSetPortrait.setMargin(hudRightBinding.playerOverlayTitle.id, ConstraintSet.END, 16.dp)
         titleConstraintSetPortrait.connect(hudRightBinding.playerOverlayTitle.id, ConstraintSet.TOP, hudRightBinding.iconBarrier.id, ConstraintSet.BOTTOM, 0.dp)
+        // (the sets move the title only: who is visible is the code's to say, not the copy taken here. Rotating
+        // with the controls up brought the TV's clock back on a phone and hid the queue and screenshot buttons
+        // until the bar was hidden and shown again)
+        val overlay = hudRightBinding.hudRightOverlay
+        for (set in arrayOf(titleConstraintSetLandscape, titleConstraintSetPortrait))
+            for (i in 0 until overlay.childCount) overlay.getChildAt(i).id.let { if (it != View.NO_ID) set.setVisibilityMode(it, ConstraintSet.VISIBILITY_MODE_IGNORE) }
     }
 
     fun updateTitleConstraints() {
@@ -1053,7 +1063,8 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
             @Suppress("DEPRECATION") player.windowManager.defaultDisplay.getMetrics(dm)
             // (a phone keeps the two rows when it is held sideways too: beside the buttons the seek bar was
             // a third of the width, #213; a tablet and a TV have the room for the design's one row)
-            applyBarLayout(dm.widthPixels / dm.density >= 600 && !rdIsPhone(dm))
+            val wide = dm.widthPixels / dm.density >= 600
+            applyBarLayout(oneRow = wide && !rdIsPhone(dm), wide = wide)
 
             // (the TV layout at the design's size draws the design's bar as it is: no overscan margins)
             if (player.isTv && !RdTvWindow.isOn(player)) {
@@ -1089,10 +1100,16 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
         if (::hudBinding.isInitialized) updateHudMargins()
     }
 
-    private fun applyBarLayout(oneRow: Boolean) {
+    /**
+     * @param oneRow the design's single row (a tablet, a TV); else the seek bar has a row of its own
+     * @param wide the Landscape layout of Customize Player (a window 600 dp wide or more): also on a phone held
+     *  sideways, where its controls go on the row under the seek bar (0.8.4 showed the Portrait layout there,
+     *  and what the editor's Landscape tab saved was never seen)
+     */
+    private fun applyBarLayout(oneRow: Boolean, wide: Boolean) {
         val root = hudBinding.progressOverlay
         val prefs = Settings.getInstance(player)
-        val zones = PlayerBarLayout.effective(prefs, oneRow, prefs.getBoolean(ENABLE_SEEK_BUTTONS, false), tv = oneRow && RdTvWindow.isOn(player))
+        val zones = PlayerBarLayout.effective(prefs, wide, prefs.getBoolean(ENABLE_SEEK_BUTTONS, false), tv = oneRow && RdTvWindow.isOn(player))
         // the XML's constraints, before anything is moved
         val base = barBase ?: ConstraintSet().also { it.clone(root); barBase = it }
         zones.all.mapNotNull { PlayerBarLayout.control(it) }.filter { it.view == 0 }.forEach { c ->
@@ -1390,8 +1407,14 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
      * A phone: not a TV (a 1080p TV is 960 x 540 dp), and the short side of its window is under 600 dp (a
      * tablet's is not).
      */
-    private fun rdIsPhone(dm: android.util.DisplayMetrics) =
-        !player.isTv && !RdTvWindow.isOn(player) && minOf(dm.widthPixels, dm.heightPixels) / dm.density < 600
+    private fun rdIsPhone(dm: android.util.DisplayMetrics): Boolean {
+        if (player.isTv || RdTvWindow.isOn(player)) return false
+        // (the whole screen, its navigation bar included: without it a 600 dp tablet held sideways measured 552
+        // and was taken for a phone; a window of a split screen is measured as it is)
+        val m = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && player.isInMultiWindowMode) dm
+        else android.util.DisplayMetrics().also { @Suppress("DEPRECATION") player.windowManager.defaultDisplay.getRealMetrics(it) }
+        return minOf(m.widthPixels, m.heightPixels) / m.density < 600
+    }
 
     private var topBarOverVideo: Boolean? = null
 
@@ -1410,7 +1433,9 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
         val overVideo = rdIsPhone(dm) && dm.widthPixels > dm.heightPixels
         var height = player.resources.getDimensionPixelSize(R.dimen.rd_player_topbar_height)
         if (overVideo) {
-            val title = hudRightBinding.playerOverlayTitle
+            // (the warning stands in for a title that is not shown: "Unknown", for a file given as a descriptor)
+            val title = hudRightBinding.playerOverlayTitle.takeIf { it.visibility == View.VISIBLE }
+                ?: hudRightBinding.playerOverlayTitleWarning
             val r = android.graphics.Rect(0, 0, title.width, title.height)
             try {
                 parent.offsetDescendantRectToMyCoords(title, r)
@@ -1418,7 +1443,7 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
                 return
             }
             // (the fade ends a little under the title: the text stays on the dark part)
-            if (r.bottom > 0) height = r.bottom + 28.dp
+            if (title.height > 0 && r.bottom > 0) height = r.bottom + 28.dp
         }
         if (bg.layoutParams.height != height) bg.layoutParams = bg.layoutParams.apply { this.height = height }
         if (topBarOverVideo != overVideo) {
@@ -1703,6 +1728,9 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
     }
 
     fun showBookmarks() {
+        // (asked from the options before the bar was ever shown: with a keyboard or a remote, Up opens them first)
+        if (!::hudBinding.isInitialized) showOverlay()
+        if (!::hudBinding.isInitialized) return
         player.service?.let {
             if (bookmarkListDelegate == null) {
                 bookmarkListDelegate = BookmarkListDelegate(player, it, player.bookmarkModel, true)
@@ -1717,8 +1745,8 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
                 }
             }
             bookmarkListDelegate?.show()
-            val top = hudBinding.playerOverlayTime.top
-            bookmarkListDelegate?.setProgressHeight((top + 12.dp).toFloat())
+            // (once the bar is laid out: one made just now has no place yet)
+            hudBinding.progressOverlay.post { bookmarkListDelegate?.setProgressHeight((hudBinding.playerOverlayTime.top + 12.dp).toFloat()) }
         }
     }
 
