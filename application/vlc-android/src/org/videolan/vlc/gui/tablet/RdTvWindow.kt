@@ -180,6 +180,11 @@ object RdTvWindow {
         // the page and its header beside the sidebar, under the title bar
         val appbar = findViewById<AppBarLayout>(R.id.appbar)
         appbar.setBackgroundColor(PAGE)
+        // (The remote: the bar's own style, Widget.Design.AppBarLayout, has touchscreenBlocksFocus. On a device that
+        // reports a touchscreen (a tablet with a remote or a keyboard, an emulator) its buttons then refuse a focus
+        // that comes from outside the bar: Up from the page went past Back, Sort and View to the search box, the one
+        // view there that takes the focus in touch mode, and an album's Play could not be reached from its tracks.)
+        appbar.touchscreenBlocksFocus = false
         // (flat as the design: the bar's elevation drew a shadow under the music pages' tabs)
         appbar.stateListAnimator = null
         appbar.elevation = 0f
@@ -448,7 +453,10 @@ object RdTvWindow {
                 // the sort's choices, or the page's display options that hold them
                 val sort = menu(activity)?.findItem(R.id.ml_menu_sortby)
                 if (visible(sort)) popup(activity, v, R.id.ml_menu_sortby)
-                else if (!sortPopup(activity, v)) menu(activity)?.findItem(R.id.ml_menu_display_options)?.let { activity.onOptionsItemSelected(it) }
+                else if (!sortPopup(activity, v)) menu(activity)?.findItem(R.id.ml_menu_display_options)?.let {
+                    // (the page answers this one: through the window's own dispatch, as the menu's items)
+                    activity.onMenuItemSelected(android.view.Window.FEATURE_OPTIONS_PANEL, it)
+                }
             }
         }, lp(-4, -4))
         row.addView(iconButton(ctx, R.drawable.rd_tvd_grid, MUTED, ctx.getString(R.string.display_settings)).apply {
@@ -540,8 +548,17 @@ object RdTvWindow {
      * The remote in the design's window (the Samsung TV app's focus rules): Up from the top of the page goes to the
      * header's control above it (not to the sidebar), Down from the header goes into the page. True when handled.
      */
+    /** When the remote's last arrow was pressed (uptime): a focus that moves right after it was moved by the user */
+    @Volatile
+    var lastArrowAt = 0L
+        private set
+
     fun dispatchKey(activity: AudioPlayerContainerActivity, event: android.view.KeyEvent): Boolean {
         if (!isOn(activity)) return false
+        if (event.action == android.view.KeyEvent.ACTION_DOWN) when (event.keyCode) {
+            android.view.KeyEvent.KEYCODE_DPAD_UP, android.view.KeyEvent.KEYCODE_DPAD_DOWN,
+            android.view.KeyEvent.KEYCODE_DPAD_LEFT, android.view.KeyEvent.KEYCODE_DPAD_RIGHT -> lastArrowAt = android.os.SystemClock.uptimeMillis()
+        }
         RdTvPrebuild.onKey()
         val focused = activity.currentFocus ?: return false
         val page = pageView(activity) ?: return false
@@ -576,7 +593,11 @@ object RdTvWindow {
             intoPage -> {
                 // from the sidebar into the page (not along the header)
                 if (side == null || !inside(focused, side)) return false
-                val first = page.getFocusables(if (rtl) View.FOCUS_LEFT else View.FOCUS_RIGHT).firstOrNull { it.isShown } ?: return false
+                val into = page.getFocusables(if (rtl) View.FOCUS_LEFT else View.FOCUS_RIGHT).filter { it.isShown }
+                // (a folder's page: its first row, as when the page opens, not the path over the rows; the path
+                // when the folder has no row yet)
+                val path = page.findViewById<View>(R.id.ariane)
+                val first = into.firstOrNull { path == null || !inside(it, path) } ?: into.firstOrNull() ?: return false
                 first.requestFocus()
                 return true
             }
@@ -588,6 +609,10 @@ object RdTvWindow {
                             ?: page.getFocusables(View.FOCUS_UP).lastOrNull { it.isShown }
                     return back?.requestFocus() == true
                 }
+                // Sections stacked as lists of their own (Network: Favorites over Storages): from the first row of
+                // one to the row straight above in the one before. The views' own search took the list itself as
+                // the nearest view above, and the focus ended in the header's search box, past those rows.
+                if (inside(focused, page)) sectionRowAbove(page, focused)?.let { if (it.requestFocus(View.FOCUS_UP)) return true }
                 // (an album's / a playlist's page: its Play and Shuffle are between the rows and the header)
                 val band = root.findViewById<View>(R.id.rd_tv_band)?.takeIf { it.isShown }
                 val inBand = band != null && inside(focused, band)
@@ -637,6 +662,66 @@ object RdTvWindow {
             }
         }
         return false
+    }
+
+    /**
+     * From a row at the top of a section's list (org.videolan.vlc.gui.view.TitleListView), the row of the nearest
+     * section above that is straight above it; null when the row has rows of its own list above, or no section is.
+     */
+    private fun sectionRowAbove(page: View, focused: View): View? {
+        var row: View = focused
+        var own: androidx.recyclerview.widget.RecyclerView? = null
+        var p = focused.parent
+        while (p is View) {
+            if (p is androidx.recyclerview.widget.RecyclerView) { own = p; break }
+            row = p
+            p = p.parent
+        }
+        val list = own ?: return null
+        fun section(v: View): org.videolan.vlc.gui.view.TitleListView? {
+            var q = v.parent
+            while (q is View) { if (q is org.videolan.vlc.gui.view.TitleListView) return q; q = q.parent }
+            return null
+        }
+        section(list) ?: return null
+        if (list.canScrollVertically(-1)) return null
+        val at = IntArray(2)
+        row.getLocationOnScreen(at)
+        val top = at[1]
+        val middle = at[0] + row.width / 2
+        for (i in 0 until list.childCount) {
+            val other = list.getChildAt(i)
+            if (other === row) continue
+            other.getLocationOnScreen(at)
+            if (at[1] + other.height <= top) return null
+        }
+        val lists = ArrayList<androidx.recyclerview.widget.RecyclerView>()
+        fun collect(v: View) {
+            if (v is androidx.recyclerview.widget.RecyclerView) {
+                if (v !== list && v.isShown && v.childCount > 0 && section(v) != null) lists.add(v)
+            } else if (v is ViewGroup) for (i in 0 until v.childCount) collect(v.getChildAt(i))
+        }
+        collect(page)
+        var best: View? = null
+        var bestBottom = Int.MIN_VALUE
+        var bestAway = Int.MAX_VALUE
+        for (l in lists) for (i in 0 until l.childCount) {
+            val item = l.getChildAt(i)
+            if (!item.isShown) continue
+            item.getLocationOnScreen(at)
+            val bottom = at[1] + item.height
+            if (bottom > top) continue
+            val away = kotlin.math.abs(at[0] + item.width / 2 - middle)
+            // (a row lower on the screen wins; in the same row, the item nearest in the line of the columns)
+            val sameRow = kotlin.math.abs(bottom - bestBottom) <= item.height / 2
+            if ((!sameRow && bottom > bestBottom) || (sameRow && away < bestAway)) {
+                best = item
+                bestBottom = if (sameRow) maxOf(bottom, bestBottom) else bottom
+                bestAway = away
+            }
+        }
+        val item = best ?: return null
+        return (item.findViewById<View>(R.id.browser_container) ?: item).takeIf { it.isFocusable && it.isShown }
     }
 
     /** the page's item the focus left for the mini player: Up on the mini player goes back to it */

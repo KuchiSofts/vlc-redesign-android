@@ -82,6 +82,9 @@ open class BaseBrowserAdapter(val browserContainer: BrowserContainer<MediaLibrar
     private val qaDownloadDrawableBig: BitmapDrawable by lazy { BitmapDrawable(browserContainer.containerActivity().resources, browserContainer.containerActivity().getBitmapFromDrawable(R.drawable.ic_folder_download_big)) }
 
     internal var mediaCount = 0
+    // (VLC Redesign) the rows that are not folders: what "Add to playlist > This folder" adds (a playlist file,
+    // a network item of a kind not known yet), a folder of folders has none
+    internal var fileCount = 0
     private var networkRoot = false
     private var specialIcons = false
 
@@ -275,7 +278,9 @@ open class BaseBrowserAdapter(val browserContainer: BrowserContainer<MediaLibrar
                 onMoreClick(v)
                 true
             }
-            if (this@BaseBrowserAdapter is FilePickerAdapter) {
+            // (VLC Redesign: with the TV's remote a row is one stop, the row itself; its icon was a second one,
+            // reached with Down from the path, where OK selected the row instead of opening it)
+            if (this@BaseBrowserAdapter is FilePickerAdapter || org.videolan.tools.Settings.showTvUi) {
                 bindingContainer.itemIcon.isFocusable = false
             }
 
@@ -399,7 +404,10 @@ open class BaseBrowserAdapter(val browserContainer: BrowserContainer<MediaLibrar
 
     override fun prepareList(list: List<MediaLibraryItem>): List<MediaLibraryItem> {
         val internalList = ArrayList(list)
-        mediaCount = internalList.filterNotNull().map {item -> item.itemType == TYPE_MEDIA && ((item as MediaWrapper).type == MediaWrapper.TYPE_AUDIO || item.type == MediaWrapper.TYPE_VIDEO) }.size
+        // (VLC Redesign: counted, not mapped: every row counted as media, a folder of folders too, and Play all
+        // showed for a folder with nothing to play)
+        mediaCount = internalList.filterNotNull().count { item -> item.itemType == TYPE_MEDIA && ((item as MediaWrapper).type == MediaWrapper.TYPE_AUDIO || item.type == MediaWrapper.TYPE_VIDEO) }
+        fileCount = internalList.filterNotNull().count { item -> item.itemType == TYPE_MEDIA && (item as MediaWrapper).type != MediaWrapper.TYPE_DIR }
         return internalList
     }
 

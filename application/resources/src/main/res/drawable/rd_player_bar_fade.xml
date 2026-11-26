@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VLC Redesign: the player's top bar on a phone held sideways (#213): the bar's dark at the top, fading into
+     the video under the title, in place of a solid block a third of the screen high. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:angle="270"
+        android:startColor="#E6101010"
+        android:centerColor="#99101010"
+        android:centerY="0.6"
+        android:endColor="#00101010" />
+</shape>

@@ -249,7 +249,7 @@ abstract class BaseBrowserFragment : MediaBrowserFragment<BrowserModel>(), IRefr
         menu.findItem(R.id.ml_menu_sortby_media_number)?.isVisible = false
         menu.findItem(R.id.ml_menu_add_playlist)?.isVisible = !isRootDirectory
         addPlaylistFolderOnly = menu.findItem(R.id.folder_add_playlist)
-        addPlaylistFolderOnly.isVisible = adapter.mediaCount > 0
+        addPlaylistFolderOnly.isVisible = adapter.fileCount > 0
 
         playAllShown = showPlayAll()
         menu.findItem(R.id.play_all)?.isVisible = playAllShown
@@ -267,11 +267,27 @@ abstract class BaseBrowserFragment : MediaBrowserFragment<BrowserModel>(), IRefr
     // top left. Given back once the list is there, only shortly after the page starts or the folder changes
     // (never while the user is in the menus: a network list keeps updating).
     private var tvFocusPosition = -1
+    // (and its item: the list read again may be sorted or filtered another way, the same place is another file)
+    private var tvFocusItem: MediaLibraryItem? = null
     private var tvRestoreUntil = 0L
-    private val tvFocusListener = ViewTreeObserver.OnGlobalFocusChangeListener { _, focused ->
-        if (view == null || focused == null) return@OnGlobalFocusChangeListener
-        val row = binding.networkList.findContainingItemView(focused) ?: return@OnGlobalFocusChangeListener
-        tvFocusPosition = binding.networkList.getChildAdapterPosition(row)
+    // (the restore's own request: not a row the user chose)
+    private var tvRestoring = false
+    private val tvFocusListener = ViewTreeObserver.OnGlobalFocusChangeListener { old, focused ->
+        if (view == null || focused == null || tvRestoring) return@OnGlobalFocusChangeListener
+        val list = binding.networkList
+        val row = list.findContainingItemView(focused)
+        if (row == null) {
+            // Out of the list with an arrow of the remote: the user went there (the header, the window's menu),
+            // so nothing is given back. A focus that fell (the list was hidden to be read again) comes from no
+            // view at all, an arrow pressed just before or not, and comes back with the rows.
+            if (old != null && android.os.SystemClock.uptimeMillis() - org.videolan.vlc.gui.tablet.RdTvWindow.lastArrowAt < 500) tvRestoreUntil = 0L
+            return@OnGlobalFocusChangeListener
+        }
+        val position = list.getChildAdapterPosition(row)
+        if (position != RecyclerView.NO_POSITION) {
+            tvFocusPosition = position
+            tvFocusItem = adapter.getAll().getOrNull(position)
+        }
     }
 
     private fun tvRestoreFocus() {
@@ -282,14 +298,42 @@ abstract class BaseBrowserFragment : MediaBrowserFragment<BrowserModel>(), IRefr
     }
 
     private fun tvFocusRow() {
-        if (view == null || !isResumed) return
+        if (view == null || !isResumed || android.os.SystemClock.uptimeMillis() > tvRestoreUntil + 1500) return
+        val list = binding.networkList
+        // (a mouse, a wheel or a finger: nothing has the focus then, and bringing "the row" into view threw the
+        // list the user had just scrolled back to its top)
+        if (list.isInTouchMode) return
         val focus = activity?.currentFocus
         if (focus != null && focus.id != R.id.rd_tv_title_menu) return
-        val list = binding.networkList
-        if (adapter.itemCount == 0) return
-        val position = tvFocusPosition.coerceIn(0, adapter.itemCount - 1)
-        val row = list.findViewHolderForAdapterPosition(position)?.itemView ?: list.getChildAt(0) ?: return
+        val count = adapter.itemCount
+        if (count == 0) return
+        // the file it was on, wherever the list read again has it now; else its place
+        val all = adapter.getAll()
+        val byItem = tvFocusItem?.let { item -> all.indexOfFirst { it == item } } ?: -1
+        var position = if (byItem >= 0) byItem else if (tvFocusPosition < 0) 0 else tvFocusPosition
+        if (position >= count) {
+            // (a list still loading: the row is not there yet, the next try finds it; a list that lost rows: its
+            // last one)
+            if (viewModel.loading.value == true) return
+            position = count - 1
+        }
+        val holder = list.findViewHolderForAdapterPosition(position)
+        if (holder == null) {
+            // a row far down the list is not laid out: brought into view first, focused on the next frame
+            list.scrollToPosition(position)
+            list.post { if (view != null && isResumed) tvFocus(list.findViewHolderForAdapterPosition(position)?.itemView) }
+            return
+        }
+        tvFocus(holder.itemView)
+    }
+
+    private fun tvFocus(row: View?) {
+        row ?: return
+        val focus = activity?.currentFocus
+        if (focus != null && focus.id != R.id.rd_tv_title_menu) return
+        tvRestoring = true
         (row.findViewById<View>(R.id.browser_container) ?: row).requestFocus()
+        tvRestoring = false
     }
 
     protected open fun defineIsRoot() = mrl == null
@@ -310,11 +354,16 @@ abstract class BaseBrowserFragment : MediaBrowserFragment<BrowserModel>(), IRefr
         registerSwiperRefreshlayout()
         viewModel.dataset.observe(viewLifecycleOwner) { mediaLibraryItems ->
             adapter.update(mediaLibraryItems!!)
-            if (::addPlaylistFolderOnly.isInitialized) addPlaylistFolderOnly.isVisible = adapter.mediaCount > 0
+            if (::addPlaylistFolderOnly.isInitialized) addPlaylistFolderOnly.isVisible = adapter.fileCount > 0
         }
         adapter.onAnyChange {
             if (currentJumpTo != null) {
                 val position = adapter.dataset.getposition(currentJumpTo)
+                // (the TV: the focus goes to the file asked for, not to the first row, which scrolled back to it)
+                if (Settings.showTvUi && position >= 0) {
+                    tvFocusPosition = position
+                    tvFocusItem = currentJumpTo
+                }
                 binding.networkList.postDelayed({
                     binding.networkList.layoutManager?.findViewByPosition(position)?.isPressed  = true
                     binding.networkList.postDelayed({

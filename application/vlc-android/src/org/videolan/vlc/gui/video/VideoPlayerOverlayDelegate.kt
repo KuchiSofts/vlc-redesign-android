@@ -788,7 +788,9 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
                 manageTitleConstraints()
                 updateTitleConstraints()
                 updateHudMargins()
-                hudBinding.rdBar.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> syncHudBackground(); rdLiftSubtitles() }
+                hudBinding.rdBar.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> syncHudBackground(); syncTopBarBackground(); rdLiftSubtitles() }
+                if (::hudRightBinding.isInitialized)
+                    hudRightBinding.playerOverlayTitle.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> syncTopBarBackground() }
                 if (RdTvWindow.isOn(player)) tvSeekBarKeys()
 
                 initSeekButton()
@@ -1049,7 +1051,9 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
             // (the window's width now: the activity's configuration can be a stale copy, kept for its locale)
             val dm = android.util.DisplayMetrics()
             @Suppress("DEPRECATION") player.windowManager.defaultDisplay.getMetrics(dm)
-            applyBarLayout(dm.widthPixels / dm.density >= 600)
+            // (a phone keeps the two rows when it is held sideways too: beside the buttons the seek bar was
+            // a third of the width, #213; a tablet and a TV have the room for the design's one row)
+            applyBarLayout(dm.widthPixels / dm.density >= 600 && !rdIsPhone(dm))
 
             // (the TV layout at the design's size draws the design's bar as it is: no overscan margins)
             if (player.isTv && !RdTvWindow.isOn(player)) {
@@ -1380,6 +1384,47 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
         }
         val height = parent.height - r.top
         if (height > 0 && bg.layoutParams.height != height) bg.layoutParams = bg.layoutParams.apply { this.height = height }
+    }
+
+    /**
+     * A phone: not a TV (a 1080p TV is 960 x 540 dp), and the short side of its window is under 600 dp (a
+     * tablet's is not).
+     */
+    private fun rdIsPhone(dm: android.util.DisplayMetrics) =
+        !player.isTv && !RdTvWindow.isOn(player) && minOf(dm.widthPixels, dm.heightPixels) / dm.density < 600
+
+    private var topBarOverVideo: Boolean? = null
+
+    /**
+     * VLC Redesign: the top bar's background on a phone held sideways. At its portrait height (112 dp, the
+     * status bar and the cutout above the title) it took a third of a screen that is 384 dp high, with nothing
+     * in most of it (#213): there it is as tall as the title row and fades into the video. Upright, on a
+     * tablet and on a TV it stays the design's bar.
+     */
+    private fun syncTopBarBackground() {
+        val bg = hudRightBackground ?: return
+        val parent = bg.parent as? ViewGroup ?: return
+        if (!::hudRightBinding.isInitialized || RdTvWindow.isOn(player) || parent.height == 0) return
+        val dm = android.util.DisplayMetrics()
+        @Suppress("DEPRECATION") player.windowManager.defaultDisplay.getMetrics(dm)
+        val overVideo = rdIsPhone(dm) && dm.widthPixels > dm.heightPixels
+        var height = player.resources.getDimensionPixelSize(R.dimen.rd_player_topbar_height)
+        if (overVideo) {
+            val title = hudRightBinding.playerOverlayTitle
+            val r = android.graphics.Rect(0, 0, title.width, title.height)
+            try {
+                parent.offsetDescendantRectToMyCoords(title, r)
+            } catch (e: IllegalArgumentException) {
+                return
+            }
+            // (the fade ends a little under the title: the text stays on the dark part)
+            if (r.bottom > 0) height = r.bottom + 28.dp
+        }
+        if (bg.layoutParams.height != height) bg.layoutParams = bg.layoutParams.apply { this.height = height }
+        if (topBarOverVideo != overVideo) {
+            topBarOverVideo = overVideo
+            bg.setBackgroundResource(if (overVideo) R.drawable.rd_player_bar_fade else R.drawable.rd_player_bar)
+        }
     }
 
     private fun applyMargin(view: View, margin: Int, isEnd: Boolean) = (view.layoutParams as ConstraintLayout.LayoutParams).apply {
