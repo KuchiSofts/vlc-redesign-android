@@ -3,6 +3,8 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
+        <item>The player on a phone held sideways: the seek bar runs the whole width, on a row of its own.</item>
+        <item>Its top bar there is as slim as the title and fades into the video.</item>
         <item>Android TV: Up from a page reaches the nearest button of the header, and the Favorites row of the Network page.</item>
         <item>Android TV: the focus returns to the file you played, also far down a long list.</item>
         <item>Android TV: Play all is offered only where there is something to play.</item>
