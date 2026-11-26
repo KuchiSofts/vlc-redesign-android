@@ -21,6 +21,8 @@ class RdLyricsTest {
         assertEquals(3, l.indexAt(99_000))
         // [offset:+500] shows every line half a second sooner
         assertEquals(1000L, RdLyrics.parseLrc("[offset:+500]\n[00:01.50]A").lines[0].timeMs)
+        // (an offset too long to be a number is none: it closed the app each time the song played)
+        assertEquals(1500L, RdLyrics.parseLrc("[offset:99999999999999999999]\n[00:01.50]A").lines[0].timeMs)
         // words without times: plain lyrics
         val plain = RdLyrics.parseLrc("Line one\nLine two")
         assertFalse(plain.synced)

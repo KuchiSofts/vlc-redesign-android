@@ -247,6 +247,8 @@ abstract class BaseAudioBrowser<T : MedialibraryViewModel> : MediaBrowserFragmen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // VLC Redesign: Export playlist's "save as" may answer an activity made again (the phone turned meanwhile)
+        org.videolan.vlc.gui.helpers.RdPlaylistExport.attach(requireActivity())
         nbColumns = resources.getInteger(R.integer.mobile_card_columns)
         val typedValue = TypedValue()
         val theme: Resources.Theme = requireActivity().theme

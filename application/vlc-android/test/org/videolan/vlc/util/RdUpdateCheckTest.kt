@@ -41,7 +41,7 @@ class RdUpdateCheckTest {
         JSONObject().put("tag_name", tag).put("draft", draft).put("prerelease", prerelease)
             .put("html_url", "https://example.org/releases/tag/$tag")
             .put("assets", JSONArray().apply {
-                for (a in assets) put(JSONObject().put("name", a).put("browser_download_url", "https://example.org/download/$tag/$a"))
+                for (a in assets) put(JSONObject().put("name", a).put("browser_download_url", "https://github.com/KuchiSofts/vlc-redesign/releases/download/$tag/$a"))
             })
 
     /** 0.6.4 had no APK: the update check must still find 0.6.3's (it read only "latest" before) */
@@ -53,8 +53,19 @@ class RdUpdateCheckTest {
             .put(release("v0.6.2", "vlc-redesign-0.6.2-android.apk"))
         val found = RdUpdateCheck.pick(list)
         assertEquals("0.6.3", found?.version)
-        assertEquals("https://example.org/download/v0.6.3/vlc-redesign-0.6.3-android.apk", found?.apkUrl)
+        assertEquals("https://github.com/KuchiSofts/vlc-redesign/releases/download/v0.6.3/vlc-redesign-0.6.3-android.apk", found?.apkUrl)
         assertEquals("https://example.org/releases/tag/v0.6.3", found?.pageUrl)
+    }
+
+    /** the address handed to the browser is one of the project's own release files, whatever the answer says */
+    @Test
+    fun anApkElsewhereIsNotOffered() {
+        val elsewhere = JSONObject().put("tag_name", "v0.9.0").put("draft", false).put("prerelease", false)
+            .put("html_url", "https://example.org/releases/tag/v0.9.0")
+            .put("assets", JSONArray().put(JSONObject().put("name", "vlc-redesign-0.9.0-android.apk")
+                .put("browser_download_url", "https://example.org/download/vlc-redesign-0.9.0-android.apk")))
+        val list = JSONArray().put(elsewhere).put(release("v0.6.3", "vlc-redesign-0.6.3-android.apk"))
+        assertEquals("0.6.3", RdUpdateCheck.pick(list)?.version)
     }
 
     @Test

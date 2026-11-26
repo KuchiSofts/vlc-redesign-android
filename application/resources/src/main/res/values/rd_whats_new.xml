@@ -3,9 +3,10 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>The player on a phone held sideways shows the Landscape layout of Customize Player again, on the row under the seek bar.</item>
-        <item>Turning the phone with the controls up keeps the buttons of the top bar.</item>
-        <item>Subtitles drawn into the picture stay above the controls.</item>
-        <item>Bookmarks opened from the options before the controls were ever shown no longer close the app.</item>
+        <item>A lyrics file with a bad offset no longer closes the app when its song plays.</item>
+        <item>Folders: a folder of more than 2,000 files is listed and played in full, and Back works after its drive is taken out.</item>
+        <item>Export playlist writes its file also when the phone is turned while the save dialog is open.</item>
+        <item>On a TV, Back leaves the app with Home hidden, and Left in a Home row goes one card back.</item>
+        <item>Check for updates finds the newest app file after many desktop-only releases.</item>
     </string-array>
 </resources>
