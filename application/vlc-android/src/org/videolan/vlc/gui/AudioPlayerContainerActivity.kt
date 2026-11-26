@@ -54,6 +54,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
@@ -64,10 +65,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.from
 import com.google.android.material.navigationrail.NavigationRailView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.videolan.medialibrary.interfaces.Medialibrary
 import org.videolan.resources.util.getFromMl
@@ -214,6 +212,12 @@ open class AudioPlayerContainerActivity : BaseActivity(), KeycodeListener, Sched
 
         volumeControlStream = AudioManager.STREAM_MUSIC
         registerLiveData()
+        // Follow the PlaybackService while resumed only: started once RESUMED (registerObserver needs it), stopped on pause
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                PlaybackService.serviceFlow.collect { onServiceChanged(it) }
+            }
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content)) { view, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -587,15 +591,7 @@ open class AudioPlayerContainerActivity : BaseActivity(), KeycodeListener, Sched
         super.onDestroy()
     }
 
-    // The service observer of a resumed activity. It was launched in a new MainScope() at every resume and never
-    // cancelled: each one kept collecting the service flow and held the activity after it was destroyed.
-    private var serviceJob: kotlinx.coroutines.Job? = null
-
     override fun onResume() {
-        serviceJob?.cancel()
-        serviceJob = PlaybackService.serviceFlow.onEach {
-            onServiceChanged(it)
-        }.launchIn(lifecycleScope)
         if (playerShown)
             applyMarginToProgressBar(playerBehavior.peekHeight)
         else
@@ -608,8 +604,6 @@ open class AudioPlayerContainerActivity : BaseActivity(), KeycodeListener, Sched
     }
 
     override fun onPause() {
-        serviceJob?.cancel()
-        serviceJob = null
         PlaybackService.instance?.let { unregisterObserver(it) }
         super.onPause()
     }
