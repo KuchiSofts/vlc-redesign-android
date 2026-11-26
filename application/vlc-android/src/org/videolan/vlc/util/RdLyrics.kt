@@ -34,7 +34,11 @@ object RdLyrics {
     private const val MAX_TAG = 16 * 1024 * 1024
 
     fun load(audio: File): Lyrics? {
-        lrcBeside(audio)?.let { lrc -> parseLrc(lrc.readText(Charsets.UTF_8)).takeIf { it.lines.isNotEmpty() }?.let { return it } }
+        // (a .lrc that can't be read is as none: the song's own tag is looked at next)
+        try {
+            lrcBeside(audio)?.let { lrc -> parseLrc(lrc.readText(Charsets.UTF_8)).takeIf { it.lines.isNotEmpty() }?.let { return it } }
+        } catch (e: Exception) {
+        }
         return try {
             RandomAccessFile(audio, "r").use { f ->
                 val head = ByteArray(10)
@@ -67,7 +71,8 @@ object RdLyrics {
         val timed = ArrayList<Line>()
         val plain = ArrayList<Line>()
         for (raw in text.replace("\r\n", "\n").replace('\r', '\n').split('\n')) {
-            OFFSET.find(raw)?.let { offset = it.groupValues[1].toLong(); return@let }
+            // (an offset too long to be a number is none)
+            OFFSET.find(raw)?.let { offset = it.groupValues[1].toLongOrNull() ?: 0L; return@let }
             val times = TIME.findAll(raw).toList()
             if (times.isNotEmpty() && raw.trimStart().startsWith("[")) {
                 val words = raw.substring(times.last().range.last + 1).trim()

@@ -10,15 +10,20 @@
 package org.videolan.vlc.gui.helpers
 
 import android.util.Log
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.videolan.medialibrary.interfaces.Medialibrary
 import org.videolan.medialibrary.interfaces.media.MediaWrapper
 import org.videolan.medialibrary.interfaces.media.Playlist
+import org.videolan.tools.Settings
+import org.videolan.tools.putSingle
 import org.videolan.vlc.R
+import java.lang.ref.WeakReference
 
 object RdPlaylistExport {
     private const val TAG = "VLC/RdPlaylistExport"
@@ -55,16 +60,43 @@ object RdPlaylistExport {
     fun fileName(title: String?) = (title?.trim().orEmpty().ifEmpty { "playlist" })
         .replace(Regex("[\\\\/:*?\"<>|\\p{Cc}]"), "_").take(100) + ".m3u8"
 
-    fun export(activity: FragmentActivity, playlist: Playlist) {
-        var launcher: androidx.activity.result.ActivityResultLauncher<String>? = null
-        launcher = activity.activityResultRegistry.register("rd_export_" + System.nanoTime(), ActivityResultContracts.CreateDocument("audio/x-mpegurl")) { uri ->
+    /** one "save as" at a time, under a name the activity made again can ask its answer by */
+    private const val KEY = "rd_playlist_export"
+    /** the id of the playlist the "save as" on screen is for (0: none): it outlives the activity and the process */
+    private const val KEY_PENDING = "rd_playlist_export_pending"
+    private var launcher: ActivityResultLauncher<String>? = null
+    private var host: WeakReference<FragmentActivity>? = null
+
+    /**
+     * The answer of a "save as" opened before [activity] was made again (the phone turned while the picker was up,
+     * or the app closed behind it) is asked for again: it went to the old activity's one-time key, and the file the
+     * picker had made stayed empty with no word.
+     */
+    fun attach(activity: FragmentActivity) {
+        if (host?.get() === activity) return
+        if (Settings.getInstance(activity).getLong(KEY_PENDING, 0L) != 0L) register(activity)
+    }
+
+    private fun register(activity: FragmentActivity): ActivityResultLauncher<String> {
+        host = WeakReference(activity)
+        val made = activity.activityResultRegistry.register(KEY, ActivityResultContracts.CreateDocument("audio/x-mpegurl")) { uri ->
+            val settings = Settings.getInstance(activity)
+            val id = settings.getLong(KEY_PENDING, 0L)
+            settings.putSingle(KEY_PENDING, 0L)
             launcher?.unregister()
-            if (uri == null) return@register
+            launcher = null
+            host = null
+            if (uri == null || id == 0L) return@register
             activity.lifecycleScope.launch {
                 val ok = withContext(Dispatchers.IO) {
                     try {
-                        val text = m3u8(playlist.tracks.map { entry(it) })
-                        activity.contentResolver.openOutputStream(uri, "wt")?.use { it.write(text.toByteArray(Charsets.UTF_8)) } != null
+                        // (read again by its id: the activity that asked may be gone, the playlist is not)
+                        val tracks = Medialibrary.getInstance().getPlaylist(id, true, false)?.tracks
+                        if (tracks == null) false
+                        else {
+                            val text = m3u8(tracks.map { entry(it) })
+                            activity.contentResolver.openOutputStream(uri, "wt")?.use { it.write(text.toByteArray(Charsets.UTF_8)) } != null
+                        }
                     } catch (e: Exception) {
                         Log.e(TAG, "The playlist could not be written", e)
                         false
@@ -73,10 +105,21 @@ object RdPlaylistExport {
                 UiTools.snacker(activity, activity.getString(if (ok) R.string.rd_playlist_exported else R.string.rd_playlist_export_failed))
             }
         }
+        launcher = made
+        return made
+    }
+
+    fun export(activity: FragmentActivity, playlist: Playlist) {
+        // (registered before the id is kept: an answer parked for an older "save as" is given to that one)
+        val made = register(activity)
+        Settings.getInstance(activity).putSingle(KEY_PENDING, playlist.id)
         try {
-            launcher.launch(fileName(playlist.title))
+            made.launch(fileName(playlist.title))
         } catch (e: Exception) {
-            launcher.unregister()
+            made.unregister()
+            launcher = null
+            host = null
+            Settings.getInstance(activity).putSingle(KEY_PENDING, 0L)
             Log.w(TAG, "No file picker: ${e.message}")
             UiTools.snacker(activity, activity.getString(R.string.rd_no_file_picker_save))
         }

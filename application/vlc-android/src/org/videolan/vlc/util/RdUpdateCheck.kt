@@ -31,6 +31,8 @@ object RdUpdateCheck {
      *  notes and files of 30 made 1.4 MB to download each day) */
     private const val RELEASES = "https://api.github.com/repos/KuchiSofts/vlc-redesign/releases?per_page=10"
     const val RELEASES_PAGE = "https://github.com/KuchiSofts/vlc-redesign/releases"
+    /** where a release's files are: the only addresses the check hands to the browser */
+    private const val DOWNLOADS = "https://github.com/KuchiSofts/vlc-redesign/releases/download/"
     private val INTERVAL = TimeUnit.DAYS.toMillis(1)
 
     data class Release(val version: String, val apkUrl: String, val pageUrl: String)
@@ -87,8 +89,21 @@ object RdUpdateCheck {
         if (release != null && isNewer(release.version, BuildConfig.RD_VERSION_NAME)) Result.Available(release) else Result.UpToDate
     }
 
+    /**
+     * The newest release with an APK: the first page of ten nearly always has it; after a long row of releases
+     * without one (desktop-only updates) the next pages are read too, three at most.
+     */
     private fun fetch(): Release? {
-        val connection = URL(RELEASES).openConnection() as HttpURLConnection
+        for (page in 1..3) {
+            val releases = read("$RELEASES&page=$page")
+            pick(releases)?.let { return it }
+            if (releases.length() < 10) break
+        }
+        return null
+    }
+
+    private fun read(address: String): JSONArray {
+        val connection = URL(address).openConnection() as HttpURLConnection
         org.videolan.vlc.util.RdTls.apply(connection)
         try {
             connection.connectTimeout = 10_000
@@ -99,7 +114,7 @@ object RdUpdateCheck {
             if (status != HttpURLConnection.HTTP_OK) throw HttpStatus(status,
                     isRateLimited(status, connection.getHeaderField("x-ratelimit-remaining")),
                     resetAt(connection.getHeaderField("x-ratelimit-reset")))
-            return pick(JSONArray(connection.inputStream.bufferedReader().use { it.readText() }))
+            return JSONArray(connection.inputStream.bufferedReader().use { it.readText() })
         } finally {
             connection.disconnect()
         }
@@ -121,7 +136,7 @@ object RdUpdateCheck {
                 val asset = assets.optJSONObject(i) ?: continue
                 if (asset.optString("name") != "vlc-redesign-$version-android.apk") continue
                 val url = asset.optString("browser_download_url")
-                if (url.isNotEmpty() && (best == null || isNewer(version, best.version)))
+                if (url.startsWith(DOWNLOADS) && (best == null || isNewer(version, best.version)))
                     best = Release(version, url, json.optString("html_url"))
                 break
             }

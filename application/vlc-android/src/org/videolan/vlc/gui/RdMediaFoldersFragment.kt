@@ -20,6 +20,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -56,7 +57,9 @@ class RdMediaFoldersFragment : Fragment() {
     companion object {
         private const val KEY_TYPE = "rd_folders_type"
         private const val KEY_PATH = "rd_folders_path"
-        private const val MAX_MEDIA = 2000
+        /** a folder's media are asked page by page, up to what Play all takes */
+        private const val PAGE = 500
+        private const val MAX_MEDIA = 10000
 
         fun newInstance(type: Int) = RdMediaFoldersFragment().apply {
             arguments = Bundle().apply { putInt(KEY_TYPE, type) }
@@ -217,8 +220,8 @@ class RdMediaFoldersFragment : Fragment() {
                     .associateBy { if (it.mMrl.endsWith("/")) it.mMrl else it.mMrl + "/" }
                     .filterKeys { p -> if (here == null) tops.any { p.startsWith(it) } else if (withSub) p.startsWith(here) else p == here }
                     // (folder by folder, each one's media in the chosen order: the folder itself first)
-                    .toSortedMap(String.CASE_INSENSITIVE_ORDER)
-                    .flatMap { (_, f) -> f.media(type, opt.sort, opt.desc, false, false, MAX_MEDIA, 0)?.toList() ?: emptyList() }
+                    .toSortedMap(String.CASE_INSENSITIVE_ORDER.thenBy { it })
+                    .flatMap { (_, f) -> mediaOf(f, opt.sort, opt.desc) }
             }
             if (all.isNotEmpty()) MediaUtils.openList(ctx, all.take(10000), 0)
         }
@@ -228,9 +231,36 @@ class RdMediaFoldersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, back)
         // (the music pager keeps every page laid out: Back goes up only while this page is the one on screen)
-        view.viewTreeObserver.addOnGlobalLayoutListener { updateBack() }
-        view.viewTreeObserver.addOnScrollChangedListener { updateBack() }
+        view.addOnAttachStateChangeListener(watch)
+        if (view.isAttachedToWindow) watch.onViewAttachedToWindow(view)
         load()
+    }
+
+    // (the window's observer outlives this page: the two listeners come off when the view leaves the window; left
+    // there, every visit to Folders kept its page and its list in memory and ran once more on each layout)
+    private val onLayout = ViewTreeObserver.OnGlobalLayoutListener { updateBack() }
+    private val onScroll = ViewTreeObserver.OnScrollChangedListener { updateBack() }
+    private val watch = object : View.OnAttachStateChangeListener {
+        override fun onViewAttachedToWindow(v: View) {
+            v.viewTreeObserver.addOnGlobalLayoutListener(onLayout)
+            v.viewTreeObserver.addOnScrollChangedListener(onScroll)
+        }
+
+        override fun onViewDetachedFromWindow(v: View) {
+            v.viewTreeObserver.removeOnGlobalLayoutListener(onLayout)
+            v.viewTreeObserver.removeOnScrollChangedListener(onScroll)
+        }
+    }
+
+    /** every media of [f] of this page's kind, in the chosen order (the library hands them out page by page) */
+    private fun mediaOf(f: Folder, sort: Int, desc: Boolean): List<MediaWrapper> {
+        val out = ArrayList<MediaWrapper>()
+        while (out.size < MAX_MEDIA) {
+            val page = f.media(type, sort, desc, false, false, PAGE, out.size) ?: break
+            out.addAll(page)
+            if (page.size < PAGE) break
+        }
+        return out
     }
 
     override fun onResume() {
@@ -270,9 +300,13 @@ class RdMediaFoldersFragment : Fragment() {
     }
 
     private var roots: List<String> = emptyList()
+    /** the library has answered once: [roots] is what it holds, not the empty list of the start */
+    private var loaded = false
 
     private fun parentOf(p: String): String? {
         if (roots.any { it == p }) return null
+        // (a folder no top holds any more, its drive taken out or its last file gone: the top is next)
+        if (loaded && roots.none { p.startsWith(it) }) return null
         val trimmed = p.removeSuffix("/")
         val parent = trimmed.substring(0, trimmed.lastIndexOf('/') + 1)
         // above the folder the top shows: the top
@@ -306,12 +340,12 @@ class RdMediaFoldersFragment : Fragment() {
                         dirs[child] = (dirs[child] ?: 0) + f.mediaCount(type)
                     }
                 }
-                val own = here?.let { byPath[it] }?.media(type, opt.sort, opt.desc, false, false, MAX_MEDIA, 0)
-                    ?.toList() ?: emptyList()
+                val own = here?.let { byPath[it] }?.let { mediaOf(it, opt.sort, opt.desc) } ?: emptyList()
                 Triple(tops, dirs, own)
             }
             if (path != shown) return@launch
             roots = result.first
+            loaded = true
             media = result.third
             val out = ArrayList<Row>()
             if (path != null) out.add(Row.Up(nameOf(path!!)))

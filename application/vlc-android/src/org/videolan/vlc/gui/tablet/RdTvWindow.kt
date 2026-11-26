@@ -322,7 +322,10 @@ object RdTvWindow {
             override fun handleOnBackPressed() {
                 val rail = findViewById<com.google.android.material.navigationrail.NavigationRailView>(R.id.navigation_rail)
                 val checked = rail?.menu?.let { m -> (0 until m.size()).map { m.getItem(it) }.firstOrNull { it.isChecked }?.itemId }
-                if (supportFragmentManager.backStackEntryCount == 0 && !isAudioPlayerExpanded && checked != null && checked != R.id.nav_home) {
+                // (with Home taken out of the sidebar (Edit Sidebar) there is no Home to go to: Back leaves, as
+                // before; it opened nothing and was swallowed for good)
+                val home = rail?.menu?.findItem(R.id.nav_home) != null
+                if (home && supportFragmentManager.backStackEntryCount == 0 && !isAudioPlayerExpanded && checked != null && checked != R.id.nav_home) {
                     // (the remote's focus to the sidebar's Home first: left in the page that goes, the window gave
                     // it to the title bar's ⋯)
                     if (!window.decorView.isInTouchMode) findViewById<ViewGroup>(R.id.rd_tablet_sidebar)?.let { s ->
@@ -585,6 +588,13 @@ object RdTvWindow {
                 // (the guide moves through the time with Left and Right in every language: its key, not the sidebar's;
                 // Up leaves it for the page's buttons and the sidebar)
                 if (focused is org.videolan.vlc.gui.livetv.TvGuideView) return false
+                // (a row that can still scroll back toward its start: its earlier cards are recycled, so nothing is
+                // found on that side and the focus jumped to the sidebar; the row's own key goes on, one card back)
+                var row: View? = focused
+                while (row != null && row !== page) {
+                    if (row is androidx.recyclerview.widget.RecyclerView && row.canScrollHorizontally(if (rtl) 1 else -1)) return false
+                    row = row.parent as? View
+                }
                 val next = android.view.FocusFinder.getInstance().findNextFocus(root, focused, if (rtl) View.FOCUS_RIGHT else View.FOCUS_LEFT)
                 if (next != null && inside(next, page) && !inside(focused, next)) return false
                 focusSidebar(activity)
