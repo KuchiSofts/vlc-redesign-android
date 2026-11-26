@@ -4,7 +4,6 @@
 <resources>
     <string-array name="rd_whats_new_items">
         <item>The first subtitles no longer wait long for the fonts: the font cache waits at most 5 seconds and is built again when the fonts change.</item>
-        <item>On a TV, the audio player no longer stays in memory after it closes.</item>
         <item>Based on the latest VLC for Android (libvlc 3.7.8).</item>
     </string-array>
 </resources>
