@@ -3,7 +3,6 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>The first subtitles no longer wait long for the fonts: the font cache waits at most 5 seconds and is built again when the fonts change.</item>
-        <item>Based on the latest VLC for Android (libvlc 3.7.8).</item>
+        <item>On a phone held sideways, the controls blend into the video: two slimmer rows, a thin seek bar, and a dark fade in place of the solid bar.</item>
     </string-array>
 </resources>

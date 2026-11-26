@@ -1064,7 +1064,8 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
             // (a phone keeps the two rows when it is held sideways too: beside the buttons the seek bar was
             // a third of the width, #213; a tablet and a TV have the room for the design's one row)
             val wide = dm.widthPixels / dm.density >= 600
-            applyBarLayout(oneRow = wide && !rdIsPhone(dm), wide = wide)
+            // (#213, the follow-up: a phone held sideways draws the two rows slimmer, over a fade into the video)
+            applyBarLayout(oneRow = wide && !rdIsPhone(dm), wide = wide, slim = wide && rdIsPhone(dm))
 
             // (the TV layout at the design's size draws the design's bar as it is: no overscan margins)
             if (player.isTv && !RdTvWindow.isOn(player)) {
@@ -1106,7 +1107,7 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
      *  sideways, where its controls go on the row under the seek bar (0.8.4 showed the Portrait layout there,
      *  and what the editor's Landscape tab saved was never seen)
      */
-    private fun applyBarLayout(oneRow: Boolean, wide: Boolean) {
+    private fun applyBarLayout(oneRow: Boolean, wide: Boolean, slim: Boolean = false) {
         val root = hudBinding.progressOverlay
         val prefs = Settings.getInstance(player)
         val zones = PlayerBarLayout.effective(prefs, wide, prefs.getBoolean(ENABLE_SEEK_BUTTONS, false), tv = oneRow && RdTvWindow.isOn(player))
@@ -1118,10 +1119,17 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
         barZones = zones
         val set = ConstraintSet().apply { clone(base) }
         buildBar(set, zones, oneRow)
+        val slimRows = slim && !oneRow
+        if (slimRows) {
+            // (#213) two rows of 44 dp in place of 54: the seek row and the buttons, with less room between
+            set.constrainHeight(R.id.rd_bar, 2 * SLIM_ROW.dp)
+            set.setGuidelineEnd(R.id.rd_guide_row, SLIM_ROW.dp)
+        }
         for (i in 0 until root.childCount) root.getChildAt(i).id.let { if (it != View.NO_ID) set.setVisibilityMode(it, ConstraintSet.VISIBILITY_MODE_IGNORE) }
         set.applyTo(root)
         if (oneRow && RdTvWindow.isOn(player)) styleTvBar(zones)
-        hudBinding.rdBarDivider.visibility = if (oneRow) View.GONE else View.VISIBLE
+        hudBinding.rdBarDivider.visibility = if (oneRow || slimRows) View.GONE else View.VISIBLE
+        styleSlimBar(slimRows)
         hudBinding.playerSpaceLeft.visibility = View.GONE
         hudBinding.playerSpaceRight.visibility = View.GONE
         // (applyTo puts back the alpha of the clone)
@@ -1399,14 +1407,51 @@ class VideoPlayerOverlayDelegate (private val player: VideoPlayerActivity) {
         } catch (e: IllegalArgumentException) {
             return
         }
-        val height = parent.height - r.top
+        // (#213: on a phone held sideways the fade starts a little above the seek row, so its text and the well
+        // sit on the dark part)
+        val height = parent.height - r.top + if (slimBar) SLIM_FADE_ABOVE.dp else 0
         if (height > 0 && bg.layoutParams.height != height) bg.layoutParams = bg.layoutParams.apply { this.height = height }
+        if (bottomBarOverVideo != slimBar) {
+            bottomBarOverVideo = slimBar
+            bg.setBackgroundResource(if (slimBar) R.drawable.rd_player_bar_fade_up else R.drawable.rd_player_bar)
+        }
+    }
+
+    private var slimBar = false
+    private var bottomBarOverVideo: Boolean? = null
+
+    /**
+     * VLC Redesign (#213, the follow-up): on a phone held sideways the bottom controls blend into the video, as the
+     * top bar does: a slim seek well (12 dp in its 44 dp touch row, the handle 6 x 18), and a soft shadow under the
+     * times, which are on the fade now. Back to the design's bar otherwise.
+     */
+    private fun styleSlimBar(slim: Boolean) {
+        if (slimBar == slim && bottomBarOverVideo != null) return
+        slimBar = slim
+        val seek = hudBinding.playerOverlaySeekbar
+        val pad = if (slim) 16.dp else 8.dp
+        seek.setPadding(seek.paddingLeft, pad, seek.paddingRight, pad)
+        seek.thumb = androidx.core.content.ContextCompat.getDrawable(player,
+            if (slim) R.drawable.rd_seekbar_player_thumb_slim else R.drawable.rd_seekbar_player_thumb)
+        seek.thumbOffset = (-2).dp
+        arrayOf(hudBinding.playerOverlayTime, hudBinding.playerOverlayLength).forEach { t ->
+            if (slim) t.setShadowLayer(4f, 0f, 1f, 0xCC000000.toInt()) else t.setShadowLayer(0f, 0f, 0f, 0)
+        }
+        seek.requestLayout()
+        syncHudBackground()
     }
 
     /**
      * A phone: not a TV (a 1080p TV is 960 x 540 dp), and the short side of its window is under 600 dp (a
      * tablet's is not).
      */
+    private companion object SlimBar {
+        /** a row of the slim bar of a phone held sideways (#213), in dp */
+        const val SLIM_ROW = 44
+        /** how far its fade reaches above the seek row, in dp */
+        const val SLIM_FADE_ABOVE = 40
+    }
+
     private fun rdIsPhone(dm: android.util.DisplayMetrics): Boolean {
         if (player.isTv || RdTvWindow.isOn(player)) return false
         // (the whole screen, its navigation bar included: without it a 600 dp tablet held sideways measured 552
