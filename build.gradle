@@ -82,8 +82,9 @@ ext {
     vlcMajorVersion = project.hasProperty('forceVlc4') && project.getProperty('forceVlc4') ? 4 : 3
     versionName = vlcMajorVersion == 3 ? redesignVersionName : '4.0.0-preview - ' + versionCode
     remoteAccessVersion = remoteAccessVersions.getProperty(vlcMajorVersion == 3 ? 'remoteAccessVersionVlc3' : 'remoteAccessVersionVlc4')
-    libvlcVersion = vlcMajorVersion == 3 ? '3.7.7' :'4.0.0-eap29'
-    // (0.13.24 with our fix of #81, a cover stored as a video track: built from VideoLAN's tagged source)
+    libvlcVersion = vlcMajorVersion == 3 ? '3.7.8' :'4.0.0-eap29'
+    // (0.13.24 with our fix of #81, a cover stored as a video track: built from VideoLAN's tagged source. VideoLAN's
+    // 0.13.25 is the same library: the same classes and the same libmla.so on arm64, armv7 and x86_64)
     medialibraryVersion = (vlcMajorVersion == 3 ? '0.13.24-rd1' : '0.13.22-vlc4')
 
     targetJVM = JavaVersion.VERSION_1_8

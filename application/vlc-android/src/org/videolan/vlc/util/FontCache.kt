@@ -26,10 +26,15 @@ import android.content.Context
 import android.os.Build
 import android.os.SystemClock
 import android.util.Log
+import androidx.core.content.edit
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.withTimeoutOrNull
 import org.videolan.libvlc.LibVLC
 import org.videolan.resources.VLCInstance
 import org.videolan.tools.AppScope
@@ -37,15 +42,19 @@ import org.videolan.tools.KEY_FONT_CACHE_FAILURES
 import org.videolan.tools.KEY_FONT_CACHE_FINGERPRINT
 import org.videolan.tools.Settings
 import org.videolan.tools.putSingle
+import org.videolan.vlc.FONT_CONFIG_VERSION
 import org.videolan.vlc.buildFontCacheIfSupported
 import java.io.File
 import java.util.concurrent.atomic.AtomicLong
 
 private const val TAG = "VLC/FontCache"
 private const val SYSTEM_FONTS_DIR = "/system/fonts"
-/** Give up after this many failed builds, so that a device which can't store the cache
- * doesn't delay every playback. */
+/** Give up after this many failed or interrupted builds, so that a device which can't store
+ * the cache, or where the scan never gets to complete, doesn't delay every playback. */
 private const val MAX_FAILURES = 3
+/** Don't delay a playback longer than this. Past that delay, the playback starts anyway and
+ * LibVLC scans the fonts itself, while the build goes on for the next playbacks. */
+private const val MAX_WAIT = 5000L
 /** Don't warn about the running build more often than this, which is how long a
  * [android.widget.Toast.LENGTH_LONG] toast stays on screen. */
 private const val WAIT_NOTIFICATION_INTERVAL = 3500L
@@ -58,11 +67,15 @@ private const val WAIT_NOTIFICATION_INTERVAL = 3500L
  * the cache on disk (VLC3 only), so that playback only has to load it.
  *
  * The scan is done once per install: the result is remembered in the settings, along with
- * a fingerprint of the system fonts so that a system update triggers a new build.
+ * a fingerprint of the system fonts and of LibVLC's fontconfig configuration, so that a system
+ * update or a configuration change triggers a new build.
  */
 object FontCache {
 
     private var job: Deferred<Boolean>? = null
+    /** The build a caller already waited [MAX_WAIT] for, so that the next ones don't wait again */
+    @Volatile
+    private var timedOutJob: Deferred<Boolean>? = null
     /** When a caller was last told about the running build, see [await] */
     private val lastWaitNotification = AtomicLong(-WAIT_NOTIFICATION_INTERVAL)
 
@@ -94,15 +107,25 @@ object FontCache {
     }
 
     /**
-     * Wait for the font cache to be built, if a build is needed and still running.
+     * Wait for the font cache to be built, if a build is needed and still running, for at most
+     * [MAX_WAIT]. Once a wait has timed out, the next calls don't wait for that build anymore.
      * @param onWait called before waiting, only when there is something to wait for, and at most
      * once per [WAIT_NOTIFICATION_INTERVAL], so that playbacks started in a row warn only once
      */
     suspend fun await(context: Context, onWait: (() -> Unit)? = null) {
         val pending = start(context) ?: return
+        if (pending === timedOutJob) return
         if (onWait != null && !pending.isCompleted && shouldNotifyWait()) onWait()
         try {
-            pending.await()
+            if (withTimeoutOrNull(MAX_WAIT) { pending.await() } == null) {
+                timedOutJob = pending
+                Log.w(TAG, "Font cache still building after ${MAX_WAIT}ms, not waiting for it anymore")
+            }
+        } catch (e: CancellationException) {
+            // A cancelled caller mustn't go on, with the playback for instance. Otherwise, it's
+            // the build that was cancelled, which mustn't prevent the playback.
+            currentCoroutineContext().ensureActive()
+            Log.e(TAG, "The font cache build was cancelled", e)
         } catch (e: Exception) {
             Log.e(TAG, "Failed to build the font cache", e)
         }
@@ -119,6 +142,14 @@ object FontCache {
         // A new fingerprint means new fonts to scan, so the previous failures don't count
         val previousFailures = if (settings.getString(KEY_FONT_CACHE_FINGERPRINT, "") == fingerprint)
             settings.getInt(KEY_FONT_CACHE_FAILURES, 0) else 0
+        // Count this attempt as a failure until it succeeds: if the process gets killed during
+        // the scan, by a user tired of waiting for instance, nothing could be stored afterwards
+        // and every launch would scan again. Committed, so that it's on disk before the scan.
+        val failures = previousFailures + 1
+        settings.edit(commit = true) {
+            putString(KEY_FONT_CACHE_FINGERPRINT, fingerprint)
+            putInt(KEY_FONT_CACHE_FAILURES, failures)
+        }
         val start = System.currentTimeMillis()
         // Creating the LibVLC instance sets HOME, which is where fontconfig stores its cache
         val cached = try {
@@ -129,19 +160,20 @@ object FontCache {
             false
         }
         Log.i(TAG, "Font cache built in ${System.currentTimeMillis() - start}ms, valid on disk: $cached")
-        settings.putSingle(KEY_FONT_CACHE_FINGERPRINT, fingerprint)
-        settings.putSingle(KEY_FONT_CACHE_FAILURES, if (cached) 0 else previousFailures + 1)
-        if (!cached && previousFailures + 1 >= MAX_FAILURES)
-            Log.w(TAG, "Font cache could not be stored after ${previousFailures + 1} tries, giving up")
+        if (cached)
+            settings.putSingle(KEY_FONT_CACHE_FAILURES, 0)
+        else if (failures >= MAX_FAILURES)
+            Log.w(TAG, "Font cache could not be stored after $failures tries, giving up")
         return cached
     }
 
     /**
      * Identify the system fonts currently installed. Fontconfig invalidates its cache when the
-     * fonts directory changes, so a system update has to trigger a new build.
+     * fonts directory changes, so a system update has to trigger a new build. A new fontconfig
+     * configuration can add font directories, so it has to trigger a new build as well.
      *
      * Computed once, as it's checked on every playback and the system fonts can only change
      * with a reboot. It's first computed on a background thread, when the app starts.
      */
-    private val fingerprint by lazy { "${Build.FINGERPRINT}|${File(SYSTEM_FONTS_DIR).lastModified()}" }
+    private val fingerprint by lazy { "${Build.FINGERPRINT}|${File(SYSTEM_FONTS_DIR).lastModified()}|$FONT_CONFIG_VERSION" }
 }
