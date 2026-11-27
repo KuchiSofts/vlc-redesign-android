@@ -25,10 +25,9 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:ellipsize="end"
-            android:fontFamily="@font/inter"
+            android:fontFamily="@font/inter_semibold"
             android:maxLines="2"
             android:textColor="@color/rd_fg_1"
-            android:textFontWeight="600"
             android:textSize="24sp" />
 
         <TextView
@@ -67,13 +66,12 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:background="@drawable/rd_onboarding_next_bg"
                 android:drawablePadding="6dp"
-                android:fontFamily="@font/inter"
+                android:fontFamily="@font/inter_medium"
                 android:gravity="center"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="@string/play_all"
                 android:textColor="@android:color/white"
-                android:textFontWeight="500"
                 android:textSize="14sp" />
 
             <TextView
@@ -89,13 +87,12 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/rd_pref_button_bg"
-                android:fontFamily="@font/inter"
+                android:fontFamily="@font/inter_medium"
                 android:gravity="center"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="@string/shuffle_play"
                 android:textColor="@color/rd_fg_1"
-                android:textFontWeight="500"
                 android:textSize="14sp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

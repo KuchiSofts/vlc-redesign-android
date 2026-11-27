@@ -20,6 +20,10 @@ import java.util.TimeZone
 
 object M3u {
 
+    /** the #EXTVLCOPT options kept: those VLC itself takes from a source it does not trust (marked safe) */
+    private val SAFE_OPTIONS = listOf("http-user-agent=", "http-referrer=", "network-caching=", "http-reconnect",
+        "adaptive-", "live-caching=", "clock-jitter=", "clock-synchro=")
+
     private class ExtInf {
         val attrs = HashMap<String, String>()
         var title = ""
@@ -196,7 +200,10 @@ object M3u {
                 continue
             }
             if (line.startsWith("#EXTVLCOPT:", true)) {
-                if (havePending) pending.options.add(":" + line.substring(11).trim())
+                // (only the options a stream needs: libVLC takes the ones of a media as trusted, and a
+                // provider's list could have asked for :sout=... and had the stream written to a file)
+                val option = line.substring(11).trim()
+                if (havePending && SAFE_OPTIONS.any { option.startsWith(it, true) }) pending.options.add(":$option")
                 continue
             }
             if (line.startsWith("#")) continue

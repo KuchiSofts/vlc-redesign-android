@@ -143,7 +143,9 @@ class RdLibraryDetailPane(private val root: View, private val scope: LifecycleCo
                     typeface = inter
                     setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
                     setTextColor(ContextCompat.getColor(context, R.color.rd_fg_1))
-                    if (android.os.Build.VERSION.SDK_INT >= 28) typeface = android.graphics.Typeface.create(inter, 600, false)
+                    // (the weight by Typeface.create is Android 9's: below it the semibold font of the design)
+                    typeface = if (android.os.Build.VERSION.SDK_INT >= 28) android.graphics.Typeface.create(inter, 600, false)
+                        else androidx.core.content.res.ResourcesCompat.getFont(context, R.font.inter_semibold) ?: inter
                     maxLines = 1
                     ellipsize = android.text.TextUtils.TruncateAt.END
                 }

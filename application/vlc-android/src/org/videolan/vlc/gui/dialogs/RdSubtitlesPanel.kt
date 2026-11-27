@@ -209,7 +209,7 @@ class RdSubtitlesPanel(
                 org.videolan.vlc.util.RdSubtitleLink.Result.TooBig ->
                     android.widget.Toast.makeText(activity, R.string.rd_link_too_big, android.widget.Toast.LENGTH_LONG).show()
                 is org.videolan.vlc.util.RdSubtitleLink.Result.Failed ->
-                    android.widget.Toast.makeText(activity, ctx.getString(R.string.rd_link_failed, result.reason), android.widget.Toast.LENGTH_LONG).show()
+                    android.widget.Toast.makeText(activity, ctx.getString(R.string.rd_link_failed, org.videolan.vlc.livetv.TvErrors.text(ctx, result.reason)), android.widget.Toast.LENGTH_LONG).show()
             }
         }
     }

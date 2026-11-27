@@ -65,7 +65,10 @@ object RdSubtitleLink {
                 connection.setRequestProperty("User-Agent", "VLC-Media-Player-Redesign-Android/${BuildConfig.RD_VERSION_NAME}")
                 val status = connection.responseCode
                 if (status != HttpURLConnection.HTTP_OK) return@withContext Result.Failed("HTTP $status")
-                if (connection.contentLengthLong > MAX_BYTES) return@withContext Result.TooBig
+                // (contentLengthLong is Android 7's: below it the app crashed here, an Error no catch took)
+                val length = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) connection.contentLengthLong
+                    else connection.getHeaderField("Content-Length")?.toLongOrNull() ?: -1L
+                if (length > MAX_BYTES) return@withContext Result.TooBig
                 val out = ByteArrayOutputStream()
                 connection.inputStream.use { input ->
                     val buffer = ByteArray(64 * 1024)
@@ -74,7 +77,7 @@ object RdSubtitleLink {
                         if (n < 0) break
                         out.write(buffer, 0, n)
                         if (out.size() > MAX_BYTES) return@withContext Result.TooBig
-                        if (System.currentTimeMillis() - started > 90_000L) return@withContext Result.Failed("timeout")
+                        if (System.currentTimeMillis() - started > 90_000L) return@withContext Result.Failed(org.videolan.vlc.livetv.TvErrors.NO_ANSWER)
                     }
                 }
                 // (the app's own internal folder: no shared storage between the download and the player)
@@ -89,7 +92,8 @@ object RdSubtitleLink {
                 connection.disconnect()
             }
         } catch (e: Exception) {
-            Result.Failed(e.message ?: e.javaClass.simpleName)
+            // (a reason TvErrors says in the user's language, not the system's English message)
+            Result.Failed(org.videolan.vlc.livetv.TvErrors.reason(e))
         }
     }
 }
