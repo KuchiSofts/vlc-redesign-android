@@ -3,6 +3,10 @@
      translate"). -->
 <resources>
     <string-array name="rd_whats_new_items">
-        <item>On a phone held sideways, the controls blend into the video: two slimmer rows, a thin seek bar, and a dark fade in place of the solid bar.</item>
+        <item>Adding a subtitle from a link no longer closes the app on Android 5 and 6.</item>
+        <item>Live TV takes only the stream settings a playlist really needs, so a playlist can\'t make the app write files.</item>
+        <item>Check for updates only ever opens this project\'s release page.</item>
+        <item>A subtitle link that fails says why in your language.</item>
+        <item>On older Android, the TV welcome screen and the library\'s headings look as designed.</item>
     </string-array>
 </resources>
