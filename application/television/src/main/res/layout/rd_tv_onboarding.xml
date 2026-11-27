@@ -5,6 +5,7 @@
      the text at 248,362 (595 wide, Inter Light 16 on 28), Next (100 x 32, the accent) 62 from the end at 671, Back
      8 before it. The steps are the TV's own (welcome, the media access, all set). -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/rd_dark_bg_b2">
@@ -34,6 +35,7 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:lineHeight="19.5dp"
+            app:lineHeight="19.5dp"
             android:textColor="@color/rd_dark_fg_1"
             android:textSize="16sp" />
 
@@ -46,6 +48,7 @@
             android:fontFamily="@font/inter_light"
             android:includeFontPadding="false"
             android:lineHeight="14dp"
+            app:lineHeight="14dp"
             android:textAlignment="viewStart"
             android:textColor="@color/rd_dark_fg_a1"
             android:textSize="8sp" />

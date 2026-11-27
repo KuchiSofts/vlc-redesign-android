@@ -114,7 +114,19 @@ object RdUpdateCheck {
             if (status != HttpURLConnection.HTTP_OK) throw HttpStatus(status,
                     isRateLimited(status, connection.getHeaderField("x-ratelimit-remaining")),
                     resetAt(connection.getHeaderField("x-ratelimit-reset")))
-            return JSONArray(connection.inputStream.bufferedReader().use { it.readText() })
+            // (10 releases are a few hundred KB: an answer of more than 4 MB is not GitHub's)
+            val text = connection.inputStream.use { input ->
+                val out = java.io.ByteArrayOutputStream()
+                val buffer = ByteArray(64 * 1024)
+                while (true) {
+                    val n = input.read(buffer)
+                    if (n < 0) break
+                    out.write(buffer, 0, n)
+                    if (out.size() > 4 * 1024 * 1024) throw java.io.IOException("the answer is too large")
+                }
+                out.toString("UTF-8")
+            }
+            return JSONArray(text)
         } finally {
             connection.disconnect()
         }
@@ -136,8 +148,10 @@ object RdUpdateCheck {
                 val asset = assets.optJSONObject(i) ?: continue
                 if (asset.optString("name") != "vlc-redesign-$version-android.apk") continue
                 val url = asset.optString("browser_download_url")
+                // (the page of "What's new" too: only the project's releases page, as the download)
+                val page = json.optString("html_url").takeIf { it.startsWith("$RELEASES_PAGE/") } ?: RELEASES_PAGE
                 if (url.startsWith(DOWNLOADS) && (best == null || isNewer(version, best.version)))
-                    best = Release(version, url, json.optString("html_url"))
+                    best = Release(version, url, page)
                 break
             }
         }
